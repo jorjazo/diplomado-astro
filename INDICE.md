@@ -18,6 +18,10 @@ Para cada clase, mantener idealmente estos campos:
 
 Cuando la información no esté disponible, usar `Pendiente`.
 
+Guías de estudio:
+
+- Las respuestas a preguntas de repaso y los exámenes de práctica están en el directorio `m1/` de cada curso.
+
 ## Astrofísica de Planetas
 
 Directorio: `planetas/`
@@ -25,6 +29,14 @@ Directorio: `planetas/`
 ### Módulo 1
 
 Directorio: `planetas/m1/`
+
+Compendio del módulo: `planetas/m1/compendio.md`
+
+Compendio enriquecido con OpenStax: `planetas/m1/compendio_enriquecido_openstax.md`
+
+Respuestas a preguntas de repaso: `planetas/m1/respuestas_preguntas_repaso.md`
+
+Exámenes de práctica: `planetas/m1/examenes_practica/`
 
 | Clase | Fecha | Profesor/a | Tema | Material disponible | Objetivos de aprendizaje | Recursos recomendados | Estado |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -43,7 +55,7 @@ Directorio: `estrellas/`
 
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
-| Pendiente | Pendiente | Pendiente | Pendiente |
+| Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `estrellas/m1/compendio.md`; compendio enriquecido: `estrellas/m1/compendio_enriquecido_openstax.md`; respuestas: `estrellas/m1/respuestas_preguntas_repaso.md`; exámenes: `estrellas/m1/examenes_practica/`; diapositivas en `estrellas/m1/diapos/`; transcripciones en `estrellas/m1/ff/` | En revisión |
 
 ## Astrofísica de Galaxias
 
@@ -53,7 +65,7 @@ Directorio: `galaxias/`
 
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
-| Pendiente | Pendiente | Pendiente | Pendiente |
+| Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `galaxias/m1/compendio.md`; compendio enriquecido: `galaxias/m1/compendio_enriquecido_openstax.md`; respuestas: `galaxias/m1/respuestas_preguntas_repaso.md`; exámenes: `galaxias/m1/examenes_practica/`; diapositivas en `galaxias/m1/diapos/`; transcripciones en `galaxias/m1/ff/` | En revisión |
 
 ## Instrumentación y Métodos de Observación Astronómica
 
@@ -63,13 +75,13 @@ Directorio: `observación/`
 
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
-| Pendiente | Pendiente | Pendiente | Pendiente |
+| Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 4 y 5, más transcripciones compartidas con planetas | Compendio: `observación/m1/compendio.md`; compendio enriquecido: `observación/m1/compendio_enriquecido_openstax.md`; respuestas: `observación/m1/respuestas_preguntas_repaso.md`; exámenes: `observación/m1/examenes_practica/`; diapositivas en `observación/m1/diapos/`; transcripciones en `observación/m1/ff/` | En revisión |
 
 ## Recursos Externos Generales
 
 Agregar aquí recursos transversales que sirvan para varias clases:
 
-- Pendiente
+- OpenStax Astronomy 2e, capítulo 1, introducción: `https://openstax.org/books/astronomy-2e/pages/1-introduction`
 
 ## Dudas Abiertas
 
