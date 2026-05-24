@@ -1,0 +1,3 @@
+'/home/jorjazo/Documents/diplomado astro/observación/m2/ejercicios/HR/M_6-Blue.fits' -> 'M6_00001.fit'
+'/home/jorjazo/Documents/diplomado astro/observación/m2/ejercicios/HR/M_6-Green.fits' -> 'M6_00002.fit'
+'/home/jorjazo/Documents/diplomado astro/observación/m2/ejercicios/HR/M_6-Red.fits' -> 'M6_00003.fit'
