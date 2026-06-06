@@ -72,6 +72,8 @@ Al recomendar material externo:
 - Explica por qué el recurso ayuda.
 - Indica si el recurso es introductorio, intermedio o avanzado.
 - No reemplaces el material del diplomado; úsalo como complemento.
+- Para referencias de *OpenStax Astronomy 2e*, consulta `material externo/openstax-astronomy-2e-indice.md` y enlaza al capítulo o sección web más específica disponible.
+- Al enriquecer compendios con OpenStax, marca esas notas como material externo y conserva la atribución bibliográfica correspondiente.
 
 ## Cuidado con Transcripciones
 
@@ -91,6 +93,7 @@ Al agregar o modificar documentación:
 - Prefiere Markdown para apuntes, resúmenes y guías.
 - Conserva la estructura por curso y módulo.
 - Actualiza `INDICE.md` cuando agregues clases, transcripciones, diapositivas, audios, objetivos de aprendizaje o recursos recomendados.
+- Guarda índices y guías bibliográficas transversales en `material externo/`.
 - Evita mover o renombrar material original de clases sin instrucción explícita.
 
 ## Buenas Respuestas de Estudio

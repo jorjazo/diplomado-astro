@@ -81,7 +81,8 @@ Directorio: `observación/`
 
 Agregar aquí recursos transversales que sirvan para varias clases:
 
-- OpenStax Astronomy 2e, capítulo 1, introducción: `https://openstax.org/books/astronomy-2e/pages/1-introduction`
+- Índice de referencia de *OpenStax Astronomy 2e*: `material externo/openstax-astronomy-2e-indice.md`
+- Libro web de *OpenStax Astronomy 2e*: `https://openstax.org/details/books/astronomy-2e`
 
 ## Dudas Abiertas
 

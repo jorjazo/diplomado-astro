@@ -48,6 +48,7 @@ En este repositorio se pueden guardar:
 - Transcripciones de esos audios, normalmente dentro de directorios `ff/`.
 - Diapositivas usadas durante las clases.
 - Material complementario recomendado por profesores o estudiantes.
+- Índices de recursos externos transversales, guardados en `material externo/`.
 - Apuntes personales, resúmenes, guías de estudio o preguntas para sesiones futuras.
 
 ## Uso con Agentes de IA
@@ -75,6 +76,7 @@ Para que el repositorio sea más útil en sesiones de estudio, convendría compl
 - Una lista de objetivos de aprendizaje por módulo.
 - Indicación de qué material corresponde a clase, transcripción automática, resumen propio o recurso externo.
 - Notas sobre el nivel de confianza de cada transcripción, especialmente si contiene errores de reconocimiento de voz.
+- Enlaces desde compendios a recursos transversales como `material externo/openstax-astronomy-2e-indice.md`.
 
 ## Convención Recomendada para Futuras Sesiones
 
