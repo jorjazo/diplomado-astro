@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polvo, Gas Molecular y Nubes Moleculares — Astrofísica de Estrellas, Módulo II · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.ladder{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ladder span{font-family:"Fraunces",serif;font-size:.84rem;border:1px solid var(--line);border-radius:999px;
+  padding:5px 12px;color:var(--muted);transition:.15s}
+.ladder span.on{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px -6px var(--gold)}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo II · Clase 2</span>
+  <h1>Polvo, gas molecular y <em>nubes moleculares</em></h1>
+  <p class="sub">Cuán vacío es el espacio (y cómo dimensionarlo), por qué el rojo no siempre significa frío, los dos efectos del polvo, dónde y cómo se forma el H₂, la química que parte del H₃⁺ y el CO como termómetro y trazador de las cunas estelares.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Ricardo Muñoz</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 18 may 2026</span>
+    <span><b>Tema:</b> Nubes moleculares</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase pasada quedó pendiente la pieza clave del medio interestelar: el <span class="hl">gas molecular</span>. Esta clase cierra el cuadro. Primero pone en contexto la densidad del medio interestelar (¿qué significa “1 partícula por cm³”?), repasa el gas ionizado y el polvo, y luego entra de lleno en el hidrógeno molecular: dónde se forma (sobre los granos de polvo), por qué es casi imposible de observar, y cómo lo rastreamos indirectamente con el <strong>monóxido de carbono (CO)</strong>, que además funciona como termómetro de las nubes donde nacen las estrellas.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Cuán vacío es el espacio: moles y densidades</a></li>
+    <li><a href="#s2">Repaso: HI, ionización y Hα</a></li>
+    <li><a href="#s3">Colores: estrellas vs. gas (rojo ≠ frío)</a></li>
+    <li><a href="#s4">El polvo: extinguir y enrojecer</a></li>
+    <li><a href="#s5">El polvo emite (IR lejano) y se destruye</a></li>
+    <li><a href="#s6">Hidrógeno molecular: nacido sobre el polvo</a></li>
+    <li><a href="#s7">H₃⁺ y la química del universo</a></li>
+    <li><a href="#s8">CO: trazador y termómetro de nubes</a></li>
+    <li><a href="#s9">El zoológico de nubes moleculares</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Cuán vacío es el espacio? Moles y densidades</h2>
+    <p>El aire de la sala es 10¹⁹ veces más denso que el medio interestelar.</p>
+  </div></div>
+
+  <p>La densidad promedio del medio interestelar es <span class="hl">1 partícula por centímetro cúbico</span>. Los astrónomos hablan de densidad en <em>partículas por volumen</em> (no gramos por volumen) porque la mayoría de las partículas son átomos de hidrógeno. ¿Pero qué tan poco es eso? Para dimensionarlo, el profesor calcula la densidad del aire de la sala con un par de números de química básica:</p>
+
+  <ul>
+    <li>Un <strong>mol</strong> es una cantidad de cosas: <span class="katex-inline" data-tex="6{,}022\times10^{23}"></span> unidades (el <em>número de Avogadro</em>). Es exactamente el mismo concepto que una “docena”, pero con un número gigante que solo tiene sentido al contar átomos o moléculas.</li>
+    <li>A 25 °C y 1 atm, un mol de gas ocupa <strong>22,4 litros</strong> = 22.400 cm³.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="n_{\text{aire}} \approx \frac{6{,}022\times10^{23}}{22.400\ \mathrm{cm^3}} \approx \frac{10^{23}}{10^{4}} \approx 3\times10^{19}\ \frac{\text{partículas}}{\mathrm{cm^3}}"></div>
+    <small>Cálculo de orden de magnitud “a la astrónomo”: redondear a potencias de 10 y dividir exponentes. El aire que respiramos tiene ~10¹⁹ partículas/cm³; el medio interestelar, 1. Diecinueve órdenes de magnitud de diferencia.</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">El disco gaseoso comprimido</span>
+    <p>Si pudiéramos comprimir <em>todo</em> el disco gaseoso de la Vía Láctea (≈ 10⁹ masas solares de gas) hasta que tuviera la densidad del aire, quedaría una capa de unos <strong>5 centímetros</strong> de grosor… extendida sobre los ~100.000 años luz del disco. Eso dice a la vez cuán difuso es el gas y cuán gigantesca es la galaxia.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El “cálculo mental” del profesor es <em>aritmética en punto flotante con solo el exponente</em>: quedarse con la mantisa aproximada y operar los exponentes (10²³ / 10⁴ = 10¹⁹). Es la misma disciplina de las <strong>estimaciones de Fermi</strong> o los <em>back-of-the-envelope</em> de diseño de sistemas: antes de calcular fino, ubicar el orden de magnitud para saber si algo es posible.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-03.jpg" alt="Diapositiva con el cálculo de la densidad del aire usando el número de Avogadro">
+    <figcaption><span class="cap">Diapositiva · Densidad del aire vs. ISM</span>Con el número de Avogadro y el volumen molar (22,4 L), la densidad del aire resulta ≈ 3×10¹⁹ partículas/cm³, frente a 1 partícula/cm³ del medio interestelar promedio.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-den">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Comparador de densidades: ¿cuántos órdenes de magnitud?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige dos ambientes y compara sus densidades de partículas. Fíjate en que la escala natural es logarítmica.</p>
+    <div class="wgrid">
+      <div><label for="den-a">Ambiente A</label><select id="den-a"></select></div>
+      <div><label for="den-b">Ambiente B</label><select id="den-b"></select></div>
+    </div>
+    <output id="den-out"></output>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Repaso: hidrógeno neutro, ionización y Hα</h2>
+    <p>Unir esta clase con la anterior en cinco minutos.</p>
+  </div></div>
+
+  <p>El medio interestelar tiene <strong>gas</strong> (sobre todo hidrógeno y helio) y <strong>polvo</strong>. La mayor parte del hidrógeno está hoy como <span class="hl">hidrógeno neutro (HI)</span>: un protón con su electrón en el estado de menor energía, que casi no emite… salvo por el <em>spin-flip</em> que produce la línea de <strong>21 cm</strong>, detectable con radiotelescopios. Con ella se mapea el hidrógeno y la estructura espiral de la Vía Láctea.</p>
+
+  <p>En regiones de formación estelar, parte de ese hidrógeno se <span class="hl">fotoioniza</span>: fotones <strong>ultravioleta</strong> (muy energéticos) le arrancan el electrón al átomo. Los electrones libres, atraídos eléctricamente, eventualmente se <strong>recombinan</strong> con los protones y caen “en cascada” por los niveles de energía del átomo, emitiendo un fotón en cada salto. La transición <strong>3 → 2</strong> (serie de Balmer) emite un fotón rojo: la línea <span class="hl">Hα</span>, la única de esas líneas que cae dentro de lo que ve nuestro ojo.</p>
+
+  <div class="box physics">
+    <span class="tag">Por qué el electrón no puede orbitar como un planeta</span>
+    <p>La Tierra orbita al Sol sin emitir nada. Un electrón no puede: tiene <strong>carga eléctrica</strong>, y al moverse en círculo su <em>vector</em> velocidad cambia de dirección continuamente ⇒ está acelerando. Maxwell mostró que una carga acelerada <strong>emite luz</strong>, es decir pierde energía, así que el electrón “planetario” colapsaría en espiral hacia el núcleo. La salida de <strong>Bohr</strong>: los electrones viven en niveles discretos de energía (n = 1, 2, 3…) y solo emiten o absorben al saltar entre ellos.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-05.jpg" alt="Diagrama de niveles del hidrógeno con series de Lyman, Balmer y Paschen y espectro con líneas de Balmer">
+    <figcaption><span class="cap">Diapositiva · Cascada de recombinación</span>Las series del hidrógeno: saltos que terminan en n=1 (Lyman, UV), en n=2 (Balmer, parte óptica) y en n=3 (Paschen, IR). Hα es el salto 3→2. <em>(Nota: la diapositiva dice “680 nm”; el valor correcto, visible en el propio espectro de la lámina, es ≈ 656 nm.)</em></figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-08.jpg" alt="Galaxia espiral con regiones rojizas de hidrógeno ionizado en los brazos">
+    <figcaption><span class="cap">Diapositiva · Regiones HII en una galaxia</span>Las “nubosidades rojizas” en los brazos espirales <strong>sí son gas</strong>: hidrógeno ionizado recombinándose y emitiendo Hα. Es la gran excepción a la regla de que en el óptico solo vemos estrellas.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Filtros Hα y mirar el Sol</span>
+    <p>Se fabrican filtros que solo dejan pasar luz en torno a la línea Hα. Con ellos se observa el Sol sin quemarse la retina (pasa una fracción mínima de la luz, la del hidrógeno) y se ven llamaradas. Jamás mirar el Sol a simple vista, y menos con telescopio sin filtro.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Colores en una galaxia: estrellas vs. gas</h2>
+    <p>El azul delata estrellas masivas; el rojo no siempre significa frío.</p>
+  </div></div>
+
+  <h3>Azul = supergigantes = formación estelar reciente</h3>
+  <p>En imágenes de galaxias, las zonas azuladas son <strong>estrellas jóvenes y masivas</strong> (no gas). Del diagrama HR sabemos que las estrellas rojas pueden ser <em>supergigantes o enanas</em>, pero las <strong>azules son todas supergigantes</strong>: muy grandes, muy masivas y muy calientes (≈ 20.000–30.000 K en superficie, frente a ~6.000 K del Sol y ~3.500–4.000 K de una estrella roja).</p>
+
+  <p>Y aquí entra el dato demoledor: <strong>mientras más masa, más corta la vida</strong>. No es lineal, es brutal:</p>
+  <ul>
+    <li>El Sol (1 M<sub>☉</sub>) vivirá ≈ <strong>10.000 millones de años</strong> (hoy va por la mitad, ~4.500 millones).</li>
+    <li>Con 10 M<sub>☉</sub> viviría ≈ <strong>15 millones de años</strong>: ¡mil veces menos! Ni siquiera alcanzarían a formarse bien los planetas (eso toma ~10 millones de años).</li>
+    <li>Con 20–30 M<sub>☉</sub>, apenas un par de millones de años.</li>
+  </ul>
+  <p>Por eso, donde hay estrellas azules hay <span class="hl">formación estelar reciente</span>: esas estrellas no viven lo suficiente para alejarse de su lugar de nacimiento.</p>
+
+  <div class="box physics">
+    <span class="tag">¿El rojo siempre significa frío? No.</span>
+    <p>Cuando la luz viene de una <strong>estrella</strong> (emisión continua de <em>cuerpo negro</em>), el color sí mapea temperatura: rojo ≈ 3.500–4.000 K, amarillo ≈ 6.000 K, azul ≈ 20.000–30.000 K. Pero el rojo de las regiones HII <strong>no es emisión continua</strong>: es una <em>línea</em> (Hα) producida por las transiciones del electrón. Ese gas está <em>caliente</em> (ionizado por estrellas azules), y aun así brilla rojo. <strong>El color de una línea de emisión se desacopla de la temperatura.</strong></p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es la diferencia entre inferir un parámetro desde un <em>espectro continuo</em> (como estimar temperatura desde la forma completa de una distribución) y desde una <em>delta concentrada en una frecuencia fija</em> (un tono puro cuya frecuencia la fija el “hardware” del átomo, no el estado térmico). Interpretar la línea con la lógica del continuo es aplicar el modelo equivocado a la señal.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Cuerpo negro: todos emitimos</span>
+    <p>Todo objeto con temperatura emite radiación. Nosotros, a ~310 K, tenemos el pico de emisión en el <strong>infrarrojo</strong> (por eso funcionan las cámaras térmicas). Las estrellas, entre ~4.000 y ~30.000 K, tienen su pico entre el IR cercano y el UV.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El polvo: extinguir y enrojecer</h2>
+    <p>El smog de la galaxia: 1% de la masa, pero domina lo que (no) vemos.</p>
+  </div></div>
+
+  <p>El <span class="hl">polvo interestelar</span> es material particulado, como el smog de Santiago o Temuco en invierno: alrededor del <strong>1% de la masa</strong> del medio interestelar (1 kilo de cada 100). Son <strong>granos sólidos</strong> de entre <strong>1 nm y ~10 µm</strong> compuestos de grafito, carburo de silicio (SiC), silicatos y óxidos de silicio; en su superficie puede acumularse hielo de agua y moléculas como H₂.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-11.jpg" alt="Microfotografía de un grano de polvo interestelar de tamaño micrométrico">
+    <figcaption><span class="cap">Diapositiva · Un grano de polvo</span>Tamaños de 1 nm a 10 µm: justo el rango de la longitud de onda de la luz visible. Esa coincidencia de escalas es la clave de por qué el polvo interactúa tan eficientemente con la luz óptica.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué absorbe mejor el azul?</span>
+    <p>Para que un grano “vea” a una onda, la longitud de onda debe ser comparable o menor que el grano. Las ondas <strong>cortas</strong> (azul) chocan con los granos y son absorbidas o dispersadas; las <strong>largas</strong> (rojo, y más aún infrarrojo y radio) “pasan de largo” sin notar el grano. Si tan poco polvo bloquea tanto, es porque es <em>extremadamente eficiente</em> absorbiendo en el óptico, igual que una capa fina de smog tapa la cordillera.</p>
+  </div>
+
+  <h3>Los dos efectos que todo astrónomo óptico debe corregir</h3>
+  <ul>
+    <li><strong>Extinción:</strong> el polvo reduce la intensidad de la luz que lo atraviesa. De cada 100 fotones que debían llegar, una fracción importante no llega: el objeto se ve <em>más tenue</em>.</li>
+    <li><strong>Enrojecimiento:</strong> como el azul se absorbe/dispersa con preferencia, la luz que sí pasa queda <em>más roja</em> de lo que era. Si no sabes que hay polvo en el camino, inferirás que la estrella es más fría de lo que realmente es.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c2/assets/slide-12.jpg" alt="Esquema de un objeto distante cuya luz azul es dispersada por granos de polvo y el rojo llega al observador">
+    <figcaption><span class="cap">Diapositiva · Extinción y enrojecimiento</span>Un objeto distante emite en continuo, del rojo al azul. Los granos absorben y dispersan preferentemente el azul; al observador llega menos luz total (extinción) y proporcionalmente más roja (enrojecimiento). La luz azul dispersada produce además <em>nebulosas de reflexión</em> azuladas, mucho más tenues que el Hα.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El error histórico: el Sol “al centro” de la galaxia</span>
+    <p>Hasta ~1900, muchos mapas ponían al Sol al centro de la Vía Láctea. ¿Por qué? Hay mucho polvo hacia el centro galáctico: la vista se tapa a una distancia similar en todas direcciones, y parece que estamos al medio. Es como pararse en Cerro Calán un día de smog: se ve igual de poco hacia todos lados y uno concluiría que está al centro de Santiago. Sin corregir el sesgo del polvo, la conclusión sale mal.</p>
+  </div>
+
+  <h3>¿Cómo se corrige? Espectros</h3>
+  <p>Las <strong>líneas de absorción</strong> del espectro de una estrella casi no son afectadas por el polvo, y el <em>tipo</em> de líneas presentes depende de la temperatura (clasificación espectral). Entonces: el espectro me da la temperatura <em>real</em>; el color me da una temperatura <em>aparente</em>. Si el espectro dice 6.000 K pero el color dice 5.000 K, la diferencia mide <strong>cuánto polvo hay en el camino</strong> y permite corregir la extinción.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El polvo es un <strong>filtro pasa-bajos dependiente de frecuencia</strong> aplicado a la señal estelar. Las líneas espectrales son <em>features</em> robustas al filtro (su posición no cambia), así que sirven de <strong>ground truth</strong> para estimar la función de transferencia del canal y “des-enrojecer” los datos — como calibrar un sensor con una señal de referencia conocida.</p>
+  </div>
+
+  <div class="widget" id="w-ext">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Extinción y enrojecimiento: nube de polvo simulada</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la cantidad de polvo en la línea de visión (extinción visual A<sub>V</sub>, en magnitudes). Mira cuánta luz azul y roja sobrevive, y cómo cambia el color aparente de la estrella.</p>
+    <label for="ext-av">Polvo en el camino — A<sub>V</sub> (magnitudes): <span id="ext-avlab"></span></label>
+    <input type="range" id="ext-av" min="0" max="35" step="0.5" value="2">
+    <div style="margin-top:12px;height:26px;border-radius:8px;border:1px solid var(--line);overflow:hidden;display:flex">
+      <div id="ext-swatch" style="flex:1;transition:.2s"></div>
+    </div>
+    <output id="ext-out"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El polvo emite (en IR lejano) y también se destruye</h2>
+    <p>Lo que absorbe lo devuelve como calor; y los rayos cósmicos lo erosionan.</p>
+  </div></div>
+
+  <h3>Un mapa del polvo: el infrarrojo lejano</h3>
+  <p>Al absorber luz, el polvo <strong>se calienta</strong> — no a miles de grados como una estrella, sino a temperaturas de equilibrio de <strong>100–300 K</strong> (parecidas a la nuestra). Y a esas temperaturas brilla intensamente en el <span class="hl">infrarrojo lejano</span>. Históricamente no podíamos verlo (ni el ojo ni las placas fotográficas son sensibles al IR); la tecnología infrarroja surgió como tecnología militar (sensores de misiles) y luego pasó a la astronomía. Satélites infrarrojos mapearon todo el cielo en IR lejano: en la práctica, <strong>un mapa del polvo de la Vía Láctea</strong>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-14.jpg" alt="Esquema de granos de polvo con núcleo de carbono/silicato y hielo, absorbiendo colisiones y emitiendo radiación infrarroja">
+    <figcaption><span class="cap">Diapositiva · El polvo emite en el infrarrojo</span>Granos con núcleo de carbono/silicato y mantos de hielo (agua/CO₂) absorben luz energética y colisiones, y re-emiten radiación infrarroja de baja energía.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Infrarrojo con apellido: cercano vs. lejano</span>
+    <p>El <strong>IR cercano</strong> está pegado al óptico: es donde observa el <strong>James Webb</strong>, y es luz típica de cuerpos a ~3.500 K. Atraviesa el polvo mucho mejor que el óptico, por eso el JWST “se hace el polvo” y ve <em>a través</em> de las nubes. El <strong>IR lejano</strong>, cerca de las microondas, es donde <em>emite el propio polvo</em> (y nosotros, a ~300 K). Las estrellas casi no emiten IR lejano, así que en esa banda el cielo se oscurece y brilla el polvo. Distintas bandas ⇒ distintos instrumentos ⇒ distintos objetos visibles.</p>
+  </div>
+
+  <h3>Sputtering: el polvo no es eterno</h3>
+  <p>Por el medio interestelar viajan <span class="hl">rayos cósmicos</span>: partículas cargadas (electrones, protones y partículas alfa —núcleos de helio—) a altísima velocidad, que se cree se aceleran en explosiones de supernova y viajan siguiendo líneas de campo magnético. Cuando chocan con un grano de polvo, lo pueden <strong>partir</strong>. Lo mismo hacen fotones muy energéticos (UV, rayos X). Esa erosión se llama <em>sputtering</em>: por eso los granos sobreviven sobre todo en los <strong>núcleos fríos y densos de las nubes moleculares</strong>, protegidos de la radiación.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-13.jpg" alt="Esquema de sputtering: colisiones con partículas que destruyen un grano de polvo">
+    <figcaption><span class="cap">Diapositiva · Sputtering</span>Colisiones con átomos de gas, fotones energéticos y otros granos rompen y disuelven los granos. El polvo se crea (con elementos fabricados por estrellas: C, Si, O) y se destruye continuamente.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Analogía: estrellas-personas, galaxias-ciudades</span>
+    <p>El polvo “vive” en las galaxias como el material particulado vive en las ciudades. ¿Quién lo produce? En la ciudad, la actividad humana; en la galaxia, <strong>las estrellas</strong>, que fabrican el carbono, silicio y oxígeno del que están hechos los granos.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Hidrógeno molecular: nacido sobre el polvo</h2>
+    <p>La molécula más abundante del universo es también la más invisible.</p>
+  </div></div>
+
+  <p>El componente clave para la <strong>formación estelar</strong> es el <span class="hl">gas molecular</span>. El helio no participa: es un <em>gas noble</em>, químicamente inerte, vive siempre como átomo solitario (≈ 25% de la masa del gas). El hidrógeno, en cambio, “prefiere” unirse con otro hidrógeno y formar <strong>H₂</strong>… si las condiciones lo permiten.</p>
+
+  <h3>El problema: encontrarse</h3>
+  <p>Para que haya reacciones químicas las partículas tienen que <em>encontrarse</em>. En el aire (10¹⁹ partículas/cm³) eso pasa todo el rato; en el medio interestelar (1 partícula/cm³), prácticamente nunca: el hidrógeno se queda atómico. En las <strong>nubes moleculares</strong> la densidad sube a ~10³ partículas/cm³ — todavía un vacío absurdo para estándares terrestres, pero mil veces el promedio interestelar — y la temperatura baja. Ahí el H₂ se vuelve posible.</p>
+
+  <div class="box prof">
+    <span class="tag">Analogía: agarrarse de la mano</span>
+    <p>Formar una molécula es como querer tomarse de la mano con alguien que viene corriendo en dirección contraria: si ambos van a 50 km/h, no hay manera. Hay que moverse <em>despacio</em> uno respecto del otro. En química, “moverse despacio” = <strong>baja temperatura</strong>. Por eso el frío favorece las moléculas, y el calor las rompe (las separa o impide que se formen).</p>
+  </div>
+
+  <h3>El catalizador: la superficie del grano de polvo</h3>
+  <p>Incluso a 10³ partículas/cm³ la densidad es demasiado baja para que dos átomos de H se encuentren en el gas. Lo que ocurre en realidad: un átomo de hidrógeno se <strong>posa sobre un grano de polvo</strong> (atraído eléctricamente por zonas más positivas del grano) y se queda quieto. Llega otro hidrógeno, los electrones de cada átomo sienten la atracción del núcleo del otro, y se forma la molécula. Al formarse, el sistema cae a un <strong>estado de menor energía</strong> y la diferencia se libera — y esa misma energía liberada <em>despega</em> a la molécula del grano y la devuelve al gas.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-26.jpg" alt="Ilustración de átomos de hidrógeno llegando y saliendo de la superficie de un grano de polvo">
+    <figcaption><span class="cap">Diapositiva · Fábrica de H₂</span>El grano de polvo actúa como <em>catalizador</em>: superficie donde los átomos de H se posan, se encuentran y se combinan. Donde hay polvo se forma H₂; sin polvo, prácticamente no se formaría. Por eso H₂ y polvo van siempre “tomados de la mano” — y por eso donde hay H₂ la astronomía óptica no puede mirar.</figcaption>
+  </figure>
+
+  <h3>La maldición observacional del H₂</h3>
+  <p>El hidrógeno molecular frío es <strong>casi imposible de observar</strong>: no tiene líneas de emisión ni absorción en longitudes de onda visibles o de radio. Es transparente total. (El HI también es difícil, pero al menos tiene la línea de 21 cm.) ¿Por qué? Lo veremos en la sección 8: al ser dos átomos idénticos, la molécula <strong>no tiene momento dipolar</strong>, y sus rotaciones y vibraciones no producen radiación. Se puede ver en <em>absorción</em> en el UV, pero donde hay UV hace calor… y donde hace calor el H₂ no sobrevive. Callejón sin salida: <strong>donde el H₂ puede vivir, no emite nada</strong>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-16.jpg" alt="Pilares de la Creación: columnas de gas molecular y polvo en M16">
+    <figcaption><span class="cap">Diapositiva · Gas molecular</span>Cuando el hidrógeno se vuelve lo suficientemente denso se forman moléculas de H₂. Las nubes donde vive son frías, oscuras y polvorientas: lo que vemos en el óptico no es el H₂ (transparente) sino el <strong>polvo</strong> que lo acompaña, bloqueando la luz de fondo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-24.jpg" alt="Campo estelar con una nube oscura que tapa las estrellas de fondo">
+    <figcaption><span class="cap">Diapositiva · Así se “ve” una nube molecular</span>Una región con “menos estrellas” no es un hueco: es una nube de polvo por delante que tapa las estrellas de atrás. El ejemplo a simple vista: el <strong>Saco de Carbón</strong>, junto a la Cruz del Sur — una nube molecular visible como manchón negro en el cielo austral.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-32.jpg" alt="Glóbulo de Bok Barnard 68 fotografiado en seis longitudes de onda, volviéndose transparente hacia el infrarrojo">
+    <figcaption><span class="cap">Diapositiva · Barnard 68, glóbulo de Bok</span>La misma nube observada de 0,44 µm a 2,16 µm (Alves, Lada &amp; Lada 2001): en el óptico es un muro negro (A<sub>V</sub> ≈ 35 magnitudes al centro); hacia el IR cercano se vuelve translúcida y aparecen las estrellas de fondo (de ~3.700 estrellas, ~1.000 visibles en el IR). El polvo deja de absorber cuando la longitud de onda crece.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La formación de H₂ en granos es un problema de <em>rendezvous</em>: dos agentes en un espacio enorme casi nunca coinciden (encuentro en el gas ≈ O(n²) con n minúsculo). El grano de polvo funciona como una <strong>cola de mensajes</strong>: un átomo se “estaciona” y espera; el encuentro pasa de improbable a garantizado. Catalizador = punto de sincronización.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>H₃⁺ y la química del universo</h2>
+    <p>Del hidrógeno molecular al agua, el metano, el amoníaco… y la vida.</p>
+  </div></div>
+
+  <p>Prácticamente <strong>toda la química del universo</strong> se apoya en el hidrógeno molecular. Pero el H₂ por sí solo no basta: necesita <em>protonarse</em>. Los rayos cósmicos y los fotones UV tienen energía suficiente para ionizar el H₂, y se desencadena:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\mathrm{H_2} \;\xrightarrow{\text{rayo cósmico / UV}}\; \mathrm{H_2^+} + e^- \qquad\quad \mathrm{H_2^+} + \mathrm{H_2} \;\rightarrow\; \mathrm{H_3^+} + \mathrm{H}"></div>
+    <small>El H₃⁺ (hidrógeno molecular protonado: tres núcleos de H compartiendo dos electrones) es muy inestable y “anda desesperado por reaccionar”, parecido a un radical libre.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\mathrm{H_3^+} + X \;\rightarrow\; X\mathrm{H^+} + \mathrm{H_2}"></div>
+    <small>El H₃⁺ es un <strong>agente protonador</strong> potente: le entrega un protón a casi cualquier especie X que encuentre.</small>
+  </div>
+
+  <p>Esas cadenas de protonación construyen las moléculas que conocemos:</p>
+  <ul>
+    <li>Con <strong>carbono</strong> → CH, CH₂, … hasta <strong>metano (CH₄)</strong> e hidrocarburos.</li>
+    <li>Con <strong>oxígeno</strong> → <strong>agua (H₂O)</strong>.</li>
+    <li>Con <strong>CO</strong> → ácidos; con <strong>nitrógeno</strong> → <strong>amoníaco (NH₃)</strong>.</li>
+    <li>Aminas + ácidos → <strong>aminoácidos</strong>: los ladrillos de la “sopa” prebiótica.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c2/assets/slide-29.jpg" alt="Reacciones de ionización del H2 y rol del H3+ como agente protonador">
+    <figcaption><span class="cap">Diapositiva · El motor químico</span>Rayos cósmicos y UV ionizan el H₂; el H₂⁺ reacciona con otro H₂ y forma H₃⁺, que protona moléculas neutras y activa cadenas de reacciones (material de un curso de astrobiología de la facultad, según el profesor).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">De qué estamos hechos (y por qué no es casualidad)</span>
+    <p>Después del H y el He, los elementos más abundantes del universo son <strong>oxígeno, carbono y nitrógeno</strong>. Nosotros estamos hechos exactamente de eso: agua (H, O), lípidos y proteínas (C, N). Somos lo más abundante del universo <em>que puede reaccionar</em> — el helio queda fuera por inerte. El gas del medio interestelar es ≈ 98% H+He y ≈ 2% el resto; de ese 2%, la mitad está condensada en polvo.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Reacción química ≠ reacción nuclear</span>
+    <p>Pregunta de un estudiante: ¿el helio no reacciona en la cadena protón-protón? Sí, pero eso es una <strong>reacción nuclear</strong>: se transforman los núcleos (alquimia estelar). En una <strong>reacción química</strong> el núcleo no se toca: son los <em>electrones</em> los que se comparten o intercambian. El helio es inerte <em>químicamente</em>, aunque participe en la fusión nuclear dentro de las estrellas.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>CO: el trazador y termómetro de las nubes</h2>
+    <p>Cómo ver lo invisible y medir temperatura sin termómetro.</p>
+  </div></div>
+
+  <h3>¿Por qué el CO sí emite y el H₂ no? El momento dipolar</h3>
+  <p>Una molécula puede <strong>rotar</strong> y <strong>vibrar</strong>, y al cambiar de estado rotacional/vibracional puede emitir o absorber fotones — pero solo si tiene <span class="hl">momento dipolar</span>: una separación permanente de carga. En el <strong>CO</strong>, el oxígeno atrae los electrones compartidos con más fuerza que el carbono, así que el lado del O queda con carga negativa permanente y el del C positiva. En el <strong>H₂</strong>, los dos átomos son idénticos: nadie “gana” los electrones, no hay dipolo, y sus rotaciones no producen radiación.</p>
+
+  <div class="box prof">
+    <span class="tag">La analogía de la tele</span>
+    <p>Compartir electrones entre O y C es como una tele compartida entre un hermano de 15 y uno de 5: la tele es “de los dos”, pero el grande la acapara. El oxígeno es el hermano mayor. En el H₂ son dos quinceañeros idénticos: se reparten la tele por igual y no hay asimetría — no hay dipolo, no hay emisión.</p>
+  </div>
+
+  <p>Las condiciones donde se forma H₂ son muy similares a las que forman CO, así que siempre andan juntos: aproximadamente <strong>1 molécula de CO por cada ~10⁵ de H₂</strong> en nuestra galaxia. El CO sí se observa en radio. Conclusión operativa: <strong>donde veo CO, hay H₂</strong>. Con radiotelescopios se mapea el CO a gran escala y eso es, en la práctica, el mapa del gas molecular de la Vía Láctea.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-35.jpg" alt="Nebulosa Cabeza de Caballo vista por Hubble en óptico y la misma región en emisión de CO J=3-2">
+    <figcaption><span class="cap">Diapositiva · CO como trazador</span>La misma nube vista por el Hubble (óptico: se ve <em>en absorción</em>, como silueta oscura) y en emisión de CO J=3−2 (CSO): donde el óptico ve un vacío negro, el radio ve la nube <em>brillar</em>. Casi calcadas: el CO delata el gas molecular.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-38.jpg" alt="Región de Orión en CO J=2-1 con acercamiento a los núcleos densos OMC en 350 micrones">
+    <figcaption><span class="cap">Diapositiva · Orión en CO</span>La “estrella” central de la Daga de Orión no es una estrella: es la <strong>Nebulosa de Orión</strong>, y el mapeo en CO revela una enorme nube molecular asociada (con núcleos densos OMC-1, 2, 3), invisible y transparente en el óptico.</figcaption>
+  </figure>
+
+  <h3>Transiciones rotacionales: la escalera J</h3>
+  <p>Así como el átomo de hidrógeno tiene niveles n, las moléculas tienen niveles rotacionales <span class="hl">J</span>. Lo notable es la escala de energías: la transición más baja del CO corresponde a apenas <strong>5,5 K</strong> (≈ 4,7×10⁻⁴ eV). Estas excitaciones no se producen absorbiendo fotones sino por <strong>choques</strong> entre moléculas dentro de la nube (que actúa como escudo de la luz externa); la intensidad de los choques depende de la temperatura del gas.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Transición</th><th>ΔE (en kelvin)</th><th>Frecuencia ν</th><th>λ</th></tr></thead>
+    <tbody>
+      <tr><td><b>J = 1→0</b></td><td>5,5 K</td><td>115,272 GHz</td><td>2,7 mm</td></tr>
+      <tr><td><b>J = 2→1</b></td><td>11,0 K</td><td>230,544 GHz</td><td>1,3 mm</td></tr>
+      <tr><td><b>J = 3→2</b></td><td>16,5 K</td><td>345,816 GHz</td><td>0,87 mm</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c2/assets/slide-40.jpg" alt="Diagrama de niveles de energía rotacionales del CO con la tabla de transiciones">
+    <figcaption><span class="cap">Diapositiva · La escalera del ¹²CO</span>El CO es fácil de excitar: sus transiciones más bajas requieren pocos kelvin y caen en el rango milimétrico/submilimétrico — exactamente donde observan radiotelescopios como <strong>ALMA</strong>, diseñados para estudiar formación estelar a través del polvo.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El termómetro: cuál escalón se enciende</span>
+    <p>Para excitar el nivel J=1 se necesitan al menos ~5,5 K; para J=2, ~11 K; y así subiendo. Entonces, <strong>qué transiciones se observan (y sus intensidades relativas) revela la temperatura de la nube</strong>. ¿Cómo saben los astrónomos que una nube está a 20 K sin ponerle termómetro? Porque ven la transición 4→3 pero no la 5→4, por ejemplo. La región del espectro donde aparecen las líneas sigue la T de la nube (T<sub>ex</sub> = T<sub>rot</sub>).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es <em>inferencia de un parámetro oculto por niveles cuantizados</em>: la temperatura no se mide directo, se deduce de qué “bits” del sistema alcanzaron a activarse — como estimar la carga de un servidor mirando qué niveles de una jerarquía de caché/colas se están usando. Además el CO es un <strong>proxy</strong> del H₂ (1:10⁵): medimos la variable observable y escalamos por el factor de conversión, con todas las precauciones que un proxy implica.</p>
+  </div>
+
+  <div class="widget" id="w-co">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Termómetro de nubes con la escalera del CO</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la temperatura de la nube y mira qué transiciones rotacionales del CO se excitan por choques (ΔE de J→J−1 ≈ 5,5·J kelvin) y en qué frecuencia emite cada una.</p>
+    <label for="co-t">Temperatura de la nube (K): <span id="co-tlab"></span></label>
+    <input type="range" id="co-t" min="2" max="60" step="1" value="20">
+    <div class="ladder" id="co-ladder"></div>
+    <output id="co-out"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El zoológico de nubes moleculares</h2>
+    <p>De nubes traslúcidas a grumos y hot cores: donde nacen las estrellas.</p>
+  </div></div>
+
+  <p>Las nubes moleculares importan porque <strong>ahí nacen las estrellas</strong> — el “???” al inicio del diagrama de vida estelar. Por mucho tiempo fue la etapa peor entendida: el polvo impedía mirar adentro con telescopios ópticos. Solo con los radiotelescopios (desde fines de los 50, con fuerza desde los 70, y hoy con ALMA en el rango submilimétrico) pudimos ver el interior de las cunas estelares.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-22.jpg" alt="Diagrama del ciclo de vida estelar partiendo de una nube de gas con protoestrellas">
+    <figcaption><span class="cap">Diapositiva · El eslabón inicial</span>Todo el ciclo de vida estelar (gigantes rojas, supernovas, enanas blancas, estrellas de neutrones, agujeros negros) parte de una <strong>nube de gas con protoestrellas</strong>. Cómo ocurre exactamente ese inicio fue por décadas la gran incógnita: no se podía ver dentro de la nube.</figcaption>
+  </figure>
+
+  <p>Según densidad, temperatura y masa, las nubes se clasifican (valores de las diapositivas):</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Tipo</th><th>T</th><th>Densidad</th><th>Masa</th><th>Tamaño</th></tr></thead>
+    <tbody>
+      <tr><td><b>Nubes traslúcidas</b></td><td>15–50 K</td><td>~5×10⁸–5×10⁹ m⁻³</td><td>3–100 M<sub>☉</sub></td><td>1–10 pc (A<sub>V</sub> ~ 1–5)</td></tr>
+      <tr><td><b>Nubes moleculares gigantes (NMG/GMC)</b></td><td>~10–30 K</td><td>~10²–10³ cm⁻³</td><td>10³–10⁶ M<sub>☉</sub></td><td>~50 pc</td></tr>
+      <tr><td><b>Grumos (clumps) en NMG</b></td><td>100–200 K</td><td>~10¹³–3×10¹⁵ m⁻³</td><td>10–1000 M<sub>☉</sub></td><td>&lt;1 pc (A<sub>V</sub> ~ 50–1000)</td></tr>
+      <tr><td><b>Hot cores</b></td><td>cientos de K</td><td>&lt;10⁸ cm⁻³</td><td>50–10³ M<sub>☉</sub></td><td>interior de GMCs</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c2/assets/slide-17.jpg" alt="Clasificación de nubes moleculares: traslúcidas, gigantes y grumos, con sus parámetros físicos">
+    <figcaption><span class="cap">Diapositiva · Clasificación</span>Nubes traslúcidas (que de traslúcidas tienen poco: son bastante opacas, y lo que brilla son <em>otras</em> moléculas), nubes moleculares gigantes y grumos moleculares dentro de las NMG.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Las GMC: los objetos más masivos de la Galaxia</span>
+    <p>Masa 10⁴–10⁶ M<sub>☉</sub>, densidad &gt;100 cm⁻³, T ≈ 10–30 K, estructura grumosa y filamentaria, con núcleos densos de n &gt; 10⁶ cm⁻³. Se descubrieron con exploraciones de CO y llevan nombres de regiones con estrellas jóvenes (Orión, M17, Sgr B2, W49…). Viven &lt; 10⁸ años: probablemente las <strong>destruye la radiación UV y los vientos de las estrellas masivas que se forman en su interior</strong> — la nube fabrica a sus propias destructoras. <em>(Las diapositivas indican campos magnéticos de “10–20 Gauss”; los valores típicos en la literatura para estas nubes son del orden de 10–20 µGauss.)</em></p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-43.jpg" alt="Mapas de extinción óptica de las nubes Serpens y Lupus mostrando estructura filamentaria">
+    <figcaption><span class="cap">Diapositiva · Estructura compleja</span>Serpens y Lupus en extinción óptica: estructuras grumosas y filamentarias, <em>self-similar</em> (autosemejantes) en un amplio rango de escalas. Queda abierta la pregunta: ¿son estructuras coherentes pero transitorias?</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>El profesor retomará las <strong>transiciones moleculares como termómetro</strong> al comienzo de la próxima clase, y seguirá con la formación estelar dentro de los núcleos densos. Quedarse con la idea: así como el hidrógeno tiene sus transiciones (Hα entre ellas), las moléculas tienen las suyas en radio, y de ellas se extraen temperaturas, densidades y masas de las nubes.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Densidad del ISM</b></td><td>1 partícula/cm³ (aire: ~3×10¹⁹)</td><td>19 órdenes de magnitud: el espacio es un vacío extremo</td></tr>
+      <tr><td><b>Mol / Avogadro</b></td><td>6,022×10²³ unidades; 22,4 L por mol de gas</td><td>Como una “docena” gigante; permite calcular densidades</td></tr>
+      <tr><td><b>Hα</b></td><td>Transición 3→2 del H; ≈ 656 nm (rojo)</td><td>Única línea de recombinación visible al ojo; traza regiones HII</td></tr>
+      <tr><td><b>Rojo ≠ frío</b></td><td>Continuo de cuerpo negro: color ↔ T; línea de emisión: no</td><td>El rojo de las regiones HII viene de gas <em>caliente</em></td></tr>
+      <tr><td><b>Estrellas azules</b></td><td>Supergigantes, 20.000–30.000 K, vida de millones de años</td><td>Delatan formación estelar reciente; su UV ioniza el gas</td></tr>
+      <tr><td><b>Masa vs. vida</b></td><td>1 M☉ → ~10¹⁰ años; 10 M☉ → ~1,5×10⁷ años</td><td>Más masa ⇒ vida mucho más corta (no lineal)</td></tr>
+      <tr><td><b>Polvo</b></td><td>Granos 1 nm–10 µm; grafito, SiC, silicatos; ~1% masa ISM</td><td>Extinción + enrojecimiento; bloquea el óptico</td></tr>
+      <tr><td><b>Extinción / enrojecimiento</b></td><td>Menos fotones / proporcionalmente más rojos</td><td>Sesgos a corregir; espectros dan la T real</td></tr>
+      <tr><td><b>Polvo emite en IR lejano</b></td><td>Se calienta a 100–300 K</td><td>Satélites IR mapearon el polvo de toda la galaxia</td></tr>
+      <tr><td><b>IR cercano vs. lejano</b></td><td>Cercano: JWST, atraviesa polvo. Lejano: emite el polvo</td><td>El “apellido” del infrarrojo cambia qué se ve</td></tr>
+      <tr><td><b>Sputtering</b></td><td>Destrucción de granos por rayos cósmicos / fotones</td><td>El polvo sobrevive en núcleos fríos y densos</td></tr>
+      <tr><td><b>H₂</b></td><td>Se forma sobre granos de polvo; frío y denso (~10³ cm⁻³)</td><td>Materia prima estelar; sin momento dipolar ⇒ invisible</td></tr>
+      <tr><td><b>H₃⁺</b></td><td>H₂ ionizado por rayos cósmicos/UV + H₂</td><td>Agente protonador: activa la química (H₂O, CH₄, NH₃…)</td></tr>
+      <tr><td><b>CO</b></td><td>~1 CO por 10⁵ H₂; momento dipolar; emite en mm</td><td>Trazador del gas molecular invisible</td></tr>
+      <tr><td><b>Escalera J del CO</b></td><td>1→0: 5,5 K · 115 GHz; 2→1: 11 K; 3→2: 16,5 K</td><td>Termómetro de nubes por choques (T<sub>ex</sub>=T<sub>rot</sub>)</td></tr>
+      <tr><td><b>Nubes moleculares</b></td><td>Frías (10–50 K), 10²–10³ cm⁻³, hasta 10⁶ M☉</td><td>El sitio de la formación estelar</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c2-examen-01.html">Examen 01<small>Densidades y moles</small></a></li>
+    <li><a href="m2c2-examen-02.html">Examen 02<small>Gas ionizado y Hα</small></a></li>
+    <li><a href="m2c2-examen-03.html">Examen 03<small>Colores y estrellas masivas</small></a></li>
+    <li><a href="m2c2-examen-04.html">Examen 04<small>Polvo: extinción</small></a></li>
+    <li><a href="m2c2-examen-05.html">Examen 05<small>Polvo: IR y sputtering</small></a></li>
+    <li><a href="m2c2-examen-06.html">Examen 06<small>Formación del H₂</small></a></li>
+    <li><a href="m2c2-examen-07.html">Examen 07<small>Química y H₃⁺</small></a></li>
+    <li><a href="m2c2-examen-08.html">Examen 08<small>CO como trazador</small></a></li>
+    <li><a href="m2c2-examen-09.html">Examen 09<small>Nubes moleculares</small></a></li>
+    <li><a href="m2c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo II del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Ricardo Muñoz, 18 may 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m2/ff/estrellas-m2c2.md</code>) y las diapositivas <code>Modulo_II_Estrellas_Clase_2_RRM_.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. Hα ≈ 656 nm, no 680 nm como dicen audio y diapositiva; “número de abogados” → número de Avogadro; “smoke rock” → smog; la proporción CO:H₂ se tomó de la diapositiva, 1:10⁵ — el audio menciona 1:10⁶; el campo magnético de las GMC se anota como µGauss según la literatura, la diapositiva dice “Gauss”). El Sol tiene ≈ 4.500 millones de años (el audio dice “45”). Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: comparador de densidades ----
+(function(){
+  var envs = [
+    {name:"Medio interestelar promedio", n:1},
+    {name:"Nube molecular (típica)", n:1e3},
+    {name:"Grumo molecular denso", n:1e9},
+    {name:"Mejor vacío de laboratorio", n:1e4},
+    {name:"Aire al nivel del mar (25 °C)", n:3e19},
+    {name:"Atmósfera de Marte (superficie)", n:5e17}
+  ];
+  var selA = document.getElementById('den-a');
+  var selB = document.getElementById('den-b');
+  var out = document.getElementById('den-out');
+  envs.forEach(function(e,i){
+    selA.add(new Option(e.name, i));
+    selB.add(new Option(e.name, i));
+  });
+  selA.value = 4; selB.value = 0;
+  function fmt(n){ return n.toExponential(1).replace('e+','×10^').replace('e-','×10^-'); }
+  function calc(){
+    var a = envs[selA.value], b = envs[selB.value];
+    var ratio = a.n / b.n;
+    var dex = Math.log10(a.n) - Math.log10(b.n);
+    var msg;
+    if(Math.abs(dex) < 0.5){ msg = "Densidades comparables."; }
+    else if(dex > 0){ msg = "<b>"+a.name+"</b> es <b>"+ratio.toExponential(1)+"</b> veces más denso ("+dex.toFixed(1)+" órdenes de magnitud)."; }
+    else { msg = "<b>"+b.name+"</b> es <b>"+(1/ratio).toExponential(1)+"</b> veces más denso ("+Math.abs(dex).toFixed(1)+" órdenes de magnitud)."; }
+    out.innerHTML = "<span class='k'>A</span> = "+fmt(a.n)+" part/cm³ &nbsp;·&nbsp; <span class='k'>B</span> = "+fmt(b.n)+" part/cm³<br>"+msg;
+  }
+  selA.addEventListener('change', calc);
+  selB.addEventListener('change', calc);
+  calc();
+})();
+
+// ---- Widget 2: extinción y enrojecimiento ----
+(function(){
+  var av = document.getElementById('ext-av');
+  var lab = document.getElementById('ext-avlab');
+  var out = document.getElementById('ext-out');
+  var sw = document.getElementById('ext-swatch');
+  // Razones de extinción aproximadas (ley estándar R_V = 3.1): A_B ≈ 1.32 A_V, A_R ≈ 0.75 A_V
+  function calc(){
+    var A = parseFloat(av.value);
+    lab.textContent = A.toFixed(1)+" mag";
+    var AB = 1.32*A, AR = 0.75*A;
+    var fB = Math.pow(10, -0.4*AB);   // fracción de flujo azul que sobrevive
+    var fR = Math.pow(10, -0.4*AR);   // fracción de flujo rojo
+    // color del swatch: mezcla de azul y rojo según supervivencia, atenuada
+    var bright = Math.pow(Math.max(fB,fR), 0.25);
+    var rC = Math.round(235*bright*Math.pow(fR/Math.max(fB,fR),0.3));
+    var bC = Math.round(235*bright*Math.pow(fB/Math.max(fB,fR),0.6));
+    var gC = Math.round(0.85*Math.min(rC,bC));
+    sw.style.background = "rgb("+rC+","+gC+","+bC+")";
+    var redder = (AB-AR).toFixed(1);
+    out.innerHTML =
+      "Luz <span style='color:#7fb0ff'>azul</span> que sobrevive: <b>"+(fB*100).toPrecision(2)+"%</b> &nbsp;·&nbsp; "+
+      "Luz <span style='color:#f06a5e'>roja</span> que sobrevive: <b>"+(fR*100).toPrecision(2)+"%</b><br>"+
+      "Exceso de color (enrojecimiento): <b>"+redder+"</b> magnitudes<br>"+
+      (A===0 ? "Sin polvo: la estrella se ve con su color verdadero."
+       : A < 5 ? "→ La estrella se ve más tenue y <b>más roja</b> de lo que es; sin corregir, su temperatura se subestima."
+       : A < 30 ? "→ Extinción severa: prácticamente invisible en azul. Así son las nubes oscuras."
+       : "→ Nivel Barnard 68 (A<sub>V</sub> ≈ 35): muro negro en el óptico; solo el IR pasa.");
+  }
+  av.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 3: termómetro CO ----
+(function(){
+  var t = document.getElementById('co-t');
+  var lab = document.getElementById('co-tlab');
+  var out = document.getElementById('co-out');
+  var ladder = document.getElementById('co-ladder');
+  var nu0 = 115.272; // GHz, J=1-0
+  var trans = [];
+  for(var J=1; J<=10; J++){
+    trans.push({J:J, dE:5.5*J, nu:nu0*J, lam:(299792458/(nu0*J*1e9)*1000)});
+  }
+  trans.forEach(function(tr){
+    var s = document.createElement('span');
+    s.id = 'co-J'+tr.J;
+    s.textContent = "J="+tr.J+"→"+(tr.J-1);
+    ladder.appendChild(s);
+  });
+  function calc(){
+    var T = parseFloat(t.value);
+    lab.textContent = T+" K";
+    var maxJ = 0;
+    trans.forEach(function(tr){
+      var el = document.getElementById('co-J'+tr.J);
+      if(T >= tr.dE){ el.classList.add('on'); maxJ = tr.J; }
+      else el.classList.remove('on');
+    });
+    if(maxJ === 0){
+      out.innerHTML = "A <b>"+T+" K</b> los choques no alcanzan ni para la transición más baja (5,5 K). La nube es casi muda incluso en CO.";
+    } else {
+      var tr = trans[maxJ-1];
+      var next = trans[maxJ] ? trans[maxJ].dE : null;
+      out.innerHTML = "Transición más alta excitada: <b>J="+maxJ+"→"+(maxJ-1)+"</b> "+
+        "(ΔE ≈ "+tr.dE.toFixed(1)+" K · ν ≈ <b>"+tr.nu.toFixed(1)+"</b> GHz · λ ≈ "+tr.lam.toFixed(2)+" mm)<br>"+
+        (next ? "Si vieras J="+maxJ+"→"+(maxJ-1)+" pero <span class='k'>no</span> J="+(maxJ+1)+"→"+maxJ+", concluirías T entre <b>"+tr.dE.toFixed(1)+"</b> y <b>"+next.toFixed(1)+" K</b>. Así se le toma la temperatura a una nube sin termómetro." : "");
+    }
+  }
+  t.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>
