@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protoestrellas — Astrofísica de Estrellas, Módulo II · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.4em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+/* spectrum bar (Wien widget) */
+.specbar{position:relative;height:46px;border-radius:10px;margin-top:12px;border:1px solid var(--line);
+  background:linear-gradient(90deg,#6f3df0 0%,#3d6df0 14%,#39c46d 24%,#e8d34a 32%,#e0382e 42%,#8a2f23 58%,#54231c 78%,#2a1410 100%)}
+.specbar .needle{position:absolute;top:-8px;bottom:-8px;width:3px;background:#fff;border-radius:2px;
+  box-shadow:0 0 12px #fff;transition:left .15s}
+.speclabels{display:flex;justify-content:space-between;font-family:"Fraunces",serif;font-size:.7rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+/* SED class phasebar */
+.phasebar{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.phasebar span{flex:1;min-width:110px;text-align:center;font-family:"Fraunces",serif;font-size:.78rem;
+  border:1px solid var(--line);border-radius:9px;padding:8px 6px;color:var(--muted);transition:.2s;cursor:pointer}
+.phasebar span.on{border-color:var(--red);color:#fff;background:#1a0f12;box-shadow:0 0 18px -8px var(--red)}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo II · Clase 4</span>
+  <h1>Protoestrellas: <em>del filamento al disco</em></h1>
+  <p class="sub">Cómo una nube fría se fragmenta, colapsa conservando su momento angular, forma un disco de acreción con jets, y se deja clasificar por su espectro en las clases 0, I, II y III — la biografía completa de una estrella antes de nacer, contada con Herschel, Spitzer, ALMA, JWST y simulaciones.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Ricardo Muñoz</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> junio 2026</span>
+    <span><b>Tema:</b> Protoestrellas</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as clases anteriores prepararon el escenario: el medio interestelar, las nubes moleculares y el sistema de refrigeración (CO y H₂) que permite el colapso gravitacional. Esta clase muestra <span class="hl">qué se forma cuando el colapso avanza</span>: la <strong>protoestrella</strong> y su <strong>disco de acreción</strong>. Es una historia donde la teoría llegó décadas antes que los datos — Jeans, Larson y los jets de Herbig-Haro se teorizaron entre los años 40 y 70, pero solo el infrarrojo y el radio (Herschel, Spitzer, ALMA, JWST) permitieron, en las últimas dos décadas, <em>verlos</em>. Hoy es uno de los campos más activos de la astronomía.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Repaso: el camino hasta la protoestrella</a></li>
+    <li><a href="#s2">Mirar donde el óptico no llega: cuerpo negro y ventanas</a></li>
+    <li><a href="#s3">El refrigerador molecular (síntesis de la clase 3)</a></li>
+    <li><a href="#s4">Masa de Jeans y glóbulos de Bok</a></li>
+    <li><a href="#s5">Filamentos: las estrellas nacen en grupo</a></li>
+    <li><a href="#s6">Momento angular: disco de acreción y jets</a></li>
+    <li><a href="#s7">Clases 0–III: la biografía espectral</a></li>
+    <li><a href="#s8">La era de ALMA y JWST</a></li>
+    <li><a href="#s9">Simulaciones: formación estelar en el computador</a></li>
+    <li><a href="#s10">Coda: planetas, el Sol solitario y la nube de Oort</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Repaso: el camino hasta la protoestrella</h2>
+    <p>Medio difuso vs. nubes; las condiciones extremas que exige formar una estrella.</p>
+  </div></div>
+
+  <p>El módulo trata sobre la <strong>formación de estrellas</strong>, y todo parte en el <span class="hl">medio interestelar</span>: hidrógeno y helio principalmente, con apenas un <strong>~2% en masa</strong> de elementos más pesados — de los cuales la mitad está solidificada en <strong>granos de polvo</strong>. Ese medio tiene <em>fases</em>, y la analogía del profesor es la atmósfera terrestre: hay un <strong>medio difuso</strong> (la «atmósfera») y hay <strong>nubes</strong>. La gran diferencia con las nubes terrestres es la <strong>densidad relativa</strong>:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Medio</th><th>Densidad (partículas/cm³)</th><th>Referencia</th></tr></thead>
+    <tbody>
+      <tr><td><b>Medio difuso</b></td><td>~1</td><td>«El número mágico»: vacío absoluto en términos terrestres</td></tr>
+      <tr><td><b>Nubes moleculares</b></td><td>10³–10⁵</td><td>Miles de veces más densas que el medio difuso</td></tr>
+      <tr><td><b>Umbral de formación estelar</b></td><td>10⁵–10⁶</td><td>Y temperatura de 10–20 K</td></tr>
+      <tr><td><b>Atmósfera terrestre</b></td><td>~10¹⁹</td><td>Inimaginablemente más densa que cualquier nube</td></tr>
+      <tr><td><b>Interior del Sol</b></td><td>~10²⁴</td><td>El otro extremo de la historia</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box prof">
+    <span class="tag">La analogía (y dónde se rompe)</span>
+    <p>Una nube molecular comparada con el medio difuso sería como tener <strong>nubes de madera o de metal</strong> en la atmósfera terrestre. La analogía se rompe porque en la Tierra esas nubes caerían por gravedad hacia el centro; la Vía Láctea no es esférica ni tiene un «abajo», así que las nubes se mantienen en <em>equilibrio de presión</em> con el medio difuso.</p>
+  </div>
+
+  <figure>
+    <img src="m2c4/assets/slide-02.jpg" alt="Imagen de una protoestrella envuelta en su disco y envoltura de gas y polvo, con escala de 1000 unidades astronómicas">
+    <figcaption><span class="cap">Diapositiva 2 · El objeto de esta clase</span>Una <strong>protoestrella</strong>: el objeto central aún envuelto en gas y polvo, con su disco en formación. La barra de escala (~1.000 UA) ayuda a dimensionar: unas 20 veces el tamaño del sistema solar (~50 UA).</figcaption>
+  </figure>
+
+  <p>Para que una nube forme estrellas, deben cumplirse dos condiciones simultáneas: la <strong>temperatura debe bajar</strong> a ~10–20 K y la <strong>densidad debe subir</strong> a 10⁵–10⁶ partículas/cm³. Al bajar la temperatura ocurren dos cosas buenas: <strong>baja la presión</strong> (se le hace más fácil a la gravedad) y <strong>se favorece la formación de moléculas</strong> sobre los granos de polvo — las dos protagonistas: <span class="hl">H₂ y CO</span>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-04.jpg" alt="Diapositiva sobre el material del que se forman las estrellas: gas y polvo del medio interestelar, regiones HII y el Trapecio de Orión">
+    <figcaption><span class="cap">Diapositiva 4 · ¿De qué se forman las estrellas?</span>Gas (muy tenue) y polvo (muy fino) del medio interestelar. El gas se delata por sus líneas de emisión: cerca de estrellas masivas tipo O/B (como el Trapecio de Orión), los fotones UV ionizan el hidrógeno y generan <strong>regiones HII</strong> — nebulosas de emisión.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Lo que uno realmente ve en una foto de galaxia</span>
+    <p>Cuando miras una imagen óptica de una galaxia, <strong>más del 99% de los fotones son luz estelar</strong>. Por más que parezca que ves gas o nubes brillando, lo que domina son estrellas. Las nubes moleculares (típicamente ~300 pc, unos mil años luz, las regiones grandes) se ven como <em>siluetas oscuras</em> contra ese fondo.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Mirar donde el óptico no llega</h2>
+    <p>Cuerpo negro, ley de Wien y por qué la formación estelar es hija del infrarrojo y el radio.</p>
+  </div></div>
+
+  <p>Aquí el profesor hace una síntesis importante: <strong>la formación estelar es prácticamente inexistente para la astronomía óptica</strong>. La astronomía óptica tiene siglos (telescopios desde ~1700), pero la formación estelar ocurre <em>dentro de nubes opacas y frías</em> que el óptico no penetra. Para estudiarla se necesita <span class="hl">infrarrojo y radio</span>. ¿Por qué? Por la física del <strong>cuerpo negro</strong>.</p>
+
+  <p>Todo cuerpo con temperatura sobre el cero absoluto — nosotros incluidos — emite radiación en todas las longitudes de onda siguiendo la <strong>curva de Planck</strong>, cuyo máximo (peak) depende <em>solo de la temperatura</em>. Es la <strong>ley de desplazamiento de Wien</strong>:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\lambda_{\text{peak}} \approx \frac{2898\ \mu\text{m·K}}{T}"></span>
+    <small>Más caliente → peak hacia longitudes de onda más cortas (azul/UV). Más frío → peak hacia el infrarrojo y el radio.</small>
+  </div>
+
+  <ul>
+    <li><strong>El Sol</strong> (~5.800 K): peak en el <strong>visual</strong> — por eso brilla en el óptico.</li>
+    <li><strong>Nosotros</strong> (~300–310 K): brillamos en el <strong>infrarrojo lejano</strong>. (36 °C ≈ 310 K; un paso en Celsius = un paso en Kelvin, pero Kelvin parte en −273 °C.)</li>
+    <li><strong>El polvo interestelar</strong> (~100 K o menos): emite en el <strong>infrarrojo lejano</strong>; en el óptico es prácticamente invisible.</li>
+    <li>Para tener el peak en el <strong>infrarrojo cercano</strong> se necesita ~3.000 K: por eso el IR cercano sigue dominado por <em>estrellas</em> (es «la colita del óptico»).</li>
+  </ul>
+
+  <div class="widget" id="w-wien">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Termómetro de Wien: ¿dónde brilla un cuerpo según su temperatura?</h4>
+    <label for="wien-t">Temperatura: <b id="wien-tlab">5800 K</b></label>
+    <input type="range" id="wien-t" min="1" max="5" step="0.01" value="3.76">
+    <div class="presets">
+      <button type="button" data-t="10">Nube molecular (10 K)</button>
+      <button type="button" data-t="100">Polvo (100 K)</button>
+      <button type="button" data-t="310">Persona (310 K)</button>
+      <button type="button" data-t="3000">Estrella fría (3.000 K)</button>
+      <button type="button" data-t="5800">Sol (5.800 K)</button>
+      <button type="button" data-t="30000">Estrella O (30.000 K)</button>
+    </div>
+    <div class="specbar"><div class="needle" id="wien-needle"></div></div>
+    <div class="speclabels"><span>UV</span><span>Óptico</span><span>IR cercano</span><span>IR medio</span><span>IR lejano</span><span>Submm/Radio</span></div>
+    <div class="wout" id="wien-out"></div>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">«Despreciable» no significa que no emita</span>
+    <p>Un objeto caliente emite <em>en todas</em> las longitudes de onda, incluso más infrarrojo que un objeto frío con peak en el IR. Pero como fracción de su emisión total, el IR de una estrella caliente es pequeñito: lo dominan el óptico y el UV. Por eso decimos que el IR de las estrellas es «despreciable» — es un argumento de <strong>fracciones</strong>, no de valores absolutos.</p>
+  </div>
+
+  <h3>El problema extra: la atmósfera</h3>
+  <p>Aunque tengas el telescopio adecuado, la atmósfera terrestre — sobre todo su <strong>vapor de agua</strong> — absorbe el infrarrojo medio y lejano. Recién en el submilimétrico/milimétrico («de frentón radioondas») vuelve a ser transparente. Las salidas:</p>
+  <ul>
+    <li><strong>Satélites</strong> (carísimos: solo NASA, ESA y similares): Spitzer y Herschel, los dos grandes de la formación estelar.</li>
+    <li><strong>Sitios muy altos y muy secos</strong>: el norte de Chile, con cumbres sobre 5.000 m como <strong>Chajnantor</strong> (ALMA, TAO). Para el óptico lo que importa es la estabilidad atmosférica (el <em>seeing</em>); para el IR lejano/submm lo que importa es la <strong>sequedad del aire</strong>.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La ley de Wien funciona como un <strong>esquema de particionamiento por clave</strong>: la temperatura es la clave y la longitud de onda del peak es el shard donde «vive» la señal. Si buscas objetos de 10–100 K (formación estelar), consultar el shard del óptico es un <em>full scan en la tabla equivocada</em>: la señal está en el IR lejano y el submm. Y la atmósfera es un firewall que bloquea justo esos puertos — de ahí los satélites y Chajnantor.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El refrigerador molecular (síntesis de la clase 3)</h2>
+    <p>Colapso isotérmico vía CO; opacidad; disociación del H₂; Población III.</p>
+  </div></div>
+
+  <p>El profesor repasa la cadena lógica completa de la clase anterior, porque es la base de todo lo que sigue. La gravedad de una nube depende de su masa <em>y de su tamaño</em>:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F \;\propto\; \frac{M^2}{R^2}"></span>
+    <small>Para una masa fija, achicar el radio <em>aumenta</em> la fuerza — la dependencia con el tamaño es aún más potente que con la masa. Por eso el colapso es una reacción en cadena: contraerse hace ganar a la gravedad.</small>
+  </div>
+
+  <ol class="steps">
+    <li><strong>Primer colapso (isotérmico, no adiabático).</strong> Un gas cualquiera se calentaría al contraerse y frenaría el colapso. Pero el <strong>CO</strong> actúa de radiador: los choques (la densidad va subiendo) excitan sus niveles de <em>rotación</em> (los niveles J, cuantizados porque la molécula lineal C–O tiene momento dipolar); al desexcitarse espontáneamente emite <strong>fotones de radio de baja energía que escapan de la nube</strong>. Calor que se va → la temperatura se mantiene → el colapso continúa.</li>
+    <li><strong>La nube se vuelve opaca.</strong> Cuando la densidad llega a ~10¹¹ partículas/cm³, las moléculas de CO están tan juntas que los fotones emitidos son atrapados por otras moléculas de CO antes de escapar. El radiador se tapa, la temperatura sube y el colapso se frena.</li>
+    <li><strong>Segundo colapso (el H₂ salva el día).</strong> Entre ~1.000 y 2.000 K los choques <strong>disocian el H₂</strong>. Como formar la molécula liberaba calor (exotérmica), separarla <em>consume</em> calor. Ese consumo desestabiliza la nube, que vuelve a contraerse — y ya es tan pequeña que la gravedad gana definitivamente.</li>
+  </ol>
+
+  <div class="box prof">
+    <span class="tag">La analogía de la multitud</span>
+    <p>¿Qué significa que la nube «se vuelve opaca»? Como moverse entre la gente: con 100 personas en el cerro te desplazas fácil; con 5.000 a mediodía, ir de un punto a otro es casi imposible. Eso les pasa a los fotones del CO cuando la densidad sube: se emiten, chocan con otra molécula, se reabsorben — ya no escapan.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Pregunta de estudiante: ¿y los fotones de la fusión?</span>
+    <p>Los fotones del CO son el <em>extremo opuesto</em> de los de la fusión. La cadena <strong>p-p</strong> en el núcleo estelar produce <strong>rayos gamma</strong> — lo más energético que existe. Pero a densidades de ~10²⁴ partículas/cm³ ese rayo gamma es absorbido «al tiro» por un electrón, que sale disparado, choca, reemite… y la energía llega a la superficie del Sol degradada a <strong>óptico</strong>. Mismo principio (fotones transportan energía), escalas de energía opuestas.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Población III: las primeras estrellas</span>
+    <p>Cuando el universo era joven no había C ni O (ni polvo): no existían ni el CO ni los granos donde hoy se fabrica el H₂. Pero el universo era <strong>más denso</strong>, y el H₂ podía formarse <em>en fase gaseosa</em> — único mecanismo de enfriamiento disponible. Por eso las primeras nubes en colapsar debían ser gigantes: estrellas de <strong>50–100 M☉</strong>, que vivieron poco y contaminaron el medio con los elementos pesados que hoy hacen posible la formación estelar «normal». Por algo hay carbono y oxígeno hoy.</p>
+  </div>
+
+  <p>Dato de contexto que el profesor subraya: el Sol <strong>no es una estrella masiva</strong>, pero está en el <strong>percentil 90</strong> — el 90% de las estrellas tiene menos masa. Las estrellas de 5–10 M☉ o más son pocas (como las personas de más de 2 metros), pero importan muchísimo: emiten mucho flujo UV y mucha radiación mientras viven.</p>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Masa de Jeans y glóbulos de Bok</h2>
+    <p>¿Cuánta masa necesita una nube para colapsar? Depende de su temperatura y densidad.</p>
+  </div></div>
+
+  <p>James <strong>Jeans</strong> (teórico, primera mitad del siglo XX) atacó la pregunta con principios básicos: ¿en qué condiciones la gravedad le gana a la presión? Su resultado es la <span class="hl">masa de Jeans</span> o <em>masa crítica</em>: para una nube con cierta temperatura y densidad, existe una masa mínima sobre la cual el colapso es inevitable.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="M_J \;\sim\; \frac{c_s^{\,2}\,\lambda_J}{G} \qquad\text{con}\qquad M_J \propto \frac{T^{3/2}}{\sqrt{n}}"></span>
+    <small>La forma exacta importa menos que la dependencia: <strong>más fría y más densa → menos masa se necesita</strong> para colapsar. (En la diapositiva aparece expresada vía la velocidad del sonido c<sub>s</sub> y la gravedad G.)</small>
+  </div>
+
+  <figure>
+    <img src="m2c4/assets/slide-09.jpg" alt="Diapositiva del análisis de Jeans: estabilidad de las estructuras que forman estrellas, con tabla de densidades, temperaturas y masas de Jeans para distintos tipos de nubes">
+    <figcaption><span class="cap">Diapositiva 9 · Análisis de Jeans</span>Con densidades, temperaturas y tamaños típicos de las nubes moleculares, <strong>todo el gas con n &gt; 10³ cm⁻³ debiera colapsar en ~10⁶ años</strong>. En nubes moleculares típicas la masa crítica ronda 15–100 M☉; en los glóbulos de Bok (más densos y fríos, 10–30 K) basta menos masa — ahí pueden formarse estrellas pequeñas.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">La historia de los «glóbulos»</span>
+    <p>Bart <strong>Bok</strong> miraba placas fotográficas llenas de estrellas y encontraba <em>manchas negras</em> redondeadas que nadie sabía qué eran. Las catalogó y les llamó «glóbulos»; la comunidad las bautizó <strong>glóbulos de Bok</strong>. Hoy sabemos que son <strong>nubes moleculares muy densas</strong> — pequeñas incubadoras de estrellas de baja masa.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Filosofía del profesor: qué memorizar</span>
+    <p>Las tablas de temperaturas y densidades «están en el PDF» para consultarlas cuando haga falta. El foco está en <strong>lo que vas a recordar en un par de años</strong>: que hay distintos tipos de nubes, que la clasificación refleja cómo se fueron observando, y que la masa crítica depende de las condiciones locales. Los números exactos se buscan; la estructura conceptual se aprende.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Filamentos: las estrellas nacen en grupo</h2>
+    <p>Herschel y Spitzer; núcleos densos en estructuras filamentarias; por qué el Sol está solo.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c4/assets/slide-10.jpg" alt="Los telescopios espaciales Herschel (2009-2013, infrarrojo lejano) y Spitzer (2003-2020, infrarrojo medio)">
+    <figcaption><span class="cap">Diapositiva 10 · Los dos satélites clave</span><strong>Spitzer</strong> (NASA, 2003–2020, IR medio): casi 17 años observando protoestrellas. <strong>Herschel</strong> (ESA con ayuda de NASA, 2009–2013, IR lejano): duró solo ~4 años — se le acabó el criogénico que enfriaba sus instrumentos — pero cambió el campo: descubrió que las nubes moleculares tienen <strong>estructura filamentosa</strong>.</figcaption>
+  </figure>
+
+  <p>El gran descubrimiento de Herschel: las nubes moleculares no son las esferas limpiecitas de los modelos simples. Son <span class="hl">redes complejas de filamentos</span>, y la formación estelar ocurre en los <strong>núcleos densos</strong> (el término técnico es <em>cores</em>) que colapsan dentro de los fragmentos más densos de esos filamentos — por inestabilidad gravitacional, en muchos lugares <em>a la vez</em>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-14.jpg" alt="Imagen infrarroja de Herschel mostrando núcleos densos en estructuras filamentarias dentro de una nube molecular">
+    <figcaption><span class="cap">Diapositiva 14 · Núcleos densos en filamentos</span>Imagen de infrarrojo lejano: donde la imagen es más brillante, la nube es más densa. En las regiones marcadas se puede medir temperatura y densidad y decidir si superan las condiciones críticas de Jeans — es decir, si <em>van</em> a formar estrellas. Nada de esto es posible en el óptico.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-21.jpg" alt="Diapositiva sobre fragmentación de una nube molecular: por qué no se forma una sola estrella gigante, con cuadros de una simulación de colapso">
+    <figcaption><span class="cap">Diapositiva 21 · Fragmentación</span>¿Por qué no se forma una sola estrella gigante? Porque las nubes son <strong>inhomogéneas y turbulentas</strong>: se generan muchos fragmentos («núcleos de nube molecular») que colapsan por sí mismos. La simulación de la diapositiva (enlace YouTube) muestra una región de 1,2 años-luz y ~50 M☉ fragmentándose en múltiples protoestrellas.</figcaption>
+  </figure>
+
+  <h3>Consecuencia: la vida estelar es en comunidad</h3>
+  <ul>
+    <li>Alrededor del <strong>50% de las estrellas visibles a simple vista</strong> son en realidad sistemas <strong>binarios o múltiples</strong> (Sirio, por ejemplo, es múltiple; a ojo desnudo no se distingue). Del total de estrellas, la fracción es menor al 50%.</li>
+    <li>Existen <strong>cúmulos abiertos</strong> — como las Pléyades — con decenas a cientos de estrellas jóvenes nacidas juntas, orbitando un centro de masa común. Se conocen ~4.000 en la Vía Láctea (se supone que hay muchos más).</li>
+    <li>Y los <strong>cúmulos globulares</strong>, con medio millón a un millón de estrellas.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">¿Y por qué el Sol está solo? (pregunta de estudiante)</span>
+    <p>En la dinámica caótica de una nube que se fragmenta, algunos sistemas se vuelven <strong>dinámicamente inestables</strong>: una estrella puede ganar velocidad por interacciones gravitacionales — el mismo <em>efecto honda</em> (gravity assist) que usamos con las sondas en Júpiter o Saturno, o Artemis con la Tierra — y salir <strong>eyectada</strong> de su grupo natal. En las simulaciones se ve clarito: se forman montones de estrellitas y algunas salen disparadas. Esas quedan solas, como el Sol.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Estar solo es bueno para la vida</span>
+    <p>Mucho más allá de los planetas (~50 UA), el sistema solar está envuelto por la <strong>nube de Oort</strong>: un cascarón esférico de cometas apenas ligados al Sol. Si el Sol tuviera una compañera, muchos de esos objetos se desestabilizarían y caerían hacia adentro: <strong>bombardeo constante</strong> de cometas y asteroides, y la vida que surgiera tendría altas chances de extinguirse por colisiones. La soledad del Sol mantiene la nube de Oort quieta — y a nosotros tranquilos.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La fragmentación es un <strong>fork bomb controlado por umbrales locales</strong>: el colapso no es un proceso monolítico sino que cada región que supera su masa de Jeans local hace <em>fork</em> y colapsa en paralelo. Y la eyección de estrellas es un fenómeno emergente de un <strong>problema de N cuerpos</strong>: con 3+ cuerpos autogravitantes no hay solución cerrada, y las resonancias expulsan miembros — exactamente lo que explota un gravity assist, pero sin planificación.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Momento angular: el disco de acreción y los jets</h2>
+    <p>Larson, el efecto patinadora, y por qué el colapso nunca es directo al centro.</p>
+  </div></div>
+
+  <p>Richard <strong>Larson</strong> (Universidad de Yale, años 60–70) razonó desde principios básicos: una nube que colapsa <em>no puede haber estado perfectamente quieta</em>. Algún grado de rotación tenía, por pequeño que fuera. Y eso significa que tiene <span class="hl">momento angular</span> — una cantidad que, en un sistema aislado, <strong>se conserva</strong> (igual que el momento lineal en un choque elástico).</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="L \;=\; m\,v\,r \;=\; \text{constante} \quad\Longrightarrow\quad r \downarrow \;\;\Rightarrow\;\; v \uparrow"></span>
+    <small>El momento angular combina tamaño y velocidad de rotación. Si el sistema se achica, tiene que girar más rápido: el <strong>efecto patinadora</strong> (cierra los brazos → gira más rápido).</small>
+  </div>
+
+  <p>Consecuencia geométrica: el colapso procede mucho más rápido <em>a lo largo del eje de rotación</em> que en el plano perpendicular (la rotación «sostiene» el material en el plano). El resultado inevitable es un <strong>disco de acreción</strong> — también llamado <strong>disco protoplanetario</strong> — que <em>alimenta</em> a la protoestrella central llevando material desde lejos hacia el centro. Larson lo teorizó cuando nada de esto podía observarse.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-18.jpg" alt="Esquema del nacimiento de una estrella: el material que colapsa tiene momento angular y forma un disco de acreción alrededor de la protoestrella; flechas rojas indican gravedad y azules rotación">
+    <figcaption><span class="cap">Diapositiva 18 · Nacimiento de una estrella</span>Gravedad (flechas rojas) vs. rotación (flechas azules): el colapso no procede directamente al centro. Se forma un disco de acreción que alimenta a la protoestrella. La nube pasa de ~30.000 UA a un disco de ~50 UA — un factor de compresión de cientos de veces que dispara la velocidad de rotación.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-angmom">
+    <span class="tagband">Widget interactivo</span>
+    <h4>El efecto patinadora: conservación del momento angular</h4>
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 8px">Una nube de 30.000 UA rota una vez cada 10 millones de años. Contráela y mira qué pasa con su rotación si L = m·v·r se conserva.</p>
+    <label for="am-r">Radio actual: <b id="am-rlab">30.000 UA</b></label>
+    <input type="range" id="am-r" min="0" max="3" step="0.01" value="0">
+    <div class="presets">
+      <button type="button" data-r="30000">Núcleo preestelar (30.000 UA)</button>
+      <button type="button" data-r="3000">Colapso ×10 (3.000 UA)</button>
+      <button type="button" data-r="300">Colapso ×100 (300 UA)</button>
+      <button type="button" data-r="50">Disco (~50 UA)</button>
+    </div>
+    <div class="wout" id="am-out"></div>
+  </div>
+
+  <h3>Jets: el campo magnético entra en escena</h3>
+  <p>Si hay un <strong>campo magnético</strong> en la región que colapsa, sus líneas se mantienen aproximadamente <em>verticales</em> (perpendiculares al disco). Los campos magnéticos afectan a las <strong>partículas cargadas</strong>: el material ionizado del disco queda atrapado en las líneas de campo y — como traía momento angular — se mueve <strong>en espiral</strong> y sale eyectado por ambos polos. Eso son los <span class="hl">jets bipolares</span>, teorizados en los años 50 por <strong>George Herbig y Guillermo Haro</strong> (de ahí «objetos Herbig-Haro») y confirmados observacionalmente solo en las últimas décadas.</p>
+
+  <div class="box physics">
+    <span class="tag">Pregunta de estudiante: ¿los jets emiten rayos gamma?</span>
+    <p>No. Los jets tienen mucha <strong>energía mecánica</strong> (alta velocidad), pero los fotones que emiten son de <em>baja</em> energía: radioondas en torno a ~5 GHz, por radiación <strong>libre-libre</strong> (free-free) o <strong>sincrotrón</strong>. «Alta energía» en el sentido cinético, no radiativo.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Clases 0–III: la biografía espectral de una protoestrella</h2>
+    <p>La distribución espectral de energía (SED) como máquina del tiempo.</p>
+  </div></div>
+
+  <p>Cuando se apuntan radiotelescopios y telescopios IR a las nubes, se ven espectros «raros»: cuerpos negros corridos hacia longitudes de onda larguísimas, curvas con valles, estrellas con «colas» infrarrojas que no les corresponden. Para ordenarlos se usa la <span class="hl">distribución espectral de energía</span> (<strong>DEE</strong>, o <strong>SED</strong> en inglés): intensidad vs. longitud de onda, en escala logarítmica.</p>
+
+  <div class="box prof">
+    <span class="tag">Los astrónomos y el logaritmo</span>
+    <p>«Usamos escalas logarítmicas en la vida cotidiana sin saberlo: el ojo responde logarítmicamente, los decibeles son logarítmicos, los terremotos se miden en escala logarítmica.» Una escala log <em>comprime</em>: permite ver en un solo gráfico desde el UV hasta el radio.</p>
+  </div>
+
+  <p>El detalle crucial: <strong>nunca hemos visto a un solo objeto evolucionar</strong> (toma cientos de miles de años). Vemos <em>muchos objetos distintos</em> con espectros distintos, y el trabajo de los astrónomos es construir el modelo — disco + protoestrella + jets — que cuente <strong>una sola historia</strong> donde cada espectro es un fotograma. La secuencia se divide en <strong>clases</strong>:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Clase</th><th>SED</th><th>Sistema físico</th><th>Edad típica</th></tr></thead>
+    <tbody>
+      <tr><td><b>Clase 0</b></td><td>Peak en ~100 µm; cuerpo negro frío (~10 K); domina el IR lejano</td><td>Nebulosa de polvo y gas; acreción intensa; envoltura ~0,5 M☉</td><td>~10⁴ años</td></tr>
+      <tr><td><b>Clase I</b></td><td>SED más plana; domina el IR medio; banda de silicatos en ~10 µm</td><td>Disco de acreción (~0,1 M☉) + protoestrella central; flujos bipolares</td><td>~10⁵ años</td></tr>
+      <tr><td><b>Clase II</b></td><td>SED en descenso: cuerpo negro caliente + exceso IR del disco</td><td>Estrella <strong>T-Tauri clásica</strong> con disco visible (~0,01 M☉); ya disipó su envoltura</td><td>~10⁶ años</td></tr>
+      <tr><td><b>Clase III</b></td><td>Cuerpo negro estelar casi puro; poco o ningún exceso IR</td><td>Pre-secuencia principal; disco de gas casi desaparecido; quedan escombros &lt; 1 km</td><td>hasta ~4×10⁷ años</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c4/assets/slide-25.jpg" alt="SED de un objeto de clase 0: cuerpo negro frío de unos 10 K con máximo en 100 micrones">
+    <figcaption><span class="cap">Diapositiva 25 · Clase 0</span>Todo lo que se ve es <strong>polvo</strong>: un cuerpo negro frío (~10 K) con peak en ~100 µm. La protoestrella está completamente escondida; predomina la <em>acreción</em>. Edad ~10⁴ años [Dullemond et al. 2007].</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-26.jpg" alt="SED de un objeto de clase I: curva más plana con exceso infrarrojo y banda de absorción de silicatos en 10 micrones">
+    <figcaption><span class="cap">Diapositiva 26 · Clase I</span>La SED se aplana y el peak se corre hacia la izquierda (se calienta). El <strong>valle en ~10 µm</strong> es una banda de absorción de <strong>silicatos</strong> («similar a la arena de playa»): así sabemos de qué está hecho el polvo del disco. Ya hay disco (~0,1 M☉) y evidencia de flujos bipolares. Para el Sol, esta etapa duró de cien mil a un millón de años.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-27.jpg" alt="SED de un objeto de clase II: cuerpo negro caliente dominante con exceso infrarrojo del disco">
+    <figcaption><span class="cap">Diapositiva 27 · Clase II — T-Tauri clásica</span>Ya domina el <strong>cuerpo negro de la estrella central</strong>, pero hay más emisión IR de la que un cuerpo negro explicaría: el <em>exceso infrarrojo</em>, culpa del disco (ahora ~0,01 M☉), más frío que la estrella. Edad ~10⁶ años.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-28.jpg" alt="SED de un objeto de clase III: cuerpo negro estelar con muy poco exceso infrarrojo">
+    <figcaption><span class="cap">Diapositiva 28 · Clase III</span>Estrella de <strong>pre-secuencia principal</strong>: el gas del disco prácticamente desapareció (los planetas se quedaron con él, o se evaporó) y quedan escombros menores a 1 km. La SED es casi un cuerpo negro estelar puro.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-sed">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Clasificador de SED: ¿qué etapa estás viendo?</h4>
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 8px">Elige las características del espectro observado y el widget te dice la clase. Haz clic en las etapas de la barra para repasarlas.</p>
+    <div class="wgrid">
+      <div>
+        <label for="sed-peak">¿Dónde está el peak de emisión?</label>
+        <select id="sed-peak">
+          <option value="fir">IR lejano (~100 µm) — cuerpo negro muy frío</option>
+          <option value="mir">IR medio — SED plana</option>
+          <option value="star">Óptico/IR cercano — domina cuerpo negro estelar</option>
+        </select>
+      </div>
+      <div>
+        <label for="sed-extra">¿Qué más se ve?</label>
+        <select id="sed-extra">
+          <option value="none">Nada más: solo el cuerpo negro</option>
+          <option value="silicate">Banda de absorción de silicatos (~10 µm)</option>
+          <option value="excess">Exceso infrarrojo notorio sobre el cuerpo negro</option>
+          <option value="noexcess">Poco o ningún exceso IR</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" class="presets" id="sed-go" style="background:var(--red);border:none;color:#fff;border-radius:10px;padding:10px 18px;margin-top:14px;font-family:'Fraunces',serif;font-weight:600;cursor:pointer">Clasificar</button>
+    <div class="phasebar" id="sed-phases">
+      <span data-p="0">Clase 0<br>~10⁴ años</span>
+      <span data-p="1">Clase I<br>~10⁵ años</span>
+      <span data-p="2">Clase II<br>~10⁶ años</span>
+      <span data-p="3">Clase III<br>~10⁷ años</span>
+    </div>
+    <div class="wout" id="sed-out">Elige características y pulsa «Clasificar» — o haz clic directo en una clase para ver su descripción.</div>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">¿Cuándo «nace» una estrella?</span>
+    <p>Depende a quién le preguntes. Los que estudian <strong>formación estelar</strong> dirían que el Sol nació en la clase 0; los que hacemos <strong>evolución estelar</strong> decimos que nace en la clase III, ya en la secuencia. Es como celebrar el nacimiento el día del parto, sabiendo que ya llevabas nueve meses vivo — hay culturas que cuentan desde la gestación. En total, <strong>formar una estrella como el Sol toma ~40 millones de años</strong>.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Clasificar por espectro, no por apariencia</span>
+    <p>Dos protoestrellas de clase I y II pueden verse <em>casi iguales</em> en una imagen. La clase la define la SED: <strong>qué tan importante es la radiación del disco comparada con la del objeto protoestelar</strong>. Es como estimar la edad de una persona por el rostro: caras casi iguales, pero el ojo entrenado (o la radiografía — el espectro) distingue al de 30 del de 40.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Reconstruir la evolución desde fotogramas de objetos distintos es <strong>inferencia de un proceso a partir de snapshots no ordenados</strong>: como deducir el ciclo de vida de un request viendo logs de miles de requests distintos, cada uno capturado en una fase diferente. El modelo (disco + protoestrella + jet) es la máquina de estados que debe explicar todos los snapshots con una sola topología.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La era de ALMA y JWST: ver lo que se teorizó</h2>
+    <p>Discos protoplanetarios, jets Herbig-Haro y hasta una estrella triple naciendo.</p>
+  </div></div>
+
+  <p>Lo que Larson, Herbig y Haro dibujaron en pizarras hoy se <em>fotografía</em>. ALMA permitió observar discos protoplanetarios reales desde ~2015 (HL Tau fue el hito: una protoestrella de ~2 M☉ con ~1 millón de años y un disco con anillos nítidos). «Hace 10 años esto existía solo como dibujos en los libros de texto.»</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-29.jpg" alt="Imagen de ALMA del disco protoplanetario de HL Tau con sus anillos concéntricos">
+    <figcaption><span class="cap">Diapositiva 29 · HL Tau (ALMA)</span>El disco protoplanetario icónico: protoestrella de ~2 M☉ a ~1 millón de años de edad. Los anillos oscuros sugieren planetas en formación limpiando sus órbitas. La imagen que convirtió los esquemas de los libros en fotografías.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-32.jpg" alt="Galería de discos protoplanetarios observados por ALMA, programa eDisk, Ohashi et al. 2023">
+    <figcaption><span class="cap">Diapositiva 32 · Discos protoplanetarios con ALMA</span>Galería de discos (ALMA, Ohashi et al. 2023): los primeros discos medidos rondan los 30–70 UA — comparables al sistema solar (~50 UA). Algunos muestran <strong>brazos espirales</strong>: la formación de un protoplaneta puede perturbar el disco y generarlos. En Chile, Laura Pérez y Simón Casassus trabajan con ALMA en discos protoplanetarios.</figcaption>
+  </figure>
+
+  <h3>Objetos Herbig-Haro: los jets hechos visibles</h3>
+  <p>El material eyectado por los jets viaja rapidísimo y <strong>choca con el medio interestelar</strong> circundante, excitándolo — «un poco como la aurora»: el choque genera transiciones electrónicas y rotacionales que brillan. Esos choques brillantes en los extremos de los jets son los <span class="hl">objetos Herbig-Haro</span>, teorizados en los 50 y confirmados en detalle en la última década.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-40.jpg" alt="Imagen del James Webb de Herbig-Haro 211, un jet bipolar simétrico saliendo de una protoestrella oculta">
+    <figcaption><span class="cap">Diapositiva 40 · HH 211 (JWST, IR cercano)</span>Un <strong>jet bipolar</strong> de libro: la protoestrella y su disco están escondidos tras el polvo en el centro; los lóbulos brillantes son el material eyectado excitando el medio circundante, con simetría notable. En otros mapas se mide la velocidad: un lóbulo azul acercándose, uno rojo alejándose.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-46.jpg" alt="IRAS 04239+2436: imagen del nacimiento de una estrella triple junto a la simulación que lo reproduce">
+    <figcaption><span class="cap">Diapositiva 46 · Nacimiento de una estrella triple</span><strong>IRAS 04239+2436</strong>: tres protoestrellas formándose de un solo colapso, junto a la simulación que reproduce el sistema. Un solo disco puede fragmentarse en sistemas binarios o triples. Que la simulación reproduzca las características principales — tres objetos, misma dinámica del disco — «la convierte en un éxito total».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-51.jpg" alt="Primer disco protoplanetario descubierto en otra galaxia, en la Gran Nube de Magallanes, McLeod et al. 2023">
+    <figcaption><span class="cap">Diapositiva 51 · Disco extragaláctico</span>El primer disco protoplanetario descubierto <strong>fuera de la Vía Láctea</strong>, en la Gran Nube de Magallanes (McLeod et al. 2023, <em>Nature</em>). En esa galaxia también se observan jets; los colores de los mapas indican velocidad (azul acercándose, rojo alejándose).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Simulaciones: formación estelar en el computador</h2>
+    <p>Resolución espacial y temporal, magnetohidrodinámica y el límite de Eddington.</p>
+  </div></div>
+
+  <p>La astronomía teórica de hoy no es la pizarra de Jeans: es <strong>codificar las ecuaciones y correr simulaciones</strong>. El esquema es directamente computacional: se divide el espacio en <em>cajitas</em> (celdas) que interactúan entre sí vía gravedad y presión, intercambian temperatura y emiten radiación; luego se avanza el reloj un paso Δt y se recalcula todo.</p>
+  <ul>
+    <li><strong>Resolución espacial</strong>: el tamaño de las cajitas. Las primeras simulaciones usaban celdas de ~1 parsec — todo el detalle de la formación estelar (que es sub-parsec) quedaba invisible. Más cajas chicas = más poder de cómputo.</li>
+    <li><strong>Resolución temporal</strong>: el tamaño del paso Δt. Pasos más cortos = más cálculos para cubrir el mismo intervalo físico.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c4/assets/slide-44.jpg" alt="Simulación computacional donde una nube colapsa y se fragmenta formando varias protoestrellas">
+    <figcaption><span class="cap">Diapositiva 44 · Fragmentación simulada</span>Simulación con varias protoestrellas como resultado de la fragmentación (crédito: G. Arreaga García y S. O. Topa). Los filamentos que emergen se parecen mucho a los que observó Herschel — la validación cualitativa del modelo. El reloj de estas simulaciones corre en cientos de miles de años; el objeto resultante es aún una protoestrella, no una estrella terminada.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué la alta masa es otro deporte</span>
+    <p>Las simulaciones «típicas» son de formación de estrellas <strong>no masivas</strong>. En estrellas masivas aparece un actor extra: la <strong>presión de radiación</strong>. Los fotones son partículas y ejercen presión; en estrellas de baja masa es despreciable frente a la presión térmica, pero una estrella masiva produce <em>más fotones y más energéticos</em> (el peak de su cuerpo negro se corre al UV y toda la curva sube). Esa presión pelea contra la gravedad y pone un <strong>límite superior a la masa estelar: ~50–100 M☉</strong> según la metalicidad — el <strong>límite de Eddington</strong>. Por eso la comunidad se divide en formación de baja masa (la historia de esta clase) y de alta masa (otros mecanismos).</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">El terror de la magnetohidrodinámica</span>
+    <p>Mezclar todo lo anterior con campos magnéticos se llama <strong>magnetohidrodinámica (MHD)</strong> — «hasta el nombre es difícil; de las cosas más peludas que hay en astronomía». Normalmente los campos magnéticos «se esconden bajo la alfombra», pero a la escala de discos y jets ya no se puede: definen si se forman jets, cuánta masa pierde el sistema y cuál es la masa final de la estrella. «El diablo está en el detalle»: la misma nube con y sin campos magnéticos intensos termina en estrellas de masas distintas.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Las simulaciones de formación estelar son el caso de manual de <strong>simulación de grilla con paso temporal</strong> (como un CFD): complejidad ~O(N³) en celdas por dimensión espacial × pasos temporales. La «resolución de 1 pc» de los 90 es exactamente el problema de <em>granularidad del muestreo</em>: si el fenómeno vive bajo la resolución de la grilla, no es que se vea borroso — directamente <strong>no existe</strong> en la simulación. Y la MHD agrega términos acoplados no lineales: el costo de cada paso explota.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Coda: del disco a los planetas</h2>
+    <p>Preguntas de estudiantes: qué decide los planetas que se forman, y el eslabón perdido.</p>
+  </div></div>
+
+  <p>Una estudiante preguntó de qué depende que un disco forme gigantes gaseosos o planetas rocosos. La respuesta del profesor — adelanto del curso de planetas — combina tres factores:</p>
+  <ul>
+    <li><strong>El tipo de estrella</strong>: una estrella masiva y caliente emite tanto UV que <em>evapora</em> el material del disco (y además vive tan poco que apenas da tiempo). Una estrella fría y pequeña deja el material tranquilo por más tiempo — por eso los cazadores de planetas prefieren estrellas frías.</li>
+    <li><strong>La metalicidad</strong>: cuánto material pesado hay disponible para formar <em>semillas</em> (rocas de kilómetros).</li>
+    <li><strong>El gradiente de temperatura</strong>: lejos de la estrella hace frío y queda hidrógeno → una semilla con suficiente gravedad acreta gas y forma <strong>gigantes</strong>. Cerca, la temperatura y la presión de radiación solo permiten juntar material rocoso → <strong>planetas rocosos</strong>, como en el sistema solar.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">El eslabón perdido del crecimiento</span>
+    <p>La historia del crecimiento tiene un hueco famoso: se entiende cómo las <strong>motas de polvo</strong> se aglomeran (en el vacío, los sólidos pueden soldarse en frío espontáneamente — algo que el aire impide en la Tierra) hasta tamaños de una manzana o una pelota de tenis; y se entiende cómo objetos de <strong>100–200 km</strong> crecen por gravedad. Pero entre medio — del durazno a la montaña — ni las fuerzas electromagnéticas ni la gravedad dominan claramente, y los choques tienden a romper en vez de pegar. Sabemos que algo lo resuelve («estamos parados arriba de un planeta»), pero el mecanismo exacto es área activa de investigación.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Mirando adelante</span>
+    <p>La formación estelar seguirá siendo un campo activo «al menos por un par de décadas»: ALMA y los telescopios infrarrojos en construcción por el lado observacional, y simulaciones cada vez más finas por el teórico. Spitzer y Herschel ya no operan, pero JWST está entregando imágenes como las de HH 211 — y el detalle del proceso (campos magnéticos, fragmentación, masas finales) sigue abierto.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Condiciones de formación</b></td><td>T ~ 10–20 K; n ~ 10⁵–10⁶ cm⁻³</td><td>Solo ahí la gravedad le gana a la presión</td></tr>
+      <tr><td><b>Ley de Wien</b></td><td>λ_peak ≈ 2898 µm·K / T</td><td>Polvo frío (≤100 K) → IR lejano: el óptico no sirve para formación estelar</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>El vapor de agua absorbe el IR medio/lejano</td><td>Satélites (Spitzer, Herschel) o sitios altos y secos (Chajnantor)</td></tr>
+      <tr><td><b>Primer colapso</b></td><td>Isotérmico, no adiabático: el CO radia el calor en fotones de radio</td><td>La temperatura no sube y el colapso continúa</td></tr>
+      <tr><td><b>Opacidad a n~10¹¹</b></td><td>Los fotones del CO quedan atrapados</td><td>Frena el colapso hasta que el H₂ se disocia (1.000–2.000 K) y lo reactiva</td></tr>
+      <tr><td><b>Masa de Jeans</b></td><td>Masa crítica para colapsar; baja con T baja y n alta</td><td>Todo gas con n &gt; 10³ debiera colapsar en ~10⁶ años</td></tr>
+      <tr><td><b>Glóbulos de Bok</b></td><td>Nubes moleculares muy densas y frías (10–30 K)</td><td>Permiten formar estrellas de baja masa; historia de Bart Bok</td></tr>
+      <tr><td><b>Filamentos (Herschel)</b></td><td>Las nubes son redes filamentosas; los núcleos densos colapsan</td><td>La formación estelar es simultánea y en grupo</td></tr>
+      <tr><td><b>Estrellas en comunidad</b></td><td>~50% de las visibles son binarias/múltiples; cúmulos abiertos y globulares</td><td>El Sol solitario es excepción — fue eyectado dinámicamente</td></tr>
+      <tr><td><b>Nube de Oort</b></td><td>Cascarón esférico de cometas apenas ligados al Sol</td><td>Una compañera estelar la desestabilizaría: bombardeo constante</td></tr>
+      <tr><td><b>Momento angular</b></td><td>L = mvr se conserva; r↓ → v↑ (efecto patinadora)</td><td>El colapso forma inevitablemente un disco de acreción (Larson)</td></tr>
+      <tr><td><b>Jets bipolares</b></td><td>Material ionizado atrapado en líneas de campo magnético, eyectado en espiral</td><td>Radiación libre-libre/sincrotrón ~5 GHz; energía mecánica, no radiativa</td></tr>
+      <tr><td><b>SED / DEE</b></td><td>Distribución espectral de energía: intensidad vs. λ (escala log)</td><td>Define las clases 0–III; se clasifica por espectro, no por apariencia</td></tr>
+      <tr><td><b>Clases 0→III</b></td><td>0: polvo ~10 K, 10⁴ yr · I: disco+silicatos, 10⁵ yr · II: T-Tauri, 10⁶ yr · III: pre-SP, ~10⁷ yr</td><td>La biografía de la protoestrella; el Sol tardó ~40 Myr en total</td></tr>
+      <tr><td><b>Objetos Herbig-Haro</b></td><td>Choques de los jets contra el medio interestelar (HH 211, HH 797)</td><td>Teorizados en los 50, fotografiados por JWST</td></tr>
+      <tr><td><b>HL Tau / eDisk</b></td><td>Discos protoplanetarios resueltos por ALMA (desde ~2015); ~30–70 UA</td><td>De dibujos de libros a fotografías; brazos espirales = protoplanetas</td></tr>
+      <tr><td><b>Presión de radiación / Eddington</b></td><td>Los fotones empujan; limita la masa estelar a ~50–100 M☉</td><td>Separa la formación de baja masa de la de alta masa</td></tr>
+      <tr><td><b>Resolución (simulaciones)</b></td><td>Espacial (tamaño de celda) y temporal (paso Δt)</td><td>Lo que vive bajo la resolución no existe en la simulación; MHD = lo difícil</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c4-examen-01.html">Examen 01<small>Repaso del medio interestelar</small></a></li>
+    <li><a href="m2c4-examen-02.html">Examen 02<small>Cuerpo negro y ventanas</small></a></li>
+    <li><a href="m2c4-examen-03.html">Examen 03<small>El refrigerador molecular</small></a></li>
+    <li><a href="m2c4-examen-04.html">Examen 04<small>Masa de Jeans y Bok</small></a></li>
+    <li><a href="m2c4-examen-05.html">Examen 05<small>Filamentos y vida en grupo</small></a></li>
+    <li><a href="m2c4-examen-06.html">Examen 06<small>Momento angular y discos</small></a></li>
+    <li><a href="m2c4-examen-07.html">Examen 07<small>Clases 0–III (SED)</small></a></li>
+    <li><a href="m2c4-examen-08.html">Examen 08<small>ALMA, JWST y Herbig-Haro</small></a></li>
+    <li><a href="m2c4-examen-09.html">Examen 09<small>Simulaciones y Eddington</small></a></li>
+    <li><a href="m2c4-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo II del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Ricardo Muñoz). Elaborado a partir de la transcripción del audio (<code>estrellas/m2/ff/estrellas-m2c4.md</code>) y las diapositivas <code>Modullo_II_Estrellas_Clase4_RRM.pdf</code> (referencias de las diapositivas: Dullemond et al. 2007; Ohashi et al. 2023; McLeod et al. 2023, Nature; Sakai et al. 2014).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «medio interés pelar» → medio interestelar; «glóbulos de Bo/box/bloc» → glóbulos de Bok; «disco de agresión» → disco de acreción; «hervir/Harold/objetos Hero/Herbie Haro» → objetos Herbig-Haro (George Herbig y Guillermo Haro); «momento mangular/vascular» → momento angular; «Jac Mantor/Chiquetao» → Chajnantor / TAO; «ARMA» → ALMA; «siglo PP» → ciclo (cadena) p-p; «nube de Orto» → nube de Oort; «ECT» → SED; «las playas» → las Pléyades; «gravilla láctea» → Vía Láctea; «1206 una cochinilla» → 1 pc ≈ 206.265 UA. El audio dice que a Herschel «se le acabó el hidrógeno líquido»: el criogénico de Herschel era <em>helio</em> líquido (corrección externa). El nombre del autor de la simulación «típica no masiva» no se entiende en el audio («Rufi Bourtrier») y no pudo verificarse en las diapositivas. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: ley de Wien ----
+(function(){
+  var slider = document.getElementById('wien-t');
+  var lab = document.getElementById('wien-tlab');
+  var out = document.getElementById('wien-out');
+  var needle = document.getElementById('wien-needle');
+  function band(lam){ // lam en µm
+    if(lam < 0.38) return {n:"ultravioleta", d:"Estrellas muy calientes (tipo O/B). Tanta energía que ioniza el hidrógeno: regiones HII."};
+    if(lam < 0.75) return {n:"óptico", d:"El rango del Sol y de la mayoría de las estrellas que vemos. Aquí la formación estelar es invisible."};
+    if(lam < 5) return {n:"infrarrojo cercano", d:"«La colita del óptico»: todavía dominado por estrellas (~3.000 K). JWST observa aquí (NIRCam)."};
+    if(lam < 30) return {n:"infrarrojo medio", d:"Territorio de Spitzer: protoestrellas y discos tibios. La atmósfera ya molesta mucho."};
+    if(lam < 300) return {n:"infrarrojo lejano", d:"Territorio de Herschel: el polvo de ~10–100 K. La atmósfera es opaca — satélites o nada."};
+    return {n:"submilimétrico / radio", d:"Territorio de ALMA: las transiciones rotacionales del CO y las nubes más frías. La atmósfera vuelve a abrirse en sitios secos como Chajnantor."};
+  }
+  function pos(lam){ // mapa log de 0.05 µm a 5000 µm → 0..100%
+    var x = (Math.log10(lam) - Math.log10(0.05)) / (Math.log10(5000) - Math.log10(0.05));
+    return Math.max(0, Math.min(100, x*100));
+  }
+  function upd(){
+    var T = Math.pow(10, parseFloat(slider.value));
+    lab.textContent = Math.round(T).toLocaleString('es-CL') + " K";
+    var lam = 2898 / T; // µm
+    var b = band(lam);
+    needle.style.left = "calc(" + pos(lam).toFixed(1) + "% - 1.5px)";
+    out.innerHTML = "<span class='k'>λ del peak:</span> <b>" + (lam>=1000 ? (lam/1000).toFixed(1)+" mm" : lam>=1 ? lam.toFixed(1)+" µm" : (lam*1000).toFixed(0)+" nm") + "</b> → <b>" + b.n + "</b><br>" + b.d;
+  }
+  slider.addEventListener('input', upd);
+  document.querySelectorAll('#w-wien .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      slider.value = Math.log10(parseFloat(btn.dataset.t));
+      upd();
+    });
+  });
+  upd();
+})();
+
+// ---- Widget 2: momento angular ----
+(function(){
+  var slider = document.getElementById('am-r');
+  var lab = document.getElementById('am-rlab');
+  var out = document.getElementById('am-out');
+  var R0 = 30000, P0 = 1e7; // UA, años por vuelta
+  function upd(){
+    // slider 0..3 → factor de contracción 10^0 .. 10^3 (R = 30000 → 30)
+    var f = Math.pow(10, parseFloat(slider.value));
+    var R = R0 / f;
+    lab.textContent = Math.round(R).toLocaleString('es-CL') + " UA";
+    // L = m v r constante; v = ωr → ω ∝ 1/r²; P = P0 / f²
+    var P = P0 / (f*f);
+    var Ptxt = P >= 1e6 ? (P/1e6).toLocaleString('es-CL', {maximumFractionDigits:1}) + " millones de años"
+             : P >= 1000 ? Math.round(P).toLocaleString('es-CL') + " años"
+             : P >= 1 ? P.toFixed(1) + " años" : (P*365.25).toFixed(0) + " días";
+    var nota = f < 3 ? "Apenas se nota: la nube gira lentísimo."
+             : f < 50 ? "La rotación ya empieza a importar: el colapso es más rápido a lo largo del eje que en el plano."
+             : f < 400 ? "La rotación domina el plano ecuatorial: se está formando el <b>disco de acreción</b>."
+             : "Disco formado: la rotación sostiene el material en el plano. Sin perder momento angular (jets, viscosidad), el material no puede caer a la estrella.";
+    out.innerHTML = "<span class='k'>Contracción:</span> <b>×" + f.toLocaleString('es-CL', {maximumFractionDigits:0}) + "</b> · <span class='k'>Velocidad angular:</span> <b>×" + (f*f).toLocaleString('es-CL', {maximumFractionDigits:0}) + "</b><br><span class='k'>Periodo de rotación:</span> <b>" + Ptxt + "</b><br>" + nota;
+  }
+  slider.addEventListener('input', upd);
+  document.querySelectorAll('#w-angmom .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      slider.value = Math.log10(R0 / parseFloat(btn.dataset.r));
+      upd();
+    });
+  });
+  upd();
+})();
+
+// ---- Widget 3: clasificador SED ----
+(function(){
+  var out = document.getElementById('sed-out');
+  var phases = document.querySelectorAll('#sed-phases span');
+  var desc = [
+    "<b>Clase 0</b> · ~10⁴ años. Peak en ~100 µm: cuerpo negro frío (~10 K). Solo se ve <b>polvo</b>; la protoestrella está escondida y la acreción domina. Envoltura ~0,5 M☉.",
+    "<b>Clase I</b> · ~10⁵ años. SED más plana, domina el IR medio, y el valle en ~10 µm delata <b>silicatos</b> en el polvo. Ya hay disco de acreción (~0,1 M☉) y flujos bipolares.",
+    "<b>Clase II</b> · ~10⁶ años. <b>T-Tauri clásica</b>: domina el cuerpo negro de la estrella central, pero con <b>exceso infrarrojo</b> — la firma del disco (~0,01 M☉).",
+    "<b>Clase III</b> · hasta ~10⁷ años. Pre-secuencia principal: cuerpo negro estelar casi puro, poco o ningún exceso IR. El disco de gas desapareció; quedan escombros &lt; 1 km."
+  ];
+  function show(i){
+    phases.forEach(function(p){ p.classList.toggle('on', parseInt(p.dataset.p) === i); });
+    out.innerHTML = desc[i];
+  }
+  phases.forEach(function(p){
+    p.addEventListener('click', function(){ show(parseInt(p.dataset.p)); });
+  });
+  document.getElementById('sed-go').addEventListener('click', function(){
+    var peak = document.getElementById('sed-peak').value;
+    var extra = document.getElementById('sed-extra').value;
+    var cls;
+    if(peak === 'fir') cls = 0;
+    else if(peak === 'mir') cls = 1;
+    else cls = (extra === 'excess' || extra === 'silicate') ? 2 : 3;
+    var nota = "";
+    if(peak === 'fir' && extra === 'silicate') nota = "<br><small>Nota: la banda de silicatos es típica de clase I; con peak en el IR lejano domina la lectura de clase 0.</small>";
+    if(peak === 'star' && extra === 'silicate') nota = "<br><small>Nota: con cuerpo negro estelar dominante + restos de disco, el sistema está entre clase I y II; se clasifica II.</small>";
+    show(cls);
+    out.innerHTML = desc[cls] + nota;
+  });
+})();
+</script>
+</body>
+</html>
