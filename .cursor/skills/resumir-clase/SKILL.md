@@ -75,7 +75,9 @@ Preguntas del contenido de la clase; sin repetir entre exámenes. Enlace «Volve
 
 1. Actualizar `INDICE.md` con las rutas nuevas.
 2. Verificar grafo de enlaces index ↔ apuntes ↔ exámenes.
-3. Informar al usuario los archivos creados.
+3. Eliminar archivos generados pero no usados (especialmente jpg).
+4. Informar al usuario los archivos creados.
+5. Ofrecer commit y push a main o PR.
 
 ## Errores Frecuentes
 
