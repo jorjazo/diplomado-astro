@@ -1,0 +1,12 @@
+---
+description: Resumir o sintetizar una clase del diplomado en apuntes HTML interactivos con exámenes de práctica. Usar con /resumir-clase o cuando pidan resumir clase, apuntes HTML, transcripción ff/, diapositivas.
+alwaysApply: false
+---
+
+# Skill resumir-clase
+
+Si el usuario pide resumir, sintetizar o generar apuntes HTML de una clase del diplomado:
+
+1. Lee y sigue **`.cursor/skills/resumir-clase/SKILL.md`** (y `plantilla-estructura.md` si hace falta).
+2. Confirma **curso**, **módulo** y **clase** antes de generar nada.
+3. No improvises el flujo: el skill define rutas, archivos HTML y exámenes.

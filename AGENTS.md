@@ -109,3 +109,13 @@ Una buena respuesta del agente debería:
 
 Si falta contexto, pregunta por el curso, módulo, clase o archivo específico antes de hacer una explicación extensa.
 
+## Skills del Repositorio
+
+Skills de proyecto en `.cursor/skills/`. **Antes de ejecutarlos, lee el `SKILL.md` completo.**
+
+| Skill | Cuándo usar | Ruta |
+|-------|-------------|------|
+| `resumir-clase` | El usuario pide **resumir**, **sintetizar** o generar **apuntes HTML** de una clase; menciona `/resumir-clase`, transcripciones en `ff/`, diapositivas en `diapos/`, exámenes interactivos, o material de estrellas/planetas/galaxias/observación | `.cursor/skills/resumir-clase/SKILL.md` |
+
+Si la tarea coincide con un skill, **léelo y síguelo** en lugar de improvisar el flujo.
+
