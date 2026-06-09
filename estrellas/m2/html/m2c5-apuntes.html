@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moléculas interestelares — Astrofísica de Estrellas, Módulo II · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.4em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+/* spectrum bar */
+.specbar{position:relative;height:46px;border-radius:10px;margin-top:12px;border:1px solid var(--line);
+  background:linear-gradient(90deg,#6f3df0 0%,#3d6df0 14%,#39c46d 24%,#e8d34a 32%,#e0382e 42%,#8a2f23 58%,#54231c 78%,#2a1410 100%)}
+.specbar .needle{position:absolute;top:-8px;bottom:-8px;width:3px;background:#fff;border-radius:2px;
+  box-shadow:0 0 12px #fff;transition:left .15s}
+.speclabels{display:flex;justify-content:space-between;font-family:"Fraunces",serif;font-size:.7rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+/* branch diagram (P/Q/R) */
+.branchbox{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#070d18;padding:14px;
+  display:flex;align-items:flex-end;gap:2px;height:130px;overflow:hidden}
+.branchbox span{flex:1;background:var(--muted);border-radius:2px 2px 0 0;min-width:2px;opacity:.55;transition:.2s}
+.branchbox span.p{background:var(--cyan)}
+.branchbox span.r{background:var(--red-soft)}
+.branchbox span.q{background:var(--gold)}
+.branchbox span.on{opacity:1;box-shadow:0 0 10px currentColor}
+.branchlabels{display:flex;justify-content:space-between;font-family:"Fraunces",serif;font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo II · Clase 5</span>
+  <h1>Moléculas interestelares: <em>la química del cosmos</em></h1>
+  <p class="sub">La última clase del módulo cierra el círculo: cómo las estrellas fabrican los elementos (nucleosíntesis), cómo esos elementos hacen química en el medio interestelar, y cómo la vibración y la rotación de las moléculas — cuantizadas como todo en el mundo microscópico — generan los espectros roto-vibracionales que nos dejan leer esa química desde la Tierra. Del proceso triple alfa a los fulerenos, los aminoácidos y el oxígeno del universo bebé.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Ricardo Muñoz</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> junio 2026</span>
+    <span><b>Tema:</b> Moléculas interestelares</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>l módulo ya mostró el medio interestelar, el polvo, el CO como termómetro y el colapso que forma protoestrellas. Esta clase — «tal vez la más técnica de las cinco», advierte el profesor — formaliza la pieza que faltaba: <span class="hl">las moléculas mismas</span>. Para entenderlas hay que separar dos historias que suelen confundirse: la <strong>nucleosíntesis</strong> (física nuclear: cómo se fabrican los elementos dentro de las estrellas) y la <strong>química</strong> (cómo esos elementos, ya liberados al espacio, forman moléculas). Y para <em>verlas</em> hay que entender tres tipos de transición — electrónica, vibracional y rotacional — con energías que difieren en factores de cien y de mil.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Apertura: tiempo, gravedad y el peligro de enamorarse del modelo</a></li>
+    <li><a href="#s2">Dos ramas del enriquecimiento químico</a></li>
+    <li><a href="#s3">Hoyle y el proceso triple alfa</a></li>
+    <li><a href="#s4">Vidas estelares: enanas blancas y estrellas de neutrones</a></li>
+    <li><a href="#s5">Composición del medio interestelar</a></li>
+    <li><a href="#s6">Repaso: transiciones electrónicas y modelo de Bohr</a></li>
+    <li><a href="#s7">Vibrar y rotar: tres escalas de energía</a></li>
+    <li><a href="#s8">Momento de inercia y geometría molecular</a></li>
+    <li><a href="#s9">El espectro roto-vibracional: ramas P, Q y R</a></li>
+    <li><a href="#s10">~150 moléculas: del CO a los fulerenos</a></li>
+    <li><a href="#s11">Astroquímica y las moléculas de la vida</a></li>
+    <li><a href="#s12">Coda: oxígeno en el universo bebé</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Apertura: tiempo, gravedad y modelos</h2>
+    <p>La conversación inicial — una digresión con moraleja metodológica.</p>
+  </div></div>
+
+  <p>La clase partió con una conversación a propósito de otro curso del diplomado: el tiempo <strong>no es absoluto</strong> — se dilata por gravedad o por velocidad — y los relojes atómicos lo miden tan bien que se han detectado diferencias de dilatación con apenas <strong>~40 cm de diferencia de altura</strong>. «El tiempo de su cabeza es más joven que el de sus pies», resume el profesor.</p>
+
+  <p>De ahí saltó una pregunta de fondo: ¿la gravedad es una fuerza de atracción o es la curvatura del espacio-tiempo? La respuesta del profesor es la moraleja metodológica de toda la clase:</p>
+
+  <div class="box prof">
+    <span class="tag">No enamorarse del modelo</span>
+    <p>La gravedad <em>se puede modelar</em> como una fuerza (se define energía potencial, se trabaja con momentos, la fórmula <em>F ∝ Mm/r²</em> da resultados correctos), y se cuenta entre las cuatro fuerzas fundamentales. Pero el gran descubrimiento de Einstein fue que, en sentido estricto, <strong>no es una fuerza atractiva</strong>: es la <strong>deformación del espacio-tiempo</strong>. Por eso la luz «cae» en un agujero negro aunque el fotón no tenga masa: sigue el único camino disponible en un espacio curvado. Uno «se enamora del modelo y piensa que el modelo es la realidad — pero el modelo no es la realidad». La ley del inverso del cuadrado es, al final, <em>una consecuencia de la geometría del espacio</em>.</p>
+  </div>
+
+  <ul>
+    <li>A diferencia de las otras fuerzas fundamentales, la gravedad es <strong>solo atractiva</strong>.</li>
+    <li>Unificar gravedad y mecánica cuántica (cuantizar la gravedad) sigue siendo <strong>un problema abierto</strong> de la física.</li>
+    <li>El <strong>corrimiento al rojo</strong> tiene dos causas distintas: el <em>efecto Doppler</em> (velocidad relativa entre fuente y observador) y el <em>corrimiento cosmológico</em> — el espacio mismo se estira y estira las ondas que viajan por él. Se parece al Doppler pero no lo es: «no es la galaxia la que se mueve con respecto al espacio, es el espacio mismo el que se estira».</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El consejo de «no enamorarse del modelo» es la versión física de <em>«all models are wrong, some are useful»</em>: la gravedad newtoniana es como una API estable cuyo contrato (resultados numéricos) se cumple casi siempre, pero cuya implementación interna (fuerza a distancia) resultó ser otra (geometría). Mientras trabajes dentro del dominio de validez, la abstracción no se filtra; en regímenes extremos (agujeros negros, GPS, relojes atómicos) la <em>leaky abstraction</em> aparece y necesitas el modelo de más bajo nivel.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Dos ramas del enriquecimiento químico</h2>
+    <p>Nucleosíntesis (física nuclear) vs. química (moléculas): la distinción que ordena la clase.</p>
+  </div></div>
+
+  <p>Cuando se habla de la «química del universo» hay que distinguir dos procesos completamente distintos:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Nucleosíntesis</th><th>Química (molecular)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Qué es</b></td><td>Formación de <strong>elementos químicos</strong>: cambia la identidad del núcleo</td><td>Formación de <strong>moléculas</strong>: los átomos se enlazan sin cambiar de identidad</td></tr>
+      <tr><td><b>Qué disciplina</b></td><td>Física nuclear («alquimia de verdad»: transforma un elemento en otro)</td><td>Química propiamente tal</td></tr>
+      <tr><td><b>Dónde ocurre</b></td><td>Big Bang (H, He) e interior de las estrellas (el resto)</td><td>Medio interestelar: granos de polvo y fase gaseosa</td></tr>
+      <tr><td><b>Ejemplo</b></td><td>Tres núcleos de helio se fusionan en un carbono</td><td>Un carbono y un oxígeno se enlazan en CO</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>La <span class="hl">identidad química la da el número de protones</span> del núcleo: cualquier núcleo con 2 protones es helio (tenga los neutrones que tenga); cualquier núcleo con 6 protones es carbono. La nucleosíntesis cambia ese número; la química nunca lo toca. Una vez que un carbono fabricado dentro de una estrella «sale al mundo» — generalmente vía explosión de supernova o eyección al medio interestelar — recién entonces puede hacer química: juntarse con hidrógeno, con oxígeno, con otros carbonos.</p>
+
+  <div class="box dato">
+    <span class="tag">El gran triunfo de la astrofísica</span>
+    <p>Para el profesor, la nucleosíntesis es <strong>uno de los conocimientos más fundamentales que la astrofísica ha aportado a la ciencia</strong>: poder explicar de dónde viene <em>cada</em> elemento — el H y la mayor parte del He del Big Bang, todo el resto del interior de las estrellas. La astronomía, recuerda, es una rama de la física como lo son la mecánica cuántica o la mecánica estadística.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Hoyle y el proceso triple alfa</h2>
+    <p>La historia de cómo se descubrió que las estrellas fabrican los elementos.</p>
+  </div></div>
+
+  <p>En los años 30, cuando nace la teoría del Big Bang (la idea del «átomo primigenio»), se asumía sin mucho cuestionamiento que el Big Bang había creado <em>todos</em> los elementos químicos en las proporciones observadas, y que todas las estrellas tenían esencialmente la misma composición. Pero al espectroscopiar estrellas empezaron a aparecer <strong>estrellas con muy pocos «metales»</strong> (en astronomía, todo elemento más pesado que el helio es un «metal») — la composición no era universal.</p>
+
+  <p>Entra <strong>Fred Hoyle</strong>, astrofísico inglés — el mismo que inventó el término <em>Big Bang</em> en una entrevista radial de la BBC <strong>para burlarse</strong> de la teoría («el gran pum»), y la ironía del destino dejó el nombre pegado para siempre. Hoyle prefería un universo eterno y quiso demoler el Big Bang demostrando que <strong>las estrellas, no el Big Bang, fabrican los elementos</strong>.</p>
+
+  <h3>El problema de las masas 5 y 8</h3>
+  <p>Ya se sabía (años 30) que las estrellas generan energía fusionando hidrógeno en helio — la <strong>cadena p-p</strong>, que termina produciendo <strong>partículas alfa</strong> (núcleos de helio: 2 protones + 2 neutrones). Antes se creía que el Sol «quemaba» algún combustible, pero cualquier combustible químico (carbón, madera) con la masa del Sol (~2×10³⁰ kg) dura apenas miles de años brillando — y el registro fósil ya daba a la Tierra miles de millones. Solo la fusión nuclear cierra las cuentas.</p>
+
+  <p>¿Y después del helio? En un universo de H y He, una partícula alfa solo puede chocar con un protón (→ núcleo de masa 5) o con otra alfa (→ masa 8). Y ambos núcleos son <strong>tan inestables que se deshacen en nanosegundos</strong>. La escalera de la fusión parecía cortada en el segundo peldaño. <em>(Por eso, dicho sea de paso, el berilio y el boro casi no se fabrican en estrellas: sus núcleos en esa zona de masas son inestables; solo quedan trazas, del orden de una parte en cien millones.)</em></p>
+
+  <h3>La salida: tres alfas a la vez</h3>
+  <p>Hoyle propuso que las estrellas se las arreglan de todos modos: si <strong>tres partículas alfa</strong> se fusionan casi simultáneamente, se forma un núcleo de <strong>carbono</strong>, que sí es estable. Es improbabilísimo — ya cuesta que se junten dos — pero en el núcleo de una <strong>gigante roja</strong>, contraído por gravedad desde ~15 millones de grados (el Sol hoy) hasta <strong>100–200 millones de grados</strong>, ocurre. Junto a un físico teórico y dos astrónomos observacionales, Hoyle demostró las cadenas de nucleosíntesis estelar. Es el <span class="hl">proceso triple alfa</span>.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="3\,{}^{4}\mathrm{He} \;\longrightarrow\; {}^{12}\mathrm{C} \;(+\,\gamma)"></span>
+    <small>Tres núcleos de helio (partículas alfa) → un núcleo de carbono. A partir del carbono, capturas sucesivas generan también nitrógeno y oxígeno — en parte por eso C, N y O son los elementos más abundantes después de H y He.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">La segunda vida de una estrella</span>
+    <p>Cuando el núcleo agota su hidrógeno (la estrella solo consume ~10% de todo su hidrógeno total), deja de generar energía, pierde la presión térmica y <strong>la gravedad empieza a ganar</strong>: el núcleo se contrae y se calienta. Una capa de hidrógeno alrededor del núcleo se enciende y genera <em>más</em> energía que antes — eso <strong>infla la estrella</strong> hasta gigante roja. Mientras tanto el núcleo sigue contrayéndose hasta los cientos de millones de grados del triple alfa: la estrella «agarra un segundo aire» y ahora fabrica carbono, nitrógeno y oxígeno.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Mírate al espejo</span>
+    <p>Todos los elementos, incluido el helio, <em>pueden</em> fabricarse en estrellas — pero la mayor parte del helio es primordial. El hidrógeno, en cambio, es <strong>100% del Big Bang</strong>: las estrellas lo consumen, no lo producen. «Todo el hidrógeno de nuestro cuerpo viene del Big Bang. Si quieren ver algo viejo, mírense al espejo.»</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Vidas estelares: enanas blancas y estrellas de neutrones</h2>
+    <p>Gravedad vs. presión, una y otra vez — y qué decide el final.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-03.jpg" alt="Diagrama de los dos caminos evolutivos estelares: estrella pequeña a gigante roja, nebulosa planetaria y enana blanca; estrella grande a supergigante roja, supernova y estrella de neutrones o agujero negro">
+    <figcaption><span class="cap">Diapositiva 3 · El enriquecimiento químico</span>Los dos caminos: una estrella tipo Sol termina en <strong>nebulosa planetaria + enana blanca</strong>; una estrella masiva, en <strong>supernova + estrella de neutrones o agujero negro</strong>. Ojo: las imágenes no están a escala — una gigante roja es <em>miles</em> de veces más grande que la estrella original, no el doble.</figcaption>
+  </figure>
+
+  <p>Todo el ciclo es la misma guerra repetida: <span class="hl">gravedad vs. presión</span>. Hoy el Sol está en equilibrio hidrostático porque la fusión genera presión térmica. Cuando se acaba el combustible del núcleo, gana la gravedad, el núcleo se contrae y se calienta hasta encender el siguiente combustible… si la masa alcanza.</p>
+
+  <ol class="steps">
+    <li><strong>Estrella tipo Sol:</strong> tras el helio (→ C, N, O) la masa no alcanza para encender el carbono (~200 millones de grados no bastan). La gravedad comprime hasta que choca con un muro cuántico: la <strong>presión de degeneración electrónica</strong>. Resultado: <strong>enana blanca</strong>.</li>
+    <li><strong>Estrella masiva:</strong> el ciclo continúa — silicio, magnesio, calcio… hasta el hierro. La gravedad es tanta que vence incluso a los electrones: los <em>empuja dentro de los protones</em>, formando neutrones. Resultado: <strong>estrella de neutrones</strong> (o agujero negro si hay aún más masa).</li>
+  </ol>
+
+  <div class="box physics">
+    <span class="tag">¿Qué es la presión de degeneración?</span>
+    <p>Los electrones no pueden ocupar todos el mismo estado de energía (principio de exclusión de Pauli). La analogía del profesor: los estados de energía son <strong>asientos de un auditorio</strong> — una vez ocupado uno, nadie más puede sentarse ahí. Cuando la gravedad «acorrala» a los electrones, estos se ven obligados a apilarse en energías cada vez mayores, y esa resistencia es una presión real que detiene el colapso — sin generar energía nueva.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Qué es un plasma? (pregunta de estudiante: «explícaselo a un abogado»)</span>
+    <p>Un <strong>fluido ionizado</strong>: las cargas están separadas — los electrones viven su vida aparte de los núcleos. ¿Por qué no se recombinan si se atraen? Porque temperatura alta = energía cinética alta = velocidad alta: «es como querer que dos personas se tomen de la mano corriendo a 40 km/h — pasan de largo, no alcanzan ni a saludarse». Solo cuando el gas se enfría (las «personas» caminan) los electrones se capturan y se forman átomos. Un plasma puede ser globalmente neutro.</p>
+  </div>
+
+  <h3>Nebulosa planetaria: un final «gentil»</h3>
+  <p>El final tipo Sol <strong>no es una explosión</strong>. Al inflarse a gigante roja, la <strong>gravedad superficial</strong> de las capas exteriores se desploma — la gravedad depende de la masa pero <em>del radio al cuadrado</em>, y el radio es la variable dominante. Las capas externas casi no sienten gravedad, mientras el núcleo caliente las bombardea con fotones: las partículas ganan energía cinética y <strong>se evaporan suavemente</strong>. Esa envoltura en expansión es la <strong>nebulosa planetaria</strong>; lo que queda al centro, la enana blanca.</p>
+
+  <div class="box dato">
+    <span class="tag">Las cuentas del Sol</span>
+    <p>El Sol vivirá en total unos <strong>10 mil millones de años</strong>: ~9 mil millones en la secuencia principal, y el resto — gigante roja, rama horizontal, rama asintótica, nebulosa planetaria, enana blanca — en apenas decenas a cientos de millones de años. <em>(La transcripción dice «10 millones»; por las diapositivas y el contexto del curso, son 10⁹ años — el error es de la transcripción automática.)</em></p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Composición del medio interestelar</h2>
+    <p>Repaso express: qué hay disponible para hacer química.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-05.jpg" alt="Diapositiva con la composición del medio interestelar: 99% gas (hidrógeno y helio, moléculas volátiles) y 1% polvo (metales, grafitos, silicatos)">
+    <figcaption><span class="cap">Diapositiva 5 · Composición del medio interestelar</span><strong>99% gas</strong>: mayormente H y He, más moléculas volátiles (H₂O, CO₂, NH₃…). <strong>1% polvo</strong>: metales (Fe, Al, Mg), grafitos (C) y silicatos (Si).</figcaption>
+  </figure>
+
+  <ul>
+    <li>En masa: <strong>~74% hidrógeno, ~25% helio, ~2% elementos pesados</strong> («metales»). Tres cuartos del universo sigue siendo hidrógeno.</li>
+    <li>El <strong>helio casi no participa en la química</strong>: es un gas noble, no reacciona con nada.</li>
+    <li>El polvo es el 1% — pero ya vimos en clases anteriores que es el laboratorio donde se fabrica el H₂ y donde se «instiga» la formación de moléculas.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-06.jpg" alt="Comparación de la misma nube vista por el telescopio Hubble en óptico (silueta oscura) y en emisión de CO J=3-2 por el CSO (brillante)">
+    <figcaption><span class="cap">Diapositiva 6 · CO: trazador del gas molecular</span>La misma región vista por <strong>Hubble</strong> (óptico: la nube es una silueta oscura) y por el <strong>CSO</strong> en la línea rotacional <strong>CO J=3→2</strong> (la nube brilla). Lo que el óptico esconde, las líneas moleculares lo revelan — el tema central de esta clase.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Repaso: transiciones electrónicas y modelo de Bohr</h2>
+    <p>La base atómica antes de pasar a las moléculas.</p>
+  </div></div>
+
+  <p>Como las moléculas están compuestas de átomos, y en los átomos ocurren <strong>transiciones electrónicas</strong>, en principio las moléculas podrían detectarse en el <strong>visible y el ultravioleta</strong> mediante líneas de absorción. Repaso del modelo de Bohr para el hidrógeno:</p>
+
+  <ul>
+    <li>Las «órbitas» del electrón son en realidad <strong>niveles de energía cuantizados</strong>: solo ciertos valores están permitidos. Lo que importa del electrón, dice el profesor, no es dónde está sino <em>qué energía tiene</em> — es «el parámetro» que lo describe, como la edad o la estatura describen a una persona.</li>
+    <li>Para saltar del nivel 2 al 3, el electrón debe <strong>absorber un fotón con la energía exacta</strong> del salto — ni más ni menos. Por eso los espectros tienen <em>líneas</em> a longitudes de onda precisas.</li>
+    <li>Al caer de vuelta, <strong>emite</strong> un fotón de exactamente esa misma energía.</li>
+    <li>Los saltos también pueden excitarse <strong>por choques</strong> (colisiones), no solo por fotones — eso será clave dentro de las nubes.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-12.jpg" alt="Diagrama de niveles de energía del átomo de hidrógeno con las series de Lyman, Balmer y Paschen, y energías de 0 a 13.6 eV">
+    <figcaption><span class="cap">Diapositiva 12 · Niveles de energía del hidrógeno</span>Los niveles se van <em>juntando</em> hacia arriba: el primer salto (n=1→2) cuesta <strong>10,2 eV</strong>, los siguientes cada vez menos, y la ionización total (n=∞) cuesta <strong>13,6 eV</strong>. Las series de Lyman (UV), Balmer (visible) y Paschen (IR) agrupan las transiciones según el nivel de llegada.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El electronvolt y el continuo</span>
+    <p>El <strong>electronvolt (eV)</strong> es la unidad de energía favorita de la física de partículas: la energía que gana un electrón acelerado por 1 volt. El estado fundamental (<em>ground state</em>) se toma como cero por conveniencia — lo que importa son las <em>diferencias</em>. Y el <strong>continuo</strong> de un espectro es luz en <em>todas</em> las longitudes de onda (función continua, como el tiempo), sobre el cual las líneas de absorción aparecen como «mordidas» discretas — como el número de personas en una sala, que solo toma valores enteros.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Vibrar y rotar: tres escalas de energía</h2>
+    <p>Por qué las moléculas no se ven en el óptico — y sí en el infrarrojo y el radio.</p>
+  </div></div>
+
+  <p>Aquí viene el giro central de la clase: <strong>bajo las condiciones de temperatura y densidad del espacio, las transiciones electrónicas no ocurren en las moléculas</strong>. En las nubes moleculares — densas, con polvo, con <em>shielding</em> (las capas exteriores «van a la pelea» absorbiendo los fotones UV) — los fotones energéticos no penetran. Y un fotón demasiado energético, además, <strong>destruiría la molécula</strong> rompiendo el enlace.</p>
+
+  <p>Lo que sí hacen las moléculas es <span class="hl">vibrar y rotar</span>, y esos movimientos también están <strong>cuantizados</strong>:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Transición</th><th>Energía típica</th><th>Dónde se observa</th><th>Número cuántico</th></tr></thead>
+    <tbody>
+      <tr><td><b>Electrónica</b></td><td>~10 eV</td><td>Visible y ultravioleta</td><td>n</td></tr>
+      <tr><td><b>Vibracional</b></td><td>~0,1 eV (≈100× menor)</td><td>Infrarrojo</td><td>v</td></tr>
+      <tr><td><b>Rotacional</b></td><td>~10⁻⁴ eV (≈1.000× menor aún)</td><td>Microondas / submilimétrico / radio</td><td>J</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Una molécula con solo <strong>tres átomos</strong> (como el agua) ya tiene <strong>seis modos distintos de vibración</strong> — estiramientos y flexiones —, cada uno asociado a absorber o emitir luz. Y al <strong>rotar</strong>, si la molécula tiene <strong>momento dipolar</strong> (distribución de carga asimétrica, como HCl o CO), el dipolo giratorio se acopla a la radiación: la velocidad de rotación está cuantizada y los saltos entre estados rotacionales emiten o absorben fotones de muy baja energía.</p>
+
+  <div class="widget" id="w-energias">
+    <span class="tagband">Widget interactivo</span>
+    <h4>De la energía a la ventana espectral: λ = hc/E</h4>
+    <label for="ene-e">Energía de la transición: <b id="ene-lab">10 eV</b></label>
+    <input type="range" id="ene-e" min="-4.5" max="1.5" step="0.01" value="1">
+    <div class="presets">
+      <button type="button" data-e="10.2">Lyman α del H (10,2 eV)</button>
+      <button type="button" data-e="1.9">Hα Balmer (~1,9 eV)</button>
+      <button type="button" data-e="0.1">Vibracional típica (0,1 eV)</button>
+      <button type="button" data-e="0.00048">CO J=1→0 (4,8×10⁻⁴ eV)</button>
+      <button type="button" data-e="0.0000059">HI 21 cm (5,9×10⁻⁶ eV)</button>
+    </div>
+    <div class="specbar"><div class="needle" id="ene-needle"></div></div>
+    <div class="speclabels"><span>UV</span><span>Óptico</span><span>IR cercano</span><span>IR medio</span><span>IR lejano</span><span>Submm/Radio</span></div>
+    <div class="wout" id="ene-out"></div>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">¿Y si el fotón tiene demasiada energía?</span>
+    <p>Pregunta de la clase: ¿un fotón más energético hace rotar más rápido la molécula? Hasta cierto punto — pero si la energía es excesiva, <strong>rompe el enlace y destruye la molécula</strong>. Por eso las transiciones vibracionales y rotacionales están asociadas a fotones de baja energía: son los únicos compatibles con que la molécula siga existiendo.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">El refrigerador, revisitado</span>
+    <p>Esto formaliza el mecanismo de enfriamiento de las clases 3 y 4: dentro de la nube, los <strong>choques</strong> (no los fotones, que no penetran) excitan transiciones vibracionales y rotacionales del CO; al desexcitarse, la molécula emite un fotón de baja energía <strong>al cual la nube es transparente</strong> — el fotón escapa y se lleva el calor. Así se regula la temperatura durante el colapso. Y lo hacen todas las moléculas, no solo el CO — el CO domina por abundancia.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Las tres escalas de energía (10 / 0,1 / 10⁻⁴ eV) funcionan como <strong>bandas de frecuencia asignadas</strong> en un espectro de comunicaciones: cada tipo de transición «transmite» en su banda (UV-óptico / IR / radio) sin interferirse. Para leer un canal eliges el receptor adecuado: óptico para electrones, IR para vibraciones, radiotelescopio para rotaciones. La naturaleza hizo el <em>frequency-division multiplexing</em> sola.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Momento de inercia y geometría molecular</h2>
+    <p>La forma de la molécula decide cómo (y con qué energías) puede rotar.</p>
+  </div></div>
+
+  <p>El <strong>momento de inercia</strong> <em>I</em> es a la rotación lo que la masa es al movimiento lineal: la <em>resistencia a cambiar el estado de rotación</em>. Así como <em>F = ma</em> (más masa → menos aceleración para la misma fuerza), para rotaciones el torque produce aceleración angular según:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F = m\,a \qquad\longleftrightarrow\qquad \tau = I\,\alpha"></span>
+    <small>El torque τ es el análogo rotacional de la fuerza; la aceleración angular α, el de la aceleración lineal; y el momento de inercia I, el de la masa. I combina <strong>cuánta masa hay y cómo está distribuida</strong> (la geometría).</small>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-22.jpg" alt="Diapositiva que define el momento de inercia comparando las dos formas de la segunda ley de Newton: F=ma y M=I-alfa">
+    <figcaption><span class="cap">Diapositiva 22 · Momento de inercia</span>«Es la medida de la forma de un cuerpo, su masa y cómo esta masa se distribuye» — definido en términos del torque necesario para cambiar la velocidad angular, en perfecta analogía con la segunda ley de Newton.</figcaption>
+  </figure>
+
+  <p>La consecuencia clave: <span class="hl">la geometría molecular determina los momentos de inercia</span>, y estos determinan los niveles rotacionales cuantizados:</p>
+
+  <ul>
+    <li><strong>Metano (CH₄)</strong>: tetraedro perfectamente simétrico — da lo mismo en qué eje lo hagas rotar, los tres momentos de inercia son iguales (I<sub>A</sub> = I<sub>B</sub> = I<sub>C</sub>).</li>
+    <li><strong>Clorometano (CH₃Cl)</strong>: cambia un H por un Cl (mucho más pesado) y la simetría se rompe — «es como cambiarle una pieza del juguete por una más pesada: ya no da lo mismo cómo lo hagas girar». <em>(Alguien en la clase: «como una lavadora desbalanceada».)</em></li>
+    <li><strong>Agua (H₂O)</strong>: molécula angular — <strong>tres momentos de inercia distintos</strong>, uno por eje.</li>
+  </ul>
+
+  <p>El mensaje del profesor no es memorizar qué molécula tiene qué momentos («jamás les preguntaría eso»), sino incorporar la idea: <strong>importan los átomos que tiene la molécula y la forma en que están dispuestos</strong>. Con moléculas grandes (cadenas de hidrocarburos con anillos, enlaces dobles y triples, isómeros) la cosa se complica rápidamente — es el campo de la espectroscopía molecular.</p>
+
+  <div class="widget" id="w-rotor">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Rotor rígido: la escalera rotacional de una molécula diatómica</h4>
+    <div class="wgrid">
+      <div>
+        <label for="rot-mol">Molécula</label>
+        <select id="rot-mol">
+          <option value="CO" selected>CO — monóxido de carbono</option>
+          <option value="HCl">HCl — cloruro de hidrógeno</option>
+          <option value="CS">CS — monosulfuro de carbono</option>
+          <option value="H2">H₂ — hidrógeno molecular</option>
+        </select>
+      </div>
+      <div>
+        <label for="rot-j">Transición J+1 → J, con J = <b id="rot-jlab">0</b></label>
+        <input type="range" id="rot-j" min="0" max="7" step="1" value="0">
+      </div>
+    </div>
+    <div class="wout" id="rot-out"></div>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El momento de inercia es un <strong>hash de la estructura</strong>: condensa composición (masas) y disposición (geometría) en pocos números que determinan el espectro rotacional. Dos moléculas con distinta estructura producen «hashes» distintos → espectros distintos → identificables. Es la base de que el espectro funcione como <em>huella digital</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El espectro roto-vibracional: ramas P, Q y R</h2>
+    <p>«La diapo más técnica del módulo» — vibración y rotación acopladas.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-20.jpg" alt="Diagrama de pozos de potencial mostrando estados electrónicos, y dentro de cada uno niveles vibracionales que a su vez contienen niveles rotacionales, con la fórmula W total igual a W electrónico más W rotacional más W vibracional">
+    <figcaption><span class="cap">Diapositiva 20 · Emisión molecular</span>La jerarquía completa en un diagrama de pozos de potencial: dos curvas = dos <strong>estados electrónicos</strong> (fundamental y excitado); dentro de cada curva, los peldaños grandes son <strong>niveles vibracionales</strong>; y dentro de cada peldaño, los chiquititos son <strong>niveles rotacionales</strong>. La energía total: W<sup>tot</sup> = W<sup>el</sup> + W<sup>rot</sup> + W<sup>vib</sup>.</figcaption>
+  </figure>
+
+  <p>En una molécula <strong>diatómica</strong> (la más simple posible — el CO, por ejemplo) la única vibración posible es <strong>cambiar el largo del enlace</strong>. Y aquí viene el acoplamiento elegante:</p>
+
+  <ol class="steps">
+    <li>La vibración cambia el largo del enlace…</li>
+    <li>…lo que cambia la distribución de masas → <strong>cambia el momento de inercia</strong>…</li>
+    <li>…lo que cambia la energía rotacional → <strong>se gatillan transiciones rotacionales</strong>.</li>
+  </ol>
+
+  <p>Por eso las moléculas generan un <span class="hl">espectro roto-vibracional</span>: las transiciones vibracionales y rotacionales vienen entrelazadas. Para una diatómica que sufre una transición vibracional <em>Δv = 1</em>, el número cuántico rotacional puede variar <em>ΔJ = ±1</em>:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Regla</th><th>Rama</th><th>Qué se ve</th></tr></thead>
+    <tbody>
+      <tr><td><b>ΔJ = −1</b></td><td>Rama P</td><td>Serie de líneas hacia un lado de la transición vibracional pura</td></tr>
+      <tr><td><b>ΔJ = +1</b></td><td>Rama R</td><td>Serie de líneas hacia el otro lado</td></tr>
+      <tr><td><b>ΔJ = 0</b></td><td>Rama Q</td><td>Debería ser una sola línea (transición vibracional pura), pero en la práctica son varias porque la vibración no es perfectamente armónica</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="widget" id="w-branch">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Anatomía de una banda: ramas P, Q y R</h4>
+    <label>Pulsa una rama para destacarla:</label>
+    <div class="presets">
+      <button type="button" data-b="p">Rama P (ΔJ = −1)</button>
+      <button type="button" data-b="q">Rama Q (ΔJ = 0)</button>
+      <button type="button" data-b="r">Rama R (ΔJ = +1)</button>
+      <button type="button" data-b="all">Banda completa</button>
+    </div>
+    <div class="branchbox" id="branch-vis" aria-hidden="true"></div>
+    <div class="branchlabels"><span>← menor frecuencia</span><span>centro (vib. pura)</span><span>mayor frecuencia →</span></div>
+    <div class="wout" id="branch-out">La banda molecular completa: decenas de líneas agrupadas en torno a la transición vibracional. Pulsa una rama para ver qué parte aporta.</div>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-28.jpg" alt="Espectro rotacional medido del CF3I mostrando grupos de líneas para las transiciones J 2-3, 3-4 y 4-5 entre 8000 y 18000 MHz">
+    <figcaption><span class="cap">Diapositiva 28 · Espectro rotacional del CF₃I</span>Espectro real: cada grupo de líneas corresponde a una transición rotacional (J″←J′ = 2←3, 3←4, 4←5). Las posiciones se pueden <strong>calcular con mecánica cuántica</strong> — por eso cada molécula es identificable.</figcaption>
+  </figure>
+
+  <h3>Bandas, no líneas — y la huella digital</h3>
+  <p>A diferencia de las líneas atómicas (un electrón: una línea), las moléculas generan <strong>bandas moleculares</strong>: el conjunto P + Q + R que, con poca resolución espectral, se ve como una sola línea gruesa o «lomo». Cada compuesto tiene su patrón único — su <em>huella digital</em> — y todo se puede calcular y catalogar en <strong>librerías espectrales</strong>.</p>
+
+  <div class="box prof">
+    <span class="tag">Cómo se identifica una molécula (el patrón, no la línea)</span>
+    <p>Una sola línea no basta — donde aparece el metanol puede aparecer otra especie. La confirmación es por <strong>patrón</strong>: si esto es metanol, <em>tiene</em> que haber otra banda suya en tal otra frecuencia; se busca, y si está (y la del candidato rival no), confirmado. Igual que con el hidrógeno atómico: Hα sola no prueba nada, pero Hα + Hβ + Hδ en sus posiciones exactas, sí. Hace 20 años esto se hacía semiautomático (el astrónomo marcaba líneas de CO a ojo y el computador verificaba el resto); hoy lo hace el software — y cada vez más la inteligencia artificial.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">La línea estrella: CO J=1→0</span>
+    <p>El salto rotacional J=1→0 del CO emite un fotón de <strong>λ = 2,6 mm</strong>. Chiquitito en energía, enorme comparado con la luz visible (~500 nm): unas <strong>5.000 veces más largo</strong>. Es la línea con que se mapea el gas molecular de las galaxias.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La identificación de moléculas en un espectro es <em>pattern matching contra una base de datos</em>: las librerías espectrales son la tabla de firmas, el espectro observado es el input, y la confirmación exige <strong>múltiples matches consistentes</strong> (como un antivirus que no se conforma con una coincidencia parcial). Las «degeneraciones» (dos especies que comparten una línea) se resuelven consultando las demás líneas predichas — un <em>join</em> con más columnas.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>~150 moléculas: del CO a los fulerenos</h2>
+    <p>El censo de la química interestelar.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-31.jpg" alt="Diapositiva con la diversidad de moléculas detectadas: unas 150 firmemente identificadas, moléculas ordinarias como amoníaco, agua, formaldehído y etanol, y exóticas como HCO+, N2H+ y cadenas de carbono">
+    <figcaption><span class="cap">Diapositiva 31 · Diversidad de moléculas</span>Unas <strong>150 moléculas firmemente identificadas</strong>. Ordinarias: NH₃, H₂O, H₂CO (formaldehído), CH₃CH₂OH (etanol). Exóticas: HCO⁺, N₂H⁺, cadenas HCCCCCCN — «raras en la Tierra, pero no en el espacio».</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>«Firmemente identificadas»</strong> es la palabra clave: si no se encuentran las demás líneas del patrón a mayor y menor energía, la detección no se confirma.</li>
+    <li>Los catálogos se organizan <strong>por número de átomos</strong>: diatómicas, de 3, de 4… hasta moléculas de más de 12 átomos.</li>
+    <li>Las más grandes conocidas: los <strong>fulerenos</strong> (C₆₀, C₇₀) — «pelotas de fútbol» de 60–70 átomos de carbono, encontradas en material eyectado por estrellas.</li>
+    <li>El <strong>grafito</strong> o el hidrógeno molecular muestran que «molécula» no exige elementos distintos: carbono puro o hidrógeno puro en estado molecular tienen propiedades (y espectros roto-vibracionales) propios.</li>
+    <li>Detecciones notables: moléculas con <strong>deuterio</strong> (OD detectado con SOFIA — el deuterio es hidrógeno «pesado»: un protón + un neutrón, sigue siendo hidrógeno), <strong>hidrocarburos aromáticos policíclicos</strong> (PAHs, que emiten en el IR), <strong>aniones</strong> (iones negativos), anillos como el <strong>benceno</strong> — todo un problema explicar cómo se forman anillos a densidades tan bajas.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Por qué las líneas moleculares son irreemplazables</span>
+    <p>Los niveles rotacionales más bajos de las moléculas simples tienen energías equivalentes a <strong>0,1–100 K</strong> — exactamente el rango de temperaturas de las nubes densas y frías, que <em>no emiten líneas atómicas</em>. Por eso <strong>las líneas moleculares son los únicos trazadores de las condiciones físicas de las nubes moleculares</strong>: termómetros y densímetros del material del que nacen las estrellas.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Una huella única, calculable</span>
+    <p>Las combinaciones de niveles son enormes, pero la huella espectral de un compuesto es <strong>única y predecible</strong> desde la mecánica cuántica: se puede calcular dónde caerá cada línea del metano — y también medirlo en laboratorio, porque «uno siempre quiere saber qué tal la teoría».</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Astroquímica y las moléculas de la vida</h2>
+    <p>Agua, carbono ionizado, aminoácidos: la frontera biológica de la astroquímica.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-47.jpg" alt="Diapositiva del ciclo del agua cósmico: hidrógeno producido en el Big Bang, oxígeno producido en las estrellas, y el agua de la Tierra producida en el espacio">
+    <figcaption><span class="cap">Diapositiva 47 · El ciclo del agua (cósmico)</span>1) El <strong>hidrógeno</strong> se produjo en el Big Bang. 2) El <strong>oxígeno</strong> se produce en las estrellas. 3) <strong>El agua de la Tierra se produjo en el espacio</strong> — una molécula con un padre primordial y otro estelar.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>El agua se forma en nebulosas planetarias</strong>: el material eyectado es relativamente denso comparado con el medio interestelar (la estrella estaba a ~10²⁴ partículas/cm³; expandido sigue siendo «denso» en términos interestelares), y los átomos de C, N, O recién fabricados empiezan a combinarse ahí.</li>
+    <li><strong>[CII] a 158 micrones</strong>: el carbono ionizado (C⁺) tiene una transición de <strong>estructura fina</strong> de su último electrón — análoga al cambio de spin que da la línea de 21 cm del hidrógeno — que se detecta en emisión a 158 µm. Es la herramienta estándar para estudiar carbono ionizado en zonas difusas.</li>
+    <li><strong>Herschel en Orión</strong> identificó decenas de moléculas orgánicas: dióxido de azufre, metanol, cianuro de hidrógeno, formaldehído, agua… y muchas líneas siguen sin identificar.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-50.jpg" alt="Espectro del telescopio espacial Herschel en Orión con decenas de líneas moleculares etiquetadas: metanol, dióxido de azufre, cianuro de hidrógeno, agua, formaldehído, éter dimetílico, entre otras">
+    <figcaption><span class="cap">Diapositiva 50 · Moléculas orgánicas en Orión (Herschel/HIFI)</span>Cada pico etiquetado es una banda molecular identificada contra librerías espectrales: la nube de Orión es una farmacia química. (ESA, HIFI, Bergin & HEXOS.)</figcaption>
+  </figure>
+
+  <h3>Las moléculas con importancia biológica</h3>
+  <ul>
+    <li><strong>Formamida, formaldehído y cianuro de hidrógeno</strong>: precursores de aminoácidos, nucleobases, azúcares y lípidos.</li>
+    <li><strong>Glicina</strong> (el aminoácido más simple: una amina NH₂ de la familia del amoníaco + un grupo ácido COOH): <em>reportada pero aún cuestionada</em> — se detectó una señal pero no las demás líneas del patrón. Lo mismo la dihidroxiacetona (el azúcar más simple). Confirmarlas sería demostrar que los ladrillos de la vida se fabrican en el espacio.</li>
+    <li><strong>Etanolamina</strong> (NH₂CH₂CH₂OH, detectada en 2018, confirmada): la «cabeza» más simple de los <strong>fosfolípidos</strong> — los ladrillos de las membranas celulares.</li>
+    <li><strong>Ácido carbónico</strong> (HOCOOH): la primera molécula interestelar con <strong>tres átomos de oxígeno</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-54.jpg" alt="Diapositiva del descubrimiento de etanolamina en la nube molecular G+0.693-0.027 cerca del centro galáctico, mostrando su rol como cabeza de los fosfolípidos de las membranas celulares">
+    <figcaption><span class="cap">Diapositiva 54 · Etanolamina (2018)</span>Detectada en la nube molecular G+0.693−0.027, cerca del centro galáctico. La cadena conceptual de la diapositiva: molécula → fosfolípido → membrana → célula. <em>(La transcripción dice «etaolamina»; el nombre correcto es etanolamina.)</em></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">¿Las semillas de la vida, sembradas en el espacio?</span>
+    <p>Pregunta de estudiante a propósito de un curso de Guido Garay: ¿podría ser que los precursores del ADN/ARN ya existieran en el espacio? La respuesta: los aminoácidos (~22 que forman proteínas) y las bases del ADN son el objetivo de búsqueda activa. Hay señales de glicina (no confirmada), etanolamina confirmada, y muchas moléculas con aminas y grupos ácidos. La química prebiótica en el espacio es un campo abierto y muy vivo.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Coda: oxígeno en el universo bebé</h2>
+    <p>Detecciones de ALMA a la mayor distancia — y la pregunta del huevo y la gallina.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-62.jpg" alt="Diapositiva de la detección de oxígeno con ALMA en la galaxia JADES-GS-z14-0, observada por Webb en 2024, cuya luz viajó 13.4 mil millones de años, cuando el universo tenía solo el 2% de su edad actual">
+    <figcaption><span class="cap">Diapositiva 62 · JADES-GS-z14-0</span>ALMA detectó <strong>oxígeno</strong> en JADES-GS-z14-0 (descubierta por Webb en 2024): su luz viajó <strong>~13,4 mil millones de años</strong> — el universo tenía apenas el <strong>2% de su edad actual</strong>. <em>(Las diapositivas dicen «billones» por anglicismo de</em> billions<em>; en español son miles de millones.)</em></figcaption>
+  </figure>
+
+  <p>El cierre conecta nucleosíntesis, química y cosmología: si ALMA ve oxígeno (y antes lo vio en MACS1149-JD1, a ~13,3 mil millones de años luz), significa que <strong>ya a esa edad temprana había estrellas que habían vivido, fabricado oxígeno y muerto</strong>. La nucleosíntesis empezó casi inmediatamente.</p>
+
+  <div class="box physics">
+    <span class="tag">La última pregunta: ¿el huevo o la gallina (vibrar o rotar)?</span>
+    <p>¿Qué viene primero, la vibración o la rotación? Respuesta: ninguna es «causa» de la otra — ambas se excitan <strong>absorbiendo fotones o por choques</strong>, y una molécula aislada siempre tiende a su <strong>estado de menor energía</strong>: si está rotando, eventualmente se frena <em>emitiendo</em> esos fotones característicos; si está vibrando, lo mismo. Que veamos espectros moleculares significa precisamente que las moléculas se excitan (choques) y se frenan (emisión) una y otra vez. Como un átomo solito que decae a su estado fundamental — pero con tres escaleras de energía en vez de una.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Fin del módulo</span>
+    <p>«Llegamos a la última clase del módulo 2 de estrellas. Toda cosa buena llega a su fin.» El módulo 3 continúa con la evolución estelar — y el adelanto quedó hecho: gigantes rojas, triple alfa, enanas blancas, estrellas de neutrones.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Nucleosíntesis vs. química</b></td><td>Fabricar elementos (física nuclear) vs. fabricar moléculas (enlaces)</td><td>La identidad química la da el número de protones; la química nunca lo cambia</td></tr>
+      <tr><td><b>Proceso triple alfa</b></td><td>3 ⁴He → ¹²C a 100–200 millones de K (núcleo de gigante roja)</td><td>Salta el muro de los núcleos inestables de masa 5 y 8; origen del C, N, O</td></tr>
+      <tr><td><b>Fred Hoyle</b></td><td>Acuñó «Big Bang» para burlarse; demostró la nucleosíntesis estelar</td><td>Quiso destruir el Big Bang y terminó explicando el origen de los elementos</td></tr>
+      <tr><td><b>Hidrógeno primordial</b></td><td>Todo el H del universo viene del Big Bang; ~74% H, ~25% He, ~2% metales</td><td>Las estrellas consumen H, no lo fabrican — «mírate al espejo»</td></tr>
+      <tr><td><b>Presión de degeneración electrónica</b></td><td>Los electrones no pueden compartir estado (Pauli); «asientos de auditorio»</td><td>Detiene el colapso → enana blanca; si la gravedad gana → estrella de neutrones</td></tr>
+      <tr><td><b>Nebulosa planetaria</b></td><td>Evaporación suave de las capas externas (gravedad superficial ∝ M/R²)</td><td>No es explosión; ahí se forman moléculas (incluida el agua)</td></tr>
+      <tr><td><b>Transiciones electrónicas</b></td><td>~10 eV → visible/UV; niveles cuantizados (Bohr); H: 10,2 eV el primer salto, 13,6 eV ionizar</td><td>No ocurren en moléculas dentro de nubes (shielding + romperían el enlace)</td></tr>
+      <tr><td><b>Transiciones vibracionales</b></td><td>~0,1 eV → infrarrojo; número cuántico v; una triatómica tiene 6 modos</td><td>~100× menos energéticas que las electrónicas</td></tr>
+      <tr><td><b>Transiciones rotacionales</b></td><td>~10⁻⁴ eV → microondas/radio; número cuántico J; requieren momento dipolar</td><td>~1.000× menos que las vibracionales; CO J=1→0 a λ=2,6 mm</td></tr>
+      <tr><td><b>Momento de inercia (I)</b></td><td>Resistencia a rotar: masas + geometría; τ = Iα (análogo de F = ma)</td><td>La forma de la molécula fija sus niveles rotacionales (CH₄ simétrico vs. H₂O con 3 ejes)</td></tr>
+      <tr><td><b>Espectro roto-vibracional</b></td><td>Vibrar cambia el enlace → cambia I → gatilla rotaciones</td><td>Las moléculas generan bandas, no líneas</td></tr>
+      <tr><td><b>Ramas P, Q, R</b></td><td>ΔJ = −1 (P), 0 (Q), +1 (R) en una transición Δv = 1</td><td>Anatomía de una banda molecular; la Q se desdobla porque la vibración no es armónica</td></tr>
+      <tr><td><b>Identificación por patrón</b></td><td>Una línea no basta: se confirman las demás líneas predichas (librerías)</td><td>Como Hα + Hβ + Hδ para el hidrógeno; hoy lo hace software/IA</td></tr>
+      <tr><td><b>~150 moléculas confirmadas</b></td><td>De NH₃ y H₂O a HCO⁺, cadenas de C y fulerenos (C₆₀–C₇₀)</td><td>Líneas moleculares: únicos trazadores de nubes densas y frías (0,1–100 K)</td></tr>
+      <tr><td><b>[CII] 158 µm</b></td><td>Transición de estructura fina del carbono ionizado</td><td>Análoga a la línea de 21 cm del HI; traza zonas difusas</td></tr>
+      <tr><td><b>Ciclo del agua cósmico</b></td><td>H del Big Bang + O de las estrellas → H₂O formada en el espacio</td><td>El agua terrestre tiene origen interestelar</td></tr>
+      <tr><td><b>Moléculas prebióticas</b></td><td>Etanolamina (2018, fosfolípidos), ácido carbónico; glicina aún no confirmada</td><td>¿Ladrillos de la vida sembrados desde el espacio?</td></tr>
+      <tr><td><b>Oxígeno a z alto</b></td><td>ALMA: MACS1149-JD1 (~13,3 Gyr) y JADES-GS-z14-0 (~13,4 Gyr, 2% de la edad del universo)</td><td>La nucleosíntesis estelar partió casi de inmediato tras el Big Bang</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c5-examen-01.html">Examen 01<small>Nucleosíntesis y triple alfa</small></a></li>
+    <li><a href="m2c5-examen-02.html">Examen 02<small>Vidas y muertes estelares</small></a></li>
+    <li><a href="m2c5-examen-03.html">Examen 03<small>Composición del ISM</small></a></li>
+    <li><a href="m2c5-examen-04.html">Examen 04<small>Transiciones electrónicas</small></a></li>
+    <li><a href="m2c5-examen-05.html">Examen 05<small>Vibración, rotación y energías</small></a></li>
+    <li><a href="m2c5-examen-06.html">Examen 06<small>Momento de inercia</small></a></li>
+    <li><a href="m2c5-examen-07.html">Examen 07<small>Ramas P, Q, R y bandas</small></a></li>
+    <li><a href="m2c5-examen-08.html">Examen 08<small>Identificación de moléculas</small></a></li>
+    <li><a href="m2c5-examen-09.html">Examen 09<small>Astroquímica y vida</small></a></li>
+    <li><a href="m2c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo II del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Ricardo Muñoz). Elaborado a partir de la transcripción del audio (<code>estrellas/m2/ff/estrellas-m2c5.md</code>) y las diapositivas <code>Modulo_II_Estrellas_Clase_5_RRM.pdf</code> (créditos de imágenes en las diapositivas: NASA/Hubble Heritage Team, CSO, ESA/Herschel HIFI — Bergin & HEXOS, NASA/ESA Webb, ALMA).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «Fred hoy / Hogan / hoy» → Fred Hoyle; «MIPANA / brin / brinco el» → Big Bang; «el Sol va a vivir 10 millones de años» → ~10 <em>mil</em> millones de años; «días 30 kilogramos» → ~2×10³⁰ kg (masa del Sol); «morronscape» → <em>ground state</em>; «etaolamina» → etanolamina; «fulineros / fuleleno» → fulerenos; «SEU / SEO / TCO / seor» → CO; «estados gravitacionales» → estados roto-vibracionales; «los vibracionales se representan por d» → por v (ν); «el tritio tiene dos electrones» → dos <em>neutrones</em>; «neurosa planetaria» → nebulosa planetaria; «la cadena tiende a terminar al formar hidrógeno» → al formar <em>helio</em> (partículas alfa); «billones de años» (diapositivas, anglicismo) → miles de millones de años; «carfono/carbón ionizado» → carbono ionizado [CII]; «N2NCH2COOH» (diapositiva) → NH₂CH₂COOH (glicina). La transcripción se corta al final («Cuando dicen que está en tal estado…»), por lo que los minutos finales de la conversación pueden no estar reflejados. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: energía → ventana espectral ----
+(function(){
+  var slider = document.getElementById('ene-e');
+  var lab = document.getElementById('ene-lab');
+  var out = document.getElementById('ene-out');
+  var needle = document.getElementById('ene-needle');
+  var HC = 1.23984193; // eV·µm
+  function band(lam){ // µm
+    if(lam < 0.38) return {n:"ultravioleta", d:"Energías de transiciones electrónicas fuertes — ionizan átomos y rompen moléculas. Dentro de una nube, el shielding las bloquea."};
+    if(lam < 0.75) return {n:"óptico", d:"Transiciones electrónicas «suaves» (como las de la serie de Balmer del H). Las moléculas de las nubes no emiten aquí."};
+    if(lam < 5) return {n:"infrarrojo cercano", d:"Frontera entre lo electrónico y lo vibracional. Todavía dominado por estrellas."};
+    if(lam < 30) return {n:"infrarrojo medio", d:"Territorio vibracional: estiramientos y flexiones de enlaces moleculares (~0,1 eV)."};
+    if(lam < 300) return {n:"infrarrojo lejano", d:"Vibraciones de baja energía y rotaciones de moléculas livianas. Aquí vive [CII] 158 µm."};
+    return {n:"submilimétrico / radio", d:"Territorio rotacional (~10⁻⁴ eV): las escaleras J del CO y compañía. Lo observa ALMA desde Chajnantor."};
+  }
+  function pos(lam){
+    var x = (Math.log10(lam) - Math.log10(0.05)) / (Math.log10(5000) - Math.log10(0.05));
+    return Math.max(0, Math.min(100, x*100));
+  }
+  function fmtE(E){
+    if(E >= 0.01) return E.toFixed(E>=1?1:2) + " eV";
+    return E.toExponential(1).replace('e-','×10⁻').replace(/⁻(\d)/,function(m,d){return '⁻'+'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d];}) + " eV";
+  }
+  function fmtL(lam){
+    if(lam >= 1000) return (lam/1000).toFixed(lam>=10000?0:1) + " mm";
+    if(lam >= 1) return lam.toFixed(1) + " µm";
+    return (lam*1000).toFixed(0) + " nm";
+  }
+  function tipo(E){
+    if(E > 1) return "electrónica";
+    if(E > 0.005) return "vibracional";
+    return "rotacional (o hiperfina)";
+  }
+  function upd(){
+    var E = Math.pow(10, parseFloat(slider.value));
+    lab.textContent = fmtE(E);
+    var lam = HC / E; // µm
+    var b = band(lam);
+    needle.style.left = "calc(" + pos(lam).toFixed(1) + "% - 1.5px)";
+    out.innerHTML = "<span class='k'>λ = hc/E:</span> <b>" + fmtL(lam) + "</b> → <b>" + b.n + "</b> · <span class='k'>escala típica:</span> <b>" + tipo(E) + "</b><br>" + b.d;
+  }
+  slider.addEventListener('input', upd);
+  document.querySelectorAll('#w-energias .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      slider.value = Math.log10(parseFloat(btn.dataset.e));
+      upd();
+    });
+  });
+  upd();
+})();
+
+// ---- Widget 2: rotor rígido diatómico ----
+(function(){
+  var sel = document.getElementById('rot-mol');
+  var slider = document.getElementById('rot-j');
+  var jlab = document.getElementById('rot-jlab');
+  var out = document.getElementById('rot-out');
+  // B0 en GHz (constante rotacional), nota sobre dipolo
+  var mols = {
+    CO:  {B: 57.636, dip: true,  nota: "La molécula estrella de la radioastronomía: dipolo pequeño pero abundancia enorme."},
+    HCl: {B: 312.99, dip: true,  nota: "Muy liviana (el H pesa poco) → momento de inercia chico → constante rotacional grande → líneas a frecuencias altas."},
+    CS:  {B: 24.496, dip: true,  nota: "Más pesada que el CO → momento de inercia mayor → líneas a frecuencias más bajas. Trazadora de gas denso."},
+    H2:  {B: 1824,   dip: false, nota: "¡Trampa pedagógica! El H₂ es simétrico: <b>no tiene momento dipolar</b> y sus rotaciones puras casi no emiten. Por eso, aunque es la molécula más abundante del universo, se traza con CO."}
+  };
+  function fmtF(f){ // GHz
+    if(f >= 1000) return (f/1000).toFixed(2) + " THz";
+    return f.toFixed(1) + " GHz";
+  }
+  function fmtL(lamMM){
+    if(lamMM >= 1) return lamMM.toFixed(2) + " mm";
+    return (lamMM*1000).toFixed(0) + " µm";
+  }
+  function upd(){
+    var J = parseInt(slider.value);
+    jlab.textContent = J;
+    var m = mols[sel.value];
+    // transición J+1 → J: ν = 2·B·(J+1)
+    var f = 2 * m.B * (J+1); // GHz
+    var lam = 299792.458 / f / 1000; // mm
+    var head = "<span class='k'>Transición J=" + (J+1) + "→" + J + ":</span> <b>ν ≈ " + fmtF(f) + "</b> · <span class='k'>λ ≈</span> <b>" + fmtL(lam) + "</b>";
+    if(!m.dip){
+      out.innerHTML = head + "<br>" + m.nota;
+    } else {
+      var extra = (sel.value === 'CO' && J === 0) ? " — la famosa línea de <b>2,6 mm</b> con que se mapea el gas molecular." : "";
+      out.innerHTML = head + extra + "<br>" + m.nota + "<br><small style='color:var(--muted)'>Modelo de rotor rígido: ν = 2B(J+1). La escalera no es equiespaciada en energía, pero sí en frecuencia de línea — cada peldaño suma 2B.</small>";
+    }
+  }
+  sel.addEventListener('change', upd);
+  slider.addEventListener('input', upd);
+  upd();
+})();
+
+// ---- Widget 3: ramas P, Q, R ----
+(function(){
+  var vis = document.getElementById('branch-vis');
+  var out = document.getElementById('branch-out');
+  // construir banda sintética: rama P (izquierda), Q (centro), R (derecha)
+  var bars = [];
+  function addBar(cls, h){
+    var s = document.createElement('span');
+    s.className = cls;
+    s.style.height = h + "%";
+    vis.appendChild(s);
+    bars.push(s);
+  }
+  var i;
+  for(i = 9; i >= 1; i--){ // rama P: intensidades crecen hacia el centro
+    addBar('p', 18 + (9-i)*7 + (i===3?8:0));
+  }
+  addBar('q', 95); addBar('q', 78); addBar('q', 60); // rama Q desdoblada
+  for(i = 1; i <= 9; i++){ // rama R
+    addBar('r', 18 + (9-i)*7 + (i===3?8:0));
+  }
+  var desc = {
+    p: "<b>Rama P (ΔJ = −1):</b> el salto vibracional ocurre <em>bajando</em> un peldaño rotacional. Sus líneas caen a frecuencias menores que la transición vibracional pura, espaciadas ~2B.",
+    q: "<b>Rama Q (ΔJ = 0):</b> «debería» ser una sola línea (la transición vibracional pura), pero la vibración no es armónica — el momento de inercia cambia entre estados — y la línea se desdobla.",
+    r: "<b>Rama R (ΔJ = +1):</b> el salto vibracional ocurre <em>subiendo</em> un peldaño rotacional: líneas a frecuencias mayores. Junto a la P forma las «alas» de la banda.",
+    all: "La banda molecular completa: decenas de líneas agrupadas en torno a la transición vibracional. Con poca resolución espectral, todo esto se ve como <em>una sola línea gruesa</em> — por eso se habla de <b>bandas</b> moleculares y no de líneas."
+  };
+  function show(which){
+    bars.forEach(function(b){
+      b.classList.toggle('on', which === 'all' || b.classList.contains(which));
+    });
+    out.innerHTML = desc[which];
+  }
+  document.querySelectorAll('#w-branch .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ show(btn.dataset.b); });
+  });
+  show('all');
+})();
+</script>
+</body>
+</html>
