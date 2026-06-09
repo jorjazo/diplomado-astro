@@ -56,6 +56,15 @@ Directorio: `estrellas/`
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `estrellas/m1/compendio.md`; compendio enriquecido: `estrellas/m1/compendio_enriquecido_openstax.md`; respuestas: `estrellas/m1/respuestas_preguntas_repaso.md`; exámenes: `estrellas/m1/examenes_practica/`; diapositivas en `estrellas/m1/diapos/`; transcripciones en `estrellas/m1/ff/` | En revisión |
+| Módulo 2 | 5 clases con diapositivas y transcripciones (`estrellas/m2/diapos/`, `estrellas/m2/ff/`) | Apuntes HTML interactivos del módulo: `estrellas/m2/html/index.html` | En curso |
+
+#### Módulo 2 — Apuntes HTML interactivos
+
+Directorio: `estrellas/m2/html/` (índice: `estrellas/m2/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | El medio interestelar: gas y polvo, espectro EM, radioastronomía, línea de 21 cm (HI), efecto Doppler y mapeo galáctico, gas ionizado (HII) y modelo de Bohr, polvo | `estrellas/m2/html/m2c1-apuntes.html` | `estrellas/m2/html/m2c1-examen-01.html` … `m2c1-examen-10.html` (10) | Resumida |
 
 ## Astrofísica de Galaxias
 

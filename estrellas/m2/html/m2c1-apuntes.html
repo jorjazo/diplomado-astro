@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Medio Interestelar — Astrofísica de Estrellas, Módulo II · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo II · Clase 1</span>
+  <h1>El Medio <em>Interestelar</em></h1>
+  <p class="sub">Qué hay <em>entre</em> las estrellas: gas y polvo. Cómo se observa lo invisible mediante radioastronomía, la línea de 21&nbsp;cm del hidrógeno neutro, el gas ionizado que brilla en rojo y el polvo que nos tapa la vista.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Ricardo Muñoz</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 may 2026</span>
+    <span><b>Sigla:</b> ISM (Interstellar Medium)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>l <span class="hl">medio interestelar</span> es todo el material que hay entre las estrellas. Las estrellas viven principalmente dentro de galaxias porque solo ahí se dan las condiciones —gas, y gas denso— para que se formen. Ese material no llena el espacio de forma uniforme: es una especie de <em>atmósfera</em> ligada gravitacionalmente a la galaxia, que la permea por completo. Su densidad es tan baja que, para estándares terrestres, parecería que el espacio está vacío. No lo está: está lleno de gas y de polvo. El problema central de esta clase es que ese material es casi <em>invisible</em> en luz óptica, y hubo que inventar nuevas formas de “verlo”.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Qué es el medio interestelar</a></li>
+    <li><a href="#s2">Composición: gas, metales y polvo</a></li>
+    <li><a href="#s3">La luz como onda: espectro EM</a></li>
+    <li><a href="#s4">Radioastronomía y su historia</a></li>
+    <li><a href="#s5">Gas atómico: la línea de 21 cm</a></li>
+    <li><a href="#s6">Doppler y el mapa de la Galaxia</a></li>
+    <li><a href="#s7">Gas ionizado y el modelo de Bohr</a></li>
+    <li><a href="#s8">El polvo interestelar</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Qué es el medio interestelar?</h2>
+    <p>Una atmósfera galáctica de densidad ridículamente baja.</p>
+  </div></div>
+
+  <p>Las estrellas no flotan en el vacío absoluto. Entre ellas hay materia, y a ese material lo llamamos <span class="hl">medio interestelar</span> (ISM, por <em>Interstellar Medium</em>). Conviene pensarlo como una atmósfera, pero con dos diferencias respecto a la atmósfera terrestre:</p>
+  <ul>
+    <li>La atmósfera de la Tierra envuelve una esfera y queda “por fuera” de la superficie. El medio interestelar, en cambio, <strong>permea toda la galaxia</strong>: está repartido por todo el volumen del disco.</li>
+    <li>Su densidad es tan baja que ningún vacío de laboratorio terrestre se le acerca. Para nosotros “parece” vacío, pero no lo está.</li>
+  </ul>
+  <p>Puede haber estrellas fuera de las galaxias, pero son excepciones: estrellas que adquirieron velocidades muy altas y <em>escaparon</em>. La norma es que las estrellas se forman y viven dentro de las galaxias, porque ahí está el gas denso que permite su formación.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-03.jpg" alt="Fotografía nocturna de la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva · La trampa visual</span>Una foto nocturna de la Vía Láctea parece mostrar nubes de gas brillante. En realidad, lo que vemos es <strong>luz de muchísimas estrellas</strong> no resueltas. En el óptico, la radiación está dominada por estrellas, no por el gas.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La trampa visual de la Vía Láctea</span>
+    <p>Cuando una imagen óptica parece “nubosidad gaseosa”, casi siempre son estrellas demasiado lejanas para resolverlas una por una. Lo que sí delata al medio interestelar son las <span class="hl">regiones oscuras</span>: ahí hay <em>polvo</em> que bloquea la luz de fondo, igual que el smog de Santiago tapa la vista de la cordillera. El polvo es material particulado con casi el mismo efecto que un mal día de contaminación.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Una imagen óptica de la galaxia es como un dataset con un <em>sesgo de selección</em> fuerte: el canal de medición (el óptico) solo es sensible a una población (las estrellas) y es casi ciego a otra (el gas frío). Conclusiones sacadas de ese único canal estarán sesgadas. La solución no es “mejor resolución”, sino <strong>cambiar de canal</strong> (de banda del espectro), como veremos con la radioastronomía.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Composición: gas, metales y polvo</h2>
+    <p>Tres cuartos de hidrógeno, un cuarto de helio, y trazas que lo cambian todo.</p>
+  </div></div>
+
+  <p>El medio interestelar es principalmente <strong>gas</strong>. Pero “gas” en astronomía no es el gas de cocina: nos referimos sobre todo a <span class="hl">hidrógeno y helio</span>. El universo nació con esa mezcla, en una proporción aproximada de <strong>3/4 de hidrógeno y 1/4 de helio</strong> (≈ 75% / 25% en masa), y eso sigue dominando hoy.</p>
+
+  <h3>Los “metales” de los astrónomos</h3>
+  <p>Ese gas tiene <em>trazas</em> de otros elementos químicos formados en el interior de las estrellas. Las estrellas hacen lo que soñaban los alquimistas: transforman hidrógeno en helio durante casi toda su vida, y al final el helio en carbono y elementos más pesados, hasta el hierro. Los elementos más pesados que el hierro requieren explosiones (supernovas, o <em>kilonovas</em> por fusión de estrellas de neutrones, donde se forman oro y platino).</p>
+
+  <div class="box prof">
+    <span class="tag">Nomenclatura del profesor</span>
+    <p>Para los astrónomos, <strong>todo lo más pesado que el helio es “metal”</strong>. No por flojera: tiene que ver con la nucleosíntesis (cómo se forma el oxígeno se parece a cómo se forma el silicio o el hierro). Así que oxígeno, carbono, nitrógeno… para un astrónomo son “metales”. Hay que sacarse de la cabeza el hierro y el acero.</p>
+  </div>
+
+  <p>Hoy, tras casi 14 mil millones de años, el balance de masa del gas es aproximadamente:</p>
+  <ul>
+    <li><strong>≈ 98%</strong>: hidrógeno + helio.</li>
+    <li><strong>≈ 2%</strong>: metales (todo lo demás).</li>
+    <li>De ese 2%, alrededor de la <strong>mitad (≈ 1%)</strong> ha condensado en partículas sólidas que llamamos <span class="hl">polvo</span>.</li>
+  </ul>
+  <p>Hay variedad: galaxias más pobres o más ricas en metales, pero el promedio ronda el 2%. El medio interestelar se va “contaminando” lentamente de metales a lo largo de la vida del universo.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-48.jpg" alt="Diagrama de composición del medio interestelar y tabla de abundancias">
+    <figcaption><span class="cap">Diapositiva · Composición</span>El gas interestelar es dominado por hidrógeno y helio; el polvo es la componente sólida (≈ 1% de la masa). La tabla muestra abundancias en % de masa por elemento y el “factor de concentración” (cuánto se va al polvo).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La luz como onda: el espectro electromagnético</h2>
+    <p>El óptico es solo una ventanita estrecha de un rango inmenso.</p>
+  </div></div>
+
+  <p>Estamos acostumbrados a interpretar “luz” como el rango visible. Pero <strong>las ondas de radio también son luz</strong>. Fue <span class="hl">Maxwell</span> (hacia 1860) quien desarrolló el electromagnetismo y mostró que la luz es la propagación de ondas electromagnéticas: campo eléctrico y campo magnético oscilando juntos. Más tarde Planck y Einstein mostraron que la luz <em>también</em> es partícula (el fotón), abriendo la mecánica cuántica.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-08.jpg" alt="Espectro electromagnético: gamma, rayos X, UV, visible, IR, radio">
+    <figcaption><span class="cap">Diapositiva · Espectro EM</span>De los rayos gamma (λ ≈ 10⁻¹⁶ m) a las ondas de radio (λ ≈ 10⁸ m): un rango enorme. La luz visible ocupa una franja minúscula entre ~400 nm (violeta) y ~700 nm (rojo). Nuestra intuición del universo se construyó a través de esa rendija.</figcaption>
+  </figure>
+
+  <h3>Las dos ecuaciones que organizan todo</h3>
+  <p>Una onda electromagnética se caracteriza por su longitud de onda <span class="katex-inline" data-tex="\lambda"></span> o, equivalentemente, por su frecuencia <span class="katex-inline" data-tex="\nu"></span>. Maxwell mostró que su producto es siempre la velocidad de la luz:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\lambda \cdot \nu = c \qquad\Longleftrightarrow\qquad \nu = \frac{c}{\lambda}"></div>
+    <small>con <span class="katex-inline" data-tex="c \approx 3\times 10^{8}\,\mathrm{m/s}"></span> (300.000 km/s). Como <span class="katex-inline" data-tex="c"></span> es constante, conocer <span class="katex-inline" data-tex="\lambda"></span> equivale a conocer <span class="katex-inline" data-tex="\nu"></span>: una y otra son la misma información.</small>
+  </div>
+
+  <p>Y la energía que lleva un fotón es proporcional a su frecuencia (constante de Planck <span class="katex-inline" data-tex="h"></span>):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = h\,\nu = \frac{h\,c}{\lambda}, \qquad h \approx 6.626\times 10^{-34}\,\mathrm{J\,s}"></div>
+    <small>Mayor frecuencia ⇒ mayor energía. Menor longitud de onda ⇒ mayor energía. Los fotones de radio (λ grande) son los <em>menos</em> energéticos; los gamma, los más energéticos y peligrosos.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Caracterizar la luz en <span class="katex-inline" data-tex="\lambda"></span> o en <span class="katex-inline" data-tex="\nu"></span> es como elegir entre dos representaciones de la misma señal (tiempo vs. frecuencia). Hay un cambio de variable biyectivo entre ambas, y el rango cubre <em>órdenes de magnitud</em> enormes ⇒ se piensa naturalmente en <strong>escala logarítmica</strong>, como en un diagrama de Bode.</p>
+  </div>
+
+  <div class="widget" id="w-em">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora del espectro: λ · ν = c y E = hν</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa una longitud de onda y obtén frecuencia, energía y la banda del espectro a la que pertenece.</p>
+    <div class="presets" id="em-presets">
+      <button data-lam="0.21">21 cm (HI)</button>
+      <button data-lam="6.56e-7">Hα 656 nm</button>
+      <button data-lam="5.5e-7">Visible 550 nm</button>
+      <button data-lam="1e-3">1 mm</button>
+      <button data-lam="1e-8">UV 10 nm</button>
+      <button data-lam="1e-11">Rayos X</button>
+    </div>
+    <label for="em-lam">Longitud de onda λ (metros)</label>
+    <input type="number" id="em-lam" step="any" value="0.21">
+    <output id="em-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Radioastronomía: ver lo invisible</h2>
+    <p>El gas es transparente en el óptico, pero brilla en radio.</p>
+  </div></div>
+
+  <p>La mayor parte de la energía que las galaxias emiten <em>hoy</em> proviene de sus estrellas, y eso ocurre sobre todo en el óptico. No es casualidad que nuestros ojos —y los de la mayoría de los animales— hayan evolucionado para ver en el óptico: es donde el Sol emite el grueso de su energía (del orden del 90%), y donde la atmósfera terrestre es transparente.</p>
+
+  <p>El gas de hidrógeno y helio, en cambio, es como el aire: <strong>transparente en el óptico</strong>. Por más telescopio y cámara que usemos, no veremos el gas, igual que no se fotografía el aire limpio. Pero el gas <span class="hl">sí emite en ondas de radio</span>. Por eso, para estudiar el medio interestelar, hubo que desarrollar la radioastronomía.</p>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué los detectores son tan distintos?</span>
+    <p>Una cámara óptica detecta fotones porque cada fotón arranca un electrón del material (efecto fotoeléctrico) y se cuenta ese electrón. Si el fotón <em>no tiene energía suficiente</em> (infrarrojo o radio), no arranca electrones y el detector “no se entera”. La radio usa otra tecnología: capta los cambios de campo eléctrico y magnético de la onda. Distinta energía de fotón ⇒ distinto mecanismo de detección. Es la misma luz, medida con instrumentos físicamente diferentes.</p>
+  </div>
+
+  <h3>Un poco de historia</h3>
+  <figure>
+    <img src="m2c1/assets/slide-12.jpg" alt="Antena de Karl Jansky, padre de la radioastronomía">
+    <figcaption><span class="cap">Diapositiva · Jansky (1930–1932)</span><strong>Karl Jansky</strong>, estudiando interferencias en radiocomunicaciones, detectó una señal que se repetía cada <strong>23 h 56 min</strong>: un <em>día sidéreo</em>. Eso delató que el origen era astronómico (el centro de la Galaxia), no terrestre. Se le considera el padre de la radioastronomía.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué 23 h 56 min y no 24 h</span>
+    <p>El día solar dura 24 h, pero respecto a las estrellas la Tierra completa un giro en unos 4 minutos menos (porque además avanza en su órbita alrededor del Sol). Ese periodo de ≈ 23 h 56 min es el <strong>día sidéreo</strong>. Que la señal de Jansky lo siguiera fue la pista de que venía del cielo profundo.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-14.jpg" alt="Mapas de contornos de la emisión radio de Grote Reber">
+    <figcaption><span class="cap">Diapositiva · Reber (1943–1948)</span><strong>Grote Reber</strong> construyó su propio radiotelescopio en el patio de su casa y mapeó la emisión radio del centro galáctico. La radio no produce “imágenes”: se representan <strong>mapas de contornos</strong> (como un mapa topográfico), donde los ejes son coordenadas en el cielo y los contornos, intensidad de señal.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-10.jpg" alt="Radiotelescopio de plato en el desierto">
+    <figcaption><span class="cap">Diapositiva · Radiotelescopio</span>Un radiotelescopio es un telescopio en todo el sentido de la palabra, pero sensible a luz de mucha menor energía que el óptico. Chile concentra muchos de ellos por las condiciones de cielo del desierto.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Un radiotelescopio no entrega una foto: entrega <strong>una señal de intensidad por posición en el cielo</strong>. Construir una “imagen” a partir de eso es un problema de reconstrucción (interferometría, transformadas, deconvolución). “Cómo se vería esto en radio si tuviéramos ojos de radio” es siempre una <em>extrapolación</em>, no un dato directo.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Gas atómico neutro (HI): la línea de 21 cm</h2>
+    <p>La transición más improbable y más útil de la astronomía.</p>
+  </div></div>
+
+  <p>La mayor parte del gas del medio interestelar es <span class="hl">hidrógeno neutro</span>: un protón con su electrón. Notación astronómica (que disgusta a los químicos):</p>
+  <ul>
+    <li><strong>HI</strong> (hidrógeno “uno”, con número romano) = hidrógeno <em>neutro</em>.</li>
+    <li><strong>HII</strong> (hidrógeno “dos”) = hidrógeno <em>ionizado</em> (perdió su electrón, queda el protón solo).</li>
+  </ul>
+  <p>El problema: el hidrógeno atómico neutro es <strong>casi invisible</strong>. No emite prácticamente nada… salvo por una particularidad cuántica.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-18.jpg" alt="Configuraciones de spin paralelo y antiparalelo del hidrógeno">
+    <figcaption><span class="cap">Diapositiva · Estructura hiperfina</span>El protón y el electrón tienen <em>spin</em> (una propiedad magnética “como si rotaran”). Si ambos spines están <strong>paralelos</strong>, el átomo tiene un poquito más de energía que si están <strong>antiparalelos</strong>. La frecuencia exacta de la transición es <span class="katex-inline" data-tex="\nu_{10} = 1{,}420405751786\times10^{9}\ \mathrm{Hz}"></span>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-20.jpg" alt="Diagrama del spin-flip y emisión del fotón de 21 cm">
+    <figcaption><span class="cap">Diapositiva · El spin-flip</span>Cuando el electrón cambia espontáneamente de spin paralelo a antiparalelo, libera esa pequeña diferencia de energía como un fotón de <strong>longitud de onda 21 cm</strong> (≈ 1,4 GHz). Es indetectable en el óptico, pero accesible para un radiotelescopio.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué 21 cm?</span>
+    <p>No hay nada mágico en 21 cm: es simplemente la longitud de onda que corresponde a esa diferencia de energía hiperfina. Podría haber sido 42 u 85 cm; salió 21. La línea fue <strong>predicha teóricamente</strong> y detectada por primera vez en <strong>1951</strong>. Su utilidad es enorme: como no hay ninguna otra línea cerca (entre ~10 y ~50 cm), si detectas algo en ~21 cm sabes que es hidrógeno neutro.</p>
+  </div>
+
+  <h3>La transición más improbable… que vemos todo el tiempo</h3>
+  <p>La probabilidad de que un átomo de hidrógeno haga este spin-flip es bajísima: unas <span class="katex-inline" data-tex="10^{23}"></span> veces menor que las transiciones ópticas típicas. En promedio, un átomo dado tarda <strong>unos 11–12 millones de años</strong> en emitir su fotón de 21 cm. ¿Cómo, entonces, lo detectamos continuamente?</p>
+
+  <div class="box prof">
+    <span class="tag">El argumento estadístico</span>
+    <p>Porque hay <strong>muchísimo</strong> hidrógeno. Si un átomo tarda en promedio 12 millones de años, entonces con 12 millones de átomos esperaríamos ≈ 1 emisión por año; con muchos más, una emisión por milésima de segundo, etc. Hay tantos átomos en la Galaxia que <em>siempre</em> hay alguno haciendo el spin-flip ahora mismo. La intuición humana es mala con la estadística; aquí el promedio enorme por átomo se vuelve un flujo constante por la cantidad colosal de átomos.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es exactamente un <strong>proceso de Poisson</strong>: cada átomo es un evento rarísimo e independiente, pero con <span class="katex-inline" data-tex="N"></span> gigantesco la tasa agregada <span class="katex-inline" data-tex="R = N/\tau"></span> es alta y estable. La misma matemática que modela “fallos rarísimos por servidor” en una flota enorme de servidores, o clicks raros en millones de usuarios.</p>
+  </div>
+
+  <div class="widget" id="w-stat">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿Por qué vemos la línea de 21 cm todo el tiempo?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Cada átomo emite en promedio una vez cada <span class="katex-inline" data-tex="\tau \approx"></span> 11 millones de años. Mueve la cantidad de átomos y mira cuántas emisiones por segundo produce esa nube.</p>
+    <label for="st-n">Número de átomos de H (potencia de 10): <span id="st-nlab"></span></label>
+    <input type="range" id="st-n" min="0" max="60" step="1" value="50">
+    <output id="st-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Efecto Doppler y el mapa de la Galaxia</h2>
+    <p>La línea no siempre aparece exactamente en 21 cm: eso es información.</p>
+  </div></div>
+
+  <p>Si una nube de hidrógeno no se mueve respecto a nosotros, vemos la línea exactamente en 21 cm. Pero si se <strong>aleja</strong>, la longitud de onda observada se estira (corrimiento al <span class="hl">rojo</span>); si se <strong>acerca</strong>, se comprime (corrimiento al <span class="hl">azul</span>). Es el <em>efecto Doppler</em>, el mismo de la sirena de una ambulancia que cambia de tono al pasar.</p>
+
+  <div class="box physics">
+    <span class="tag">“Rojo” y “azul” en radio</span>
+    <p>Hablar de “corrimiento al rojo” en una onda de radio puede sonar raro (el rojo es óptico). No significa que se vea roja: <strong>“al rojo” = la energía baja / λ aumenta</strong> (la dirección hacia donde está el rojo en el espectro), y <strong>“al azul” = la energía sube / λ disminuye</strong>. Es una convención de dirección en el espectro, no un color literal.</p>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{\Delta\lambda}{\lambda_0} = \frac{v}{c} \qquad\Rightarrow\qquad \lambda_{\text{obs}} = \lambda_0\left(1 + \frac{v}{c}\right)"></div>
+    <small>con <span class="katex-inline" data-tex="v>0"></span> alejándose (al rojo) y <span class="katex-inline" data-tex="v<0"></span> acercándose (al azul). Válido para <span class="katex-inline" data-tex="v \ll c"></span>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-22.jpg" alt="Perfiles de línea de 21 cm y ensanchamientos">
+    <figcaption><span class="cap">Diapositiva · Perfiles de línea</span>La <em>forma, ancho y posición</em> de la línea dan información cinemática. El ancho natural es minúsculo (~10⁻¹⁶ km/s); el ensanchamiento térmico es pequeño (~0,9·√T km/s, ≈ 0,9 km/s a 100 K), pero las turbulencias (~5 km/s) y los movimientos a gran escala (~10 km/s) producen anchos observados de ~100 km/s.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-dop">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Doppler de la línea de 21 cm</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la velocidad de la nube (positiva = se aleja). Mira hacia dónde se corre la línea de 21 cm.</p>
+    <label for="dop-v">Velocidad radial v (km/s): <span id="dop-vlab"></span></label>
+    <input type="range" id="dop-v" min="-300" max="300" step="1" value="120">
+    <output id="dop-out"></output>
+  </div>
+
+  <h3>Mapear la Vía Láctea con hidrógeno</h3>
+  <p>La línea de 21 cm permite dos cosas a la vez: medir <strong>cuánto</strong> hidrógeno hay (por la intensidad) y <strong>cómo se mueve</strong> (por el Doppler). Combinando ambas se reconstruye la estructura del disco galáctico, algo dificilísimo porque estamos <em>dentro</em> de la Galaxia y no podemos salir a fotografiarla.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-24.jpg" alt="Mapa de hidrógeno neutro de Oort, Kerr y Westerhout 1958">
+    <figcaption><span class="cap">Diapositiva · Mapa HI de la Galaxia</span>Uno de los primeros mapas de hidrógeno neutro (Oort, Kerr &amp; Westerhout, 1958). No se parece mucho a la imagen idealizada de una galaxia, pero reveló que la Vía Láctea es una <strong>galaxia espiral</strong>, deducido de la línea de 21 cm.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-26.jpg" alt="Escalas de la Vía Láctea derivadas del mapeo de hidrógeno">
+    <figcaption><span class="cap">Diapositiva · Escalas</span>Diámetro de la Vía Láctea ≈ <strong>100.000 años luz</strong>; el Sol está a ≈ <strong>26.000 años luz</strong> del centro. Para comparar: el Sol está a 8 minutos-luz de la Tierra y la Luna a ≈ 1,2 segundos-luz.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-28.jpg" alt="Representación artística de la Vía Láctea con la posición del Sol">
+    <figcaption><span class="cap">Diapositiva · “We are here”</span>Representación artística de la Vía Láctea. <strong>Ojo:</strong> el tono azulado es una tradición histórica (las primeras placas fotográficas eran sensibles al azul, donde brilla la formación estelar). No es necesariamente “el color real” de la galaxia.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Por qué importa el cielo del sur</span>
+    <p>El centro galáctico (hacia Sagitario/Escorpión) se observa mucho mejor desde el hemisferio sur. Esa es una de las razones por las que se instalaron grandes observatorios en el sur a partir de los años 50: desde el norte el centro de la Galaxia queda muy bajo y poco tiempo visible.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Gas ionizado (HII) y el modelo de Bohr</h2>
+    <p>Cuando el gas se calienta y los electrones se recombinan: el rojo de la formación estelar.</p>
+  </div></div>
+
+  <p>Cuando el gas se calienta mucho, se <strong>ioniza</strong>: los átomos de hidrógeno pierden su electrón y quedan los protones (HII). Un protón solo no emite. Pero los electrones libres quedan cerca, sienten la atracción eléctrica del núcleo y se <strong>recombinan</strong>. Al recombinarse, van cayendo por niveles de energía y emiten fotones. Uno de esos fotones cae en el óptico, en el rojo: es la radiación <span class="hl">Hα</span>.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-34.jpg" alt="Nebulosa Trífida, región de gas ionizado">
+    <figcaption><span class="cap">Diapositiva · Región HII</span>Las regiones rojizas en imágenes de galaxias son <strong>hidrógeno ionizado recombinándose</strong>. La parte azulada son estrellas jóvenes y masivas; la rojiza es el gas ionizado por su luz ultravioleta.</figcaption>
+  </figure>
+
+  <h3>El modelo de Bohr: por qué hay líneas</h3>
+  <p>Hacia 1900–1910 era un misterio por qué el hidrógeno calentado emite <em>líneas</em> de colores (no un arcoíris continuo), y por qué la luz continua que atraviesa hidrógeno frío muestra <em>líneas oscuras</em> de absorción siempre en los mismos lugares. <span class="hl">Bohr</span> propuso la idea clave: los electrones ligados solo pueden ocupar <strong>ciertos niveles de energía permitidos</strong>.</p>
+
+  <div class="box physics">
+    <span class="tag">La analogía de las sillas</span>
+    <p>Los niveles de energía son como sillas en un auditorio: solo te puedes sentar donde hay silla, no “entre medio”. Para <strong>subir</strong> de nivel, el electrón debe absorber un fotón con la <em>energía exacta</em> del salto (ni más ni menos, como pagar un precio justo). Luego cae espontáneamente a niveles más bajos <strong>emitiendo</strong> un fotón por cada salto. Como los saltos permitidos son discretos, las energías emitidas/absorbidas son discretas ⇒ <strong>líneas</strong>, no un continuo.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-32.jpg" alt="Diagrama de niveles de Bohr y series de Lyman, Balmer y Paschen del hidrógeno">
+    <figcaption><span class="cap">Diapositiva · Series del hidrógeno</span>Saltos que terminan en n=1 → <strong>serie de Lyman</strong> (UV); en n=2 → <strong>serie de Balmer</strong> (parte en el óptico); en n=3 → <strong>serie de Paschen</strong> (IR). La transición <strong>3→2</strong> es <strong>Hα</strong>, en el rojo (656 nm). <em>(Nota: la diapositiva escribe “680 nm”; el valor correcto y el del propio diagrama es ≈ 656 nm.)</em></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Energía del salto = color del fotón</span>
+    <p>El fotón emitido es proporcional al <em>tamaño</em> del salto de energía. Saltos grandes (que terminan en n=1) son muy energéticos ⇒ UV (Lyman). Saltos menores (terminan en n=3) ⇒ IR (Paschen). La única transición de la serie de Balmer que cae justo en el óptico-rojo es Hα (3→2). Por eso las regiones de gas ionizado se ven <strong>rojas</strong>.</p>
+  </div>
+
+  <p>El modelo de Bohr funcionaba perfecto para el hidrógeno, pero fallaba con el helio y otros átomos; lo reemplazó la <strong>mecánica cuántica</strong>. Aun así, la idea central —niveles de energía discretos— sigue siendo válida y suficiente para entender esta clase.</p>
+
+  <div class="widget" id="w-ryd">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Transiciones del hidrógeno (fórmula de Rydberg)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige el nivel inicial y final y calcula la longitud de onda del fotón emitido, en qué serie y banda cae.</p>
+    <div class="wgrid">
+      <div><label for="ry-hi">Nivel superior n₂</label><input type="number" id="ry-hi" min="2" max="20" step="1" value="3"></div>
+      <div><label for="ry-lo">Nivel inferior n₁</label><input type="number" id="ry-lo" min="1" max="19" step="1" value="2"></div>
+    </div>
+    <output id="ry-out"></output>
+  </div>
+
+  <h3>Dos formas de ionizar el gas</h3>
+  <ul>
+    <li><strong>Fotoionización</strong> (la más común): estrellas jóvenes muy masivas, con superficies de 20.000–30.000 K, emiten mucha luz <em>ultravioleta</em>. Esos fotones UV arrancan los electrones del hidrógeno.</li>
+    <li><strong>Ionización mecánica</strong>: en gas muy caliente (~10.000 K), las partículas se mueven tan rápido que al chocar se arrancan electrones unas a otras. No se fusionan: para fusión harían falta ~15 millones de K (como en el núcleo del Sol).</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">El gas rojo delata formación estelar</span>
+    <p>Las estrellas muy masivas viven poquísimo: una de 10 M<sub>☉</sub> vive ≈ 10 millones de años; una de 30 M<sub>☉</sub>, ≈ 2 millones (frente a los ≈ 10.000 millones del Sol). El gas ionizado no alcanza a dispersarse antes de que esas estrellas mueran, así que <strong>donde ves gas rojo (Hα), hay formación estelar en curso</strong>. Es la gran excepción a “todo lo que se ve es luz de estrellas”.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>El polvo interestelar</h2>
+    <p>Solo el ~1% de la masa, pero suficiente para taparnos la vista.</p>
+  </div></div>
+
+  <p>La otra gran componente del medio interestelar es el <span class="hl">polvo</span>: partículas sólidas, granos diminutos. Vive normalmente en nubes frías (~100–200 K) y, aunque es solo ≈ 1% de la masa, basta para absorber luz óptica y crear las nebulosas oscuras.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-38.jpg" alt="Microfotografía de un grano de polvo interestelar">
+    <figcaption><span class="cap">Diapositiva · Granos de polvo</span>Tamaño de los granos: <strong>1 nm – 10 µm</strong> (comparable a la longitud de onda de la luz visible, lo que explica su interacción con la luz). Composición: grafito, carburo de silicio (SiC), silicatos, H₂, H₂O.</figcaption>
+  </figure>
+
+  <h3>Extinción y enrojecimiento</h3>
+  <figure>
+    <img src="m2c1/assets/slide-40.jpg" alt="Diagrama de extinción y enrojecimiento por polvo">
+    <figcaption><span class="cap">Diapositiva · Reddening &amp; extinction</span><strong>Extinción</strong>: el polvo reduce la intensidad de la luz que lo atraviesa. <strong>Enrojecimiento</strong>: la luz azul (λ corta) es dispersada con más eficiencia por los granos, así que lo que pasa queda “más rojo”. Por eso el polvo enrojece y atenúa la luz de fondo.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El enrojecimiento es un <strong>filtro dependiente de la frecuencia</strong>: atenúa más las componentes de alta frecuencia (azul) que las de baja (rojo). Es un sesgo sistemático del canal de medición; corregir por extinción es “des-filtrar” la señal antes de interpretarla, igual que se compensa la respuesta no plana de un sensor.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-42.jpg" alt="Diagrama de sputtering: destrucción del polvo">
+    <figcaption><span class="cap">Diapositiva · Sputtering</span>El polvo también se destruye: colisiones con átomos de gas, fotones y otros granos lo erosionan (<em>sputtering</em>). Por eso los granos sobreviven sobre todo en los <strong>núcleos fríos y densos de las nubes moleculares</strong>.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Por qué el polvo obliga a usar radio</span>
+    <p>El polvo bloquea el óptico, así que no podemos ver qué ocurre <em>dentro</em> de las nubes oscuras (justo donde nacen las estrellas). La solución es observar en <strong>radio/infrarrojo</strong>, que atraviesan el polvo. Por eso se construyen radiotelescopios como ALMA: para ver la formación estelar escondida tras el polvo.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>Quedaron diapositivas pendientes sobre el <strong>gas molecular</strong> (H₂, y trazadores como el CO; se han descubierto cientos de moléculas en el espacio, hasta etanol). El gas necesita enfriarse mucho para volverse molecular. Se retoma en la siguiente clase del módulo.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Medio interestelar (ISM)</b></td><td>Gas + polvo entre las estrellas</td><td>Materia prima de las estrellas; casi invisible en óptico</td></tr>
+      <tr><td><b>Composición del gas</b></td><td>≈ 75% H, ≈ 25% He; ≈ 2% metales</td><td>Define la química; los metales se forman en estrellas</td></tr>
+      <tr><td><b>“Metales”</b></td><td>Todo lo más pesado que el He</td><td>Nomenclatura astronómica (no es hierro/acero)</td></tr>
+      <tr><td><b>λ · ν = c</b></td><td><span class="katex-inline" data-tex="c\approx3\times10^8"></span> m/s</td><td>λ y ν son la misma información</td></tr>
+      <tr><td><b>E = h·ν</b></td><td><span class="katex-inline" data-tex="h\approx6{,}63\times10^{-34}"></span> J·s</td><td>Más frecuencia ⇒ más energía del fotón</td></tr>
+      <tr><td><b>Línea de 21 cm</b></td><td>Spin-flip del HI; ≈ 1,4 GHz</td><td>Permite ver y mapear el hidrógeno neutro</td></tr>
+      <tr><td><b>τ del spin-flip</b></td><td>≈ 11–12 millones de años por átomo</td><td>Rarísima, pero el flujo es constante por la cantidad de átomos</td></tr>
+      <tr><td><b>Efecto Doppler</b></td><td><span class="katex-inline" data-tex="\Delta\lambda/\lambda_0=v/c"></span></td><td>Da la velocidad del gas ⇒ rotación galáctica</td></tr>
+      <tr><td><b>HI / HII</b></td><td>Hidrógeno neutro / ionizado</td><td>HII recombinándose emite Hα (rojo)</td></tr>
+      <tr><td><b>Hα (Balmer 3→2)</b></td><td>≈ 656 nm (óptico, rojo)</td><td>Traza regiones de formación estelar</td></tr>
+      <tr><td><b>Modelo de Bohr</b></td><td>Niveles de energía discretos</td><td>Explica las líneas de emisión/absorción</td></tr>
+      <tr><td><b>Polvo</b></td><td>Granos sólidos 1 nm–10 µm; ≈ 1% masa</td><td>Extinción y enrojecimiento; oculta el óptico</td></tr>
+      <tr><td><b>Escalas de la Galaxia</b></td><td>⌀ ≈ 100.000 ly; Sol a 26.000 ly del centro</td><td>Derivadas del mapeo en 21 cm</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c1-examen-01.html">Examen 01<small>Composición e ISM</small></a></li>
+    <li><a href="m2c1-examen-02.html">Examen 02<small>Espectro EM</small></a></li>
+    <li><a href="m2c1-examen-03.html">Examen 03<small>Radioastronomía</small></a></li>
+    <li><a href="m2c1-examen-04.html">Examen 04<small>Línea de 21 cm</small></a></li>
+    <li><a href="m2c1-examen-05.html">Examen 05<small>Estadística del HI</small></a></li>
+    <li><a href="m2c1-examen-06.html">Examen 06<small>Doppler y mapeo</small></a></li>
+    <li><a href="m2c1-examen-07.html">Examen 07<small>Gas ionizado</small></a></li>
+    <li><a href="m2c1-examen-08.html">Examen 08<small>Modelo de Bohr</small></a></li>
+    <li><a href="m2c1-examen-09.html">Examen 09<small>El polvo</small></a></li>
+    <li><a href="m2c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo II del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Ricardo Muñoz, 24 may 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m2/ff/estrellas-m2c1.md</code>) y las diapositivas <code>Modulo_II_Estrellas_Clase_1_RRM.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. Hα ≈ 656 nm, no 680 nm; constante de Planck ≈ 6,63×10⁻³⁴ J·s; τ del spin-flip ≈ 11–12 millones de años). Algunas frases del audio eran ambiguas y se interpretaron con cuidado. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes físicas ----
+var C = 299792458;          // m/s
+var H = 6.62607015e-34;     // J s
+var EV = 1.602176634e-19;   // J por eV
+
+// ---- Widget 1: espectro EM ----
+(function(){
+  var lam = document.getElementById('em-lam');
+  var out = document.getElementById('em-out');
+  function band(l){
+    if(l > 1e-1) return ["Radio (onda larga)","#6fc7d6"];
+    if(l > 1e-3) return ["Radio / microondas","#6fc7d6"];
+    if(l > 7e-7) return ["Infrarrojo","#e0a13a"];
+    if(l >= 4e-7) return ["Visible (óptico)","#7ee07e"];
+    if(l > 1e-8) return ["Ultravioleta","#a07ff0"];
+    if(l > 1e-11) return ["Rayos X","#f06a5e"];
+    return ["Rayos gamma","#e0382e"];
+  }
+  function calc(){
+    var l = parseFloat(lam.value);
+    if(!(l>0)){ out.innerHTML = "Ingresa una longitud de onda positiva."; return; }
+    var nu = C/l, E = H*nu, Eev = E/EV;
+    var b = band(l);
+    out.innerHTML = "<span class='k'>ν</span> = <b>"+nu.toExponential(3)+"</b> Hz &nbsp;·&nbsp; "+
+      "<span class='k'>E</span> = <b>"+E.toExponential(3)+"</b> J = <b>"+Eev.toExponential(3)+"</b> eV<br>"+
+      "Banda: <b style='color:"+b[1]+"'>"+b[0]+"</b>";
+  }
+  lam.addEventListener('input', calc);
+  document.querySelectorAll('#em-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ lam.value = btn.dataset.lam; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: estadística 21 cm ----
+(function(){
+  var n = document.getElementById('st-n');
+  var lab = document.getElementById('st-nlab');
+  var out = document.getElementById('st-out');
+  var tau_yr = 11e6;                 // años promedio por átomo
+  var tau_s = tau_yr * 3.1557e7;     // segundos
+  function fmtTime(s){
+    if(s < 1e-3) return (s*1e6).toFixed(2)+" microsegundos";
+    if(s < 1) return (s*1e3).toFixed(2)+" milisegundos";
+    if(s < 60) return s.toFixed(2)+" segundos";
+    if(s < 3600) return (s/60).toFixed(2)+" minutos";
+    if(s < 86400) return (s/3600).toFixed(2)+" horas";
+    if(s < 3.156e7) return (s/86400).toFixed(2)+" días";
+    return (s/3.156e7).toExponential(2)+" años";
+  }
+  function calc(){
+    var p = parseInt(n.value,10);
+    var N = Math.pow(10, p);
+    lab.textContent = "10^"+p+" átomos";
+    var R = N / tau_s;                 // emisiones por segundo
+    var dt = 1/R;                       // tiempo entre emisiones
+    out.innerHTML = "Tasa de emisión de la nube: <b>"+R.toExponential(3)+"</b> fotones/s<br>"+
+      "Tiempo típico <span class='k'>entre</span> dos emisiones: <b>"+fmtTime(dt)+"</b><br>"+
+      (R>1 ? "→ Hay emisión prácticamente <b>continua</b>: por eso siempre la detectamos." 
+           : "→ Con tan pocos átomos habría que <b>esperar mucho</b> entre fotones.");
+  }
+  n.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 3: Doppler 21 cm ----
+(function(){
+  var v = document.getElementById('dop-v');
+  var lab = document.getElementById('dop-vlab');
+  var out = document.getElementById('dop-out');
+  var lam0 = 21.106;   // cm (línea HI)
+  var nu0 = 1420.4058; // MHz
+  function calc(){
+    var vv = parseFloat(v.value);
+    lab.textContent = vv+" km/s";
+    var beta = (vv*1000)/C;
+    var lamObs = lam0*(1+beta);
+    var nuObs = nu0/(1+beta);
+    var dir = vv>0 ? "<b style='color:#f06a5e'>al rojo</b> (se aleja)" :
+              vv<0 ? "<b style='color:#6fc7d6'>al azul</b> (se acerca)" :
+              "sin corrimiento (en reposo)";
+    out.innerHTML = "λ observada: <b>"+lamObs.toFixed(4)+"</b> cm &nbsp;·&nbsp; "+
+      "ν observada: <b>"+nuObs.toFixed(4)+"</b> MHz<br>"+
+      "Δλ = <b>"+((lamObs-lam0)).toFixed(4)+"</b> cm → corrimiento "+dir;
+  }
+  v.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 4: Rydberg ----
+(function(){
+  var hi = document.getElementById('ry-hi');
+  var lo = document.getElementById('ry-lo');
+  var out = document.getElementById('ry-out');
+  var Rinf = 1.0973731568e7; // m^-1
+  function serie(n1){
+    return {1:"Lyman (UV)",2:"Balmer (óptico/UV cercano)",3:"Paschen (IR)",4:"Brackett (IR)",5:"Pfund (IR)"}[n1] || "serie n₁="+n1+" (IR lejano)";
+  }
+  function band(l){
+    if(l < 1e-8) return "rayos X";
+    if(l < 4e-7) return "ultravioleta";
+    if(l < 7e-7) return "visible";
+    if(l < 1e-3) return "infrarrojo";
+    return "radio";
+  }
+  function calc(){
+    var n2 = parseInt(hi.value,10), n1 = parseInt(lo.value,10);
+    if(!(n2>n1) || n1<1){ out.innerHTML = "Requiere n₂ &gt; n₁ ≥ 1."; return; }
+    var invLam = Rinf*(1/(n1*n1) - 1/(n2*n2));
+    var lam = 1/invLam;              // m
+    var nm = lam*1e9;
+    var E = H*C/lam/EV;             // eV
+    var name = (n1===2 && n2===3) ? " — esta es <b>Hα</b>" :
+               (n1===2 && n2===4) ? " — esta es <b>Hβ</b>" :
+               (n1===1 && n2===2) ? " — esta es <b>Lyman-α</b>" : "";
+    out.innerHTML = "Transición <b>"+n2+"→"+n1+"</b>: λ = <b>"+nm.toFixed(1)+"</b> nm "+
+      "("+band(lam)+")<br>Serie de <b>"+serie(n1)+"</b>"+name+"<br>"+
+      "Energía del fotón: <b>"+E.toFixed(3)+"</b> eV";
+  }
+  hi.addEventListener('input', calc);
+  lo.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>
