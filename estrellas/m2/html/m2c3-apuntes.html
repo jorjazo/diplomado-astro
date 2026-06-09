@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nubes Moleculares y Formación Estelar — Astrofísica de Estrellas, Módulo II · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.4em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.ladder{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ladder span{font-family:"Fraunces",serif;font-size:.84rem;border:1px solid var(--line);border-radius:999px;
+  padding:5px 12px;color:var(--muted);transition:.15s}
+.ladder span.on{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px -6px var(--gold)}
+/* collapse timeline */
+.phasebar{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.phasebar span{flex:1;min-width:110px;text-align:center;font-family:"Fraunces",serif;font-size:.78rem;
+  border:1px solid var(--line);border-radius:9px;padding:8px 6px;color:var(--muted);transition:.2s}
+.phasebar span.on{border-color:var(--red);color:#fff;background:#1a0f12;box-shadow:0 0 18px -8px var(--red)}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo II · Clase 3</span>
+  <h1>Nubes moleculares y <em>formación estelar</em></h1>
+  <p class="sub">El cierre de la química de las nubes (self-shielding, rayos cósmicos, el CO como trazador y termómetro) y el corazón de la clase: cómo una nube fría de 20 K colapsa hasta encender una estrella de millones de grados — gracias a que el CO y el H₂ funcionan como sistema de refrigeración.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Ricardo Muñoz</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> mayo 2026</span>
+    <span><b>Tema:</b> Formación estelar</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a formación estelar es, en palabras del profesor, <em>«uno de los procesos astrofísicos que todavía nos falta por entender bastante»</em>. Tenemos una <span class="hl">buena historia</span> — sabemos cómo tiene que ser el proceso a grandes rasgos — pero es un área abierta y de investigación activa, no un capítulo cerrado en un libro de biblioteca. Esta clase termina lo pendiente de nubes moleculares (autoprotección, rayos cósmicos, el CO como termómetro) y luego cuenta esa historia: el <strong>colapso gravitacional</strong> de una nube fría, los <strong>mecanismos de enfriamiento</strong> que lo hacen posible, el <strong>primer y segundo colapso</strong> de Larson, y el misterio de las primeras estrellas del universo (Población III).</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Repaso: H₂ nace sobre el polvo; la hidrogenación</a></li>
+    <li><a href="#s2">Bombardeo y autoprotección (self-shielding)</a></li>
+    <li><a href="#s3">CO: trazador del H₂ invisible</a></li>
+    <li><a href="#s4">Rotación cuantizada: el termómetro molecular</a></li>
+    <li><a href="#s5">El zoológico de nubes y de dónde viene el C, N, O</a></li>
+    <li><a href="#s6">Formación estelar: el problema del colapso</a></li>
+    <li><a href="#s7">Primer colapso: la nube que sabe enfriarse</a></li>
+    <li><a href="#s8">Opacidad, segundo colapso y protoestrella</a></li>
+    <li><a href="#s9">Población III: las primeras estrellas</a></li>
+    <li><a href="#s10">Ventanas atmosféricas y los cielos de Chile</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Repaso: el H₂ nace sobre el polvo, y con él la química</h2>
+    <p>Hidrogenación de O, C y N: agua, hidrocarburos, amoníaco… y los pilares de la vida.</p>
+  </div></div>
+
+  <p>La clase retoma el punto donde quedó la anterior. La mayor parte del hidrógeno del universo está como <strong>hidrógeno ionizado</strong> (el protón solito — sigue llamándose hidrógeno porque la identidad química la da el <em>número de protones del núcleo</em>, no los electrones) o como <strong>hidrógeno neutro</strong>. Pero cuando se dan las condiciones — <span class="hl">alta densidad y baja temperatura</span> — el hidrógeno atómico se vuelve molecular, y eso ocurre principalmente <strong>sobre la superficie de los granos de polvo</strong>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-02.jpg" alt="Esquema de átomos de hidrógeno posándose sobre un grano de polvo, formando H2 y liberándose por desorción térmica">
+    <figcaption><span class="cap">Diapositiva 2 · La fábrica de H₂</span>Dos átomos de H se posan sobre el grano; al unirse forman H₂ y liberan la diferencia de energía (ΔH) <em>al propio grano</em>, que se calienta levemente — y ese calentamiento despega la molécula (desorción térmica). Un proceso «bien autosuficiente»: la energía de formación es justo la que hace falta para liberar el producto.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué se forma la molécula</span>
+    <p>La molécula de H₂ tiene <strong>un poquito menos de energía que la suma de sus partes</strong>. Muchos procesos físicos ocurren porque el sistema busca estados de menor energía; la diferencia no se pierde: se libera al grano de polvo y termina devolviendo la molécula al gas.</p>
+  </div>
+
+  <p>En los granos no solo se forma H₂. También ocurre la <span class="hl">hidrogenación</span> del oxígeno, el carbono y el nitrógeno — los tres elementos más abundantes después de H y He:</p>
+  <ul>
+    <li>Hidrogenación del <strong>oxígeno</strong> → <strong>agua (H₂O)</strong>.</li>
+    <li>Hidrogenación del <strong>carbono</strong> → <strong>metano (CH₄)</strong> e hidrocarburos.</li>
+    <li>Hidrogenación del <strong>nitrógeno</strong> → <strong>amoníaco (NH₃)</strong> → aminas → <em>aminoácidos</em>.</li>
+    <li>O + C → <strong>CO</strong>; la hidrogenación del CO termina dando <strong>ácidos</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c3/assets/slide-07.jpg" alt="Diagrama de cadenas de reacciones químicas que parten del H2 ionizado por rayos cósmicos o fotones, pasando por H3+, hacia agua, hidrocarburos, amoniaco y ácidos">
+    <figcaption><span class="cap">Diapositiva 7 · Cadenas activadas por el H₂</span>Rayos cósmicos (cr) o fotones UV (hν) ionizan el H₂; el H₂⁺ forma H₃⁺, que protona C, N, O y CO y dispara las cadenas hacia CH/CH₂ (hidrocarburos), H₂O/OH (agua), NH₂⁺ (amoníaco) y HCO⁺ (ácidos). Aminas + ácidos = la base de los aminoácidos.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">«Moléculas base para la vida» en cometas</span>
+    <p>Cuando sale la noticia de que se detectaron moléculas prebióticas en un cometa, el hallazgo importa — pero para la astroquímica <strong>no es sorpresa</strong>: la hidrogenación de O, C y N es lo primero que ocurre en las nubes. No es casualidad que estemos hechos de agua y proteínas (aminoácidos): es <em>lo que está más a la mano</em> en el universo.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Química ≠ nuclear (pregunta de un estudiante)</span>
+    <p>¿Esto se parece a la fusión del Sol? No. En los granos ocurren <strong>reacciones químicas</strong>: las median los <em>electrones</em>; los núcleos «ni se enteran». En la <strong>fusión</strong> del interior solar no hay electrones involucrados: dos protones desnudos (plasma) se fusionan y uno se transforma en neutrón — el <em>núcleo</em> cambia de carácter. Química = electrones; nuclear = núcleos.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Moléculas vs. cristales (paréntesis del profesor)</span>
+    <p>¿El grano de polvo «es molecular»? Técnicamente no: los granos son <strong>sólidos iónicos o covalentes</strong> (silicatos, carburo de silicio) que forman <em>redes</em>, como la sal: el Cl⁻ y el Na⁺ se encadenan en cristales en vez de formar unidades independientes. Una molécula de agua, en cambio, puede «vivir sola» vagando por el universo. Aproximadamente la mitad del O, C y N de la nube está condensado en esos sólidos; la otra mitad anda suelto como átomos en el gas.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Bombardeo constante y autoprotección</h2>
+    <p>Fotones UV y rayos cósmicos vs. el escudo de la superficie de la nube.</p>
+  </div></div>
+
+  <p>Las nubes moleculares necesitan condiciones muy especiales (10–30 K, es decir ~−250 °C; recordar que la escala Kelvin parte del cero absoluto = −273 °C) y sin embargo están siendo <strong>bombardeadas todo el rato</strong> por dos agentes destructivos:</p>
+  <ul>
+    <li><strong>Fotones ultravioleta</strong> (y más energéticos): tienen tanta energía que cualquier cosa los absorbe — rompen enlaces, arrancan electrones.</li>
+    <li><strong>Rayos cósmicos</strong>: partículas cargadas (protones, electrones, partículas alfa = núcleos de helio) liberadas sobre todo en explosiones de supernova, que viajan a velocidades cercanas a la de la luz. «Cuando chocan con algo, lo hacen pedazos.»</li>
+  </ul>
+
+  <p>¿Cómo sobrevive entonces el H₂? Por el fenómeno de <span class="hl">autoprotección</span> (<em>self-shielding</em>): los átomos y moléculas de la <strong>superficie de la nube</strong> «hacen la pega» de absorber los fotones UV, sacrificándose para que no penetren. El interior queda frío y calmo, y ahí la química puede avanzar. La clave está en las energías:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Proceso</th><th>Energía requerida</th><th>Rol</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ionizar C</b></td><td>11,3 eV</td><td>El más fácil: el carbono absorbe primero</td></tr>
+      <tr><td><b>Ionizar H</b></td><td>13,6 eV</td><td>El H atómico también «se sacrifica»</td></tr>
+      <tr><td><b>Disociar H₂</b></td><td>15,4 eV</td><td>El más exigente: la mayoría de los fotones ya fue absorbida antes</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c3/assets/slide-04.jpg" alt="Diapositiva sobre autoprotección del hidrógeno molecular con las energías de ionización y disociación">
+    <figcaption><span class="cap">Diapositiva 4 · Self-shielding</span>El carbono (11,3 eV) y el hidrógeno atómico (13,6 eV) son más fáciles de ionizar que de disociar el H₂ (15,4 eV): absorben casi todo el UV entrante y forman una barrera. Un poco de H₂ superficial se rompe igual, pero el interior queda protegido.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La destrucción también construye</span>
+    <p>Los rayos cósmicos tienen tanta energía que <em>sí</em> penetran la nube, y son ellos los que <strong>rompen los granos de polvo</strong>. Pero eso cumple un rol: al romper el grano se <strong>liberan al gas las moléculas</strong> formadas en su superficie (agua, amoníaco, etc.), donde luego participarán en la formación estelar. Instinto aparte, «destructivo» no significa «malo»: las cosas son como son.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El self-shielding es una <strong>defensa en capas</strong> (defense in depth): la superficie actúa como capa DMZ que absorbe el tráfico hostil (UV) para que el interior opere tranquilo. Y nota el detalle de diseño: el firewall funciona porque los componentes <em>baratos</em> de ionizar (C, H) están en abundancia delante del recurso caro (H₂). Los rayos cósmicos son el ataque que atraviesa todas las capas — pero hasta ese “ataque” cumple una función en el sistema (libera moléculas al medio).</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>CO: el trazador del hidrógeno invisible</h2>
+    <p>Lo que más hay no se ve; lo que se ve, delata a lo que más hay.</p>
+  </div></div>
+
+  <p>Una nube molecular en el óptico se ve <strong>oscura</strong>: el polvo extingue y enrojece (bloquea la luz, y deja pasar preferentemente la roja mientras absorbe la azul). Pero lo que más contiene — <span class="hl">hidrógeno molecular</span> — es además <strong>transparente</strong>: a esas densidades y temperaturas el H₂ no emite. El hidrógeno neutro al menos tiene la línea de 21 cm; el H₂ no tiene nada equivalente. Lo que más hay, no se puede ver directamente.</p>
+
+  <p>La salida: se descubrió que la formación de H₂ va <strong>de la mano</strong> con la formación de <strong>monóxido de carbono (CO)</strong>, y el CO <em>sí</em> emite — no en el óptico sino en <strong>radio</strong>, fotones de muy baja energía. Por eso son tan importantes los radiotelescopios como <strong>ALMA</strong>. La regla operativa: donde veo CO, asumo que hay H₂, con una proporción de aproximadamente <strong>1 CO por cada ~10⁵–10⁶ moléculas de H₂</strong>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-08.jpg" alt="Nebulosa Cabeza de Caballo vista por el Hubble en óptico junto a la misma región en emisión de CO J=3-2 observada por el CSO">
+    <figcaption><span class="cap">Diapositiva 8 · CO, trazador de las nubes</span>La misma nube vista por Hubble (óptico: silueta oscura en absorción) y en emisión de CO J=3→2 (CSO, radio): donde el óptico ve un muro negro, el radio ve la nube <em>encendida</em>. Los colores de los mapas de radio son <strong>colores falsos</strong> que mapean densidad: más rojo/amarillo = más denso.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El factor de conversión no es sagrado</span>
+    <p>Ese «1 a un millón» varía según el ambiente — a veces es 10⁵, a veces más que 10⁶. <strong>Mónica Rubio</strong> (Premio Nacional de Ciencias, U. de Chile) y sus colaboradores han mostrado que el factor CO→H₂ varía bastante más de lo que uno quisiera. De ahí la broma gremial: <em>«un factor de 2 en astronomía no es nada»</em> — en muchos procesos astrofísicos lo que importa es el exponente, no la mantisa.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El CO es una <strong>métrica proxy</strong>: no puedes instrumentar la variable que te interesa (H₂), así que mides otra correlacionada y multiplicas por un factor de conversión. Y como toda métrica proxy, el factor <em>driftea según el ambiente</em> — usarlo como constante universal introduce un error sistemático difícil de acotar. La observación de Rubio es, en jerga nuestra, una <em>recalibración del estimador por dominio</em>.</p>
+  </div>
+
+  <p>Mapeando CO se mapean las nubes moleculares, y se ha descubierto que están <strong>asociadas a regiones de formación estelar</strong> — por ejemplo, toda la región de Orión, donde la Nebulosa de Orión (región HII, con estrellas ya nacidas que ionizan el gas) convive con vastas nubes moleculares frías que siguen formando estrellas. Y un detalle estructural importante: las nubes <strong>no son esféricas</strong> como nos gusta modelarlas; son <span class="hl">filamentosas y grumosas</span>, y <em>autosimilares</em> en un amplio rango de escalas (estadísticamente parecidas al hacer zoom — «prima hermana de un fractal», sin ser un fractal propiamente).</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-16.jpg" alt="Mapas de extinción óptica de las nubes Serpens y Lupus mostrando estructura grumosa y filamentaria">
+    <figcaption><span class="cap">Diapositiva 16 · Estructura compleja</span>Serpens y Lupus en extinción óptica: grumosas, filamentarias, autosimilares, con núcleos densos de n &gt; 10⁶ cm⁻³. Cada filamento contendrá los grumos que colapsan individualmente — por eso las estrellas casi nunca nacen solas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Rotación cuantizada: cómo tomarle la temperatura a una nube</h2>
+    <p>Sin termómetro: mirando qué escalones de la escalera J se encienden.</p>
+  </div></div>
+
+  <h3>Por qué el CO emite: el momento dipolar</h3>
+  <p>El CO es una molécula sencilla: un carbono y un oxígeno unidos por <strong>enlace covalente</strong> (comparten electrones — a diferencia del enlace <em>iónico</em> de la sal, donde el cloro le quita el electrón al sodio). Pero el oxígeno es más <span class="hl">electronegativo</span>: la nube electrónica pasa más tiempo cerca del O. La molécula es neutra en total, pero el lado del oxígeno queda más negativo y el del carbono más positivo: tiene <strong>momento dipolar</strong>.</p>
+
+  <p>Esa asimetría tiene una consecuencia cuántica: la molécula <strong>no puede rotar a cualquier velocidad</strong>. Sus estados de rotación están <em>cuantizados</em>, igual que los niveles de energía del electrón en un átomo. Para etiquetarlos se usa el número cuántico <span class="hl">J</span> (J=0: sin rotación; J=1, 2, 3…: rotaciones cada vez más rápidas).</p>
+
+  <div class="box prof">
+    <span class="tag">La analogía de las sillas</span>
+    <p>El electrón en un átomo «solo puede sentarse donde hay silla»: niveles discretos, nada de posiciones intermedias. La rotación de una molécula con dipolo es igual: velocidades de rotación permitidas, y nada entre medio. Para subir de nivel absorbe energía; al bajar, emite un fotón.</p>
+  </div>
+
+  <h3>Choques, no fotones</h3>
+  <p>En la nube, las excitaciones rotacionales ocurren sobre todo por <strong>choques</strong> entre moléculas: una molécula le pega a otra y la deja rotando más rápido — si trae suficiente energía cinética. Y como la <em>temperatura es energía cinética promedio</em>, la energía mínima para excitar cada salto se puede expresar como temperatura. Después del choque, los estados <strong>decaen solos</strong>: la molécula «se frena» espontáneamente, bajando escalón por escalón, y en cada bajada emite un <strong>fotón de muy baja energía</strong> que escapa de la nube sin que nada lo atrape.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Transición</th><th>ΔE (en kelvin)</th><th>Frecuencia ν</th><th>λ</th></tr></thead>
+    <tbody>
+      <tr><td><b>J = 1→0</b></td><td>5,5 K</td><td>115,272 GHz</td><td>2,7 mm</td></tr>
+      <tr><td><b>J = 2→1</b></td><td>11,0 K</td><td>230,544 GHz</td><td>1,3 mm</td></tr>
+      <tr><td><b>J = 3→2</b></td><td>16,5 K</td><td>345,816 GHz</td><td>0,87 mm</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c3/assets/slide-13.jpg" alt="Diagrama de niveles rotacionales del CO con la tabla de las transiciones más bajas de la escalera del 12CO">
+    <figcaption><span class="cap">Diapositiva 13 · La escalera del ¹²CO</span>El CO es <em>fácil de excitar</em>: su primer escalón cuesta apenas 5,5 K (≈ 4,7×10⁻⁴ eV). Las transiciones caen en el rango milimétrico/submilimétrico — el territorio de ALMA y los radiotelescopios del Llano de Chajnantor.</figcaption>
+  </figure>
+
+  <h3>El termómetro en acción</h3>
+  <p>El método del radioastrónomo: sintonizar el telescopio en 115 GHz — ¿se ve CO J=1→0? Sí. ¿En 230 GHz (2→1)? También. ¿En 345 GHz (3→2)? <strong>Nada</strong>. Conclusión: los choques alcanzan para excitar hasta J=2 pero no J=3, así que la temperatura está entre ~16 y ~30 K (sumando los ΔE acumulados). <em>«No podemos ir a ponerle un termómetro a la nube, pero buscando dónde dejamos de detectar transiciones obtenemos un límite.»</em> Con densidades y temperaturas medidas, recién se puede hacer física: modelar y entender los procesos. Por eso las diapositivas hablan de <strong>temperatura de rotación</strong> (T<sub>ex</sub> = T<sub>rot</sub>): las intensidades relativas de las líneas entregan T<sub>rot</sub>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-14.jpg" alt="Tabla que relaciona temperatura de rotación, niveles J y región del espectro donde aparecen las líneas del CO">
+    <figcaption><span class="cap">Diapositiva 14 · Emisión molecular y T<sub>rot</sub></span>A ~10 K dominan las transiciones bajas (J=2→1, 1,3 mm); entre 50–100 K se encienden J=4…7 (submilimétrico); sobre 10³ K aparecen J=20…40 en el IR lejano. La región del espectro donde aparecen las líneas sigue la temperatura de la nube.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">21 cm ≠ CO (duda de un estudiante)</span>
+    <p>La línea de <strong>21 cm es del hidrógeno atómico (HI)</strong>, no del CO: es la transición <em>hiperfina</em> (acoplamiento de spines) de un electrón que prácticamente siempre vive en su estado fundamental. Las líneas del CO son rotacionales y viven en el rango <em>milimétrico</em> (2,7 mm, 1,3 mm…), no centimétrico.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">El censo del hidrógeno</span>
+    <p>El <strong>hidrógeno ionizado</strong> (HII) es ~90% de todo el hidrógeno del universo, pero vive en el medio <em>intergaláctico</em> (10⁻³–10⁻⁴ part/cm³, millones de grados — reliquia del universo temprano que no se enfriará jamás) y casi no juega rol en el medio interestelar. Dentro del medio interestelar domina el <strong>hidrógeno atómico</strong>; pero dentro de las <strong>nubes moleculares</strong> domina ampliamente el <strong>H₂</strong>. Ojo con la nomenclatura: HII (H romano dos) = ionizado; H₂ (subíndice) = molecular. «Los químicos se rayan con nuestra nomenclatura.»</p>
+  </div>
+
+  <div class="widget" id="w-co">
+    <span class="tagband">Widget interactivo · 1</span>
+    <h4>Radiotelescopio virtual: mide la temperatura de la nube</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Hay una nube con temperatura oculta. Sintoniza el receptor en cada transición del CO y registra si hay detección; luego entrega tu estimación. Así trabajan los radioastrónomos: acotando T por dónde se apaga la escalera.</p>
+    <div class="presets" id="co-dials"></div>
+    <div class="ladder" id="co-log"></div>
+    <div class="wgrid" style="margin-top:12px">
+      <div><label for="co-guess">Tu estimación de T (K)</label><input type="number" id="co-guess" min="1" max="120" step="1" value="10"></div>
+      <div><label>&nbsp;</label><button class="btn-est" id="co-check" style="width:100%;background:var(--red);color:#fff;border:none;border-radius:9px;padding:10px;font-family:'Fraunces',serif;font-weight:600;cursor:pointer">Comprobar estimación</button></div>
+    </div>
+    <output id="co-out">Sintoniza alguna frecuencia para empezar.</output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El zoológico de nubes — y de dónde salió el C, N, O</h2>
+    <p>Parámetros de las nubes y un paréntesis de evolución estelar.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c3/assets/slide-12.jpg" alt="Clasificación de nubes moleculares: frías y oscuras, gigantes, con núcleos densos y grumos">
+    <figcaption><span class="cap">Diapositiva 12 · Nubes moleculares (regiones H₂)</span>Nubes frías y oscuras (M ~ 10–1000 M<sub>☉</sub>, T &gt; 10 K, n ~ 10²–10³ cm⁻³); Nubes Moleculares Gigantes (M ~ 10³–10⁶ M<sub>☉</sub>, T &gt; 20 K, n ~ 10²–10⁴ cm⁻³); estructura compleja con núcleos densos (<em>cores</em>) y grumos (<em>clumps</em>) de n ~ 10⁵–10⁹ cm⁻³. Las nubes moleculares <strong>son el sitio de formación estelar</strong>.</figcaption>
+  </figure>
+
+  <p>Una pregunta de la clase abrió un paréntesis valioso: <em>¿en qué momento aparecen el carbono, el oxígeno y el nitrógeno?</em> Según la teoría del Big Bang — bien aceptada y verificada con precisión en las abundancias de deuterio, helio-3, litio — el universo nace <strong>solo con hidrógeno y helio</strong>. Todo el resto se cocinó dentro de estrellas:</p>
+
+  <ol class="steps">
+    <li>Una estrella pasa la mayor parte de su vida en la <strong>secuencia principal</strong>, fusionando H → He (el Sol, a 15 millones de grados centrales, está en eso).</li>
+    <li>Al agotarse el H central, la estrella se reacomoda: se hincha (<strong>gigante roja</strong>) y el núcleo se contrae hasta ~100 millones de grados, donde el He empieza a formar <strong>carbono, nitrógeno y oxígeno</strong>.</li>
+    <li>En sus últimas etapas la estrella se vuelve <strong>convectiva</strong>: el gas mismo transporta la energía (como el agua hirviendo en celdas de convección, en vez de fotones difundiéndose por un material opaco). Esas corrientes <em>dragan</em> C, N, O del núcleo a la superficie, donde los <strong>vientos estelares</strong> los liberan al medio interestelar.</li>
+    <li>Las estrellas más masivas además <strong>explotan como supernovas</strong>, esparciendo C, N, O y elementos más pesados.</li>
+  </ol>
+
+  <div class="box dato">
+    <span class="tag">Por qué el oro es caro</span>
+    <p>Las estrellas masivas — las únicas que fabrican los elementos realmente pesados — son las menos numerosas. Por eso los elementos pesados son escasos: el platino o el oro no son preciosos solo por sus cualidades químicas, sino porque <strong>se forman en condiciones muy especiales y poco frecuentes</strong>. La cadena abundancia-estelar → abundancia-química explica la tabla periódica del universo.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Región HII + nube molecular: el mismo barrio (pregunta de un estudiante)</span>
+    <p>La Nebulosa de Orión es una <strong>región HII</strong>: ahí ya nacieron estrellas masivas que ionizan el gas con su flujo UV, y la vemos brillar en el óptico. Pero esa región es solo una parte visible de un complejo <strong>mucho más amplio de nube molecular filamentosa</strong> (visible en CO), que sigue fría y seguirá formando estrellas. Donde ves una región HII, espera encontrar al lado regiones oscuras y filamentos de CO: una <em>región activa de formación estelar</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Formación estelar: el problema del colapso</h2>
+    <p>De 20 K y 10⁶ part/cm³ a millones de grados y 10²⁴ part/cm³.</p>
+  </div></div>
+
+  <p>Por mucho tiempo la astronomía fue <strong>dominada por telescopios ópticos</strong> — y la formación estelar les estaba vedada, por dos razones: (1) las nubes son oscuras: el polvo bloquea la luz óptica; (2) los procesos dentro de la nube (química, rotaciones moleculares) <strong>emiten en radio</strong>, no en el óptico — aunque la nube fuera transparente, no habría mucho que ver. Solo cuando nace la estrella y se encienden las reacciones termonucleares, la energía empieza a escapar principalmente en el óptico. La radioastronomía (desde ~1950, con fuerza desde los 70) abrió por fin la ventana: es una ciencia de ~50 años, joven comparada con los siglos de astronomía óptica.</p>
+
+  <h3>El requisito y el obstáculo</h3>
+  <p>Para formar una estrella hay que pasar de gas a <strong>~20 K</strong> y densidades de ~10⁵–10⁷ part/cm³ (las partes densas de las nubes) a <strong>millones de grados</strong> y <strong>~10²⁴ part/cm³</strong>. Eso solo puede lograrlo el <span class="hl">colapso gravitacional</span>. La gravedad de una nube de varias masas solares está <em>siempre</em> tratando de contraerla (a diferencia de las nubes atmosféricas o de nosotros mismos, donde la autogravedad es insignificante — por eso no tenemos intuición de esto). ¿Qué lo impide? La <strong>presión térmica</strong>: las partículas tienen energía cinética, empujan hacia afuera, y en general las nubes están en <em>equilibrio</em>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-30.jpg" alt="Diapositiva con las dos preguntas del colapso: qué pasa al comprimir un gas y por qué no se detiene el colapso, junto al esquema gravedad versus presión del ISM">
+    <figcaption><span class="cap">Diapositiva 30 · Las dos preguntas</span>1) ¿Qué pasa cuando un gas es comprimido? (se calienta). 2) Si al calentarse sube la presión térmica, <em>¿por qué no se detiene el colapso y la formación de una protoestrella?</em> Qué queremos: n ~ 10²⁴ cm⁻³. Materiales: gas y polvo con n ~ 10⁵–10⁷ cm⁻³. Qué nos ayuda: bajas temperaturas → menor presión térmica.</figcaption>
+  </figure>
+
+  <p>¿Cómo parte el colapso? Típicamente la nube en equilibrio recibe un <strong>golpe</strong>: una supernova cercana expulsa material a ~10.000 km/s (compárese con ~100 km/s de una estrella típica) y la onda de choque desestabiliza la nube. O bien algún proceso la <strong>enfría rápido</strong> — por ejemplo la propia formación de moléculas puede llevarla de ~100 K a ~20 K en millones de años (poco, en tiempos astronómicos) — y la presión térmica deja de ganar.</p>
+
+  <div class="box physics">
+    <span class="tag">La gravedad crece mientras colapsa</span>
+    <p>Nuestra intuición asocia gravedad con <em>masa</em>, pero no con <em>tamaño</em>. La fuerza va como M²/R²: si la Tierra se comprimiera a la mitad de su radio, la gravedad en superficie aumentaría <strong>sin cambiar la masa</strong>. Lo mismo en la nube: al achicarse, su gravedad superficial crece — una <strong>reacción en cadena</strong> que acelera el propio colapso.</p>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F \;\propto\; \frac{M^2}{R^2} \qquad\Rightarrow\qquad R\downarrow \;\;\text{(colapso)}\;\Rightarrow\; F\uparrow \;\Rightarrow\; \text{colapso más rápido}"></div>
+    <small>La masa no cambia durante el colapso, pero el radio sí: la gravedad se realimenta. Es un lazo de realimentación positiva — lo que en ingeniería llamaríamos un sistema inestable una vez cruzado el umbral.</small>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Primer colapso: la nube que sabe enfriarse</h2>
+    <p>El CO como radiador: por qué la temperatura no se dispara.</p>
+  </div></div>
+
+  <p>Aquí está «la parte de la historia más entretenida» según el profesor. Al comprimir un gas, sube la temperatura — eso es lo <em>adiabático</em> (sin intercambio de calor con el medio, como apretar el pistón de una jeringa). Si el colapso fuera adiabático, la presión se dispararía y el colapso se frenaría solo. Pero el primer colapso es <span class="hl">no adiabático</span>: la nube <strong>puede deshacerse del calor</strong>, y lo hace gracias a sus moléculas:</p>
+
+  <ol class="steps">
+    <li>El colapso convierte energía potencial gravitacional en <strong>energía térmica</strong>: las moléculas se mueven más rápido.</li>
+    <li>Moléculas de CO <strong>chocan</strong> entre sí y se excitan a niveles rotacionales más altos.</li>
+    <li>Se <strong>desexcitan espontáneamente</strong>, emitiendo fotones de radio (~115 GHz y armónicos).</li>
+    <li>Esos fotones de baja energía <strong>escapan de la nube</strong> a la velocidad de la luz, llevándose la energía.</li>
+  </ol>
+
+  <p>El CO actúa como <strong>radiador</strong>: transforma calor en fotones que se fugan. También ayuda el carbono: se ioniza por choques, y al recombinarse el electrón cae en cascada emitiendo fotones que también escapan. Resultado: la temperatura <strong>no sube lo suficiente para frenar el colapso</strong>, mientras la gravedad — que crece al achicarse R — aprieta cada vez más fuerte.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-31.jpg" alt="Diapositiva: el material se enfría por la presencia de moléculas; colisiones excitan niveles rotacionales y la de-excitación produce fotones que escapan">
+    <figcaption><span class="cap">Diapositiva 31 · El sistema de refrigeración</span>La nube necesita deshacerse de la energía térmica <em>tan rápido como se crea</em>. Colisiones → excitación rotacional/vibracional → de-excitación → fotones IR/radio que escapan. Y la letra chica: <strong>el enfriamiento funciona mientras los fotones puedan escapar → depende de la densidad de la nube</strong>. Mientras gravedad &gt; presión térmica, las partes frías siguen contrayéndose.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El colapso es un proceso con <strong>presupuesto térmico</strong>: la gravedad genera calor a cierta tasa y el CO lo disipa a otra. Es exactamente el problema de <em>thermal throttling</em> de un datacenter: mientras la refrigeración (radiación molecular) da abasto, el sistema puede seguir «subiendo la carga» (contrayéndose). El colapso se frena solo cuando el canal de disipación se satura — que es justo lo que viene ahora.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Opacidad, segundo colapso y protoestrella</h2>
+    <p>Larson, el rescate del H₂ y el encendido termonuclear.</p>
+  </div></div>
+
+  <h3>El radiador se tapa</h3>
+  <p>El colapso aumenta la densidad sin parar. Cuando llega a <strong>~10¹⁰–10¹¹ part/cm³</strong>, la nube se vuelve <span class="hl">opaca</span> a sus propios fotones de radio: los fotones que antes escapaban ahora son reabsorbidos — un <em>efecto invernadero</em> interno. La temperatura por fin se dispara, llega a ~1.000 K, y al alcanzar un nuevo equilibrio cerca de ~2.000 K <strong>el colapso se detiene</strong>. Tenemos un objeto más denso, más caliente, más pequeño… pero a 2.000 K, lejísimos de los millones de grados de una estrella. Este problema lo identificó <strong>Richard Larson</strong> (Universidad de Yale) hacia fines de los años 60: si nada más pasara, <em>ahí quedaba la estrella a medio hacer</em>.</p>
+
+  <h3>El salvataje del hidrógeno molecular</h3>
+  <p>A ~2.000 K los choques ya son tan violentos que el <strong>H₂ se empieza a disociar</strong> (romper en átomos). Y aquí la simetría hermosa: si al <em>formarse</em> el H₂ libera energía, al <em>romperse</em> la <strong>consume</strong>. La disociación funciona como un sumidero de calor: absorbe la energía que debería estar subiendo la temperatura, la presión no crece lo que debería, y la gravedad — cada vez más intensa a radios menores — vuelve a ganar: comienza el <span class="hl">segundo colapso</span>, que ya no se detiene.</p>
+
+  <ol class="steps">
+    <li><strong>Nube fría</strong> (10–30 K): equilibrio entre gravedad y presión térmica.</li>
+    <li><strong>Gatillo</strong>: onda de choque de supernova o enfriamiento rápido → empieza el colapso.</li>
+    <li><strong>Primer colapso (no adiabático)</strong>: el CO radia el calor; T se mantiene baja; la gravedad crece como 1/R².</li>
+    <li><strong>Opacidad</strong> (n ~ 10¹⁰–10¹¹ cm⁻³): los fotones quedan atrapados; T sube a ~1.000–2.000 K; el colapso se frena (problema de Larson).</li>
+    <li><strong>Disociación del H₂</strong> (~2.000 K): consume calor → <strong>segundo colapso</strong>, imparable.</li>
+    <li><strong>Encendido</strong>: densidad y temperatura alcanzan el umbral termonuclear → <strong>protoestrella</strong> (que aún debe limpiar su entorno).</li>
+  </ol>
+
+  <div class="box dato">
+    <span class="tag">La moraleja de la clase</span>
+    <p>Por eso «las estrellas necesitan hidrógeno molecular»: no es solo que <em>casualmente</em> nazcan donde hay H₂ — es que <strong>el CO y el H₂ son los mecanismos de enfriamiento</strong> que permiten el colapso. Sin refrigerantes, no se forman estrellas (de baja masa, al menos).</p>
+  </div>
+
+  <div class="widget" id="w-collapse">
+    <span class="tagband">Widget interactivo · 2</span>
+    <h4>Simulador del colapso: de nube fría a protoestrella</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Arrastra el deslizador para comprimir la nube (densidad central creciente) y observa qué fase del colapso atraviesa, qué mecanismo controla la temperatura y cómo evoluciona T.</p>
+    <label for="col-n">Densidad central: <span id="col-nlab"></span></label>
+    <input type="range" id="col-n" min="2" max="24" step="0.1" value="4">
+    <div class="phasebar" id="col-phases">
+      <span data-p="0">Nube en equilibrio</span>
+      <span data-p="1">1er colapso<br>(CO radia)</span>
+      <span data-p="2">Opacidad<br>(Larson)</span>
+      <span data-p="3">2º colapso<br>(H₂ se disocia)</span>
+      <span data-p="4">Encendido<br>(protoestrella)</span>
+    </div>
+    <output id="col-out"></output>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Larson, el caminante</span>
+    <p>El profesor guarda especial cariño por Larson: un científico al que le gustaba salir a caminar y sentarse a mirar el horizonte. <em>«Así se hace ciencia»</em>, decía, extrañado de ver a todos pegados al computador. Otra época — pero el primer modelo numérico convincente del colapso protoestelar fue suyo.</p>
+  </div>
+
+  <h3>Alta masa vs. baja masa</h3>
+  <p>Este mecanismo — con su delicado sistema de refrigeración — es la historia de las estrellas de <strong>baja masa</strong> (como el Sol, hasta unas pocas M<sub>☉</sub>), que son la inmensa mayoría. Las estrellas <strong>masivas</strong> nacen de nubes mucho más masivas donde la gravedad (∝ M²) se impone sin tanta ayuda. La comunidad que estudia formación estelar se divide entre ambos regímenes, con mecanismos bastante distintos. Datos de referencia: el límite que separa morir como <strong>supernova</strong> de morir como <strong>enana blanca</strong> es ~8 M<sub>☉</sub>; solo ~7% de las estrellas supera las 8 M<sub>☉</sub>, y ~2% las 20 M<sub>☉</sub>.</p>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Población III: las primeras estrellas</h2>
+    <p>¿Cómo colapsar sin CO ni polvo? Con mucha, mucha masa.</p>
+  </div></div>
+
+  <p>La historia anterior tiene un agujero: el universo joven tenía <strong>solo hidrógeno y helio</strong> — sin carbono no hay CO, sin elementos pesados no hay polvo, sin polvo no hay fábrica de H₂ (al modo actual). ¿Cómo se formaron entonces las <em>primeras</em> estrellas, las que fabricaron el primer C, N, O?</p>
+
+  <ul>
+    <li>En el universo joven (p. ej. a los ~500.000 años) la <strong>densidad era muchísimo mayor</strong> que la actual: el H₂ <em>sí podía formarse en fase gaseosa</em>, sin granos de polvo. Un refrigerante parcial existía.</li>
+    <li>Pero faltaban los «metales» (para los astrónomos: todo lo más pesado que el helio). Los cálculos mostraron que el colapso solo funcionaba con nubes de <strong>~200 M<sub>☉</sub></strong>, produciendo estrellas de <strong>~50–100 M<sub>☉</sub></strong>: la primera generación tuvo que ser de puras estrellas supermasivas.</li>
+    <li>Consecuencia: vivieron poquísimo (~10 millones de años) y murieron <strong>todas como supernovas</strong>, contaminando rápidamente el gas con C, N, O — y habilitando desde entonces la formación de estrellas de baja masa.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">¿Por qué «Población III» si fueron las primeras?</span>
+    <p>Accidente histórico de los años 50: a las estrellas del vecindario solar se les llamó <strong>Población I</strong> y a las del halo galáctico, <strong>Población II</strong>. Después se descubrió que las del halo eran <em>más viejas</em>. Cuando hizo falta nombrar a la generación primordial — anterior a todas — solo quedaba el III. La numeración va en orden inverso a la edad.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Frontera observacional</span>
+    <p>Incomodidad científica: las Población III no se pueden observar hoy (murieron todas hace ~13 mil millones de años). La esperanza está en los <strong>telescopios de 40–50 metros</strong> en construcción, que podrían llegar a verlas en galaxias muy lejanas amplificadas por <strong>lentes gravitacionales</strong>. Una idea sin observación posible siempre es poco satisfactoria — por eso se las busca activamente.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El problema de Población III es un <em>bootstrap</em> clásico: el mecanismo normal de compilación (formar estrellas con refrigerante CO) requiere un compilador previo (estrellas que hayan fabricado carbono). La solución del universo fue un <strong>compilador de etapa cero</strong>: un mecanismo distinto, más tosco y caro (nubes de 200 M<sub>☉</sub>, fuerza gravitacional bruta), que corre una sola vez y genera las herramientas para que el proceso eficiente tome el control.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Ventanas atmosféricas y los cielos del norte de Chile</h2>
+    <p>Por qué ALMA y TAO están a 5.000+ metros en Atacama.</p>
+  </div></div>
+
+  <p>La atmósfera terrestre es transparente en el <strong>óptico</strong> (afortunada coincidencia: el Sol emite casi toda su luz ahí) y vuelve a abrirse en el <strong>radio</strong>; pero en el <strong>infrarrojo lejano y submilimétrico</strong> es casi opaca — son las <strong>moléculas de agua</strong> las que absorben. Por eso la astronomía IR lejana se hacía con aviones (el telescopio <strong>SOFIA</strong>, montado en un avión a ~40.000 pies) o con telescopios espaciales.</p>
+
+  <p>La excepción terrestre: <strong>las montañas del norte de Chile</strong>. Sobre los 5.000 metros el aire es tan seco que se abren ventanas submilimétricas e IR lejanas. Para la astronomía óptica lo que importa es cielo oscuro y poco turbulento; para la submilimétrica lo que importa es <strong>cielo seco</strong> — y Atacama tiene ambos, más infraestructura e institucionalidad (la ley de 1962 y una política de Estado sostenida desde los años 60 que permite que los observatorios operen en Chile).</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-36.jpg" alt="Comparación de altitudes de observatorios: Palomar, Paranal, Mauna Kea, ALMA a 5000 m y TAO a 5640 m, el observatorio más cercano al espacio">
+    <figcaption><span class="cap">Diapositiva 36 · El observatorio más cercano al espacio</span>De Mt. Palomar (1.700 m) y Paranal (2.600 m) a Mauna Kea (4.200 m), el Llano de Chajnantor con ALMA (5.000 m) y el cerro Chajnantor con <strong>TAO</strong> (5.640 m), el telescopio más alto del mundo: 6,5 m de la Universidad de Tokio, óptico de aspecto pero diseñado para el infrarrojo. Con todo lo caro de construir a esa altura, sigue siendo más barato que lanzar un telescopio espacial.</figcaption>
+  </figure>
+
+  <p>En el Llano de Chajnantor se han instalado APEX (12 m, Alemania), ASTE (10 m, Japón), NANTEN2 (4 m), y por supuesto <strong>ALMA</strong>, que opera principalmente en el submilimétrico — exactamente donde emite la escalera del CO. La astronomía de infrarrojo lejano es de las áreas jóvenes que está surgiendo con fuerza en Chile.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-44.jpg" alt="Una cuna estelar en Orión: la misma región en luz visible (oscura) y en infrarrojo en color falso, donde aparecen estrellas bebés como puntos rojos difusos">
+    <figcaption><span class="cap">Diapositiva 44 · Una cuna estelar en Orión</span>La misma región en luz visible (izquierda: nube oscura, casi nada visible) y en infrarrojo «color falso» (derecha): la nube está <em>encendida</em> por dentro. Las estrellas «guaguas» aparecen como puntos rojos difusos. El polvo no deja ver — pero es transparente en el IR.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-55.jpg" alt="Acercamiento del Hubble a proplyds en Orión: discos o glóbulos polvorientos, algunos con una estrella dentro">
+    <figcaption><span class="cap">Diapositiva 55 · Los «renacuajos» de Orión</span>Cerca del Trapecio, en la Gran Nebulosa de Orión, el Hubble reveló <strong>discos y glóbulos polvorientos, algunos con una estrellita dentro</strong> (proplyds): protoestrellas recién formadas aún envueltas en su material natal. Toda una galería de estrellas en construcción. Las diapositivas finales (42–57) son una galería visual: Nebulosa del Águila y los Pilares de la Creación, la Cabeza de Caballo (opaca en el óptico, transparente en IR), la nebulosa del Cono.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>La próxima clase sigue con formación estelar en más detalle: qué pasa <em>dentro</em> de la nube filamentosa — cada filamento se fragmenta en grumos que colapsan por separado, y por eso <strong>las estrellas prácticamente nunca nacen solas</strong>: nacen en conjunto, en cúmulos. No es una nube → una estrella; es una nube → muchísimas estrellas.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Hidrogenación en granos</b></td><td>O→H₂O, C→CH₄, N→NH₃, CO→ácidos</td><td>La base química de la vida se fabrica en las nubes</td></tr>
+      <tr><td><b>Self-shielding</b></td><td>C (11,3 eV) y H (13,6 eV) absorben el UV antes de que disocie al H₂ (15,4 eV)</td><td>El interior de la nube queda frío y protegido</td></tr>
+      <tr><td><b>Rayos cósmicos</b></td><td>p, e⁻, α a velocidades ~c, de supernovas</td><td>Penetran la nube; rompen granos y liberan moléculas</td></tr>
+      <tr><td><b>CO trazador</b></td><td>~1 CO por 10⁵–10⁶ H₂ (factor variable: M. Rubio)</td><td>Permite mapear el H₂ invisible</td></tr>
+      <tr><td><b>Momento dipolar</b></td><td>O más electronegativo que C → carga asimétrica</td><td>Habilita las transiciones rotacionales del CO</td></tr>
+      <tr><td><b>Escalera J del CO</b></td><td>1→0: 5,5 K · 115 GHz; 2→1: 11 K · 230 GHz; 3→2: 16,5 K · 346 GHz</td><td>Termómetro de nubes: dónde se apaga la escalera acota T</td></tr>
+      <tr><td><b>HII vs HI vs H₂</b></td><td>Ionizado (~90%, intergaláctico) / atómico (domina el ISM) / molecular (domina las nubes)</td><td>Censo del hidrógeno; cuidado con la nomenclatura</td></tr>
+      <tr><td><b>Colapso gravitacional</b></td><td>Gravedad vs. presión térmica; gatillo: shock de SN o enfriamiento</td><td>Único camino de 20 K a millones de grados</td></tr>
+      <tr><td><b>F ∝ M²/R²</b></td><td>La gravedad crece al achicarse R (masa constante)</td><td>El colapso se autoacelera: realimentación positiva</td></tr>
+      <tr><td><b>Colapso no adiabático</b></td><td>CO radia el calor en fotones de radio que escapan</td><td>La T no sube lo suficiente para frenar el colapso</td></tr>
+      <tr><td><b>Problema de Larson</b></td><td>A n ~ 10¹⁰–10¹¹ cm⁻³ la nube se opaca; T → 1.000–2.000 K; el colapso se frena</td><td>Sin un segundo mecanismo, no habría estrellas</td></tr>
+      <tr><td><b>Segundo colapso</b></td><td>A ~2.000 K el H₂ se disocia y consume calor</td><td>El colapso se reanuda hasta el encendido termonuclear</td></tr>
+      <tr><td><b>Protoestrella</b></td><td>Encendido de reacciones termonucleares; aún limpia su entorno</td><td>El final de la historia de formación (de baja masa)</td></tr>
+      <tr><td><b>8 M☉</b></td><td>Límite supernova / enana blanca; ~7% de las estrellas lo supera</td><td>Divide los dos regímenes de formación y muerte</td></tr>
+      <tr><td><b>Población III</b></td><td>Primera generación: ~50–100 M☉, solo H y He, murieron en ~10⁷ años</td><td>Fabricaron el primer C, N, O; aún sin observar</td></tr>
+      <tr><td><b>Chajnantor</b></td><td>ALMA (5.000 m), TAO (5.640 m): aire seco → ventanas submm/IR</td><td>Chile como laboratorio natural de la formación estelar</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c3-examen-01.html">Examen 01<small>H₂ y química en granos</small></a></li>
+    <li><a href="m2c3-examen-02.html">Examen 02<small>Self-shielding y rayos cósmicos</small></a></li>
+    <li><a href="m2c3-examen-03.html">Examen 03<small>CO como trazador</small></a></li>
+    <li><a href="m2c3-examen-04.html">Examen 04<small>Rotación y termómetro</small></a></li>
+    <li><a href="m2c3-examen-05.html">Examen 05<small>Origen del C, N, O</small></a></li>
+    <li><a href="m2c3-examen-06.html">Examen 06<small>Colapso gravitacional</small></a></li>
+    <li><a href="m2c3-examen-07.html">Examen 07<small>Enfriamiento y Larson</small></a></li>
+    <li><a href="m2c3-examen-08.html">Examen 08<small>Segundo colapso</small></a></li>
+    <li><a href="m2c3-examen-09.html">Examen 09<small>Población III y telescopios</small></a></li>
+    <li><a href="m2c3-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo II del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Ricardo Muñoz). Elaborado a partir de la transcripción del audio (<code>estrellas/m2/ff/estrellas-m2c3.md</code>) y las diapositivas <code>Modulo_II_Estrellas_Clase_3_RRM.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. «22 centímetros» → 21 cm para la línea hiperfina del HI; «caricatomizarlo» → caricaturizarlo; «Billo Larson, Universidad de Jay» → Richard Larson, Universidad de Yale; «ley 1872» → ley de 1962 sobre observatorios; el factor CO:H₂ se anota como 10⁵–10⁶ porque el propio profesor señala la discrepancia con otra docente; «radios comida» → rayos cósmicos; la transición «J=2-1 a 215 GHz» del audio se corrige a ~230 GHz según la diapositiva 13). Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: radiotelescopio virtual ----
+(function(){
+  var nu0 = 115.272;
+  // temperatura oculta de la nube, aleatoria por carga de página
+  var Thidden = [8, 14, 19, 27, 38, 49][Math.floor(Math.random()*6)];
+  var dials = document.getElementById('co-dials');
+  var log = document.getElementById('co-log');
+  var out = document.getElementById('co-out');
+  var observed = {};
+  var trans = [];
+  for(var J=1; J<=8; J++){
+    trans.push({J:J, dE:5.5*J, nu:nu0*J});
+  }
+  trans.forEach(function(tr){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = tr.nu.toFixed(0)+" GHz (J="+tr.J+"→"+(tr.J-1)+")";
+    b.addEventListener('click', function(){ observe(tr, b); });
+    dials.appendChild(b);
+    var s = document.createElement('span');
+    s.id = 'co-obs-'+tr.J;
+    s.textContent = "J="+tr.J+"→"+(tr.J-1)+": ?";
+    log.appendChild(s);
+  });
+  function observe(tr, btn){
+    var detected = Thidden >= tr.dE;
+    observed[tr.J] = detected;
+    var s = document.getElementById('co-obs-'+tr.J);
+    s.textContent = "J="+tr.J+"→"+(tr.J-1)+": "+(detected ? "✓ detección" : "✗ nada");
+    if(detected){ s.classList.add('on'); } else { s.classList.remove('on'); s.style.borderColor = "#5a2530"; s.style.color = "#c98080"; }
+    var lo = 0, hi = null;
+    trans.forEach(function(t2){
+      if(observed[t2.J] === true && t2.dE > lo) lo = t2.dE;
+      if(observed[t2.J] === false && (hi === null || t2.dE < hi)) hi = t2.dE;
+    });
+    var rango = lo > 0
+      ? (hi ? "Con lo observado: <b>"+lo.toFixed(1)+" K ≤ T &lt; "+hi.toFixed(1)+" K</b>."
+            : "Con lo observado: <b>T ≥ "+lo.toFixed(1)+" K</b>. Prueba transiciones más altas para acotar por arriba.")
+      : (hi ? "Con lo observado: <b>T &lt; "+hi.toFixed(1)+" K</b>. Prueba transiciones más bajas." : "");
+    out.innerHTML = "Sintonizado <span class='k'>"+tr.nu.toFixed(1)+" GHz</span>: "+
+      (detected ? "<b>línea detectada</b> — los choques alcanzan para excitar J="+tr.J+" (ΔE acumulado ≈ "+tr.dE.toFixed(1)+" K)."
+                : "<b>sin señal</b> — la nube no alcanza a poblar J="+tr.J+" (requiere ≈ "+tr.dE.toFixed(1)+" K).")+
+      "<br>"+rango;
+  }
+  document.getElementById('co-check').addEventListener('click', function(){
+    var guess = parseFloat(document.getElementById('co-guess').value);
+    var lo = 0, hi = Infinity;
+    trans.forEach(function(t2){
+      if(observed[t2.J] === true && t2.dE > lo) lo = t2.dE;
+      if(observed[t2.J] === false && t2.dE < hi) hi = t2.dE;
+    });
+    var consistent = guess >= lo && guess < hi;
+    var close = Math.abs(guess - Thidden) <= 5;
+    out.innerHTML = "La nube estaba a <b>T = "+Thidden+" K</b>. Tu estimación: "+guess+" K — "+
+      (close ? "<b style='color:#5fd07e'>excelente</b>" : consistent ? "consistente con tus observaciones, pero "+(guess<Thidden?"baja":"alta") : "<b style='color:#f06a5e'>fuera del rango que tus propias observaciones permitían</b>")+
+      ".<br>Recarga la página para una nube nueva.";
+  });
+})();
+
+// ---- Widget 2: simulador del colapso ----
+(function(){
+  var slider = document.getElementById('col-n');
+  var lab = document.getElementById('col-nlab');
+  var out = document.getElementById('col-out');
+  var phases = document.querySelectorAll('#col-phases span');
+  function fase(logn){
+    if(logn < 5) return 0;
+    if(logn < 10) return 1;
+    if(logn < 13) return 2;
+    if(logn < 20) return 3;
+    return 4;
+  }
+  var info = [
+    {t:"~10–30 K", d:"La nube está en equilibrio: la presión térmica compensa la gravedad. Para iniciar el colapso hace falta un gatillo — la onda de choque de una supernova cercana (~10.000 km/s) o un enfriamiento rápido por formación de moléculas."},
+    {t:"se mantiene baja (~10–100 K)", d:"<b>Primer colapso, no adiabático.</b> La gravedad (∝ 1/R²) crece y aprieta, pero los choques excitan rotacionalmente al CO, que al desexcitarse emite fotones de radio que <em>escapan</em>: el radiador funciona y la temperatura no se dispara."},
+    {t:"sube a ~1.000–2.000 K", d:"<b>Problema de Larson.</b> A n ~ 10¹⁰–10¹¹ cm⁻³ la nube se vuelve opaca a sus propios fotones: efecto invernadero interno. La temperatura sube, la presión frena el colapso… y la estrella queda a medio hacer. Hace falta otro mecanismo."},
+    {t:"contenida por la disociación", d:"<b>Segundo colapso.</b> A ~2.000 K los choques rompen las moléculas de H₂, y esa disociación <em>consume</em> calor (la inversa de la formación, que lo liberaba). La presión no crece lo que debería y la gravedad vuelve a ganar. Ya no hay freno."},
+    {t:"millones de grados", d:"<b>Encendido termonuclear.</b> Densidad y temperatura cruzan el umbral de fusión: nace una <em>protoestrella</em>, que todavía debe limpiar el material de su entorno. De 20 K a millones de grados: la historia completa del colapso."}
+  ];
+  function upd(){
+    var logn = parseFloat(slider.value);
+    lab.textContent = "n ≈ 10^"+logn.toFixed(1)+" partículas/cm³";
+    var f = fase(logn);
+    phases.forEach(function(p){ p.classList.toggle('on', parseInt(p.dataset.p) === f); });
+    out.innerHTML = "<span class='k'>Temperatura:</span> <b>"+info[f].t+"</b><br>"+info[f].d;
+  }
+  slider.addEventListener('input', upd);
+  upd();
+})();
+</script>
+</body>
+</html>

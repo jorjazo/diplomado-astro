@@ -66,6 +66,7 @@ Directorio: `estrellas/m2/html/` (índice: `estrellas/m2/html/index.html`)
 | --- | --- | --- | --- | --- |
 | Clase 1 | El medio interestelar: gas y polvo, espectro EM, radioastronomía, línea de 21 cm (HI), efecto Doppler y mapeo galáctico, gas ionizado (HII) y modelo de Bohr, polvo | `estrellas/m2/html/m2c1-apuntes.html` | `estrellas/m2/html/m2c1-examen-01.html` … `m2c1-examen-10.html` (10) | Resumida |
 | Clase 2 | Polvo, gas molecular y nubes moleculares: densidades del ISM (moles, Avogadro), color vs. temperatura (cuerpo negro vs. líneas), extinción y enrojecimiento, emisión IR del polvo y sputtering, formación de H₂ sobre granos de polvo, química del H₃⁺, CO como trazador y termómetro (transiciones J), tipos de nubes moleculares y GMCs | `estrellas/m2/html/m2c2-apuntes.html` | `estrellas/m2/html/m2c2-examen-01.html` … `m2c2-examen-10.html` (10) | Resumida |
+| Clase 3 | Nubes moleculares y formación estelar: hidrogenación en granos (agua, metano, amoníaco), self-shielding y rayos cósmicos, CO como trazador y termómetro rotacional, origen del C/N/O (convección y supernovas), colapso gravitacional, enfriamiento molecular (primer colapso no adiabático), problema de Larson, disociación del H₂ y segundo colapso, protoestrella, Población III, ventanas atmosféricas y telescopios de Atacama (ALMA, TAO) | `estrellas/m2/html/m2c3-apuntes.html` | `estrellas/m2/html/m2c3-examen-01.html` … `m2c3-examen-10.html` (10) | Resumida |
 
 ## Astrofísica de Galaxias
 
