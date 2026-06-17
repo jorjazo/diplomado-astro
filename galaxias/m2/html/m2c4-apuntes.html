@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El universo en expansión y las galaxias distantes — Astrofísica de Galaxias, Módulo II · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo II · Clase 4</span>
+  <h1>El universo en <em>expansión</em> y las galaxias distantes</h1>
+  <p class="sub">La expansión del universo estira la luz de las galaxias hacia el rojo. Ese estiramiento, el <em>corrimiento al rojo</em> (redshift, <span class="katex-inline" data-tex="z"></span>), termina siendo una máquina del tiempo: mirar lejos es mirar al pasado. De ahí salen la técnica del Lyman break, la era JWST y galaxias confirmadas a <span class="katex-inline" data-tex="z>14"></span>, cuando el universo tenía menos de 300 millones de años.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Valentino González</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 8 jun 2026</span>
+    <span><b>Tema:</b> Expansión, redshift y galaxias de alto z</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>l hilo conductor de la clase es una sola cantidad: el <em>redshift</em> <span class="katex-inline" data-tex="z"></span>. Empezamos por la observación que dio origen a todo (las galaxias lejanas se alejan más rápido), entendemos el corrimiento al rojo de dos maneras complementarias (efecto Doppler y expansión del espacio), y descubrimos que <strong>mayor redshift ⇒ mayor distancia ⇒ más en el pasado</strong>. Esa cadena convierte un fastidio observacional (la luz se nos escapa al infrarrojo) en la herramienta central de la cosmología observacional. Para alguien de informática, la clase es un recorrido por un <em>pipeline de detección</em>: una señal conocida (una línea, un quiebre espectral) reescalada por un factor <span class="katex-inline" data-tex="(1+z)"></span>, que detectamos primero con fotometría barata (imágenes en filtros) y confirmamos después con espectroscopía cara.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La expansión del universo</a></li>
+    <li><a href="#s2">Doppler y corrimiento al rojo</a></li>
+    <li><a href="#s3">El redshift como expansión del espacio</a></li>
+    <li><a href="#s4">Redshift = máquina del tiempo</a></li>
+    <li><a href="#s5">La luz se va al infrarrojo</a></li>
+    <li><a href="#s6">Encontrar galaxias: Lyman α y espectros</a></li>
+    <li><a href="#s7">La técnica del Lyman break</a></li>
+    <li><a href="#s8">[CII] a 158 µm con ALMA</a></li>
+    <li><a href="#s9">La función de luminosidad UV y su evolución</a></li>
+    <li><a href="#s10">La historia de formación estelar del universo</a></li>
+    <li><a href="#s11">La era JWST y las galaxias más distantes</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La expansión del universo</h2>
+    <p>Las galaxias lejanas se alejan, y mientras más lejos, más rápido.</p>
+  </div></div>
+
+  <p>La pregunta de partida es honesta: <span class="hl">¿de verdad se expande el universo?</span> La respuesta corta es <em>sí, tan seguro como puede estarlo una teoría científica</em>. La observación que lo sostiene la hicieron <strong>Georges Lemaître</strong> (1927) y <strong>Edwin Hubble</strong> (1929). Por décadas se la llamó "ley de Hubble"; en 2018 la Unión Astronómica Internacional (IAU) votó renombrarla <span class="hl">ley de Hubble-Lemaître</span>, porque Lemaître la había publicado antes, aunque en una revista de menor circulación.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-03.jpg" alt="Retratos de Georges Lemaître (1933) y Edwin Hubble (1931)">
+    <figcaption><span class="cap">Diapositiva · La expansión del universo</span>Georges Lemaître (izq., 1933) y Edwin Hubble (der., 1931). Lemaître dedujo la relación velocidad–distancia en 1927; Hubble la popularizó en 1929. La ley lleva hoy ambos nombres.</figcaption>
+  </figure>
+
+  <p>¿Qué se observa exactamente? El gráfico original de Hubble pone en el eje X la <strong>distancia</strong> a distintas galaxias y en el eje Y la <strong>velocidad radial</strong> con que se mueven respecto a nosotros (positiva = se aleja). La nube de puntos muestra una tendencia clara: <em>mientras más lejos está una galaxia, más rápido se aleja</em>. Es una relación <strong>estadística</strong>: algunas galaxias cercanas incluso se acercan (velocidad negativa) porque la gravedad local manda a pequeña escala.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-06.jpg" alt="Ley de Hubble-Lemaître v = H0 d con H0 ~ 70 km/s/Mpc y el diagrama original de Hubble de 1929">
+    <figcaption><span class="cap">Diapositiva · La ley de Hubble-Lemaître</span>La ley se resume en <span class="katex-inline" data-tex="v=H_0\,d"></span>, con <span class="katex-inline" data-tex="H_0\approx 70\ \mathrm{km/s/Mpc}"></span>. A la derecha, el diagrama original (Hubble 1929): velocidad radial vs. distancia. Hubble midió mal la pendiente (<span class="katex-inline" data-tex="H_0\approx 500"></span>) porque confundió el tipo de estrellas variables (cefeidas) que usó para las distancias; la <em>tendencia</em>, en cambio, era correcta.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="v = H_0\, d \qquad H_0 \approx 70\ \frac{\mathrm{km/s}}{\mathrm{Mpc}}"></span>
+    <small>Por cada megaparsec (Mpc) extra de distancia, la velocidad de recesión aumenta ≈ 70 km/s. A 1 Mpc → 70 km/s; a 2 Mpc → 140 km/s. <span class="katex-inline" data-tex="H_0"></span> es la <em>constante de Hubble</em>: la tasa de expansión <strong>hoy</strong> (la pendiente del diagrama).</small>
+  </div>
+
+  <p>Dos matices importantes que aclaró el profesor:</p>
+  <ul>
+    <li><strong>Gravedad vs. expansión.</strong> Que Andrómeda se <em>acerque</em> a la Vía Láctea no contradice la expansión: a escalas pequeñas (Grupo Local, cúmulos) la gravedad gana; la expansión solo domina a escalas suficientemente grandes (distancias entre cúmulos). La materia oscura cuenta como materia que <em>atrae</em>; la expansión es un fenómeno aparte.</li>
+    <li><strong>La expansión se acelera.</strong> No solo se expande: hoy lo hace <em>más rápido</em> que en el pasado. La causa hipotética se llama <span class="hl">energía oscura</span> — una especie de repulsión del espacio-tiempo. "Oscura" es, otra vez, el nombre que ponemos a lo que no entendemos.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c4/assets/slide-05.jpg" alt="Portada de la revista Science de diciembre de 1998: The Accelerating Universe">
+    <figcaption><span class="cap">Diapositiva · La expansión acelerada</span>Portada de <em>Science</em> (dic. 1998), "The Accelerating Universe", avance del año. La aceleración de la expansión, atribuida a la energía oscura, se infiere observando el universo en distintas épocas — justamente lo que permite estudiar galaxias a distintos redshifts.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor · la tensión de Hubble</span>
+    <p>Hay dos formas independientes de medir <span class="katex-inline" data-tex="H_0"></span> y dan números <em>levemente</em> distintos (≈ 70 vs. ≈ 73). La diferencia es chica, pero las barras de error son tan pequeñas que <strong>no se solapan</strong>: por eso es significativa. O hay un error sistemático en alguna medición, o falta física por entender. Es la <span class="hl">tensión de Hubble</span>, una discusión abierta hoy.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Dos mediciones de <span class="katex-inline" data-tex="H_0"></span> con valores cercanos pero <em>intervalos de confianza disjuntos</em> son como dos pipelines que reportan una métrica con barras de error chicas que no se intersectan: estadísticamente, no estás midiendo lo mismo. La señal es real, no ruido, y obliga a auditar las suposiciones de cada medición.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Doppler y corrimiento al rojo</h2>
+    <p>¿Cómo sabemos que se mueven? Por el color de su luz.</p>
+  </div></div>
+
+  <p>La velocidad de las galaxias la deducimos del <span class="hl">efecto Doppler</span>, el mismo fenómeno del sonido de un auto de Fórmula 1: cuando se acerca, las ondas se comprimen (más agudo); cuando se aleja, se estiran (más grave). Para la luz: una fuente que se aleja nos manda ondas de <strong>longitud de onda más larga</strong>, es decir, corridas hacia el <em>rojo</em>; una que se acerca, hacia el <em>azul</em>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-07.jpg" alt="El efecto Doppler con la fórmula lambda observado igual a lambda emitido por (1 + v/c)">
+    <figcaption><span class="cap">Diapositiva · El efecto Doppler</span>Cuando hay movimiento relativo entre fuente y observador, la longitud de onda recibida cambia. Para la luz: <span class="katex-inline" data-tex="\lambda_{\text{obs}}=\lambda_{\text{emit}}\,(1+v/c)"></span>. El factor <span class="katex-inline" data-tex="v/c"></span> mide cuánto se estira la onda.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\lambda_{\text{obs}}=\lambda_{\text{emit}}\left(1+\frac{v}{c}\right)\;\xrightarrow{\;v/c\,\to\,z\;}\;\lambda_{\text{obs}}=\lambda_{\text{emit}}\,(1+z)"></span>
+    <small>En astronomía se reemplaza el factor <span class="katex-inline" data-tex="v/c"></span> por <span class="katex-inline" data-tex="z"></span>, el <strong>corrimiento al rojo</strong> (redshift). Así, una línea emitida a <span class="katex-inline" data-tex="\lambda_{\text{emit}}"></span> se observa estirada por un factor <span class="katex-inline" data-tex="(1+z)"></span>.</small>
+  </div>
+
+  <p>Cuanto más lejos está la galaxia, mayor su velocidad, mayor el factor <span class="katex-inline" data-tex="v/c"></span> y mayor el estiramiento. Un alumno preguntó si <span class="katex-inline" data-tex="v/c"></span> no es siempre despreciable (las velocidades parecen chicas frente a <span class="katex-inline" data-tex="c\approx 300{.}000"></span> km/s). La respuesta: a distancias pequeñas sí (a 1 Mpc, <span class="katex-inline" data-tex="v=70"></span> km/s, nada frente a <span class="katex-inline" data-tex="c"></span>), pero como la velocidad crece ≈ 70 km/s por Mpc, a <em>miles de millones</em> de Mpc se vuelve comparable a <span class="katex-inline" data-tex="c"></span> y el corrimiento se hace enorme.</p>
+
+  <div class="box dato">
+    <span class="tag">Un enrojecimiento distinto</span>
+    <p>Ojo: hay varias razones por las que una galaxia se ve roja (polvo, población estelar vieja). El enrojecimiento <em>por redshift</em> es distinto y se reconoce en el espectro: <strong>todas</strong> las líneas se corren por el mismo factor <span class="katex-inline" data-tex="(1+z)"></span>, manteniendo sus separaciones relativas. Eso es lo que permite medir <span class="katex-inline" data-tex="z"></span> sin ambigüedad.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 1 ============ -->
+<section id="w-redshift">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Corrimiento al rojo: de una línea conocida a lo que observamos</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una galaxia emite una línea (por defecto, Lyman α a 121,6&nbsp;nm = 1216&nbsp;Å, en el ultravioleta). Mueve el redshift <span class="katex-inline" data-tex="z"></span> y observa a qué longitud de onda nos llega, en qué banda cae, y a qué edad del universo corresponde.</p>
+    <div class="wgrid">
+      <div>
+        <label>Longitud de onda emitida λ<sub>emit</sub> (nm)</label>
+        <input type="number" id="rs-lam" value="121.6" step="any">
+      </div>
+      <div>
+        <label>Corrimiento al rojo z = <span class="rngval" id="rs-zval">6.00</span></label>
+        <input type="range" id="rs-z" min="0" max="16" step="0.01" value="6">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-z="0">z = 0 (aquí)</button>
+      <button type="button" data-z="1">z = 1</button>
+      <button type="button" data-z="4">z = 4</button>
+      <button type="button" data-z="6">z = 6</button>
+      <button type="button" data-z="7">z = 7</button>
+      <button type="button" data-z="14.44">z = 14,44 (récord)</button>
+    </div>
+    <output id="rs-out" class="wout"></output>
+    <p style="color:var(--muted);font-size:.8rem;margin:.6em 0 0">La edad del universo se interpola de la tabla de la clase (z=0,5→8,5 Gyr; z=4→1,5 Gyr; z=7→750 Myr; z=10→470 Myr; z=16→250 Myr). Es aproximada, para intuición.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El redshift como expansión del espacio</h2>
+    <p>Las galaxias no se mueven: es el espacio entre ellas el que crece.</p>
+  </div></div>
+
+  <p>Hay una segunda forma de entender el redshift, más fiel a la cosmología. Imaginemos dos galaxias <strong>quietas en sus coordenadas</strong>, lo bastante lejos como para ignorar la gravedad. A medida que pasa el tiempo, el <em>espacio entre ellas</em> crece: la distancia aumenta aunque ninguna se haya movido de su coordenada. Cada galaxia se siente en reposo, pero ve a la otra alejarse. Ese movimiento relativo es, en cierto sentido, <em>ficticio</em>: no hay desplazamiento, hay <strong>más espacio en medio</strong>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-09.jpg" alt="Grilla de coordenadas que crece de 50 a 100 Mpc con dos galaxias fijas, y un globo que se infla estirando una onda dibujada en su superficie">
+    <figcaption><span class="cap">Diapositiva · Redshift = expansión del espacio</span>Arriba: una grilla de coordenadas que pasa de 50 a 100 Mpc; las dos galaxias no cambian de celda, pero se separan. Abajo: la analogía del <strong>globo que se infla</strong>: una onda dibujada en su superficie se estira junto con el globo. La longitud de onda crece <em>porque el espacio creció durante el viaje de la luz</em>, no por velocidad real.</figcaption>
+  </figure>
+
+  <p>Esto explica una paradoja que inquieta a todos: <strong>la velocidad relativa entre dos galaxias puede superar la velocidad de la luz</strong>, y no se viola la relatividad. Ninguna galaxia se mueve por el espacio más rápido que la luz; lo que crece es la cantidad de espacio interpuesto. La consecuencia es dramática: hay galaxias cuya luz <em>nunca</em> nos llegará, porque el espacio entre nosotros crece más rápido de lo que su luz puede recorrerlo. Eso define una burbuja a nuestro alrededor: el <span class="hl">universo observable</span>, limitado por un <em>horizonte</em>.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física</span>
+    <p>El profesor pidió no obsesionarse con "cómo puede ser infinito y a la vez expandirse". La idea operacional es simple: lo que medimos es que <strong>las distancias promedio entre las cosas aumentan con el tiempo</strong>, y eso baja la densidad. Si el universo es finito o infinito es una pregunta más filosófica que práctica; la ciencia se queda con la fenomenología que permite predecir.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Doppler y "expansión del espacio" son <strong>dos modelos distintos que producen la misma fórmula</strong> <span class="katex-inline" data-tex="\lambda_{\text{obs}}=\lambda_{\text{emit}}(1+z)"></span> en el régimen relevante: como dos implementaciones de la misma interfaz. El segundo modelo (estiramiento de coordenadas, el factor de escala <span class="katex-inline" data-tex="a(t)"></span>) es el "correcto" y explica casos límite que el primero no, igual que cuando una abstracción más general cubre los <em>edge cases</em> (recesión superlumínica) que la simplificada no maneja.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Redshift = máquina del tiempo</h2>
+    <p>La cadena lógica que organiza toda la clase.</p>
+  </div></div>
+
+  <p>Aquí se juntan todas las piezas. La cadena es:</p>
+  <div class="formula" style="text-align:center">
+    <span class="katex-block" data-tex="\text{mayor } z \;\Rightarrow\; \text{mayor } v \;\Rightarrow\; \text{mayor distancia} \;\Rightarrow\; \text{más en el pasado}"></span>
+    <small>A mayor distancia, a la luz le toma más tiempo llegar: la vemos como fue hace mucho. Por eso estudiar <strong>galaxias de alto redshift</strong> es estudiar el <strong>universo joven</strong>.</small>
+  </div>
+
+  <p>Pero la relación entre <span class="katex-inline" data-tex="z"></span> y el tiempo <strong>no es lineal</strong>. Una galaxia a <span class="katex-inline" data-tex="z=2"></span> no está al doble de tiempo (ni de distancia) que una a <span class="katex-inline" data-tex="z=1"></span>. Al principio, pasos chicos en <span class="katex-inline" data-tex="z"></span> cubren mucho tiempo; a redshift alto, hay que aumentar muchísimo <span class="katex-inline" data-tex="z"></span> para avanzar pocos millones de años. Para llegar al Big Bang hay que ir a <span class="katex-inline" data-tex="z\to\infty"></span>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-11.jpg" alt="Gráfico de tiempo hacia el pasado vs. redshift, muy curvo, con la tabla z(250 Myr)=16, z(750 Myr)=7, z(1.5 Gyr)=4, z(0.78)=mitad de la edad del universo">
+    <figcaption><span class="cap">Diapositiva · Relación redshift–tiempo (no trivial)</span>Tiempo hacia el pasado vs. redshift. A <span class="katex-inline" data-tex="z=0{,}78"></span> estamos justo en la <strong>mitad de la edad del universo</strong>. La curva se aplana: a redshift alto los pasos temporales son cortísimos. Tabla de referencia: <span class="katex-inline" data-tex="z(250\,\text{Myr})=16"></span>, <span class="katex-inline" data-tex="z(470\,\text{Myr})=10"></span>, <span class="katex-inline" data-tex="z(750\,\text{Myr})=7"></span>, <span class="katex-inline" data-tex="z(1{,}5\,\text{Gyr})=4"></span>.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Números para anclar</span>
+    <p>Edad del universo ≈ <strong>13.800 millones de años</strong>. Algunos pares útiles: <span class="katex-inline" data-tex="z=4"></span> → universo de 1.500 Myr; <span class="katex-inline" data-tex="z=6"></span> → ≈ 900 Myr; <span class="katex-inline" data-tex="z=7"></span> → 750 Myr; <span class="katex-inline" data-tex="z=10"></span> → ≈ 470 Myr; <span class="katex-inline" data-tex="z=14{,}4"></span> → ≈ 284 Myr. El <em>look-back time</em> es el complemento respecto de 13.800 Myr. El CMB (radiación de fondo) se libera a <span class="katex-inline" data-tex="z\approx 1100"></span>: el redshift más alto observable.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El mapeo <span class="katex-inline" data-tex="z \to t"></span> es una <strong>función no lineal y fuertemente comprimida</strong> en el extremo alto (parecida a una escala logarítmica saturada). Igual que en un eje log donde una década extra "cuesta lo mismo" visualmente pero representa 10×, aquí cada unidad de <span class="katex-inline" data-tex="z"></span> a alto <span class="katex-inline" data-tex="z"></span> "compra" cada vez menos tiempo. Hay que tener la tabla de conversión a mano (o una calculadora cosmológica) y nunca interpolar linealmente a ojo.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La luz se va al infrarrojo</h2>
+    <p>La primera consecuencia práctica del redshift para observar.</p>
+  </div></div>
+
+  <p>Las estrellas de una galaxia (como el Sol) emiten la mayor parte de su luz en el <strong>óptico</strong> (≈ 4.000–7.000 Å, lo que ve el ojo). Pero si la galaxia está a redshift alto, <em>toda</em> esa luz se estira por <span class="katex-inline" data-tex="(1+z)"></span>. A <span class="katex-inline" data-tex="z=1"></span>, una línea de 500 nm (verde) se observa a 1.000 nm (1 µm), ya en el <strong>infrarrojo</strong> invisible al ojo. A <span class="katex-inline" data-tex="z=4"></span> hay que multiplicar por 5.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-12.jpg" alt="Espectro electromagnético con la ventana visible (400-750 nm) entre el ultravioleta y el infrarrojo">
+    <figcaption><span class="cap">Diapositiva · El espectro electromagnético</span>La ventana visible (≈ 400–750 nm) es una franja angosta. La luz óptica de las galaxias distantes, al estirarse, sale de esta ventana hacia el <strong>infrarrojo</strong>: por eso "la mayor parte de la luz de las galaxias más distantes nos llega en el IR".</figcaption>
+  </figure>
+
+  <p>Podemos ver esto sobre el <span class="hl">espectro de una galaxia</span> (curva negra). La banda blanca marca la <em>ventana óptica</em> a la que tenemos acceso desde Tierra. A <span class="katex-inline" data-tex="z=0"></span> vemos el óptico de la galaxia. Al subir <span class="katex-inline" data-tex="z"></span>, el espectro se corre y se atenúa, y la ventana óptica empieza a mostrarnos partes <em>distintas</em> del espectro original: a <span class="katex-inline" data-tex="z=2"></span>, lo que cae en el óptico es el <strong>ultravioleta</strong> original (dominado por estrellas jóvenes, curva azul).</p>
+
+  <div class="wgrid" style="gap:0 16px">
+  <figure>
+    <img src="m2c4/assets/slide-14.jpg" alt="Distribución espectral de energía de una galaxia a z=0 con la ventana óptica observable resaltada en blanco">
+    <figcaption><span class="cap">Diapositiva · SED a z = 0</span>Espectro (densidad de brillo vs. longitud de onda) a <span class="katex-inline" data-tex="z=0"></span>. <span style="color:var(--red-soft)">Rojo</span> = estrellas viejas; <span style="color:var(--blue)">azul</span> = estrellas jóvenes; negro = total con polvo. La banda blanca es lo que vemos en el óptico.</figcaption>
+  </figure>
+  <figure>
+    <img src="m2c4/assets/slide-18.jpg" alt="La misma distribución espectral pero a z=4: todo el espectro se ha corrido a la derecha y la ventana óptica solo capta el ultravioleta original">
+    <figcaption><span class="cap">Diapositiva · SED a z = 4</span>A <span class="katex-inline" data-tex="z=4"></span> todo se corrió a la derecha (IR) y se atenuó. En la ventana óptica solo queda el <strong>UV original</strong>. Por eso, para comparar "manzanas con manzanas" hay que observar en el infrarrojo (y desde el espacio).</figcaption>
+  </figure>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Doble penalización</span>
+    <p>Al subir <span class="katex-inline" data-tex="z"></span> pasan dos cosas malas a la vez: (1) la galaxia se ve <strong>más débil</strong> (está más lejos), y (2) <strong>cambia qué parte del espectro observamos</strong> (de óptico a UV en reposo). Ambas dificultan el estudio y empujan a usar telescopios espaciales e infrarrojos.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Encontrar galaxias distantes: Lyman α y espectros</h2>
+    <p>Una línea conocida, corrida al rojo, delata la distancia.</p>
+  </div></div>
+
+  <p>¿Cómo encontramos galaxias lejanas? Primera vía: <strong>líneas espectrales</strong>. En el UV en reposo de las galaxias jóvenes destaca una línea de emisión muy brillante: <span class="hl">Lyman α</span>, emitida por el hidrógeno a una longitud de onda en reposo de <strong>1216 Å</strong> (121,6 nm).</p>
+
+  <h3>De dónde sale Lyman α</h3>
+  <p>Las estrellas masivas <strong>ionizan</strong> el gas de hidrógeno a su alrededor (le arrancan los electrones): queda una "sopa" de protones y electrones. Cuando un electrón se <em>recombina</em> con un protón, no suele caer directo al nivel fundamental, sino que va decayendo nivel a nivel. La transición del <strong>nivel 2 al nivel 1</strong> emite el fotón de Lyman α, y es de las más probables — por eso la línea es tan prominente.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-21.jpg" alt="Espectro UV en reposo de una galaxia a z~4 (Shapley 2003) con la línea de Lyman alfa señalada con una flecha roja en 1216 Å">
+    <figcaption><span class="cap">Diapositiva · Espectro UV (reposo) a z ≈ 4</span>Espectro UV de una galaxia (Shapley et al. 2003), correspondiente al universo de ≈ 1.500 Myr. La flecha marca <strong>Lyman α</strong> (1216 Å), emitida por el hidrógeno. No siempre está presente, pero cuando lo está, es inconfundible.</figcaption>
+  </figure>
+
+  <p>Si conocemos la longitud de onda en reposo (1216 Å) y la medimos corrida, despejamos <span class="katex-inline" data-tex="z"></span>. Ejemplo de la clase: una galaxia muestra la línea a <strong>≈ 8400 Å</strong>. Entonces <span class="katex-inline" data-tex="1+z = 8400/1216 \approx 7"></span> → <span class="katex-inline" data-tex="z\approx 6"></span>. Esa galaxia emitió su luz cuando el universo tenía ≈ 900 Myr, y esa luz viajó ≈ 12.800 Myr hasta nosotros.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-22.jpg" alt="Espectro observado de una galaxia distante con una única línea de emisión brillante centrada en 8400 angstrom">
+    <figcaption><span class="cap">Diapositiva · Una línea corrida al rojo</span>Espectro observado (2D arriba, 1D abajo): una línea de emisión a ≈ 8400 Å. Sabiendo que es Lyman α (reposo 1216 Å), <span class="katex-inline" data-tex="1+z\approx 6{,}9"></span>. Con <strong>varias</strong> líneas (emisión o absorción) la medida es aún más precisa, porque todas deben corrise por el mismo factor.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El problema: el espectro es caro</span>
+    <p>Para medir líneas hay que tomar un <strong>espectro</strong>: aislar la luz del objeto (con una ranura), dispersarla (con un prisma o red) y registrarla. Eso (1) obliga a observar pocos objetos a la vez (hay que aislar cada uno) y (2) <strong>diluye</strong> la luz: la repartes en muchas longitudes de onda, así que en cada píxel llega poca señal y es más difícil detectar. Conclusión: <em>espectroscopía = cara</em>; imagen = barata.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Medir <span class="katex-inline" data-tex="z"></span> a partir de líneas es <strong>cross-correlation / template matching</strong>: tienes un patrón conocido (las longitudes de onda en reposo de un set de líneas) y buscas el factor <span class="katex-inline" data-tex="(1+z)"></span> que lo alinea con lo observado. Más líneas = más restricciones = ajuste sobredeterminado y robusto. Pero adquirir ese dato (el espectro) tiene alto costo de "I/O": dispersar la señal baja la relación señal/ruido por canal.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>La técnica del Lyman break</h2>
+    <p>Detectar galaxias lejanas con imágenes, sin tomar espectro.</p>
+  </div></div>
+
+  <p>La técnica más popular aprovecha un rasgo que <strong>siempre</strong> está presente (a diferencia de la línea Lyman α): el <span class="hl">quiebre de Lyman</span> (<em>Lyman break</em>). El espectro tiene flujo casi nulo a longitudes de onda cortas (por debajo de <strong>912 Å</strong> en reposo, el límite de Lyman) y de pronto "se enciende" a longitudes mayores. Ese escalón se debe a la <strong>absorción por hidrógeno</strong> a lo largo del universo.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-23.jpg" alt="Espectro de una galaxia con una línea azul que resalta el quiebre de Lyman: flujo bajo a la izquierda y un escalón hacia arriba">
+    <figcaption><span class="cap">Diapositiva · La técnica del Lyman break</span>La línea azul resalta el <strong>quiebre</strong>: flujo bajo a longitudes cortas, escalón hacia arriba. Como es un cambio brusco de brillo entre dos rangos, puede detectarse comparando <em>imágenes en distintos filtros</em>, sin necesidad de espectro.</figcaption>
+  </figure>
+
+  <p>La idea: una imagen astronómica en color se arma tomando fotos con distintos <strong>filtros</strong> (cada uno deja pasar un rango de longitudes de onda) y asignándoles RGB. Para una galaxia de alto redshift esperamos que en los filtros <em>azules</em> (longitudes cortas) <strong>no aparezca nada</strong> y que de pronto, en un filtro <em>más rojo</em>, surja un objeto brillante. El filtro donde "desaparece" se llama, por eso, el filtro de <em>dropout</em>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-25.jpg" alt="Galaxia Lyman break a z=3: invisible en el filtro U, visible en B, V e I (Giavalisco 2002)">
+    <figcaption><span class="cap">Diapositiva · Lyman break a z = 3 (Giavalisco et al. 2002)</span>La galaxia "desaparece" a longitudes cortas (<span class="katex-inline" data-tex="<912"></span> Å en reposo) y aparece brillante a longitudes mayores. En las imágenes: nada en <strong>U</strong>, presente en <strong>B</strong>, <strong>V</strong>, <strong>I</strong>. El quiebre cae entre U y B → "U-dropout" → <span class="katex-inline" data-tex="z\approx 3"></span>.</figcaption>
+  </figure>
+
+  <p>La gran ventaja: una sola imagen contiene <strong>millones de objetos</strong>. Aplicando el criterio de dropout identificamos miles de candidatas de alto redshift de golpe, sin tomar un espectro por cada una. La técnica funciona a distintos redshifts: a mayor <span class="katex-inline" data-tex="z"></span>, el dropout ocurre en un filtro más rojo.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-27.jpg" alt="Galaxia Lyman break a z~7: ausente en V, i, z y apareciendo solo en los filtros J y H">
+    <figcaption><span class="cap">Diapositiva · Lyman break a z ≈ 7</span>A <span class="katex-inline" data-tex="z\approx 7"></span> (universo de 750 Myr) la galaxia ya desapareció de casi todos los filtros y solo asoma en los más rojos (<strong>J</strong>, <strong>H</strong>). Que aparezca en <em>dos</em> filtros confirma que la "manchita" es real y no ruido. Es poco vistosa porque está lejísimos y su luz se diluyó enormemente.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor</span>
+    <p>El Lyman break <em>selecciona</em> candidatas; no las confirma. Para estar seguros del redshift se toma después un espectro de seguimiento que mida líneas. Pero muchos estudios estadísticos con poblaciones grandes usan <strong>solo</strong> el Lyman break (sin confirmación espectroscópica), porque tomar tantos espectros es prohibitivamente caro.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 2 ============ -->
+<section id="w-lyman">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Detector de Lyman break: ¿en qué filtro hace dropout?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Mueve el redshift y mira cómo se corre el quiebre de Lyman (límite a 912&nbsp;Å en reposo) y la línea Lyman α (1216&nbsp;Å). Los filtros a longitudes más cortas que el quiebre quedan "apagados" (dropout); los más rojos ven la galaxia.</p>
+    <div class="wgrid">
+      <div>
+        <label>Corrimiento al rojo z = <span class="rngval" id="ly-zval">3.00</span></label>
+        <input type="range" id="ly-z" min="2" max="16" step="0.01" value="3">
+      </div>
+      <div>
+        <label>Set de filtros</label>
+        <select id="ly-set">
+          <option value="hst">HST óptico/IR (U B V I z Y J H)</option>
+          <option value="jwst">JWST/NIRCam (F090W…F444W)</option>
+        </select>
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-z="3">z = 3 (U-dropout)</button>
+      <button type="button" data-z="6">z = 6</button>
+      <button type="button" data-z="7">z = 7</button>
+      <button type="button" data-z="11">z = 11</button>
+      <button type="button" data-z="14.44">z = 14,44</button>
+    </div>
+    <canvas id="ly-canvas" width="900" height="240"></canvas>
+    <output id="ly-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>[CII] a 158 µm con ALMA</h2>
+    <p>Otra línea, mucho más al rojo, y otro telescopio chileno.</p>
+  </div></div>
+
+  <p>El profesor contó una vía alternativa en la que está involucrado. El gas de las galaxias produce <strong>otras</strong> líneas de emisión; una de las más brillantes es la de <span class="hl">[CII]</span> a <strong>158 µm</strong> en reposo (¡mucho más larga que los 1216 Å de Lyman α!). El observatorio <strong>ALMA</strong> (en Chile) puede tomar espectros de esa línea en galaxias a <span class="katex-inline" data-tex="z>7"></span>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-28.jpg" alt="Antenas de ALMA y un conjunto de espectros de la línea [CII] a 158 micrones en muchas galaxias (proyecto REBELS, Bouwens 2022)">
+    <figcaption><span class="cap">Diapositiva · La línea [CII] a 158 µm (REBELS; Bouwens et al. 2022)</span>Izq.: antenas de ALMA (ESO/C. Malin). Der.: detecciones de [CII] en muchas galaxias. Combinando ≈ 50 antenas de 12 m se rescata suficiente luz de objetos donde un espectro óptico "no vería nada". Permitió, antes de JWST, la mayor muestra de galaxias a <span class="katex-inline" data-tex="z\approx 7"></span> (y algunas a <span class="katex-inline" data-tex="z\approx 9"></span>) confirmadas espectroscópicamente.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Combinar ≈ 50 antenas para "rescatar" la señal débil de una galaxia es <strong>stacking / coherencia de señales</strong>: sumar muchas mediciones del mismo objeto aumenta el área colectora efectiva y la relación señal/ruido. Es el mismo principio de promediar muchas trazas ruidosas para hacer emerger una señal sepultada en el ruido.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>La función de luminosidad UV y su evolución</h2>
+    <p>Contar galaxias por brillo, a distintas épocas, y verlas crecer.</p>
+  </div></div>
+
+  <p>Con la técnica del Lyman break (vía Hubble, HST) se midió la <span class="hl">función de luminosidad</span> de las galaxias a distintos redshifts: cuántas galaxias hay por unidad de volumen comóvil en cada brillo. Como a alto <span class="katex-inline" data-tex="z"></span> solo accedemos al UV en reposo, es una <strong>función de luminosidad UV</strong>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-29.jpg" alt="Funciones de luminosidad UV de Bouwens 2015 a z~4, 5, 6, 7, 8 y 10, con el número por Mpc cúbico cayendo al aumentar el redshift">
+    <figcaption><span class="cap">Diapositiva · Función de luminosidad UV (Bouwens et al. 2015)</span>Cada curva es una época: <span class="katex-inline" data-tex="z\sim4"></span> (azul) hasta <span class="katex-inline" data-tex="z\sim10"></span> (morado). Eje X: magnitud absoluta UV (más brillante a la izquierda); eje Y: número por mag por Mpc³ comóvil. Entre <span class="katex-inline" data-tex="z=7"></span> y <span class="katex-inline" data-tex="z=4"></span> el número de objetos de un brillo dado <strong>creció casi un factor 10</strong>.</figcaption>
+  </figure>
+
+  <p>Dos tendencias clave (las mismas de la Clase 1, ahora en el universo muy joven):</p>
+  <ul>
+    <li><strong>La normalización sube con el tiempo:</strong> cada vez hay más galaxias en total. El universo tenía muchísimas menos a los 400 Myr (<span class="katex-inline" data-tex="z\sim10"></span>) que a los 1.500 Myr (<span class="katex-inline" data-tex="z\sim4"></span>).</li>
+    <li><strong>La pendiente (α) cambia:</strong> al principio dominan abrumadoramente las galaxias <em>chiquititas</em> (débiles); con el tiempo crecen las grandes (brillantes), por <strong>fusiones</strong> y <strong>acreción</strong> de material. La población se va poblando en el extremo brillante.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Imagen de formación jerárquica</span>
+    <p>La historia que arma esto: primero nacen muchas galaxias pequeñas; luego, colisionando y acretando gas, forman objetos cada vez más grandes. La función de luminosidad evoluciona "de izquierda a derecha" (de débiles a brillantes) hasta el presente. Es la formación <em>jerárquica</em> de estructuras.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>La historia de formación estelar del universo</h2>
+    <p>Uno de los gráficos más famosos de la astronomía.</p>
+  </div></div>
+
+  <p>El brillo UV de una galaxia traza sus <strong>estrellas masivas</strong>, que viven poco. Mucho UV ⇒ formación estelar <em>reciente</em>. Existe una correlación entre brillo UV y <span class="hl">tasa de formación estelar</span> (SFR). Sumando sobre todas las galaxias y dividiendo por volumen comóvil, se obtiene la <strong>densidad de formación estelar del universo</strong> en cada época.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-30.jpg" alt="La historia de formación estelar del universo (Bouwens 2015): log de la densidad de SFR vs redshift, con un pico cerca de z=2 y caída hacia ambos lados">
+    <figcaption><span class="cap">Diapositiva · Historia de formación estelar (Bouwens et al. 2015)</span>Densidad de formación estelar vs. redshift (arriba, edad desde el Big Bang). Sube desde <span class="katex-inline" data-tex="z\sim10"></span>, alcanza un <strong>pico a <span class="katex-inline" data-tex="z\approx2{-}3"></span></strong> (≈ "mediodía cósmico") y luego decae hasta hoy. Ojo con las escalas: el ascenso ocurre en ≈ 1.500 Myr, la caída en ≈ 10.000 Myr.</figcaption>
+  </figure>
+
+  <p>La lectura: el universo joven formaba estrellas a un ritmo creciente, llegó a un máximo y <em>"se cansó"</em>; desde entonces el ritmo decae y seguirá decayendo hasta que nazca la última estrella. ¿Por qué? Dos explicaciones (no excluyentes):</p>
+  <ul>
+    <li><strong>Combustible:</strong> al principio había gas en abundancia; al formar estrellas, el gas se agota, y sin material no se pueden formar más estrellas.</li>
+    <li><strong>Feedback de AGN:</strong> el número de núcleos activos también tiene un pico parecido. Los AGN pueden "matar" la formación estelar de su galaxia (la vuelven roja), contribuyendo a la caída.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La curva SFR(z) es una <strong>serie temporal con un único máximo</strong> (rise-and-decay), como la tasa de crecimiento de un sistema que primero acelera al haber recursos abundantes y luego se satura/decae al agotarse el "presupuesto" (el gas). El "look-back" en el eje superior es un cambio de variable no lineal: cuidado al leer pendientes, porque el eje <span class="katex-inline" data-tex="z"></span> comprime el tiempo de forma desigual.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>La era JWST y las galaxias más distantes</h2>
+    <p>Más área colectora, más infrarrojo, espectros al por mayor.</p>
+  </div></div>
+
+  <p>Todo lo anterior se hizo con el Hubble (HST). El <strong>Telescopio Espacial James Webb (JWST)</strong> cambió el juego con dos optimizaciones:</p>
+  <ul>
+    <li><strong>Más grande:</strong> espejo de ≈ 6,5 m de diámetro efectivo vs. los ≈ 2,4 m de Hubble. Más área colectora ⇒ ve objetos más débiles ⇒ alcanza galaxias más distantes.</li>
+    <li><strong>Optimizado para el infrarrojo:</strong> está bañado en <em>oro</em> (refleja mejor las longitudes largas) y tiene filtros a longitudes de onda mucho mayores que el último filtro de Hubble (≈ 1,6 µm). Eso permite aplicar el Lyman break a redshifts mucho más altos.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c4/assets/slide-32.jpg" alt="Comparación de tamaño entre Hubble (2.4 m) y JWST (6.5 m)">
+    <figcaption><span class="cap">Diapositiva · Hubble vs. JWST</span>2,4 m vs. 6,5 m. JWST fue diseñado <strong>específicamente para estudiar galaxias distantes</strong> (se empezó a planear poco después del lanzamiento de Hubble). Su uso en exoplanetas vino después: cuando se diseñó, los exoplanetas ni se habían descubierto.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-33.jpg" alt="Set de filtros de JWST/NIRCam, canal corto y canal largo, de 0.6 a 5 micrones">
+    <figcaption><span class="cap">Diapositiva · Filtros de JWST/NIRCam</span>Filtros a longitudes mucho mayores que las de Hubble, en un canal corto y uno largo, con filtros anchos y medianos. Más filtros rojos ⇒ Lyman break a <span class="katex-inline" data-tex="z"></span> más alto. (Hay un segundo instrumento, MIRI, a longitudes aún mayores.)</figcaption>
+  </figure>
+
+  <p>JWST también toma <strong>espectros infrarrojos</strong> con NIRSpec. Como no se pueden "mandar al espacio placas metálicas con ranuras", usa una <span class="hl">rejilla de microobturadores programables</span>: desde Tierra se abren o cierran ranuras individuales para dejar pasar la luz de cada objeto. Así se toman <strong>hasta ≈ 100 espectros simultáneos</strong>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-34.jpg" alt="Detalle de la rejilla de microobturadores (microshutter array) de NIRSpec en JWST">
+    <figcaption><span class="cap">Diapositiva · Microobturadores de NIRSpec</span>Rejilla de "hoyitos" programables. Abriendo las ranuras donde caen los objetos de interés, se obtienen muchos espectros de una vez. El flujo: imagen multibanda → Lyman break para seleccionar candidatas → abrir ranuras → espectro y redshift confirmado.</figcaption>
+  </figure>
+
+  <h3>Confirmaciones espectroscópicas a alto z</h3>
+  <p>Una de las primeras imágenes liberadas (cúmulo <strong>SMACS 0723</strong>) traía el espectro de una galaxia a <span class="katex-inline" data-tex="z=8{,}5"></span> (≈ 600 Myr tras el Big Bang) con líneas de <strong>oxígeno, neón e hidrógeno</strong>. Sorpresa: a esa época <em>ya había elementos químicos pesados</em>. Lo que vemos no son las primeras estrellas, sino al menos una segunda o tercera generación: hubo supernovas previas que enriquecieron el medio. El enriquecimiento químico ocurre <strong>muy rápido</strong>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-36.jpg" alt="Espectro de NIRSpec de una galaxia a z=8.5 detrás de SMACS 0723, con líneas de oxígeno, neón e hidrógeno etiquetadas">
+    <figcaption><span class="cap">Diapositiva · Espectro JWST de una galaxia a z = 8,5 (SMACS 0723)</span>Líneas de oxígeno, neón e hidrógeno claramente detectadas. A ≈ 600 Myr ya hay metales: la fábrica de elementos químicos arranca antes de lo que pensábamos.</figcaption>
+  </figure>
+
+  <h3>El récord de la galaxia más distante</h3>
+  <p>El profesor tuvo que actualizar esta diapositiva varias veces. Durante un tiempo, el récord fue <strong>JADES-GS-z14-0</strong> a <span class="katex-inline" data-tex="z=14{,}32"></span> (≈ 286 Myr tras el Big Bang). Detectada como Lyman break (aparece recién a ≈ 2 µm, fuera del alcance de Hubble) y confirmada con espectro: continuo, quiebre y líneas débiles.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-40.jpg" alt="Espectro NIRSpec de JADES-GS-z14-0 con su quiebre de Lyman claramente visible (Carniani 2024)">
+    <figcaption><span class="cap">Diapositiva · JADES-GS-z14-0, z = 14,32 (Carniani et al. 2024)</span>Imágenes por filtro (arriba): nada en los azules, aparece desde F200W. Abajo, el espectro 1D con el <strong>quiebre de Lyman</strong> nítido. Es de cuando el universo tenía ≈ 286 Myr.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-41.jpg" alt="MoM-z14, la galaxia más distante al 29/05/2026, a z=14.44 (Naidu 2025)">
+    <figcaption><span class="cap">Diapositiva · MoM-z14, z = 14,44 (Naidu et al. 2025)</span>El récord vigente (al 29/05/2026): <span class="katex-inline" data-tex="z=14{,}44"></span>, ≈ 284 Myr tras el Big Bang. Notar lo poco que separa <span class="katex-inline" data-tex="z=14{,}32"></span> de <span class="katex-inline" data-tex="z=14{,}44"></span> en tiempo: apenas ≈ 2 Myr. A alto <span class="katex-inline" data-tex="z"></span>, subir el redshift "compra" poquísimo tiempo.</figcaption>
+  </figure>
+
+  <h3>¿Demasiadas galaxias demasiado pronto?</h3>
+  <p>Extendiendo la función de luminosidad UV a <span class="katex-inline" data-tex="z\sim9,11,14"></span> aparece algo inesperado: si tomamos la evolución medida a <span class="katex-inline" data-tex="z=4{-}10"></span> y la <strong>extrapolamos</strong> a <span class="katex-inline" data-tex="z=14"></span>, predecimos muchas menos galaxias de las que se observan. La medición está lejos de la extrapolación, más que las barras de error: hay <em>más</em> galaxias brillantes de lo esperado.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-42.jpg" alt="Función de luminosidad UV a z>8 (Finkelstein 2024): z~9 (58 galaxias), z~11 (27), z~14 (3), con curvas extrapoladas por debajo de los datos">
+    <figcaption><span class="cap">Diapositiva · FL UV a z &gt; 8 (Finkelstein et al. 2024)</span>Muestras: <span class="katex-inline" data-tex="z\sim9"></span> (58 galaxias), <span class="katex-inline" data-tex="z\sim11"></span> (27), <span class="katex-inline" data-tex="z\sim14"></span> (3). Las extrapolaciones (líneas) caen <strong>por debajo</strong> de los puntos medidos: la evolución "se pegó un salto". Son pocas galaxias, pero estadísticamente más de las esperadas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-43.jpg" alt="Historia de formación estelar extendida a z>8 (Harikane 2023): los puntos a z=14-16 quedan por encima de la curva suave esperada">
+    <figcaption><span class="cap">Diapositiva · SFR a z &gt; 8 (Harikane et al. 2023)</span>La misma señal en la densidad de formación estelar: los puntos a <span class="katex-inline" data-tex="z\sim14{-}16"></span> quedan <strong>por encima</strong> de la evolución suave esperada. De ahí los titulares de "galaxias que no deberían existir". La precisión aún no alcanza para conclusiones firmes: hay que reproducirlo con más equipos y más datos.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor · frontera del conocimiento</span>
+    <p>"Esto ya es la frontera última de lo que sabemos." Todavía está en discusión si el salto es real; debe reproducirse independientemente. Si se confirma, habrá que revisar las teorías de formación de galaxias: se están formando <em>más rápido</em> de lo esperado. El límite duro hoy es el <strong>área colectora</strong>: se planean telescopios espaciales de 16 m. El ELT (40 m) se construye en Chile, pero al estar en tierra, la atmósfera limita lo que puede ver de tan lejos.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre</span>
+    <p>Todo nace de una cantidad: el redshift. La expansión estira la luz (Doppler o globo, da igual el modelo); mayor <span class="katex-inline" data-tex="z"></span> = mayor distancia = más en el pasado. El Lyman break nos deja <em>seleccionar</em> galaxias lejanas con imágenes baratas; la espectroscopía (ALMA, NIRSpec) las <em>confirma</em>. Con eso reconstruimos la función de luminosidad y la historia de formación estelar del universo, hoy trazada desde <span class="katex-inline" data-tex="z=0"></span> hasta <span class="katex-inline" data-tex="z\approx14"></span>. Y esto recién empieza: JWST tiene por delante 10–15 años. El objetivo final no es el récord de distancia, sino reunir <em>decenas</em> de galaxias muy lejanas para una estadística robusta — incluso una galaxia <strong>primordial</strong>, solo de hidrógeno y helio.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ley de Hubble-Lemaître</b></td><td><span class="katex-inline" data-tex="v=H_0\,d"></span>, <span class="katex-inline" data-tex="H_0\approx 70"></span> km/s/Mpc</td><td>Más lejos = más rápido se aleja; evidencia de la expansión</td></tr>
+      <tr><td><b>Renombre IAU 2018</b></td><td>De "ley de Hubble" a "Hubble-Lemaître"</td><td>Lemaître la publicó antes (1927)</td></tr>
+      <tr><td><b>Energía oscura</b></td><td>Causa (desconocida) de la expansión acelerada</td><td>La expansión es hoy más rápida que en el pasado</td></tr>
+      <tr><td><b>Tensión de Hubble</b></td><td>Dos medidas de <span class="katex-inline" data-tex="H_0"></span> (~70 vs ~73) no se solapan</td><td>Posible física nueva o sistemático sin resolver</td></tr>
+      <tr><td><b>Efecto Doppler (luz)</b></td><td><span class="katex-inline" data-tex="\lambda_{obs}=\lambda_{emit}(1+v/c)"></span></td><td>Se aleja → al rojo; se acerca → al azul</td></tr>
+      <tr><td><b>Redshift z</b></td><td><span class="katex-inline" data-tex="\lambda_{obs}=\lambda_{emit}(1+z)"></span></td><td>Mide distancia/época; cadena z→v→d→pasado</td></tr>
+      <tr><td><b>Expansión del espacio</b></td><td>Las galaxias quietas; crece el espacio</td><td>Permite recesión > c sin violar relatividad</td></tr>
+      <tr><td><b>Universo observable</b></td><td>Burbuja con horizonte a nuestro alrededor</td><td>Hay galaxias cuya luz nunca nos llegará</td></tr>
+      <tr><td><b>Relación z–tiempo</b></td><td>No lineal; z=0,78 = mitad de la edad</td><td>A alto z, mucho z = poco tiempo</td></tr>
+      <tr><td><b>Edad del universo</b></td><td>≈ 13.800 Myr</td><td>z=4→1.500 Myr; z=7→750 Myr; z=14,4→≈284 Myr</td></tr>
+      <tr><td><b>Lyman α</b></td><td>Línea del H a <b>1216 Å</b> (transición 2→1)</td><td>Brillante; permite medir z (no siempre presente)</td></tr>
+      <tr><td><b>Quiebre / break de Lyman</b></td><td>Caída del flujo bajo <b>912 Å</b> en reposo</td><td>Siempre presente; base de la técnica fotométrica</td></tr>
+      <tr><td><b>Técnica del Lyman break</b></td><td>"Dropout": invisible en filtros azules</td><td>Selecciona miles de galaxias lejanas con imágenes</td></tr>
+      <tr><td><b>Espectro vs. imagen</b></td><td>Espectro = caro (diluye luz, 1 objeto)</td><td>Por eso se selecciona con imagen y se confirma con espectro</td></tr>
+      <tr><td><b>[CII] a 158 µm</b></td><td>Línea del gas observable con ALMA</td><td>Confirmó galaxias a z≈7–9 antes de JWST</td></tr>
+      <tr><td><b>FL UV evolutiva</b></td><td>Sube normalización y cambia α con el tiempo</td><td>Formación jerárquica: de muchas chicas a grandes</td></tr>
+      <tr><td><b>Historia de SFR</b></td><td>Pico a <span class="katex-inline" data-tex="z\approx 2{-}3"></span>, luego decae</td><td>Gas que se agota + feedback de AGN</td></tr>
+      <tr><td><b>JWST</b></td><td>≈ 6,5 m, IR, bañado en oro, NIRSpec</td><td>Diseñado para galaxias distantes; z>14</td></tr>
+      <tr><td><b>Microobturadores</b></td><td>Rejilla programable de ranuras (NIRSpec)</td><td>Hasta ≈ 100 espectros simultáneos</td></tr>
+      <tr><td><b>JADES-GS-z14-0 / MoM-z14</b></td><td>z=14,32 / z=14,44 (≈ 286 / 284 Myr)</td><td>Récords de galaxia más distante</td></tr>
+      <tr><td><b>"Demasiado pronto"</b></td><td>Más galaxias a z~14 que la extrapolación</td><td>Posible revisión de teorías de formación</td></tr>
+      <tr><td><b>z del CMB</b></td><td><span class="katex-inline" data-tex="z\approx 1100"></span></td><td>Redshift más alto observable</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c4-examen-01.html">Examen 01<small>La expansión del universo</small></a></li>
+    <li><a href="m2c4-examen-02.html">Examen 02<small>Doppler y redshift</small></a></li>
+    <li><a href="m2c4-examen-03.html">Examen 03<small>Expansión del espacio</small></a></li>
+    <li><a href="m2c4-examen-04.html">Examen 04<small>Redshift y tiempo</small></a></li>
+    <li><a href="m2c4-examen-05.html">Examen 05<small>La luz al infrarrojo</small></a></li>
+    <li><a href="m2c4-examen-06.html">Examen 06<small>Lyman α y espectros</small></a></li>
+    <li><a href="m2c4-examen-07.html">Examen 07<small>La técnica del Lyman break</small></a></li>
+    <li><a href="m2c4-examen-08.html">Examen 08<small>Función de luminosidad y SFR</small></a></li>
+    <li><a href="m2c4-examen-09.html">Examen 09<small>La era JWST</small></a></li>
+    <li><a href="m2c4-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo II del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Valentino González, 8 jun 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m2/ff/galaxias-m2c4.md</code>) y las diapositivas <code>Modulo_II_Clase_4.pdf</code>. Créditos de figuras según cada diapositiva (Hubble 1929; Shapley et al. 2003; Giavalisco et al. 2002; Bouwens et al. 2015, 2022; Harikane et al. 2023, 2024; Carniani et al. 2024; Naidu et al. 2025; Finkelstein et al. 2024; NASA/ESA/CSA/STScI; ESO/C. Malin).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, con posibles errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. "Hubble-Lemaître", "redshift", "Lyman α / Lyman break", "[CII] 158 µm", "ALMA", "NIRSpec", "JADES-GS-z14-0", "MoM-z14", <span class="katex-inline" data-tex="H_0\approx 70"></span>, <span class="katex-inline" data-tex="z_{CMB}\approx 1100"></span>). El quiebre de Lyman se ubica en el <em>límite de Lyman</em> (912 Å en reposo), aunque la transcripción a ratos lo confunde con los 1216 Å de Lyman α. Las edades del universo asociadas a cada <span class="katex-inline" data-tex="z"></span> son aproximadas. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  var C=299792.458; // km/s
+  var T0=13.8;      // edad del universo (Gyr)
+
+  // ----- edad del universo vs z (interpolación de la tabla de la clase) -----
+  // pares (z, edad en Gyr desde el Big Bang)
+  var AGE=[[0,13.8],[0.5,8.5],[0.78,6.9],[4,1.5],[6,0.9],[7,0.75],[10,0.47],[16,0.25]];
+  function ageAt(z){
+    if(z<=0) return T0;
+    if(z>=16) return 0.25*16/z; // extrapolación suave para z muy alto
+    for(var i=0;i<AGE.length-1;i++){
+      var a=AGE[i], b=AGE[i+1];
+      if(z>=a[0] && z<=b[0]){
+        var f=(z-a[0])/(b[0]-a[0]);
+        return a[1]+f*(b[1]-a[1]);
+      }
+    }
+    return 0.25;
+  }
+  function colorName(nm){
+    if(nm<10) return "rayos X / extremo UV";
+    if(nm<380) return "ultravioleta (invisible)";
+    if(nm<450) return "violeta/azul";
+    if(nm<495) return "azul";
+    if(nm<570) return "verde";
+    if(nm<590) return "amarillo";
+    if(nm<620) return "naranja";
+    if(nm<750) return "rojo";
+    if(nm<1400) return "infrarrojo cercano (invisible)";
+    if(nm<1e5) return "infrarrojo medio (invisible)";
+    return "infrarrojo lejano / submm";
+  }
+  function relV(z){ var x=(1+z)*(1+z); return C*(x-1)/(x+1); }
+
+  // ===== Widget 1: redshift =====
+  var rsZ=document.getElementById('rs-z'), rsLam=document.getElementById('rs-lam'),
+      rsZval=document.getElementById('rs-zval'), rsOut=document.getElementById('rs-out');
+  function rsUpdate(){
+    var z=+rsZ.value, lam=+rsLam.value;
+    rsZval.textContent=z.toFixed(2);
+    var obs=lam*(1+z);
+    var v=relV(z), vc=v/C;
+    var age=ageAt(z), look=T0-age;
+    rsOut.innerHTML="Emitida: <b>"+lam.toFixed(1)+" nm</b> ("+colorName(lam)+")<br>"+
+      "<span class='k'>Observada:</span> <b>"+obs.toFixed(1)+" nm</b> ("+colorName(obs)+")<br>"+
+      "Estiramiento ×"+(1+z).toFixed(2)+" &nbsp;·&nbsp; v<sub>recesión</sub> ≈ <b>"+Math.round(v).toLocaleString('es')+" km/s</b> ("+(vc*100).toFixed(1)+"% de c)<br>"+
+      "<span class='k'>Edad del universo:</span> ≈ <b>"+(age*1000).toFixed(0)+" Myr</b> &nbsp;·&nbsp; look-back ≈ "+look.toFixed(1)+" Gyr";
+  }
+  if(rsZ){
+    rsZ.addEventListener('input',rsUpdate); rsLam.addEventListener('input',rsUpdate);
+    document.querySelectorAll('#w-redshift .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ rsZ.value=b.dataset.z; rsUpdate(); });
+    });
+    rsUpdate();
+  }
+
+  // ===== Widget 2: Lyman break dropout =====
+  var lyZ=document.getElementById('ly-z'), lySet=document.getElementById('ly-set'),
+      lyZval=document.getElementById('ly-zval'), lyCanvas=document.getElementById('ly-canvas'),
+      lyOut=document.getElementById('ly-out');
+  // filtros: nombre, lambda_min, lambda_max (micrones)
+  var FILTERS={
+    hst:[ ["U",0.30,0.40],["B",0.38,0.49],["V",0.49,0.59],["I",0.70,0.84],
+          ["z",0.83,0.95],["Y",0.95,1.12],["J",1.12,1.40],["H",1.40,1.70] ],
+    jwst:[ ["F090W",0.80,1.00],["F115W",1.01,1.27],["F150W",1.33,1.67],["F200W",1.76,2.23],
+           ["F277W",2.42,3.13],["F356W",3.14,3.98],["F444W",3.88,4.98] ]
+  };
+  function lyDraw(){
+    if(!lyCanvas) return;
+    var z=+lyZ.value, set=lySet.value, filt=FILTERS[set];
+    lyZval.textContent=z.toFixed(2);
+    var brk=0.0912*(1+z);   // micrones (límite de Lyman, 912 Å)
+    var lya=0.1216*(1+z);   // micrones (Lyman alpha, 1216 Å)
+    var ctx=lyCanvas.getContext('2d'), W=lyCanvas.width, H=lyCanvas.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=46,padR=16,padT=22,padB=40;
+    var wmin=0.3, wmax=5.2;
+    function X(w){ return padL+(Math.log(w)-Math.log(wmin))/(Math.log(wmax)-Math.log(wmin))*(W-padL-padR); }
+    // eje
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.lineWidth=1;
+    ctx.font="12px Spectral, serif"; ctx.textAlign="center";
+    var ticks=[0.3,0.5,0.7,1,1.5,2,3,4,5];
+    ticks.forEach(function(t){ ctx.beginPath();ctx.moveTo(X(t),padT);ctx.lineTo(X(t),H-padB);ctx.stroke();
+      ctx.fillText(t+"µm",X(t),H-padB+16); });
+    // filtros como bandas
+    var dropName=null, firstVisible=null;
+    filt.forEach(function(f,i){
+      var name=f[0], a=f[1], b=f[2], cen=(a+b)/2;
+      var visible = cen > brk; // el filtro ve flujo si su centro está sobre el quiebre
+      var x0=X(a), x1=X(b);
+      ctx.fillStyle = visible ? "rgba(111,199,214,.30)" : "rgba(120,134,160,.14)";
+      ctx.fillRect(x0,padT,x1-x0,H-padT-padB);
+      ctx.strokeStyle = visible ? "#6fc7d6" : "#3a465e"; ctx.lineWidth=1.2;
+      ctx.strokeRect(x0,padT,x1-x0,H-padT-padB);
+      ctx.fillStyle = visible ? "#cdeef4" : "#6b768c"; ctx.font="11px Fraunces, serif"; ctx.textAlign="center";
+      ctx.fillText(name,(x0+x1)/2,padT+14);
+      if(!visible) dropName=name;
+      if(visible && firstVisible===null) firstVisible=name;
+    });
+    // línea del quiebre
+    if(brk>=wmin && brk<=wmax){
+      ctx.strokeStyle="#e0382e"; ctx.setLineDash([5,4]); ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(X(brk),padT-4);ctx.lineTo(X(brk),H-padB);ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle="#f06a5e"; ctx.textAlign="left"; ctx.font="11px Fraunces, serif";
+      ctx.fillText("quiebre Lyman",X(brk)+4,H-padB-6);
+    }
+    // línea Lyman alpha
+    if(lya>=wmin && lya<=wmax){
+      ctx.strokeStyle="#d9a74a"; ctx.setLineDash([2,3]); ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(X(lya),padT);ctx.lineTo(X(lya),H-padB);ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle="#d9a74a"; ctx.textAlign="left";
+      ctx.fillText("Lyα",X(lya)+3,padT+30);
+    }
+    var msg="z = <b>"+z.toFixed(2)+"</b> &nbsp;·&nbsp; edad ≈ <b>"+(ageAt(z)*1000).toFixed(0)+" Myr</b><br>"+
+      "<span class='k'>Quiebre de Lyman observado:</span> <b>"+(brk*1000).toFixed(2)+" nm</b> ("+brk.toFixed(2)+" µm) &nbsp;·&nbsp; Lyα: "+(lya).toFixed(2)+" µm<br>";
+    if(dropName) msg+="Último filtro \"apagado\" (dropout): <b>"+dropName+"</b>";
+    else msg+="El quiebre cae por debajo de todos los filtros: la galaxia se ve en todos.";
+    if(firstVisible) msg+=" &nbsp;·&nbsp; primer filtro con luz: <b>"+firstVisible+"</b>";
+    lyOut.innerHTML=msg;
+  }
+  if(lyZ){
+    lyZ.addEventListener('input',lyDraw); lySet.addEventListener('change',lyDraw);
+    document.querySelectorAll('#w-lyman .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ lyZ.value=b.dataset.z; lyDraw(); });
+    });
+    lyDraw();
+  }
+});
+</script>
+</body>
+</html>

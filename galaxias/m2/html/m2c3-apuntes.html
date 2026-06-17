@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El baile cósmico: interacciones y mergers — Astrofísica de Galaxias, Módulo II · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo II · Clase 3</span>
+  <h1>El <em>baile cósmico</em>: interacciones y mergers</h1>
+  <p class="sub">Las galaxias no viven aisladas: se acercan, se orbitan, se deforman y a veces se fusionan. Esa coreografía gravitacional —a lo largo de miles de millones de años— es uno de los motores principales de la evolución galáctica. Esculpe formas raras, gatilla (o apaga) la formación estelar, enciende núcleos activos y nos prepara para nuestra propia fusión con Andrómeda.</p>
+  <div class="meta">
+    <span><b>Docente invitada:</b> por Valentino González</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 19 may 2026</span>
+    <span><b>Tema:</b> Interacciones y mergers de galaxias</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as dos clases anteriores describieron <em>qué</em> es una galaxia y cómo las contamos. Esta clase responde a una pregunta dinámica: <span class="hl">¿qué pasa cuando dos galaxias se encuentran?</span> La profesora lo plantea como un "baile cósmico": las galaxias se forman en el universo temprano y, a lo largo del tiempo cósmico, interactúan gravitacionalmente cambiando sus propiedades hasta dar el universo que vemos hoy. Para alguien de informática conviene pensarlo como un <em>sistema de N cuerpos con disipación</em>: el resultado de cada encuentro depende de condiciones iniciales (masas, ángulos, contenido de gas) y es, en gran medida, <strong>no determinista a simple vista</strong> — por eso aparecen tantas morfologías "raras" que no son ni espirales ni elípticas.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El baile cósmico: por qué importan</a></li>
+    <li><a href="#s2">Major vs. minor merger</a></li>
+    <li><a href="#s3">Zoológico de interacciones</a></li>
+    <li><a href="#s4">Fuerzas de marea y starburst</a></li>
+    <li><a href="#s5">¿Encender o apagar formación estelar?</a></li>
+    <li><a href="#s6">AGN: alimentar el agujero negro</a></li>
+    <li><a href="#s7">Andrómeda y la Vía Láctea</a></li>
+    <li><a href="#s8">Canibalismo y streams estelares</a></li>
+    <li><a href="#s9">El vecindario: grupos y cúmulos</a></li>
+    <li><a href="#s10">Ram pressure: galaxias medusa</a></li>
+    <li><a href="#s11">Relación morfología–densidad</a></li>
+    <li><a href="#s12">Gravedad: lo que está ligado</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El baile cósmico: por qué importan las interacciones</h2>
+    <p>Las galaxias se moldean unas a otras a lo largo del tiempo cósmico.</p>
+  </div></div>
+
+  <p>La idea central de la clase: las galaxias <strong>no son objetos estáticos ni aislados</strong>. Se forman temprano y, a medida que el universo evoluciona, se encuentran lo suficientemente cerca como para empezar a <em>orbitarse</em> mutuamente. Dependiendo de las condiciones del medio, de las propiedades de cada galaxia y de su masa, ese encuentro puede terminar en muchas cosas distintas: desde una simple deformación pasajera hasta una <span class="hl">fusión (merger)</span> que produce una galaxia completamente nueva, con propiedades distintas a las originales.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-03.jpg" alt="Galaxia de la Antena (NGC 4038/4039): dos galaxias en plena fusión con regiones rosadas de formación estelar y colas de marea">
+    <figcaption><span class="cap">Diapositiva · Interacciones y mergers</span>La <strong>Galaxia de la Antena</strong> (NGC 4038/4039): dos galaxias en plena fusión. Al colisionar, "merge" significa que forman <em>un único sistema nuevo</em> que puede tener propiedades completamente distintas a las progenitoras. Las zonas rosadas son regiones de formación estelar gatillada por el encuentro.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Piensa en un <strong>simulador de N cuerpos con colisiones inelásticas</strong>. La gravedad fija las reglas, pero el estado final depende fuertemente de las condiciones iniciales y de la <em>disipación</em> (el gas pierde energía por choques). Como solo observamos un fotograma (una imagen fija), reconstruir "qué pasó" es un problema inverso: hay que inferir la trayectoria a partir de una sola muestra. Por eso los astrónomos trabajan con <em>simulaciones</em> que sí permiten correr el tiempo hacia adelante y atrás.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Nota de la docente</span>
+    <p>La clase fue dictada por una investigadora de galaxias del universo lejano (no por Valentino González, titular del curso): "por hoy soy Valentino González". Los mergers son un tema cercano a su trabajo. Anécdota: un paper reciente sobre fusiones se titula <em>"One Merge to Rule Them All"</em>, en guiño a <em>El Señor de los Anillos</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Major vs. minor merger: la razón de masas</h2>
+    <p>La clasificación más básica de un merger es por el cociente entre las masas.</p>
+  </div></div>
+
+  <p>Los mergers se clasifican según la <span class="hl">razón de masas</span> de las galaxias que participan:</p>
+  <ul>
+    <li><strong>Major merger (fusión mayor):</strong> las dos galaxias tienen masas comparables. El umbral típico es una razón de <strong>3:1 o 4:1</strong> (la galaxia grande tiene 3–4 veces la masa de la chica). Aquí ambas se transforman radicalmente.</li>
+    <li><strong>Minor merger (fusión menor):</strong> una galaxia es <em>mucho</em> más masiva que la otra. La grande casi no se perturba; la chica se destruye. Ejemplo: la Vía Láctea y las Nubes de Magallanes.</li>
+  </ul>
+
+  <p>La docente subraya que ese límite 3:1 (o 4:1) es <strong>arbitrario</strong>: en buena parte está fijado por nuestras <em>limitaciones observacionales</em> —qué tipo de merger alcanzamos a distinguir a cierta distancia—, no por un cambio físico abrupto.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\mu=\frac{M_{\text{grande}}}{M_{\text{chica}}}\qquad \mu\lesssim 3\!-\!4 \Rightarrow \text{major}\qquad \mu\gg 4 \Rightarrow \text{minor}"></span>
+    <small>La razón de masas <span class="katex-inline" data-tex="\mu"></span> es el primer parámetro de un merger. El umbral exacto es una convención (y depende de qué podamos observar), no una frontera física nítida.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es un <strong>umbral (threshold) sobre una variable continua</strong>: clasificar "major/minor" a partir de <span class="katex-inline" data-tex="\mu"></span> es como binarizar un score continuo. El corte en 3:1 o 4:1 es un hiperparámetro elegido por conveniencia y limitado por la <em>sensibilidad del detector</em> (a más distancia, peor resolución y completitud), no una propiedad intrínseca del fenómeno.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 1 ============ -->
+<section id="w-ratio">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Clasificador de merger: ¿major o minor?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Ingresa las masas de las dos galaxias (en masas solares <span class="katex-inline" data-tex="M_\odot"></span>, escala libre). El widget calcula la razón de masas <span class="katex-inline" data-tex="\mu"></span> y aplica el umbral de la clase. El umbral es ajustable porque, como dijo la docente, es arbitrario.</p>
+    <div class="wgrid">
+      <div>
+        <label>Masa galaxia grande (×10⁹ M<sub>☉</sub>)</label>
+        <input type="number" id="mr-big" value="1000" step="any">
+      </div>
+      <div>
+        <label>Masa galaxia chica (×10⁹ M<sub>☉</sub>)</label>
+        <input type="number" id="mr-small" value="10" step="any">
+      </div>
+      <div>
+        <label>Umbral major/minor = <span class="rngval" id="mr-thval">4</span> : 1</label>
+        <input type="range" id="mr-th" min="2" max="10" step="0.5" value="4">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-big="1000" data-small="1000">Vía Láctea + Andrómeda (~1:1)</button>
+      <button type="button" data-big="1000" data-small="10">VL + Gran Nube de Magallanes</button>
+      <button type="button" data-big="1000" data-small="300">Antena (NGC 4038/4039)</button>
+      <button type="button" data-big="1000" data-small="1">VL + galaxia enana</button>
+    </div>
+    <output id="mr-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Un zoológico de interacciones</h2>
+    <p>Renacuajo, ratones y anillo: tres encuentros, tres resultados distintos.</p>
+  </div></div>
+
+  <p>El diagrama de Hubble (elípticas y espirales "bonitas") no alcanza para describir el universo real: existen formas <span class="hl">irregulares</span> que no son ni lo uno ni lo otro. Casi siempre, esas rarezas son la firma de una interacción. La clase recorre tres ejemplos emblemáticos.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-04.jpg" alt="Tres galaxias en interacción: el Renacuajo (con larga cola), los Ratones (dos espirales) y una tercera con cola brillante azul">
+    <figcaption><span class="cap">Diapositiva · Dependiendo del tipo de galaxia y la razón de masas</span>El resultado de un encuentro depende del tipo de galaxias y de su razón de masas. De izquierda a derecha: la galaxia del <strong>Renacuajo</strong> (cola de marea), los <strong>Ratones</strong> y un tercer sistema con una cola brillante azul. <small style="color:var(--muted)">Crédito: NASA, ESA, Hubble Heritage, A. Evans et al.</small></figcaption>
+  </figure>
+
+  <h3>El Renacuajo: una galaxia destrozada</h3>
+  <p>Una galaxia <em>menor</em>, rica en gas, interactuó con una galaxia mayor y quedó completamente <strong>destruida</strong>. La "colita" larga y brillante es esa galaxia chica estirada por las <span class="hl">fuerzas de marea</span>. Su gas, polvo y estrellas quedaron dispersos; pero al comprimirse el gas, se gatilla <em>formación de nuevas estrellas</em> a lo largo de la cola. Las estrellas de la galaxia original quedan, además, errantes (probablemente orbitando de forma desordenada).</p>
+
+  <h3>Los Ratones: dos espirales fusionándose</h3>
+  <figure>
+    <img src="m2c3/assets/slide-06.jpg" alt="NGC 4676, los Ratones: dos galaxias espirales ricas en gas con largas colas de marea, en proceso de fusión">
+    <figcaption><span class="cap">Diapositiva · Los Ratones (NGC 4676 A y B)</span>Dos <strong>espirales ricas en gas</strong> en pleno merger, ya compartiendo material (se nota un "puente"). Cuando dos espirales se fusionan completamente, el resultado típico es una <strong>galaxia elíptica</strong>: los discos ordenados se disrumpen y todo queda orbitando desordenadamente en torno a un centro de masa común (los agujeros negros centrales). El tono azul de las colas sugiere estrellas jóvenes recién formadas.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · color ≈ temperatura</span>
+    <p>En estas imágenes de divulgación, el color suele codificar temperatura: <strong>azul = más caliente</strong> (estrellas jóvenes y masivas), <strong>rojo = más frío</strong>. Por eso una cola azulada delata formación estelar reciente. (Ojo: no es una regla universal; depende del instrumento y del mapeo de filtros a colores.)</p>
+  </div>
+
+  <h3>El anillo: un "tiro al blanco" cósmico</h3>
+  <p>El tercer caso es una <strong>galaxia anillo</strong>: una espiral fue atravesada casi de frente por otra galaxia, como un tiro al blanco. El impacto en la zona central generó una <em>onda de presión</em> que se propagó hacia afuera (como una piedra en el agua), comprimiendo el gas y disparando formación estelar en un anillo alrededor del núcleo. Cada colisión es distinta: el resultado depende del ángulo, del tipo de galaxias y de cuánto gas tienen.</p>
+
+  <div class="box dato">
+    <span class="tag">Nombres "entretenidos"</span>
+    <p>A los astrónomos les gusta poner nombres pintorescos: "Renacuajo", "Ratones", "Antena", "Medusa". Es folclore útil: un apodo memorable ayuda a comunicar la morfología de un objeto mucho mejor que un número de catálogo.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Fuerzas de marea y starbursts</h2>
+    <p>Comprimir gas dispara estrellas; las más masivas mueren rápido y devuelven energía.</p>
+  </div></div>
+
+  <p>El mecanismo común a todos estos casos: cuando dos galaxias interactúan, el gas se <strong>comprime</strong> (por ondas de choque y fuerzas de marea) y eso dispara <span class="hl">formación estelar intensa</span>. A una galaxia en ese estado se le llama <span class="hl">starburst</span> ("estallido de formación estelar"). Por un momento cósmico breve, brilla muy fuertemente porque está produciendo muchísimas estrellas.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-08.jpg" alt="Galaxia de la Antena marcada como starburst, con regiones de formación estelar y notas sobre feedback de supernovas">
+    <figcaption><span class="cap">Diapositiva · Starburst y feedback</span>En un <strong>starburst</strong> el gas se transforma rápidamente en estrellas. Las más masivas explotan pronto como <strong>supernovas (SN)</strong>, inyectando energía de vuelta al gas: eso es <em>feedback</em>. La Antena es un caso clásico.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · "rockstars" del universo</span>
+    <p>El tiempo de vida de una estrella lo determina <strong>casi únicamente su masa</strong>. Las más masivas son las "rockstars": viven rápido y mueren jóvenes (en millones de años, no miles de millones). Por eso un starburst es intrínsecamente <em>transitorio</em>: las estrellas grandes que lo hacen brillar se apagan pronto.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Una marea es un <strong>gradiente de un campo</strong>: la fuerza gravitacional no es uniforme a lo ancho de la galaxia, así que el lado cercano es tirado más fuerte que el lejano. Ese <em>diferencial</em> (la derivada de la fuerza respecto a la posición) es lo que estira la galaxia en una "cola". Es el mismo principio que produce las mareas oceánicas de la Luna, escalado a kiloparsecs.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>¿Encender o apagar la formación estelar?</h2>
+    <p>Un merger puede dar vida… o matarla. Y a veces, revivir una galaxia muerta.</p>
+  </div></div>
+
+  <p>Aquí está el matiz más importante de la clase: <strong>un merger no siempre gatilla formación estelar</strong>. Según las condiciones, puede pasar lo contrario.</p>
+  <ul>
+    <li><strong>Favorece:</strong> si hay mucho gas y se comprime, nacen estrellas (starburst).</li>
+    <li><strong>Apaga (quenching):</strong> si la interacción <em>remueve</em> el gas o lo calienta tanto que ya no puede colapsar, la galaxia se queda sin combustible. Sus estrellas envejecen, se enrojecen y la galaxia "muere" (deja de formar estrellas): es lo que ocurre con las elípticas.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c3/assets/slide-09.jpg" alt="Diapositiva sobre quenching: si el gas se acaba o se calienta, la formación estelar se detiene y la galaxia se vuelve pasiva">
+    <figcaption><span class="cap">Diapositiva · Apagar la formación estelar</span>Si el gas se acaba (o se calienta demasiado por las supernovas), la formación estelar se detiene por completo. Las estrellas evolucionan, el sistema <strong>enrojece</strong> y la galaxia se vuelve <span class="hl">pasiva</span> (muerta).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Estado del arte (JWST)</span>
+    <p>Es ciencia muy reciente (últimos ~5 años, con el telescopio espacial James Webb). El consenso provisional: si promedias <em>todos</em> los mergers del universo, parecen gatillar formación estelar <strong>algo más</strong> que apagarla — pero la evidencia es leve. No hay una única respuesta: depende de cada encuentro.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Galaxias zombi</span>
+    <p>"Muerta" no siempre es para siempre. Una galaxia sin gas puede <strong>revivir</strong> si un nuevo merger le entrega gas fresco y vuelve a formar estrellas. El universo es un lugar dinámico.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>AGN: cuando el merger alimenta el agujero negro</h2>
+    <p>Casi toda galaxia tiene un agujero negro central; un merger puede "encenderlo".</p>
+  </div></div>
+
+  <p>La mayoría de las galaxias —incluida la Vía Láctea— tiene un <strong>agujero negro supermasivo</strong> en su centro. El agujero negro en sí no emite luz. Pero si le cae material, este forma un <span class="hl">disco de acreción</span>: por conservación del momento angular, el gas gira cada vez más rápido al acercarse, se calienta enormemente y <em>emite muchísima luz</em>. A ese estado "encendido" se le llama <span class="hl">AGN</span> (<em>Active Galactic Nucleus</em>, núcleo galáctico activo).</p>
+
+  <p>La palabra clave es <em>activo</em>: no es un tipo distinto de objeto, sino un estado que se <strong>prende y apaga</strong> según haya o no material cayendo. El de la Vía Láctea está tranquilo (inactivo). Un merger puede encenderlo, porque puede dirigir gas hacia el centro y darle "combustible".</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-11.jpg" alt="NGC 6240 en rayos X: dos núcleos activos brillantes marcando dos agujeros negros supermasivos en una galaxia en fusión">
+    <figcaption><span class="cap">Diapositiva · AGN y major mergers (NGC 6240)</span>En <strong>rayos X</strong> se distinguen los <em>dos núcleos</em> de las galaxias en colisión, cada uno marcado por un agujero negro supermasivo con su disco de acreción caliente. Eventualmente esos dos agujeros negros formarán un centro de masa común y colisionarán. <small style="color:var(--muted)">Crédito: X-ray NASA/CXC/MPE/S. Komossa et al.; Óptico NASA/STScI.</small></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · cómo "vemos" un agujero negro</span>
+    <p>No vemos el agujero negro, sino el material a su alrededor. En la película <em>Interestelar</em> (con el físico Kip Thorne, Nobel, asesorando) el disco de acreción se ve curvado por encima y por debajo del agujero: su enorme masa <strong>dobla el espacio-tiempo y la luz</strong>, mostrando partes del disco que normalmente quedarían ocultas. Cuando observamos uno real por primera vez, se veía justo así. Distintas longitudes de onda revelan distintos procesos: el disco emite con fuerza en rayos X.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Ondas gravitacionales</span>
+    <p>Cuando dos agujeros negros supermasivos finalmente colisionan, generan ondas en el espacio-tiempo ("como tirar una piedra al agua"). Detectores como <strong>LIGO</strong> captan ese tipo de señales. <small>(La transcripción dice "li fue el detector"; se corrige a LIGO. LIGO detecta fusiones de agujeros negros de masa estelar; las fusiones supermasivas corresponden a otros experimentos —p. ej. pulsar timing arrays / LISA—; este matiz se infiere, no se afirmó explícitamente en clase.)</small></p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Andrómeda y la Vía Láctea: nuestro futuro merger</h2>
+    <p>El ejemplo más cercano (y personal) de major merger.</p>
+  </div></div>
+
+  <p>La Vía Láctea y <span class="hl">Andrómeda</span> son las dos galaxias más masivas del <strong>Grupo Local</strong>, y vamos directo a una colisión. En unos <strong>4.000 millones de años</strong> empezaremos a fusionarnos, formando eventualmente una galaxia elíptica masiva (apodada en broma "Milkdromeda"), con los dos agujeros negros centrales juntos.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-12.jpg" alt="Escenario de colisión entre la Vía Láctea y Andrómeda mostrando trayectorias, con M33 (Triángulo) cercana">
+    <figcaption><span class="cap">Diapositiva · Colisión de Andrómeda y la Vía Láctea</span>Escenario de encuentro: en ≈ 4.000 millones de años nuestra galaxia y Andrómeda (M31) "chocarán" y formarán una nueva galaxia. También aparece M33 (Triángulo) en el Grupo Local. <small style="color:var(--muted)">Crédito: NASA; Z. Levay y R. van der Marel, STScI; T. Hallas; A. Mellinger.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Corrección de transcripción · tiempos</span>
+    <p>El audio confunde "millones" y "miles de millones". Los valores correctos (de la diapositiva y la astronomía estándar): la colisión con Andrómeda es en ≈ <strong>4.000 millones de años</strong> (4 Gyr); al Sol le quedan ≈ <strong>5.000 millones de años</strong> (5 Gyr) antes de convertirse en gigante roja; y la <em>última</em> major merger de la Vía Láctea fue hace ≈ <strong>8–10 mil millones de años</strong>. Ante dudas, primar los valores de la diapositiva.</p>
+  </div>
+
+  <h3>Colisión de galaxias ≠ colisión de estrellas</h3>
+  <p>Aunque suene violento, cuando dos galaxias colisionan <strong>las estrellas casi nunca chocan entre sí</strong>: hay demasiado espacio vacío. Para dimensionarlo: la estrella más cercana al Sol, <strong>Próxima Centauri</strong>, está a <strong>4,2 años luz</strong>. A esas separaciones típicas, las estrellas simplemente se reorganizan en sus órbitas; el proceso violento ocurre en el <em>gas</em>, no en las estrellas.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es un problema de <strong>densidad de empaquetamiento</strong>. Si modelas las estrellas como puntos en un volumen enorme, la probabilidad de colisión directa es despreciable —como dos enjambres de partículas que se atraviesan sin que casi ninguna se toque. Lo que sí interactúa es el campo gravitacional colectivo (y el gas, que es un medio continuo y disipativo).</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Canibalismo y streams estelares</h2>
+    <p>Cuando la víctima es mucho más chica, deja "huellas del crimen" en el halo.</p>
+  </div></div>
+
+  <p>Cuando una galaxia mucho más masiva consume a una pequeña, hablamos de <span class="hl">canibalismo galáctico</span>. La grande casi no se altera; la chica queda <strong>destrozada y dispersa</strong>. Andrómeda, por ejemplo, terminará comiéndose a sus satélites brillantes M32 y M110.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-18.jpg" alt="Andrómeda (M31) con sus galaxias satélite M32 y M110, ejemplo de minor merger en curso">
+    <figcaption><span class="cap">Diapositiva · Minor mergers (Andrómeda y satélites)</span>Cuando una galaxia es mucho más pequeña, la grande no se perturba notoriamente. Andrómeda y sus satélites <strong>M32</strong> y <strong>M110</strong>: minor merger / "canibalismo" en curso. <small style="color:var(--muted)">Crédito: Luc Viatour, CC BY-SA 2.5.</small></figcaption>
+  </figure>
+
+  <p>El resto del gas neutro de las interacciones se detecta especialmente en <strong>radio</strong>: el hidrógeno neutro emite en la <span class="hl">línea de 21 cm</span> (una transición por cambio de espín). En óptico dos galaxias pueden verse separadas y "tranquilas", pero en radio se ve todo el gas estirado y conectándolas: el polvo y el gas llegan mucho más lejos que la luz estelar.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-21.jpg" alt="Galaxia vista de canto rodeada de tenues conchas y arcos estelares, evidencia difícil de detectar de un minor merger">
+    <figcaption><span class="cap">Diapositiva · No siempre es fácil ver un minor merger</span>Las firmas de un minor merger son tenues: conchas y arcos de muy bajo brillo superficial alrededor de una galaxia. Hay que aumentar el <strong>tiempo de exposición</strong> (igual que dejar abierto el obturador de una cámara) para captar esa luz débil.</figcaption>
+  </figure>
+
+  <h3>Streams estelares: la evidencia del crimen</h3>
+  <p>En nuestra propia galaxia, las galaxias enanas capturadas se estiran en <span class="hl">streams (corrientes) estelares</span> que orbitan el halo. Hay entre 20 y 30 identificados (corriente de Sagitario, corriente Magallánica, etc.). El más famoso es la <em>"Gaia Sausage"</em> (formalmente <strong>Gaia-Enceladus</strong>), nombrada por V. Belokurov en honor a su hija; el satélite <strong>Gaia</strong> midió posiciones precisas de millones de estrellas.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-22.jpg" alt="Mapa de todo el cielo de la Vía Láctea con streams estelares brillantes y débiles y la galaxia enana de Sagitario marcada">
+    <figcaption><span class="cap">Diapositiva · Canibalismo en la Vía Láctea</span>Mapa del cielo completo con <strong>streams estelares</strong> (corrientes brillantes y débiles) y la <em>galaxia enana de Sagitario</em>. Son la evidencia de galaxias enanas que la Vía Láctea ha destrozado y repartido por su halo. <small style="color:var(--muted)">Crédito: S. Koposov y la colaboración SDSS-III.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cúmulos globulares (matiz)</span>
+    <p>Los ≈ 150 <strong>cúmulos globulares</strong> del halo de la Vía Láctea NO son lo mismo que estos streams. Son enjambres casi esféricos de estrellas muy viejas, de los objetos más antiguos del universo, formados en condiciones primordiales. A diferencia de las galaxias (que sí tienen <strong>materia oscura</strong>, evidente en sus curvas de rotación), los cúmulos globulares <em>no</em> muestran materia oscura. Se cree que fueron capturados, no formados, por nuestra galaxia.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 2 ============ -->
+<section id="w-timeline">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Línea de tiempo de mergers: pasado y futuro de la Vía Láctea</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Mueve el cursor por el tiempo cósmico. El "hoy" está en t = 0. Hacia el pasado los mergers eran más frecuentes (universo más joven y compacto); hacia el futuro, nos espera Andrómeda. <small>Valores de orden de magnitud, según la clase y la astronomía estándar.</small></p>
+    <div class="wgrid">
+      <div>
+        <label>Tiempo respecto a hoy = <span class="rngval" id="tl-tval">0,0</span> Gyr</label>
+        <input type="range" id="tl-t" min="-10" max="6" step="0.1" value="0">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-t="-9">Última major merger</button>
+          <button type="button" data-t="0">Hoy</button>
+          <button type="button" data-t="4">Choque con Andrómeda</button>
+        </div>
+      </div>
+    </div>
+    <output id="tl-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El vecindario: grupos, cúmulos y la gran escala</h2>
+    <p>El "ambiente" de una galaxia determina cuántas interacciones tendrá.</p>
+  </div></div>
+
+  <p>Si los mergers son tan importantes, entonces <strong>el entorno importa</strong>: cuántas galaxias hay cerca define la frecuencia de las interacciones. Las galaxias no se reparten de forma homogénea — a grandes escalas el universo sí es homogéneo, pero en escalas pequeñas hay <span class="hl">sobredensidades</span> (cúmulos) y vacíos.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-24.jpg" alt="Quinteto de Stephan: cuatro galaxias interactuando y una quinta que es solo una superposición en la línea de visión">
+    <figcaption><span class="cap">Diapositiva · El vecindario (Quinteto de Stephan)</span>El <strong>Quinteto de Stephan</strong>: parecen cinco galaxias, pero solo <em>cuatro</em> están al mismo redshift e interactuando. La quinta es una "impostora" más cercana, no ligada al grupo: un efecto de <strong>superposición</strong> en la línea de visión. <small style="color:var(--muted)">Crédito: NASA, ESA, CSA, STScI.</small></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Truco observacional</span>
+    <p>¿Cómo distinguir la impostora? Por dos pistas: (1) tiene un <strong>redshift</strong> distinto (está a otra distancia), y (2) está tan cerca que se resuelven sus <strong>estrellas individuales</strong>, mientras que las galaxias del grupo, más lejanas, se ven "granulosas" pero sin puntos resueltos. La cercanía es, literalmente, resolución.</p>
+  </div>
+
+  <p>Escalas del vecindario, de menor a mayor:</p>
+  <ul>
+    <li><strong>Grupo Local:</strong> nuestra "cuadra". Vía Láctea, Andrómeda y decenas de galaxias menores, <em>ligadas gravitacionalmente</em>. La expansión del universo no las separa; eventualmente se fusionarán en una sola gran elíptica.</li>
+    <li><strong>Supercúmulo Laniakea:</strong> nuestro "barrio". Contiene la Vía Láctea y ≈ 100.000 galaxias. Pero, a diferencia del Grupo Local, <em>no</em> está todo ligado: no se fusionará entero.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c3/assets/slide-26.jpg" alt="Mapa del supercúmulo Laniakea mostrando grupos y cúmulos de galaxias y los vacíos que los separan">
+    <figcaption><span class="cap">Diapositiva · Laniakea</span>El supercúmulo <strong>Laniakea</strong> ("cielos abiertos") alberga la Vía Láctea y ≈ 100.000 galaxias cercanas, organizadas en grupos y cúmulos separados por vacíos. <small style="color:var(--muted)">Crédito: Andrew Z. Colvin, CC.</small></figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Destino cósmico</span>
+    <p>A medida que el universo se expande, los grupos ligados se fusionarán en grandes elípticas aisladas, cada vez más separadas. Para seres que vivan en ese futuro lejano, <em>su</em> galaxia será todo el universo visible: ya no verían el resto. Es la consecuencia última de que solo lo gravitacionalmente ligado resiste la expansión.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Ram pressure: las galaxias medusa</h2>
+    <p>No hace falta chocar: basta viajar por el gas caliente del cúmulo.</p>
+  </div></div>
+
+  <p>Dentro de un cúmulo hay mucho <strong>gas caliente</strong> entre las galaxias (el medio <em>intracúmulo</em>). Cuando una galaxia rica en gas lo atraviesa, siente un "viento" en contra que le arranca su propio gas: es la <span class="hl">presión de arrastre</span> (<em>ram pressure stripping</em>). El gas queda atrás formando largos "tentáculos": son las <span class="hl">galaxias medusa</span> (jellyfish).</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-30.jpg" alt="Comparación de una medusa real con la galaxia ESO 137-001, cuyo gas es arrancado formando una cola larga visible en rayos X">
+    <figcaption><span class="cap">Diapositiva · Galaxias medusa (jellyfish)</span>Una galaxia rica en gas cae al cúmulo; el medio intracúmulo, caliente, le ejerce un "viento" (<strong>ram pressure</strong>) que le arranca el gas, dejándolo atrás como tentáculos. Ejemplo: <strong>ESO 137-001</strong>, cuya cola brilla en rayos X. <small style="color:var(--muted)">Crédito: NASA, ESA, Chandra X-ray Observatory.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">No confundir con el Renacuajo</span>
+    <p>La docente advierte que probablemente se pregunte esto en la prueba. En el <strong>Renacuajo</strong>, la cola es una <em>galaxia destrozada</em> (gas + polvo + <strong>estrellas</strong>) por una interacción gravitacional. En la <strong>medusa</strong>, la cola es solo el <em>gas arrancado</em> (sin estrellas) por la presión del medio; la galaxia sigue entera. Mecanismos distintos, resultados parecidos a primera vista.</p>
+  </div>
+
+  <p>La ram pressure <strong>acelera la muerte</strong> de la galaxia: al quitarle gas, le quita combustible. ¿Por qué no lo absorbe en vez de perderlo? Porque el gas del cúmulo está <em>caliente</em> (mucha energía); si estuviera frío, podría caer y alimentar formación estelar. De hecho, en el universo temprano, el gas frío de la <span class="hl">cosmic web</span> (telaraña cósmica de filamentos de materia oscura) sí fluía hacia las galaxias y las alimentaba: ese es el otro gran mecanismo de crecimiento, junto con los mergers.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El medio intracúmulo es como un <strong>fluido viscoso</strong>: la galaxia que lo atraviesa sufre un arrastre proporcional a la densidad del medio y al cuadrado de la velocidad (<span class="katex-inline" data-tex="P_{\text{ram}}\sim \rho\,v^2"></span>). Es la misma física que el rozamiento aerodinámico de un objeto moviéndose en el aire — solo que aquí "erosiona" el gas de una galaxia entera.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>La relación morfología–densidad</h2>
+    <p>A más densidad de galaxias, menos espirales y más elípticas.</p>
+  </div></div>
+
+  <p>Todo lo anterior se resume en un resultado observacional clásico: dentro de un cúmulo, la <strong>fracción</strong> de galaxias espirales vs. elípticas depende de la <span class="hl">densidad</span> del entorno.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-33.jpg" alt="Gráfico de Dressler 1980: fracción de espirales (decreciente) y elípticas (creciente) vs densidad proyectada del cúmulo">
+    <figcaption><span class="cap">Diapositiva · Relación morfología–densidad (Dressler 1980)</span>Fracción de la población vs. densidad proyectada. <span style="color:var(--blue)">Azul = espirales</span> (cae con la densidad); <span style="color:var(--red-soft)">rojo = elípticas</span> (sube con la densidad). Las lenticulares (S0) no se destacan aquí.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Baja densidad (galaxias aisladas):</strong> dominan las <span class="hl">espirales</span>. Una galaxia que evoluciona tranquila forma un disco por <strong>conservación del momento angular</strong> del gas que acreta: el resultado natural de un colapso aislado es un disco.</li>
+    <li><strong>Alta densidad (centro del cúmulo):</strong> dominan las <span class="hl">elípticas</span>. Muchas interacciones y mergers disrumpen los discos y producen sistemas elípticos "muertos" (como será Milkdromeda).</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Por qué un disco "es lo natural"</span>
+    <p>El momento angular se conserva. Si una nube de gas con cierta rotación neta colapsa, no puede contraerse igual en todas direcciones: colapsa fácil a lo largo del eje de rotación pero resiste en el plano perpendicular → queda un <strong>disco girando</strong>. El mismo principio explica los discos protoplanetarios, los discos de acreción de AGN y las galaxias espirales: <em>el mismo concepto a distintas escalas</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Gravedad: qué queda ligado y qué se aleja</h2>
+    <p>La ley del inverso del cuadrado decide quién baila con quién.</p>
+  </div></div>
+
+  <p>Toda la coreografía la rige la gravedad. La docente recordó la ley de gravitación universal (la escribió de memoria "enseñando física clásica"):</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F = G\,\frac{M\,m}{r^{2}}"></span>
+    <small><span class="katex-inline" data-tex="G"></span> es la constante de gravitación; <span class="katex-inline" data-tex="M"></span> y <span class="katex-inline" data-tex="m"></span> las masas; <span class="katex-inline" data-tex="r"></span> la distancia. La fuerza decae como <strong>el inverso del cuadrado</strong> de la distancia: el doble de lejos ⇒ un cuarto de la fuerza.</small>
+  </div>
+
+  <p>De aquí salen dos consecuencias clave de la clase:</p>
+  <ul>
+    <li><strong>No hay un límite fijo</strong> de "hasta dónde llega la gravedad": decae de forma continua. Lo ligado o no ligado depende de la competencia entre la atracción (que depende de masa y distancia) y la <strong>expansión del universo</strong>.</li>
+    <li>A escala de planetas, estrellas, galaxias y del Grupo Local, la gravedad <em>gana</em> y los sistemas quedan ligados. A escala de supercúmulos, la expansión empieza a dominar. (Nuestro supercúmulo cae hacia el "Gran Atractor", una concentración de masa que no podemos ver bien porque el centro de nuestra galaxia la tapa.)</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Frecuencia de los mergers</span>
+    <p>Hoy las interacciones son <em>poco</em> comunes: solo ≈ <strong>5 %</strong> de las galaxias cercanas están interactuando. En el universo temprano —menor volumen, muchas galaxias chicas— eran <strong>mucho más frecuentes</strong>. Por eso los mergers (y los AGN, que ellos encienden) eran más comunes en el pasado, y por eso formaron las galaxias que vemos hoy. La Vía Láctea forma ≈ <strong>2–3 estrellas por año</strong>.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 3 ============ -->
+<section id="w-gravity">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ley del inverso del cuadrado: ¿ligado o a la deriva?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Observa cómo la fuerza gravitacional <span class="katex-inline" data-tex="F=GMm/r^2"></span> cae con la distancia. La curva muestra <span class="katex-inline" data-tex="F"></span> relativa (normalizada a la distancia mínima). Mueve la distancia y compárala con el "tirón" de la expansión, que crece con <span class="katex-inline" data-tex="r"></span>.</p>
+    <div class="wgrid">
+      <div>
+        <label>Masa M (×10¹² M<sub>☉</sub>)</label>
+        <input type="number" id="gr-M" value="1.5" step="any">
+      </div>
+      <div>
+        <label>Distancia r = <span class="rngval" id="gr-rval">0,8</span> Mpc</label>
+        <input type="range" id="gr-r" min="0.1" max="20" step="0.1" value="0.8">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-r="0.8">Vía Láctea ↔ Andrómeda (~0,8 Mpc)</button>
+      <button type="button" data-r="3">Borde del Grupo Local (~3 Mpc)</button>
+      <button type="button" data-r="20">Otro supercúmulo (~20 Mpc)</button>
+    </div>
+    <canvas id="gr-canvas" width="900" height="360"></canvas>
+    <output id="gr-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Merger</b></td><td>Fusión de dos galaxias en un sistema nuevo</td><td>Motor principal de la evolución galáctica</td></tr>
+      <tr><td><b>Major merger</b></td><td>Razón de masas ≲ 3:1 o 4:1</td><td>Transforma radicalmente ambas galaxias (p. ej. dos espirales → elíptica)</td></tr>
+      <tr><td><b>Minor merger</b></td><td>Razón de masas ≫ 4:1</td><td>La grande casi no cambia; la chica se destruye (canibalismo)</td></tr>
+      <tr><td><b>Fuerzas de marea</b></td><td>Gradiente de la fuerza gravitacional</td><td>Estiran galaxias en colas y puentes</td></tr>
+      <tr><td><b>Starburst</b></td><td>Formación estelar muy intensa y breve</td><td>El gas comprimido por el merger dispara muchas estrellas</td></tr>
+      <tr><td><b>Quenching</b></td><td>Apagado de la formación estelar</td><td>El merger puede remover/calentar el gas y "matar" la galaxia</td></tr>
+      <tr><td><b>Feedback de SN</b></td><td>Energía que las supernovas devuelven al gas</td><td>Puede expulsar gas (outflows) y regular la formación estelar</td></tr>
+      <tr><td><b>AGN</b></td><td>Disco de acreción de un agujero negro activo</td><td>Un merger puede "encenderlo" llevándole gas al centro</td></tr>
+      <tr><td><b>Línea de 21 cm</b></td><td>Transición del HI neutro (cambio de espín)</td><td>Revela en radio el gas estirado por interacciones</td></tr>
+      <tr><td><b>Stream estelar</b></td><td>Galaxia enana destrozada y estirada en el halo</td><td>Evidencia fósil de minor mergers (p. ej. Gaia-Enceladus)</td></tr>
+      <tr><td><b>Cúmulo globular</b></td><td>Enjambre viejo de estrellas, sin materia oscura</td><td>≈150 en la VL; distinto de galaxias y de streams</td></tr>
+      <tr><td><b>Grupo Local</b></td><td>VL + Andrómeda + decenas, ligadas</td><td>Se fusionará; la expansión no lo separa</td></tr>
+      <tr><td><b>Laniakea</b></td><td>Supercúmulo, ≈100.000 galaxias</td><td>No está todo ligado: no se fusiona entero</td></tr>
+      <tr><td><b>Ram pressure</b></td><td><span class="katex-inline" data-tex="P\sim\rho v^2"></span>; arrastre del medio</td><td>Arranca gas (galaxias medusa) y acelera la muerte</td></tr>
+      <tr><td><b>Cosmic web</b></td><td>Red de filamentos de materia oscura + gas frío</td><td>Alimenta de gas a las galaxias (otra vía de crecimiento)</td></tr>
+      <tr><td><b>Relación morfología–densidad</b></td><td>Más densidad ⇒ menos espirales, más elípticas</td><td>El ambiente esculpe la morfología (Dressler 1980)</td></tr>
+      <tr><td><b>Colisión VL–Andrómeda</b></td><td>En ≈ 4.000 millones de años</td><td>Nuestro futuro major merger → elíptica "Milkdromeda"</td></tr>
+      <tr><td><b>Próxima Centauri</b></td><td>4,2 años luz</td><td>Las estrellas casi no chocan: hay mucho vacío</td></tr>
+      <tr><td><b>Fracción interactuando hoy</b></td><td>≈ 5 % de galaxias cercanas</td><td>Mucho menos que en el universo temprano</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c3-examen-01.html">Examen 01<small>El baile cósmico y los mergers</small></a></li>
+    <li><a href="m2c3-examen-02.html">Examen 02<small>Major vs. minor merger</small></a></li>
+    <li><a href="m2c3-examen-03.html">Examen 03<small>Renacuajo, ratones y anillo</small></a></li>
+    <li><a href="m2c3-examen-04.html">Examen 04<small>Mareas, starburst y feedback</small></a></li>
+    <li><a href="m2c3-examen-05.html">Examen 05<small>Encender o apagar estrellas</small></a></li>
+    <li><a href="m2c3-examen-06.html">Examen 06<small>AGN y agujeros negros</small></a></li>
+    <li><a href="m2c3-examen-07.html">Examen 07<small>Andrómeda y la Vía Láctea</small></a></li>
+    <li><a href="m2c3-examen-08.html">Examen 08<small>Canibalismo y streams</small></a></li>
+    <li><a href="m2c3-examen-09.html">Examen 09<small>Vecindario y ram pressure</small></a></li>
+    <li><a href="m2c3-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo II del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (titular: Valentino González; clase dictada por una docente invitada del área de galaxias, 19 may 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m2/ff/galaxias-m2c3.md</code>) y las diapositivas <code>Modulo_II_Clase3.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron y corrigieron términos y cifras con las diapositivas (p. ej. "LIGO" en vez de "li", "starburst" en vez de "Star Wars", "ram pressure", "Gaia-Enceladus / Gaia Sausage", "Laniakea", NGC 4676 "Ratones", NGC 6240, Galaxia de la Antena). En particular, el audio confunde "millones" con "miles de millones": los valores correctos son colisión con Andrómeda en ≈ 4.000 millones de años, vida restante del Sol ≈ 5.000 millones de años y última major merger de la Vía Láctea hace ≈ 8–10 mil millones de años. Algunos matices (LIGO vs. otros detectores para agujeros negros supermasivos) son inferencias señaladas como tales. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: razón de masas =====
+  var mrBig=document.getElementById('mr-big'), mrSmall=document.getElementById('mr-small'),
+      mrTh=document.getElementById('mr-th'), mrThv=document.getElementById('mr-thval'),
+      mrOut=document.getElementById('mr-out');
+  function mrUpdate(){
+    var big=Math.abs(+mrBig.value), small=Math.abs(+mrSmall.value), th=+mrTh.value;
+    mrThv.textContent=th.toFixed(1);
+    if(!small){ mrOut.innerHTML="Ingresa una masa válida para la galaxia chica."; return; }
+    // asegurar que big sea el mayor
+    var M=Math.max(big,small), m=Math.min(big,small);
+    var mu=M/m;
+    var tipo = mu<=th ? "MAJOR merger (fusión mayor)" : "MINOR merger (fusión menor)";
+    var efecto = mu<=th
+      ? "Ambas galaxias se transforman; dos espirales pueden dar una elíptica."
+      : "La grande casi no se altera; la chica se destruye (canibalismo) y deja streams.";
+    mrOut.innerHTML="Razón de masas <span class='k'>μ</span> = M/m ≈ <b>"+mu.toFixed(1)+" : 1</b><br>"+
+      "Clasificación: <b>"+tipo+"</b> &nbsp;(umbral "+th.toFixed(1)+":1)<br>"+
+      "<span class='k'>Efecto esperado:</span> "+efecto;
+  }
+  if(mrBig){
+    [mrBig,mrSmall,mrTh].forEach(function(el){el.addEventListener('input',mrUpdate);});
+    document.querySelectorAll('#w-ratio .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ mrBig.value=b.dataset.big; mrSmall.value=b.dataset.small; mrUpdate(); });
+    });
+    mrUpdate();
+  }
+
+  // ===== Widget 2: línea de tiempo =====
+  var tlT=document.getElementById('tl-t'), tlTv=document.getElementById('tl-tval'), tlOut=document.getElementById('tl-out');
+  function tlUpdate(){
+    var t=+tlT.value; // Gyr respecto a hoy
+    tlTv.textContent=t.toFixed(1).replace('.',',');
+    var edadHoy=13.8, edad=edadHoy+t;
+    var txt, estado;
+    if(t<=-8.5){ txt="Época de la <b>última major merger</b> de la Vía Láctea (Gaia-Enceladus, ~8–10 Gyr atrás). El universo era más compacto y los mergers, frecuentes."; estado="pasado lejano"; }
+    else if(t<-1){ txt="Universo más joven: <b>más mergers</b> que hoy. Se van formando los streams del halo."; estado="pasado"; }
+    else if(t<1){ txt="<b>Hoy</b>: universo relativamente tranquilo. Solo ≈5% de las galaxias cercanas interactúan; la VL forma ~2–3 estrellas/año."; estado="presente"; }
+    else if(t<3.8){ txt="Acercamiento progresivo a <b>Andrómeda</b>; el gas ya empieza a sentir la interacción."; estado="futuro"; }
+    else if(t<4.6){ txt="<b>Choque con Andrómeda</b> (~4 Gyr): comienza la fusión hacia una gran elíptica ('Milkdromeda')."; estado="futuro"; }
+    else { txt="Fusión avanzada: una <b>elíptica masiva</b> con los dos agujeros negros centrales. (También: al Sol le quedaban ~5 Gyr → ya sería gigante roja.)"; estado="futuro lejano"; }
+    tlOut.innerHTML="Edad del universo ≈ <b>"+edad.toFixed(1)+" Gyr</b> &nbsp;·&nbsp; <span class='k'>"+estado+"</span><br>"+txt;
+  }
+  if(tlT){
+    tlT.addEventListener('input',tlUpdate);
+    document.querySelectorAll('#w-timeline .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ tlT.value=b.dataset.t; tlUpdate(); });
+    });
+    tlUpdate();
+  }
+
+  // ===== Widget 3: gravedad inverso del cuadrado =====
+  var grM=document.getElementById('gr-M'), grR=document.getElementById('gr-r'),
+      grRv=document.getElementById('gr-rval'), grOut=document.getElementById('gr-out'),
+      gcv=document.getElementById('gr-canvas');
+  function grUpdate(){
+    var M=+grM.value, r=+grR.value;
+    grRv.textContent=r.toFixed(1).replace('.',',');
+    // Fuerza relativa normalizada a r=0.1 Mpc (escala arbitraria, ilustrativa)
+    var Frel=M/(r*r);
+    drawGrav(M,r);
+    // comparación cualitativa con expansión (~ proporcional a r)
+    var ligado = r < 5*Math.sqrt(M/1.5); // umbral ilustrativo
+    grOut.innerHTML="F ∝ M/r² &nbsp;→&nbsp; F<sub>rel</sub> ≈ <b>"+Frel.toExponential(2)+"</b> (unidades arbitrarias)<br>"+
+      "<span class='k'>A r = "+r.toFixed(1).replace('.',',')+" Mpc:</span> "+
+      (ligado ? "la gravedad domina → sistema probablemente <b>ligado</b> (bailará)."
+              : "a esta distancia la expansión empieza a ganar → tiende a <b>alejarse</b>.")+
+      "<br><small style='color:var(--muted)'>Cálculo ilustrativo de orden de magnitud, no un valor de la clase.</small>";
+  }
+  function drawGrav(M,rsel){
+    if(!gcv) return;
+    var ctx=gcv.getContext('2d'), W=gcv.width, H=gcv.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=58, padR=18, padT=16, padB=40;
+    var rMin=0.1, rMax=20;
+    function X(r){ return padL+(r-rMin)/(rMax-rMin)*(W-padL-padR); }
+    var Fmax=M/(rMin*rMin);
+    function Y(f){ return padT+(1-f/Fmax)*(H-padT-padB); }
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.lineWidth=1; ctx.font="12px Spectral, serif";
+    ctx.textAlign="center";
+    for(var r=0;r<=20;r+=2){ ctx.beginPath();ctx.moveTo(X(r),padT);ctx.lineTo(X(r),H-padB);ctx.stroke(); ctx.fillText(r,X(r),H-padB+16); }
+    ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Distancia r (Mpc)", (padL+W-padR)/2, H-6);
+    ctx.save(); ctx.translate(15,(padT+H-padB)/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText("Fuerza gravitacional (rel.)",0,0); ctx.restore();
+    // curva 1/r^2
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=2.4; ctx.beginPath(); var started=false;
+    for(var px=0;px<=(W-padL-padR);px++){
+      var rr=rMin+px/(W-padL-padR)*(rMax-rMin);
+      var f=M/(rr*rr); if(f>Fmax)f=Fmax;
+      var xx=X(rr), yy=Y(f);
+      if(!started){ctx.moveTo(xx,yy);started=true;}else ctx.lineTo(xx,yy);
+    }
+    ctx.stroke();
+    // marca r seleccionado
+    ctx.strokeStyle="#e0382e"; ctx.setLineDash([5,4]); ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(X(rsel),padT);ctx.lineTo(X(rsel),H-padB);ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle="#f06a5e"; ctx.textAlign="left"; ctx.fillText("r",X(rsel)+4,padT+12);
+  }
+  if(grM){
+    [grM,grR].forEach(function(el){el.addEventListener('input',grUpdate);});
+    document.querySelectorAll('#w-gravity .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ grR.value=b.dataset.r; grUpdate(); });
+    });
+    grUpdate();
+  }
+});
+</script>
+</body>
+</html>

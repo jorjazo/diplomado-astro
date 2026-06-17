@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Cuántas galaxias hay en el universo? — Astrofísica de Galaxias, Módulo II · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo II · Clase 1</span>
+  <h1>¿Cuántas galaxias hay <em>en el universo</em>?</h1>
+  <p class="sub">Una pregunta que suena trivial y termina obligándonos a inventar el conteo automático de objetos, el volumen comóvil, el corrimiento al rojo, la función de luminosidad y la astroinformática moderna. La respuesta destilada: <em>≈ 4 galaxias por cada 10 megaparsec cúbicos comóviles</em>.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Valentino González</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 may 2026</span>
+    <span><b>Tema:</b> Conteo de galaxias y función de luminosidad</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">¿</span>Cuántas galaxias hay en el universo? El profesor parte con esta pregunta aparentemente inocente y dedica toda la clase a refinarla. Cada vez que intentamos responderla aparece un nuevo problema, y cada problema nos enseña algo sobre las galaxias y sobre el universo. Es un buen ejemplo de cómo en ciencia <em>la pregunta correcta vale más que la respuesta</em>: para contestarla bien hay que definir un volumen, distinguir galaxias de estrellas y cuásares, medir distancias, elegir una región representativa, corregir lo que no vemos y, finalmente, integrar una función. Para alguien de informática, es básicamente diseñar un <em>pipeline de medición con manejo cuidadoso de sesgos e incertidumbre</em>.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La pregunta y los órdenes de magnitud</a></li>
+    <li><a href="#s2">De "cuántas" a densidad: volumen comóvil</a></li>
+    <li><a href="#s3">Contar objetos: detección automática</a></li>
+    <li><a href="#s4">¿Estrella, galaxia o cuásar?</a></li>
+    <li><a href="#s5">¿Cerca o lejos? El corrimiento al rojo</a></li>
+    <li><a href="#s6">El problema de la representatividad</a></li>
+    <li><a href="#s7">Estrategias: surveys y data mining</a></li>
+    <li><a href="#s8">La función de luminosidad</a></li>
+    <li><a href="#s9">Integrar y cortar: la respuesta</a></li>
+    <li><a href="#s10">Por tipo de galaxia y evolución</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La pregunta y los órdenes de magnitud</h2>
+    <p>Antes de contar galaxias, calibremos nuestra intuición numérica.</p>
+  </div></div>
+
+  <p>El profesor pide primero un número más sencillo: <span class="hl">¿cuántas estrellas hay en la Vía Láctea?</span> El orden de magnitud es de unas <strong>10<sup>11</sup></strong> (un 1 seguido de unos 11 ceros, ≈ cien mil millones). Nadie las contó una por una: es una estimación. Y justamente esta clase trata de <em>cómo se cuenta sin contar uno por uno</em>.</p>
+
+  <p>Al pasar a "¿cuántas galaxias hay en el universo?" aparece de inmediato la primera complicación: <strong>si el universo es infinito, hay infinitas galaxias</strong>. La pregunta, tal como está, no tiene respuesta. Hay que acotarla.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es el clásico problema de una consulta mal definida sobre un dataset potencialmente no acotado. Antes de pedir un <code>COUNT(*)</code> hay que fijar el <em>scope</em>: sobre qué volumen, en qué época, con qué criterios de inclusión. La mitad del trabajo científico es transformar una pregunta vaga en una <strong>especificación operacional</strong> medible.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>De "cuántas" a densidad: el volumen comóvil</h2>
+    <p>No contemos el total, contemos cuántas hay por unidad de volumen… pero ¿de cuándo?</p>
+  </div></div>
+
+  <p>La salida es cambiar la pregunta: en vez del total, calculamos una <span class="hl">densidad</span> — cuántas galaxias hay <em>por unidad de volumen</em> en un pedazo típico del universo. Si conocemos esa densidad, multiplicando por el volumen del universo visible obtenemos el total. Pero surge otro problema: <strong>el universo está en expansión</strong>, así que el volumen cambia con el tiempo. Diez galaxias en una caja hoy ocuparán una caja más grande en el futuro; la densidad <em>física</em> decae con el tiempo aunque no se cree ni destruya ninguna galaxia.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-06.jpg" alt="Diagrama de una grilla de coordenadas del universo que se expande de 50 a 100 Mpc manteniendo dos galaxias fijas en sus coordenadas">
+    <figcaption><span class="cap">Diapositiva · Universo en expansión</span>Dos galaxias en reposo respecto a la <strong>grilla de coordenadas</strong>: no cambian de coordenada, pero la grilla crece (de 50 a 100 Mpc). La distancia entre ellas aumenta sin que ellas se muevan. La densidad física baja, pero la cuenta "por celda de la grilla" se mantiene.</figcaption>
+  </figure>
+
+  <p>La clave es que la expansión <strong>solo gana a escalas muy grandes</strong>. A escala de tu cuerpo manda la fuerza electromagnética; a escala de un planeta o una galaxia, e incluso del Grupo Local (Vía Láctea + Andrómeda + Triángulo + satélites), manda la gravedad y las cosas quedan ligadas. La expansión empieza a dominar recién a escala de <em>distancias entre cúmulos de galaxias</em>. Por eso la galaxia misma no se expande: su tamaño es el mismo en ambos dibujos.</p>
+
+  <p>Como la tasa de expansión está muy bien medida, podemos <strong>"restar" la expansión</strong> y trabajar con un volumen que crece junto con el universo. A ese volumen lo llamamos <span class="hl">volumen comóvil</span> (<em>co-moving</em>): por construcción, encierra siempre las mismas coordenadas. En ese marco, la densidad de las dos galaxias del dibujo es la misma "antes" y "después", porque es el <em>mismo pedazo del universo</em>. Es una convención cómoda: metemos el cambio de tamaño dentro de la definición del volumen.</p>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor</span>
+    <p>El cuánto y el porqué de la expansión —y sobre todo la <em>aceleración</em> atribuida a la <strong>energía oscura</strong>— es uno de los grandes misterios abiertos. "Energía oscura" es más bien el nombre de algo que no entendemos que una explicación. Entre 1950 y hoy la expansión casi no cambió nada: ocurre en escalas de miles de millones de años.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El volumen comóvil es un <strong>cambio de coordenadas</strong> que <em>normaliza</em> la dimensión temporal: igual que cuando ajustas precios a "dólares de 2026" para comparar épocas, o cuando reescalas una señal para quitarle una deriva conocida (<em>detrending</em>). El factor de escala del universo <span class="katex-inline" data-tex="a(t)"></span> juega el rol del deflactor.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Contar objetos: detección automática</h2>
+    <p>Cómo el software encuentra "objetos" en una imagen astronómica.</p>
+  </div></div>
+
+  <p>Hoy el conteo es esencialmente automático, pero no "mágico": alguien escribió software. Programas como <span class="hl">Source Extractor</span> (SExtractor, Bertin &amp; Arnouts 1996) o <strong>DAOPhot</strong> (Stetson 1987) recorren la imagen buscando <em>regiones más brillantes que el fondo</em>. Si una región es un único píxel, la descartan (probablemente ruido); si tiene una forma y un tamaño compatibles con un objeto real, la registran.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-08.jpg" alt="Imagen astronómica con elipses dibujadas alrededor de los objetos detectados (aperturas de Kron) por un detector automático">
+    <figcaption><span class="cap">Diapositiva · Detección automática</span>Cada elipse es un objeto detectado por el software (aquí, aperturas de Kron). El algoritmo mide brillo, posición y forma de cada fuente. <small style="color:var(--muted)">Crédito: manual en línea de <code>photutils</code>.</small></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es <strong>segmentación de imágenes con thresholding + connected components</strong>: detectas píxeles sobre un umbral relativo al fondo, los agrupas en blobs, filtras por tamaño/forma y mides propiedades de cada blob. El paso de "rechazar un solo píxel" es eliminación de ruido de tipo sal-y-pimienta; las aperturas adaptativas (Kron) son ROIs ajustadas a cada fuente.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>¿Estrella, galaxia o cuásar?</h2>
+    <p>Tamaño (PSF) + color (varios filtros) para clasificar cada objeto.</p>
+  </div></div>
+
+  <p>No todo objeto detectado es una galaxia. El primer criterio es el <strong>tamaño aparente</strong>:</p>
+  <ul>
+    <li>Una <strong>estrella</strong> es, para todo efecto, un <em>punto</em>. Pero al pasar por la atmósfera (un "lente" turbulento que se mueve con el viento) su luz se desparrama según una forma característica: la <span class="hl">PSF</span> (<em>Point Spread Function</em>, "función de dispersión de punto"). En la imagen ocupa varios píxeles, con un perfil conocido —algo como un "huevo frito".</li>
+    <li>Una <strong>galaxia</strong> es un objeto <em>extendido</em>: su tamaño real supera el desparrame de la PSF.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c1/assets/slide-09.jpg" alt="Campo profundo del telescopio Hubble con galaxias de muchas formas y colores y algunas estrellas puntuales con picos de difracción">
+    <figcaption><span class="cap">Diapositiva · ¿Estrella o galaxia?</span>Las estrellas se ven como puntos (PSF, con picos de difracción); las galaxias, extendidas. Pero hay muchos objetos pequeños "intermedios" difíciles de clasificar solo por tamaño. <small style="color:var(--muted)">Crédito: NASA/ESA (HUDF).</small></figcaption>
+  </figure>
+
+  <p>El tamaño no basta, por dos motivos: (1) si la <strong>resolución</strong> de la imagen es mala, una galaxia pequeña se ve como punto; y (2) existen objetos puntuales que <em>no son estrellas</em>: los <span class="hl">cuásares</span> (de <em>quasi-stellar object</em>), también llamados <strong>AGN</strong> (<em>Active Galactic Nucleus</em>, núcleo galáctico activo).</p>
+
+  <h3>Qué es un AGN / cuásar</h3>
+  <p>En el centro de prácticamente toda galaxia hay un <strong>agujero negro supermasivo</strong>: el de la Vía Láctea tiene ≈ 4 millones de masas solares; otros llegan a cientos o miles de millones. El agujero negro en sí no emite luz. Pero cuando una nube de gas cae hacia él, se comprime y se calienta a <strong>millones de kelvin</strong>, formando un <em>disco de acreción</em> que se convierte en uno de los objetos más brillantes del universo. Esa es la actividad: gas calentándose al caer. Como ocurre en una región diminuta (escala del Sistema Solar) y muy lejana, en la imagen se ve <strong>puntual, como una estrella</strong>.</p>
+
+  <div class="box dato">
+    <span class="tag">Activo vs. inactivo</span>
+    <p>La palabra clave en "AGN" es <em>Active</em>: todas las galaxias tienen agujero negro central, pero solo algunos están "alimentándose" y por eso brillan. Cuando un AGN está activo, su luminosidad puede <strong>opacar a la galaxia entera</strong> que lo aloja: uno se "encandila" y solo ve el punto central. Nada sale del agujero negro; la luz proviene del <em>disco</em> a su alrededor.</p>
+  </div>
+
+  <p>Para distinguir estrella de cuásar (ambos puntuales) se usa el <strong>color</strong>. Una imagen astronómica en color se arma tomando fotos con distintos <span class="hl">filtros</span>, cada uno dejando pasar un rango de longitudes de onda (no necesariamente visibles: pueden ser UV o infrarrojo). A cada filtro se le asigna un color (azul/verde/rojo) y se combinan. Con <strong>varios filtros</strong> (típicamente 5–7 en un estudio serio) reconstruimos la forma del espectro de cada objeto. El espectro de una estrella tiene una forma conocida; el de un AGN es completamente distinto. Así separamos estrellas, cuásares y galaxias.</p>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>¿Cerca o lejos? El corrimiento al rojo</h2>
+    <p>La tercera dimensión —la profundidad— se mide con el efecto Doppler de la luz.</p>
+  </div></div>
+
+  <p>La imagen nos da dos dimensiones (posición en el cielo). Falta la <strong>profundidad</strong>: ¿esa galaxia está dentro o fuera de nuestra "caja"? La respuesta usa de nuevo la expansión: <em>cuanto más lejos está un objeto, más rápido se aleja de nosotros</em>, y eso deja una huella en su luz.</p>
+
+  <p>El <span class="hl">efecto Doppler</span> es el mismo de un auto de Fórmula 1: el motor hace un ruido constante, pero al acercarse las ondas se comprimen (más agudo) y al alejarse se estiran (más grave). Con la luz: una galaxia que se aleja nos manda ondas <strong>estiradas</strong>, es decir, de longitud de onda mayor → colores más rojos. A eso le llamamos <span class="hl">corrimiento al rojo</span> (<em>redshift</em>, <span class="katex-inline" data-tex="z"></span>).</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="1+z=\frac{\lambda_{\text{obs}}}{\lambda_{\text{emit}}}\qquad\Longrightarrow\qquad \lambda_{\text{obs}}=\lambda_{\text{emit}}\,(1+z)"></span>
+    <small>El corrimiento al rojo <span class="katex-inline" data-tex="z"></span> mide cuánto se estiró la longitud de onda. Para velocidades bajas, <span class="katex-inline" data-tex="z\approx v/c"></span> (Doppler clásico); a <span class="katex-inline" data-tex="z"></span> grandes domina la expansión del espacio mismo.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-12.jpg" alt="Campo profundo con galaxias cercanas azules y galaxias lejanas que se ven más rojas por el corrimiento al rojo">
+    <figcaption><span class="cap">Diapositiva · ¿Cercana o lejana?</span>Una galaxia se ve rojiza por dos razones distintas: porque <em>es</em> intrínsecamente roja, o porque es azul pero está tan lejos que su luz se corrió al rojo. Para desambiguar hace falta observarla en <strong>muchas longitudes de onda</strong> y comparar la forma de su espectro. <small style="color:var(--muted)">Crédito: NASA/ESA.</small></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El redshift es un <strong>reescalado del eje de longitud de onda</strong>: el mismo "patrón" (el espectro) aparece estirado por un factor <span class="katex-inline" data-tex="(1+z)"></span>. Distinguir "rojo intrínseco" de "azul corrido al rojo" es un problema de <em>template matching</em>: buscas qué corrimiento <span class="katex-inline" data-tex="z"></span> hace coincidir el espectro observado con una plantilla conocida. Eso es exactamente el <em>photometric/spectroscopic redshift</em>.</p>
+  </div>
+
+  <p>Resumen de requisitos para contar bien: necesitamos imágenes con (a) <strong>resolución suficiente</strong> para separar puntos de objetos extendidos, y (b) <strong>varias longitudes de onda</strong> para clasificar (estrella / AGN / galaxia) y estimar distancia.</p>
+</section>
+
+<!-- ============ INTERACTIVO 1 ============ -->
+<section id="w-redshift">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Corrimiento al rojo: ¿cómo vemos una galaxia lejana?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una galaxia emite una línea (por defecto, Hα a 656,3&nbsp;nm, en el rojo). Mueve el corrimiento al rojo <span class="katex-inline" data-tex="z"></span> y observa a qué longitud de onda nos llega y a qué velocidad de recesión equivale.</p>
+    <div class="wgrid">
+      <div>
+        <label>Longitud de onda emitida λ<sub>emit</sub> (nm)</label>
+        <input type="number" id="rs-lam" value="656.3" step="any">
+      </div>
+      <div>
+        <label>Corrimiento al rojo z = <span class="rngval" id="rs-zval">0.50</span></label>
+        <input type="range" id="rs-z" min="0" max="10" step="0.01" value="0.5">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-z="0">z = 0 (aquí)</button>
+      <button type="button" data-z="0.5">z = 0,5</button>
+      <button type="button" data-z="1">z = 1</button>
+      <button type="button" data-z="3">z = 3</button>
+      <button type="button" data-z="7">z = 7 (JWST)</button>
+    </div>
+    <output id="rs-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>El problema de la representatividad</h2>
+    <p>Las galaxias no están repartidas de forma homogénea: cúmulos, vacíos y la telaraña cósmica.</p>
+  </div></div>
+
+  <p>Aunque sepamos contar y medir distancias, queda un problema de fondo: <strong>¿dónde apuntamos el telescopio?</strong> Si apuntamos a un cúmulo, contaremos muchísimas; si a un vacío, casi ninguna. La materia no está repartida uniformemente.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-15.jpg" alt="Imagen del cúmulo SMACS 0723 del telescopio James Webb, con muchas galaxias y arcos de lente gravitacional">
+    <figcaption><span class="cap">Diapositiva · Problema: no es homogéneo</span>El centro de un cúmulo de galaxias (primera imagen del JWST, SMACS&nbsp;0723). Sabemos que es un cúmulo porque hay muchas galaxias del <strong>mismo color</strong> (misma distancia). Los <strong>arcos</strong> son <span class="hl">lentes gravitacionales</span>: galaxias de fondo, más rojas y lejanas, cuya luz curva el cúmulo. Apuntar aquí sobreestimaría enormemente el conteo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-16.jpg" alt="Simulación Millennium de materia oscura mostrando la red cósmica de filamentos, nodos y vacíos">
+    <figcaption><span class="cap">Diapositiva · Simulación Millennium (Springel et al. 2005)</span>Simulación <em>solo de materia oscura</em> (la materia oscura es "simple": solo se atrae gravitacionalmente, no colisiona ni forma estrellas). El resultado es una <strong>telaraña cósmica</strong>: nodos densos, filamentos y vacíos. La escala marcada es 125 Mpc/h. Contar en una región u otra da respuestas totalmente distintas.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Lente gravitacional, dos efectos útiles</span>
+    <p>El cúmulo, al curvar el espacio, <em>amplifica</em> y deforma la luz de galaxias de fondo (que de otro modo serían invisibles) — pero también puede producir <strong>imágenes múltiples</strong> del mismo objeto. Al contar hay que tener cuidado de <em>no contar dos veces</em> la misma galaxia.</p>
+  </div>
+
+  <p>La palabra clave es <span class="hl">representativo</span>: queremos contar en un pedazo del universo que no sobreestime (cúmulo) ni subestime (vacío) el número típico. ¿Cómo logramos eso?</p>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Estrategias: surveys y data mining</h2>
+    <p>Dos formas de obtener una muestra representativa, y la revolución de los datos abiertos.</p>
+  </div></div>
+
+  <p>Hay dos estrategias complementarias:</p>
+  <ol class="body">
+    <li><strong>Fuerza bruta:</strong> tomar una imagen <em>muy grande</em> del cielo, suficiente para incluir a la vez muchos cúmulos y muchos vacíos. El promedio sale representativo. Es caro.</li>
+    <li><strong>Muchos campos pequeños:</strong> con un telescopio común, apuntar al azar a muchos lugares <em>desconectados</em>. Con suficientes "pedacitos", en promedio caen sobre cúmulos, vacíos e intermedios, y combinándolos se obtiene la respuesta típica. (Esta estrategia es además la que sirve para el universo lejano, donde hace falta apuntar mucho rato a cada campo.)</li>
+  </ol>
+
+  <h3>Sloan Digital Sky Survey (SDSS)</h3>
+  <figure>
+    <img src="m2c1/assets/slide-17.jpg" alt="Telescopio de 2,5 m del Sloan Digital Sky Survey en Apache Point, Nuevo México">
+    <figcaption><span class="cap">Diapositiva · Sloan Digital Sky Survey</span>Telescopio de ≈ 2,5 m en Nuevo México. Cubre ≈ <strong>1/3 del cielo</strong>; mapa 3D con ≈ <strong>900.000 galaxias</strong>, ≈ 120.000 cuásares y ≈ 460.000 estrellas. El <em>Data Release 7</em> son ≈ 60 TB. Más de 8.000 publicaciones científicas asociadas.</figcaption>
+  </figure>
+
+  <p>El mapa de SDSS es <strong>tridimensional</strong>: a la posición en el cielo le suma la <em>distancia</em>, estimada a partir de los colores o, con más precisión, de los <strong>espectros</strong>. Pero su mayor legado es metodológico: con 60 TB de datos no puedes bajar todo a tu computador. Nace el <span class="hl">data mining</span> astronómico — escribir algoritmos que corran sobre una base de datos gigante y devuelvan la respuesta destilada.</p>
+
+  <div class="box cs">
+    <span class="tag">Astroinformática</span>
+    <p>SDSS marca el paso a la astronomía moderna: <strong>datos abiertos</strong> y consultables programáticamente. Hoy se puede ser astrónomo <em>sin tiempo de telescopio propio</em>: basta imaginación para hacer preguntas interesantes sobre datos públicos. La clasificación morfológica de galaxias (espiral vs. elíptica) — fácil para el ojo humano, difícil para reglas a mano — fue de los primeros casos en migrar a <strong>redes neuronales entrenadas</strong> con cientos de miles de ejemplos etiquetados. El profesor co-dicta el curso "Astroinformática" (machine learning aplicado), parte esencial de la formación moderna.</p>
+  </div>
+
+  <h3>El Observatorio Vera C. Rubin (LSST)</h3>
+  <figure>
+    <img src="m2c1/assets/slide-18.jpg" alt="Observatorio Vera C. Rubin al atardecer sobre Cerro Pachón, Chile">
+    <figcaption><span class="cap">Diapositiva · Observatorio Vera Rubin</span>El survey LSST producirá ≈ <strong>20 TB por noche</strong> (¡SDSS completo fueron 60 TB!). En 10 años espera catalogar ≈ <strong>20.000 millones de galaxias</strong> y ≈ 17.000 millones de estrellas, observando ≈ la mitad del cielo cada pocos días → una "película" del cielo. <small style="color:var(--muted)">Crédito: O. Bonin / SLAC.</small></figcaption>
+  </figure>
+
+  <p>Imposible analizar eso "a mano". El telescopio Rubin viene con un <strong>supercomputador</strong>: uno escribe un algoritmo y lo envía a correr sobre todos los datos, que devuelve una respuesta reducida. Es la forma moderna de trabajar: <em>llevar el código a los datos</em>, no los datos al código.</p>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La función de luminosidad</h2>
+    <p>El corazón cuantitativo de la clase: cuántas galaxias hay por unidad de volumen en cada brillo.</p>
+  </div></div>
+
+  <p>Para contar de verdad necesitamos un ingrediente más. En astronomía el brillo se mide con la <span class="hl">magnitud</span>, una escala <strong>logarítmica e invertida</strong>: objetos más brillantes tienen magnitudes <em>más negativas</em>.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="m=-2{,}5\,\log_{10}(\text{flujo})+\text{cte}"></span>
+    <small>El factor −2,5 (herencia de Hiparco) y el logaritmo: sumar 5 magnitudes = factor 100 en brillo. <strong>1 magnitud ≈ factor 2,512.</strong></small>
+  </div>
+
+  <p>La <span class="hl">magnitud absoluta</span> <span class="katex-inline" data-tex="M"></span> corrige la distancia: es la magnitud que tendría el objeto si estuviera a <strong>10 parsec</strong> (1 pc = 3,26 años luz). Así dos estrellas idénticas a distinta distancia tienen la misma magnitud absoluta. La definición se extrapola a galaxias (aunque "una galaxia a 10 pc" no tenga sentido físico, sirve como referencia común).</p>
+
+  <h3>Contar… y corregir lo que no vemos</h3>
+  <p>Si graficamos el número de objetos detectados versus su magnitud, vemos pocos objetos brillantes y pocos muy débiles. Pero esos dos "pocos" son por razones <em>opuestas</em>:</p>
+  <ul>
+    <li><strong>Pocos brillantes:</strong> es real — hay genuinamente pocas galaxias muy luminosas.</li>
+    <li><strong>Pocos débiles:</strong> es un <em>artefacto</em> — los objetos débiles se pierden en el detector (a veces se ven, a veces no). Hay un sesgo de <span class="hl">incompletitud</span>.</li>
+  </ul>
+  <p>Hay que <strong>corregir</strong> esa incompletitud (estimar cuántos se perdieron) y, además, restringirse al volumen comóvil que nos interesa (descartar las demasiado lejanas/cercanas). El resultado es la <span class="hl">función de luminosidad</span>: número de galaxias por unidad de volumen comóvil en cada magnitud.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-19.jpg" alt="Gráfico de la función de luminosidad de galaxias de SDSS en la banda r, con la curva característica y los parámetros phi*, M* y alfa">
+    <figcaption><span class="cap">Diapositiva · La función de luminosidad (SDSS, banda r)</span>Arriba: la función de luminosidad <span class="katex-inline" data-tex="\Phi(M_r)"></span> (eje vertical logarítmico). Abajo: el conteo bruto <span class="katex-inline" data-tex="N(M_r)"></span>, que cae a ambos lados (a la izquierda porque hay pocos brillantes; a la derecha por incompletitud). Parámetros del ajuste: <span class="katex-inline" data-tex="\phi_*=1{,}46\times10^{-2}"></span>, <span class="katex-inline" data-tex="M_*=-20{,}83"></span>, <span class="katex-inline" data-tex="\alpha=-1{,}20"></span>.</figcaption>
+  </figure>
+
+  <h3>La función de Schechter y sus tres parámetros</h3>
+  <p>La forma se describe con la <span class="hl">función de Schechter</span> (1976): una ley de potencias para los débiles, con un corte exponencial para los brillantes.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-25.jpg" alt="Fórmula de la función de Schechter en términos de luminosidad">
+    <figcaption><span class="cap">Diapositiva · La función de luminosidad (fórmula)</span>La función de Schechter en términos de luminosidad <span class="katex-inline" data-tex="L"></span>.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\Phi(L)\,dL=\phi_*\left(\frac{L}{L_*}\right)^{\alpha} e^{-L/L_*}\, d\!\left(\frac{L}{L_*}\right)"></span>
+    <small>Tres parámetros con significado físico claro (abajo). En magnitudes, el corte exponencial se ubica en <span class="katex-inline" data-tex="M_*"></span>, ligado a <span class="katex-inline" data-tex="L_*"></span> por <span class="katex-inline" data-tex="M=-2{,}5\log_{10} L + \text{cte}"></span>.</small>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Parámetro</th><th>Qué controla</th><th>Intuición</th></tr></thead>
+    <tbody>
+      <tr><td><b>M<sub>*</sub></b> (o L<sub>*</sub>)</td><td>La "rodilla" de la curva</td><td>Magnitud donde se pasa de recta (débiles) a caída exponencial (brillantes). Más brillante ⇒ la curva se extiende más.</td></tr>
+      <tr><td><b>α</b> (alfa)</td><td>Pendiente del lado débil</td><td><span class="katex-inline" data-tex="\alpha=-1"></span> da curva plana; más negativo ⇒ más empinada ⇒ <em>muchísimas</em> más galaxias débiles que brillantes.</td></tr>
+      <tr><td><b>φ<sub>*</sub></b> (fi)</td><td>Normalización (altura total)</td><td>Sube o baja toda la curva: el número total de galaxias por volumen.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La función de Schechter es una <strong>distribución</strong> con cola de potencias (como las que aparecen en tamaños de archivos, grados de nodos en redes o frecuencias de palabras: <em>power laws</em>) más un <em>cutoff</em> exponencial que evita que la cola brillante explote. Ajustar <span class="katex-inline" data-tex="(\phi_*, M_*, \alpha)"></span> a los conteos corregidos es un problema de <em>fitting</em> de 3 parámetros; <span class="katex-inline" data-tex="\alpha"></span> es el exponente de la ley de potencias.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 2 ============ -->
+<section id="w-schechter">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Función de Schechter: juega con los tres parámetros</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Curva de <span class="katex-inline" data-tex="\Phi(M)"></span> en escala logarítmica (eje vertical) vs. magnitud absoluta (más brillante a la izquierda, como en astronomía). Observa cómo <span class="katex-inline" data-tex="M_*"></span> mueve la rodilla, <span class="katex-inline" data-tex="\alpha"></span> cambia la pendiente de los débiles y <span class="katex-inline" data-tex="\phi_*"></span> sube/baja todo.</p>
+    <div class="wgrid">
+      <div>
+        <label>M<sub>*</sub> (rodilla) = <span class="rngval" id="sc-Mval">-20.83</span></label>
+        <input type="range" id="sc-M" min="-23" max="-18" step="0.01" value="-20.83">
+      </div>
+      <div>
+        <label>α (pendiente débiles) = <span class="rngval" id="sc-aval">-1.20</span></label>
+        <input type="range" id="sc-a" min="-2" max="-0.3" step="0.01" value="-1.20">
+      </div>
+      <div>
+        <label>log₁₀ φ<sub>*</sub> (normalización) = <span class="rngval" id="sc-pval">-1.84</span></label>
+        <input type="range" id="sc-p" min="-4" max="-1" step="0.01" value="-1.84">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" id="sc-total">Total (α=−1,20)</button>
+          <button type="button" id="sc-blue">Espirales (azul)</button>
+          <button type="button" id="sc-red">Elípticas (rojo)</button>
+        </div>
+      </div>
+    </div>
+    <canvas id="sc-canvas" width="900" height="430"></canvas>
+    <output id="sc-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Integrar y cortar: la respuesta</h2>
+    <p>Sumar todas las galaxias… pero con límites, porque la integral diverge por un lado.</p>
+  </div></div>
+
+  <p>Para obtener un número hay que <strong>integrar</strong> la función de luminosidad: sumar el número de galaxias en cada cajita de magnitud, incluyendo la <em>extrapolación</em> hacia los débiles que no alcanzamos a ver. Pero no se puede extrapolar al infinito:</p>
+  <ul>
+    <li><strong>Lado débil:</strong> la curva sube sin parar, lo que daría infinitas galaxias minúsculas. No tiene sentido físico: tiene que existir la galaxia <em>menos</em> brillante. La integral <strong>diverge</strong> por este lado, así que hay que cortar.</li>
+    <li><strong>Lado brillante:</strong> el corte exponencial hace que la integral <strong>converja</strong> sola (hay poquísimas galaxias ultrabrillantes), pero igual se fija un límite.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c1/assets/slide-28.jpg" alt="Imagen de la galaxia enana ultradébil Willman 1, apenas distinguible del fondo">
+    <figcaption><span class="cap">Diapositiva · El extremo débil: Willman 1</span>La galaxia conocida más débil, <strong>Willman 1</strong>, tiene una luminosidad de apenas ≈ <strong>1.000 veces la del Sol</strong> (≈ mil soles). Marca el extremo: por más que extrapolemos, no se puede llegar a luminosidad cero. <small style="color:var(--muted)">Crédito: Wikipedia, dominio público.</small></figcaption>
+  </figure>
+
+  <p>El profesor hace la cuenta integrando entre dos cortes razonables: desde <strong>10 veces más brillante que L<sub>*</sub></strong> hasta <strong>1.000 veces menos brillante que L<sub>*</sub></strong>. El resultado:</p>
+
+  <div class="formula" style="text-align:center">
+    <span class="katex-block" data-tex="n_{\text{gal}}\approx 4 \ \text{galaxias por cada } 10\ \text{cMpc}^3\quad(\text{en promedio})"></span>
+    <small>cMpc³ = megaparsec cúbico <em>comóvil</em>. Es decir, ≈ 0,4 galaxias por Mpc³ comóvil, en promedio.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-31.jpg" alt="Galaxia de Andrómeda con el resultado: aproximadamente 4 galaxias por cada 10 megaparsec cúbicos comóviles">
+    <figcaption><span class="cap">Diapositiva · La respuesta destilada</span>≈ 4 galaxias por cada 10 cMpc³, <strong>en promedio</strong>. Multiplicando por el volumen del universo visible se obtiene el total — pero el número físicamente interesante es esta <em>densidad</em>. Ojo: la mayoría de esas 4 son galaxias <strong>muy débiles</strong>.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cuidado con los promedios</span>
+    <p>Es un <em>promedio</em>: hay regiones mucho más densas (p. ej. el <strong>Quinteto de Stephan</strong>, cinco galaxias grandes en un pedacito chico) y regiones casi vacías. Además, en zonas "vacías" suele haber galaxias débiles que sí cuentan. Y hay correcciones finas: galaxias ocultas detrás de otras (poco frecuente) o imágenes dobles por lentes (no contar dos veces).</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 3 ============ -->
+<section id="w-total">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>De la densidad al total del universo visible</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Si hay ≈ 4 galaxias por 10 cMpc³, ¿cuántas hay en una esfera comóvil de radio <span class="katex-inline" data-tex="R"></span>? El radio comóvil del universo observable es ≈ <strong>14.300 Mpc</strong> (≈ 46.500 millones de años luz).</p>
+    <div class="wgrid">
+      <div>
+        <label>Densidad (galaxias por 10 cMpc³)</label>
+        <input type="number" id="tot-dens" value="4" step="any">
+      </div>
+      <div>
+        <label>Radio comóvil R (Mpc) = <span class="rngval" id="tot-Rval">14300</span></label>
+        <input type="range" id="tot-R" min="100" max="14300" step="100" value="14300">
+      </div>
+    </div>
+    <output id="tot-out" class="wout"></output>
+    <p style="color:var(--muted);font-size:.82rem;margin:.6em 0 0">Es un cálculo de orden de magnitud (densidad local extrapolada a todo el volumen), pero da el número que suele citarse: <em>cientos de miles de millones a billones de galaxias</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Por tipo de galaxia y evolución en el tiempo</h2>
+    <p>La misma técnica, refinada, nos cuenta la historia de las galaxias.</p>
+  </div></div>
+
+  <h3>Función de luminosidad por tipo morfológico</h3>
+  <p>Podemos construir una función de luminosidad <em>separada</em> para galaxias <span class="hl">espirales (azules)</span> y <span class="hl">elípticas (rojas)</span>. Los parámetros cambian y eso nos enseña algo nuevo:</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-33.jpg" alt="Funciones de luminosidad separadas: azul para espirales (pendiente empinada) y rojo para elípticas (más plana, rodilla más brillante)">
+    <figcaption><span class="cap">Diapositiva · La FL depende del tipo de galaxia</span><span style="color:var(--blue)">Azul = espirales</span>, <span style="color:var(--red-soft)">rojo = elípticas</span>. Espirales: <span class="katex-inline" data-tex="(M_*,\phi_*,\alpha)=(-20{,}60,\,0{,}00282,\,-1{,}35)"></span>. Elípticas: <span class="katex-inline" data-tex="(-21{,}49,\,0{,}00225,\,-0{,}83)"></span>.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Pendiente (α):</strong> las espirales (azules) tienen α ≈ −1,35 (empinada) → <em>muchas más débiles que brillantes</em>. Las elípticas (rojas) tienen α ≈ −0,83 (más plana, hasta "se da vuelta") → lo común es que sean <em>más brillantes que débiles</em>.</li>
+    <li><strong>Rodilla (M<sub>*</sub>):</strong> las elípticas tienen M<sub>*</sub> ≈ −21,49 (más brillante) vs. −20,60 de las espirales → las <em>elípticas dominan en el extremo brillante</em> del universo.</li>
+    <li><strong>Normalización (φ<sub>*</sub>):</strong> más alta para las azules → <em>en total hay más espirales que elípticas</em>.</li>
+  </ul>
+
+  <p>En palabras: las espirales son más numerosas en general y abrumadoramente más numerosas en su extremo débil; las elípticas, menos numerosas, pero dominan entre las más brillantes. Una versión más cruda (sin separar morfología) divide simplemente por <strong>color azul/rojo</strong> y muestra lo mismo.</p>
+
+  <h3>Evolución: mirar lejos es mirar al pasado</h3>
+  <p>Toda esta función de luminosidad es la de un cubo <em>cercano</em> (universo local). Pero como la velocidad de la luz es finita, observar un cubo <strong>lejano</strong> equivale a ver el universo <strong>en el pasado</strong>. Para alcanzar galaxias muy distantes hay que apuntar mucho rato a campos pequeños (observaciones profundas). Así se mide cómo era la función de luminosidad en distintas épocas.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-37.jpg" alt="Funciones de luminosidad UV del universo muy lejano medidas con JWST a distintos redshifts, de z~4 hasta z~16">
+    <figcaption><span class="cap">Diapositiva · La FL en el universo muy lejano (JWST, Harikane et al. 2023)</span>Cada curva es una época, etiquetada por su corrimiento al rojo <span class="katex-inline" data-tex="z"></span>: desde <span class="katex-inline" data-tex="z\sim4"></span> hasta <span class="katex-inline" data-tex="z\sim16"></span> (¡universo de ≈ 300 millones de años!). A mayor <span class="katex-inline" data-tex="z"></span>, más atrás en el tiempo.</figcaption>
+  </figure>
+
+  <p>Las tendencias son claras y profundas:</p>
+  <ul>
+    <li>La <strong>normalización aumenta con el tiempo</strong>: cada vez hay más galaxias en total (el universo tenía menos galaxias a los 600 millones de años que a los 1.500 millones).</li>
+    <li>La curva <strong>se aplana con el tiempo</strong>: al principio dominaban abrumadoramente las galaxias de bajo brillo; con el tiempo se vuelven (relativamente) más comunes las brillantes. Las galaxias <em>crecen</em> formando estrellas y <strong>fusionándose</strong> (dos chicas → una grande).</li>
+  </ul>
+
+  <div class="box next">
+    <span class="tag">Cierre</span>
+    <p>La pregunta "inocente" — ¿cuántas galaxias hay? — nos obligó a construir una técnica (la función de luminosidad) que, aplicada a distintas épocas, se convierte en una <strong>herramienta para estudiar la formación y evolución de las galaxias</strong> a lo largo de la historia del universo. La respuesta numérica (≈ 4 por 10 cMpc³) es casi lo de menos: lo valioso es todo lo que hubo que entender para llegar a ella.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Estrellas en la Vía Láctea</b></td><td>≈ 10<sup>11</sup> (cien mil millones)</td><td>Orden de magnitud de referencia</td></tr>
+      <tr><td><b>Volumen comóvil</b></td><td>Volumen que crece con la expansión</td><td>"Resta" la expansión para comparar densidades en distintas épocas</td></tr>
+      <tr><td><b>Energía oscura</b></td><td>Causa (desconocida) de la expansión acelerada</td><td>Uno de los mayores misterios abiertos</td></tr>
+      <tr><td><b>PSF</b></td><td>Forma del "punto" desparramado por la atmósfera</td><td>Distingue objetos puntuales (estrellas) de extendidos (galaxias)</td></tr>
+      <tr><td><b>AGN / cuásar</b></td><td>Disco de acreción de un agujero negro supermasivo</td><td>Puntual como estrella, pero color/espectro distinto</td></tr>
+      <tr><td><b>Filtros / multibanda</b></td><td>5–7 filtros típicos</td><td>Reconstruyen el espectro → clasificar y estimar distancia</td></tr>
+      <tr><td><b>Corrimiento al rojo z</b></td><td><span class="katex-inline" data-tex="1+z=\lambda_{obs}/\lambda_{emit}"></span></td><td>Mide distancia/época; más lejos = más rojo</td></tr>
+      <tr><td><b>Magnitud</b></td><td><span class="katex-inline" data-tex="m=-2{,}5\log_{10}(\text{flujo})+\text{cte}"></span></td><td>Escala log e invertida; brillante = más negativo</td></tr>
+      <tr><td><b>Magnitud absoluta M</b></td><td>Magnitud a 10 pc de distancia</td><td>Compara brillos intrínsecos quitando la distancia</td></tr>
+      <tr><td><b>Incompletitud</b></td><td>Objetos débiles que se pierden</td><td>Hay que corregir el conteo bruto</td></tr>
+      <tr><td><b>Función de Schechter</b></td><td><span class="katex-inline" data-tex="\Phi\propto (L/L_*)^{\alpha}e^{-L/L_*}"></span></td><td>Describe la FL: potencia + corte exponencial</td></tr>
+      <tr><td><b>M<sub>*</sub> / α / φ<sub>*</sub></b></td><td>Rodilla / pendiente débil / normalización</td><td>Los 3 parámetros de la FL</td></tr>
+      <tr><td><b>Willman 1</b></td><td>≈ 1.000 L<sub>☉</sub></td><td>Galaxia conocida más débil → corte del lado débil</td></tr>
+      <tr><td><b>Densidad de galaxias</b></td><td>≈ 4 por 10 cMpc³ (promedio)</td><td>La respuesta destilada de la clase</td></tr>
+      <tr><td><b>SDSS</b></td><td>≈ 1/3 del cielo, ≈ 900.000 galaxias, 60 TB</td><td>Origen del data mining astronómico</td></tr>
+      <tr><td><b>Vera Rubin (LSST)</b></td><td>≈ 20 TB/noche; ≈ 2×10<sup>10</sup> galaxias en 10 años</td><td>Astronomía moderna: llevar el código a los datos</td></tr>
+      <tr><td><b>Espirales vs. elípticas</b></td><td>α: −1,35 vs. −0,83; M<sub>*</sub>: −20,60 vs. −21,49</td><td>Más espirales en total; elípticas dominan el extremo brillante</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c1-examen-01.html">Examen 01<small>La pregunta y el volumen comóvil</small></a></li>
+    <li><a href="m2c1-examen-02.html">Examen 02<small>Expansión y energía oscura</small></a></li>
+    <li><a href="m2c1-examen-03.html">Examen 03<small>Detección y clasificación</small></a></li>
+    <li><a href="m2c1-examen-04.html">Examen 04<small>AGN y cuásares</small></a></li>
+    <li><a href="m2c1-examen-05.html">Examen 05<small>Corrimiento al rojo</small></a></li>
+    <li><a href="m2c1-examen-06.html">Examen 06<small>Representatividad y lentes</small></a></li>
+    <li><a href="m2c1-examen-07.html">Examen 07<small>Surveys y data mining</small></a></li>
+    <li><a href="m2c1-examen-08.html">Examen 08<small>Función de luminosidad</small></a></li>
+    <li><a href="m2c1-examen-09.html">Examen 09<small>Integración y la respuesta</small></a></li>
+    <li><a href="m2c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo II del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Valentino González, 24 may 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m2/ff/galaxias-m2c1.md</code>) y las diapositivas <code>Modulo_II_Clase_1.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. "Sloan", "Vera Rubin", "Source Extractor", "DAOPhot", "Schechter", valores de M<sub>*</sub>/α/φ<sub>*</sub>, ≈ 4 galaxias por 10 cMpc³). El widget de "total del universo visible" usa un cálculo de orden de magnitud (densidad local extrapolada al volumen comóvil observable) y no es un número de la clase. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: redshift =====
+  var rsZ=document.getElementById('rs-z'), rsLam=document.getElementById('rs-lam'),
+      rsZval=document.getElementById('rs-zval'), rsOut=document.getElementById('rs-out');
+  var C=299792.458; // km/s
+  function colorName(nm){
+    if(nm<380) return "ultravioleta (invisible)";
+    if(nm<450) return "violeta/azul";
+    if(nm<495) return "azul";
+    if(nm<570) return "verde";
+    if(nm<590) return "amarillo";
+    if(nm<620) return "naranja";
+    if(nm<750) return "rojo";
+    if(nm<1400) return "infrarrojo cercano (invisible)";
+    return "infrarrojo (invisible)";
+  }
+  function relV(z){ var x=(1+z)*(1+z); return C*(x-1)/(x+1); } // velocidad relativista
+  function rsUpdate(){
+    var z=+rsZ.value, lam=+rsLam.value;
+    rsZval.textContent=z.toFixed(2);
+    var obs=lam*(1+z);
+    var v=relV(z), vc=v/C;
+    rsOut.innerHTML="Emitida: <b>"+lam.toFixed(1)+" nm</b> ("+colorName(lam)+")<br>"+
+      "<span class='k'>Observada:</span> <b>"+obs.toFixed(1)+" nm</b> ("+colorName(obs)+")<br>"+
+      "Estiramiento: ×"+(1+z).toFixed(2)+" &nbsp;·&nbsp; v<sub>recesión</sub> ≈ <b>"+Math.round(v).toLocaleString('es')+" km/s</b> ("+(vc*100).toFixed(1)+"% de c)";
+  }
+  if(rsZ){
+    rsZ.addEventListener('input',rsUpdate); rsLam.addEventListener('input',rsUpdate);
+    document.querySelectorAll('#w-redshift .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ rsZ.value=b.dataset.z; rsUpdate(); });
+    });
+    rsUpdate();
+  }
+
+  // ===== Widget 2: Schechter =====
+  var scM=document.getElementById('sc-M'), scA=document.getElementById('sc-a'), scP=document.getElementById('sc-p'),
+      scMv=document.getElementById('sc-Mval'), scAv=document.getElementById('sc-aval'), scPv=document.getElementById('sc-pval'),
+      cv=document.getElementById('sc-canvas'), scOut=document.getElementById('sc-out');
+  function schechterM(M, Mstar, alpha){
+    // Phi(M) dM  (forma en magnitudes, normalizada con phi* aparte)
+    var x=Math.pow(10, 0.4*(Mstar-M));
+    return 0.4*Math.LN10*Math.pow(x, alpha+1)*Math.exp(-x);
+  }
+  function drawSchechter(){
+    if(!cv) return;
+    var Mstar=+scM.value, alpha=+scA.value, logphi=+scP.value, phi=Math.pow(10,logphi);
+    scMv.textContent=Mstar.toFixed(2); scAv.textContent=alpha.toFixed(2); scPv.textContent=logphi.toFixed(2);
+    var ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=64, padR=18, padT=18, padB=44;
+    var Mmin=-24, Mmax=-15;             // eje X (magnitud)
+    var yTop=0, yBot=-7;                 // eje Y log10(Phi)
+    function X(M){ return padL + (M-Mmin)/(Mmax-Mmin)*(W-padL-padR); }
+    function Y(ly){ return padT + (yTop-ly)/(yTop-yBot)*(H-padT-padB); }
+    // grid
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.lineWidth=1;
+    ctx.font="12px Spectral, serif"; ctx.textAlign="center";
+    for(var M=-24;M<=-15;M++){
+      ctx.beginPath();ctx.moveTo(X(M),padT);ctx.lineTo(X(M),H-padB);ctx.stroke();
+      ctx.fillText(M, X(M), H-padB+16);
+    }
+    ctx.textAlign="right";
+    for(var ly=0;ly>=-7;ly--){
+      ctx.beginPath();ctx.moveTo(padL,Y(ly));ctx.lineTo(W-padR,Y(ly));ctx.stroke();
+      ctx.fillText("10"+(ly), padL-8, Y(ly)+4);
+    }
+    // axis labels
+    ctx.fillStyle="#ece8df"; ctx.textAlign="center"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Magnitud absoluta M  (← más brillante)", (padL+W-padR)/2, H-6);
+    ctx.save(); ctx.translate(16,(padT+H-padB)/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText("Φ(M)  [Mpc⁻³ mag⁻¹]", 0,0); ctx.restore();
+    // M* line
+    ctx.strokeStyle="#e0382e"; ctx.setLineDash([5,4]); ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(X(Mstar),padT);ctx.lineTo(X(Mstar),H-padB);ctx.stroke();
+    ctx.setLineDash([]); ctx.fillStyle="#f06a5e"; ctx.textAlign="left";
+    ctx.fillText("M*", X(Mstar)+4, padT+12);
+    // curve
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=2.4; ctx.beginPath();
+    var started=false;
+    for(var px=0; px<=(W-padL-padR); px++){
+      var Mv=Mmin + px/(W-padL-padR)*(Mmax-Mmin);
+      var val=phi*schechterM(Mv, Mstar, alpha);
+      if(val<=0){continue;}
+      var ly=Math.log(val)/Math.LN10;
+      if(ly<yBot) ly=yBot;
+      var xx=X(Mv), yy=Y(ly);
+      if(!started){ctx.moveTo(xx,yy);started=true;} else ctx.lineTo(xx,yy);
+    }
+    ctx.stroke();
+    // output: numerical density at a couple magnitudes
+    var atStar=phi*schechterM(Mstar,Mstar,alpha);
+    var atFaint=phi*schechterM(-16,Mstar,alpha);
+    scOut.innerHTML="En M = M* : Φ ≈ <b>"+atStar.toExponential(2)+"</b> Mpc⁻³mag⁻¹ &nbsp;·&nbsp; "+
+      "En M = −16 : Φ ≈ <b>"+atFaint.toExponential(2)+"</b><br>"+
+      "<span class='k'>α = "+alpha.toFixed(2)+"</span>: "+(alpha<-1?"crecen mucho las débiles":"las débiles ya no dominan")+
+      " &nbsp;·&nbsp; rodilla en M* = "+Mstar.toFixed(2);
+  }
+  function setSch(M,a,lp){ scM.value=M; scA.value=a; scP.value=lp; drawSchechter(); }
+  if(scM){
+    [scM,scA,scP].forEach(function(el){el.addEventListener('input',drawSchechter);});
+    document.getElementById('sc-total').addEventListener('click',function(){setSch(-20.83,-1.20,-1.84);});
+    document.getElementById('sc-blue').addEventListener('click',function(){setSch(-20.60,-1.35,-2.55);});
+    document.getElementById('sc-red').addEventListener('click',function(){setSch(-21.49,-0.83,-2.65);});
+    drawSchechter();
+  }
+
+  // ===== Widget 3: total =====
+  var totDens=document.getElementById('tot-dens'), totR=document.getElementById('tot-R'),
+      totRval=document.getElementById('tot-Rval'), totOut=document.getElementById('tot-out');
+  function totUpdate(){
+    var dens=+totDens.value/10; // galaxias por Mpc^3
+    var R=+totR.value;
+    totRval.textContent=R.toLocaleString('es');
+    var V=4/3*Math.PI*Math.pow(R,3); // Mpc^3
+    var N=dens*V;
+    totOut.innerHTML="Volumen comóvil: V = 4/3·π·R³ ≈ <b>"+V.toExponential(2)+"</b> Mpc³<br>"+
+      "<span class='k'>Galaxias estimadas:</span> N ≈ <b>"+N.toExponential(2)+"</b><br>"+
+      "≈ "+(N/1e9).toExponential(2)+" × 10⁹ &nbsp;(miles de millones)";
+  }
+  if(totDens){
+    totDens.addEventListener('input',totUpdate); totR.addEventListener('input',totUpdate);
+    totUpdate();
+  }
+});
+</script>
+</body>
+</html>

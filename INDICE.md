@@ -79,6 +79,19 @@ Directorio: `galaxias/`
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `galaxias/m1/compendio.md`; compendio enriquecido: `galaxias/m1/compendio_enriquecido_openstax.md`; respuestas: `galaxias/m1/respuestas_preguntas_repaso.md`; exámenes: `galaxias/m1/examenes_practica/`; diapositivas en `galaxias/m1/diapos/`; transcripciones en `galaxias/m1/ff/` | En revisión |
+| Módulo 2 | 5 clases con transcripciones (`galaxias/m2/ff/`) y 4 con diapositivas (`galaxias/m2/diapos/`); clases 1 a 4 resumidas en HTML | Apuntes HTML interactivos del módulo: `galaxias/m2/html/index.html` | En curso |
+
+#### Módulo 2 — Apuntes HTML interactivos
+
+Directorio: `galaxias/m2/html/` (índice: `galaxias/m2/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | ¿Cuántas galaxias hay en el universo?: volumen comóvil y expansión, detección automática de objetos (SExtractor/DAOPhot), clasificación estrella/galaxia/cuásar (PSF, AGN, multibanda), corrimiento al rojo y profundidad, representatividad (cúmulos, vacíos, lentes gravitacionales, telaraña cósmica), surveys y data mining (SDSS, Vera Rubin), función de luminosidad de Schechter (M*, α, φ*), integración y la respuesta (≈ 4 galaxias por 10 cMpc³), función de luminosidad por tipo morfológico (espirales/azules vs. elípticas/rojas) y evolución con el redshift | `galaxias/m2/html/m2c1-apuntes.html` | `galaxias/m2/html/m2c1-examen-01.html` … `m2c1-examen-10.html` (10) | Resumida |
+| Clase 2 | ¿Cómo y por qué cambia una galaxia?: componentes (estrellas, gas, polvo, AGN), diagrama color–magnitud, evolución estelar y secuencia principal, función inicial de masa (IMF) y dominancia de brillo azul/rojo, espectros de poblaciones jóvenes vs. viejas, secuencia morfológica, ciclo bariónico, enriquecimiento y metalicidad, líneas de emisión, extinción y enrojecimiento por polvo | `galaxias/m2/html/m2c2-apuntes.html` | `galaxias/m2/html/m2c2-examen-01.html` … `m2c2-examen-10.html` (10) | Resumida |
+| Clase 3 | El baile cósmico: interacciones y mergers (major vs. minor), galaxias Renacuajo/Ratones/Anillo, colas de marea, starburst y feedback, encender o apagar la formación estelar, AGN y agujeros negros supermasivos, choque Vía Láctea–Andrómeda, canibalismo galáctico y streams estelares (Gaia-Enceladus), entorno y ram pressure, Laniakea | `galaxias/m2/html/m2c3-apuntes.html` | `galaxias/m2/html/m2c3-examen-01.html` … `m2c3-examen-10.html` (10) | Resumida |
+| Clase 4 | El universo en expansión y las galaxias distantes: redshift como máquina del tiempo, ley de Hubble-Lemaître, Doppler vs. expansión del espacio, relación redshift–tiempo, corrimiento al infrarrojo, Lyman α (1216 Å) y quiebre de Lyman (912 Å), técnica del Lyman break/dropout, función de luminosidad y tasa de formación estelar (SFR), era JWST (JADES-GS-z14-0) | `galaxias/m2/html/m2c4-apuntes.html` | `galaxias/m2/html/m2c4-examen-01.html` … `m2c4-examen-10.html` (10) | Resumida |
+| Clase 5 | Pendiente (transcripción disponible: `galaxias/m2/ff/galaxias-m2c5.md`) | Pendiente | Pendiente | Pendiente |
 
 ## Instrumentación y Métodos de Observación Astronómica
 

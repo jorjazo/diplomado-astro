@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Cómo y por qué cambia una galaxia? — Astrofísica de Galaxias, Módulo II · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo II · Clase 2</span>
+  <h1>¿Cómo y por qué <em>cambia</em> una galaxia?</h1>
+  <p class="sub">Una galaxia no es una foto fija: es un sistema dinámico cuyo color cambia con el tiempo. Recorremos las cuatro componentes que vemos —<em>estrellas, gas, polvo y el agujero negro central</em>— y descubrimos por qué la tendencia natural de casi toda galaxia es <em>enrojecerse</em>… salvo que algo le inyecte gas nuevo.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Valentino González</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> may 2026</span>
+    <span><b>Tema:</b> Evolución interna de las galaxias y sus colores</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>na galaxia cambia en el tiempo: ¿cómo y por qué? La clase anterior contamos galaxias; esta vez las miramos como objetos que <em>evolucionan</em>. La idea central es sorprendentemente simple de enunciar y rica de desarrollar: <strong>lo que vemos de una galaxia es la suma de la luz de sus componentes</strong>, y cada componente cambia con el tiempo. Las estrellas nacen azules y mueren rojas; el gas es el combustible que repone estrellas nuevas; el polvo enrojece todo lo que hay detrás; y el agujero negro central, cuando se alimenta, puede encandilar a la galaxia entera. Para alguien de informática, es un <em>sistema con estado</em> cuyo "color de salida" es la integral de muchas señales que entran y salen —un pipeline con realimentación (el <em>ciclo bariónico</em>) que determina la trayectoria del sistema.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">¿Qué vemos cuando vemos una galaxia?</a></li>
+    <li><a href="#s2">Estrellas: el diagrama color–magnitud</a></li>
+    <li><a href="#s3">Evolución estelar: salir de la secuencia principal</a></li>
+    <li><a href="#s4">La función inicial de masa (IMF)</a></li>
+    <li><a href="#s5">El espectro de una galaxia: jóvenes vs viejas</a></li>
+    <li><a href="#s6">La secuencia morfológica y los colores</a></li>
+    <li><a href="#s7">El gas y el ciclo bariónico</a></li>
+    <li><a href="#s8">Enriquecimiento, reciclaje y simulaciones</a></li>
+    <li><a href="#s9">Líneas de emisión: la huella del gas</a></li>
+    <li><a href="#s10">El polvo: enrojecimiento y reemisión IR</a></li>
+    <li><a href="#s11">El AGN: el agujero negro central</a></li>
+    <li><a href="#s12">Síntesis: cómo cambia una galaxia</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Qué vemos cuando vemos una galaxia?</h2>
+    <p>Lo que cambia es aquello que vemos: identifiquemos primero las componentes.</p>
+  </div></div>
+
+  <p>Antes de preguntar <em>cómo cambia</em> una galaxia, hay que fijar <em>qué</em> estamos mirando, porque lo que cambia es justamente lo que vemos. A grosso modo, una galaxia es una <strong>colección de estrellas</strong>, pero además puede tener otras tres componentes observables:</p>
+  <ul>
+    <li><strong>Estrellas</strong> — lo que brilla y hace visible a la galaxia.</li>
+    <li><strong>Gas</strong> — material difuso; el combustible de las nuevas estrellas.</li>
+    <li><strong>Polvo interestelar</strong> — las franjas oscuras que cruzan el disco.</li>
+    <li><strong>Un AGN / QSO</strong> — un núcleo activo creado por un agujero negro supermasivo que está tragando material.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c2/assets/slide-03.jpg" alt="Galaxia de Andrómeda con disco, franjas oscuras de polvo y bulbo central; lista de componentes: estrellas, gas, polvo, AGN/QSO">
+    <figcaption><span class="cap">Diapositiva · Las componentes de una galaxia</span>La galaxia de Andrómeda. Se distinguen las <strong>estrellas</strong> (el brillo del disco y el bulbo), el <strong>gas</strong> difuso y las <strong>franjas oscuras de polvo</strong> que cruzan el disco. Todas estas componentes pueden cambiar en el tiempo. <small style="color:var(--muted)">Crédito: I. Luc Viatour, CC BY-SA 2.5.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La quinta componente, invisible</span>
+    <p>Hay además <strong>materia oscura</strong>: aproximadamente <em>cinco veces más</em> que toda la materia "normal". Pero no la vemos, así que sus cambios (en cantidad o distribución) no los podemos medir directamente a partir de cómo se ve la galaxia. Por eso la clase se concentra en las cuatro componentes <em>visibles</em>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La luz observada es una <strong>suma (superposición) de señales</strong> de varias fuentes. "Cómo se ve" la galaxia es la integral de todas sus componentes; estudiar la evolución es entender cómo cambia cada término del sumando y su contribución relativa. La materia oscura es como una variable de estado <em>no observable</em>: afecta la dinámica (la gravedad), pero no aparece en la salida que medimos.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Estrellas: el diagrama color–magnitud</h2>
+    <p>El color y el brillo de una estrella —y por extensión de una galaxia— dependen de su masa y su estado evolutivo.</p>
+  </div></div>
+
+  <p>Las estrellas son la componente visible dominante. Su <strong>color</strong> y su <strong>brillo total</strong> dependen de dos cosas: la <span class="hl">masa</span> de la estrella y el <span class="hl">origen de su energía</span> (su estado evolutivo). La herramienta para ordenarlas es el <span class="hl">diagrama de Hertzsprung–Russell</span> (o diagrama color–magnitud): en un eje, el color o la temperatura; en el otro, la luminosidad (o la magnitud absoluta).</p>
+
+  <p>La relación clave, quizá contraintuitiva: <strong>más caliente = más azul</strong>. Como en la llama de un fósforo, la parte más caliente (cerca de la madera) es azul y la más fría es naranja. Por eso, en el diagrama, las estrellas calientes y azules van a la <em>izquierda</em> y las frías y rojas a la <em>derecha</em>; la luminosidad crece hacia arriba.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-05.jpg" alt="Diagrama de Hertzsprung-Russell con estrellas conocidas, la secuencia principal diagonal, las gigantes y supergigantes arriba a la derecha y las enanas blancas abajo a la izquierda">
+    <figcaption><span class="cap">Diapositiva · Diagrama de Hertzsprung–Russell</span>Color/temperatura (eje horizontal, azul a la izquierda) vs luminosidad/magnitud (eje vertical). La mayoría de las estrellas se agrupan en una banda diagonal: la <strong>secuencia principal</strong>. Arriba a la derecha, las <em>gigantes</em> y <em>supergigantes</em> rojas; abajo a la izquierda, las <em>enanas blancas</em>.</figcaption>
+  </figure>
+
+  <p>Las estrellas no se desparraman por cualquier lado: se agrupan en la <span class="hl">secuencia principal</span>, una banda curva donde vive la mayoría de la población. ¿Qué tienen en común? Su <strong>modo de fusión</strong>: están transformando <em>hidrógeno en helio</em> en el núcleo. Una estrella es una nube de gas en equilibrio entre dos fuerzas opuestas:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\underbrace{P_{\text{rad}}}_{\text{empuja hacia afuera}}\;\;\Longleftrightarrow\;\;\underbrace{F_{\text{grav}}}_{\text{comprime hacia adentro}}"></span>
+    <small>La <strong>presión de radiación</strong>, producida por la fusión de hidrógeno en el núcleo, contrarresta a la <strong>gravedad</strong>. Sin radiación, la estrella colapsaría; sin gravedad, se desarmaría. La secuencia principal es ese equilibrio.</small>
+  </div>
+
+  <p>¿Dónde exactamente en la secuencia? Lo decide la <strong>masa</strong>: a más masa, más brillante <em>y</em> más caliente (más arriba y más a la izquierda). Hay una correlación directa entre brillo y temperatura a lo largo de la secuencia principal.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El diagrama color–magnitud es un <strong>scatter plot</strong> de una población donde aparecen <em>clusters</em> naturales (secuencia principal, gigantes, enanas blancas). No los impusimos: emergen de la física. Identificar en qué "cluster" cae una estrella es como un problema de clasificación no supervisada, y la posición a lo largo de la secuencia codifica una sola variable latente: la <strong>masa</strong>.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 1 ============ -->
+<section id="w-wien">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ley de Wien: temperatura → color de una estrella</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Mueve la temperatura superficial y observa a qué longitud de onda emite con más intensidad un cuerpo caliente. Así se entiende por qué <em>más caliente = más azul</em> y dónde cae la estrella en el diagrama color–magnitud.</p>
+    <div class="wgrid">
+      <div>
+        <label>Temperatura superficial T (K) = <span class="rngval" id="wi-tval">5772</span></label>
+        <input type="range" id="wi-t" min="2500" max="40000" step="50" value="5772">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-t="3000">Roja fría (3000 K)</button>
+          <button type="button" data-t="5772">Sol (5772 K)</button>
+          <button type="button" data-t="10000">Sirio (~10000 K)</button>
+          <button type="button" data-t="30000">Azul O/B (30000 K)</button>
+        </div>
+      </div>
+    </div>
+    <output id="wi-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Evolución estelar: salir de la secuencia principal</h2>
+    <p>Cuando a una estrella se le acaba el hidrógeno del núcleo, se mueve en el diagrama… siempre hacia el rojo.</p>
+  </div></div>
+
+  <p>Una estrella permanece en la secuencia principal mientras le quede hidrógeno en el núcleo. Cuando se agota, el equilibrio se rompe: ya no hay fusión central que sostenga la presión de radiación, así que <strong>la gravedad empieza a ganar</strong> y comprime el núcleo. Pero al comprimirse, una capa de hidrógeno <em>externa</em> al núcleo alcanza la presión necesaria para fusionarse. Esa fusión en cáscara infla la estrella: nace una <span class="hl">gigante roja</span>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-06.jpg" alt="Diagrama color-magnitud con los caminos evolutivos de estrellas de distintas masas saliendo de la secuencia principal hacia las gigantes rojas, con tiempos en años junto a cada curva">
+    <figcaption><span class="cap">Diapositiva · Caminos evolutivos en el diagrama color–magnitud</span>La línea roja es la <em>secuencia principal de edad cero</em> (donde nacen las estrellas). Las curvas marcan cómo se mueve cada estrella al agotar su hidrógeno; los números son tiempos en años. Una estrella de 15 M<sub>☉</sub> tarda ≈ 10<sup>7</sup> años (azul, arriba); una de 1 M<sub>☉</sub> como el Sol, ≈ 10<sup>10</sup> años. <strong>Todas las curvas apuntan hacia la derecha</strong>: hacia colores más rojos.</figcaption>
+  </figure>
+
+  <p>El mensaje cuantitativo está en los números junto a las curvas. La vida en la secuencia principal depende fuertísimo de la masa:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="t_{\text{MS}}\;\propto\;\frac{M}{L}\;\propto\;M^{-2.5}\qquad(\text{pues } L\propto M^{3.5})"></span>
+    <small>Una estrella masiva tiene mucho más combustible, pero lo quema <em>muchísimo</em> más rápido. Estrellas de 15 M<sub>☉</sub> viven ≈ 10 millones de años; el Sol, ≈ 10.000 millones; estrellas de 0,5 M<sub>☉</sub>, más que la edad actual del universo.</small>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor (aclaración en clase)</span>
+    <p>Hubo una pregunta sobre el Sol: su vida <em>total</em> en la secuencia principal es ≈ 10.000 millones de años; ya lleva ≈ 5.000 millones, así que le quedan otros ≈ 5.000 antes de transformarse en gigante roja. (El "10 millones" de algunas clases corresponde a estrellas mucho <em>más masivas</em>, no al Sol.)</p>
+  </div>
+
+  <h3>Las enanas blancas: presión cuántica</h3>
+  <p>Otra región especial del diagrama, abajo a la izquierda: las <span class="hl">enanas blancas</span>. Son el <em>núcleo</em> desnudo de lo que fue la estrella (en una como el Sol, ≈ 10% de su masa, comprimido a tamaño comparable a la Tierra). Ya no fusionan nada, entonces ¿qué frena la gravedad? El <span class="hl">principio de exclusión de Pauli</span>: dos partículas (electrones) no pueden ocupar el mismo estado cuántico. Esa <em>presión de degeneración</em> sostiene la estrella, y —cosa rara— casi no depende del tamaño: todas las enanas blancas tienen tamaño parecido.</p>
+
+  <p>Lo importante para la galaxia: a medida que pasa el tiempo, las estrellas <strong>se salen de la secuencia principal y se mueven hacia el rojo</strong>. Las azules (masivas) lo hacen primero; las rojas (poco masivas) tardan eones. Por eso la tendencia natural de una población estelar es <em>enrojecerse</em>.</p>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La función inicial de masa (IMF)</h2>
+    <p>¿Con qué color <em>nace</em> una galaxia? Pocas azules brillantísimas vencen a muchísimas rojas tenues.</p>
+  </div></div>
+
+  <p>Para saber con qué color parte una población estelar necesitamos la <span class="hl">función inicial de masa</span> (IMF, <em>Initial Mass Function</em>): la distribución de masas con que <em>nacen</em> las estrellas. Es análoga a la función de luminosidad de la clase pasada, pero para estrellas y referida al momento del nacimiento: dice cuántas estrellas nacen en cada rango de masa.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-07.jpg" alt="Gráfico de la función inicial de masa: número de objetos por intervalo de masa versus masa, decreciente; muchas estrellas de baja masa y pocas de alta masa, con ajustes de Kroupa, Chabrier y Salpeter">
+    <figcaption><span class="cap">Diapositiva · La función inicial de masa</span>Eje horizontal: masa con que nace la estrella (en M<sub>☉</sub>). Eje vertical: número de objetos en ese rango de masa. La curva decae: <strong>nacen muchísimas estrellas de baja masa y poquísimas de alta masa</strong>. Se muestran ajustes clásicos (Kroupa 2001, Chabrier 2005, Salpeter 1955). <small style="color:var(--muted)">Crédito: Andre, P. et al. (2013).</small></figcaption>
+  </figure>
+
+  <p>Hay un factor ≈ 10 más estrellas de 1 M<sub>☉</sub> que de 10 M<sub>☉</sub>. Uno pensaría entonces que dominan las rojas (de baja masa). Pero hay que cruzar la IMF con el diagrama color–magnitud, y ahí aparece el truco: entre 1 M<sub>☉</sub> y 10 M<sub>☉</sub> hay un factor <strong>≈ 10.000 en brillo</strong>.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\underbrace{N_{1M_\odot}\approx 10\,N_{10M_\odot}}_{\text{IMF}}\quad\text{pero}\quad \underbrace{L_{10M_\odot}\approx 10^{4}\,L_{1M_\odot}}_{\text{diagrama C–M}}\;\Rightarrow\;\text{ganan en luz las masivas}"></span>
+    <small>Aunque las masivas (azules) sean 10 veces menos numerosas, son ≈ 10.000 veces más brillantes. El brillo total queda <strong>dominado por unas pocas estrellas azules</strong>.</small>
+  </div>
+
+  <p><strong>El mensaje principal:</strong> cuando una galaxia recién convierte una nube de gas en estrellas, su color predominante es <span class="hl">azul</span>. Hay poquísimas estrellas azules, pero tan brillantes que dominan; y un montón de estrellas rojas tenues que apenas aportan. Con el tiempo, esas azules evolucionan y se enrojecen, así que la tendencia global es que la galaxia <em>se vuelve roja</em> —salvo que nazcan nuevas azules.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es un caso clásico de <strong>promedio ponderado donde el peso domina sobre el conteo</strong>. Como en una métrica de latencia: pocas requests lentísimas (cola pesada) pueden dominar el tiempo total aunque sean minoría. Aquí, el "peso" es la luminosidad (factor 10<sup>4</sup>) y vence al "conteo" (factor 10). Moraleja: nunca confundas <em>cuántos hay</em> con <em>cuánto aportan</em>.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 2 ============ -->
+<section id="w-dom">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿Azul o roja? El brillo dominante de una población</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Reproduce el argumento de la IMF: aunque haya muchas más estrellas rojas (poco masivas), las pocas azules (masivas) son enormemente más brillantes. Ajusta cuántas rojas hay por cada azul y cuánto más brillante es una azul, y mira qué color domina el brillo integrado.</p>
+    <div class="wgrid">
+      <div>
+        <label>Estrellas rojas por cada azul = <span class="rngval" id="dm-nval">10</span></label>
+        <input type="range" id="dm-n" min="1" max="1000" step="1" value="10">
+      </div>
+      <div>
+        <label>Brillo de una azul / una roja = <span class="rngval" id="dm-lval">10000</span>×</label>
+        <input type="range" id="dm-l" min="1" max="100000" step="100" value="10000">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-n="10" data-l="10000">IMF de la clase (10 ; 10⁴×)</button>
+      <button type="button" data-n="100" data-l="100">Muchas rojas, brillo modesto</button>
+      <button type="button" data-n="1000" data-l="50">Población envejecida</button>
+    </div>
+    <output id="dm-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El espectro de una galaxia: jóvenes vs viejas</h2>
+    <p>Separar la luz por longitud de onda revela quién manda: las estrellas jóvenes en el azul, las viejas en el rojo.</p>
+  </div></div>
+
+  <p>Si descomponemos la luz de una galaxia por longitud de onda obtenemos su <span class="hl">distribución espectral de energía</span> (SED): cuánta luz sale a cada longitud de onda. El espectro total (curva negra) se puede separar en dos poblaciones:</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-08.jpg" alt="Distribución espectral de energía de una galaxia: densidad de brillo versus longitud de onda; curva azul de estrellas jóvenes domina a longitudes cortas, curva roja de estrellas viejas domina a longitudes largas, curva negra total">
+    <figcaption><span class="cap">Diapositiva · Distribución espectral de energía (jóvenes vs viejas)</span>Densidad de brillo vs longitud de onda. La curva <span style="color:var(--blue)">azul</span> es la luz de las estrellas <strong>jóvenes</strong> (&lt; 10 millones de años, las masivas): domina a <em>longitudes de onda cortas</em>. La <span style="color:var(--red-soft)">roja</span> son las estrellas <strong>viejas</strong>: domina a longitudes largas. La negra es el total.</figcaption>
+  </figure>
+
+  <p>El rango clave: la mayor parte de la luz de las estrellas jóvenes y masivas se emite aproximadamente entre <strong>912 y 4000 ångström</strong> (es decir, en el ultravioleta hasta el azul). Ese brillo está controlado por <em>cuántas estrellas jóvenes hay</em>: si no hay estrellas jóvenes, ese pedazo del espectro se apaga.</p>
+
+  <div class="box prof">
+    <span class="tag">Corrección de transcripción</span>
+    <p>En el audio se menciona "1000 ångström", pero la diapositiva indica <strong>912 ångström</strong> como límite inferior del rango UV de las poblaciones jóvenes. 912 Å es además el <em>límite de Lyman</em> del hidrógeno (la energía para ionizarlo), un valor con sentido físico, así que usamos el dato de la diapositiva.</p>
+  </div>
+
+  <p>La dinámica temporal se sigue de aquí: las estrellas masivas que pintan el azul viven solo ≈ 10 millones de años. Después mueren y se enrojecen, así que el azul se desvanece y la galaxia se ve roja… <em>a menos</em> que la formación estelar continua reponga estrellas masivas nuevas. Esto es exactamente lo que muestra la siguiente diapositiva de la clase: con formación estelar continua, nuevas estrellas masivas "rellenan" el brillo UV que de otro modo se perdería.</p>
+
+  <div class="box dato">
+    <span class="tag">Causa y efecto, sin confundirlos</span>
+    <p>El profesor aclara: el <em>color</em> no determina la tasa de natalidad estelar. Lo que determina cuántas estrellas nuevas se forman es <strong>cuánto gas hay disponible</strong> para formarlas. El color es la <em>consecuencia</em> observable, no la causa.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>La secuencia morfológica y los colores</h2>
+    <p>Elípticas rojas a la izquierda, espirales azules a la derecha: ya podemos explicarlo.</p>
+  </div></div>
+
+  <p>Con lo anterior podemos leer la <span class="hl">secuencia morfológica</span> en clave de colores. A la izquierda, las <strong>galaxias elípticas</strong>: colores naranjos y rojos. A la derecha, las <strong>espirales</strong>: con sectores rojizos, pero un azul predominante, sobre todo en los <em>brazos espirales</em>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-11.jpg" alt="Secuencia morfológica de galaxias: elípticas rojizas a la izquierda, lenticulares y espirales hacia la derecha con brazos azules">
+    <figcaption><span class="cap">Diapositiva · La secuencia morfológica</span>De elípticas (izquierda, rojizas) a espirales (derecha, con brazos azules). El azul de los brazos indica <strong>formación estelar activa</strong> (estrellas jóvenes); el rojo de las elípticas indica poblaciones viejas <em>sin</em> nacimiento de estrellas nuevas.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Espirales (azules):</strong> el azul de los brazos delata estrellas jóvenes recién formadas que rellenan el rango 912–4000 Å. Hay formación estelar activa.</li>
+    <li><strong>Elípticas (rojas):</strong> no se ve ninguna mancha azul. Se dice que están <span class="hl">"muertas"</span>: en el pasado formaron muchas estrellas, pero desde entonces evolucionan <em>pasivamente</em> sin formar poblaciones nuevas; las que tienen se enrojecen cada vez más.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Sutileza física</span>
+    <p>¿Las elípticas perdieron toda su secuencia principal? No. Las estrellas de baja masa (≈ 0,5 M<sub>☉</sub>) viven <em>más</em> que la edad del universo (13.800 millones de años), así que <strong>ninguna galaxia ha agotado su secuencia principal</strong>: siempre queda el pedazo de abajo a la derecha (las rojas longevas). Lo que desaparece es la parte brillante y azul de arriba, que ya evolucionó.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>El gas y el ciclo bariónico</h2>
+    <p>El gas es el combustible de las estrellas nuevas. Su entrada, salida y reciclaje gobiernan la evolución del color.</p>
+  </div></div>
+
+  <p>El <span class="hl">gas</span> no domina el color de la galaxia directamente, pero sí domina algo más importante: <strong>la generación de nuevas poblaciones estelares</strong>. Es el combustible. Y viene mezclado con polvo. Cuando el gas se comprime —por ejemplo en una <strong>colisión de galaxias</strong>, donde una onda de choque gravitacional lo aprieta— se gatillan episodios extremos de formación estelar.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-12.jpg" alt="La galaxia de la Antena: dos galaxias espirales en colisión con un puente de gas, regiones rosadas de formación estelar y franjas oscuras de polvo">
+    <figcaption><span class="cap">Diapositiva · La galaxia de la Antena (colisión)</span>Dos espirales en colisión. La compresión del gas (onda de choque) gatilla <strong>formación estelar</strong> intensa (zonas rosadas) y, de la mano, producción de <strong>polvo</strong>. Las estrellas más masivas (&gt; 8 M<sub>☉</sub>) explotarán como supernovas en menos de 10 millones de años.</figcaption>
+  </figure>
+
+  <p>Pero el gas no está solo dentro de la galaxia: también llena el <strong>medio intergaláctico</strong>. Esto da una de las ramas más importantes del estudio de galaxias: el <span class="hl">ciclo bariónico</span> —el ciclo de la materia que <em>no</em> es materia oscura.</p>
+
+  <div class="box physics">
+    <span class="tag">Paréntesis: ¿qué es un barión?</span>
+    <p>En rigor, un <strong>barión</strong> es una partícula formada por tres quarks (notablemente el <em>protón</em> y el <em>neutrón</em>). En astronomía, en cambio, se usa "materia bariónica" como sinónimo de <strong>toda materia que no sea materia oscura</strong> —incluyendo los electrones, que estrictamente no son bariones, pero se meten "en el mismo saco". El ciclo bariónico es, entonces, el ciclo de toda esa materia ordinaria.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-13.jpg" alt="Diagrama del ciclo bariónico: gas difuso del medio intergaláctico cae a la galaxia (accreting gas), gas reciclado que sale y vuelve (recycling gas) y outflows que escapan, con escalas de 15 y 300 kpc">
+    <figcaption><span class="cap">Diapositiva · El ciclo bariónico</span><strong>Accreting gas</strong> (derecha → centro): gas <em>prístino</em> del medio intergaláctico —hidrógeno y helio primordiales del Big Bang— que cae por gravedad y, si se enfría, forma estrellas nuevas. <strong>Recycling gas</strong>: material expulsado con poca energía que vuelve a caer. <strong>Outflows</strong>: material que escapa con tanta energía que no regresa. <small style="color:var(--muted)">Crédito: Tumlinson et al. (2017).</small></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El ciclo bariónico es un <strong>sistema con realimentación y un "buffer" de combustible</strong>: entra gas prístino (input), se consume formando estrellas, y las supernovas reinyectan parte (recycling) o lo expulsan (outflow, una pérdida). La cantidad de gas en el buffer determina la tasa de formación estelar y, por lo tanto, la <em>trayectoria del color</em>. Si el buffer se vacía (outflows fuertes o sin acreción), la galaxia se "apaga" y queda roja.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Enriquecimiento, reciclaje y simulaciones</h2>
+    <p>Las supernovas siembran metales; el gas reciclado forma estrellas levemente más rojas. Lo vemos en simulaciones cosmológicas.</p>
+  </div></div>
+
+  <p>El material que cae desde el medio intergaláctico es <strong>prístino</strong> (hidrógeno y helio). Pero el material que las supernovas expulsan está <span class="hl">enriquecido</span>: lleno de "metales" (en jerga astronómica, todo elemento más pesado que el helio). Si ese material enriquecido se recicla y forma nuevas estrellas, esas estrellas tienen <strong>mayor metalicidad</strong> y nacen un poco <em>más rojas</em>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-16.jpg" alt="Diagrama del ciclo bariónico destacando que las futuras poblaciones estelares se forman de gas enriquecido en metales y son más rojas, y que parte del gas puede ser expulsado">
+    <figcaption><span class="cap">Diapositiva · Reciclaje y enriquecimiento</span>Las futuras poblaciones se forman de gas <strong>enriquecido en metales</strong> → son más rojas desde su nacimiento. Si los <em>outflows</em> expulsan el gas por completo, la formación estelar cesa y la galaxia se enrojece definitivamente.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué los metales enrojecen?</span>
+    <p>Pregunta de un estudiante: no es que se formen <em>más</em> estrellas rojas, sino que <strong>a igual masa, una estrella con más metales es más roja</strong>. El material enriquecido es más sensible a la presión de radiación: para la misma gravedad se necesita <em>menos</em> presión para el equilibrio, así que la estrella queda más fría (más roja). El efecto es sutil pero importante: cada generación es levemente más roja que la anterior.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-18.jpg" alt="Fotograma de la simulación cosmológica Illustris mostrando filamentos de gas con elementos pesados en verde y rojo y nodos densos donde se forman galaxias">
+    <figcaption><span class="cap">Diapositiva · Simulación Illustris</span>La simulación <em>Illustris</em> incluye materia oscura y bariónica. La materia oscura forma <strong>filamentos y nodos</strong> (la telaraña cósmica); en los nodos densos se forman galaxias que explotan como supernovas y <strong>contaminan de elementos pesados</strong> incluso el medio intergaláctico. <small style="color:var(--muted)">Fuente: proyecto Illustris (youtube.com/watch?v=A23Ro3kiB1E).</small></figcaption>
+  </figure>
+
+  <p>Resumiendo el efecto del ciclo bariónico sobre el color: trae material nuevo que <strong>repuebla la curva azul</strong> (estrellas jóvenes); esas explotan o evolucionan, enriquecen el gas y dan una siguiente generación un poco más roja, que a su vez también termina poblando la curva roja. El ciclo bariónico <em>controla la velocidad</em> con que una galaxia se enrojece o se mantiene azul.</p>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Líneas de emisión: la huella del gas</h2>
+    <p>El gas ionizado emite en longitudes de onda discretas: una huella digital química que nos deja leer galaxias lejanísimas.</p>
+  </div></div>
+
+  <p>El gas tiene otro efecto observable: las <span class="hl">líneas de emisión</span>. No cambian mucho el color, pero entregan información valiosísima. El mecanismo: la luz de las estrellas <strong>ioniza el gas</strong>. Un fotón con la energía exacta hace saltar un electrón a un nivel superior; cuando el electrón decae, reemite la diferencia de energía como luz —pero solo en longitudes de onda <em>discretas</em>, las que corresponden a las transiciones permitidas.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\Delta E = E_{\text{alto}}-E_{\text{bajo}} = h\nu = \frac{hc}{\lambda}"></span>
+    <small>Cada transición entre niveles de energía emite a una longitud de onda fija. El conjunto de líneas de un átomo es como su <strong>huella digital</strong>: el hidrógeno tiene su set; el calcio, el sodio o el oxígeno, otros.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-20.jpg" alt="Espectros de líneas de emisión de distintos elementos (sodio, hidrógeno, calcio, mercurio) comparados con el espectro continuo, mostrando líneas discretas en distintas longitudes de onda">
+    <figcaption><span class="cap">Diapositiva · Huellas digitales atómicas</span>Cada elemento (sodio, hidrógeno, calcio, mercurio…) emite en un patrón discreto de longitudes de onda. En el medio interestelar de una galaxia conviven muchos elementos, así que la luz que recibimos es una <strong>combinación</strong> de todas esas huellas, y de ellas se infiere cuánto hay de cada material.</figcaption>
+  </figure>
+
+  <p>Esto es una herramienta potentísima para el universo lejano. La primera imagen pública del <strong>JWST</strong> incluía el espectro de una galaxia chiquitita cuya luz fue emitida cuando el universo tenía apenas ≈ <strong>600 millones de años</strong>: ya mostraba líneas de <em>oxígeno</em>, hidrógeno y neón.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-21.jpg" alt="Imagen y espectro del JWST de una galaxia a 600 millones de años después del Big Bang, con líneas de emisión etiquetadas de oxígeno, hidrógeno y neón">
+    <figcaption><span class="cap">Diapositiva · JWST: una galaxia a ≈ 600 Myr</span>Espectro con líneas de <strong>oxígeno</strong> (azul), hidrógeno (rojo) y neón (verde). El oxígeno y el neón <em>no existían</em> tras el Big Bang (solo había H y He): aparecieron por el ciclo bariónico. Que ya estén presentes a los 600 Myr indica que el ciclo de enriquecimiento <strong>actúa muy rápido</strong>. <small style="color:var(--muted)">Crédito: NASA/ESA/CSA, JWST.</small></figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-22.jpg" alt="Espectro JWST de una galaxia a 420 millones de años después del Big Bang con líneas de carbono, nitrógeno, magnesio y oxígeno identificadas">
+    <figcaption><span class="cap">Diapositiva · Un caso más extremo: ≈ 420 Myr</span>Espectro de una galaxia cuya luz salió cuando el universo tenía ≈ 420 millones de años. Se ven líneas de <strong>carbono, nitrógeno, magnesio y oxígeno</strong>: enriquecimiento químico muy temprano. <small style="color:var(--muted)">Crédito: Bunker et al. (2023).</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">¿Cómo sabemos que está tan lejos?</span>
+    <p>Por el <strong>corrimiento al rojo</strong>: la expansión del universo estira la luz hacia longitudes de onda mayores. Cuanto más corrida al rojo, más lejos —y como la luz viaja a velocidad finita, más atrás en el tiempo. En el caso de los 420 Myr, la luz lleva viajando ≈ 13.400 millones de años.</p>
+  </div>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="1+z=\frac{\lambda_{\text{obs}}}{\lambda_{\text{emit}}}"></span>
+    <small>El mismo corrimiento al rojo de la Clase 1. Medir <span class="katex-inline" data-tex="z"></span> de las líneas de emisión (cuyas longitudes de onda en reposo conocemos) da la distancia y la época de la galaxia.</small>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>El polvo: enrojecimiento y reemisión IR</h2>
+    <p>Granos de ~2 µm absorben el azul y dejan pasar el rojo. Luego reemiten esa energía en el infrarrojo lejano.</p>
+  </div></div>
+
+  <p>El <span class="hl">polvo</span> interestelar —mezclado con el gas— se forma en las supernovas y en etapas avanzadas de la evolución estelar. Son moléculas grandes, de hasta ≈ <strong>2 micrones</strong>. La intuición física: el grano es como un "ladrillo" en el camino del fotón. Si el fotón tiene longitud de onda <em>más corta</em> que el grano, choca y es absorbido; si es <em>más larga</em>, se difracta alrededor y pasa.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F_{\text{obs}}(\lambda)=F_0(\lambda)\,10^{-0.4\,A_\lambda}\qquad\text{con } A_{\text{azul}}>A_{\text{rojo}}"></span>
+    <small>El polvo absorbe preferentemente las longitudes de onda <strong>cortas</strong> (azul/UV). La extinción <span class="katex-inline" data-tex="A_\lambda"></span> es mayor en el azul, así que lo que pasa se ve <em>más rojo</em>: es el <span class="hl">enrojecimiento</span>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-24.jpg" alt="Los Pilares de la Creación en luz visible (izquierda, columnas oscuras de polvo) y en infrarrojo (derecha, casi transparentes mostrando estrellas detrás)">
+    <figcaption><span class="cap">Diapositiva · Pilares de la Creación: visible vs infrarrojo</span>Izquierda (visible): el polvo bloquea la luz y forma columnas oscuras. Derecha (infrarrojo): la misma región se ve casi <strong>transparente</strong>, porque la luz de longitud de onda larga atraviesa el polvo. <small style="color:var(--muted)">Crédito: NASA, ESA/Hubble &amp; Hubble Heritage Team.</small></figcaption>
+  </figure>
+
+  <p>Consecuencia clave: con muy poco polvo se cambia mucho el color de una galaxia. Una galaxia <strong>joven con polvo</strong> y una <strong>vieja sin polvo</strong> pueden verse <em>igual de rojas</em> —el polvo "imita" el efecto de las poblaciones viejas. ¿Cómo distinguirlas?</p>
+
+  <p>El polvo hace algo más: la energía azul que absorbe no desaparece. Los granos se calientan y, como cuerpos tibios, <strong>reemiten esa energía en el infrarrojo lejano / radio</strong>. Esa joroba en el IR es la firma que delata al polvo.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-26.jpg" alt="Distribución espectral de energía mostrando la luz estelar a longitudes cortas atenuada por el polvo y reemitida como una gran joroba en el infrarrojo lejano (dust)">
+    <figcaption><span class="cap">Diapositiva · La luz absorbida se reemite en el IR lejano</span>A la izquierda, la <strong>luz estelar</strong>: el polvo absorbe el azul (baja la curva). A la derecha, la joroba de <strong>polvo</strong> (dust): la energía absorbida reaparece a longitudes de onda muy largas. Observar en el IR/radio (p. ej. con <strong>ALMA</strong>) permite distinguir una galaxia joven-y-polvorienta de una vieja-y-sin-polvo.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El polvo es un <strong>filtro pasa-bajos en frecuencia</strong> (pasa-altos en longitud de onda): atenúa las componentes de longitud de onda corta. Y por conservación de energía, lo que "filtra" no se pierde: reaparece desplazado a otra banda (el IR). Distinguir "rojo por edad" de "rojo por polvo" es desambiguar dos causas que producen la misma salida en el visible, observando una <em>segunda banda</em> (el IR) donde solo una de ellas deja firma.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 3 ============ -->
+<section id="w-dust">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Enrojecimiento por polvo: cuánto azul se pierde</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Sube la cantidad de polvo (extinción <span class="katex-inline" data-tex="A_V"></span> en magnitudes) y observa cómo el polvo absorbe más luz azul que roja, enrojeciendo la galaxia. La energía absorbida no se pierde: se reemite en el infrarrojo.</p>
+    <div class="wgrid">
+      <div>
+        <label>Cantidad de polvo A<sub>V</sub> (mag) = <span class="rngval" id="du-aval">1.0</span></label>
+        <input type="range" id="du-a" min="0" max="5" step="0.05" value="1.0">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-a="0">Sin polvo</button>
+          <button type="button" data-a="1">Poco (Aᵥ=1)</button>
+          <button type="button" data-a="3">Mucho (Aᵥ=3)</button>
+        </div>
+      </div>
+    </div>
+    <output id="du-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>El AGN: el agujero negro central</h2>
+    <p>Cuando el agujero negro supermasivo se alimenta, brilla en todo el espectro y puede encandilar a la galaxia entera.</p>
+  </div></div>
+
+  <p>La última componente: el <span class="hl">agujero negro supermasivo</span> del centro. Hoy sabemos que <strong>toda galaxia suficientemente grande tiene uno</strong>. El de la Vía Láctea tiene ≈ 4 millones de masas solares; el de <strong>M87</strong>, ≈ 2.400 millones (≈ 500 veces el nuestro).</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-29.jpg" alt="Imagen del Event Horizon Telescope del entorno del agujero negro central de M87: un anillo naranja brillante alrededor de una sombra oscura">
+    <figcaption><span class="cap">Diapositiva · El agujero negro de M87 (Event Horizon Telescope)</span>El entorno del agujero negro central de M87. El agujero negro en sí <strong>no brilla</strong>: lo que vemos es el material caliente a su alrededor. Si no hay material cayendo, no hay brillo. <small style="color:var(--muted)">Crédito: Event Horizon Telescope.</small></figcaption>
+  </figure>
+
+  <p>La clave está en la palabra <em>activo</em> (AGN, <em>Active Galactic Nucleus</em>). Cuando una nube de gas cae hacia el agujero negro, se aprieta en una región diminuta (escala del Sistema Solar) y se <strong>calienta enormemente</strong>, formando un disco de acreción que es uno de los objetos más brillantes del universo. Su brillo puede <span class="hl">opacar a la galaxia entera</span>: a veces solo se ve el puntito central.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-31.jpg" alt="El jet de M87 visto en rayos X (Chandra), radio (VLA) y luz visible (HST), mostrando que emite en un amplio rango de longitudes de onda">
+    <figcaption><span class="cap">Diapositiva · El jet de M87 en múltiples longitudes de onda</span>El mismo jet en <strong>rayos X</strong> (Chandra), <strong>radio</strong> (VLA) y <strong>visible</strong> (HST). Los AGN emiten en un rango <em>amplísimo</em>, desde rayos X y gamma hasta radio. El jet es material ionizado guiado por campos magnéticos fuertes; no sale del agujero negro, sino del gas a su alrededor. <small style="color:var(--muted)">Crédito: NASA, Hubble Heritage Team (STScI/AURA).</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Un efecto dramático… pero temporal</span>
+    <p>El AGN puede cambiar <em>por completo</em> los colores de una galaxia mientras está activo, y lo hace en todas las longitudes de onda. Pero solo dura mientras el agujero negro tenga material que tragar: cuando se le acaba, el AGN se apaga y reaparece la galaxia. No todos tienen <em>jet</em>; lo que siempre domina el brillo es el <strong>disco de acreción</strong> de material cayendo.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Síntesis: cómo cambia una galaxia</h2>
+    <p>Las cuatro componentes, integradas en una sola historia.</p>
+  </div></div>
+
+  <figure>
+    <img src="m2c2/assets/slide-32.jpg" alt="Diapositiva resumen: cómo cambia una galaxia en el tiempo, con las estrellas, el gas, el polvo y el AGN/QSO y sus efectos sobre el color">
+    <figcaption><span class="cap">Diapositiva · Resumen de la clase</span>Las cuatro componentes y su efecto sobre la evolución del color: estrellas que nacen azules y mueren rojas, gas que repone (o se expulsa), polvo que enrojece, y AGN que encandila temporalmente.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Estrellas:</strong> nacen azules (las masivas dominan el brillo) y, al evolucionar fuera de la secuencia principal, enrojecen. La tendencia natural es el enrojecimiento.</li>
+    <li><strong>Gas:</strong> el combustible de las estrellas nuevas. El ciclo bariónico (acreción prístina, reciclaje, outflows) decide cuántas nacen y cuán rápido se enrojece la galaxia. Las supernovas siembran metales → generaciones cada vez más rojas.</li>
+    <li><strong>Polvo:</strong> se forma en supernovas y estrellas evolucionadas; enrojece absorbiendo el azul y se delata reemitiendo en el IR. Permite confundir "joven con polvo" con "vieja sin polvo", salvo que se observe en el IR/radio.</li>
+    <li><strong>AGN:</strong> presente en toda galaxia grande, cambia dramáticamente el color cuando se activa, en todo el espectro —pero solo por periodos cortos.</li>
+  </ul>
+
+  <div class="box next">
+    <span class="tag">Cierre</span>
+    <p>Una galaxia es un sistema dinámico: lo que vemos es la suma cambiante de cuatro componentes. La pregunta "¿cómo cambia una galaxia?" se responde siguiéndole la pista al <em>color</em>, que integra toda esta física. La próxima clase (a cargo de la profesora Charlotte Simmons) continúa el estudio de las galaxias.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Componentes visibles</b></td><td>Estrellas, gas, polvo, AGN</td><td>Lo que cambia es lo que vemos; la materia oscura no se ve</td></tr>
+      <tr><td><b>Más caliente = más azul</b></td><td>Ley de Wien: <span class="katex-inline" data-tex="\lambda_{\max}=b/T"></span></td><td>Define los colores en el diagrama color–magnitud</td></tr>
+      <tr><td><b>Secuencia principal</b></td><td>Fusión de H → He en el núcleo</td><td>Equilibrio entre presión de radiación y gravedad</td></tr>
+      <tr><td><b>Vida en la SP</b></td><td><span class="katex-inline" data-tex="t_{MS}\propto M^{-2.5}"></span></td><td>Masivas viven ≈10⁷ años; el Sol ≈10¹⁰; las de baja masa, más que el universo</td></tr>
+      <tr><td><b>Gigante roja</b></td><td>Fusión de H en una cáscara externa</td><td>La estrella se infla y se enrojece al salir de la SP</td></tr>
+      <tr><td><b>Enana blanca</b></td><td>Presión de degeneración (Pauli)</td><td>Núcleo desnudo; se sostiene sin fusión</td></tr>
+      <tr><td><b>IMF</b></td><td>Muchas de baja masa, pocas de alta masa</td><td>Pero las pocas azules dominan el brillo (factor 10⁴)</td></tr>
+      <tr><td><b>SED jóvenes/viejas</b></td><td>Jóvenes: 912–4000 Å (UV/azul)</td><td>El azul se apaga si cesa la formación estelar</td></tr>
+      <tr><td><b>Elípticas vs espirales</b></td><td>Rojas "muertas" vs azules con brazos</td><td>Color = historia de formación estelar</td></tr>
+      <tr><td><b>Ciclo bariónico</b></td><td>Acreción · reciclaje · outflows</td><td>Controla la tasa de formación y el ritmo de enrojecimiento</td></tr>
+      <tr><td><b>Barión (en astronomía)</b></td><td>Toda materia que no es oscura</td><td>Incluye electrones (que no son bariones en rigor)</td></tr>
+      <tr><td><b>Metalicidad</b></td><td>Elementos más pesados que el He</td><td>A igual masa, más metales ⇒ estrella más roja</td></tr>
+      <tr><td><b>Líneas de emisión</b></td><td><span class="katex-inline" data-tex="\Delta E = hc/\lambda"></span></td><td>Huella digital química del gas; miden composición y z</td></tr>
+      <tr><td><b>Polvo</b></td><td>Granos de ≈ 2 µm</td><td>Absorbe el azul, deja pasar el rojo; reemite en el IR</td></tr>
+      <tr><td><b>Enrojecimiento</b></td><td><span class="katex-inline" data-tex="A_{azul}>A_{rojo}"></span></td><td>Confunde joven-con-polvo y vieja-sin-polvo</td></tr>
+      <tr><td><b>AGN / cuásar</b></td><td>Disco de acreción de un BH supermasivo</td><td>Brillo enorme en todo el espectro, pero temporal</td></tr>
+      <tr><td><b>M87</b></td><td>BH ≈ 2.400 millones M<sub>☉</sub></td><td>Imagen del Event Horizon Telescope; jet multibanda</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c2-examen-01.html">Examen 01<small>Las componentes de una galaxia</small></a></li>
+    <li><a href="m2c2-examen-02.html">Examen 02<small>El diagrama color–magnitud</small></a></li>
+    <li><a href="m2c2-examen-03.html">Examen 03<small>Evolución estelar y secuencia principal</small></a></li>
+    <li><a href="m2c2-examen-04.html">Examen 04<small>La función inicial de masa</small></a></li>
+    <li><a href="m2c2-examen-05.html">Examen 05<small>El espectro: jóvenes vs viejas</small></a></li>
+    <li><a href="m2c2-examen-06.html">Examen 06<small>Secuencia morfológica y colores</small></a></li>
+    <li><a href="m2c2-examen-07.html">Examen 07<small>El gas y el ciclo bariónico</small></a></li>
+    <li><a href="m2c2-examen-08.html">Examen 08<small>Enriquecimiento y metalicidad</small></a></li>
+    <li><a href="m2c2-examen-09.html">Examen 09<small>Líneas de emisión y galaxias lejanas</small></a></li>
+    <li><a href="m2c2-examen-10.html">Examen 10<small>Polvo y AGN (integrador)</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo II del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Valentino González, may 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m2/ff/galaxias-m2c2.md</code>) y las diapositivas <code>Modulo_II_Clase_2.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía (p. ej. el rango UV de las poblaciones jóvenes <b>912–4000 Å</b> según la diapositiva, en vez de "1000" del audio; la masa del agujero negro de <b>M87 ≈ 2.400 millones de M<sub>☉</sub></b>; "Illustris", "Tumlinson", "Bunker et al."). Los widgets usan modelos simplificados (ley de Wien para el color, promedio ponderado para la dominancia de brillo, extinción <span class="katex-inline" data-tex="A_\lambda"></span> aproximada para el polvo) con fines didácticos. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // util: color de un cuerpo segun longitud de onda (nm) y temperatura
+  function colorName(nm){
+    if(nm<380) return "ultravioleta (invisible)";
+    if(nm<450) return "violeta/azul";
+    if(nm<495) return "azul";
+    if(nm<570) return "verde";
+    if(nm<590) return "amarillo";
+    if(nm<620) return "naranja";
+    if(nm<750) return "rojo";
+    if(nm<1400) return "infrarrojo cercano (invisible)";
+    return "infrarrojo (invisible)";
+  }
+  // swatch aproximado de un cuerpo negro segun temperatura (K)
+  function bbSwatch(T){
+    // interpolacion simple roja->blanca->azul
+    var r,g,b;
+    if(T<=4000){ r=255; g=Math.round(120+0.03*(T-2500)); b=Math.round(40+0.02*(T-2500)); }
+    else if(T<=7000){ var f=(T-4000)/3000; r=255; g=Math.round(170+f*60); b=Math.round(100+f*130); }
+    else { var f2=Math.min(1,(T-7000)/20000); r=Math.round(230-f2*60); g=Math.round(230-f2*20); b=255; }
+    r=Math.max(0,Math.min(255,r)); g=Math.max(0,Math.min(255,g)); b=Math.max(0,Math.min(255,b));
+    return "rgb("+r+","+g+","+b+")";
+  }
+
+  // ===== Widget 1: Ley de Wien =====
+  var wiT=document.getElementById('wi-t'), wiTval=document.getElementById('wi-tval'), wiOut=document.getElementById('wi-out');
+  function wiUpdate(){
+    var T=+wiT.value;
+    wiTval.textContent=T;
+    var b=2.897771955e6; // nm*K
+    var lam=b/T; // nm
+    var ladok=lam.toFixed(0);
+    var pos = T<5000?"a la DERECHA (frías y rojas)":(T>9000?"a la IZQUIERDA (calientes y azules)":"hacia el centro");
+    wiOut.innerHTML="Pico de emisión: <b>"+ladok+" nm</b> ("+colorName(lam)+") "+
+      "<span class='swatch' style='background:"+bbSwatch(T)+"'></span><br>"+
+      "<span class='k'>En el diagrama color–magnitud:</span> esta estrella cae "+pos+".<br>"+
+      "Regla: a más temperatura, λ del pico <b>más corta</b> ⇒ color más azul.";
+  }
+  if(wiT){
+    wiT.addEventListener('input',wiUpdate);
+    document.querySelectorAll('#w-wien .presets button').forEach(function(btn){
+      btn.addEventListener('click',function(){ wiT.value=btn.dataset.t; wiUpdate(); });
+    });
+    wiUpdate();
+  }
+
+  // ===== Widget 2: Dominancia de brillo (IMF) =====
+  var dmN=document.getElementById('dm-n'), dmL=document.getElementById('dm-l'),
+      dmNv=document.getElementById('dm-nval'), dmLv=document.getElementById('dm-lval'), dmOut=document.getElementById('dm-out');
+  function dmUpdate(){
+    var nRed=+dmN.value;       // rojas por cada azul
+    var lRatio=+dmL.value;     // brillo azul / brillo rojo
+    dmNv.textContent=nRed; dmLv.textContent=lRatio.toLocaleString('es');
+    // tomamos 1 azul como referencia; brillo rojo = 1
+    var blue = lRatio * 1;     // 1 azul * brillo azul
+    var red  = nRed * 1;       // nRed rojas * brillo rojo (=1)
+    var fBlue = blue/(blue+red);
+    var dom = fBlue>0.5 ? "AZUL" : (fBlue<0.5? "ROJO" : "EMPATE");
+    var col = fBlue>0.66 ? "var(--blue)" : (fBlue<0.34? "var(--red-soft)" : "var(--gold)");
+    dmOut.innerHTML="Luz total de las azules: <b>"+blue.toLocaleString('es')+"</b> &nbsp;·&nbsp; "+
+      "Luz total de las rojas: <b>"+red.toLocaleString('es')+"</b><br>"+
+      "<span class='k'>Fracción de luz azul:</span> <b>"+(fBlue*100).toFixed(1)+"%</b><br>"+
+      "Color dominante: <b style='color:"+col+"'>"+dom+"</b> "+
+      (dom==="AZUL"?"— pocas azules pero brillantísimas ganan (como en la IMF de la clase).":
+       dom==="ROJO"?"— ya hay tantas rojas (o las azules tan poco más brillantes) que dominan las rojas.":"");
+  }
+  if(dmN){
+    dmN.addEventListener('input',dmUpdate); dmL.addEventListener('input',dmUpdate);
+    document.querySelectorAll('#w-dom .presets button').forEach(function(btn){
+      btn.addEventListener('click',function(){ dmN.value=btn.dataset.n; dmL.value=btn.dataset.l; dmUpdate(); });
+    });
+    dmUpdate();
+  }
+
+  // ===== Widget 3: Enrojecimiento por polvo =====
+  var duA=document.getElementById('du-a'), duAv=document.getElementById('du-aval'), duOut=document.getElementById('du-out');
+  function duUpdate(){
+    var Av=+duA.value;
+    duAv.textContent=Av.toFixed(2);
+    // extincion aproximada relativa a Av (ley tipo Cardelli): azul mas extinguido que rojo
+    var Ablue = Av*1.35;   // banda B
+    var Ared  = Av*0.60;   // banda R
+    var Tblue = Math.pow(10,-0.4*Ablue); // fraccion transmitida
+    var Tred  = Math.pow(10,-0.4*Ared);
+    var fAbs = (1-Tblue);
+    // color: cuanto se enrojecio (B-R aumenta)
+    var reddening = Ablue-Ared; // exceso de color E(B-R) en magnitudes
+    var swatchT = Av; // 0..5
+    // swatch de azul a rojo
+    var f=Math.min(1,Av/4);
+    var r=Math.round(120+f*135), g=Math.round(160-f*110), b=Math.round(240-f*200);
+    var sw="rgb("+r+","+g+","+b+")";
+    duOut.innerHTML="Luz azul que pasa: <b>"+(Tblue*100).toFixed(0)+"%</b> &nbsp;·&nbsp; "+
+      "Luz roja que pasa: <b>"+(Tred*100).toFixed(0)+"%</b> "+
+      "<span class='swatch' style='background:"+sw+"'></span><br>"+
+      "<span class='k'>Enrojecimiento</span> E(B−R) ≈ <b>"+reddening.toFixed(2)+" mag</b> "+
+      (Av===0?"(sin polvo: color intacto)":"(la galaxia se ve más roja de lo que es)")+"<br>"+
+      "Energía azul absorbida: <b>"+(fAbs*100).toFixed(0)+"%</b> → reemitida en el <b>infrarrojo lejano</b>.";
+  }
+  if(duA){
+    duA.addEventListener('input',duUpdate);
+    document.querySelectorAll('#w-dust .presets button').forEach(function(btn){
+      btn.addEventListener('click',function(){ duA.value=btn.dataset.a; duUpdate(); });
+    });
+    duUpdate();
+  }
+});
+</script>
+</body>
+</html>
