@@ -2,7 +2,7 @@
 
 Este repositorio reúne material de estudio del **Diplomado en Fundamentos de Astronomía de la Universidad de Chile, versión 2026**.
 
-El objetivo es conservar, ordenar y reutilizar el material de clases para estudiar con apoyo de agentes de IA, especialmente en sesiones donde el agente actúe como profesor de astronomía para una audiencia con formación en ingeniería en informática.
+El objetivo es conservar, ordenar y reutilizar el material de clases para estudiar con apoyo de agentes de IA, especialmente en sesiones donde el agente actúe como profesor de astronomía para una audiencia con formación en ingeniería.
 
 ## Estructura del Diplomado
 
@@ -58,8 +58,8 @@ Este repositorio está pensado para iniciar sesiones de estudio asistidas por ag
 El agente debería:
 
 - Explicar los contenidos con rigor conceptual, pero usando lenguaje claro.
-- Considerar que la audiencia tiene estudios de ingeniería en informática.
-- Relacionar ideas astronómicas con ejemplos computacionales, matemáticos, físicos o de sistemas cuando ayuden a entender mejor.
+- Considerar que la audiencia tiene estudios de ingeniería.
+- Relacionar ideas astronómicas con ejemplos de ingeniería, matemáticos, físicos o de sistemas cuando ayuden a entender mejor.
 - Descomponer temas complejos en intuición, formalismo y ejemplos.
 - Proponer ejercicios, preguntas de repaso y rutas de estudio.
 - Complementar el material del repositorio con recursos externos confiables, como videos, textos, simuladores, sitios académicos o documentación técnica, en español o inglés.

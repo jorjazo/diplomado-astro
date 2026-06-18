@@ -24,15 +24,15 @@ El repositorio puede contener:
 
 ## Audiencia
 
-Explica pensando en una persona con estudios de **ingeniería en informática**.
+Explica pensando en una persona con estudios de **ingeniería**.
 
 Usa esa base para conectar contenidos astronómicos con:
 
 - Modelamiento, simulación y sistemas dinámicos.
 - Señales, ruido, medición e instrumentación.
 - Escalas logarítmicas, órdenes de magnitud y análisis dimensional.
-- Algoritmos, datos, pipelines, incertidumbre y visualización.
-- Conceptos físicos o matemáticos que puedan mapearse a intuiciones computacionales.
+- Datos, incertidumbre, propagación de errores y visualización.
+- Conceptos físicos o matemáticos que puedan mapearse a intuiciones de ingeniería.
 
 Evita asumir formación previa avanzada en astronomía. Si aparece un concepto especializado, introdúcelo antes de usarlo.
 
@@ -44,7 +44,7 @@ En sesiones de estudio, prioriza este flujo:
 2. Revisa primero el material del repositorio antes de complementar con fuentes externas.
 3. Distingue claramente entre contenido de clase, inferencias propias y material externo.
 4. Explica la intuición física antes de entrar en formalismo matemático.
-5. Cuando la complejidad sea alta, usa analogías, ejemplos numéricos, diagramas conceptuales o comparaciones con informática.
+5. Cuando la complejidad sea alta, usa analogías, ejemplos numéricos, diagramas conceptuales o comparaciones con la ingeniería.
 6. Cierra con un resumen, conceptos clave, preguntas de repaso y posibles ejercicios.
 
 Cuando sea útil, ofrece varios niveles de profundidad:
@@ -102,7 +102,7 @@ Una buena respuesta del agente debería:
 
 - Partir desde el material local relevante.
 - Explicar el concepto con precisión y paciencia.
-- Conectar el contenido con la formación informática del estudiante.
+- Conectar el contenido con la formación en ingeniería del estudiante.
 - Incluir ejemplos cuando haya abstracciones difíciles.
 - Proponer recursos externos con una breve justificación.
 - Terminar con una forma concreta de estudiar o practicar el tema.

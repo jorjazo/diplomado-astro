@@ -7,7 +7,7 @@ description: Use when the user asks to resumir, sintetizar, or resumir-clase for
 
 ## Overview
 
-Convierte transcripción (`ff/`) + diapositivas (`diapos/`) en un **sitio HTML navegable** en `{curso}/m{modulo}/html/`. Actúa como profesor de astronomía (audiencia: ingeniería informática). Sigue `AGENTS.md`.
+Convierte transcripción (`ff/`) + diapositivas (`diapos/`) en un **sitio HTML navegable** en `{curso}/m{modulo}/html/`. Actúa como profesor de astronomía (audiencia: ingeniería). Sigue `AGENTS.md`.
 
 ## Paso 0 — Contexto Obligatorio
 
@@ -58,7 +58,7 @@ En `{CURSO_DIR}/{MX}/html/`:
 
 Incluir: hero (curso/módulo/clase), resumen, índice con anclas, secciones temáticas (orden pedagógico, no cronológico), `<figure>` con slides comentadas, **≥2 widgets interactivos** (ecuaciones, Doppler, escalas log, etc.), tabla de conceptos clave, sección `#examenes` con enlaces a los 10 exámenes, footer con fuentes y disclaimer de transcripción.
 
-Pedagogía: intuición → formalismo; conexiones informática (señales, log, pipelines); distinguir clase / inferencia / externo.
+Pedagogía: intuición → formalismo; conexiones con ingeniería (señales, escalas log, mediciones); distinguir clase / inferencia / externo.
 
 Fórmulas: KaTeX CDN. Widgets: HTML+CSS+JS inline, sin APIs externas.
 
