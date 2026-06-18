@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detectando Flujo — Instrumentación y Observación, Módulo II · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo II · Clase 2</span>
+  <h1>Detectando <em>Flujo</em></h1>
+  <p class="sub">Casi toda la astronomía es el estudio de la <strong>luz</strong>. En esta clase abrimos el fotón: qué información trae (longitud de onda, dirección, tiempo de llegada, intensidad, polarización), cómo se relaciona con la temperatura de un cuerpo negro, y cómo lo <em>detectamos</em> a lo largo de todo el espectro electromagnético —del ojo y la fotografía al CCD, del efecto fotoeléctrico a las antenas de radio, los espejos de rayos X y los tanques Cherenkov.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 may 2026</span>
+    <span><b>Tema:</b> Luz, flujo y detectores</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a astronomía es una ciencia notablemente <span class="hl">pasiva</span>: a diferencia del químico o el biólogo, que meten las manos en el laboratorio y modifican el experimento, el astrónomo solo puede <em>recibir</em> lo que el universo le manda y hacer todo lo posible por verlo de la forma más limpia posible. Y lo que recibe son, casi siempre, <strong>fotones</strong>. Esta clase trata de ese fotón: cuánta información carga, cómo la leemos, y con qué tecnología —porque cada tipo de luz, del radio a los rayos gamma, exige un detector distinto y habilita una ciencia distinta. Cerramos con la cantidad que da título a la clase: el <strong>flujo</strong>, la potencia por unidad de área que nos llega de una fuente, y la curiosa escala logarítmica de <em>magnitudes</em> con que los astrónomos lo medimos.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Mensajeros del cosmos: ciencia pasiva</a></li>
+    <li><a href="#s2">La luz: onda y partícula</a></li>
+    <li><a href="#s3">Cuerpo negro y ley de Wien</a></li>
+    <li><a href="#s4">El espectro EM: tamaño, frecuencia, temperatura</a></li>
+    <li><a href="#s5">Polarización y parámetros de Stokes</a></li>
+    <li><a href="#s6">Los observables de un fotón</a></li>
+    <li><a href="#s7">Del ojo a la fotografía</a></li>
+    <li><a href="#s8">Efecto fotoeléctrico → CCD</a></li>
+    <li><a href="#s9">Flujo, luminosidad e intensidad</a></li>
+    <li><a href="#s10">Magnitudes: la escala logarítmica</a></li>
+    <li><a href="#s11">Universo multibanda y atmósfera</a></li>
+    <li><a href="#s12">Detectores a través del espectro</a></li>
+    <li><a href="#s13">Impacto en astronomía y futuro</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Mensajeros del cosmos: ciencia pasiva</h2>
+    <p>El astrónomo no experimenta: recibe. ¿Qué puede recibir?</p>
+  </div></div>
+
+  <p>El profesor parte con una idea ordenadora: la astronomía es <span class="hl">observación pasiva</span>. El químico mezcla reactivos, mide temperaturas, repite con mil variaciones; el astrónomo, en cambio, solo puede captar lo que le llega y limpiarlo lo mejor posible de las distorsiones que mete la atmósfera y el propio instrumento. Hasta hace poco, «lo que llega» era exclusivamente luz. Hoy la lista de <strong>mensajeros</strong> es más rica:</p>
+  <ul>
+    <li><strong>Radiación electromagnética</strong> (radio → rayos gamma): el grueso de la astronomía. Aunque digamos «fotón», cubre desde ondas de radio hasta rayos gamma.</li>
+    <li><strong>Rayos cósmicos:</strong> partículas cargadas muy energéticas (no son luz) que llegan del espacio.</li>
+    <li><strong>Neutrinos:</strong> partículas casi sin masa que apenas interactúan con la materia.</li>
+    <li><strong>Ondas gravitacionales:</strong> la «vedette» reciente, producidas en los choques más energéticos del universo (fusiones de agujeros negros o de estrellas de neutrones).</li>
+  </ul>
+
+  <figure>
+    <img src="m2c2/assets/slide-03.jpg" alt="Lámina de observables: astronomía como observación pasiva, con radiación EM, rayos cósmicos, neutrinos y ondas gravitacionales">
+    <figcaption><span class="cap">Diapositiva · Observables</span>«¿Qué tanta información tiene un fotón?» Los cuatro mensajeros que hoy puede recibir la astronomía. La radiación EM (radio a rayos gamma) sigue siendo el canal principal, pero ya no el único.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Los neutrinos del Sol: un misterio resuelto</span>
+    <p>En el centro del Sol, las reacciones nucleares que convierten hidrógeno en helio producen <strong>neutrinos</strong> en cantidades enormes. Como casi no interactúan, escapan del Sol sin problema (su camino libre medio supera la unidad astronómica), mientras que un <em>fotón</em> producido en el centro tarda ~un millón de años en salir, absorbido y reemitido una y otra vez. Lo intrigante: detectamos solo <strong>un tercio</strong> de los neutrinos esperados. La explicación —y la mejor evidencia de que el neutrino tiene algo de masa— es que <em>oscilan</em> entre sus tres «sabores»; detectamos un sabor, y por eso medimos un tercio.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Pensar la astronomía como un sistema <strong>pasivo de adquisición de señal</strong> ayuda: no controlas la fuente ni puedes repetir el «experimento» a voluntad. Toda la pega está en el <em>front-end</em> (óptica + detector) y en separar la señal del ruido instrumental y atmosférico. Es ingeniería de instrumentación pura: maximizar relación señal/ruido sobre una entrada que no eliges.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>La luz: onda y partícula</h2>
+    <p>Maxwell la describe como onda; Planck y Einstein, como paquetes de energía.</p>
+  </div></div>
+
+  <p>Las <strong>ecuaciones de Maxwell</strong> condensan el electromagnetismo. Combinándolas se obtiene una <span class="hl">ecuación de onda</span> cuya solución se escribe como función de <span class="katex-inline" data-tex="x - vt"></span>: la oscilación espacial queda atada a la oscilación temporal, como una cuerda con extremos fijos que vibra. Esa es la firma de una onda.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\lambda\,\nu = c, \qquad c = \frac{1}{\sqrt{\mu_0\,\varepsilon_0}}"></div>
+    <small>La velocidad de la onda aparece sola al mezclar las ecuaciones de Maxwell: no se mete «a mano», sino que sale de la <strong>permeabilidad magnética</strong> <span class="katex-inline" data-tex="\mu_0"></span> y la <strong>permitividad eléctrica</strong> <span class="katex-inline" data-tex="\varepsilon_0"></span>, ambas medibles en el laboratorio. El resultado coincide con la velocidad de la luz en el vacío: la luz <em>es</em> una onda electromagnética.</small>
+  </div>
+
+  <p>En la onda, el <strong>campo eléctrico</strong> oscila perpendicular al <strong>campo magnético</strong>, y ambos son perpendiculares a la dirección de propagación (el vector <span class="katex-inline" data-tex="\vec{k}"></span>). Pero la luz también es <strong>partícula</strong>: su energía viene en paquetes enteros, múltiplos de la constante de Planck por la frecuencia.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = h\,\nu = \frac{h\,c}{\lambda}"></div>
+    <small>La energía de un fotón es proporcional a su frecuencia (o inversa a su longitud de onda). Esta dualidad onda–partícula es la base de todo lo que viene: la onda explica la difracción y la polarización; la partícula, el efecto fotoeléctrico y los detectores que cuentan fotones.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-04.jpg" alt="Ecuaciones de Maxwell, onda E-B perpendiculares, relación lambda-nu=c, E=h-nu y curvas de cuerpo negro">
+    <figcaption><span class="cap">Diapositiva · Observables · Radiación EM</span>Izquierda: las ecuaciones de Maxwell y la onda con <span class="katex-inline" data-tex="\vec{E}\perp\vec{B}\perp\vec{k}"></span>. Centro: <span class="katex-inline" data-tex="\lambda\nu=c"></span> y <span class="katex-inline" data-tex="E=h\nu"></span>. Derecha: curvas de cuerpo negro a distinta temperatura, con el pico que se corre al azul al subir T (ley de Wien).</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>«Esto es típico segundo o tercero de ingeniería»: derivar la ecuación de onda desde Maxwell es el mismo ejercicio de cálculo vectorial que ya conoces. La novedad astronómica es interpretar <span class="katex-inline" data-tex="c=1/\sqrt{\mu_0\varepsilon_0}"></span> como una <strong>constante fundamental medible</strong> a partir de propiedades eléctricas y magnéticas del vacío.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Cuerpo negro y ley de Wien</h2>
+    <p>Un cuerpo en equilibrio térmico emite en todas las longitudes de onda, con un pico que delata su temperatura.</p>
+  </div></div>
+
+  <p>Un <span class="hl">cuerpo negro</span> es un objeto en <strong>equilibrio termodinámico</strong>: algo con una temperatura estable que emite radiación en <em>todas</em> las longitudes de onda. Tú mismo, a ~300 K, emites principalmente en el infrarrojo (terahertz), pero también un poquito en todas las bandas. La forma de esa curva depende solo de la temperatura, y su <strong>pico</strong> se corre hacia el azul (longitudes de onda más cortas) a medida que la temperatura sube. Esa es la <strong>ley de Wien</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\lambda_{\text{peak}} = \frac{3\times 10^{-3}\,[\mathrm{m\cdot K}]}{T\,[\mathrm{K}]}"></div>
+    <small>La diapositiva usa la constante redondeada a <span class="katex-inline" data-tex="3\times10^{-3}"></span> m·K (el valor exacto de Wien es <span class="katex-inline" data-tex="2{,}898\times10^{-3}"></span> m·K). Relaciona <strong>temperatura</strong> con <strong>color</strong>: por eso una estrella caliente se ve azul y una fría, roja. Ojo con los ejes del gráfico: si se grafica por frecuencia en vez de longitud de onda, el pico se mueve, y de ahí la vieja discusión de si el Sol «es verde o amarillo».</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Energía o número de fotones?</span>
+    <p>La curva del cuerpo negro se puede dibujar de varias maneras: energía por unidad de longitud de onda, energía por unidad de frecuencia, o <em>número</em> de fotones. Como <span class="katex-inline" data-tex="E=h\nu"></span>, el lugar donde hay más fotones no coincide con el de más energía. Por eso el «color» de un cuerpo negro depende de qué cantidad estés graficando: es una sutileza importante a la hora de interpretar un espectro.</p>
+  </div>
+
+  <div class="widget" id="w-wien">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ley de Wien: temperatura → color</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la temperatura de un cuerpo negro y obtén la longitud de onda de su pico de emisión y la banda del espectro a la que corresponde.</p>
+    <div class="presets" id="wien-presets">
+      <button data-t="300">Tú (~300 K)</button>
+      <button data-t="2.7">CMB (2,7 K)</button>
+      <button data-t="3000">Ampolleta (3000 K)</button>
+      <button data-t="5778">Sol (5778 K)</button>
+      <button data-t="10000">Estrella caliente (10⁴ K)</button>
+      <button data-t="1000000">Gas en rayos X (10⁶ K)</button>
+    </div>
+    <label for="wien-t">Temperatura T (K)</label>
+    <input type="number" id="wien-t" step="any" value="5778" min="0.0001">
+    <output id="wien-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El espectro EM: tamaño, frecuencia, temperatura</h2>
+    <p>«Tipos de luz» son solo tramos de un continuo, divididos un poco arbitrariamente.</p>
+  </div></div>
+
+  <p>Hablar de radio, infrarrojo, visible, rayos X… es como elegir los <em>bins</em> de un histograma: decidimos de forma algo arbitraria dónde empieza y termina cada banda. Lo físico detrás es siempre lo mismo: longitud de onda, frecuencia y (vía cuerpo negro) temperatura asociada. El profesor recomienda pensar en <strong>tamaños</strong>, que son más intuitivos que las frecuencias:</p>
+  <ul>
+    <li><strong>Radio:</strong> longitudes de onda de metros a kilómetros. Por eso las antenas que captan radio débil miden más de 100 m (Arecibo, FAST en China). De ahí también la idea de poner una antena gigante en el lado oscuro de la Luna.</li>
+    <li><strong>Visible:</strong> ~0,5 micrón (medio millonésimo de metro). Si fuéramos del tamaño de una hormiga, esa longitud nos parecería «de tamaño manejable».</li>
+    <li><strong>Rayos X y gamma:</strong> longitudes cada vez más pequeñas, comparables a átomos y núcleos.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c2/assets/slide-05.jpg" alt="El espectro electromagnético: penetración atmosférica, longitud de onda comparada con objetos, frecuencia y temperatura">
+    <figcaption><span class="cap">Diapositiva · El espectro EM</span>Una sola figura con cuatro lecturas del mismo eje: si penetra la atmósfera (Y/N), el <strong>tamaño</strong> comparable (edificios, humanos, abeja, átomos, núcleos), la <strong>frecuencia</strong> (Hz) y la <strong>temperatura</strong> del cuerpo que emite en esa banda (1 K → 10 millones de K).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El tamaño importa: interacción con la materia</span>
+    <p>Para interactuar con algo, conviene usar luz de tamaño comparable a ese algo. La analogía del profesor: una piedra contra un bus. Con muy poca energía rebota; con energía relativista lo atraviesa dejando un boquete; pero con energía <em>comparable</em> pasan cosas complejas (rompe vidrios, rebota). La interacción fotón–electrón depende de la longitud de onda del fotón: es como pasar entre las rejas de un puente —si la reja es mucho más grande que tú, ni la notas. Esto se cuantifica con la <strong>sección eficaz</strong>.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Nota de terreno</span>
+    <p>Los radioastrónomos prefieren hablar en <strong>frecuencia</strong> (GHz para microondas; las bandas de ALMA están en gigahertz). Para luz más energética que el visible, los prefijos griegos «se quedan chicos» y se vuelve a las longitudes de onda. Y como nosotros emitimos en el terahertz, estamos «en el dial» del infrarrojo lejano.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Polarización y parámetros de Stokes</h2>
+    <p>Una propiedad «misteriosa» de la luz: cómo evoluciona el ángulo del campo eléctrico.</p>
+  </div></div>
+
+  <p>La <span class="hl">polarización</span> describe cómo oscila el campo eléctrico de la onda. Si sube y baja en una dirección fija, hablamos de <strong>polarización lineal</strong>; si el vector va rotando, de <strong>polarización circular</strong> (o elíptica, el caso general). Una carga —un electrón— «siente» el campo eléctrico con una fuerza <span class="katex-inline" data-tex="\vec{F}=q\vec{E}"></span>: por eso una antena emisora hace oscilar electrones arriba y abajo, y una antena receptora reproduce esa misma oscilación. Así funcionan las radios.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-06.jpg" alt="Elipse de polarización con el vector campo eléctrico, ángulos chi y psi, y la esfera de Poincaré">
+    <figcaption><span class="cap">Diapositiva · Polarización</span>La punta del vector <span class="katex-inline" data-tex="\vec{E}"></span> traza una elipse (amplitudes A, B y desfase). El estado de polarización se codifica como un punto en la <strong>esfera de Poincaré</strong>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué sirven los lentes polarizados?</span>
+    <p>Cuando la luz rebota en el agua, la que oscila «de canto» mueve los electrones del agua de forma coherente y se reemite (reflejo); la que oscila en otra dirección tiende a ser absorbida. El reflejo queda <strong>parcialmente polarizado</strong>. Los lentes polarizados traen «rendijas» que bloquean ese ángulo y dejan pasar el otro —por eso quitan el brillo del agua (útil para pescar) y por eso a veces no ves la pantalla del celular en cierto ángulo.</p>
+  </div>
+
+  <p>Para cuantificar el estado de polarización se usan los <strong>parámetros de Stokes</strong> <span class="katex-inline" data-tex="(I,Q,U,V)"></span>, basados en las amplitudes de las componentes <span class="katex-inline" data-tex="E_x,E_y"></span> y su desfase <span class="katex-inline" data-tex="\delta"></span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\begin{aligned} S_0 &= I = E_x^2 + E_y^2 \\ S_1 &= Q = E_x^2 - E_y^2 \\ S_2 &= U = 2E_xE_y\cos\delta \\ S_3 &= V = 2E_xE_y\sin\delta \end{aligned}"></div>
+    <small>Se cumple <span class="katex-inline" data-tex="I^2 \ge Q^2 + U^2 + V^2"></span>. El que más se usa es la cuádrupla <span class="katex-inline" data-tex="(I,Q,U,V)"></span>: <span class="katex-inline" data-tex="I"></span> es la intensidad total, y <span class="katex-inline" data-tex="Q,U,V"></span> describen el tipo y orientación de la polarización. Se miden con polarizadores (detectar en un estado, luego en otro) o con radiotelescopios.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-08.jpg" alt="Mapa del fondo cósmico de microondas con la polarización dibujada como rayas sin punta">
+    <figcaption><span class="cap">Diapositiva · Polarización del CMB</span>El fondo cósmico de microondas con su polarización superpuesta como <strong>rayas sin punta de flecha</strong>: la polarización marca un <em>ángulo</em>, no un sentido (el campo sube y baja, no hay dirección preferente). Aparece en cosmología (efecto Sunyaev–Zel'dovich) y en discos protoplanetarios (granos de polvo alineados).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Los observables de un fotón</h2>
+    <p>¿Qué le podemos extraer a la luz que llega? Toda la astronomía cabe en esta lista.</p>
+  </div></div>
+
+  <p>Resumiendo lo anterior, de un fotón (o de un flujo de fotones) podemos medir:</p>
+  <ul>
+    <li><strong>Longitud de onda / frecuencia</strong> (y la temperatura asociada vía cuerpo negro, aunque la fuente no sea exactamente un cuerpo negro).</li>
+    <li><strong>Dirección</strong> de llegada (de dónde viene) y <strong>tiempo de llegada</strong> (cuándo lo detectamos).</li>
+    <li><strong>Intensidad</strong> según la longitud de onda: la <span class="hl">SED</span> (<em>Spectral Energy Distribution</em>), es decir cuánta energía por unidad de longitud de onda emite la fuente.</li>
+    <li><strong>Polarización</strong> y la <strong>fase</strong> (relación entre ondas), clave cuando combinamos luz recibida en distintos lugares.</li>
+  </ul>
+
+  <p>Medir la intensidad es, en el fondo, hacer un <strong>muestreo</strong>: abrir el telescopio, recoger muchos fotones, clasificarlos por energía (un histograma) y multiplicar cada uno por su energía. La palabra «intensidad» viene prestada de la hidráulica: la intensidad es al flujo de luz lo que el caudal es al flujo de agua.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-09.jpg" alt="Observables: dirección y tiempo de llegada, intensidad/SED, polarización y fase; ley del inverso del cuadrado">
+    <figcaption><span class="cap">Diapositiva · Observables</span>La lista completa de observables y un recordatorio: la resolución de cada medida (tiempo, ángulo, longitud de onda) depende del observador, del instrumento y de la naturaleza de la luz. A la izquierda, la dilución de la radiación con la distancia.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Ley del inverso del cuadrado</span>
+    <p>Una fuente que emite en todas direcciones reparte su energía sobre una esfera que crece. Como el área de la esfera va con <span class="katex-inline" data-tex="r^2"></span>, la energía por unidad de área —el <strong>flujo</strong>— cae como <span class="katex-inline" data-tex="1/r^2"></span>. Es la misma ley que la gravedad newtoniana y la base para conectar lo que <em>recibimos</em> (flujo) con lo que la fuente <em>emite</em> (luminosidad).</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Del ojo a la fotografía</h2>
+    <p>El primer detector de luz fue el ojo; el segundo, la emulsión fotográfica.</p>
+  </div></div>
+
+  <p>El <strong>ojo</strong> es un instrumento sorprendentemente simple en su principio: la córnea y el cristalino <em>enfocan</em> —doblan la luz para que los rayos que vienen de un mismo punto terminen en un mismo punto de la <strong>retina</strong>. Ahí, células fotosensibles convierten luz en señal: los <strong>bastones</strong> (muchos y muy sensibles, para poca luz, en blanco y negro) y los <strong>conos</strong> (concentrados en el centro/fóvea, sensibles al color en tres tipos: S, M, L ≈ azul, verde, rojo).</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-10.jpg" alt="Anatomía del ojo, densidad de conos y bastones según el ángulo desde la fóvea, y respuesta espectral de los conos S, M, L">
+    <figcaption><span class="cap">Diapositiva · «Hágase la luz»: el ojo</span>Córnea, cristalino y retina. El gráfico central muestra cómo los <strong>conos</strong> se concentran en la fóvea y los <strong>bastones</strong> dominan la periferia; a la derecha, la respuesta de los conos S/M/L que nos da la visión en color.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Ver es, en parte, alucinar</span>
+    <p>La tasa de datos que cruza el nervio óptico es sorprendentemente baja: gran parte de lo que «vemos» lo <strong>reconstruye el cerebro</strong>. Bajo una luz de sodio (una sola longitud de onda) terminamos viendo casi en blanco y negro; basta una pequeña fuente con todos los colores para que el cerebro «encienda» el color de nuevo. Importante para lo que viene: la mayoría de los CCD, imitando esta eficiencia, captan en blanco y negro (son mucho más eficientes así).</p>
+  </div>
+
+  <p>La <strong>fotografía</strong> fue el siguiente detector. Una emulsión de plata con bromo (<span class="katex-inline" data-tex="\mathrm{AgBr}"></span>) se <em>ioniza</em> al exponerse a la luz; luego se fija la imagen retirando el bromo. La primera foto en la que aparece una persona muestra una avenida transitada casi vacía: solo se ven dos personas porque estuvieron quietas durante la larga exposición (una lustrándose los zapatos). Lo que se mueve, no se registra.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-11.jpg" alt="Primera fotografía con una persona (Daguerre, Boulevard du Temple) y reacción química AgBr de la emulsión">
+    <figcaption><span class="cap">Diapositiva · Fotografía</span>La emulsión y su curva de sensibilidad: <span class="katex-inline" data-tex="\mathrm{AgBr} + E \rightarrow \mathrm{Ag}^+ + \mathrm{Br} + e^-"></span>. La foto (Daguerre, Boulevard du Temple) parece vacía porque solo lo inmóvil deja huella. Enfocar es clave: si algo está fuera de foco, mezcla todos los ángulos y desaparece (por eso no sales en la foto de una estrella aunque te pares frente al telescopio: solo bajas un poco la luz).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Reflexión vs. refracción</span>
+    <p>Doblar la luz —la pega de espejos y lentes— se hace de dos formas. En la <strong>reflexión</strong> (espejo), el ángulo de salida iguala al de incidencia. En la <strong>refracción</strong> (lente), el rayo cambia de dirección al entrar a un medio: el ángulo lo fija el <em>índice de refracción</em>, que depende de la <strong>velocidad de la luz en ese medio</strong>. Los lentes funcionan porque la luz viaja más lento en el vidrio que en el vacío (la misma razón por la que una cuchara parece quebrada dentro del agua).</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Efecto fotoeléctrico → CCD</h2>
+    <p>El Nobel de Einstein, y la cadena que lleva del fotomultiplicador a la cámara del Vera Rubin.</p>
+  </div></div>
+
+  <p>A Einstein le dieron el Nobel no por la relatividad, sino por el <span class="hl">efecto fotoeléctrico</span>: ciertos metales, al iluminarse, pierden electrones y generan un voltaje. Lo sorprendente es que <em>subir la intensidad</em> de luz roja no arranca electrones; hay que subir la <strong>energía</strong> (frecuencia) de los fotones. Existe un umbral: por debajo de cierta frecuencia, nada; por encima, empiezan a saltar electrones.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = h\nu = \frac{hc}{\lambda} \;\ge\; W_{\text{función de trabajo}}"></div>
+    <small>La única explicación es que la luz viene en <strong>cuantos</strong> de energía <span class="katex-inline" data-tex="h\nu"></span>: el metal no puede absorber fotones menos energéticos que su <strong>función de trabajo</strong> <span class="katex-inline" data-tex="W"></span> (la energía mínima para arrancar un electrón, distinta para potasio, plata, etc.). Este resultado, imposible de explicar clásicamente, dio origen a la mecánica cuántica y consolidó la dualidad onda–partícula.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-12.jpg" alt="Efecto fotoeléctrico: fotones de 700, 550 y 400 nm sobre potasio; gráfico de energía cinética vs frecuencia para K y Ag">
+    <figcaption><span class="cap">Diapositiva · Efecto fotoeléctrico</span>Sobre potasio (umbral ~2 eV): el fotón rojo (1,77 eV) no arranca electrones; el verde y el azul, sí, con velocidad creciente. El gráfico energía cinética vs. frecuencia es una recta cuya pendiente es <span class="katex-inline" data-tex="h"></span> y cuyo corte da la función de trabajo (distinta para K y Ag).</figcaption>
+  </figure>
+
+  <p>Si el voltaje generado se puede asociar a cuántos electrones se perdieron, entonces tenemos una forma <strong>precisa de medir la intensidad de la luz</strong>. Los primeros instrumentos fueron los <strong>fotomultiplicadores</strong> (tubos, años 40–50): un metal, una exposición, un voltaje. El problema es que un solo fotomultiplicador es como un <em>balde para medir lluvia</em>: mide cuánta luz cae, pero no hace una imagen.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-13.jpg" alt="Tubo fotomultiplicador">
+    <figcaption><span class="cap">Diapositiva · Fotomultiplicadores</span>Tubos de los años 40–50: muy sensibles y lineales, pero miden un solo punto. Para hacer una imagen hay que poner «muchos baldes».</figcaption>
+  </figure>
+
+  <p>El <span class="hl">CCD</span> es justamente eso: una <strong>grilla de pequeños baldes</strong> (píxeles), cada uno un detector fotoeléctrico, llevado a la tecnología del microchip. Cambiamos los tubos por un chip de silicio y obtenemos una imagen completa de una vez. La cámara más grande del mundo es la del <strong>Vera C. Rubin Observatory (LSST)</strong>: <strong>3 gigapíxeles</strong>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-14.jpg" alt="CCD: chip de silicio sostenido en la mano y el plano focal de 3 gigapíxeles del LSST con la Luna a escala">
+    <figcaption><span class="cap">Diapositiva · CCD</span>Un CCD es una grilla de píxeles fotoeléctricos. A la derecha, el plano focal de LSST (3 Gpx) con la Luna a escala. Todos los píxeles deben caer en el <strong>plano focal</strong> y estar en foco a la vez —difícil, porque hay que pasar de un cielo «esférico» a un detector plano (se usan lentes correctores de campo).</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>La analogía «balde de lluvia» es exacta como modelo de adquisición: cada píxel <strong>integra</strong> (acumula carga) durante la exposición y luego se lee. Es un conversor luz→carga→voltaje→número, exactamente como el sensor de tu cámara. El salto del fotomultiplicador al CCD es el mismo que de un sensor puntual a un <em>array</em>: pasar de medir una magnitud a <strong>muestrear espacialmente</strong> un campo.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Flujo, luminosidad e intensidad</h2>
+    <p>La energía que emite una fuente, y la que nos llega tras diluirse por la distancia.</p>
+  </div></div>
+
+  <p>La <span class="hl">luminosidad</span> <span class="katex-inline" data-tex="L"></span> es la energía total que emite un objeto por segundo: su potencia, en <strong>watts</strong>. Para un cuerpo negro, integrar toda la curva (sumar todos los fotones por su energía) da el área bajo la curva, y el resultado es la <strong>ley de Stefan–Boltzmann</strong> (siglo XIX):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L = A\,\sigma\,T^4 = 4\pi R^2\,\sigma\,T^4"></div>
+    <small>Depende del <strong>área</strong> <span class="katex-inline" data-tex="A=4\pi R^2"></span> y de la <strong>cuarta potencia de la temperatura</strong>. <span class="katex-inline" data-tex="\sigma \approx 5{,}67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}"></span> es la constante de Stefan–Boltzmann, una mezcla de constantes fundamentales (<span class="katex-inline" data-tex="c"></span>, <span class="katex-inline" data-tex="h"></span>, <span class="katex-inline" data-tex="k_B"></span>). Dos estrellas con igual temperatura pero distinto tamaño emiten distinta energía: la más grande, más. Para el Sol se usa la temperatura de la <em>superficie</em>, no del centro.</small>
+  </div>
+
+  <p>Esa potencia se diluye al alejarse: a una distancia <span class="katex-inline" data-tex="r"></span>, la misma luminosidad se reparte sobre una esfera de radio <span class="katex-inline" data-tex="r"></span>. La potencia por unidad de área que recibimos es el <span class="hl">flujo</span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F = \frac{L}{4\pi r^2}"></div>
+    <small>El flujo a la distancia Tierra–Sol es la <strong>constante solar</strong> (~1361 W/m²). Es la cantidad con que trabaja, por ejemplo, quien instala paneles solares: para alimentar una tele de 100 W necesita un área tal que <span class="katex-inline" data-tex="F \times A_{\text{panel}} = 100\,\mathrm{W}"></span> (descontando eficiencias).</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-15.jpg" alt="Flujo, luminosidad e intensidad: L=A-sigma-T4, F=L/4-pi-r2 y curvas de cuerpo negro frente a la catástrofe ultravioleta clásica">
+    <figcaption><span class="cap">Diapositiva · Flujo, luminosidad e intensidad</span>La intensidad espectral <span class="katex-inline" data-tex="I_\lambda(\lambda,\Omega)"></span> y las curvas de cuerpo negro: nota cómo la «teoría clásica» (negra) diverge a longitudes de onda cortas —la <em>catástrofe ultravioleta</em> que solo la cuantización de Planck pudo resolver. Abajo, <span class="katex-inline" data-tex="L=A\sigma T^4"></span> y <span class="katex-inline" data-tex="F=L/4\pi r^2"></span>.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-flujo">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Luminosidad (Stefan–Boltzmann) y flujo</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el radio y la temperatura de una estrella para su luminosidad, y una distancia para el flujo que recibirías. Radio en radios solares, distancia en UA.</p>
+    <div class="presets" id="flujo-presets">
+      <button data-r="1" data-t="5778" data-d="1">Sol visto desde la Tierra</button>
+      <button data-r="1" data-t="5778" data-d="5.2">Sol desde Júpiter (5,2 UA)</button>
+      <button data-r="700" data-t="3500" data-d="1">Supergigante roja</button>
+      <button data-r="0.6" data-t="9940" data-d="543000">Sirio A (a 8,6 al)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="flujo-r">Radio R (R☉)</label><input type="number" id="flujo-r" step="any" value="1"></div>
+      <div><label for="flujo-t">Temperatura T (K)</label><input type="number" id="flujo-t" step="any" value="5778"></div>
+    </div>
+    <label for="flujo-d">Distancia (UA)</label>
+    <input type="number" id="flujo-d" step="any" value="1">
+    <output id="flujo-out"></output>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Magnitudes: la escala logarítmica</h2>
+    <p>Una herencia de Hiparco que encaja con cómo el ojo percibe el brillo.</p>
+  </div></div>
+
+  <p>Los astrónomos no medimos el flujo en watts, sino en <span class="hl">magnitudes</span>: una escala <strong>logarítmica</strong> e <strong>invertida</strong>. Viene de <strong>Hiparco</strong>, que clasificó las estrellas de «primera clase» (las más brillantes) a «sexta» (las más débiles que veía a ojo). Resulta que esto encaja con la fisiología: el ojo percibe el brillo de forma logarítmica (lo que vemos «el doble de brillante» es en realidad ~10 veces más brillante).</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m - m_{\text{ref}} = -2{,}5\,\log_{10}\!\left(\frac{F}{F_{\text{ref}}}\right)"></div>
+    <small>La diferencia de magnitud entre dos estrellas depende del <strong>cociente</strong> de sus flujos, no de su diferencia. El signo negativo invierte la escala: <strong>mayor magnitud = más débil</strong>. Se calibra contra un flujo estándar (estrellas conocidas en la misma imagen). Una diferencia de 5 magnitudes equivale exactamente a un factor 100 en flujo.</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Rango de la escala</span>
+    <p>Una estrella de magnitud 1 es <strong>100 veces</strong> más brillante que una de magnitud 6; cada magnitud es un factor <span class="katex-inline" data-tex="100^{1/5}\approx 2{,}5"></span>. A ojo, alguien con muy buena vista llega apenas a magnitud 6. Un telescopio de 10 cm alcanza ~magnitud 12; lo más débil fotografiado está cerca de <strong>magnitud 29</strong>. Como la escala es logarítmica, cada magnitud extra cuesta cada vez más. (El Sol tiene magnitud ~−27.)</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-16.jpg" alt="Definición de magnitud aparente, referencia a Hiparco y tabla de brillo relativo por magnitud">
+    <figcaption><span class="cap">Diapositiva · Magnitudes</span>La fórmula <span class="katex-inline" data-tex="m-m_{\text{ref}}=-2{,}5\log_{10}(F/F_{\text{ref}})"></span> y la tabla de brillo relativo: magnitud 1 → 1,000; magnitud 6 → 0,100 (un factor 100). El profesor adelantó que esta fórmula «estará sí o sí» en la prueba.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-mag">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Magnitud ↔ cociente de flujo</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa una diferencia de magnitud <span class="katex-inline" data-tex="\Delta m = m - m_{\text{ref}}"></span> y obtén cuántas veces más (o menos) brillante es la fuente respecto a la referencia.</p>
+    <div class="presets" id="mag-presets">
+      <button data-dm="1">Δm = 1</button>
+      <button data-dm="5">Δm = 5</button>
+      <button data-dm="-5">Δm = −5</button>
+      <button data-dm="28">m6 vs m=−27 (Sol)</button>
+    </div>
+    <label for="mag-dm">Δm = m − m_ref</label>
+    <input type="number" id="mag-dm" step="any" value="5">
+    <output id="mag-out"></output>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Universo multibanda y atmósfera</h2>
+    <p>Cada longitud de onda muestra una física distinta —si la atmósfera la deja pasar.</p>
+  </div></div>
+
+  <p>Observar en distintas longitudes de onda no es redundante: revela <strong>fenómenos físicos diferentes</strong>. El Sol en visible se ve como una pelotita suave; en ultravioleta aparecen diferencias de temperatura y, a más energía, hierro ionizado siguiendo las líneas de campo magnético. La Vía Láctea cambia por completo de aspecto banda a banda: en radio e infrarrojo brillan las zonas de polvo y formación estelar que en el visible se ven como sombras oscuras.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-17.jpg" alt="Mosaico del Sol en distintas longitudes de onda">
+    <figcaption><span class="cap">Diapositiva · El Sol multibanda</span>El mismo Sol en muchas longitudes de onda: superficie suave en el visible, estructuras de temperatura en UV, material guiado por el campo magnético a más energía. Distinta luz, distinta física.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-18.jpg" alt="La Vía Láctea vista en distintas bandas del espectro, del radio a los rayos gamma">
+    <figcaption><span class="cap">Diapositiva · La Vía Láctea multibanda</span>De arriba (longitudes largas: radio/microondas/IR) hacia abajo (rayos X/gamma). Las nubes de polvo que ocultan estrellas en el visible son las regiones más brillantes en infrarrojo y radio: ahí se forman estrellas.</figcaption>
+  </figure>
+
+  <p>Pero hay un filtro inevitable: la <strong>atmósfera</strong>. Es muy eficiente absorbiendo todo lo más energético que el visible (rayos gamma, X, UV) —por eso esos telescopios deben ir al espacio (Hubble en UV, Chandra en rayos X, Swift en gamma). El <strong>visible</strong> alcanza a llegar a la superficie. En el infrarrojo hay <strong>bandas</strong> de absorción intensa, y en el <strong>radio</strong> la atmósfera es bastante transparente.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-19.jpg" alt="Opacidad atmosférica vs longitud de onda: ventanas óptica y de radio, bloqueo de gamma/X/UV y bandas infrarrojas">
+    <figcaption><span class="cap">Diapositiva · La atmósfera</span>Opacidad atmosférica vs. longitud de onda. Dos «ventanas» principales: la <strong>óptica</strong> (con algo de distorsión) y la de <strong>radio</strong>. Lo más energético se observa solo desde el espacio; el infrarrojo, lleno de bandas de absorción.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué absorbe la atmósfera</span>
+    <p>La luz <strong>visible</strong> tiene energía parecida a las transiciones <em>electrónicas</em> de los átomos: solo se absorbe en líneas muy precisas (las <strong>líneas telúricas</strong>), así que casi toda pasa. La luz <strong>infrarroja</strong>, menos energética, no mueve electrones pero sí hace <em>rotar y vibrar moléculas</em> como el agua (H₂O), el ozono (O₃) y el oxígeno: de ahí las anchas bandas de absorción del IR. Por eso ALMA está tan alto (poca atmósfera encima) para «pescar» algo del infrarrojo/submilimétrico.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Detectores a través del espectro</h2>
+    <p>Cada banda exige una técnica distinta para captar y «doblar» la luz.</p>
+  </div></div>
+
+  <h3>Visible: eficiencia cuántica</h3>
+  <p>Comparar detectores totalmente distintos se hace en escala logarítmica de <strong>eficiencia cuántica</strong> (qué fracción de fotones produce señal). El <strong>ojo</strong> es ~1% eficiente (1 de cada 100 fotones); la <strong>fotografía</strong>, algo mejor; el <strong>fotomultiplicador</strong>, mucho más; y los <strong>CCD</strong> modernos se acercan al <strong>100%</strong>. No solo registran información: aprovechan casi toda la luz que reciben.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-20.jpg" alt="Eficiencia cuántica vs longitud de onda en el visible: ojo, fotografía, vidicon, fotomultiplicador y CCD">
+    <figcaption><span class="cap">Diapositiva · Visible</span>Eficiencia cuántica (%) en escala logarítmica: del 1% del ojo al ~100% del CCD adelgazado (<em>thinned</em>). El salto de sensibilidad explica por qué el CCD revolucionó la astronomía óptica.</figcaption>
+  </figure>
+
+  <h3>Infrarrojo: aleaciones y <em>dithering</em></h3>
+  <p>En el infrarrojo se usan aleaciones especiales (InGaAs, MCT/HgCdTe), menos eficientes que el silicio del visible y con más problemas: los píxeles «se echan a perder». Por eso el James Webb y casi todos los observatorios IR usan <strong>dithering</strong>: toman una foto, se corren un poquito, otra, otra (p. ej. 2×2 o 3×3) y las combinan, para que lo que se quiere observar caiga en algún momento sobre un píxel sano.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-21.jpg" alt="Curvas de eficiencia cuántica en el infrarrojo para Si CCD, InGaAs y MCT">
+    <figcaption><span class="cap">Diapositiva · Infrarrojo</span>El silicio (Si CCD) cae rápido más allá del visible; InGaAs y MCT extienden la sensibilidad al IR cercano y medio, pero con menor eficiencia. De ahí el truco del <em>dithering</em> para sortear píxeles malos.</figcaption>
+  </figure>
+
+  <h3>Radio: antenas, voltaje e interferometría</h3>
+  <p>En radio no se «cuentan fotones»: la antena recibe la luz, la proyecta en el foco y un detector mide directamente la variación del <strong>campo eléctrico</strong> —una señal de voltaje en el tiempo. Se puede reconstruir una imagen moviendo la antena (cada apuntada es un «píxel») y barrer frecuencias para armar la SED. Pero lo potente es mezclar la señal de varias antenas: <span class="hl">interferometría</span>, como hace ALMA, para sintetizar una imagen de alta resolución.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-22.jpg" alt="Esquema de antena dipolo recibiendo campo eléctrico y fotografía del Very Large Array (VLA)">
+    <figcaption><span class="cap">Diapositiva · Radio</span>Una antena hace oscilar electrones con el campo eléctrico entrante (igual que la antena emisora, al revés). A la derecha, el VLA: combinar antenas permite interferometría y medir polarización.</figcaption>
+  </figure>
+
+  <h3>Rayos X: incidencia rasante</h3>
+  <p>Los rayos X <em>atraviesan</em> un espejo normal. La solución (Chandra) son <strong>tubos concéntricos</strong> de metal con un ángulo muy pequeño: la luz incide casi rozando («de costado») y se desvía poco a poco hasta caer en el detector. La analogía: una bala que te da de frente te atraviesa; de costado, apenas te roza y se desvía. Para detectar la posición de fuentes se usa también la <strong>máscara codificada</strong> (Swift, INTEGRAL).</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-23.jpg" alt="Óptica de rayos X de incidencia rasante de Chandra y esquema de máscara codificada con histograma de cuentas">
+    <figcaption><span class="cap">Diapositiva · Rayos X</span>Izquierda: los espejos anidados de incidencia rasante de Chandra. Derecha: la <strong>máscara codificada</strong> proyecta sombras según la dirección de la fuente; del histograma de cuentas se reconstruye una imagen (de baja resolución).</figcaption>
+  </figure>
+
+  <h3>Rayos gamma y Cherenkov</h3>
+  <p>Para rayos gamma se usa también máscara codificada. Y para las partículas <em>realmente</em> energéticas (un solo rayo cósmico puede tener la energía de una pelota de tenis a 100 km/h), se usa la <strong>radiación de Cherenkov</strong>: cuando una partícula viaja por el agua <em>más rápido que la luz en ese medio</em>, genera un destello azul (el análogo luminoso del «boom» sónico de un avión supersónico). Son tanques de agua con un detector; combinando varios se reconstruye de dónde vino la partícula. En el norte de Argentina hay arreglos de estos «tarros con cámara».</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-24.jpg" alt="Telescopio Cherenkov VERITAS y luz azul de Cherenkov en un reactor nuclear">
+    <figcaption><span class="cap">Diapositiva · Rayos gamma</span>VERITAS y la radiación de Cherenkov (el mismo brillo azul de los reactores nucleares). Partículas más veloces que la luz en el agua emiten ese destello, que delata su paso y dirección.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Toda la sección es un catálogo de <strong>transducciones</strong>: fotón→carga (CCD), fotón→voltaje (radio), partícula→destello→fotón (Cherenkov), dirección→patrón de sombras (máscara codificada). Y dos ideas de procesamiento de señales reaparecen: <em>interferometría</em> (combinar fases de varios sensores para sintetizar apertura) y <em>reconstrucción</em> a partir de un histograma de cuentas (problema inverso). Elegir el detector es elegir cómo convertir el mensajero en un número.</p>
+  </div>
+</section>
+
+<!-- ============ S13 ============ -->
+<section id="s13">
+  <div class="shead"><span class="num">13</span><div>
+    <h2>Impacto en astronomía y futuro</h2>
+    <p>Medir flujo en el tiempo: curvas de luz, tránsitos y la próxima generación.</p>
+  </div></div>
+
+  <p>Más allá de las imágenes «lindas», medir el <strong>flujo en función del tiempo</strong> —una <span class="hl">curva de luz</span>— es enormemente poderoso. Si un planeta pasa por delante de su estrella (un <strong>tránsito</strong>), el brillo baja de forma periódica y diminuta, pero medible con precisión. Así Kepler detectó miles de exoplanetas.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-25.jpg" alt="Curva de luz de KIC 8191672 con tránsitos periódicos y diagrama del telescopio espacial Kepler">
+    <figcaption><span class="cap">Diapositiva · Impacto en astronomía</span>Curva de luz (brillo en cuentas vs. tiempo, en día juliano): las caídas periódicas son tránsitos planetarios. A la derecha, el telescopio espacial Kepler con su fotómetro CCD. Medir flujo bien y en el tiempo abre toda la ciencia de exoplanetas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-26.jpg" alt="Concepto artístico de la misión PLATO de la ESA con su conjunto de cámaras">
+    <figcaption><span class="cap">Diapositiva · Futuro</span><strong>PLATO</strong> (PLAnetary Transits and Oscillations of stars, ESA): con su batería de cámaras busca tránsitos y oscilaciones estelares, con la meta de hallar una Tierra alrededor de una estrella como el Sol.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: casi toda la astronomía es <strong>leer fotones</strong>, y cada banda del espectro exige su propio detector y habilita su propia física. Vimos la luz como onda y partícula, el cuerpo negro y Wien, los observables (incluida la polarización), la cadena ojo→fotografía→fotomultiplicador→CCD, y las definiciones operativas de <strong>luminosidad, flujo y magnitud</strong>. Lo que no es radiación EM —ondas gravitacionales y neutrinos— se verá en cosmología y en estelar. Próximo paso natural: <strong>telescopios</strong>, foco, alineación y todas las correcciones que hacen que esta luz tan trabajada llegue limpia al detector.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Mensajeros</b></td><td>EM, rayos cósmicos, neutrinos, ondas gravitacionales</td><td>La astronomía es observación pasiva; cuatro canales hoy</td></tr>
+      <tr><td><b>Onda</b></td><td><span class="katex-inline" data-tex="\lambda\nu=c"></span>, <span class="katex-inline" data-tex="c=1/\sqrt{\mu_0\varepsilon_0}"></span></td><td>La luz es onda EM (Maxwell); <span class="katex-inline" data-tex="\vec{E}\perp\vec{B}\perp\vec{k}"></span></td></tr>
+      <tr><td><b>Partícula</b></td><td><span class="katex-inline" data-tex="E=h\nu=hc/\lambda"></span></td><td>Energía en cuantos; base de los detectores que cuentan fotones</td></tr>
+      <tr><td><b>Ley de Wien</b></td><td><span class="katex-inline" data-tex="\lambda_{\text{peak}}=3\times10^{-3}/T"></span></td><td>El pico se corre al azul al subir T: temperatura ↔ color</td></tr>
+      <tr><td><b>Sección eficaz</b></td><td>«Tamaño» de interacción</td><td>Se interactúa mejor con luz de tamaño comparable a la materia</td></tr>
+      <tr><td><b>Polarización</b></td><td>Lineal / circular / elíptica</td><td>Lentes polarizados, CMB, discos protoplanetarios</td></tr>
+      <tr><td><b>Parámetros de Stokes</b></td><td><span class="katex-inline" data-tex="(I,Q,U,V)"></span>, <span class="katex-inline" data-tex="I^2\ge Q^2+U^2+V^2"></span></td><td>Codifican el estado de polarización</td></tr>
+      <tr><td><b>Observables</b></td><td>λ, dirección, tiempo, intensidad/SED, polarización, fase</td><td>Todo lo que se le puede extraer a un fotón</td></tr>
+      <tr><td><b>Efecto fotoeléctrico</b></td><td><span class="katex-inline" data-tex="h\nu\ge W"></span> (función de trabajo)</td><td>Nobel de Einstein; convierte luz en voltaje medible</td></tr>
+      <tr><td><b>CCD</b></td><td>Grilla de píxeles fotoeléctricos; LSST 3 Gpx</td><td>«Muchos baldes»: imagen + eficiencia ~100%</td></tr>
+      <tr><td><b>Luminosidad</b></td><td><span class="katex-inline" data-tex="L=4\pi R^2\sigma T^4"></span> (Stefan–Boltzmann)</td><td>Energía total emitida por segundo (watts)</td></tr>
+      <tr><td><b>Flujo</b></td><td><span class="katex-inline" data-tex="F=L/4\pi r^2"></span></td><td>Potencia/área recibida; cae como <span class="katex-inline" data-tex="1/r^2"></span></td></tr>
+      <tr><td><b>Magnitud</b></td><td><span class="katex-inline" data-tex="m-m_{\text{ref}}=-2{,}5\log_{10}(F/F_{\text{ref}})"></span></td><td>Escala log e invertida; mayor magnitud = más débil</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>Óptica y radio; IR con bandas; gamma/X/UV al espacio</td><td>La atmósfera filtra qué se observa desde tierra</td></tr>
+      <tr><td><b>Detectores por banda</b></td><td>CCD, IR+dithering, radio/voltaje, X rasante, Cherenkov</td><td>Cada tipo de luz exige su técnica</td></tr>
+      <tr><td><b>Curva de luz</b></td><td>Flujo vs. tiempo (Kepler, PLATO)</td><td>Tránsitos: detección de exoplanetas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c2-examen-01.html">Examen 01<small>Mensajeros y luz</small></a></li>
+    <li><a href="m2c2-examen-02.html">Examen 02<small>Onda y partícula</small></a></li>
+    <li><a href="m2c2-examen-03.html">Examen 03<small>Cuerpo negro y Wien</small></a></li>
+    <li><a href="m2c2-examen-04.html">Examen 04<small>Espectro EM</small></a></li>
+    <li><a href="m2c2-examen-05.html">Examen 05<small>Polarización y Stokes</small></a></li>
+    <li><a href="m2c2-examen-06.html">Examen 06<small>Observables y SED</small></a></li>
+    <li><a href="m2c2-examen-07.html">Examen 07<small>Ojo, fotografía y fotoeléctrico</small></a></li>
+    <li><a href="m2c2-examen-08.html">Examen 08<small>CCD y detectores</small></a></li>
+    <li><a href="m2c2-examen-09.html">Examen 09<small>Flujo, luminosidad y magnitud</small></a></li>
+    <li><a href="m2c2-examen-10.html">Examen 10<small>Atmósfera y multibanda</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo II del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 24 may 2026). Elaborado a partir de la transcripción del audio (<code>observación/m2/ff/Observacion-m2c2.md</code>) y las diapositivas <code>Modulo_II_Clase_2_.pdf</code> («Detectando flujo»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. constante de Wien exacta 2,898×10⁻³ m·K vs. 3×10⁻³ de la lámina; constante de Stefan–Boltzmann σ≈5,67×10⁻⁸; constante solar ~1361 W/m²; magnitud del Sol ≈−27; un «día» de fotón escapando del Sol ≈ 1 millón de años). Algunas frases del audio eran ambiguas (p. ej. la partícula «más rápida que la luz» se refiere a más rápida que la luz <em>en el medio</em>, no en el vacío) y se interpretaron con cuidado. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+var WIEN_B = 2.898e-3;   // m·K (valor exacto)
+var SIGMA  = 5.670374e-8; // W m^-2 K^-4
+var RSUN   = 6.957e8;    // m
+var AU     = 1.495978707e11; // m
+var LSUN   = 3.828e26;   // W
+
+function band(lambda_m){
+  var nm = lambda_m*1e9;
+  if(nm < 10) return "rayos gamma / X";
+  if(nm < 400) return "ultravioleta";
+  if(nm < 700) return "visible";
+  if(nm < 1e6) return "infrarrojo";
+  if(nm < 1e9) return "microondas";
+  return "radio";
+}
+function fmtLambda(m){
+  if(m < 1e-9) return (m*1e12).toFixed(2)+" pm";
+  if(m < 1e-6) return (m*1e9).toFixed(1)+" nm";
+  if(m < 1e-3) return (m*1e6).toFixed(2)+" µm";
+  if(m < 1)    return (m*1e3).toFixed(2)+" mm";
+  return m.toFixed(3)+" m";
+}
+
+// ---- Widget 1: Wien ----
+(function(){
+  var t=document.getElementById('wien-t'), out=document.getElementById('wien-out');
+  function calc(){
+    var T=parseFloat(t.value);
+    if(!(T>0)){ out.innerHTML="Ingresa una temperatura positiva."; return; }
+    var lam=WIEN_B/T;
+    out.innerHTML="Pico de emisión <span class='k'>λ_peak</span> = <b>"+fmtLambda(lam)+"</b><br>"+
+      "Banda: <b>"+band(lam)+"</b>"+
+      "<span style='color:var(--muted);font-size:.9rem'> · con la constante redondeada 3×10⁻³ daría "+fmtLambda(3e-3/T)+".</span>";
+  }
+  t.addEventListener('input',calc);
+  document.querySelectorAll('#wien-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ t.value=b.dataset.t; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: flujo / Stefan-Boltzmann ----
+(function(){
+  var r=document.getElementById('flujo-r'), t=document.getElementById('flujo-t'),
+      d=document.getElementById('flujo-d'), out=document.getElementById('flujo-out');
+  function calc(){
+    var R=parseFloat(r.value)*RSUN, T=parseFloat(t.value), D=parseFloat(d.value)*AU;
+    if(!(R>0)||!(T>0)||!(D>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var L=4*Math.PI*R*R*SIGMA*Math.pow(T,4);
+    var F=L/(4*Math.PI*D*D);
+    out.innerHTML="Luminosidad <span class='k'>L</span> = <b>"+L.toExponential(3)+"</b> W ("+(L/LSUN).toExponential(3)+" L☉)<br>"+
+      "Flujo recibido <span class='k'>F</span> = <b>"+F.toExponential(3)+"</b> W/m²"+
+      "<span style='color:var(--muted);font-size:.9rem'> (constante solar ≈ 1361 W/m²).</span>";
+  }
+  r.addEventListener('input',calc); t.addEventListener('input',calc); d.addEventListener('input',calc);
+  document.querySelectorAll('#flujo-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ r.value=b.dataset.r; t.value=b.dataset.t; d.value=b.dataset.d; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: magnitud ----
+(function(){
+  var dm=document.getElementById('mag-dm'), out=document.getElementById('mag-out');
+  function calc(){
+    var D=parseFloat(dm.value);
+    if(isNaN(D)){ out.innerHTML="Ingresa un valor."; return; }
+    var ratio=Math.pow(10,-0.4*D); // F/F_ref
+    var word = ratio>=1 ? "más brillante" : "más débil";
+    var factor = ratio>=1 ? ratio : 1/ratio;
+    out.innerHTML="Cociente de flujo <span class='k'>F/F_ref</span> = <b>"+ratio.toExponential(3)+"</b><br>"+
+      "La fuente es <b>"+factor.toFixed(factor<100?2:0)+"×</b> "+word+" que la referencia."+
+      "<span style='color:var(--muted);font-size:.9rem'> (Δm = 5 ⇒ factor 100 exacto.)</span>";
+  }
+  dm.addEventListener('input',calc);
+  document.querySelectorAll('#mag-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ dm.value=b.dataset.dm; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SNR y Calibraciones — Instrumentación y Observación, Módulo II · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo II · Clase 3</span>
+  <h1>SNR y <em>Calibraciones</em></h1>
+  <p class="sub">La clase de astronomía como <strong>análisis de datos</strong>: cuándo creerle a una señal. Pasamos del método científico (hipótesis falsificable, Bayes) a la estadística del fotón (binomial → Poisson, <span class="katex-inline" data-tex="\sigma=\sqrt{N}"></span>), a la señal a ruido y su crecimiento con el tiempo, y al trabajo «sucio» de la observación: reducir (bias y flat), calibrar en flujo y longitud de onda, hacer espectroscopía y astrometría, y corregir la atmósfera.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Tema:</b> Señal a ruido, estadística y reducción de datos</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">¿</span>Cuándo decimos que «hay» algo en una imagen? Esta clase es la bisagra entre tomar datos y hacer ciencia con ellos. La sigla que la atraviesa es <span class="hl">SNR</span> (<em>signal-to-noise ratio</em>, señal a ruido): la pregunta de fondo es siempre <strong>cuánto le creemos a un resultado</strong>. Para responderla, el profesor arma una cadena que a un ingeniero/informático le resulta familiar: un fenómeno binario (un fotón excita o no excita un sensor) genera estadística de conteo (Poisson), de ahí sale el ruido <span class="katex-inline" data-tex="\sqrt{N}"></span>, y de ahí la confianza en sigmas. Lo demás —bias, flat, filtros, estándares, gratings, airmass— es el pipeline que convierte voltajes en watts por metro cuadrado y posiciones confiables en el cielo. La próxima clase incluirá una experiencia práctica observando con el telescopio <em>GOTO</em> de Cerro Calán.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Ciencia: hipótesis falsificable y Bayes</a></li>
+    <li><a href="#s2">Qué medimos: tipos de datos</a></li>
+    <li><a href="#s3">Contar fotones: energía y flujo</a></li>
+    <li><a href="#s4">Estadística: del sí/no a Poisson</a></li>
+    <li><a href="#s5">Señal a ruido y tiempo de integración</a></li>
+    <li><a href="#s6">¿Cuándo creer? Sigmas y el Higgs</a></li>
+    <li><a href="#s7">Detectores: eficiencia cuántica</a></li>
+    <li><a href="#s8">Reducción: bias y flat</a></li>
+    <li><a href="#s9">Calibración fotométrica: filtros y estándares</a></li>
+    <li><a href="#s10">Espectroscopía: separar la luz</a></li>
+    <li><a href="#s11">Calibración en longitud de onda</a></li>
+    <li><a href="#s12">Astrometría</a></li>
+    <li><a href="#s13">Atmósfera y airmass</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Ciencia: hipótesis falsificable y Bayes</h2>
+    <p>Antes de hablar de ruido, hay que recordar para qué tomamos datos: para tratar de estar equivocados.</p>
+  </div></div>
+
+  <p>El profesor parte con una idea contraintuitiva: en ciencia uno <strong>anda buscando estar equivocado</strong>. El método científico propone una <span class="hl">hipótesis</span> (un modelo) y diseña un <strong>experimento que pueda falsificarla</strong>. Si el experimento «sale bien» y solo confirma lo que ya creíamos, no aprendimos nada nuevo; lo interesante ocurre cuando el resultado es <em>distinto</em> de lo esperado. La anécdota que cuenta —alguien que borró de su muestra una estrella «fea» que no calzaba con el diagrama de Hertzsprung–Russell, y resultó ser un tipo nuevo de estrella azul pulsante— es una advertencia: descartar lo que no encaja puede ser tirar a la basura el descubrimiento.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-02.jpg" alt="Lámina CIENCIA: hipótesis, experimentos que las invalidan, TEST como comparación entre predicción y experimento">
+    <figcaption><span class="cap">Diapositiva · Ciencia</span>La ciencia busca «la verdad natural» mediante <strong>hipótesis (modelos)</strong>. Para testearlas se hacen experimentos capaces de <em>invalidarlas</em>, de modo de explicar observaciones existentes y predecir nuevos resultados. El <strong>TEST</strong> es siempre una <em>comparación entre predicción y resultado del experimento</em>.</figcaption>
+  </figure>
+
+  <p>Esta comparación es <strong>inherentemente estadística</strong>: no preguntamos «¿es cierto el modelo, sí o no?», sino con qué <em>probabilidad</em> los datos son consistentes con él. Aquí aparece el <span class="hl">teorema de Bayes</span> (atribuido a Thomas Bayes, ministro/clérigo del s. XVIII; en la clase se dijo «monje de la Edad Media», lo cual es un desliz que conviene corregir). Permite invertir la pregunta fácil por la difícil:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P(M\mid D) = \frac{P(D\mid M)\,P(M)}{P(D)}"></div>
+    <small>Lo que <em>queremos</em> es <span class="katex-inline" data-tex="P(M\mid D)"></span>: la probabilidad del <strong>modelo</strong> <span class="katex-inline" data-tex="M"></span> dados los <strong>datos</strong> <span class="katex-inline" data-tex="D"></span>. Es difícil de obtener directamente. Lo <em>fácil</em> de calcular es <span class="katex-inline" data-tex="P(D\mid M)"></span> (la <strong>verosimilitud</strong>: «si el modelo fuera cierto, ¿qué tan probable es ver estos datos?»). <span class="katex-inline" data-tex="P(M)"></span> es el <strong>prior</strong> (todo lo que sabíamos antes); <span class="katex-inline" data-tex="P(D)"></span> normaliza para que todo sume 1.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-03.jpg" alt="Lámina CIENCIA con el diagrama de Hubble original y la fórmula de Bayes P(M|D)=P(D|M)P(M)/P(D)">
+    <figcaption><span class="cap">Diapositiva · Bayes y el diagrama de Hubble</span>El <strong>diagrama de Hubble</strong> original (velocidad vs. distancia en parsecs/megaparsecs) ilustra que un resultado puede ser «feliz» aun con datos malos: Hubble obtuvo una pendiente de ~500 km/s/Mpc cuando el valor real es ~70. La probabilidad del modelo dado los datos <em>se va corrigiendo</em> a medida que mejoran las mediciones. Mensaje central: <strong>queremos que el resultado nos contradiga</strong>; ahí se aprende.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Bayes es el motor de casi todo el ML probabilístico: <em>prior × verosimilitud → posterior</em>. La verosimilitud <span class="katex-inline" data-tex="P(D\mid M)"></span> es lo que maximizas al ajustar un modelo (MLE); el prior es la regularización. Y «experimento falsificable» es exactamente un <strong>test de hipótesis</strong>: defines un estadístico y rechazas <span class="katex-inline" data-tex="H_0"></span> solo si el dato cae en una región suficientemente improbable bajo el modelo nulo.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Qué medimos: tipos de datos</h2>
+    <p>Imágenes, contornos de radio, espectros: distintos «sabores» de luz, todos hechos de fotones contados.</p>
+  </div></div>
+
+  <p>En astronomía se mide un sinnúmero de variables. El profesor recorre los <strong>tipos de datos</strong> más comunes:</p>
+  <ul>
+    <li><strong>Imágenes en color:</strong> no salen de un sensor RGB. La cámara astronómica tiene <em>un solo</em> sensor (su prioridad es captar la máxima cantidad de luz). El color se construye tomando la misma zona con <strong>varios filtros</strong> (rojo, verde, azul…) y combinándolos después. «Todos los datos son falsos» en ese sentido —también los de nuestros ojos: son una representación.</li>
+    <li><strong>Contornos de radio:</strong> esas líneas de nivel superpuestas se obtienen apuntando una antena con cierto <span class="hl">beam</span> (la zona del cielo que promedia), barriendo punto a punto y mapeando la intensidad recibida, como un plano de alturas de señal.</li>
+    <li><strong>Espectros:</strong> separar la luz —el «arcoíris»— y contar fotones ordenados por longitud de onda / energía / frecuencia.</li>
+    <li><strong>Rayos X:</strong> se ven distinto; cada técnica deja una «firma» de cómo se tomó el dato.</li>
+  </ul>
+
+  <p>Decir «aquí hay una galaxia» o «aquí hay una estrella» es, en el fondo, afirmar que en ese píxel la <strong>señal supera al ruido</strong>. Y observar hoy es distinto que hace 20 años: ya casi no se «trasnocha» frente al telescopio; uno manda un <em>script</em> y recibe los datos en días. Además, archivos como los del <strong>Hubble</strong> y el <strong>James Webb</strong> se vuelven públicos (típicamente tras ~6 meses), de modo que cualquiera puede bajar y reanalizar esos datos.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-04.jpg" alt="Lámina MIDIENDO con el temario y una galaxia del JWST con su espectro extraído">
+    <figcaption><span class="cap">Diapositiva · Midiendo</span>El temario de la clase: tipos de datos, ruido de Poisson e incerteza, señal a ruido (SNR), calibración, información de los datos e instrumentos modernos. A la derecha, una galaxia del <strong>JWST</strong> con su espectro extraído mediante distintos métodos de fotometría/extracción: la misma fuente medida de varias formas para estimar bien el flujo y su error.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Del profesor — la experiencia con el GOTO</span>
+    <p>La próxima clase tendrá una <strong>experiencia observacional</strong>: se compartirán datos tomados por los propios estudiantes con el telescopio <em>GOTO</em> de Cerro Calán (clima permitiendo). El objetivo es que prueben qué significa <strong>calibrar</strong> y <strong>encontrar una señal</strong>, al nivel que cada quien quiera: a ojo, con Excel, o programando con herramientas de análisis de datos.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Contar fotones: energía y flujo</h2>
+    <p>Toda medición de brillo se reduce a contar fotones y convertir cuentas en energía por unidad de área.</p>
+  </div></div>
+
+  <p>El detector hace lo mismo siempre: un fotón llega, por <strong>efecto fotoeléctrico</strong> arranca un electrón, y esa minúscula carga se amplifica y se lee como un voltaje. Ese voltaje se transforma en <span class="hl">cuentas</span> (número de eventos). Para pasar de «cuentas» a algo físico necesitamos la energía de cada fotón:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = h\nu = \frac{hc}{\lambda}"></div>
+    <small>La energía de un fotón es proporcional a su frecuencia <span class="katex-inline" data-tex="\nu"></span> (e inversamente proporcional a su longitud de onda <span class="katex-inline" data-tex="\lambda"></span>). Un fotón azul trae más energía que uno rojo. <span class="katex-inline" data-tex="h"></span> es la constante de Planck, <span class="katex-inline" data-tex="c"></span> la velocidad de la luz.</small>
+  </div>
+
+  <p>Y la <strong>irradiancia</strong> o flujo que recibimos combina el conteo de fotones, su energía y el área colectora:</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="I\,[\mathrm{W\,m^{-2}}] = N \times \frac{hc}{\lambda} \times \frac{1}{A}"></div>
+    <small><span class="katex-inline" data-tex="N"></span> es el número de fotones contados, <span class="katex-inline" data-tex="hc/\lambda"></span> la energía de cada uno, y <span class="katex-inline" data-tex="1/A"></span> reparte sobre el área del detector (y por tiempo, para una potencia por unidad de área). Cuando el rango de <span class="katex-inline" data-tex="\lambda"></span> es muy amplio, al espectro se le llama <strong>SED</strong> (<em>Spectral Energy Distribution</em>).</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-08.jpg" alt="Lámina Contando fotones: E=hν, I=N·hc/λ·1/A y curvas de cuerpo negro a 3000, 4000 y 5000 K">
+    <figcaption><span class="cap">Diapositiva · Contando fotones</span>De <span class="katex-inline" data-tex="E=h\nu"></span> al flujo <span class="katex-inline" data-tex="I=N\,(hc/\lambda)\,(1/A)"></span>. Las curvas de <strong>cuerpo negro</strong> a distintas temperaturas (3000, 4000, 5000 K) muestran cómo el <em>peak</em> se corre hacia el azul al subir la temperatura (Wien). La curva «classical theory» que se dispara es la <strong>catástrofe ultravioleta</strong>, el problema clásico que resolvió la cuantización de Planck.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-foton">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Energía de un fotón</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la longitud de onda y obtén la energía del fotón (en julios y electronvolt). Nota cómo el azul/UV trae más energía que el rojo/IR.</p>
+    <div class="presets" id="fot-presets">
+      <button data-l="656.3">Hα (656,3 nm)</button>
+      <button data-l="550">Visible verde (550 nm)</button>
+      <button data-l="1150">JWST F115W (1,15 µm)</button>
+      <button data-l="121.6">Lyman-α (121,6 nm)</button>
+    </div>
+    <label for="fot-l">Longitud de onda λ (nm)</label>
+    <input type="number" id="fot-l" step="any" value="550">
+    <output id="fot-out"></output>
+  </div>
+
+  <p>El profesor liga esto a un caso de frontera: los espectros de <strong>atmósferas de exoplanetas</strong>. El método consiste en medir el espectro de la estrella sola y luego durante el tránsito del planeta; la <em>diferencia</em> (la «profundidad del tránsito» en función de <span class="katex-inline" data-tex="\lambda"></span>) revela qué moléculas hay en la atmósfera. Pero la señal es diminuta y muy ruidosa: cada punto trae su <strong>barra de error</strong> (la incerteza <span class="katex-inline" data-tex="\sim\sqrt{N}"></span>), y a menudo «casi toda la señal» de una banda depende de uno o dos puntos. La pregunta vuelve a ser la misma: ¿le creemos?</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-09.jpg" alt="Espectros de atmósferas de exoplanetas GJ 1132 b y WASP-39 b con bandas de agua, metano, CO y potasio">
+    <figcaption><span class="cap">Diapositiva · Espectros de exoplanetas</span>Composición atmosférica de exoplanetas: GJ 1132 b (con metano y cianuro de hidrógeno propuestos, modelo en amarillo sobre datos celestes con barras de error) y el «Saturno caliente» WASP-39 b (agua, potasio, monóxido de carbono), medido con el JWST. El <strong>modelo</strong> es la curva; los <strong>datos</strong> son los puntos con su incerteza. Aquí Bayes es literal: <span class="katex-inline" data-tex="P(\text{atmósfera}\mid \text{espectro})"></span>.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Estadística: del sí/no a Poisson</h2>
+    <p>Un fotón excita o no excita el sensor. Esa moneda repetida millones de veces da Poisson, y con ella el ruido.</p>
+  </div></div>
+
+  <p>Casi toda la estadística de detección se basa en un evento <strong>binario</strong>: ¿el fotón excitó o no al sensor? Es el experimento de <span class="hl">Bernoulli</span> (una moneda con probabilidad <span class="katex-inline" data-tex="p"></span> de «cara»). Si lanzamos <span class="katex-inline" data-tex="N"></span> veces, la probabilidad de obtener exactamente <span class="katex-inline" data-tex="n"></span> «caras» es la <strong>distribución binomial</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P(n) = \binom{N}{n} p^{n}(1-p)^{N-n}"></div>
+    <small>El coeficiente <span class="katex-inline" data-tex="\binom{N}{n}"></span> cuenta de cuántas formas pueden salir <span class="katex-inline" data-tex="n"></span> caras (cara-sello y sello-cara cuentan distinto). Son los números del <strong>triángulo de Pascal</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-05.jpg" alt="Lámina ESTADISTICA: distribución binomial para distintos p y n, y triángulo de Pascal">
+    <figcaption><span class="cap">Diapositiva · Estadística — confianza en el número</span>La <strong>distribución binomial</strong> para varios <span class="katex-inline" data-tex="p"></span> y <span class="katex-inline" data-tex="N"></span> (izquierda) y el <strong>triángulo de Pascal</strong> (derecha), cuyos coeficientes son los <span class="katex-inline" data-tex="\binom{N}{n}"></span>. La pregunta de fondo es la «confianza en el número»: si conté <span class="katex-inline" data-tex="n"></span> eventos, ¿cuán incierto es ese valor?</figcaption>
+  </figure>
+
+  <p>En astronomía el régimen típico es <strong>muchísimos fotones</strong> y baja probabilidad por evento: <span class="katex-inline" data-tex="N\to\infty"></span>, <span class="katex-inline" data-tex="p\to 0"></span>, manteniendo finito el promedio <span class="katex-inline" data-tex="\lambda = Np"></span>. En ese límite la binomial se convierte en la <span class="hl">distribución de Poisson</span> (que además evita calcular factoriales gigantes, imposibles para <span class="katex-inline" data-tex="N"></span> de millones):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P(x) = \frac{e^{-\lambda}\,\lambda^{x}}{x!}, \qquad \lambda = Np"></div>
+    <small>Es la estadística de «eventos raros que, sumados, pasan seguro»: meteoritos grandes, terremotos, fotones en un píxel. El profesor advierte una <strong>trampa</strong>: si un evento ocurre cada ~60 millones de años y el último fue hace 60 millones, la mejor estimación ingenua de «cada cuánto ocurre» es… 60 millones —un artefacto de tener un solo dato.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-06.jpg" alt="Lámina POISSON: límites n→∞, p→0, λ=np, fórmula de Poisson, shot noise y la galaxia JD1 a z~9.1">
+    <figcaption><span class="cap">Diapositiva · Poisson</span>El límite <span class="katex-inline" data-tex="n\to\infty,\ p\to 0"></span> con <span class="katex-inline" data-tex="\lambda=np"></span> da la fórmula de Poisson. El ruido asociado al conteo de fotones se llama <strong>shot noise</strong>, y define la <em>mínima señal que podemos detectar</em>. A la derecha, la galaxia <strong>JD1</strong> (JWST) con <span class="katex-inline" data-tex="z\sim 9{,}1"></span>: ¿la detectamos o no? La respuesta la da esta estadística.</figcaption>
+  </figure>
+
+  <p>La propiedad <em>estrella</em> de Poisson, y la razón de que domine la astronomía: su desviación estándar es la <strong>raíz</strong> de su media.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\sigma = \sqrt{\mu} \approx \sqrt{N}"></div>
+    <small>Si cuentas <span class="katex-inline" data-tex="N=100"></span>, la incerteza es <span class="katex-inline" data-tex="\sqrt{100}=10"></span>: «100 ± 10», un 10 % de error. Si cuentas un millón: «1 000 000 ± 1000», ¡0,1 %! El <strong>error relativo</strong> baja como <span class="katex-inline" data-tex="1/\sqrt{N}"></span>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-07.jpg" alt="Distribución de Poisson para λ=1, 4 y 10, mostrando σ=√μ">
+    <figcaption><span class="cap">Diapositiva · Distribución de Poisson</span>Poisson para <span class="katex-inline" data-tex="\lambda=1,4,10"></span>. A medida que <span class="katex-inline" data-tex="\lambda"></span> crece, la distribución se ensancha pero se vuelve <em>relativamente</em> más angosta: el ancho <span class="katex-inline" data-tex="\sigma=\sqrt{\mu}"></span> crece más lento que la media. Para <span class="katex-inline" data-tex="\lambda"></span> grande, Poisson se aproxima a una gaussiana.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-poisson">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ruido de Poisson y señal a ruido (shot noise)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa cuántas cuentas (fotones) registras. En el régimen de Poisson, el ruido es <span class="katex-inline" data-tex="\sqrt{N}"></span> y la SNR ideal es <span class="katex-inline" data-tex="N/\sqrt{N}=\sqrt{N}"></span>.</p>
+    <div class="presets" id="poi-presets">
+      <button data-n="100">100 cuentas</button>
+      <button data-n="1000">1000 cuentas</button>
+      <button data-n="10000">10 000 cuentas</button>
+      <button data-n="1000000">1 000 000 cuentas</button>
+    </div>
+    <label for="poi-n">Cuentas detectadas N</label>
+    <input type="number" id="poi-n" step="any" value="100" min="0">
+    <output id="poi-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El <em>shot noise</em> es el límite fundamental de cualquier sensor que cuenta cuantos (cámaras, fotodiodos, contadores Geiger). No se puede «filtrar»: es la física del conteo. Por eso, para mejorar la SNR no hay magia de software —hay que <strong>juntar más fotones</strong>. Y como el error relativo va como <span class="katex-inline" data-tex="1/\sqrt{N}"></span>, hay <em>rendimientos decrecientes</em>: pasar de 100 a 10 000 cuentas (×100) solo mejora la SNR ×10.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Señal a ruido y tiempo de integración</h2>
+    <p>La SNR real suma varias fuentes de ruido en cuadratura, y crece como la raíz del tiempo.</p>
+  </div></div>
+
+  <p>El <em>shot noise</em> no es el único ruido. Una imagen «de nada» ya trae señal espuria: el <strong>ruido de lectura</strong> (<span class="katex-inline" data-tex="R"></span>) de la electrónica, un <strong>fondo</strong> (<span class="katex-inline" data-tex="B"></span>) del cielo y del instrumento, efectos térmicos, etc. Todos se suman <strong>en cuadratura</strong> (como varianzas independientes). La ecuación de SNR para fotometría —«la última fórmula fea», promete el profesor— es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{S}{N} = \frac{S\sqrt{n_o\,t}}{\sqrt{\,S + n_{\text{pix}}\left(S_{\text{cielo}} + B + \dfrac{R^2}{t}\right)}}"></div>
+    <small>En el numerador, la señal por la raíz del número de exposiciones/tiempo; en el denominador, la suma en cuadratura del shot noise de la fuente (<span class="katex-inline" data-tex="\sqrt{S}"></span>), del cielo, del fondo y del ruido de lectura repartido entre <span class="katex-inline" data-tex="n_{\text{pix}}"></span> píxeles. La «pregunta inteligente» en astronomía, dice el profesor, suele ser <strong>«¿cómo calcularon los errores?»</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-10.jpg" alt="Lámina Signal to Noise: fórmula de SNR y la estatua romana degradándose con SNR de 40, 20, 10 y 0 dB">
+    <figcaption><span class="cap">Diapositiva · Signal to Noise</span>La fórmula de SNR y una demostración visual: la misma estatua a SNR de 40, 20, 10 y 0 dB (y perfiles a <span class="katex-inline" data-tex="S/\sigma"></span> = 100, 10, 3, 1). Truco de terreno del profesor (heredado de «la Cuca»): <strong>achinar los ojos</strong> ante una imagen ruidosa ayuda a ver la señal, porque hay <em>correlación espacial</em> entre píxeles vecinos que el ojo aprovecha aunque cada píxel sea ruidoso.</figcaption>
+  </figure>
+
+  <p>Lo más útil para planificar una observación es el régimen dominado por la fuente: la señal crece lineal con el tiempo (<span class="katex-inline" data-tex="S\propto t"></span>), su ruido como <span class="katex-inline" data-tex="\sqrt{S}\propto\sqrt{t}"></span>, así que la SNR crece como la <strong>raíz del tiempo</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{S}{N} \propto \sqrt{t}"></div>
+    <small>Consecuencia práctica: para <strong>duplicar</strong> la SNR hay que integrar <strong>4 veces</strong> más tiempo. Para mejorarla ×3, integrar ×9. Es la misma ley de rendimientos decrecientes del shot noise.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-12.jpg" alt="Lámina SNR y mejoras: galaxia JADES en distintos filtros con su SNR, y curva de photon transfer con read noise">
+    <figcaption><span class="cap">Diapositiva · SNR y mejoras</span>La galaxia <strong>JADES</strong> vista en muchos filtros (F090W…F444W), cada recuadro anotado con su <span class="katex-inline" data-tex="\mathrm{SNR}"></span>: en los filtros azules «no se ve nada» y recién aparece señal hacia el infrarrojo. A la derecha, la <strong>curva de transferencia de fotones</strong> (<em>photon transfer</em>): a baja señal domina el <strong>read noise</strong> (plano); a alta señal domina el shot noise (pendiente <span class="katex-inline" data-tex="\sqrt{N}"></span>).</figcaption>
+  </figure>
+
+  <div class="widget" id="w-tiempo">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Tiempo de integración y SNR</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">En el régimen dominado por la fuente, <span class="katex-inline" data-tex="N=\text{tasa}\times t"></span> y <span class="katex-inline" data-tex="\mathrm{SNR}=\sqrt{N}"></span>. Mira cuánto tiempo necesitas para una SNR dada.</p>
+    <div class="presets" id="tie-presets">
+      <button data-r="50" data-t="60">50 cuentas/s · 60 s</button>
+      <button data-r="50" data-t="240">50 cuentas/s · 240 s</button>
+      <button data-r="10" data-t="100">10 cuentas/s · 100 s</button>
+      <button data-r="5" data-t="900">5 cuentas/s · 900 s</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="tie-r">Tasa de cuentas (fotones/s)</label><input type="number" id="tie-r" step="any" value="50"></div>
+      <div><label for="tie-t">Tiempo de integración t (s)</label><input type="number" id="tie-t" step="any" value="60"></div>
+    </div>
+    <output id="tie-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>¿Cuándo creer? Sigmas y el Higgs</h2>
+    <p>Una detección «de verdad» exige que el exceso esté a varias sigmas del fondo esperado.</p>
+  </div></div>
+
+  <p>Si esperamos «100 ± 10» (es decir <span class="katex-inline" data-tex="\sigma=10"></span>) y medimos 120, estamos a <strong>2σ</strong>; si medimos 130, a <strong>3σ</strong>. ¿Cuánto basta para creer? Para una distribución gaussiana, el área bajo la curva da las probabilidades de quedar dentro de un rango:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Rango</th><th>Cobertura aprox.</th><th>Queda afuera</th></tr></thead>
+    <tbody>
+      <tr><td><b>±1σ</b></td><td>~68 %</td><td>~1 de cada 3</td></tr>
+      <tr><td><b>±2σ</b></td><td>~95 %</td><td>~1 de cada 20</td></tr>
+      <tr><td><b>±3σ</b></td><td>~99,7 %</td><td>~1 de cada 370</td></tr>
+      <tr><td><b>±5σ</b></td><td>~99,99994 %</td><td>~1 en ~1,7 millones</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Por eso el estándar de oro en física para «declarar descubrimiento» es <span class="hl">5σ</span>. El profesor lo ilustra con el <strong>bosón de Higgs</strong> (que puso en el examen de calificación de doctorado): en un acelerador se hacen chocar partículas, se reconstruye la energía de lo que sale por conservación de energía y momentum, y se busca un <em>exceso</em> de eventos a cierta energía (~125 GeV). El «cachito» sobre el fondo es la señal; dónde se ponga la línea de fondo cambia cuánto sobresale.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-11.jpg" alt="Lámina EJEMPLOS SNR: descubrimiento del bosón de Higgs en los experimentos ATLAS y CMS">
+    <figcaption><span class="cap">Diapositiva · Ejemplos de SNR — el Higgs</span>El descubrimiento del Higgs en los dos experimentos independientes del LHC, <strong>ATLAS</strong> y <strong>CMS</strong>. Cada uno reportó ~5σ por separado (uno de ellos 5,8σ); al <em>combinarlos</em> se superan los 6σ. Que sean instrumentos, equipos y computadores distintos <strong>aumenta la confianza</strong>: es replicación independiente, no un artefacto de un solo aparato.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El ruido es ser un buscador insistente</span>
+    <p>El profesor recuerda la moda de «buscar mensajes ocultos en la Biblia» (tomar cada N letras): apareciendo «Hitler», fechas, etc. Es puro <strong>azar</strong>: si buscas un patrón improbable suficientes veces, lo encontrarás por casualidad. Eso es exactamente «el ruido al que tratamos de vencer». En estadística se llama el problema de las <em>comparaciones múltiples</em> (o <em>look-elsewhere effect</em>): cuantas más hipótesis pruebas, más falsos positivos esperas.</p>
+  </div>
+
+  <div class="widget" id="w-sigma">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Significancia en sigmas</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el exceso medido sobre el fondo y la incerteza σ. La significancia es exceso/σ. El umbral de descubrimiento es 5σ.</p>
+    <div class="presets" id="sig-presets">
+      <button data-s="20" data-sig="10">120 vs 100±10</button>
+      <button data-s="30" data-sig="10">130 vs 100±10</button>
+      <button data-s="50" data-sig="10">150 vs 100±10</button>
+      <button data-s="58" data-sig="10">5,8σ (Higgs)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="sig-s">Exceso sobre el fondo (S)</label><input type="number" id="sig-s" step="any" value="20"></div>
+      <div><label for="sig-sig">Incerteza σ (ruido)</label><input type="number" id="sig-sig" step="any" value="10"></div>
+    </div>
+    <output id="sig-out"></output>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Detectores: eficiencia cuántica</h2>
+    <p>No todos los fotones se detectan. La eficiencia cuántica dice qué fracción se convierte en señal.</p>
+  </div></div>
+
+  <p>La <span class="hl">eficiencia cuántica</span> (QE) de un detector es la fracción de fotones que efectivamente produce una cuenta, en función de la longitud de onda. Importa porque define cuánta señal —y por tanto cuánta SNR— obtienes para una fuente dada. El <strong>ojo humano</strong> está muy bien adaptado al peak de la luz solar (verde), pero su QE es bajísima comparada con los detectores modernos. Un <strong>CCD</strong> (<em>Charge-Coupled Device</em>) puede llegar cerca del 90–100 % en parte del rango; muy por encima de la placa fotográfica o el tubo fotomultiplicador.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-13.jpg" alt="Lámina EFICIENCIA: curvas de eficiencia cuántica de CCD, fotomultiplicador, vidicon, placa fotográfica y ojo">
+    <figcaption><span class="cap">Diapositiva · Eficiencia</span>Eficiencia cuántica (%) vs. longitud de onda para distintos detectores. El <strong>CCD</strong> (especialmente el <em>thinned</em>, adelgazado) alcanza decenas de % e incluso cerca del 100 %; el <strong>fotomultiplicador</strong> y el <strong>vidicon</strong> van más abajo; la <strong>placa fotográfica</strong> ~1 %; y el <strong>ojo</strong> (EYE), el más bajo. Pasar de la placa al CCD fue una revolución de varios órdenes de magnitud en sensibilidad.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La QE es la «ganancia óptica» del sistema antes de cualquier procesamiento. Subir QE mejora la SNR <em>en la fuente</em>, que es siempre más barato que intentar recuperar señal por software después (recuerda: el shot noise no se filtra). Es el mismo principio de «mejorar el sensor antes que el postproceso» en cualquier pipeline de adquisición.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Reducción: bias y flat</h2>
+    <p>Antes de medir hay que limpiar el instrumento de la imagen. Eso es «reducir» los datos.</p>
+  </div></div>
+
+  <p>Una imagen cruda es un arreglo de números (p. ej. 0–1024 en X y en Y). <span class="hl">Reducir</span> los datos es el proceso de convertir esos números en algo físico y limpio. Antes uno reducía «a mano» durante meses; hoy es cada vez más común que el telescopio entregue una <strong>pipeline</strong> con los datos ya reducidos (aunque para trabajo de frontera uno suele escribir su propia pipeline). Las dos correcciones más importantes en un CCD son <strong>bias</strong> y <strong>flat</strong>:</p>
+
+  <h3>Cómo se lee un CCD</h3>
+  <p>El CCD es una grilla de «baldes» (píxeles) que acumulan carga (electrones) según los fotones que caen. Para leerlos, se <strong>desplaza la carga</strong> aplicando voltajes que la empujan fila por fila hacia un amplificador, donde se mide el voltaje. Es como una <em>cinta transportadora de cargas</em> sincronizada por el reloj del instrumento. Por eso a veces se ven imágenes «partidas por la mitad»: hay dos amplificadores con ganancia distinta.</p>
+
+  <div class="box physics">
+    <span class="tag">Bias, flat y el «sangrado»</span>
+    <p><strong>Bias:</strong> el ruido electrónico de base. Se mide leyendo la cámara <em>tapada y con 0 s de exposición</em> (mueves la carga aunque no haya carga real). Ese patrón se <strong>resta</strong> a las imágenes. <strong>Flat:</strong> corrige que cada píxel tenga distinta sensibilidad y la iluminación no sea uniforme. Se toma una imagen de una <em>pantalla blanca uniforme</em> (las manchitas no aparecen porque está muy fuera de foco); luego se <strong>divide</strong> la imagen por el flat. Hay un efecto que <em>no</em> se corrige: cuando un píxel se satura, la carga «se desborda» a sus vecinos (<strong>blooming</strong> o «sangrado»), dejando rayas en las columnas. El máximo medible lo fija el <strong>rango dinámico</strong> de la cámara.</p>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-14.jpg" alt="Lámina Efectos en imágenes / REDUCCION: imágenes antes y después de corregir bias y flat, y patrón de franjas (fringing)">
+    <figcaption><span class="cap">Diapositiva · Reducción (bias y flat)</span>A la izquierda, imágenes crudas con artefactos (rayas de lectura, fondos sucios) vs. las reducidas: tras corregir aparecen estrellas que antes no se veían y desaparecen «falsas» que eran ruido. A la derecha, un patrón de <strong>franjas (fringing)</strong> de interferencia que se corrige con el flat: el efecto es dramático.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — el modelo de la medición</span>
+    <p>Reducir es invertir el modelo del instrumento: <span class="katex-inline" data-tex="\text{cruda} = \text{bias} + \text{flat}\times\text{real}"></span>, así que <span class="katex-inline" data-tex="\text{real} = (\text{cruda}-\text{bias})/\text{flat}"></span>. Bias es un <em>offset aditivo</em>; flat es una <em>ganancia multiplicativa</em> por píxel. Es exactamente la calibración «zero/gain» de cualquier sensor: restar el offset, dividir por la respuesta.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Calibración fotométrica: filtros y estándares</h2>
+    <p>Para saber cuánta energía recibimos de verdad, comparamos con estrellas de brillo conocido.</p>
+  </div></div>
+
+  <p>Un <strong>filtro</strong> es un vidrio «pichicateado» (con moléculas añadidas) que deja pasar solo cierto rango de longitudes de onda, con una respuesta del 0 al 100 %. Los sistemas de filtros están <strong>estandarizados</strong> (Johnson-Cousins UBVRI, SDSS <em>u g r i z</em>, etc.) justamente para que distintos telescopios puedan compararse. El profesor destaca el sistema <strong>SDSS</strong> (<em>Sloan Digital Sky Survey</em>), el primer gran <em>survey</em> que «mira todo el cielo» y cuyos filtros se volvieron casi un estándar de facto.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-15.jpg" alt="Lámina CALIBRACION: curvas de transmisión de varios sistemas fotométricos (Johnson-Cousins, Washington, SDSS, Hipparcos, HST)">
+    <figcaption><span class="cap">Diapositiva · Calibración fotométrica</span>Curvas de transmisión de varios sistemas de filtros (Johnson-Cousins, Washington, SDSS, Hipparcos-Tycho, HST WFPC2) vs. longitud de onda. Cada banda deja pasar una ventana distinta. Calibrar es <strong>comparar con estrellas conocidas</strong> observadas en esos mismos filtros.</figcaption>
+  </figure>
+
+  <p>Como observamos a través de la atmósfera (que absorbe y enrojece de forma variable), la única manera de saber el flujo real es comparar con <span class="hl">estrellas estándar</span>: estrellas muy bien estudiadas, de magnitud y color conocidos en cada filtro. La clave es observar la estándar <strong>en condiciones similares</strong> a la fuente de interés —misma zona del cielo y, sobre todo, similar cantidad de atmósfera (<em>air mass</em>)—. Por eso se toman estándares al principio de la noche y cada ~2 horas. Hoy hay cada vez más estándares, porque los propios datos acumulados sirven para calibrar.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-17.jpg" alt="Lámina FLUJO Y ESTANDARES: clasificación estelar OBAFGKM y espectro de una estrella A5V">
+    <figcaption><span class="cap">Diapositiva · Flujo y estándares</span>La <strong>clasificación espectral</strong> (secuencia principal O-B-A-F-G-K-M, de azul/caliente a rojo/frío) con sus temperaturas y abundancias relativas, y el espectro de una estrella <strong>A5V</strong>. Comparar el flujo en distintos filtros permite asignar el <strong>tipo espectral</strong> de una estrella. (Anécdota: Annie Jump Cannon clasificó cientos de miles de espectros y «calibraba su ojo» revisándolos para mantener consistencia.)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-21.jpg" alt="Lámina Estándares Espectroscópicas: diagramas color-color de estrellas en SDSS">
+    <figcaption><span class="cap">Diapositiva · Estándares espectroscópicas</span>Diagramas <strong>color-color</strong> de estrellas en el sistema SDSS (<span class="katex-inline" data-tex="g-r"></span> vs <span class="katex-inline" data-tex="u-g"></span>, etc.). Las estrellas estándar (en rojo) y los colores objetivo (estrellas azules) permiten anclar la fotometría: las estrellas se ordenan en una secuencia bien definida, y desviarse de ella delata problemas de calibración.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Espectroscopía: separar la luz</h2>
+    <p>De un slit y un grating al cubo de datos: distintas formas de dispersar la luz en colores.</p>
+  </div></div>
+
+  <p>Hacer un espectro es <strong>separar la luz por longitud de onda</strong> y proyectarla sobre una cámara. Para que el espectro no se mezcle con el de fuentes vecinas, se usa un <span class="hl">slit</span> (una rendija): cuanto más angosta, mejor se separan las longitudes de onda, pero menos luz entra (hay que integrar más para mantener la SNR). La dispersión la produce un <strong>grating</strong> (red de difracción): una placa con surcos finísimos que mandan cada color a un ángulo distinto. El profesor lo compara con la <em>mancha de aceite sobre agua</em>: una capa de espesor comparable a <span class="katex-inline" data-tex="\lambda"></span> separa los colores por interferencia.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-18.jpg" alt="Lámina ESPECTROSCOPÍA: diagrama de slit y grating, y espectros continuo, de emisión y de absorción">
+    <figcaption><span class="cap">Diapositiva · Espectroscopía</span>El esquema óptico: slit, lentes, <strong>grating</strong> y detector. A la derecha, los tres tipos de espectro según la geometría: <strong>continuo</strong> (mirando directo una estrella), de <strong>absorción</strong> (mirando una estrella a través de un gas frío) y de <strong>emisión</strong> (mirando un gas caliente «de lado», como una nebulosa).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-19.jpg" alt="Lámina ESPECTROSCOPÍA: grating con blaze y la analogía de una mancha de aceite irisada sobre agua">
+    <figcaption><span class="cap">Diapositiva · Grating y la mancha de aceite</span>Un <strong>grating con blaze</strong> (surcos inclinados para concentrar la luz en un orden de difracción útil) y la analogía física: una <strong>mancha de aceite</strong> sobre agua produce colores por interferencia en una capa fina, el mismo efecto que dispersa la luz en un espectro.</figcaption>
+  </figure>
+
+  <p>La técnica más sofisticada que menciona es la <span class="hl">IFU</span> (<em>Integral Field Unit</em>): en vez de tomar el espectro de un solo punto, se cubre una región (con un haz de fibras ópticas o microlentes) y se obtiene un <strong>espectro por cada parte</strong> de la imagen. El resultado es un <strong>cubo de datos</strong>: dos ejes espaciales (X, Y) y un tercer eje en longitud de onda. Ideal para objetos extendidos como galaxias.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-20.jpg" alt="Lámina ESPECTROSCOPÍA: distintos métodos de muestreo de campo (slit, fibras, lenslets) y reconstrucción de un cubo de datos IFU">
+    <figcaption><span class="cap">Diapositiva · IFU y el cubo de datos</span>Distintos métodos de espectroscopía de campo integral: <em>image slicer</em> (espejos), haces de <strong>fibras ópticas</strong> y arreglos de microlentes (<em>lenslets</em>). Cada zona del objeto se convierte en un espectro; al recombinarlos se arma un <strong>cubo 3D</strong> (X, Y, λ) donde cada píxel guarda un espectro completo.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — el cubo hiperespectral</span>
+    <p>Un cubo IFU es un <em>tensor</em> <span class="katex-inline" data-tex="(x,y,\lambda)"></span>, idéntico en estructura a la imagen <strong>hiperespectral</strong> de teledetección o a un volumen de video (alto × ancho × canales). Puedes «cortarlo» en imágenes monocromáticas (un <span class="katex-inline" data-tex="\lambda"></span> fijo) o extraer el espectro de un píxel. El trade-off slit angosto ↔ menos luz es el mismo compromiso <strong>resolución vs. SNR</strong> de siempre.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Calibración en longitud de onda</h2>
+    <p>Un espectro crudo está en píxeles. Hay que decir qué longitud de onda es cada píxel, y cuánto flujo trae.</p>
+  </div></div>
+
+  <p>Tras dispersar la luz, el detector entrega posiciones en píxeles, no en angstroms. Calibrar en <strong>longitud de onda</strong> requiere referencias de <span class="hl">longitud de onda conocida</span>. La fuente natural son las <strong>líneas telúricas</strong>: emisiones del propio cielo nocturno (sodio, nitrógeno, etc.) a longitudes de onda muy precisas. Si una línea conocida cae en cierto píxel, ese píxel «vale» esa longitud de onda. También se usan <strong>lámparas de gases</strong> (argón, mezclas) que producen líneas de referencia, y técnicas modernas con <strong>láser</strong> para inyectar una calibración en el mismo dato.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-16.jpg" alt="Lámina Longitud de Onda e Intensidad: líneas telúricas en un espectro, slit con líneas de emisión del cielo y calibración láser">
+    <figcaption><span class="cap">Diapositiva · Longitud de onda e intensidad</span>Calibración espectral: el slit muestra líneas de <strong>emisión del cielo</strong> que «rellenan» la rendija (líneas telúricas) y la <strong>línea de absorción</strong> de la estrella; a la derecha, una calibración con <strong>láser</strong> (espectrómetro echelle) comparando lo medido con lo calculado. Las líneas telúricas, de <span class="katex-inline" data-tex="\lambda"></span> conocida, fijan la escala de longitud de onda del espectro.</figcaption>
+  </figure>
+
+  <p>Aparte está la calibración en <strong>flujo/intensidad</strong>: convertir cuentas en energía por unidad de área (watts/m²), usando estándares espectrofotométricos. La diapositiva final de calibración muestra que esto aplica también fuera del visible: en <strong>rayos X</strong>, donde los fotones son escasos, se mide la energía <em>fotón a fotón</em> y se arma un histograma —otra vez, una distribución espectral construida contando eventos.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-22.jpg" alt="Lámina CALIBRACIÓN: espectro óptico calibrado con líneas identificadas y un espectro de rayos X (count rate vs energía)">
+    <figcaption><span class="cap">Diapositiva · Calibración (óptico y rayos X)</span>Izquierda: un espectro óptico ya calibrado, con líneas identificadas (Lyα, [O III], Hα, etc.) y estándares marcados. Derecha: un espectro de <strong>rayos X</strong> (<em>count rate</em> vs. energía en keV): como los fotones X son raros, se mide la energía de cada uno y se hace el histograma. La unidad cambia (longitud de onda, frecuencia o energía), pero el juego es el mismo: contar fotones.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Astrometría</h2>
+    <p>Saber dónde están las cosas en el cielo: alinear la imagen con un catálogo y medir posiciones precisas.</p>
+  </div></div>
+
+  <p>La <span class="hl">astrometría</span> es asignar coordenadas celestes (en grados) a las posiciones en píxeles (X, Y) de la imagen. No es trivial a ojo: las imágenes pueden estar rotadas o invertidas según el diseño del telescopio. El método más eficiente es por <strong>patrones de triángulos</strong>: se buscan triángulos de estrellas en la imagen que coincidan (por sus ángulos) con triángulos del <strong>catálogo</strong> de referencia. Una vez emparejados, se calcula la transformación (escala, traslación, rotación y, si hace falta, distorsiones) que lleva un plano al otro. Siempre quedan <strong>residuos</strong>: las posiciones nunca calzan perfecto.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-23.jpg" alt="Lámina ASTROMETRIA: emparejamiento de triángulos entre imagen y catálogo, y nube de residuos en RA/Dec">
+    <figcaption><span class="cap">Diapositiva · Astrometría</span>Izquierda: el <strong>emparejamiento por triángulos</strong> entre la imagen tomada y el catálogo de referencia. Derecha: la nube de <strong>residuos</strong> (en segundos de arco, RA vs. Dec) que queda tras ajustar la transformación; su dispersión mide la precisión astrométrica alcanzada.</figcaption>
+  </figure>
+
+  <p>¿Para qué tanta precisión? El ejemplo estelar es el <strong>centro de la Vía Láctea</strong>. Durante los 2000 se midieron con astrometría las órbitas de estrellas alrededor de la radiofuente <strong>Sagitario A*</strong>. Una de ellas pasó muy cerca y muy rápido, restringiendo tanto la masa dentro de tan poco espacio que <em>no cabe otra cosa que un agujero negro supermasivo</em>. Ese resultado astrométrico dio un <strong>Premio Nobel</strong> (Ghez y Genzel, 2020 — atribución externa para contexto).</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-24.jpg" alt="Lámina ASTROMETRIA: órbitas de las estrellas S alrededor de Sagitario A* en el centro galáctico">
+    <figcaption><span class="cap">Diapositiva · El centro galáctico</span>Las órbitas de las «estrellas S» (S0-2, S0-1, …) alrededor de <strong>Sagitario A*</strong> (la estrella blanca central), reconstruidas con astrometría de precisión a lo largo de años. La estrella que pasa muy cerca y acelera fuertemente acota el tamaño y la masa del objeto central: la prueba dinámica del <strong>agujero negro</strong> de la Vía Láctea.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S13 ============ -->
+<section id="s13">
+  <div class="shead"><span class="num">13</span><div>
+    <h2>Atmósfera y airmass</h2>
+    <p>La atmósfera absorbe, enrojece y limita lo que vemos. El airmass cuantifica cuánta atravesamos.</p>
+  </div></div>
+
+  <p>La atmósfera no es transparente a toda la luz. Hay <strong>ventanas</strong>: el visible y el radio pasan razonablemente; gran parte del infrarrojo, el UV, los rayos X y gamma quedan bloqueados (por eso se observan desde el espacio). Esto define qué se puede hacer desde la Tierra y qué exige satélites.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-25.jpg" alt="Lámina ATMOSFERA: opacidad atmosférica vs longitud de onda, mostrando las ventanas visible y de radio">
+    <figcaption><span class="cap">Diapositiva · Ventanas atmosféricas</span>Opacidad atmosférica vs. longitud de onda. La luz visible pasa (con algo de distorsión), las ondas de radio pasan, pero rayos gamma, X y UV se bloquean en la alta atmósfera y mucho del infrarrojo lo absorben gases atmosféricos. De ahí la necesidad de telescopios espaciales para esas bandas.</figcaption>
+  </figure>
+
+  <p>Incluso dentro de una ventana, cuanto más bajo en el cielo miras, más atmósfera atraviesas. El <span class="hl">airmass</span> mide cuántas veces el espesor atmosférico del cenit atraviesa la línea de visión. Para una atmósfera plana-paralela:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="X = \sec z = \frac{1}{\cos z}"></div>
+    <small>En el <strong>cenit</strong> (<span class="katex-inline" data-tex="z=0"></span>), <span class="katex-inline" data-tex="X=1"></span> (mínimo). A <span class="katex-inline" data-tex="z=60^\circ"></span>, <span class="katex-inline" data-tex="X=2"></span> (el doble de aire). Cerca del horizonte, <span class="katex-inline" data-tex="X"></span> crece muchísimo y la aproximación se rompe. Más airmass = más absorción y más <strong>enrojecimiento</strong> (la misma razón por la que el Sol se ve rojo al amanecer/atardecer).</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-26.jpg" alt="Lámina EFECTOS / ATMOSFERA: geometría del airmass (sec z) y curvas de magnitud vs sec z para distintos filtros">
+    <figcaption><span class="cap">Diapositiva · Airmass y extinción</span>Geometría del <strong>airmass</strong>: con capas plano-paralelas, el camino a través de la atmósfera es <span class="katex-inline" data-tex="\sec z"></span> veces el del cenit. La magnitud observada crece linealmente con <span class="katex-inline" data-tex="\sec z"></span> (más absorción a mayor airmass), y la pendiente —el coeficiente de extinción— depende del filtro (más fuerte en el azul). Observar la estándar a airmass similar a la fuente corrige este efecto.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-airmass">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Airmass según la altura del objeto</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la distancia cenital <span class="katex-inline" data-tex="z"></span> (0° = cenit). El airmass es <span class="katex-inline" data-tex="\sec z"></span>: cuánta atmósfera atraviesas respecto al cenit.</p>
+    <div class="presets" id="air-presets">
+      <button data-z="0">Cenit (0°)</button>
+      <button data-z="45">45°</button>
+      <button data-z="60">60°</button>
+      <button data-z="75">75° (bajo)</button>
+    </div>
+    <label for="air-z">Distancia cenital z (grados)</label>
+    <input type="number" id="air-z" step="any" value="45" min="0" max="89">
+    <output id="air-out"></output>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>El hilo conductor de toda la clase: <strong>medir es contar fotones, y contar fotones es estadística</strong>. De ahí salen el ruido <span class="katex-inline" data-tex="\sqrt{N}"></span>, la SNR que crece como <span class="katex-inline" data-tex="\sqrt{t}"></span>, y el criterio de los 5σ para creer un descubrimiento. Reducir (bias/flat), calibrar (flujo, longitud de onda), hacer espectroscopía y astrometría, y corregir la atmósfera (airmass) son los pasos que convierten voltajes ruidosos en ciencia confiable. <strong>Próxima clase:</strong> una experiencia observacional real con el telescopio <em>GOTO</em> de Cerro Calán, donde ustedes tomarán, reducirán y buscarán señal en sus propios datos.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>SNR</b></td><td>Señal / ruido</td><td>«¿Cuánto le creemos al resultado?»: la pregunta central</td></tr>
+      <tr><td><b>Método científico</b></td><td>Hipótesis falsificable; TEST = predicción vs. dato</td><td>Buscamos estar equivocados; ahí se aprende</td></tr>
+      <tr><td><b>Bayes</b></td><td><span class="katex-inline" data-tex="P(M|D)=P(D|M)P(M)/P(D)"></span></td><td>Invierte lo difícil (modelo|datos) por lo fácil (datos|modelo)</td></tr>
+      <tr><td><b>Binomial</b></td><td><span class="katex-inline" data-tex="\binom{N}{n}p^n(1-p)^{N-n}"></span></td><td>Eventos sí/no (fotón excita o no)</td></tr>
+      <tr><td><b>Poisson</b></td><td><span class="katex-inline" data-tex="e^{-\lambda}\lambda^x/x!"></span>, <span class="katex-inline" data-tex="\lambda=Np"></span></td><td>Conteo de fotones; eventos raros y numerosos</td></tr>
+      <tr><td><b>Ruido de Poisson</b></td><td><span class="katex-inline" data-tex="\sigma=\sqrt{N}"></span> (shot noise)</td><td>Error relativo <span class="katex-inline" data-tex="\propto 1/\sqrt{N}"></span>; no se puede filtrar</td></tr>
+      <tr><td><b>SNR vs. tiempo</b></td><td><span class="katex-inline" data-tex="\mathrm{SNR}\propto\sqrt{t}"></span></td><td>Duplicar SNR = integrar 4× más</td></tr>
+      <tr><td><b>Significancia 5σ</b></td><td>~1 en 1,7 millones</td><td>Umbral para «declarar descubrimiento»</td></tr>
+      <tr><td><b>Energía del fotón</b></td><td><span class="katex-inline" data-tex="E=hc/\lambda"></span></td><td>Convierte cuentas en flujo físico (W/m²)</td></tr>
+      <tr><td><b>Eficiencia cuántica</b></td><td>CCD ~90–100 %, ojo &lt;&lt;</td><td>Fracción de fotones detectados → más SNR</td></tr>
+      <tr><td><b>Bias</b></td><td>Lectura tapada, 0 s</td><td>Offset aditivo; se <em>resta</em></td></tr>
+      <tr><td><b>Flat</b></td><td>Pantalla uniforme, fuera de foco</td><td>Ganancia por píxel; se <em>divide</em></td></tr>
+      <tr><td><b>Estrellas estándar</b></td><td>Magnitud/color conocidos</td><td>Calibrar flujo a través de la atmósfera</td></tr>
+      <tr><td><b>Sistemas de filtros</b></td><td>Johnson-Cousins, SDSS u g r i z</td><td>Estandarizados para comparar telescopios</td></tr>
+      <tr><td><b>Espectroscopía</b></td><td>Slit + grating → espectro</td><td>Continuo / absorción / emisión</td></tr>
+      <tr><td><b>IFU / cubo de datos</b></td><td>(X, Y, λ)</td><td>Un espectro por píxel; objetos extendidos</td></tr>
+      <tr><td><b>Líneas telúricas</b></td><td>Emisión del cielo, λ conocida</td><td>Calibrar en longitud de onda</td></tr>
+      <tr><td><b>Astrometría</b></td><td>Match de triángulos imagen↔catálogo</td><td>Órbitas en el centro galáctico → Sgr A*</td></tr>
+      <tr><td><b>Airmass</b></td><td><span class="katex-inline" data-tex="X=\sec z"></span></td><td>Cuánta atmósfera atraviesas: absorción y enrojecimiento</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c3-examen-01.html">Examen 01<small>Ciencia y Bayes</small></a></li>
+    <li><a href="m2c3-examen-02.html">Examen 02<small>Tipos de datos</small></a></li>
+    <li><a href="m2c3-examen-03.html">Examen 03<small>Contar fotones</small></a></li>
+    <li><a href="m2c3-examen-04.html">Examen 04<small>Binomial y Poisson</small></a></li>
+    <li><a href="m2c3-examen-05.html">Examen 05<small>Ruido y SNR</small></a></li>
+    <li><a href="m2c3-examen-06.html">Examen 06<small>Sigmas y el Higgs</small></a></li>
+    <li><a href="m2c3-examen-07.html">Examen 07<small>Detectores y reducción</small></a></li>
+    <li><a href="m2c3-examen-08.html">Examen 08<small>Calibración fotométrica</small></a></li>
+    <li><a href="m2c3-examen-09.html">Examen 09<small>Espectroscopía</small></a></li>
+    <li><a href="m2c3-examen-10.html">Examen 10<small>Astrometría y atmósfera</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo II del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes). Elaborado a partir de la transcripción del audio (<code>observación/m2/ff/Observacion-m2c3.md</code>) y las diapositivas <code>Modulo_II_Clase_3_.pdf</code> («SNR y Calibraciones»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. Bayes fue un clérigo del s. XVIII, no «un monje de la Edad Media»; la pendiente original de Hubble ~500 km/s/Mpc vs. el valor moderno ~70; <span class="katex-inline" data-tex="\sigma=\sqrt{N}"></span> como ruido de Poisson; <span class="katex-inline" data-tex="X=\sec z"></span> para el airmass; «slit», «grating», «flat», «bias», «IFU» como términos técnicos). Algunas frases del audio eran ambiguas y se interpretaron con cuidado, distinguiendo contenido de clase, inferencia propia y atribuciones externas (p. ej. el Nobel 2020 por el centro galáctico). Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+var H = 6.62607015e-34; // J·s
+var C = 299792458;      // m/s
+var EV = 1.602176634e-19; // J por eV
+
+// ---- Widget 1: energía del fotón ----
+(function(){
+  var l=document.getElementById('fot-l'), out=document.getElementById('fot-out');
+  function calc(){
+    var nm=parseFloat(l.value);
+    if(!(nm>0)){ out.innerHTML="Ingresa una longitud de onda positiva."; return; }
+    var lam=nm*1e-9;
+    var E=H*C/lam;          // J
+    var EeV=E/EV;           // eV
+    var nu=C/lam;           // Hz
+    var banda = nm<400 ? "ultravioleta" : (nm<700 ? "visible" : (nm<1000 ? "infrarrojo cercano" : "infrarrojo"));
+    out.innerHTML="Energía <span class='k'>E</span> = <b>"+E.toExponential(3)+"</b> J = <b>"+EeV.toFixed(3)+"</b> eV<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Frecuencia ν = "+(nu/1e12).toFixed(1)+" THz · banda: "+banda+". A menor λ, mayor energía.</span>";
+  }
+  l.addEventListener('input',calc);
+  document.querySelectorAll('#fot-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ l.value=b.dataset.l; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: ruido de Poisson / SNR ----
+(function(){
+  var n=document.getElementById('poi-n'), out=document.getElementById('poi-out');
+  function calc(){
+    var N=parseFloat(n.value);
+    if(!(N>=0)){ out.innerHTML="Ingresa un número de cuentas ≥ 0."; return; }
+    if(N===0){ out.innerHTML="Con 0 cuentas no hay señal medible."; return; }
+    var sig=Math.sqrt(N);
+    var snr=N/sig;          // = sqrt(N)
+    var rel=100*sig/N;      // error relativo %
+    out.innerHTML="Ruido <span class='k'>σ</span> = √N = <b>"+sig.toFixed(2)+"</b> cuentas<br>"+
+      "SNR ideal = N/√N = <b>"+snr.toFixed(2)+"</b> · error relativo ≈ <b>"+rel.toFixed(2)+"%</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Es decir, "+Math.round(N)+" ± "+sig.toFixed(0)+" cuentas. Para bajar el error a la mitad, necesitas ~4× más fotones.</span>";
+  }
+  n.addEventListener('input',calc);
+  document.querySelectorAll('#poi-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ n.value=b.dataset.n; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: tiempo de integración ----
+(function(){
+  var r=document.getElementById('tie-r'), t=document.getElementById('tie-t'), out=document.getElementById('tie-out');
+  function calc(){
+    var rate=parseFloat(r.value), tt=parseFloat(t.value);
+    if(!(rate>0)||!(tt>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var N=rate*tt;
+    var snr=Math.sqrt(N);
+    var t4=tt*4;
+    out.innerHTML="Cuentas acumuladas N = <b>"+N.toFixed(0)+"</b> · SNR = √N = <b>"+snr.toFixed(1)+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Para <b>duplicar</b> la SNR (a "+(2*snr).toFixed(1)+") habría que integrar ~"+t4.toFixed(0)+" s (4×). SNR ∝ √t.</span>";
+  }
+  r.addEventListener('input',calc); t.addEventListener('input',calc);
+  document.querySelectorAll('#tie-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ r.value=b.dataset.r; t.value=b.dataset.t; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 4: significancia en sigmas ----
+(function(){
+  var s=document.getElementById('sig-s'), sg=document.getElementById('sig-sig'), out=document.getElementById('sig-out');
+  function calc(){
+    var S=parseFloat(s.value), SG=parseFloat(sg.value);
+    if(isNaN(S)||!(SG>0)){ out.innerHTML="Ingresa un exceso y una σ positiva."; return; }
+    var nsig=S/SG;
+    var verdict;
+    if(nsig>=5) verdict="≥ 5σ: nivel de descubrimiento.";
+    else if(nsig>=3) verdict="≥ 3σ: evidencia, pero aún no descubrimiento.";
+    else if(nsig>=2) verdict="~2σ: indicio débil, fácilmente azar.";
+    else verdict="< 2σ: consistente con ruido.";
+    out.innerHTML="Significancia = S/σ = <b>"+nsig.toFixed(2)+"</b> σ<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+verdict+" El estándar para «declarar descubrimiento» en física es 5σ.</span>";
+  }
+  s.addEventListener('input',calc); sg.addEventListener('input',calc);
+  document.querySelectorAll('#sig-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ s.value=b.dataset.s; sg.value=b.dataset.sig; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 5: airmass ----
+(function(){
+  var z=document.getElementById('air-z'), out=document.getElementById('air-out');
+  function calc(){
+    var zd=parseFloat(z.value);
+    if(isNaN(zd)||zd<0||zd>=90){ out.innerHTML="Ingresa 0° ≤ z < 90°."; return; }
+    var X=1/Math.cos(zd*Math.PI/180);
+    var alt=90-zd;
+    out.innerHTML="Airmass <span class='k'>X</span> = sec z = <b>"+X.toFixed(3)+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Altura sobre el horizonte = "+alt.toFixed(0)+"°. Atraviesas "+X.toFixed(2)+"× el aire del cenit. Cerca del horizonte X se dispara y la aproximación plano-paralela falla.</span>";
+  }
+  z.addEventListener('input',calc);
+  document.querySelectorAll('#air-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ z.value=b.dataset.z; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
