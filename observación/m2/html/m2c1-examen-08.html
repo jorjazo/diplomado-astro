@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 08 — m2c1 · UTC, día juliano y MJD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m2c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo II · Clase 1</span>
+<h1>Examen 08 — UTC, día juliano y MJD</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,a,b">
+  <fieldset data-q="1"><legend>1. Se introducen «segundos intercalares» (leap seconds) en el UTC porque:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">El cesio falla periódicamente</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Los husos horarios lo exigen</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La rotación de la Tierra no es uniforme y se desacopla del tiempo atómico</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La órbita terrestre cambia de forma</label>
+    <p class="fb" hidden>El UTC busca seguir a la rotación terrestre, que varía; se intercala un segundo para reacoplar.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. El Modified Julian Day (MJD) se define como:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">JD − 2 400 000,5</label>
+    <label class="opt"><input type="radio" name="q2" value="b">JD + 2 400 000,5</label>
+    <label class="opt"><input type="radio" name="q2" value="c">JD / 2</label>
+    <label class="opt"><input type="radio" name="q2" value="d">JD − 86 400</label>
+    <p class="fb" hidden>MJD = JD − 2 400 000,5: ahorra dígitos y empieza a medianoche.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. La regla de años bisiestos del calendario gregoriano es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Cada año divisible por 4, sin excepciones</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Divisible por 4, salvo los divisibles por 100 que no lo sean por 400</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Cada año divisible por 100</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Solo los divisibles por 400</label>
+    <p class="fb" hidden>P. ej.: 2000 fue bisiesto (÷400), pero 2100 no lo será (÷100, no ÷400).</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. ¿Por qué se introdujo el MJD y qué significado tiene el «,5» en <span class="katex-inline" data-tex="\mathrm{MJD}=\mathrm{JD}-2\,400\,000{,}5"></span>?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El Día Juliano (JD) es una cuenta corrida de días desde el 4713 a.C., así que sus valores tienen muchos dígitos (≈2,46 millones). En los años 50, restar 2 400 000 al JD ahorraba memoria de computador: los primeros seis dígitos casi no cambian y son «relleno». El <strong>,5</strong> desplaza el origen medio día: como el JD empieza a <em>mediodía</em>, restarle ,5 hace que el <strong>MJD empiece a medianoche</strong>. Esto es práctico para la observación, porque casi toda una noche completa cae dentro del mismo MJD entero (salvo lo muy temprano de la tarde).</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. ¿Por qué el valor del UTC en el futuro no puede predecirse con exactitud?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Porque el UTC está atado a la <strong>rotación de la Tierra</strong>, que no es predecible con precisión: la Tierra acelera y frena ligeramente por procesos internos (sus capas rotan a distinta velocidad), terremotos, redistribución de masas, etc. Los segundos intercalares se deciden en base a mediciones <strong>históricas</strong> y se anuncian con ~6 meses de antelación, pero no se puede saber con certeza cuántos harán falta en años venideros. Solo se puede estimar que la desviación no superará un par de segundos en el corto plazo.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 1, Módulo II (Instrumentación y Observación). <a href="m2c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  function r(){document.querySelectorAll('.katex-inline').forEach(function(el){try{katex.render(el.dataset.tex,el,{throwOnError:false});}catch(e){}});}
+  if(window.katex)r();else{var s=document.querySelector('script[src*="katex.min.js"]');if(s)s.addEventListener('load',r);}
+});
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

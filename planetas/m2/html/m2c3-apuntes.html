@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midiendo Propiedades de Exoplanetas — Astrofísica de Planetas, Módulo II · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo II · Clase 3</span>
+  <h1>Midiendo <em>Propiedades</em> de Exoplanetas</h1>
+  <p class="sub">Ya sabemos <em>detectar</em> exoplanetas. Ahora queremos <em>medirlos</em>: masa, radio, densidad, temperatura, edad. La idea central de la clase es contraintuitiva pero poderosa: para conocer bien el planeta, primero hay que conocer <strong>muy bien la estrella</strong>. La ciencia planetaria se volvió física estelar de precisión.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 may 2026</span>
+    <span><b>Tema:</b> Propiedades físicas y estadística de exoplanetas</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as dos primeras clases respondieron <em>cómo se detectan</em> los exoplanetas: por <strong>velocidad radial</strong> (la estrella se bambolea) y por <strong>tránsitos</strong> (el planeta bloquea luz). Ambos métodos comparten un secreto: <span class="hl">en realidad no miramos el planeta, miramos la estrella</span>. Esta clase lleva esa idea hasta el final. Cada propiedad que queremos del planeta —su masa, su radio, su densidad, su temperatura, hasta su edad— se obtiene a partir de una propiedad de la estrella anfitriona. Un error en la distancia a la estrella se propaga a su luminosidad, su radio y su masa, y de ahí contamina <em>todo</em> lo que digamos del planeta. Por eso el profesor repite como mantra: «si conoces bien la estrella, tienes esperanza de conocer bien el planeta». Cerramos con la <strong>relación masa–radio</strong> (que revela de qué está hecho un planeta) y con la <strong>estadística de Kepler</strong>, que destapó dos sorpresas: las super-Tierras y el <em>desierto neptuniano</em>.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La gran idea: medir el planeta a través de la estrella</a></li>
+    <li><a href="#s2">¿En torno a qué estrellas hay planetas?</a></li>
+    <li><a href="#s3">La distancia: la cantidad fundamental (Gaia)</a></li>
+    <li><a href="#s4">Masa de la estrella: la pesa cósmica de Kepler</a></li>
+    <li><a href="#s5">Masa, temperatura y zona habitable</a></li>
+    <li><a href="#s6">Líneas, diámetro estelar y gravedad superficial</a></li>
+    <li><a href="#s7">Radio, densidad y la relación masa–radio</a></li>
+    <li><a href="#s8">La edad de las estrellas (y sus planetas)</a></li>
+    <li><a href="#s9">Rotación estelar y momento angular</a></li>
+    <li><a href="#s10">Metalicidad: formación, migración y enriquecimiento</a></li>
+    <li><a href="#s11">Estadística: super-Tierras y el desierto neptuniano</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La gran idea: medir el planeta a través de la estrella</h2>
+    <p>El planeta es invisible o casi; la estrella, no. Todo se cuelga de ella.</p>
+  </div></div>
+
+  <p>El planeta es millones de veces más débil que su estrella y casi nunca lo resolvemos. Incluso los métodos «directos» (imagen del planeta) exigen <strong>bloquear la luz de la estrella</strong>. Por eso, en la práctica, casi todo lo que medimos del planeta lo deducimos midiendo a la estrella: su <em>masa</em> entra en la tercera ley de Kepler para pesar al planeta; su <em>radio</em> convierte la profundidad de un tránsito en el radio del planeta; su <em>temperatura</em> y <em>luminosidad</em> fijan cuánta energía recibe el planeta.</p>
+
+  <div class="box prof">
+    <span class="tag">El mantra de la clase</span>
+    <p>«Si uno conoce bien la estrella, uno tiene esperanza de conocer bien el planeta.» La ciencia planetaria se ha transformado en un <strong>área de física estelar de precisión</strong>: lo que antes era un detalle (un error de unas pocas masas terrestres) ahora <em>importa</em>, porque ese «redondeo» puede equivaler a varias veces la masa del planeta que intentamos medir.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es un problema de <strong>propagación de errores en un pipeline</strong>: distancia → magnitud absoluta → luminosidad → radio y masa estelar → masa, radio y temperatura del planeta. La incertidumbre de la primera etapa se arrastra y amplifica aguas abajo. Mejorar el <em>nodo raíz</em> (la distancia, gracias a Gaia) reduce el error de todo lo que depende de él. Es el mismo razonamiento que priorizar la calidad del dato de entrada antes que pulir el modelo final.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>¿En torno a qué estrellas hay planetas?</h2>
+    <p>La masa de la estrella manda: fija su temperatura, su energía, su vida y el disco del que nacen los planetas.</p>
+  </div></div>
+
+  <p>Hay planetas alrededor de <strong>casi todos los tipos de estrellas</strong>: en la secuencia principal (las que queman hidrógeno), pero también en torno a enanas blancas (el primer planeta detectado orbitaba un púlsar; también se conocen planetas en torno a enanas blancas), enanas café (subestrellas), estrellas variables y pulsares. Lo que más determina el sistema es la <span class="hl">masa de la estrella</span>: ella fija su temperatura, cuánta energía produce, cuánto vive y cómo es el <strong>disco protoplanetario</strong> del que surgen los planetas.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-02.jpg" alt="Diagrama de Hertzsprung-Russell con los tipos de estrellas que pueden albergar planetas">
+    <figcaption><span class="cap">Diapositiva · Estrellas anfitrionas</span>En el diagrama H–R (luminosidad vs. color/temperatura) caben todos los anfitriones posibles: secuencia principal, enanas café, variables, púlsares, enanas blancas, y estrellas de metalicidad alta o baja, solas o en sistemas binarios. La <strong>variedad de la estrella</strong> condiciona el tipo de planetas y la habitabilidad.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">¿Por qué hay tantas binarias (y por qué ayuda)?</span>
+    <p>Cerca de la mitad de los «puntitos» del cielo son <strong>binarias</strong>. Es una suerte enorme: si dos estrellas se orbitan, podemos pesarlas con la 3.ª ley de Kepler y luego asociar esa masa a cantidades fáciles de observar como el <em>color</em> o la <em>luminosidad</em>. Las separaciones van desde varias unidades astronómicas (tamaño del Sistema Solar) hasta estrellas casi en contacto (estrellas de neutrones que, al chocar, emiten ondas gravitacionales).</p>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-04.jpg" alt="Diagrama color-magnitud de estrellas cercanas con d menor a 25 parsec">
+    <figcaption><span class="cap">Diapositiva · Exoplanetas en estrellas cercanas</span>Los exoplanetas se buscan sobre todo en estrellas <strong>cercanas</strong> (típicamente <span class="katex-inline" data-tex="d<25\,\mathrm{pc}"></span>), donde podemos caracterizar bien a la estrella. El diagrama separa secuencia principal, subgigantes y subenanas según color y magnitud absoluta.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La distancia: la cantidad fundamental (Gaia)</h2>
+    <p>Sin distancia no hay magnitud absoluta; sin magnitud absoluta, no hay luminosidad, radio ni edad fiables.</p>
+  </div></div>
+
+  <p>El color de una estrella es <em>independiente</em> de la distancia, pero su <strong>magnitud absoluta</strong> —la que tendría a 10 parsec— no. Para colocar cada estrella «a 10 pc» y leer su luminosidad hay que <strong>conocer su distancia</strong>. El método clásico es el <span class="hl">paralaje</span>: el pequeño cambio de posición de la estrella cuando la Tierra se mueve de un lado a otro de su órbita (±1 UA). Un parsec es justo la distancia a la que 1 UA subtiende 1 segundo de arco.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-06.jpg" alt="Magnitud absoluta y el satélite Gaia frente a la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva · Magnitud absoluta</span>La magnitud absoluta requiere la distancia. Importa porque, junto al color, fija la <strong>temperatura efectiva</strong> y el <strong>radio</strong> de la estrella, que a su vez determinan los parámetros físicos del exoplaneta. <strong>Gaia</strong> midió paralajes con precisión de <em>microsegundos de arco</em>, revolucionando esto.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Resolución vs. precisión de centroide</span>
+    <p>La resolución angular típica desde tierra es de ~0,3–0,5″ (peor que el tamaño aparente del bamboleo). Pero tomando <strong>muchas medidas</strong> se puede estimar la posición del <em>centro</em> de la estrella hasta ~10 veces mejor que la resolución de una sola imagen. Gaia lleva esto al extremo: detecta estrellas que se mueven por culpa de su planeta y mide distancias hasta más allá de un kiloparsec.</p>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-07.jpg" alt="Distribución de exoplanetas por distancia para velocidad radial y tránsitos, en círculos logarítmicos">
+    <figcaption><span class="cap">Diapositiva · Distancias</span>Planetas por velocidad radial (izq.) y por tránsito (der.), en círculos concéntricos logarítmicos (10, 100, 1000 pc; distancias previas a Gaia, con Hiparco). Hay un <strong>sweet spot</strong> entre 10 y 100 pc: más cerca hay pocas estrellas (poco volumen), más lejos crece el error y caen las detecciones. El cúmulo denso en tránsitos es el <strong>sesgo del campo de Kepler</strong>, que vigiló ~100.000 estrellas en una sola región.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">¿Por qué se hace difícil la velocidad radial a gran distancia?</span>
+    <p>Para un tránsito basta sumar <em>toda</em> la luz de la estrella en un píxel y ver cuánto baja. Para la velocidad radial hay que <strong>dispersar</strong> esa luz en longitud de onda y seguir una línea de absorción; al estar más lejos, la luz es más tenue y además se diluye en el espectro, así que hace falta observar mucho más tiempo o telescopios más grandes. Por eso el método pierde fuelle con la distancia.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Masa de la estrella: la pesa cósmica de Kepler</h2>
+    <p>La forma más precisa de pesar es la 3.ª ley de Kepler, con período y separación.</p>
+  </div></div>
+
+  <p>La «pesa cósmica» más precisa es la <strong>tercera ley de Kepler</strong>. Relaciona el período <span class="katex-inline" data-tex="P"></span>, el semieje mayor (la separación media) <span class="katex-inline" data-tex="r"></span> y la <em>suma</em> de masas:</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-03.jpg" alt="Tercera ley de Kepler y escala de masas en masas terrestres, jovianas y solares">
+    <figcaption><span class="cap">Diapositiva · Masas</span>La 3.ª ley de Kepler y la escala continua de masas: de sub-Tierras a Tierras, super-Tierras, Neptunos, Júpiters, super-Júpiters, enanas café (brown dwarfs) y estrellas. Júpiter pesa ~318 masas terrestres; el Sol, ~1000 masas de Júpiter (~333.000 masas terrestres).</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P^2 = \frac{4\pi^2}{G\,(M_\star + M_P)}\,r^3"></div>
+    <small>Como casi siempre <span class="katex-inline" data-tex="M_\star \gg M_P"></span>, la suma de masas es prácticamente <span class="katex-inline" data-tex="M_\star"></span>. Conociendo <span class="katex-inline" data-tex="P"></span> y <span class="katex-inline" data-tex="r"></span> se estima <span class="katex-inline" data-tex="M_\star{+}M_P"></span>; y como es una <em>suma</em>, para despejar <span class="katex-inline" data-tex="M_P"></span> hay que conocer muy bien <span class="katex-inline" data-tex="M_\star"></span>.</small>
+  </div>
+
+  <p>Conocer <span class="katex-inline" data-tex="M_P"></span> es la puerta de entrada a su densidad: ¿es un planeta rocoso, candidato a «Tierra 2.0», o una bola de gas? Pero como la ecuación entrega una <strong>suma</strong> de masas, todo el peso recae en estimar <span class="katex-inline" data-tex="M_\star"></span> con precisión, y eso se logra calibrando con binarias y con relaciones masa–luminosidad–color.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es una <strong>ecuación con varias incógnitas acopladas</strong>: para «restar» la masa estelar de la suma y obtener la planetaria necesitas una medición externa de <span class="katex-inline" data-tex="M_\star"></span>. Igual que en un sistema sub-determinado, una variable bien medida (la masa estelar, vía color/luminosidad/binarias) <em>desbloquea</em> la otra.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Masa, temperatura y zona habitable</h2>
+    <p>El tipo espectral resume masa y temperatura, y de ahí depende dónde puede haber agua líquida.</p>
+  </div></div>
+
+  <p>La masa estelar tiene una correspondencia casi <strong>uno a uno con la temperatura</strong> (y con el tipo espectral O–B–A–F–G–K–M). Eso ordena dónde encontramos planetas:</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-05.jpg" alt="Tipos de estrellas según masa y su relación con la población de planetas">
+    <figcaption><span class="cap">Diapositiva · En función de la masa</span><strong>Enanas M (rojas):</strong> gigantes raros, super-Tierras/sub-Neptunos comunes; muchos sistemas. <strong>Tipo solar FGK:</strong> ~10% con gigantes, más planetas pequeños que grandes; hot Jupiters raros; más metales ⇒ planeta más probable. <strong>Intermedias AF:</strong> difíciles por rotación y pulsación. <strong>Masivas OB:</strong> discos de vida corta y radiación intensa, muy difíciles de observar.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">¿Por qué tantos planetas alrededor de enanas M?</span>
+    <p>No es (solo) que «acaparen» planetas: es que son las <strong>más numerosas</strong> y, sobre todo, las <strong>más fáciles</strong> de sondear. Al tener poca masa, el planeta las zarandea más (mayor señal de velocidad radial); al ser pequeñas, un tránsito bloquea una fracción mayor de su luz. Doble ventaja observacional ⇒ aparecen sobre-representadas en los catálogos. Las masivas OB, en cambio, viven tan poco que apenas alcanzan a formar planetas observables.</p>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-08.jpg" alt="Zona habitable conservadora y optimista en función de la temperatura de la estrella">
+    <figcaption><span class="cap">Diapositiva · En función de la temperatura</span>La <strong>zona habitable</strong> (donde podría haber agua líquida) se aleja de la estrella cuanto más caliente y luminosa es. TRAPPIST-1, una enana muy roja, concentra 7 planetas, varios en su zona habitable. <em>(El gráfico está normalizado a la luz que recibe la Tierra, lo que puede confundir; el profesor advierte que la zona habitable se desplaza hacia afuera al subir la temperatura estelar.)</em></figcaption>
+  </figure>
+
+  <div class="widget" id="w-teq">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Temperatura de equilibrio del planeta</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Estima la temperatura de equilibrio <span class="katex-inline" data-tex="T_{eq}"></span> de un planeta a partir de la temperatura y el radio de la estrella, la distancia orbital y el albedo. Útil para ubicar el planeta respecto a la zona habitable (~273–373 K).</p>
+    <div class="presets" id="teq-presets">
+      <button data-ts="5772" data-rs="1" data-a="1" data-alb="0.3">Tierra</button>
+      <button data-ts="5772" data-rs="1" data-a="0.39" data-alb="0.1">Mercurio</button>
+      <button data-ts="2566" data-rs="0.12" data-a="0.029" data-alb="0.3">TRAPPIST-1e</button>
+      <button data-ts="5772" data-rs="1" data-a="0.05" data-alb="0.1">Hot Jupiter</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="teq-ts">Temperatura estrella T★ (K)</label><input type="number" id="teq-ts" step="any" value="5772"></div>
+      <div><label for="teq-rs">Radio estrella R★ (R☉)</label><input type="number" id="teq-rs" step="any" value="1"></div>
+      <div><label for="teq-a">Distancia orbital a (UA)</label><input type="number" id="teq-a" step="any" value="1"></div>
+      <div><label for="teq-alb">Albedo de Bond A (0–1)</label><input type="number" id="teq-alb" step="any" value="0.3"></div>
+    </div>
+    <output id="teq-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Líneas, diámetro estelar y gravedad superficial</h2>
+    <p>Las líneas de absorción dicen temperatura, composición… y, por su ancho, hasta el tamaño de la estrella.</p>
+  </div></div>
+
+  <p>La superficie de la estrella radia casi como un <strong>cuerpo negro</strong>, así que su color delata la temperatura. Sobre ese continuo, los gases dejan <span class="hl">líneas de absorción</span> en longitudes de onda precisas. El sistema espectral O–B–A–F–G–K–M (ordenado en Harvard por Annie Jump Cannon a partir de esas líneas) es esencialmente una <strong>secuencia de temperatura</strong>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-09.jpg" alt="Clasificación espectral de la secuencia principal y espectro de una estrella A5V">
+    <figcaption><span class="cap">Diapositiva · Líneas espectrales</span>Clasificación espectral (O→M) con sus colores, temperaturas, intensidad del hidrógeno, tamaño y abundancia relativa: las M son ~76% de todas. A la izquierda, el espectro de una estrella A5V con sus líneas de absorción sobre el continuo de cuerpo negro.</figcaption>
+  </figure>
+
+  <p>¿Cómo se mide el <strong>diámetro</strong> de una estrella? Hay dos caminos complementarios:</p>
+  <ul>
+    <li><strong>Interferometría</strong> (instrumento <em>CHARA</em>): mide directamente el <em>tamaño angular</em> de estrellas cercanas. Es complejo pero da el radio físico.</li>
+    <li><strong>Gravedad superficial vía ancho de línea</strong> (más astrofísico, menos preciso): a igual temperatura/tipo espectral, una <em>gigante</em> y una <em>enana blanca</em> muestran las mismas líneas, pero con <strong>anchos distintos</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c3/assets/slide-10.jpg" alt="Radio estelar en función del color, comparando enanas y estrellas anfitrionas de exoplanetas">
+    <figcaption><span class="cap">Diapositiva · Diámetro estelar</span>Radio estelar (log) vs. color. Las estrellas anfitrionas de exoplanetas (cuadrados negros) tienden a quedar <em>por encima</em> de la secuencia principal de edad cero: parecen un poco <strong>más infladas</strong> de lo esperado. Es una correlación (no causalidad) que se investiga por su posible relación con la formación de planetas.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué el ancho de línea mide la gravedad</span>
+    <p>En una enana blanca la gravedad superficial es enorme (mucha masa, radio pequeño): los fotones «luchan» por salir y la presión <strong>ensancha</strong> las líneas de absorción (<em>ensanchamiento por presión</em>). En una gigante, con gravedad baja, las líneas son más finas. Así, el ancho de la línea codifica <span class="katex-inline" data-tex="g = G M_\star / R_\star^2"></span>; conocida la masa, se despeja el radio. Es el mismo <span class="katex-inline" data-tex="g\approx 9{,}8\ \mathrm{m/s^2}"></span> que sentimos en la Tierra, pero como diagnóstico estelar.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Del tránsito al radio del planeta</span>
+    <p>Cuando un planeta transita y bloquea, por ejemplo, un <strong>1% de la luz</strong>, significa que su <em>área</em> es 1/100 de la de la estrella, es decir su <em>radio</em> es ~1/10 del estelar (como Júpiter frente al Sol). Pero ese «1/10» es <strong>relativo</strong>: para obtener el radio físico del planeta hay que multiplicar por <span class="katex-inline" data-tex="R_\star"></span>. Sin radio estelar fiable, no hay radio planetario fiable.</p>
+  </div>
+
+  <div class="widget" id="w-transit">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Profundidad de tránsito → radio del planeta</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La caída relativa de brillo en un tránsito es <span class="katex-inline" data-tex="\Delta F/F = (R_P/R_\star)^2"></span>. Ingresa la profundidad (en %) y el radio estelar para obtener el radio del planeta.</p>
+    <div class="presets" id="tr-presets">
+      <button data-d="1.0" data-rs="1">Júpiter–Sol (~1%)</button>
+      <button data-d="0.0084" data-rs="1">Tierra–Sol</button>
+      <button data-d="1.4" data-rs="0.12">TRAPPIST-1 (enana M)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="tr-d">Profundidad de tránsito ΔF/F (%)</label><input type="number" id="tr-d" step="any" value="1.0"></div>
+      <div><label for="tr-rs">Radio de la estrella R★ (R☉)</label><input type="number" id="tr-rs" step="any" value="1"></div>
+    </div>
+    <output id="tr-out"></output>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Radio, densidad y la relación masa–radio</h2>
+    <p>Con masa (RV) y radio (tránsito) se obtiene densidad, y la densidad delata la composición.</p>
+  </div></div>
+
+  <p>El <span class="hl">sweet spot</span> de la caracterización es un planeta que <strong>transita</strong> y además está lo bastante cerca para medirle la <strong>velocidad radial</strong>. Así combinamos las dos medidas: la masa (de la RV) y el radio (del tránsito). Con ambas:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho_P = \frac{M_P}{\tfrac{4}{3}\pi R_P^3}"></div>
+    <small>La densidad es el primer diagnóstico de <em>de qué está hecho</em> un planeta: rocoso, con mucha agua/hielo, o gaseoso.</small>
+  </div>
+
+  <figure>
+    <img src="m2c3/assets/slide-11.jpg" alt="Relación masa-radio de exoplanetas con curvas teóricas de composición">
+    <figcaption><span class="cap">Diapositiva · Relación masa–radio</span>Radio vs. masa del planeta. Las curvas teóricas muestran cómo sería un planeta de hidrógeno, agua, roca o hierro puro. Cada exoplaneta con masa y radio conocidos cae cerca de una de esas curvas, revelando su composición. A la derecha, la relación empírica (Müller et al. 2024) con su quiebre alrededor de ~100 M⊕.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Leyes empíricas que «empujan» la ciencia</span>
+    <p>En el Sistema Solar <strong>no hay super-Tierras</strong> (nada rocoso entre la Tierra y Urano/Neptuno). Pero la relación masa–radio de los exoplanetas sugiere una «ley» entre planetas rocosos y gaseosos. Tomar estas relaciones <em>empíricas</em> y usarlas como si fueran leyes —aún sin entender del todo la física— es una forma legítima de avanzar: es un <strong>modelo basado en datos</strong> que guía la siguiente pregunta.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La relación masa–radio es un <strong>clasificador</strong>: el punto (M, R) de un planeta se compara con curvas de referencia (roca, agua, hierro, H/He) y se le asigna la composición más cercana. Es ajuste a modelos físicos más que «caja negra», pero la lógica es la de clasificar puntos por su distancia a fronteras conocidas, exactamente como en aprendizaje supervisado.</p>
+  </div>
+
+  <div class="widget" id="w-dens">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Densidad del planeta a partir de masa y radio</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa masa (en masas terrestres) y radio (en radios terrestres). El widget calcula la densidad media y propone una composición aproximada (referencias: agua ≈ 1, roca ≈ 3–5, hierro ≈ 8 g/cm³; gigante gaseoso ≪ 1,5).</p>
+    <div class="presets" id="dens-presets">
+      <button data-m="1" data-r="1">Tierra</button>
+      <button data-m="317.8" data-r="11.21">Júpiter</button>
+      <button data-m="17.1" data-r="3.86">Neptuno</button>
+      <button data-m="5" data-r="1.6">Super-Tierra</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="dens-m">Masa del planeta (M⊕)</label><input type="number" id="dens-m" step="any" value="1"></div>
+      <div><label for="dens-r">Radio del planeta (R⊕)</label><input type="number" id="dens-r" step="any" value="1"></div>
+    </div>
+    <output id="dens-out"></output>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La edad de las estrellas (y sus planetas)</h2>
+    <p>Estrella y planetas nacen casi a la vez; datar la estrella data el sistema.</p>
+  </div></div>
+
+  <p>Suposición razonable: la <strong>edad de los planetas ≈ edad de la estrella</strong>, porque se forman en el mismo colapso de nube. Que casi todos los planetas (incluso exoplanetas) sean <strong>coplanares</strong> apoya el origen en un disco común; si tuvieran órbitas «a la chuña» sería más fácil pensar que fueron <em>capturados</em> y tendrían edades distintas.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-12.jpg" alt="Isócronas y punto de turn-off de la secuencia principal para datar cúmulos estelares">
+    <figcaption><span class="cap">Diapositiva · La edad</span>Caminos evolutivos e <strong>isócronas</strong> (líneas de igual edad). Se datan <strong>cúmulos</strong> (estrellas hermanas) mirando el <em>turn-off</em> de la secuencia principal: la estrella más masiva que aún no ha «muerto» marca la edad del grupo. Las formas irregulares mezclan la física estelar real con cómo se observa.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">La analogía del curso</span>
+    <p>Datar un cúmulo es como estimar la edad de un curso «viendo cuál fue el último alumno en consumirse»: las estrellas masivas son raras y se mueren jóvenes, así que el punto donde la secuencia principal se «dobla» fija la edad. Las edades dependen también de la <strong>metalicidad</strong>, pero están bien calibradas. Por eso es tan atractivo hallar planetas en cúmulos globulares: heredan una edad muy bien conocida.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Rotación estelar y momento angular</h2>
+    <p>El efecto Rossiter-McLaughlin revela alineación; el momento angular delata planetas.</p>
+  </div></div>
+
+  <p>Durante un tránsito, la estrella <strong>rota</strong>: una mitad de su superficie se acerca (corrida al azul) y la otra se aleja (corrida al rojo). Cuando el planeta tapa primero el lado azul y luego el rojo, deforma la línea de absorción de manera característica. Ese es el <span class="hl">efecto Rossiter-McLaughlin</span>, que permite saber si el eje de rotación de la estrella está <strong>alineado</strong> con la órbita del planeta.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-13.jpg" alt="Esquema del efecto Rossiter-McLaughlin para distintos ángulos de la órbita">
+    <figcaption><span class="cap">Diapositiva · Rotación estelar</span>Efecto Rossiter-McLaughlin (Gaudi &amp; Winn 2007): según el ángulo entre la trayectoria del tránsito y el eje de rotación, la anomalía en velocidad radial tiene una forma distinta. Una órbita <strong>desalineada</strong> sugiere que el planeta sufrió una interacción (otro planeta lo «pateó» fuera del plano).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-14.jpg" alt="Momento angular del sistema versus masa estelar, comparando estrellas con y sin planetas">
+    <figcaption><span class="cap">Diapositiva · Rotación y momento angular</span>En el Sistema Solar, casi todo el <strong>momento angular (~99,7%) está en los planetas</strong>, no en el Sol. Los modelos dicen que el proto-Sol giraba mucho más rápido y «perdió» rotación. Comparar el momento angular de estrellas con y sin planetas (Paz-Chinchón et al. 2015) podría ayudar a <strong>identificar planetas por descubrir</strong>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La patinadora que junta los brazos</span>
+    <p>Cuando una nube casi estática colapsa por gravedad, cualquier rotación imperceptible se amplifica: igual que una patinadora que junta los brazos gira más rápido (conservación del momento angular). Esa dirección privilegiada se vuelve el eje de rotación de la estrella y define el plano del <strong>disco</strong>. De ahí que la rotación estelar y la existencia de planetas estén ligadas: las estrellas que «cedieron» momento angular a sus planetas girarían más lento.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Metalicidad: formación, migración y enriquecimiento</h2>
+    <p>Más metales, más probabilidad de planeta. Pero hay dos historias posibles.</p>
+  </div></div>
+
+  <p>En astronomía, <span class="hl">metal</span> es <strong>cualquier elemento más pesado que el helio</strong> (¡el oxígeno o el hierro cuentan como «metales»!). La metalicidad se mide en escala logarítmica respecto al Sol:</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-15.jpg" alt="Definición de metalicidad y distribución de metalicidad de estrellas con y sin planetas">
+    <figcaption><span class="cap">Diapositiva · Metalicidad</span>Definición <span class="katex-inline" data-tex="[\mathrm{x/H}]"></span> y distribución de metalicidad: las <strong>estrellas con planetas</strong> (línea punteada) están corridas hacia metalicidades más altas que las de comparación. Se mide observando la composición de la superficie estelar en sus líneas de absorción.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="[\mathrm{x/H}] \equiv \log_{10}\!\left(\frac{N_\mathrm{x}}{N_\mathrm{H}}\right) - \log_{10}\!\left(\frac{N_\mathrm{x}}{N_\mathrm{H}}\right)_{\!\odot}"></div>
+    <small>«Cuántas décadas» (potencias de 10) de un elemento <span class="katex-inline" data-tex="\mathrm{x}"></span> tiene la estrella respecto al Sol. La superficie refleja el material <em>del que se formó</em> la estrella, no lo que fusiona en su núcleo.</small>
+  </div>
+
+  <p>Para comparar las dos poblaciones (con y sin planetas) se usa el test estadístico de <strong>Kolmogórov–Smirnov</strong>, que mide si dos distribuciones acumuladas son la misma. Resultado: las distribuciones <em>difieren</em>; tener más metales se <strong>correlaciona</strong> con tener planetas (aunque hay planetas en estrellas muy pobres en metales).</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-16.jpg" alt="Evolución de la envoltura convectiva del Sol y masa acretada, metalicidad primordial vs enriquecimiento">
+    <figcaption><span class="cap">Diapositiva · Primordial vs. enriquecimiento</span>Dos explicaciones para la correlación metalicidad–planetas: (1) <strong>primordial</strong>, la nube ya era más metálica y formó más fácilmente núcleos rocosos; (2) <strong>enriquecimiento</strong>, la estrella se «comió» planetas que migraron hacia adentro, contaminando su superficie. La envoltura convectiva del Sol (curva) regula cuánto se diluye el material acretado.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Migración, Psyche y asterosismología</span>
+    <p>Al formarse, un planeta interactúa con el disco y tiende a <strong>migrar hacia la estrella</strong>, comiendo masa y creciendo; si no se detiene, cae a la estrella y la enriquece. Los elementos pesados se concentran en la parte central y densa del disco (el asteroide metálico <strong>(16) Psyche</strong>, hoy visitado por una misión, es lo más cercano a un núcleo planetario desnudo). ¿Se detecta si una estrella se tragó un planeta? Quizá por <strong>asterosismología</strong>: la masa engullida haría «vibrar» la estrella en modos medibles durante miles de millones de años. Hay candidatos, pero ninguna certeza.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Estadística: super-Tierras y el desierto neptuniano</h2>
+    <p>Kepler corrigió los sesgos y reveló los planetas más comunes de la Galaxia.</p>
+  </div></div>
+
+  <p>Antes de Kepler casi todo eran <strong>Júpiters</strong> de período corto (lo que la velocidad radial ve fácil). Kepler, al vigilar ~100.000 estrellas con cadencia de minutos durante años y <em>corregir los sesgos</em>, cambió el panorama: los planetas más comunes están <strong>entre la Tierra y Neptuno</strong> —las <span class="hl">super-Tierras</span> y los <strong>sub-Neptunos</strong>— y… <em>no existen en el Sistema Solar</em>.</p>
+
+  <figure>
+    <img src="m2c3/assets/slide-17.jpg" alt="Diagrama masa-distancia con descubrimientos de Kepler y proyección del telescopio Roman">
+    <figcaption><span class="cap">Diapositiva · Futuro: Roman</span>Masa del planeta vs. distancia orbital. En rojo, los descubrimientos de <strong>Kepler</strong> (cercanos a la estrella); en azul, lo que se espera del telescopio <strong>Roman</strong> (asumiendo 1 planeta por estrella), que apunta a poblar el régimen tipo Tierra a mayores distancias: la promesa de una «Tierra 2.0».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-19.jpg" alt="Desierto neptuniano y sabana en el plano radio-período de exoplanetas">
+    <figcaption><span class="cap">Diapositiva · El desierto neptuniano</span>En el plano radio–período aparece un <strong>desierto neptuniano</strong>: cerca de la estrella casi no hay planetas tipo Neptuno, aunque sí los hay muy grandes (hot Jupiters) y muy pequeños. La hipótesis: la radiación intensa <strong>desnuda la atmósfera</strong> de los Neptunos cercanos (escape atmosférico) y los reduce a super-Tierras, mientras los gigantes sobreviven.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-21.jpg" alt="Número medio de planetas por estrella según el tamaño del planeta">
+    <figcaption><span class="cap">Diapositiva · Planetas por estrella</span>Número medio de planetas por estrella según su tamaño (datos de Kepler). El pico está en <strong>1–2,8 R⊕</strong>: tamaños «no vistos en nuestro Sistema Solar». Los gigantes son comparativamente raros.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c3/assets/slide-22.jpg" alt="Fracción de planetas observados por tamaño, destacando las super-Tierras">
+    <figcaption><span class="cap">Diapositiva · Las super-Tierras</span>Fracción observada por tamaño. Tras corregir los sesgos, los planetas como la Tierra o Mercurio resultan <strong>mucho más comunes</strong> de lo que sugiere la muestra cruda. «Los más comunes no están en el SS.»</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: medir incluso lo más básico —radio, masa, temperatura, distancia— abre un mundo de física interesante (composición, escape atmosférico, migración). <strong>Todo método tiene su sesgo</strong>, y solo corrigiéndolo (como hizo Kepler) se ve el verdadero censo galáctico. La <strong>próxima clase</strong>: sistemas con varios planetas y qué aprendemos de ellos. <em>(Aviso del curso: hay una clase de observación con el telescopio —diagrama H–R de un cúmulo, o el color de la Tierra vía «luz cenicienta» de la Luna—; si está nublado, se hará con datos compartidos.)</em></p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Física estelar de precisión</b></td><td>Conocer el planeta exige conocer la estrella</td><td>Errores en la estrella se propagan al planeta</td></tr>
+      <tr><td><b>Distancia / Gaia</b></td><td>Paralaje; Gaia mide microsegundos de arco</td><td>Fija magnitud absoluta ⇒ L, R y edad de la estrella</td></tr>
+      <tr><td><b>3.ª ley de Kepler</b></td><td><span class="katex-inline" data-tex="P^2 = \frac{4\pi^2}{G(M_\star+M_P)}r^3"></span></td><td>Pesa el sistema; despeja <span class="katex-inline" data-tex="M_P"></span> si se conoce <span class="katex-inline" data-tex="M_\star"></span></td></tr>
+      <tr><td><b>Tipo espectral OBAFGKM</b></td><td>Secuencia de temperatura; M ≈ 76% de todas</td><td>Resume masa y temperatura de la estrella</td></tr>
+      <tr><td><b>Zona habitable</b></td><td>Donde podría haber agua líquida</td><td>Se aleja al subir la temperatura/luminosidad estelar</td></tr>
+      <tr><td><b>Diámetro estelar</b></td><td>Interferometría (CHARA) o ancho de línea (<span class="katex-inline" data-tex="g"></span>)</td><td>Convierte profundidad de tránsito en radio del planeta</td></tr>
+      <tr><td><b>Profundidad de tránsito</b></td><td><span class="katex-inline" data-tex="\Delta F/F=(R_P/R_\star)^2"></span></td><td>1% ⇒ <span class="katex-inline" data-tex="R_P\approx R_\star/10"></span> (caso Júpiter–Sol)</td></tr>
+      <tr><td><b>Densidad y masa–radio</b></td><td><span class="katex-inline" data-tex="\rho=M_P/(\tfrac{4}{3}\pi R_P^3)"></span></td><td>Revela composición: roca, agua/hielo o gas</td></tr>
+      <tr><td><b>Edad por isócronas</b></td><td>Turn-off de la secuencia principal en cúmulos</td><td>Datar la estrella ≈ datar sus planetas</td></tr>
+      <tr><td><b>Rossiter-McLaughlin</b></td><td>Deformación de la línea durante el tránsito</td><td>Mide alineación órbita–rotación estelar</td></tr>
+      <tr><td><b>Momento angular</b></td><td>~99,7% en los planetas del Sistema Solar</td><td>Estrellas «lentas» podrían tener planetas ocultos</td></tr>
+      <tr><td><b>Metalicidad [Fe/H]</b></td><td>Logaritmo de metales vs. Sol; metal = más pesado que He</td><td>Más metales ⇒ más probable tener planetas (test K–S)</td></tr>
+      <tr><td><b>Super-Tierras / sub-Neptunos</b></td><td>1–2,8 R⊕; los más comunes de la Galaxia</td><td>No existen en el Sistema Solar (descubrimiento de Kepler)</td></tr>
+      <tr><td><b>Desierto neptuniano</b></td><td>Falta de Neptunos cerca de la estrella</td><td>Escape atmosférico por radiación intensa</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c3-examen-01.html">Examen 01<small>Medir vía la estrella</small></a></li>
+    <li><a href="m2c3-examen-02.html">Examen 02<small>Estrellas anfitrionas</small></a></li>
+    <li><a href="m2c3-examen-03.html">Examen 03<small>Distancia y Gaia</small></a></li>
+    <li><a href="m2c3-examen-04.html">Examen 04<small>Pesa cósmica de Kepler</small></a></li>
+    <li><a href="m2c3-examen-05.html">Examen 05<small>Masa, temperatura, habitabilidad</small></a></li>
+    <li><a href="m2c3-examen-06.html">Examen 06<small>Líneas y diámetro estelar</small></a></li>
+    <li><a href="m2c3-examen-07.html">Examen 07<small>Densidad y masa–radio</small></a></li>
+    <li><a href="m2c3-examen-08.html">Examen 08<small>Edad y rotación</small></a></li>
+    <li><a href="m2c3-examen-09.html">Examen 09<small>Metalicidad y migración</small></a></li>
+    <li><a href="m2c3-examen-10.html">Examen 10<small>Estadística e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo II del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 24 may 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m2/ff/planetas-m2c3.md</code>) y las diapositivas <code>Modulo_II_Clase_3_Midiendo_Propiedades_Exoplanetas.pdf</code> («Midiendo Propiedades de Exoplanetas»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. «CHAR» → <em>CHARA</em>; «Kolmogorom Smith» → test de <em>Kolmogórov–Smirnov</em>; «Goebbels/Gepper» → <em>Gaia/Kepler</em>; «Caffein» → enanas <em>café/marrón</em>; la masa del Sol como ~333.000 M⊕, no «5.000»). Algunas frases del audio eran ambiguas y se interpretaron con cuidado; los widgets usan fórmulas estándar y valores ilustrativos. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var SIGMA = 5.670374e-8;     // W m^-2 K^-4
+var RSUN = 6.957e8;          // m
+var AU = 1.496e11;           // m
+var REARTH = 6.371e6;        // m
+var MEARTH = 5.972e24;       // kg
+
+// ---- Widget 1: temperatura de equilibrio ----
+(function(){
+  var ts=document.getElementById('teq-ts'), rs=document.getElementById('teq-rs');
+  var a=document.getElementById('teq-a'), alb=document.getElementById('teq-alb');
+  var out=document.getElementById('teq-out');
+  function calc(){
+    var tsV=parseFloat(ts.value), rsV=parseFloat(rs.value), aV=parseFloat(a.value), aL=parseFloat(alb.value);
+    if(!(tsV>0)||!(rsV>0)||!(aV>0)||!(aL>=0&&aL<1)){ out.innerHTML="Ingresa valores válidos (albedo entre 0 y &lt;1)."; return; }
+    var Rs=rsV*RSUN, d=aV*AU;
+    var Teq = tsV*Math.pow(1-aL,0.25)*Math.sqrt(Rs/(2*d));
+    var Tc = Teq-273.15;
+    var zona = Teq>=273 && Teq<=373 ? "dentro del rango de agua líquida (zona habitable ~273–373 K)" :
+               Teq<273 ? "demasiado frío para agua líquida (por debajo de 273 K)" :
+                         "demasiado caliente para agua líquida (por encima de 373 K)";
+    out.innerHTML = "Temperatura de equilibrio <span class='k'>T<sub>eq</sub></span> = <b>"+Teq.toFixed(0)+"</b> K ("+Tc.toFixed(0)+" °C)<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+zona+". Modelo de cuerpo negro, redistribución global del calor.</span>";
+  }
+  [ts,rs,a,alb].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#teq-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ ts.value=b.dataset.ts; rs.value=b.dataset.rs; a.value=b.dataset.a; alb.value=b.dataset.alb; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: profundidad de tránsito -> radio planeta ----
+(function(){
+  var d=document.getElementById('tr-d'), rs=document.getElementById('tr-rs');
+  var out=document.getElementById('tr-out');
+  function calc(){
+    var dV=parseFloat(d.value), rsV=parseFloat(rs.value);
+    if(!(dV>0)||!(rsV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var frac=dV/100;
+    var ratio=Math.sqrt(frac);            // Rp/R*
+    var Rp_solar=ratio*rsV;               // en radios solares
+    var Rp_earth=Rp_solar*RSUN/REARTH;
+    var Rp_jup=Rp_earth/11.21;
+    out.innerHTML = "Cociente <span class='k'>R<sub>P</sub>/R★</span> = <b>"+ratio.toFixed(4)+"</b><br>"+
+      "Radio del planeta R<sub>P</sub> = <b>"+Rp_earth.toFixed(2)+"</b> R⊕  ("+Rp_jup.toFixed(3)+" R<sub>Júpiter</sub>)<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Una caída de "+dV+"% implica que el área del planeta es "+(frac*100).toFixed(3)+"% de la estelar.</span>";
+  }
+  [d,rs].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#tr-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ d.value=b.dataset.d; rs.value=b.dataset.rs; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: densidad del planeta ----
+(function(){
+  var m=document.getElementById('dens-m'), r=document.getElementById('dens-r');
+  var out=document.getElementById('dens-out');
+  function calc(){
+    var mV=parseFloat(m.value), rV=parseFloat(r.value);
+    if(!(mV>0)||!(rV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var M=mV*MEARTH, R=rV*REARTH;
+    var rho=M/(4/3*Math.PI*Math.pow(R,3)); // kg/m^3
+    var rho_g=rho/1000;                    // g/cm^3
+    var comp = rho_g>=7 ? "muy denso: dominado por hierro/metal (tipo núcleo planetario)" :
+               rho_g>=3 ? "rocoso (silicatos), tipo terrestre" :
+               rho_g>=1.5 ? "mezcla de roca y hielo/agua" :
+               "baja densidad: gigante gaseoso o con envoltura masiva de H/He";
+    out.innerHTML = "Densidad media <span class='k'>ρ</span> = <b>"+rho_g.toFixed(2)+"</b> g/cm³ ("+rho.toFixed(0)+" kg/m³)<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+comp+". (Tierra ≈ 5,51 g/cm³.)</span>";
+  }
+  [m,r].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#dens-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ m.value=b.dataset.m; r.value=b.dataset.r; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

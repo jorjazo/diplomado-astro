@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detectando Exoplanetas II — Astrofísica de Planetas, Módulo II · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo II · Clase 2</span>
+  <h1>Detectando <em>Exoplanetas</em> II</h1>
+  <p class="sub">Tres métodos más para cazar planetas: <strong>microlensing</strong> (la gravedad como lente), <strong>imagen directa</strong> (ver al planeta de verdad, tapando a la estrella) y <strong>tránsitos</strong> (la pequeña sombra que el planeta proyecta sobre la luz de su estrella). Cada uno «ve» un tipo de planeta distinto.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 19 may 2026</span>
+    <span><b>Tema:</b> Métodos de detección (parte 2)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase anterior detectamos planetas <em>indirectamente</em>, mirando cómo perturban a su estrella (velocidad radial, timing, astrometría). Esta clase agrega los tres métodos que faltan, y dos de ellos cambian de estrategia: el <span class="hl">microlensing</span> usa la gravedad de un sistema como una lente que <em>amplifica</em> la luz de una estrella lejana; la <span class="hl">imagen directa</span> intenta lo más difícil de todo —ver el fotón que sale del planeta, tapando la luz de la estrella con un coronógrafo—; y los <span class="hl">tránsitos</span>, el método que hoy domina el conteo de planetas, miden la diminuta caída de brillo cuando el planeta cruza por delante de su estrella. La idea transversal sigue siendo la misma: <strong>todo método impone un sesgo</strong>, y entenderlo es tan importante como la detección misma.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Panorama: dónde estamos y qué falta</a></li>
+    <li><a href="#s2">Microlensing: la gravedad como lente</a></li>
+    <li><a href="#s3">Radio de Einstein y curva de amplificación</a></li>
+    <li><a href="#s4">Cáusticas y planetas: OGLE-2006-BLG-109</a></li>
+    <li><a href="#s5">Serendipia: qué muestrea el microlensing</a></li>
+    <li><a href="#s6">Imagen directa: el problema del contraste</a></li>
+    <li><a href="#s7">Coronógrafos, óptica y sus límites</a></li>
+    <li><a href="#s8">Tránsitos: geometría, profundidad y probabilidad</a></li>
+    <li><a href="#s9">El primer tránsito y el «folding»</a></li>
+    <li><a href="#s10">Modelando el tránsito: duración y limb darkening</a></li>
+    <li><a href="#s11">Más allá del tránsito: secundario, manchas, Rossiter-McLaughlin</a></li>
+    <li><a href="#s12">La era espacial: Kepler, TESS y sistemas múltiples</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Panorama: dónde estamos y qué falta</h2>
+    <p>El módulo II es «cómo sabemos lo que sabemos» de los exoplanetas.</p>
+  </div></div>
+
+  <p>El profesor enmarca las dos primeras clases del módulo como un recorrido por los <strong>métodos de detección más importantes</strong> —importante = mayor cantidad de planetas detectados—. Las clases siguientes usarán esos métodos para preguntar <em>qué</em> sabemos de los sistemas. La Clase 1 cubrió timing, astrometría y velocidad radial; esta cubre <span class="hl">microlensing</span>, <span class="hl">imágenes directas</span> y <span class="hl">tránsitos</span>.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-02.jpg" alt="Gráfico de detecciones de exoplanetas por año, codificadas por método">
+    <figcaption><span class="cap">Diapositiva · Detecciones por año y método</span>El mismo gráfico de la clase pasada. La <strong>velocidad radial</strong> (rojo) partió en 1995 y se mantiene relativamente constante; luego los <strong>tránsitos</strong> (verde) «toman la posta» y disparan el conteo, con picos asociados a los <em>data releases</em> de Kepler. El <strong>microlensing</strong> (morado) aporta cada vez más. La escala vertical <em>no</em> es logarítmica, por eso los primeros años casi no se ven.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Recordatorio de la Clase 1: la órbita</span>
+    <p>Todo arranca en el <strong>problema de dos cuerpos</strong>, con solución exacta: una elipse descrita por <strong>6 parámetros keplerianos</strong> (<span class="katex-inline" data-tex="a, e, i, \Omega, \omega"></span> + anomalía). La <strong>3.ª ley de Kepler</strong>, <span class="katex-inline" data-tex="P^2 = \tfrac{4\pi^2}{G(M_\star+M_P)}\,a^3"></span>, es la «balanza cósmica»: si medimos período y separación, pesamos el sistema. Estos métodos nuevos siguen apoyándose en esa misma geometría orbital.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Microlensing: la gravedad como lente</h2>
+    <p>Desarmemos la palabra: «micro» + «lens». Un lente es cualquier cosa que doble la luz.</p>
+  </div></div>
+
+  <p>Una de las predicciones de la <strong>relatividad general</strong> de Einstein es que donde hay masa (= energía) la geometría del espacio-tiempo se <em>curva</em>. Esa curvatura desvía la luz: la masa actúa como un <span class="hl">lente gravitacional</span>. Nosotros curvamos el espacio-tiempo de forma ínfima; un planeta más, una estrella mucho más, una galaxia muchísimo más.</p>
+
+  <div class="box physics">
+    <span class="tag">El tiempo también se curva (y se mide)</span>
+    <p>Cerca de una masa el tiempo transcurre más lento. Es real y cotidiano: los relojes en la superficie de la Tierra andan distinto a los de los satélites <strong>GPS</strong>, y hay que corregir por ello (efecto gravitatorio y cinemático combinados) o el GPS acumularía errores de kilómetros. La verificación clásica de que la luz se dobla se hizo observando estrellas <strong>junto al Sol durante un eclipse</strong> y comparando su posición con la de seis meses después: aparecen corridas porque el espacio está curvado.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-04.jpg" alt="Esquema de microlensing: observador, lente y fuente, con curva de brillo en el tiempo">
+    <figcaption><span class="cap">Diapositiva · El esquema del microlensing</span>Un <strong>observador</strong>, un objeto <strong>lente</strong> (estrella ± planeta) que curva el espacio, y una <strong>fuente</strong> (estrella de fondo). No vemos el planeta ni resolvemos las imágenes múltiples; lo que medimos es que recibimos <em>más luz</em> de la fuente durante un tiempo. Abajo a la derecha: el brillo en función del tiempo, la <strong>curva de microlensing</strong>.</figcaption>
+  </figure>
+
+  <p>Cuando el lente se alinea casi perfectamente con la fuente, recibimos su luz por <strong>dos (o más) caminos</strong> a la vez: vemos varias imágenes de la misma estrella. La separación angular entre esas imágenes suele ser <em>imposible de resolver</em>, pero el efecto neto sí se nota: recibimos <strong>más flujo</strong> del que nos correspondería. Por eso lo que se grafica es la <em>cantidad de luz en función del tiempo</em>.</p>
+
+  <div class="box prof">
+    <span class="tag">¿Por qué «micro»?</span>
+    <p>«Lente gravitacional» a secas se reserva para el efecto de <strong>cúmulos de galaxias</strong>, donde la enorme masa (incluida materia oscura) curva la luz de quásares de fondo y produce esos arcos rojizos famosos (rojos por el alto <em>redshift</em>: están muy lejos). Cuando el lente es una sola estrella o estrella+planeta, hablamos de <span class="hl">microlensing</span>: misma física, escala mucho menor.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Radio de Einstein y curva de amplificación</h2>
+    <p>Dos números gobiernan el evento: cuánto se amplifica y cuánto dura.</p>
+  </div></div>
+
+  <p>La escala angular natural del problema es el <strong>radio de Einstein</strong> <span class="katex-inline" data-tex="\theta_E"></span>, que depende de la masa del lente y de la geometría de distancias observador–lente–fuente:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\theta_E = \sqrt{\frac{4GM}{c^2}\,\frac{d_S - d_L}{d_S\,d_L}}"></div>
+    <small><span class="katex-inline" data-tex="M"></span> es la masa del lente, <span class="katex-inline" data-tex="d_L"></span> y <span class="katex-inline" data-tex="d_S"></span> las distancias al lente y a la fuente. En lente gravitacional «grande» uno mide este ángulo; en <em>microlensing</em> no se resuelve, así que se mide la <strong>amplificación en función del tiempo</strong>.</small>
+  </div>
+
+  <p>La amplificación depende de un parámetro adimensional <span class="katex-inline" data-tex="u"></span>: la separación proyectada fuente–lente en unidades de <span class="katex-inline" data-tex="\theta_E"></span> (qué tan «de lleno» es la alineación). Cuanto más cerca de la alineación perfecta (<span class="katex-inline" data-tex="u\to 0"></span>), más se amplifica:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="A(u) = \frac{u^2 + 2}{u\,\sqrt{u^2 + 4}}"></div>
+    <small>Para <span class="katex-inline" data-tex="u=1"></span>, <span class="katex-inline" data-tex="A\approx 1{,}34"></span>; cuando <span class="katex-inline" data-tex="u\to 0"></span>, <span class="katex-inline" data-tex="A\to\infty"></span> (en la práctica, finita por el tamaño de la fuente). No se vuelve infinita, pero amplifica «de manera exquisita».</small>
+  </div>
+
+  <p>Como el lente (o la fuente) se mueve, <span class="katex-inline" data-tex="u"></span> cambia con el tiempo y barre un mínimo <span class="katex-inline" data-tex="u_{\min}"></span> en el momento de máxima alineación. La escala temporal es el <strong>tiempo de Einstein</strong> <span class="katex-inline" data-tex="t_E"></span> (cuánto dura la amplificación):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="u(t) = \sqrt{u_{\min}^2 + \left(\frac{t - t_0}{t_E}\right)^2}"></div>
+    <small><span class="katex-inline" data-tex="t_0"></span> es el instante de máximo acercamiento. Eventos típicos duran del orden de <strong>días</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-05.jpg" alt="Diagrama de los planos source, lens y observer con las fórmulas del radio de Einstein y la amplificación">
+    <figcaption><span class="cap">Diapositiva · Radio de Einstein</span>Los planos de la <strong>fuente</strong>, el <strong>lente</strong> y el <strong>observador</strong>, y los rayos de luz que se desvían un ángulo <span class="katex-inline" data-tex="\alpha"></span>. A la izquierda, las tres fórmulas clave: <span class="katex-inline" data-tex="\theta_E"></span>, <span class="katex-inline" data-tex="A(u)"></span> y <span class="katex-inline" data-tex="u(t)"></span>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-06.jpg" alt="Animación conceptual de microlensing con dos imágenes de la estrella fuente y la curva de brillo creciente">
+    <figcaption><span class="cap">Diapositiva · Lo que uno observa</span>La estrella del sistema lente dobla mucho más la luz que su planeta. El <strong>grueso de la curva</strong> lo produce la estrella; el planeta solo añade un <strong>pequeño <em>bump</em> extra</strong> si por suerte cruza la zona adecuada. Detectar el planeta exige medir el brillo con frecuencia suficiente para no perder ese pico.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-amp">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Amplificación de microlensing A(u)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el parámetro de impacto <span class="katex-inline" data-tex="u"></span> (separación fuente–lente en unidades de <span class="katex-inline" data-tex="\theta_E"></span>). Mira cómo la amplificación se dispara cuando la alineación es casi perfecta.</p>
+    <div class="presets" id="amp-presets">
+      <button data-u="1">u = 1 (radio de Einstein)</button>
+      <button data-u="0.3">u = 0,3 (alineación buena)</button>
+      <button data-u="0.05">u = 0,05 (casi perfecta)</button>
+      <button data-u="2">u = 2 (lejana)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="amp-u">Parámetro de impacto u</label><input type="number" id="amp-u" step="any" value="1"></div>
+    </div>
+    <output id="amp-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cáusticas y planetas: OGLE-2006-BLG-109</h2>
+    <p>Cuando el lente tiene dos masas, la amplificación se vuelve rica y diagnóstica.</p>
+  </div></div>
+
+  <p>Si el lente es <strong>doble</strong> (estrella + planeta, o estrella + estrella), los efectos de ambas masas se suman y producen una geometría peculiar: las <span class="hl">cáusticas</span>, líneas matemáticas donde la amplificación se vuelve enorme. Cuando la fuente cruza una cáustica (sigue una «cuerda» a través del diagrama), el brillo da picos muy agudos y muy informativos —pero breves—.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-07.jpg" alt="Diagrama de cáusticas de un lente binario y familia de curvas de luz según la cuerda que cruza la fuente">
+    <figcaption><span class="cap">Diapositiva · Cáusticas (Mao &amp; Paczynski, 1991)</span>Modelo (no datos) de un lente con una <strong>primaria</strong> de 1 <span class="katex-inline" data-tex="M_\odot"></span> y una <strong>secundaria</strong> de 0,1 <span class="katex-inline" data-tex="M_\odot"></span>. Según por qué «cuerda» (a, b, c…) cruce la fuente, la curva de luz cambia drásticamente: la <span class="katex-inline" data-tex="c"></span> (muy cerca de la primaria) se amplifica de forma exquisita. El espacio de soluciones es enorme y resolverlo es complicado.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Modelar un evento de microlensing binario es un <strong>problema inverso mal condicionado</strong>: muchas configuraciones (posiciones, razón de masas, trayectoria) pueden producir curvas parecidas. El trabajo es un <em>fit</em> sobre un espacio de parámetros amplio y multimodal —el mismo tipo de paisaje con muchos mínimos locales que aparece al ajustar modelos complejos a datos ruidosos—. Por eso un solo evento puede tomar <strong>meses de análisis</strong>.</p>
+  </div>
+
+  <p>El caso emblemático es <span class="hl">OGLE-2006-BLG-109</span> (Gaudi et al. 2008): un evento que reveló <strong>dos planetas</strong> gigantes alrededor de una estrella de ~0,5 <span class="katex-inline" data-tex="M_\odot"></span> a ~1,5 kpc. Resultó un análogo a escala de <strong>Júpiter + Saturno</strong>: masas de ~0,71 y ~0,27 <span class="katex-inline" data-tex="M_J"></span> a ~2,3 y ~4,6 UA. Detectar planetas a esas separaciones con otros métodos es dificilísimo; el microlensing es de hecho <em>más eficiente</em> cuando los planetas están bien separados de su estrella.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-08.jpg" alt="Curva de luz de OGLE-2006-BLG-109 con cinco features y modelo de cáusticas">
+    <figcaption><span class="cap">Diapositiva · OGLE-2006-BLG-109 (Gaudi et al. 2008)</span>Los datos reales: una curva con varios <em>features</em> (1–5) que el modelo de cáusticas debe reproducir. Parámetros del mejor modelo: <strong>M1 ~0,71 <span class="katex-inline" data-tex="M_J"></span> a ~2,3 UA</strong>, <strong>M2 ~0,27 <span class="katex-inline" data-tex="M_J"></span> a ~4,6 UA</strong>, estrella <strong>~0,5 <span class="katex-inline" data-tex="M_\odot"></span></strong> a ~1,5 kpc. Un «Saturno + Júpiter» a otra escala.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-09.jpg" alt="Cinco paneles ampliados de la curva de luz cubiertos por distintos observatorios alrededor del mundo">
+    <figcaption><span class="cap">Diapositiva · Una campaña mundial</span>Cada <em>feature</em> fue capturado por <strong>distintos observatorios</strong> repartidos por el planeta (OGLE en Las Campanas, MOA, PLANET, μFUN en Auckland, La Palma, Hawái, CTIO…). Los puntos se separan ~24 h porque solo se observa de noche; encadenando longitudes se logra cobertura temporal continua.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">OGLE y los telescopios polacos en Chile</span>
+    <p>El primero en detectar el evento fue <strong>OGLE</strong>, un consorcio polaco con telescopio en <strong>Las Campanas</strong> (Chile). Detectado el alza, se alertó a otros telescopios para que tomaran la posta en otras longitudes geográficas y dieran cobertura horaria completa: el evento se vuelve una «prioridad mundial».</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Serendipia: qué muestrea el microlensing</h2>
+    <p>No se repite jamás, pero por eso mismo es una muestra imparcial.</p>
+  </div></div>
+
+  <p>La gran limitación del microlensing es que es <strong>irrepetible</strong>: la alineación fuente–lente ocurre una vez y no vuelve (las estrellas tienen movimiento propio, medible hoy con <em>Gaia</em>). No se puede «volver a pedir tiempo» para estudiar ese planeta; solo obtenemos su <strong>masa y su distancia</strong> a la estrella, no su atmósfera ni su órbita detallada.</p>
+
+  <div class="box prof">
+    <span class="tag">El método es «pura suerte» — y esa es su virtud</span>
+    <p>Como la alineación es <strong>serendipia</strong>, el microlensing entrega una <strong>muestra imparcial</strong> de planetas. El profesor lo compara con sortear por número de RUT en vez de por «quién compra el loto»: no estás eligiendo, así que lo que sale refleja lo <em>típico</em>. Por eso, aunque cada sistema individual no se pueda re-observar, el <strong>conjunto</strong> de eventos dice cuáles son los planetas más comunes y a qué distancias orbitan —y es consistente con lo que muestran los tránsitos—.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-10.jpg" alt="Diagrama masa del planeta vs distancia orbital con descubrimientos de Kepler y los esperados por Roman">
+    <figcaption><span class="cap">Diapositiva · Masa vs distancia orbital</span>Eje X: distancia orbital (UA); eje Y: masa del planeta (en masas terrestres). En <strong>rojo</strong>, lo conocido por tránsito (Kepler): casi todo «pegado» a su estrella y de tamaño intermedio. En <strong>azul</strong>, la región que abrirá <strong>Roman</strong> por microlensing: planetas tipo Júpiter/Saturno a varias UA, donde hoy se conocen apenas un puñado. El microlensing «samplea» justo esa zona poco explorada.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · sesgo de muestreo</span>
+    <p>Es la diferencia entre un muestreo <strong>auto-seleccionado</strong> (encuesta a quien responde voluntariamente) y uno <strong>aleatorio</strong>. La velocidad radial y los tránsitos favorecen planetas grandes y cercanos (sesgo fuerte); el microlensing, al ser ciego a las propiedades del sistema, da una estimación mucho menos sesgada de la <em>distribución real</em> de planetas en la Galaxia.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Imagen directa: el problema del contraste</h2>
+    <p>Lo que la gente imagina cuando oye «se detectó un exoplaneta»: verlo.</p>
+  </div></div>
+
+  <p>La <span class="hl">imagen directa</span> capta la luz que realmente proviene del planeta. Idealmente uno ve la estrella y sus planetas, y dejando pasar el tiempo los ve <em>orbitar</em>. El planeta no brilla con luz propia: <strong>refleja</strong> la de su estrella (y emite algo en infrarrojo por su propia temperatura). El flujo del planeta, relativo al de la estrella, es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{f_p(\alpha,\lambda)}{f_\star(\lambda)} = p(\lambda)\,\left(\frac{R_p}{a}\right)^2 g(\alpha)"></div>
+    <small><span class="katex-inline" data-tex="p(\lambda)"></span>: cuánto refleja el planeta (albedo). <span class="katex-inline" data-tex="(R_p/a)^2"></span>: fracción de luz interceptada. <span class="katex-inline" data-tex="g(\alpha)"></span>: <strong>función de fase</strong>, análoga a las fases de la Luna (planeta «nuevo» si está delante, «lleno» si está detrás).</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-11.jpg" alt="Imagen directa del sistema HR 8799 tomada con el observatorio Keck en 2009">
+    <figcaption><span class="cap">Diapositiva · Imagen directa: HR 8799</span>El sistema <strong>HR 8799</strong> visto desde <strong>Keck</strong>. El nombre «HR + número» es un código de catálogo. La estrella central está <em>borrada</em> por un coronógrafo (la cruz amarilla marca su posición); alrededor se ven los planetas. Escala: 20 UA.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El faro y la luciérnaga</span>
+    <p>La analogía de la NASA (sección para niños) es perfecta: ver un planeta junto a su estrella es como ver una <strong>luciérnaga al lado de un faro</strong>. La razón de brillos Júpiter/Sol es <span class="katex-inline" data-tex="\sim 10^{-9}"></span> (¡un dólar frente a mil millones!). La señal del planeta se ahoga en el «chorro de luz» de la estrella. Si pudiéramos <em>apagar el faro</em>, veríamos la luciérnaga con esfuerzo: ése es exactamente el trabajo del coronógrafo.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-12.jpg" alt="Fórmula de razón de brillos y caricatura NASA del faro encendido y apagado con la luciérnaga">
+    <figcaption><span class="cap">Diapositiva · Razón de brillos y separación</span>Números clave: <span class="katex-inline" data-tex="f_J/f_\odot \sim 10^{-9}"></span>; la separación típica Tierra–Sol vista a <strong>10 pc</strong> es <span class="katex-inline" data-tex="\sim 0{,}1''"></span> (a 1 pc sería <span class="katex-inline" data-tex="1''"></span> por definición de parsec). En el <strong>infrarrojo</strong> el contraste mejora a <span class="katex-inline" data-tex="\sim 10^{-5}"></span>, porque la estrella brilla menos en IR y el planeta (caliente) brilla más.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Coronógrafos, óptica y sus límites</h2>
+    <p>Borrar la estrella es óptica fina; cada elemento que agregas, cuesta luz.</p>
+  </div></div>
+
+  <p>Un <span class="hl">coronógrafo</span> es un elemento óptico que anula la luz del objeto central y deja ver lo que está alrededor. El profesor lo compara con un viejo CD: un disco con <strong>ranuras concéntricas</strong> que, según su geometría, hacen interferir la luz del centro hasta cancelarla. Los hay de máscara, de <em>Lyot</em> y de <strong>vórtice</strong> (a veces tallados en diamante): una máscara de ~1 cm con surcos de ~0,3 mm, donde la milésima parte de esos surcos es comparable a la longitud de onda de la luz.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-13.jpg" alt="Corona solar en eclipse y planetas b, c, d de HR 8799 con coronógrafo de vórtice de Keck">
+    <figcaption><span class="cap">Diapositiva · Tapar el Sol con un dedo</span>Mismo principio que tapar el Sol para ver su corona. A la derecha, los planetas <strong>b, c, d</strong> revelados con el <strong>coronógrafo de vórtice</strong> de Keck (NASA/JPL-Caltech), con la estrella anulada. Abajo, el aspecto físico de la máscara de vórtice.</figcaption>
+  </figure>
+
+  <p>El precio: borrar la estrella requiere <strong>mucha óptica</strong>. Cada lente o espejo por el que «salta» la luz pierde eficiencia. Por eso hay que apuntar a estrellas <strong>brillantes y cercanas</strong> (dentro de ~1 pc para separaciones &gt; medio segundo de arco), y la mayoría de las estrellas son enanas rojas débiles. Además, la atmósfera limita la resolución: lo típico es <span class="katex-inline" data-tex="\sim 1''"></span> (0,8–1,2''), y solo en las mejores noches de Las Campanas se llega a ~0,3''. La óptica adaptativa ayuda, pero el número de blancos posibles es limitado.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-14.jpg" alt="Cadena de elementos ópticos del Gemini Planet Imager (GPI)">
+    <figcaption><span class="cap">Diapositiva · Cadena óptica del GPI</span>El <strong>Gemini Planet Imager</strong> (los telescopios gemelos en Chile y Hawái): desde la fuente, la luz pasa por óptica adaptativa, dos etapas de coronógrafo, espectrógrafo de campo integral, polarímetro… y al final un <em>data pipeline</em> que produce la «imagen de diferencia». Cada salto cuesta fotones.</figcaption>
+  </figure>
+
+  <p>El método tiene una virtud única: al repetir imágenes en años distintos, uno <strong>ve moverse al planeta</strong> y mide su órbita directamente. Así se hizo con <strong>Beta Pictoris b</strong>, observable sobre todo en infrarrojo.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-15.jpg" alt="Beta Pictoris b observado en infrarrojo, con escala de 5 UA">
+    <figcaption><span class="cap">Diapositiva · Beta Pic b, en infrarrojo</span>El infrarrojo favorece la detección porque la estrella brilla menos y el planeta caliente brilla más (contraste <span class="katex-inline" data-tex="\sim 10^{-5}"></span> en vez de <span class="katex-inline" data-tex="10^{-9}"></span>). Tomando imágenes en años sucesivos se reconstruye la órbita.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cuidado: a veces es un error</span>
+    <p>El infrarrojo facilita la detección, pero también facilita <em>equivocarse</em>. El caso de <strong>Fomalhaut b</strong> es famoso: durante años toda la comunidad (el profesor incluido) lo trató como planeta, hasta que las observaciones mostraron que se <strong>difuminaba</strong> en ~10 años: no era un planeta, sino una <strong>nube de polvo en expansión</strong> (probable colisión). Distinguir luz reflejada del planeta de luz dispersada por polvo es genuinamente difícil.</p>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-16.jpg" alt="Fomalhaut con su anillo de polvo y la secuencia de la nube de Fomalhaut b expandiéndose entre 2004 y 2014">
+    <figcaption><span class="cap">Diapositiva · Fomalhaut: el «planeta» que se difuminó</span>Izquierda: el anillo de polvo alrededor de Fomalhaut (HST). Derecha: lo que se creía Fomalhaut b se fue <strong>expandiendo y desvaneciendo</strong> entre 2004 y 2014. Una lección de prudencia: en imagen directa, la confirmación exige seguimiento temporal.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-17.jpg" alt="Diagrama de contraste planeta/estrella vs separación angular con instrumentos actuales y futuros (Mawet et al. 2012)">
+    <figcaption><span class="cap">Diapositiva · El futuro de la imagen directa</span>Contraste planeta/estrella vs separación angular (Mawet et al. 2012). La <strong>Tierra</strong> exige contraste <span class="katex-inline" data-tex="\sim 10^{-10}"></span> a <span class="katex-inline" data-tex="0{,}1''"></span> (vista a 10 pc): fuera del alcance actual (Hubble, GPI, VLT-SPHERE). Los futuros <strong>ELT-EPICS</strong> y <strong>TMT-PFI</strong> se acercan, pero «la Tierra 2.0» probablemente <em>no</em> llegará por imagen directa.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Tránsitos: geometría, profundidad y probabilidad</h2>
+    <p>Simple y poderoso: la pequeña sombra del planeta sobre la luz de la estrella.</p>
+  </div></div>
+
+  <p>El método de los <span class="hl">tránsitos</span> es el que «le ganó» a la velocidad radial en número de detecciones. La idea es sencilla: si el sistema está casi <strong>de canto</strong> (visto de perfil), el planeta pasa por delante de la estrella y bloquea una parte de su luz. No resolvemos la estrella como un disco mordido; simplemente <strong>recibimos menos flujo</strong>. La caída relativa es la razón de áreas:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{\Delta F}{F} = \left(\frac{R_P}{R_\star}\right)^2"></div>
+    <small>La profundidad del tránsito da directamente el <strong>tamaño del planeta</strong> relativo a la estrella. Para Júpiter delante del Sol, <span class="katex-inline" data-tex="\sim 1\%"></span>; para la Tierra, <span class="katex-inline" data-tex="\sim 8\times10^{-5}"></span> (84 ppm).</small>
+  </div>
+
+  <p>Pero hace falta una alineación muy especial: estar <em>justo</em> de canto. Hay una tolerancia (el planeta puede cruzar por arriba o por abajo del centro), y la <strong>probabilidad geométrica</strong> de que un sistema orientado al azar muestre tránsito es del orden del tamaño de la estrella sobre el de la órbita:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="p = \frac{R_\star}{a} \simeq 0{,}005\,\left(\frac{R_\star}{R_\odot}\right)\left(\frac{a}{1\,\mathrm{AU}}\right)^{-1}"></div>
+    <small>Las órbitas no tienen dirección preferente en la Galaxia («platos tirados al azar»). Para la Tierra orbitando al Sol, <span class="katex-inline" data-tex="p\approx 0{,}5\%"></span>: <strong>1 de cada 200</strong> sistemas como el nuestro mostraría el tránsito de la Tierra.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-18.jpg" alt="Esquema de un tránsito: planeta cruzando la estrella y curva de luz, más la fórmula de probabilidad geométrica">
+    <figcaption><span class="cap">Diapositiva · El esquema del tránsito</span>El planeta cruza el disco estelar (posiciones 1-2-3) y la <strong>curva de luz</strong> cae un escalón. A la izquierda, la geometría de la alineación «de canto» y los tránsitos rasantes (<em>grazing</em>). La fórmula da la probabilidad <span class="katex-inline" data-tex="p = R_\star/a"></span>.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-depth">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Profundidad del tránsito (ΔF/F)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Calcula cuánta luz bloquea el planeta. Compara un Júpiter con una Tierra: la diferencia es brutal.</p>
+    <div class="presets" id="depth-presets">
+      <button data-rp="1" data-rs="1">Júpiter–Sol</button>
+      <button data-rp="0.0892" data-rs="1">Tierra–Sol</button>
+      <button data-rp="1.2" data-rs="1.1">Hot Jupiter</button>
+      <button data-rp="0.18" data-rs="0.3">Super-Tierra en enana M</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="depth-rp">Radio planeta (R Júpiter)</label><input type="number" id="depth-rp" step="any" value="1"></div>
+      <div><label for="depth-rs">Radio estrella (R☉)</label><input type="number" id="depth-rs" step="any" value="1"></div>
+    </div>
+    <output id="depth-out"></output>
+  </div>
+
+  <div class="widget" id="w-prob">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Probabilidad geométrica de tránsito</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">¿Qué fracción de sistemas orientados al azar muestra el tránsito? Depende del tamaño de la estrella frente a la órbita.</p>
+    <div class="presets" id="prob-presets">
+      <button data-rs="1" data-a="1">Tierra–Sol</button>
+      <button data-rs="1" data-a="5.2">Júpiter–Sol</button>
+      <button data-rs="1" data-a="0.05">Hot Jupiter</button>
+      <button data-rs="0.3" data-a="0.05">Planeta en enana M</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="prob-rs">Radio estrella (R☉)</label><input type="number" id="prob-rs" step="any" value="1"></div>
+      <div><label for="prob-a">Semieje mayor a (UA)</label><input type="number" id="prob-a" step="any" value="1"></div>
+    </div>
+    <output id="prob-out"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El primer tránsito y el «folding»</h2>
+    <p>HD 209458 b: el primer planeta visto transitar, y la técnica para sumar señal.</p>
+  </div></div>
+
+  <p>El <strong>primer exoplaneta observado en tránsito</strong> fue <span class="hl">HD 209458 b</span> (David Charbonneau et al., 2000), con la modesta cámara <em>schmidt</em> <strong>STARE</strong>. En un par de semanas se vieron dos tránsitos. La curva de un solo tránsito dura unas horas; para mejorarla se usa el <span class="hl">folding</span> («doblar la ropa»): se supone un período, se alinean los tránsitos sucesivos uno sobre otro y se <strong>suman</strong>, promediando el ruido y revelando una curva limpia.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-19.jpg" alt="Curvas de luz de HD 209458 en dos noches y la curva resultante del folding">
+    <figcaption><span class="cap">Diapositiva · HD 209458 b (Charbonneau et al. 2000)</span>Arriba, dos noches (9 y 16 sep 1999) con el tránsito. Abajo, la curva tras <strong>folding</strong>: mucho más definida. El eje X está en días (0,1 día ≈ 2,5 h).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Un sesgo curioso: períodos múltiplos de un día</span>
+    <p>Observando desde la Tierra solo se ve de noche. Si uno «pilla» el tránsito en mitad de la noche, es probable que el período sea cercano a un <strong>número entero de días</strong> (uno vuelve a mirar la misma estrella a la misma hora). Este sesgo —junto con la preferencia por planetas de período corto y cercanos— es propio del método visto desde tierra; los telescopios espaciales lo eliminan.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · SNR y phase folding</span>
+    <p>El <em>folding</em> es <strong>promediado coherente</strong>: al apilar <span class="katex-inline" data-tex="N"></span> tránsitos en fase, la señal (la caída) se suma constructivamente mientras el ruido (blanco) se promedia, mejorando la relación señal-ruido como <span class="katex-inline" data-tex="\sqrt{N}"></span>. Es la misma idea que el <em>boxcar averaging</em> o la detección sincrónica: si conoces la periodicidad, puedes sacar una señal de debajo del ruido.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Modelando el tránsito: duración y limb darkening</h2>
+    <p>La forma de la curva guarda más información que la sola profundidad.</p>
+  </div></div>
+
+  <p>Si la estrella fuera un disco uniformemente brillante, el tránsito sería casi un trapecio definido por cuatro <strong>tiempos de contacto</strong> (<span class="katex-inline" data-tex="t_I,\,t_{II},\,t_{III},\,t_{IV}"></span>): primer contacto (el planeta toca el borde), segundo (entra del todo), tercero (empieza a salir) y cuarto (último contacto). De ahí salen la <strong>duración total</strong> y la duración «plana», que dependen de la geometría (<span class="katex-inline" data-tex="k=R_P/R_\star"></span>, el parámetro de impacto <span class="katex-inline" data-tex="b"></span> y la inclinación):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="T_{\rm tot} = \frac{P}{\pi}\,\sin^{-1}\!\left[\frac{R_\star}{a}\,\frac{\sqrt{(1+k)^2 - b^2}}{\sin i}\right],\qquad k=\frac{R_P}{R_\star}"></div>
+    <small>Cuánto dura el tránsito depende del tamaño de la estrella, la separación, la inclinación y el parámetro de impacto. (Winn, 2009.)</small>
+  </div>
+
+  <p>Esos nombres de contactos no son nuevos: vienen de los <strong>tránsitos de Mercurio</strong> frente al Sol. Midiendo cómo se corrían esos tiempos a lo largo de los años se detectó la <strong>precesión anómala del perihelio de Mercurio</strong>, una de las primeras confirmaciones de la relatividad general.</p>
+
+  <p>La estrella <em>no</em> es uniforme: el borde se ve menos brillante que el centro. Es el <span class="hl">oscurecimiento de borde</span> (<em>limb darkening</em>), que redondea las esquinas del tránsito y se modela con coeficientes <span class="katex-inline" data-tex="u_1, u_2"></span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="I(\mu) \propto 1 - u_1(1-\mu) - u_2(1-\mu)^2"></div>
+    <small><span class="katex-inline" data-tex="\mu"></span> es el coseno del ángulo respecto al centro del disco. La forma exacta del tránsito codifica <strong>cómo está distribuida la luz dentro de la estrella</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c2/assets/slide-20.jpg" alt="Geometría del tránsito con tiempos de contacto, parámetro de impacto b y fórmulas de duración (Winn 2009)">
+    <figcaption><span class="cap">Diapositiva · Modelando (Winn, 2009)</span>Geometría: el parámetro de impacto <span class="katex-inline" data-tex="b"></span>, los tiempos <span class="katex-inline" data-tex="t_I..t_{IV}"></span>, la duración <span class="katex-inline" data-tex="T"></span> y la profundidad <span class="katex-inline" data-tex="\delta"></span>. A la derecha, las fórmulas del flujo (tránsito vs ocultación), la duración y el <em>limb darkening</em> <span class="katex-inline" data-tex="I\propto 1-u_1(1-\mu)-u_2(1-\mu)^2"></span>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c2/assets/slide-21.jpg" alt="Tránsitos de HD 209458 b en distintos filtros con HST/STIS (Knutson et al. 2010)">
+    <figcaption><span class="cap">Diapositiva · En distintos filtros (Knutson et al. 2010)</span>Tránsito observado desde el espacio (HST/STIS) en ~10 longitudes de onda: la <strong>forma</strong> cambia con el color. Esa dependencia revela propiedades de la <strong>estrella</strong> (su limb darkening), información «exquisita» imposible de obtener de otra forma.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Más allá del tránsito: secundario, manchas, Rossiter-McLaughlin</h2>
+    <p>El tránsito principal es solo el comienzo de lo que se puede medir.</p>
+  </div></div>
+
+  <p>Cuando el planeta pasa <em>por detrás</em> de la estrella ocurre el <span class="hl">eclipse secundario</span> (u <em>ocultación</em>): desaparece la luz del lado iluminado del planeta. Comparando «estrella + planeta» con «estrella sola» se mide directamente el <strong>brillo del planeta</strong>. Es más difícil que el primario y se hace mejor en infrarrojo.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-22.jpg" alt="Curva de fase y eclipse secundario de un Júpiter caliente, con mapa de brillo desplazado (Knutson 2007; Winn 2009)">
+    <figcaption><span class="cap">Diapositiva · Eclipse secundario y punto caliente</span>Izquierda (Knutson, 2007): la curva muestra primario, secundario y la modulación de fase. El gran resultado: el secundario ocurría <strong>un poco antes</strong> de lo esperado ⇒ el <strong>punto más caliente del planeta estaba corrido</strong> respecto al subestelar, indicio de <strong>vientos potentes</strong> que redistribuyen el calor. Derecha (Winn, 2009): el esquema de tránsito vs ocultación.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Un resultado nacido de domar un detector</span>
+    <p>Ese mapa térmico se logró con <strong>Spitzer</strong> (infrarrojo), cuyos detectores tienen «memoria»: tras mirar algo brillante, el voltaje queda contaminado (el mismo artefacto de halo «tipo araña» de ciertas cámaras IR). Hubo que <strong>caracterizar y corregir</strong> ese efecto técnico durante ~1 año antes de extraer la ciencia. Desde entonces, las observaciones de precisión con Spitzer empezaban mirando una estrella brillante un buen rato para «asentar» el detector. <em>(El audio menciona a una astrónoma —probablemente Heather Knutson— como experta en este problema; el nombre exacto no se distingue bien en la transcripción.)</em></p>
+  </div>
+
+  <p>Las estrellas de baja masa suelen estar <strong>manchadas</strong> (como las manchas solares, pero más). Cuando el planeta tapa una mancha (zona más fría y menos brillante), bloquea <em>menos</em> luz y la curva se deforma. Siguiendo esas deformaciones tránsito a tránsito se mide la <strong>rotación</strong> de la estrella.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-23.jpg" alt="Esquema de un planeta cruzando manchas estelares y curvas de luz deformadas según la fase de la mancha (Nutzman et al. 2011)">
+    <figcaption><span class="cap">Diapositiva · Manchas (Nutzman et al. 2011)</span>Al cruzar una mancha, la caída de flujo se «rellena» un poco. Viendo cómo se mueve la mancha entre tránsitos sucesivos se reconstruye la velocidad de rotación de la estrella.</figcaption>
+  </figure>
+
+  <p>Finalmente, el <span class="hl">efecto Rossiter-McLaughlin</span>: una estrella rota, así que un borde se acerca (corrido al azul) y el otro se aleja (corrido al rojo). Cuando el planeta tapa sucesivamente esas mitades, distorsiona las líneas espectrales de forma característica. Esto permite medir si la órbita del planeta está <strong>alineada o desalineada</strong> con la rotación estelar —una pista sobre la historia dinámica del sistema—.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-24.jpg" alt="Efecto Rossiter-McLaughlin: estrella rotando con campo de velocidades azul/rojo y perfiles de línea según el planeta (Gaudi & Winn 2007)">
+    <figcaption><span class="cap">Diapositiva · Rossiter-McLaughlin (Gaudi &amp; Winn, 2007)</span>Arriba, el mapa de velocidad radial de la superficie estelar (azul acercándose, rojo alejándose). Según por dónde cruce el planeta y el ángulo de la órbita, la anomalía en la velocidad radial cambia, revelando la <strong>(des)alineación</strong> órbita-rotación.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>La era espacial: Kepler, TESS y sistemas múltiples</h2>
+    <p>Mirar sin descanso, desde el espacio, le quitó los sesgos al método.</p>
+  </div></div>
+
+  <p>El que «cambió el juego» fue <span class="hl">Kepler</span>: un satélite que observó <strong>sin cesar</strong> una zona fija del cielo, generando curvas de luz consistentes, públicas y descargables. Al observar por <em>años</em> (no por noches), eliminó el sesgo hacia períodos cortos y múltiplos de un día, y permitió encontrar <strong>sistemas con múltiples planetas</strong>. Su sucesor <strong>TESS</strong> hace un barrido de casi todo el cielo enfocado en estrellas brillantes y cercanas.</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-25.jpg" alt="Las naves Kepler y TESS frente al campo de la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva · Kepler y TESS (NASA)</span>Telescopios espaciales dedicados a tránsitos. Kepler observó un campo fijo cerca del plano galáctico; TESS barre casi todo el cielo. Sin atmósfera ni ciclo día/noche, la fotometría es mucho más estable y menos sesgada.</figcaption>
+  </figure>
+
+  <p>En sistemas multiplanetarios, el juego es identificar qué eclipses corresponden a qué planeta separándolos por sus períodos. El ejemplo es <strong>TRAPPIST-1</strong>, con <strong>siete planetas</strong> (curiosamente descubierto con el telescopio <em>TRAPPIST</em> en La Silla, Chile, no con Kepler).</p>
+
+  <figure>
+    <img src="m2c2/assets/slide-26.jpg" alt="Curva de luz de TRAPPIST-1 con los tránsitos de sus siete planetas identificados (Gillon et al.)">
+    <figcaption><span class="cap">Diapositiva · TRAPPIST-1 (ESO/Gillon et al.)</span>Cada caída es el tránsito de uno de los siete planetas (1b…1h). Algunos orbitan muy cerca y transitan muchas veces; otros, una sola vez en la campaña. Separarlos por período entero es el rompecabezas.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Qué se obtiene combinando todo</span>
+    <p>Con el tránsito: la <strong>profundidad</strong> da <span class="katex-inline" data-tex="R_P/R_\star"></span> (tamaño del planeta, si se conoce <span class="katex-inline" data-tex="R_\star"></span>) y el <strong>período</strong> da, vía Kepler, la distancia a la estrella. Combinando tránsito + velocidad radial se rompe la degeneración <span class="katex-inline" data-tex="M\sin i"></span> (el tránsito fija <span class="katex-inline" data-tex="i\approx 90^\circ"></span>) y se obtiene la <strong>masa</strong>; con masa y radio, la <strong>densidad</strong> ⇒ rocoso vs gaseoso.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: cada método ocupa una región distinta del diagrama masa–distancia, y <strong>ninguno lo ve todo</strong>. El tránsito domina el conteo y, combinado con velocidad radial, da tamaño + masa + densidad. La <strong>próxima clase</strong> profundiza en <em>qué aprendemos</em> de estos sistemas: qué nos dicen la profundidad y el período, qué pasa cuando los períodos cambian (TTV), y cómo se caracterizan las atmósferas.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Microlensing</b></td><td>Amplificación de una fuente por la gravedad de un lente</td><td>Detecta planetas lejanos de su estrella; muestra imparcial</td></tr>
+      <tr><td><b>Radio de Einstein</b></td><td><span class="katex-inline" data-tex="\theta_E=\sqrt{\tfrac{4GM}{c^2}\tfrac{d_S-d_L}{d_Sd_L}}"></span></td><td>Escala angular del evento; depende de la masa del lente</td></tr>
+      <tr><td><b>Amplificación A(u)</b></td><td><span class="katex-inline" data-tex="A=\tfrac{u^2+2}{u\sqrt{u^2+4}}"></span></td><td>Diverge si <span class="katex-inline" data-tex="u\to 0"></span>; lo que se mide en el tiempo</td></tr>
+      <tr><td><b>Cáusticas</b></td><td>Líneas de amplificación extrema en lente binario</td><td>El planeta deja un <em>bump</em>; clave para detectarlo</td></tr>
+      <tr><td><b>OGLE-2006-BLG-109</b></td><td>Análogo Júpiter+Saturno (Gaudi 2008)</td><td>~0,71 y 0,27 <span class="katex-inline" data-tex="M_J"></span> a ~2,3 y 4,6 UA</td></tr>
+      <tr><td><b>Serendipia</b></td><td>El evento ocurre una vez y no se repite</td><td>Irrepetible, pero da una muestra no sesgada</td></tr>
+      <tr><td><b>Imagen directa</b></td><td>Ver el fotón del planeta; contraste <span class="katex-inline" data-tex="\sim10^{-9}"></span> (óptico)</td><td>«Faro y luciérnaga»; mejor en IR (<span class="katex-inline" data-tex="10^{-5}"></span>)</td></tr>
+      <tr><td><b>Coronógrafo</b></td><td>Óptica que anula la luz central</td><td>Permite ver planetas; cuesta eficiencia y resolución</td></tr>
+      <tr><td><b>Profundidad de tránsito</b></td><td><span class="katex-inline" data-tex="\Delta F/F=(R_P/R_\star)^2"></span></td><td>Da el tamaño del planeta (Júpiter ~1%, Tierra ~84 ppm)</td></tr>
+      <tr><td><b>Probabilidad geométrica</b></td><td><span class="katex-inline" data-tex="p=R_\star/a\approx0{,}5\%"></span> (Tierra-Sol)</td><td>1 de cada 200 sistemas al azar transita</td></tr>
+      <tr><td><b>Folding</b></td><td>Apilar tránsitos en fase y sumar</td><td>Mejora la SNR como <span class="katex-inline" data-tex="\sqrt{N}"></span></td></tr>
+      <tr><td><b>Limb darkening</b></td><td><span class="katex-inline" data-tex="I\propto1-u_1(1-\mu)-u_2(1-\mu)^2"></span></td><td>Redondea el tránsito; informa sobre la estrella</td></tr>
+      <tr><td><b>Eclipse secundario</b></td><td>Planeta detrás de la estrella</td><td>Mide el brillo del planeta y su mapa térmico</td></tr>
+      <tr><td><b>Rossiter-McLaughlin</b></td><td>Distorsión espectral por rotación estelar</td><td>(Des)alineación órbita-rotación</td></tr>
+      <tr><td><b>Kepler / TESS</b></td><td>Fotometría espacial continua</td><td>Quita sesgos; halla sistemas múltiples</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c2-examen-01.html">Examen 01<small>Panorama y métodos</small></a></li>
+    <li><a href="m2c2-examen-02.html">Examen 02<small>Microlensing: el lente</small></a></li>
+    <li><a href="m2c2-examen-03.html">Examen 03<small>Einstein y amplificación</small></a></li>
+    <li><a href="m2c2-examen-04.html">Examen 04<small>Cáusticas y OGLE</small></a></li>
+    <li><a href="m2c2-examen-05.html">Examen 05<small>Serendipia y sesgos</small></a></li>
+    <li><a href="m2c2-examen-06.html">Examen 06<small>Imagen directa: contraste</small></a></li>
+    <li><a href="m2c2-examen-07.html">Examen 07<small>Coronógrafos y límites</small></a></li>
+    <li><a href="m2c2-examen-08.html">Examen 08<small>Tránsitos: profundidad</small></a></li>
+    <li><a href="m2c2-examen-09.html">Examen 09<small>Modelado del tránsito</small></a></li>
+    <li><a href="m2c2-examen-10.html">Examen 10<small>Kepler e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo II del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 19 may 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m2/ff/planetas-m2c2-01.md</code> y <code>planetas/m2/ff/planetas-m2c2-02.md</code>) y las diapositivas <code>Modulo_II_M_todos_detecci_n_2.pdf</code> («Detectando Exoplanetas 2: tránsitos, microlensing e imágenes»). Referencias citadas en las diapositivas: Mao &amp; Paczynski (1991); Gaudi et al. (2008, OGLE-2006-BLG-109); Charbonneau et al. (2000, HD 209458); Winn (2009); Knutson et al. (2007, 2010); Nutzman et al. (2011); Gaudi &amp; Winn (2007); Mawet et al. (2012).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía. Incertidumbres anotadas: (1) el nombre de la astrónoma experta en corregir el detector de Spitzer no se distingue con claridad en el audio («Heder/Heer», probablemente <em>Heather Knutson</em>); (2) las masas de OGLE-2006-BLG-109 que el profesor cita de memoria («un tercio y dos tercios de <span class="katex-inline" data-tex="M_J"></span>», «2,5 UA») difieren de las de la diapositiva (0,71 y 0,27 <span class="katex-inline" data-tex="M_J"></span>; 2,3 y 4,6 UA), que se tomaron como autoritativas; (3) el audio fecha la precesión del perihelio de Mercurio «en 1905»; la anomalía se conocía desde mediados del s. XIX (Le Verrier) y Einstein la explicó con la relatividad general en 1915. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var RSUN = 6.957e8;          // m
+var RJUP = 7.1492e7;         // m
+var REARTH = 6.371e6;        // m
+var AU = 1.496e11;           // m
+
+// ---- Widget 1: amplificación de microlensing A(u) ----
+(function(){
+  var u = document.getElementById('amp-u');
+  var out = document.getElementById('amp-out');
+  function calc(){
+    var uV = parseFloat(u.value);
+    if(!(uV>0)){ out.innerHTML = "Ingresa un valor de u positivo."; return; }
+    var A = (uV*uV + 2) / (uV * Math.sqrt(uV*uV + 4));
+    var dm = -2.5 * Math.log10(A); // brillo extra en magnitudes (negativo = más brillante)
+    var cmp = A>=10 ? "amplificación enorme: alineación casi perfecta" :
+              A>=2  ? "amplificación fuerte y fácil de detectar" :
+              A>=1.34 ? "del orden del radio de Einstein" :
+                        "amplificación leve (alineación pobre)";
+    out.innerHTML = "Amplificación <span class='k'>A</span> = <b>"+A.toFixed(3)+"</b>×<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Brillo extra ≈ "+Math.abs(dm).toFixed(2)+" mag · "+cmp+".</span>";
+  }
+  u.addEventListener('input', calc);
+  document.querySelectorAll('#amp-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ u.value=b.dataset.u; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: profundidad del tránsito ----
+(function(){
+  var rp = document.getElementById('depth-rp');
+  var rs = document.getElementById('depth-rs');
+  var out = document.getElementById('depth-out');
+  function calc(){
+    var rpV = parseFloat(rp.value), rsV = parseFloat(rs.value);
+    if(!(rpV>0) || !(rsV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var ratio = (rpV*RJUP) / (rsV*RSUN);
+    var depth = ratio*ratio;
+    var pct = depth*100, ppm = depth*1e6;
+    var cmp = depth>=0.005 ? "señal grande, detectable desde tierra" :
+              depth>=2e-4  ? "modesta: mejor desde el espacio" :
+                             "diminuta: solo fotometría espacial de alta precisión";
+    out.innerHTML = "Profundidad <span class='k'>ΔF/F</span> = <b>"+
+      (pct>=0.1 ? pct.toFixed(3)+" %" : ppm.toFixed(0)+" ppm")+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>R_P/R★ = "+ratio.toFixed(4)+" · "+cmp+".</span>";
+  }
+  [rp,rs].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#depth-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ rp.value=b.dataset.rp; rs.value=b.dataset.rs; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: probabilidad geométrica de tránsito ----
+(function(){
+  var rs = document.getElementById('prob-rs');
+  var a  = document.getElementById('prob-a');
+  var out = document.getElementById('prob-out');
+  function calc(){
+    var rsV = parseFloat(rs.value), aV = parseFloat(a.value);
+    if(!(rsV>0) || !(aV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var p = (rsV*RSUN) / (aV*AU);
+    if(p>1) p=1;
+    var pct = p*100, one_in = 1/p;
+    var cmp = p>=0.1 ? "alta: planetas muy cercanos transitan a menudo" :
+              p>=0.01 ? "moderada" :
+                        "baja: hay que vigilar muchas estrellas";
+    out.innerHTML = "Probabilidad <span class='k'>p</span> = <b>"+pct.toFixed(2)+" %</b> (≈ 1 en "+one_in.toFixed(0)+")<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>p = R★/a · "+cmp+".</span>";
+  }
+  [rs,a].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#prob-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ rs.value=b.dataset.rs; a.value=b.dataset.a; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

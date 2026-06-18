@@ -47,6 +47,24 @@ Exámenes de práctica: `planetas/m1/examenes_practica/`
 | Clase 4 | 10 Apr 2026, 19:37 | Pendiente | Superficies de cuerpos rocosos: Mercurio, Venus, Luna y comparación con la Tierra | Transcripción: `planetas/m1/ff/Planetas-m1c4-3aa05af0-41e9.md` | Comparar superficies planetarias a partir de impactos, tectonismo, volcanismo, erosión, rotación y evolución geológica. | Pendiente | En revisión |
 | Clase 5 | 17 Apr 2026, 18:35 | Pendiente | Atmósferas planetarias, equilibrio térmico, albedo, temperatura efectiva y efecto invernadero | Transcripción: `planetas/m1/ff/Planetas-m1c5-2f8e8d06-5c41.md` | Explicar balance radiativo, temperatura de equilibrio, rol del albedo y efecto invernadero en planetas con atmósfera. | Pendiente | En revisión |
 
+### Módulo 2
+
+Directorio: `planetas/m2/` (transcripciones en `planetas/m2/ff/`, diapositivas en `planetas/m2/diapos/`, audios en `planetas/m2/audio/`)
+
+Tema general del módulo: **detección y caracterización de exoplanetas**.
+
+#### Módulo 2 — Apuntes HTML interactivos
+
+Directorio: `planetas/m2/html/` (índice: `planetas/m2/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | Detectando exoplanetas I (métodos indirectos): qué es un (exo)planeta y por qué los cuerpos grandes son redondos (gravedad sin escala, equilibrio hidrostático), imagen directa (HR 8799), variedad de orígenes y disco protoplanetario, panorama de métodos (detecciones por año), problema de dos cuerpos y los 6 parámetros keplerianos, 3.ª ley de Kepler, velocidad radial y efecto Doppler estelar (51 Peg b, Mayor & Queloz, Nobel 2019), amplitud K, degeneración M·sin(i) y confusión con binarias, sesgos del método (hot Jupiters, manchas estelares), HARPS y correcciones, timing (púlsar PSR B1257+12, enanas blancas, TTV), astrometría y Gaia | `planetas/m2/html/m2c1-apuntes.html` | `planetas/m2/html/m2c1-examen-01.html` … `m2c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Detectando exoplanetas II: microlensing (lente gravitacional, radio de Einstein, cáusticas, OGLE), imagen directa (contraste, coronógrafos) y tránsitos (profundidad, probabilidad geométrica, modelado, Kepler/TESS); física, instrumentos y sesgos de cada método | `planetas/m2/html/m2c2-apuntes.html` | `planetas/m2/html/m2c2-examen-01.html` … `m2c2-examen-10.html` (10) | Resumida |
+| Clase 3 | Midiendo propiedades de exoplanetas: derivar masa, radio, densidad, temperatura y edad caracterizando la estrella anfitriona (Gaia, líneas y diámetro estelar vía CHARA/interferometría, asterosismología, metalicidad), relación masa–radio y composición, y estadística de Kepler (super-Tierras, desierto neptuniano) | `planetas/m2/html/m2c3-apuntes.html` | `planetas/m2/html/m2c3-examen-01.html` … `m2c3-examen-10.html` (10) | Resumida |
+| Clase 4 | Por confirmar (transcripción disponible) | Pendiente | Pendiente | Pendiente |
+| Clase 5 | Sistemas multiplanetarios (transcripción disponible) | Pendiente | Pendiente | Pendiente |
+
 ## Astrofísica de Estrellas
 
 Directorio: `estrellas/`
@@ -102,6 +120,18 @@ Directorio: `observación/`
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 4 y 5, más transcripciones compartidas con planetas | Compendio: `observación/m1/compendio.md`; compendio enriquecido: `observación/m1/compendio_enriquecido_openstax.md`; respuestas: `observación/m1/respuestas_preguntas_repaso.md`; exámenes: `observación/m1/examenes_practica/`; diapositivas en `observación/m1/diapos/`; transcripciones en `observación/m1/ff/` | En revisión |
+| Módulo 2 | 4 clases con transcripciones (`observación/m2/ff/`) y 3 con diapositivas (`observación/m2/diapos/`); clases 1 a 3 resumidas en HTML | Apuntes HTML interactivos del módulo: `observación/m2/html/index.html` | En curso |
+
+#### Módulo 2 — Apuntes HTML interactivos
+
+Directorio: `observación/m2/html/` (índice: `observación/m2/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | El tiempo: concepciones (cíclico/lineal, absoluto/relativo), tiempo físico y operacional (Aristóteles, dinámica), ciclos naturales y arqueoastronomía (día/mes/año, Giza, Stonehenge), relojes del sol al atómico (clepsidra, escape, péndulo de Huygens P=2π√(ℓ/g), cuarzo 2¹⁵ Hz y flip-flops, cesio-133), longitud y navegación (15°=1 h, milla náutica, cronómetro y Greenwich), día solar vs. sideral y línea de cambio de fecha, Luna/mareas/eclipses/precesión, UTC y leap second, día juliano y MJD, ICRS (cuásares), VLBI/EHT y cronometraje de púlsares (PSR B1257+12), relatividad especial (Michelson–Morley, Lorentz, dilatación temporal) y general (curvatura, GPS), flecha del tiempo cosmológica (CMB, escala de Planck) | `observación/m2/html/m2c1-apuntes.html` | `observación/m2/html/m2c1-examen-01.html` … `m2c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Resumen HTML en proceso (transcripción y diapositivas disponibles) | `observación/m2/html/m2c2-apuntes.html` | `observación/m2/html/m2c2-examen-01.html` … `m2c2-examen-10.html` (10) | En curso |
+| Clase 3 | Resumen HTML en proceso (transcripción y diapositivas disponibles) | `observación/m2/html/m2c3-apuntes.html` | `observación/m2/html/m2c3-examen-01.html` … `m2c3-examen-10.html` (10) | En curso |
+| Clase 4 | Pendiente (transcripción disponible: `observación/m2/ff/Observacion-m2c4.md`) | Pendiente | Pendiente | Pendiente |
 
 ## Recursos Externos Generales
 

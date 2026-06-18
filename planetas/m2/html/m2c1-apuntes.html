@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detectando Exoplanetas — Astrofísica de Planetas, Módulo II · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo II · Clase 1</span>
+  <h1>Detectando <em>Exoplanetas</em> I</h1>
+  <p class="sub">Cómo encontrar planetas que <em>no podemos ver</em>. Tres métodos <em>indirectos</em> que detectan al planeta por su efecto sobre la estrella: <strong>timing</strong>, <strong>astrometría</strong> y <strong>velocidad radial</strong>. Todo arranca en la órbita y el problema de los dos cuerpos.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 abr 2026</span>
+    <span><b>Tema:</b> Métodos de detección (parte 1)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">H</span>asta hace unos <span class="hl">40 años no se conocía ningún planeta fuera del Sistema Solar</span>. Hoy conocemos miles, y podemos hacer estadística sobre ellos. ¿Cómo se detecta algo que es millones de veces más débil que su estrella y que ni siquiera podemos resolver? La clave de esta clase es que <strong>casi todos los métodos son indirectos</strong>: no vemos el planeta, vemos cómo el planeta <em>perturba</em> a la estrella. Para entender esas perturbaciones hay que dominar primero la geometría de una órbita, y luego tres formas de medirla: el reloj que se adelanta o atrasa (<em>timing</em>), la posición de la estrella que dibuja un bucle (<em>astrometría</em>) y el corrimiento Doppler de su luz (<em>velocidad radial</em>).</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">¿Qué es un planeta (y un exoplaneta)?</a></li>
+    <li><a href="#s2">Variedad de orígenes y panorama de métodos</a></li>
+    <li><a href="#s3">La órbita: dos cuerpos y parámetros keplerianos</a></li>
+    <li><a href="#s4">Velocidad radial: el Doppler de la estrella</a></li>
+    <li><a href="#s5">La degeneración M·sin(i) y las confusiones</a></li>
+    <li><a href="#s6">Sesgos del método: qué y cuándo observar</a></li>
+    <li><a href="#s7">Timing: púlsares, enanas blancas y TTV</a></li>
+    <li><a href="#s8">Astrometría: ver moverse a la estrella (Gaia)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Qué es un planeta (y un exoplaneta)?</h2>
+    <p>Una definición útil para conversar y para dejar fuera a Plutón.</p>
+  </div></div>
+
+  <p>La palabra <span class="hl">planeta</span> viene del griego <em>planētēs</em>: «errante», «vagabundo». El nombre delata la observación más antigua: hay «estrellas» que no se quedan fijas, sino que cambian de posición respecto a las demás de noche a noche y de semana a semana. La definición de diccionario («cuerpo celeste sin luz propia que gira en órbita elíptica alrededor del Sol o de una estrella») sirve para arrancar, pero tiene agujeros: dejaría entrar al auto que SpaceX lanzó a orbitar el Sol, o a cualquier asteroide.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-02.jpg" alt="Definición de planeta y exoplaneta según la RAE">
+    <figcaption><span class="cap">Diapositiva · Definición</span>«Planeta»: errante. «Exoplaneta»: todos aquellos que no están ligados al Sol. La definición de diccionario es un buen punto de partida, pero hay que afinarla con física para que no entre cualquier cosa.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">La utilidad de las definiciones</span>
+    <p>El profesor insiste: una buena definición no es trivia, es una herramienta para <em>avanzar</em>. Bajar a Plutón a «planeta enano» fue una buena decisión práctica: de no hacerlo, hoy habría ~25 planetas (por todos los objetos transneptunianos similares que se descubrieron), una pesadilla para memorizar. La definición se ajustó pidiendo, entre otras cosas, que el cuerpo sea <strong>lo suficientemente grande para ser redondo</strong>.</p>
+  </div>
+
+  <h3>Por qué los cuerpos grandes son redondos: la gravedad no tiene escala</h3>
+  <p>Hay cuatro fuerzas fundamentales. Comparando un protón consigo mismo, la fuerza <strong>electromagnética es ~10<sup>40</sup> veces más intensa que la gravedad</strong>. Entonces, ¿por qué a gran escala manda la gravedad? Porque en el universo hay casi la misma cantidad de carga positiva que negativa: al acumular masa, las cargas se <em>cancelan</em> (como tirar un millón de monedas y quedar cerca del 50/50), y la electromagnética neta tiende a cero. La masa, en cambio, <strong>solo suma</strong>: nunca hay «masa negativa» que la cancele.</p>
+
+  <div class="box physics">
+    <span class="tag">Una fuerza sin escala característica</span>
+    <p>La gravedad es <span class="katex-inline" data-tex="F = G\,m_1 m_2/r^2"></span>: no contiene ninguna distancia o tamaño «especial». Por eso los discos de galaxias, los discos protoplanetarios y los discos de los que salen las lunas tienen <strong>proporciones parecidas</strong> (algo así como 1:100 entre grosor y diámetro), aunque sus tamaños difieran por factores enormes. Es como mirar el mar desde un avión: sin referencia, no sabes si las olas están a 10 m o a 1 km. La gravedad es <em>fractal</em> en ese sentido.</p>
+  </div>
+
+  <p>Cuando se acumula mucha masa, solo importa la gravedad, que tiene <strong>simetría esférica</strong>; por eso los cuerpos grandes son redondos y están en <span class="hl">equilibrio hidrostático</span>. Bajo cierto tamaño (~10–100 km) la gravedad ya no domina y aparecen cuerpos con forma irregular, como los asteroides.</p>
+
+  <div class="box physics">
+    <span class="tag">La escalera de la masa: planeta, enana café, estrella</span>
+    <p>Lo que distingue a un planeta de una estrella es <strong>qué puede quemar</strong> en su interior:</p>
+    <ul>
+      <li><strong>Planeta / exoplaneta:</strong> no logra fusionar deuterio. Puede producir algo de energía por contracción gravitatoria, pero no por reacciones nucleares sostenidas.</li>
+      <li><strong>Enana café (marrón):</strong> logra quemar deuterio, pero no hidrógeno.</li>
+      <li><strong>Estrella:</strong> logra quemar hidrógeno en su núcleo («saca carnet»).</li>
+    </ul>
+    <p>El Sol se sostiene por un <em>feedback negativo</em>: si se contrae, la temperatura sube, hay más fusión, más energía, y eso frena la contracción; al expandirse se enfría y vuelve a contraerse. Ese balance es el equilibrio hidrostático, donde la gravedad le gana al empuje electromagnético del gas.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-03.jpg" alt="Cuatro exoplanetas orbitando HR 8799 observados con el observatorio Keck">
+    <figcaption><span class="cap">Diapositiva · Imagen directa: HR 8799</span>Cuatro exoplanetas alrededor de <strong>HR 8799</strong>, observados con el observatorio <strong>Keck</strong> (Hawái) durante ~7 años. Se bloqueó la luz de la estrella con un <em>coronógrafo</em> y se corrigió la atmósfera con óptica adaptativa. Esto es <strong>imagen directa</strong>: uno de los pocos casos en que sí vemos al planeta.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Variedad de orígenes y panorama de métodos</h2>
+    <p>Cada planeta queda marcado por su estrella y su entorno.</p>
+  </div></div>
+
+  <p>¿De dónde salen los planetas? En general se forman <strong>junto con sus estrellas</strong>. La mejor evidencia está en casa: en el Sistema Solar todos los planetas orbitan casi en el mismo plano (la <span class="hl">eclíptica</span>). Eso no es casualidad: indica que surgieron de un <strong>disco protoplanetario</strong>, un disco aplanado que aparece de forma natural cuando se forma una estrella. Cuando las noticias hablan de «alineación planetaria del siglo», en realidad los planetas <em>siempre</em> están alineados en la eclíptica.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-04.jpg" alt="Región de formación estelar vista en visible (HST) e infrarrojo (JWST)">
+    <figcaption><span class="cap">Diapositiva · Variedad de orígenes</span>Una «maternidad estelar» en visible (HST) y en infrarrojo (JWST). En infrarrojo se ve <em>a través</em> del polvo: justo donde se forman las estrellas. Por eso la formación estelar y la de discos protoplanetarios se estudian en radio/IR (ALMA), no en óptico.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El astrónomo aprovecha cualquier <em>correlación</em> entre objetos para inferir su historia, como quien observa gente de distintas edades en una plaza y reconstruye un ciclo de vida sin seguir a nadie 80 años. Es <strong>inferencia estadística sobre una población</strong> (muchos sistemas en distintas etapas) en lugar de un estudio longitudinal de un solo objeto: cambias tiempo por número de muestras.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-05.jpg" alt="Gráfico de detecciones de exoplanetas por año, codificadas por método">
+    <figcaption><span class="cap">Diapositiva · Detecciones por año y método</span>Desde el primer descubrimiento por velocidad radial (1995). Al principio <strong>todo era velocidad radial</strong>; luego «explotaron» los <strong>tránsitos</strong> (verde, sobre todo desde 2014–2016, era Kepler). Hay además <em>microlensing</em>, imagen directa, variaciones temporales y métodos más exóticos.</figcaption>
+  </figure>
+
+  <p>El curso se organiza por <strong>método</strong>. Esta primera clase cubre los tres que detectan al planeta indirectamente, observando el movimiento de la estrella: <em>timing</em>, <em>astrometría</em> y <em>velocidad radial</em>. Tránsitos y microlensing vienen en las clases siguientes.</p>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La órbita: el problema de dos cuerpos y sus 6 parámetros</h2>
+    <p>Un cambio de variables convierte el movimiento en seis números constantes.</p>
+  </div></div>
+
+  <p>Todo planeta, por definición, orbita una estrella. La ecuación de gravedad para <strong>dos masas</strong> (<span class="katex-inline" data-tex="m_1"></span> y <span class="katex-inline" data-tex="m_2"></span>) tiene <em>solución exacta</em>. Al resolverla (con el cambio de variable <span class="katex-inline" data-tex="u=1/r"></span>) aparece un oscilador: la misma matemática que un péndulo. La órbita resultante es una <strong>cónica</strong>: elipse, parábola o hipérbola.</p>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué hacen falta 6 números?</span>
+    <p>La 2.ª ley de Newton, <span class="katex-inline" data-tex="\vec{F}=m\,\vec{a}"></span>, relaciona la fuerza con la <em>segunda</em> derivada de la posición. Para «deshacer» dos derivadas (integrar dos veces) se necesitan <strong>dos condiciones iniciales vectoriales</strong>: la posición inicial y la velocidad inicial. En 3D, cada vector son 3 números ⇒ <strong>3 + 3 = 6 números</strong> determinan toda la órbita futura. La fórmula de la solución es la misma; lo que cambia con las condiciones iniciales es <em>qué</em> órbita obtienes (caer al Sol, un círculo, una elipse...).</p>
+  </div>
+
+  <p>El truco elegante: en vez de la posición y velocidad (que cambian a cada instante), se hace un <strong>cambio de coordenadas</strong> a seis números que <em>no</em> cambian con el tiempo. Son los <span class="hl">parámetros keplerianos</span> (o elementos orbitales). Son la «condición inicial» en una forma mucho más cómoda.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-06.jpg" alt="Diagrama de los elementos orbitales keplerianos y tercera ley de Kepler">
+    <figcaption><span class="cap">Diapositiva · Elementos orbitales</span>Los seis parámetros keplerianos y, a la izquierda, la 3.ª ley de Kepler. El plano de referencia, el nodo ascendente, la inclinación y el argumento del periastro orientan la elipse en el espacio; la anomalía dice <em>dónde</em> está el cuerpo en su órbita.</figcaption>
+  </figure>
+
+  <h3>Qué significa cada parámetro</h3>
+  <ul>
+    <li><strong>Semieje mayor <span class="katex-inline" data-tex="a"></span>:</strong> el tamaño de la elipse; fija la distancia típica estrella–planeta.</li>
+    <li><strong>Excentricidad <span class="katex-inline" data-tex="e"></span>:</strong> qué tan «achatada» es. En una elipse la suma de distancias a los dos focos es constante; la estrella está en <em>uno</em> de los focos. La distancia centro–foco es <span class="katex-inline" data-tex="a\,e"></span>; el punto más cercano (periastro) está a <span class="katex-inline" data-tex="a(1-e)"></span> y el más lejano (apoastro) a <span class="katex-inline" data-tex="a(1+e)"></span>.</li>
+    <li><strong>Inclinación <span class="katex-inline" data-tex="i"></span>:</strong> el ángulo entre el plano de la órbita y el plano de referencia (para exoplanetas, el plano del cielo).</li>
+    <li><strong>Longitud del nodo ascendente <span class="katex-inline" data-tex="\Omega"></span>:</strong> orienta la línea donde la órbita cruza el plano de referencia «de abajo hacia arriba» (nodo ascendente).</li>
+    <li><strong>Argumento del periastro <span class="katex-inline" data-tex="\omega"></span>:</strong> dentro del plano orbital, hacia dónde apunta el punto de máximo acercamiento.</li>
+    <li><strong>Anomalía (verdadera <span class="katex-inline" data-tex="\nu"></span>, o equivalente):</strong> dónde está el objeto <em>ahora</em> sobre la órbita; es el único que evoluciona con el tiempo.</li>
+  </ul>
+
+  <p>La famosa <strong>tercera ley de Kepler</strong> sale directamente de este problema de dos cuerpos:</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="P^2 = \frac{4\pi^2}{G\,(M_\star + M_P)}\,a^3"></div>
+    <small>Para el Sistema Solar, como <span class="katex-inline" data-tex="M_\star \gg M_P"></span>, la suma de masas es prácticamente la del Sol y queda <span class="katex-inline" data-tex="P^2 \propto a^3"></span> (con <span class="katex-inline" data-tex="P"></span> en años y <span class="katex-inline" data-tex="a"></span> en UA). Midiendo dos de las tres cantidades (<span class="katex-inline" data-tex="P,\ a,\ M_\star{+}M_P"></span>) se despeja la tercera.</small>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">¿Y si hay tres cuerpos?</span>
+    <p>El <strong>problema de tres cuerpos</strong> en general <em>no tiene solución analítica</em>: es caótico (de ahí la novela/serie homónima). Existen soluciones aproximadas (puntos de Lagrange cuando un cuerpo es diminuto) y configuraciones estables curiosas, pero como regla los parámetros orbitales del Sistema Solar real <strong>van cambiando lentamente con el tiempo</strong>: hablamos de elementos «osculadores», válidos instante a instante.</p>
+  </div>
+
+  <div class="widget" id="w-kepler">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Tercera ley de Kepler: período, distancia y masa</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el semieje mayor (UA) y la masa total del sistema (en masas solares) para obtener el período orbital.</p>
+    <div class="presets" id="kep-presets">
+      <button data-a="1" data-m="1">Tierra–Sol</button>
+      <button data-a="5.2" data-m="1">Júpiter–Sol</button>
+      <button data-a="0.052" data-m="1">51 Peg b (hot Jupiter)</button>
+      <button data-a="0.39" data-m="1">Mercurio</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="kep-a">Semieje mayor a (UA)</label><input type="number" id="kep-a" step="any" value="1"></div>
+      <div><label for="kep-m">Masa total M★+Mp (M☉)</label><input type="number" id="kep-m" step="any" value="1"></div>
+    </div>
+    <output id="kep-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Velocidad radial: el efecto Doppler de la estrella</h2>
+    <p>El primer método con que se descubrieron exoplanetas alrededor de estrellas normales.</p>
+  </div></div>
+
+  <p>La estrella y el planeta orbitan en realidad su <strong>centro de masa común</strong>. El que más se mueve es el más liviano (el planeta), pero la estrella <em>también</em> oscila un poco. Esa oscilación de la estrella, en la dirección que apunta hacia nosotros, es lo que mide la <span class="hl">velocidad radial</span>.</p>
+
+  <div class="box prof">
+    <span class="tag">La analogía del baile</span>
+    <p>«Si bailo con mi hija de 8 años, giramos prácticamente en torno a mí. Si bailo con mi señora, de masa parecida, ambos oscilamos en torno a un punto intermedio.» Cuanto mayor es la masa del planeta respecto a la estrella, más se bambolea la estrella alrededor del centro de masa.</p>
+  </div>
+
+  <p><strong>«Radial»</strong> se refiere a la dirección que une al observador con el objeto. El método se basa en el <span class="hl">efecto Doppler</span>: igual que la sirena de una ambulancia suena más aguda al acercarse y más grave al alejarse, la luz de la estrella se corre <em>al azul</em> cuando se acerca y <em>al rojo</em> cuando se aleja. La velocidad radial es positiva al alejarse y negativa al acercarse.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-07.jpg" alt="Curva de velocidad radial de 18 Del b y esquema del corrimiento Doppler estelar">
+    <figcaption><span class="cap">Diapositiva · Velocidad radial</span>Izquierda: curva de velocidad radial medida a lo largo de años (18 Del b); su forma sinusoidal revela la órbita. Derecha: la estrella se bambolea en torno al centro de masa y su luz se corre al azul/rojo. <strong>No vemos el planeta</strong>; solo el Doppler de la estrella.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué hay líneas que medir?</span>
+    <p>La estrella emite casi como un <em>cuerpo negro</em>, pero los gases de su superficie <strong>absorben</strong> ciertas longitudes de onda muy específicas (las transiciones atómicas vistas en la clase de espectros). Quedan <strong>líneas oscuras</strong> en posiciones precisas. Como esas posiciones son conocidas, medir cuánto se corrieron hacia el rojo o el azul da la velocidad. El profesor lo ilustra con «un niño que solo agarra pelotas rojas y las relanza en cualquier dirección»: detrás de él <em>faltan</em> las pelotas rojas ⇒ línea de absorción.</p>
+  </div>
+
+  <p>Lo que se grafica es la velocidad de la estrella en función del tiempo. Si la órbita es circular, la curva es una <strong>sinusoide</strong>; si es excéntrica, se deforma según los parámetros orbitales. La <strong>amplitud</strong> de esa sinusoide se llama <span class="katex-inline" data-tex="K"></span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="K_1 = \frac{m_2 \sin i}{m_1 + m_2}\,\sqrt{\frac{G\,(m_1+m_2)}{a}}"></div>
+    <small>La amplitud crece con la masa del compañero <span class="katex-inline" data-tex="m_2"></span> y con la inclinación (vía <span class="katex-inline" data-tex="\sin i"></span>), y es mayor para órbitas pequeñas.</small>
+  </div>
+
+  <p>Reescrita en unidades cercanas a nosotros (una forma muy usada por astrónomos):</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="K \approx 28.4\ \mathrm{m/s}\ \left(\frac{M_P \sin i}{M_J}\right)\left(\frac{M_\star}{M_\odot}\right)^{-2/3}\left(\frac{P}{1\,\mathrm{yr}}\right)^{-1/3}"></div>
+    <small>Constante fija (28,4 m/s) por variables adimensionales. <em>(La diapositiva muestra el factor del período junto a los demás; el exponente físicamente correcto para órbita circular es <span class="katex-inline" data-tex="(P/1\,\mathrm{yr})^{-1/3}"></span>.)</em></small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-09.jpg" alt="Mayor y Queloz, descubridores de 51 Pegasi b, y su curva de velocidad radial">
+    <figcaption><span class="cap">Diapositiva · 51 Pegasi b (1995)</span><strong>Michel Mayor y Didier Queloz</strong> (Observatorio de Ginebra) descubrieron el primer planeta alrededor de una estrella «normal», <strong>51 Pegasi</strong>, con un período de solo <strong>4,23 días</strong> y una amplitud <span class="katex-inline" data-tex="K"></span> de decenas de m/s. Recibieron el <strong>Nobel de Física 2019</strong>.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-rv">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Amplitud de velocidad radial K</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Calcula la señal <span class="katex-inline" data-tex="K"></span> que induce un planeta. Observa cómo crece con la masa del planeta y cae con el período y la masa estelar.</p>
+    <div class="presets" id="rv-presets">
+      <button data-mp="1" data-ms="1" data-p="11.86" data-i="90">Júpiter</button>
+      <button data-mp="0.00315" data-ms="1" data-p="1" data-i="90">Tierra</button>
+      <button data-mp="0.47" data-ms="1.1" data-p="0.0116" data-i="90">51 Peg b</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="rv-mp">Masa planeta (M Júpiter)</label><input type="number" id="rv-mp" step="any" value="1"></div>
+      <div><label for="rv-ms">Masa estrella (M☉)</label><input type="number" id="rv-ms" step="any" value="1"></div>
+      <div><label for="rv-p">Período P (años)</label><input type="number" id="rv-p" step="any" value="11.86"></div>
+      <div><label for="rv-i">Inclinación i (°)</label><input type="number" id="rv-i" step="any" value="90"></div>
+    </div>
+    <output id="rv-out"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La degeneración M·sin(i) y las confusiones</h2>
+    <p>El gran talón de Aquiles de la velocidad radial.</p>
+  </div></div>
+
+  <p>El método solo es sensible a la componente <em>radial</em> de la velocidad. Si el plano de la órbita está «de canto» (visto de perfil), vemos la velocidad máxima; si está «de frente» (<em>face on</em>), no vemos casi nada. En general las órbitas están orientadas al azar, así que lo que medimos lleva un factor <span class="katex-inline" data-tex="\sin i"></span>.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-08.jpg" alt="Esquema del método de velocidad radial mostrando la proyección por la inclinación">
+    <figcaption><span class="cap">Diapositiva · Proyección por inclinación</span>La velocidad estelar que medimos es la real multiplicada por <span class="katex-inline" data-tex="\sin i"></span>. Como no conocemos <span class="katex-inline" data-tex="i"></span> con este método solo, no medimos la masa <span class="katex-inline" data-tex="M_P"></span>, sino el producto <span class="katex-inline" data-tex="M_P \sin i"></span>.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El producto que no se puede separar</span>
+    <p>La velocidad radial entrega <span class="katex-inline" data-tex="M_P \sin i"></span>, no <span class="katex-inline" data-tex="M_P"></span>. Esto da un <strong>límite inferior</strong> de la masa (porque <span class="katex-inline" data-tex="\sin i \le 1"></span>). Es <em>insalvable</em> con este método solo: por eso a menudo se combina con tránsitos (que sí fijan la inclinación).</p>
+  </div>
+
+  <p>El problema más grave: una <strong>estrella binaria casi de frente</strong> puede imitar a un planeta. Una segunda estrella, muy masiva, moviéndose mucho pero vista casi <em>face on</em>, produce una señal radial pequeña, igual a la de un planeta visto de canto. La mitad de los «puntitos» del cielo son en realidad binarias, así que esta confusión es habitual.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-11.jpg" alt="Curvas de velocidad radial de un sistema binario doble línea y tercera ley">
+    <figcaption><span class="cap">Diapositiva · Distinguir binarias</span>Si las dos estrellas tienen brillo similar, se ven <strong>dos juegos de líneas</strong> que se cruzan a lo largo de la órbita: eso delata una binaria, sea cual sea la inclinación. El peligro real es la binaria <em>oculta</em>: la segunda estrella es demasiado débil para verse, o hay una binaria de fondo «contaminando» el espectro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-12.jpg" alt="Movimiento del Sol alrededor del centro de masa del Sistema Solar">
+    <figcaption><span class="cap">Diapositiva · Solo un espectro visible</span>En un sistema estrella–planeta solo se ve el espectro de la estrella (el planeta es demasiado débil). A la derecha, el <strong>bamboleo del propio Sol</strong> alrededor del centro de masa del Sistema Solar: no es un círculo simple porque hay <em>muchos</em> planetas tirando a la vez.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p><span class="katex-inline" data-tex="M_P \sin i"></span> es una <strong>degeneración de parámetros</strong>: dos incógnitas (<span class="katex-inline" data-tex="M_P"></span> e <span class="katex-inline" data-tex="i"></span>) entran solo como su producto, así que el ajuste no puede separarlas. Es el mismo problema que un modelo sub-identificado: necesitas una observación <em>independiente</em> (p. ej. el tránsito, que restringe <span class="katex-inline" data-tex="i"></span>) para romper la degeneración.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Sesgos del método: qué y cuándo observar</h2>
+    <p>Cada técnica «ve» mejor cierto tipo de planeta. Eso sesga lo que descubrimos.</p>
+  </div></div>
+
+  <p>Para que la velocidad radial funcione hay que <strong>esperar el momento correcto</strong> y observar durante varias semanas o años. Antes de ver la órbita hay que restar muchas correcciones: el sistema completo puede alejarse de nosotros con una velocidad constante (una recta que hay que sustraer), y hay efectos sistemáticos del observador y del instrumento.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-13.jpg" alt="Lista de correcciones a la velocidad radial según el observador">
+    <figcaption><span class="cap">Diapositiva · Correcciones del observador</span>Hay que restar: órbita de la Tierra (±30 km/s), Tierra–Luna (±13 m/s), rotación terrestre (hasta ±460 m/s en el ecuador), movimiento del Sol en la Galaxia (230 km/s), velocidad propia de la estrella, aberración (~20 cm/s) y la degeneración por <span class="katex-inline" data-tex="\sin i"></span>. Y «mejor verlo de canto».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-14.jpg" alt="Espectrógrafo HARPS en La Silla">
+    <figcaption><span class="cap">Diapositiva · El instrumento: HARPS</span><strong>HARPS</strong> (La Silla/ESO) es uno de los mejores espectrógrafos para velocidad radial. Es un espectrógrafo <em>échelle</em> («escalera»): difracta la luz y reordena los distintos órdenes para medir el corrimiento con precisión extrema, con calibración por láser para fijar las longitudes de onda.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Por qué este método encuentra «Júpiter calientes»</span>
+    <p>Para mover mucho a la estrella conviene un planeta <strong>masivo</strong> (tipo Júpiter). Para que el período sea corto (y caber en la ventana de observación) conviene que esté <strong>cerca</strong> de la estrella. La intersección de ambos sesgos son los <span class="hl">hot Jupiters</span>: planetas gigantes pegados a su estrella, a pocos radios estelares (mucho más cerca que Mercurio del Sol). No es que abunden en el universo: es que este método los ve con facilidad.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-17.jpg" alt="Diagrama de sesgos y confusión: masa vs distancia con hot Jupiters">
+    <figcaption><span class="cap">Diapositiva · Sesgos y confusión</span>La degeneración <span class="katex-inline" data-tex="M\sin i"></span> confunde señales pequeñas con binarias. Además, las <strong>manchas estelares</strong> rotando con la estrella imitan un Doppler periódico. Resultado: el método favorece planetas masivos, de período corto, cerca de su estrella.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-18.jpg" alt="Diagrama masa del planeta vs período con curvas de sensibilidad K">
+    <figcaption><span class="cap">Diapositiva · ¿Cuánto y cuándo observar?</span>La masa mínima detectable depende de la precisión <span class="katex-inline" data-tex="\sigma"></span> y del número de medidas <span class="katex-inline" data-tex="N"></span>. Mejor instrumento (<span class="katex-inline" data-tex="\sigma"></span> menor) y más datos bajan el umbral de detección hacia planetas más pequeños.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-16.jpg" alt="Curvas de velocidad radial de HD 69830 y HD 40307 con varios planetas">
+    <figcaption><span class="cap">Diapositiva · Desenmarañar planetas</span>Con HARPS se «desenmarañan» sistemas multiplanetarios: al quitar el primer planeta de la curva (su sinusoide), aparecen señales de otros. HD 40307 reveló varias super-Tierras (~4–9 M⊕). Por eso los re-análisis de datos viejos siguen encontrando planetas nuevos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-15.jpg" alt="Diagrama masa vs semieje mayor de exoplanetas por método de detección">
+    <figcaption><span class="cap">Diapositiva · Extendiendo el alcance</span>Masa del planeta vs. semieje mayor, codificado por método. La velocidad radial (azul) llega hoy a ~20 cm/s (el doble de lo que la Tierra induce en el Sol). El futuro ELT (Cerro Armazones) apunta a ~1 cm/s. Cada método ocupa una región distinta del diagrama: ninguno ve todo.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Timing: relojes cósmicos que se adelantan</h2>
+    <p>El primer exoplaneta de la historia se detectó así, alrededor de un púlsar.</p>
+  </div></div>
+
+  <p>La idea del <span class="hl">timing</span> es la misma que la velocidad radial, pero en vez de medir el corrimiento de una <em>frecuencia de luz</em>, se mide la diferencia en el <strong>tiempo de llegada de un pulso</strong>. Si la fuente emite algo perfectamente periódico (un «tic-tac»), y se acerca y aleja por orbitar un centro de masa, ese tic-tac llega <em>más frecuente</em> al acercarse y <em>menos frecuente</em> al alejarse: un Doppler aplicado al reloj.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-19.jpg" alt="Variaciones en el período del púlsar PSR B1257+12">
+    <figcaption><span class="cap">Diapositiva · PSR B1257+12 (1992)</span>El <strong>primer exoplaneta confirmado</strong> orbita un <strong>púlsar</strong>. El retardo característico es <span class="katex-inline" data-tex="\tau_P = \tfrac{1}{c}\,\tfrac{a\sin i\,M_P}{M_\star} \approx 1{,}2\,(M_P/M_\oplus)(P/1\,\mathrm{yr})^{2/3}"></span> ms. Nótese el mismo exponente 2/3 que reaparece en estos métodos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-20.jpg" alt="Ilustración de un púlsar, estrella de neutrones que gira rápido">
+    <figcaption><span class="cap">Diapositiva · Púlsar</span>Un púlsar es una <strong>estrella de neutrones</strong> que gira a gran velocidad y emite un haz muy regular: un reloj de altísima precisión. Eso lo hace ideal para detectar el bamboleo inducido por planetas mediante timing.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-21.jpg" alt="Curva de luz pulsante de la enana blanca GD 66">
+    <figcaption><span class="cap">Diapositiva · Enanas blancas pulsantes</span>No solo los púlsares «laten»: algunas <strong>enanas blancas</strong> pulsan con períodos estables (p. ej. GD 66). Esos pulsos también sirven de reloj para buscar planetas por timing.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-22.jpg" alt="Residuos en tiempos de llegada de pulsos de GD 66 a lo largo de los años">
+    <figcaption><span class="cap">Diapositiva · Diferencias en el tiempo</span>Residuos en el tiempo de llegada del pulso (GD 66) revelan la presencia de un compañero. Existe una variante íntimamente ligada a tránsitos: <strong>TTV (Transit Timing Variations)</strong>, que se ve la próxima clase: si un tercer planeta tira del que transita, su tránsito se adelanta o atrasa.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El timing es, literalmente, medir <em>jitter</em> en la fase de una señal de reloj. Un planeta introduce una <strong>modulación periódica</strong> en los tiempos de llegada; detectarlo es buscar esa periodicidad en los residuos tras restar el modelo del reloj. Es análogo a medir desviaciones de fase respecto a un oscilador de referencia.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Astrometría: ver moverse a la estrella</h2>
+    <p>Medir el bucle que dibuja la estrella en el cielo. El instrumento clave es Gaia.</p>
+  </div></div>
+
+  <p>La <span class="hl">astrometría</span> mide la <strong>posición</strong> de la estrella con precisión extrema, buscando el pequeño bucle que dibuja al orbitar el centro de masa. El tamaño angular de ese bamboleo es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\alpha = \frac{M_P}{M_\star + M_P}\,\frac{a}{d} \qquad\Longrightarrow\qquad \left(\frac{\alpha}{\mathrm{arcsec}}\right) = \left(\frac{M_P}{M_\star}\right)\left(\frac{a}{1\,\mathrm{AU}}\right)\left(\frac{d}{1\,\mathrm{pc}}\right)^{-1}"></div>
+    <small>Crece con la masa del planeta y con la separación <span class="katex-inline" data-tex="a"></span>, y decrece con la distancia <span class="katex-inline" data-tex="d"></span> al sistema. Para Júpiter visto a 5 pc, <span class="katex-inline" data-tex="\alpha \approx 1"></span> milisegundo de arco: en el límite de lo observable.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-23.jpg" alt="Movimiento del Sol y señal astrométrica de un planeta">
+    <figcaption><span class="cap">Diapositiva · Astrometría</span>El Sol, debido a Júpiter, se mueve poquísimo visto desde fuera: ~1 mas a 5 pc. La señal favorece planetas <strong>masivos y lejanos</strong> de la estrella (gran <span class="katex-inline" data-tex="a"></span>), en estrellas <strong>cercanas</strong> (pequeño <span class="katex-inline" data-tex="d"></span>) — el régimen <em>complementario</em> a la velocidad radial.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El problema de medir ángulos absolutos</span>
+    <p>Medir <em>distancias relativas</em> entre estrellas vecinas en una foto es fácil y preciso (como medir con regla la separación entre porotos en una mesa). Lo difícil es la <strong>posición absoluta</strong>: comparar trozos del cielo muy separados. Cada foto hereda la incertidumbre de catálogos previos tomados con telescopios peores, y los errores se acumulan.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-24.jpg" alt="El satélite Gaia frente a la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva · Gaia</span><strong>Gaia</strong> resuelve el problema con un truco simple y genial: dos cámaras separadas por un ángulo fijo conocido (~100°) unidas por una estructura rígida. Así, la distancia angular entre estrellas muy alejadas en el cielo se mide con la <em>misma</em> precisión que las vecinas. El satélite gira y barre todo el cielo muchas veces.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-25.jpg" alt="Trayectoria astrométrica de una estrella con planeta medida por Gaia">
+    <figcaption><span class="cap">Diapositiva · Precisión y bucles</span>Sobre el movimiento propio rectilíneo de la estrella se superpone un <strong>bucle periódico</strong>: la firma astrométrica del planeta. Gaia entrega posiciones en función del tiempo en sucesivos <em>data releases</em>, y de ahí salen detecciones astrométricas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-26.jpg" alt="TVLM 513b, planeta detectado por astrometría alrededor de una enana ultrafría">
+    <figcaption><span class="cap">Diapositiva · Ejemplo: TVLM 513b</span>Planeta de ~0,3–0,4 M Júpiter alrededor de una enana ultrafría de solo <strong>7% de la masa del Sol</strong>, a ~11 pc. Una estrella tan pequeña es «zarandeada» de forma más dramática por su planeta, lo que agranda el ángulo astrométrico. A diferencia de la velocidad radial, <strong>no exige períodos cortos</strong>: accede a otra región de los parámetros orbitales.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: <strong>todo método impone un sesgo</strong>; cada técnica se enfoca en un tipo de planeta. La gran sorpresa post-Kepler (tránsitos) fue que los planetas más comunes de la Galaxia <em>no</em> existen en el Sistema Solar: rocosos intermedios, más grandes que la Tierra y más chicos que Urano (super-Tierras / mini-Neptunos). El <strong>microlensing</strong> (próxima clase) es de los menos sesgados, ideal para preguntar cuáles son realmente los planetas más comunes y cuántas estrellas tienen una «Tierra».</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Exoplaneta</b></td><td>Planeta no ligado al Sol; no quema deuterio</td><td>Frontera con enanas café (queman D) y estrellas (queman H)</td></tr>
+      <tr><td><b>Equilibrio hidrostático</b></td><td>Gravedad vs. presión del gas</td><td>Hace redondos a los cuerpos grandes (criterio de «planeta»)</td></tr>
+      <tr><td><b>Gravedad sin escala</b></td><td><span class="katex-inline" data-tex="F=G m_1 m_2/r^2"></span></td><td>Discos galácticos/protoplanetarios con proporciones similares</td></tr>
+      <tr><td><b>Disco protoplanetario</b></td><td>Disco aplanado al formarse la estrella</td><td>Explica que los planetas compartan plano (eclíptica)</td></tr>
+      <tr><td><b>6 parámetros keplerianos</b></td><td><span class="katex-inline" data-tex="a, e, i, \Omega, \omega"></span> + anomalía</td><td>Cambio de variable: 6 números constantes que fijan la órbita</td></tr>
+      <tr><td><b>3.ª ley de Kepler</b></td><td><span class="katex-inline" data-tex="P^2 = \frac{4\pi^2}{G(M_\star+M_P)}a^3"></span></td><td>Relaciona período, distancia y masa total</td></tr>
+      <tr><td><b>Velocidad radial</b></td><td>Doppler de la estrella; amplitud <span class="katex-inline" data-tex="K"></span></td><td>1.ᵉʳ método (51 Peg b, 1995; Nobel 2019)</td></tr>
+      <tr><td><b>Degeneración M·sin(i)</b></td><td>Solo se mide <span class="katex-inline" data-tex="M_P\sin i"></span></td><td>Da masa mínima; se rompe con tránsitos</td></tr>
+      <tr><td><b>Hot Jupiters</b></td><td>Gigantes muy cerca de su estrella</td><td>Sesgo: lo que la velocidad radial ve más fácil</td></tr>
+      <tr><td><b>Timing</b></td><td>Doppler en el tiempo de llegada de pulsos</td><td>1.ᵉʳ exoplaneta (púlsar PSR B1257+12, 1992); TTV</td></tr>
+      <tr><td><b>Astrometría</b></td><td><span class="katex-inline" data-tex="\alpha=(M_P/M_\star)(a/d)"></span></td><td>Mide el bucle de la estrella; favorece <span class="katex-inline" data-tex="a"></span> grande y <span class="katex-inline" data-tex="d"></span> pequeño</td></tr>
+      <tr><td><b>Gaia</b></td><td>Dos cámaras a ángulo fijo, barre el cielo</td><td>Posiciones absolutas precisas ⇒ astrometría de exoplanetas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c1-examen-01.html">Examen 01<small>Planeta y exoplaneta</small></a></li>
+    <li><a href="m2c1-examen-02.html">Examen 02<small>Gravedad y forma</small></a></li>
+    <li><a href="m2c1-examen-03.html">Examen 03<small>Orígenes y métodos</small></a></li>
+    <li><a href="m2c1-examen-04.html">Examen 04<small>La órbita</small></a></li>
+    <li><a href="m2c1-examen-05.html">Examen 05<small>Parámetros keplerianos</small></a></li>
+    <li><a href="m2c1-examen-06.html">Examen 06<small>Velocidad radial</small></a></li>
+    <li><a href="m2c1-examen-07.html">Examen 07<small>Degeneración M·sin i</small></a></li>
+    <li><a href="m2c1-examen-08.html">Examen 08<small>Sesgos y HARPS</small></a></li>
+    <li><a href="m2c1-examen-09.html">Examen 09<small>Timing</small></a></li>
+    <li><a href="m2c1-examen-10.html">Examen 10<small>Astrometría e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo II del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 24 abr 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m2/ff/planetas-m2c1.md</code>) y las diapositivas <code>Modulo_II_M_todos_detecci_n_1.pdf</code> («Detectando Exoplanetas 1: timing, astrometría y velocidad radial»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. el exponente <span class="katex-inline" data-tex="(P/1\,\mathrm{yr})^{-1/3}"></span> en la amplitud <span class="katex-inline" data-tex="K"></span>; 51 Peg b con período 4,23 días; nombres de observatorios e instrumentos). Algunas frases del audio eran ambiguas y se interpretaron con cuidado. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var G = 6.674e-11;            // m^3 kg^-1 s^-2
+var MSUN = 1.989e30;         // kg
+var MJUP = 1.898e27;         // kg
+var AU = 1.496e11;           // m
+var YR = 3.1557e7;           // s
+
+// ---- Widget 1: tercera ley de Kepler ----
+(function(){
+  var a = document.getElementById('kep-a');
+  var m = document.getElementById('kep-m');
+  var out = document.getElementById('kep-out');
+  function calc(){
+    var aV = parseFloat(a.value), mV = parseFloat(m.value);
+    if(!(aV>0) || !(mV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var aM = aV*AU, M = mV*MSUN;
+    var P_s = Math.sqrt(4*Math.PI*Math.PI*Math.pow(aM,3)/(G*M));
+    var P_yr = P_s/YR, P_d = P_s/86400;
+    var txt = P_yr >= 1 ? ("<b>"+P_yr.toFixed(3)+"</b> años")
+                        : ("<b>"+P_d.toFixed(2)+"</b> días ("+P_yr.toExponential(2)+" años)");
+    out.innerHTML = "Período orbital <span class='k'>P</span> = "+txt+"<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Con la aproximación P²(años) = a³(UA)/M(M☉): "+
+      Math.sqrt(Math.pow(aV,3)/mV).toFixed(3)+" años.</span>";
+  }
+  a.addEventListener('input', calc); m.addEventListener('input', calc);
+  document.querySelectorAll('#kep-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ a.value=b.dataset.a; m.value=b.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: amplitud K de velocidad radial ----
+(function(){
+  var mp = document.getElementById('rv-mp');
+  var ms = document.getElementById('rv-ms');
+  var p  = document.getElementById('rv-p');
+  var inc= document.getElementById('rv-i');
+  var out= document.getElementById('rv-out');
+  function calc(){
+    var mpV=parseFloat(mp.value), msV=parseFloat(ms.value), pV=parseFloat(p.value), iV=parseFloat(inc.value);
+    if(!(mpV>0)||!(msV>0)||!(pV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var sini = Math.sin(iV*Math.PI/180);
+    var K = 28.4 * (mpV*sini) * Math.pow(msV,-2/3) * Math.pow(pV,-1/3); // m/s
+    var cmp = K>=100 ? "señal fuerte, fácil de medir" :
+              K>=1   ? "detectable con buenos espectrógrafos" :
+              K>=0.1 ? "muy difícil: al límite de los mejores instrumentos (~10–20 cm/s)" :
+                       "fuera del alcance actual";
+    out.innerHTML = "Amplitud <span class='k'>K</span> = <b>"+(K>=1?K.toFixed(2):K.toExponential(3))+"</b> m/s<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Factor sin i = "+sini.toFixed(3)+" · "+cmp+".</span>";
+  }
+  [mp,ms,p,inc].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#rv-presets button').forEach(function(b){
+    b.addEventListener('click', function(){
+      mp.value=b.dataset.mp; ms.value=b.dataset.ms; p.value=b.dataset.p; inc.value=b.dataset.i; calc();
+    });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

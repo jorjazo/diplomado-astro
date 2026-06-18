@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrofísica de Planetas — Módulo II · Apuntes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.4),transparent),radial-gradient(1.6px 1.6px at 42% 64%,rgba(255,255,255,.45),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b 50%,#080b14);background-attachment:fixed}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+.hero{padding:64px 0 30px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.kick{font-family:"Fraunces",serif;display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-family:"Fraunces",serif;font-size:clamp(2.2rem,6vw,3.8rem);line-height:1;margin:.3em 0 .15em;font-weight:600;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+.card{border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px;transition:.15s;text-decoration:none;color:var(--ink);display:block}
+.card:hover{border-color:var(--red);transform:translateY(-2px)}
+.card .cn{font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.card h2{font-family:"Fraunces",serif;font-size:1.45rem;margin:.2em 0 .25em;font-weight:600}
+.card p{margin:.1em 0 .6em;color:var(--muted);font-size:.96rem}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink);text-decoration:none}
+.links a:hover{border-color:var(--red);color:var(--red-soft)}
+.soon{border-style:dashed;opacity:.55}
+.soon h2{color:var(--muted)}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <span class="kick">Astrofísica de Planetas · Diplomado U. de Chile</span>
+    <h1>Módulo II — <em>Apuntes HTML</em></h1>
+    <p class="sub">Detección y caracterización de exoplanetas. Material de estudio interactivo generado a partir de las transcripciones de clase y las diapositivas. Cada clase incluye apuntes navegables, widgets y 10 exámenes de práctica autocorregibles.</p>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="m2c1-apuntes.html">
+      <span class="cn">Clase 1</span>
+      <h2>Detectando exoplanetas I: timing, astrometría y velocidad radial</h2>
+      <p>Qué es un (exo)planeta y por qué los cuerpos grandes son redondos; variedad de orígenes y panorama de métodos; el problema de dos cuerpos y los 6 parámetros keplerianos; velocidad radial y el Doppler estelar; degeneración M·sin(i); sesgos y hot Jupiters; timing (púlsares, enanas blancas, TTV); astrometría y Gaia.</p>
+      <div class="links">
+        <a href="m2c1-apuntes.html">Apuntes</a>
+        <a href="m2c1-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m2c2-apuntes.html">
+      <span class="cn">Clase 2</span>
+      <h2>Detectando exoplanetas II: microlensing, imagen directa y tránsitos</h2>
+      <p>Microlensing (lente gravitacional, radio de Einstein, cáusticas, OGLE) e imagen directa (contraste, coronógrafos); tránsitos (profundidad, probabilidad geométrica, modelado, Kepler/TESS). Cada método con su física, sus instrumentos y sus sesgos característicos.</p>
+      <div class="links">
+        <a href="m2c2-apuntes.html">Apuntes</a>
+        <a href="m2c2-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m2c3-apuntes.html">
+      <span class="cn">Clase 3</span>
+      <h2>Midiendo propiedades de exoplanetas</h2>
+      <p>Cómo se derivan masa, radio, densidad, temperatura y edad del planeta caracterizando con precisión a la estrella anfitriona (Gaia, líneas y diámetro estelar, asterosismología); relación masa–radio y composición; estadística de Kepler (super-Tierras y desierto neptuniano).</p>
+      <div class="links">
+        <a href="m2c3-apuntes.html">Apuntes</a>
+        <a href="m2c3-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <div class="card soon">
+      <span class="cn">Clase 4</span>
+      <h2>Por confirmar</h2>
+      <p>Pendiente de resumir (transcripción disponible).</p>
+    </div>
+
+    <div class="card soon">
+      <span class="cn">Clase 5</span>
+      <h2>Sistemas multiplanetarios</h2>
+      <p>Pendiente de resumir (transcripción disponible).</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Diplomado en Fundamentos de Astronomía · Universidad de Chile · 2026. Apuntes elaborados como material de estudio a partir de transcripciones (que pueden contener errores de reconocimiento de voz) y diapositivas oficiales del curso.</p>
+  </footer>
+</main>
+</body>
+</html>

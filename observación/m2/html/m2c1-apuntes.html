@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Tiempo — Instrumentación y Observación, Módulo II · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo II · Clase 1</span>
+  <h1>El <em>Tiempo</em></h1>
+  <p class="sub">Antes de medir el cielo hay que medir <em>cuándo</em>. Recorremos el tiempo desde la intuición cultural hasta el reloj atómico, pasando por los ciclos naturales, la navegación, las escalas astronómicas (día sideral, UTC, día juliano), y por qué la astronomía moderna —VLBI, púlsares, GPS— vive o muere por la <strong>precisión temporal</strong>.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 24 may 2026</span>
+    <span><b>Tema:</b> Medición del tiempo y escalas temporales</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a astronomía es una <span class="hl">ciencia observacional</span>: a diferencia de la matemática o la filosofía, sus modelos se «echan a pelear» contra la naturaleza, y gana el que concuerda con la medición. Y casi todo lo que medimos en el cielo es, en el fondo, una <strong>posición en función del tiempo</strong>. Por eso esta primera clase de astronomía observacional es entera sobre el tiempo: qué es, cómo lo reducimos a algo <em>operacional</em>, con qué relojes lo capturamos (de la sombra de un palo al cesio-133), qué escalas usamos los astrónomos, y cómo la relatividad terminó por demostrar que el tiempo —ese que creíamos absoluto— en realidad es <em>relativo</em>.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">¿Qué es el tiempo? Concepciones</a></li>
+    <li><a href="#s2">El tiempo físico y operacional</a></li>
+    <li><a href="#s3">Ciclos naturales: día, mes, año</a></li>
+    <li><a href="#s4">Cómo se mide: del reloj de sol al atómico</a></li>
+    <li><a href="#s5">Longitud, navegación y el cronómetro</a></li>
+    <li><a href="#s6">Día solar vs. día sideral; cambio de fecha</a></li>
+    <li><a href="#s7">Luna, mareas, eclipses, año y precesión</a></li>
+    <li><a href="#s8">Estándares: UTC, leap second, JD/MJD, ICRS</a></li>
+    <li><a href="#s9">¿Para qué tanta precisión? VLBI y púlsares</a></li>
+    <li><a href="#s10">El tiempo es relativo: relatividad</a></li>
+    <li><a href="#s11">La flecha del tiempo: cosmología</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Qué es el tiempo? Concepciones</h2>
+    <p>Antes de medirlo, vale la pena reconocer cuántas formas hay de imaginarlo.</p>
+  </div></div>
+
+  <p>El tiempo es notoriamente difícil de definir; todos tenemos un concepto «personal» de él. El profesor lo organiza en cinco pares de oposiciones, que es una buena manera de ordenar las ideas antes de bajar a la física:</p>
+  <ul>
+    <li><strong>Conceptual vs. real:</strong> la vivencia subjetiva («el pasado no existe, el presente es un regalo») frente al tiempo que podemos medir y con el que las cosas evolucionan.</li>
+    <li><strong>Cíclico vs. lineal:</strong> la visión occidental tiende a ser <em>lineal</em> (parte en el Edén, termina en el Juicio Final). Muchas culturas orientales lo ven <em>cíclico</em>: las cosas parten, terminan y vuelven a partir.</li>
+    <li><strong>Pasado y futuro vs. presente.</strong></li>
+    <li><strong>Uni- vs. bidireccional:</strong> ¿el tiempo solo avanza, o podría «echarse para atrás»? (el modelo del Big Crunch lo permitiría).</li>
+    <li><strong>Absoluto vs. relativo:</strong> el punto de llegada de la clase. La relatividad de Einstein muestra que el tiempo <em>no</em> es absoluto.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c1/assets/slide-02.jpg" alt="Lámina de concepciones del tiempo con escalas Kalachakra y el Juicio Final">
+    <figcaption><span class="cap">Diapositiva · ¿Qué es el tiempo?</span>A la izquierda, los cinco pares de oposiciones. Al centro, las escalas temporales del <em>Kalachakra</em> (cosmología india): van desde una unidad diminuta (<em>samaya</em>) hasta <strong>trillones de años</strong>, mucho más largas que la edad del universo conocido. A la derecha, el <em>Juicio Final</em> de Miguel Ángel: la idea lineal de un tiempo que «se acaba».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-03.jpg" alt="Techo de la Capilla Sixtina y la Piedra del Sol azteca">
+    <figcaption><span class="cap">Diapositiva · Lineal vs. cíclico</span>El techo de la Capilla Sixtina (relato lineal) junto a la <strong>Piedra del Sol</strong> azteca (a menudo malinterpretada como calendario): una imagen del tiempo <em>cíclico</em>. Distintas culturas codificaron el tiempo de forma muy distinta.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Estas oposiciones tienen eco en cómo modelamos sistemas: un proceso <em>lineal</em> e irreversible (entropía creciente, una pila/log que solo crece) frente a uno <em>periódico</em> y reversible (una señal oscilatoria, un sistema conservativo). Igual que en señales, el primer paso útil es preguntarse si el fenómeno es <strong>cíclico o monótono</strong>, y si tiene una <strong>flecha</strong> (dirección preferente) o no.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El tiempo físico y operacional</h2>
+    <p>En física, el tiempo se define por lo que sirve: describir cómo cambian las cosas.</p>
+  </div></div>
+
+  <p>El profesor usa una analogía que a un ingeniero le suena familiar: definir «mesa». No interesa la disquisición filosófica sobre qué es exactamente una mesa; la definición <strong>sirve en cuanto ahorra tiempo</strong> para comunicarnos. El tiempo físico es igual: una <em>definición operacional</em>, útil mientras nos deje describir y predecir.</p>
+
+  <p>Aristóteles definió el tiempo como «el número del movimiento»: una forma circular pero que encapsula la idea de <strong>antes y después</strong>. La versión moderna es más concreta: ponemos un <span class="hl">sistema de coordenadas</span>, describimos la posición de una partícula con un vector <span class="katex-inline" data-tex="\vec{r}(t)"></span>, y el tiempo es el índice con el que «pasamos la película» de cómo evoluciona.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-04.jpg" alt="Aristóteles, la segunda ley de Newton y la trayectoria r(t) de una partícula">
+    <figcaption><span class="cap">Diapositiva · Tiempo físico</span>De Aristóteles a Newton: la 2.ª ley <span class="katex-inline" data-tex="\vec{F}=\dfrac{d\vec{p}}{dt}"></span> hace del tiempo el parámetro de la <strong>dinámica</strong>. La posición <span class="katex-inline" data-tex="\vec{r}(t)"></span> traza una trayectoria; el tiempo es lo que nos deja ordenarla.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>«Gran parte de la física es saber cómo evoluciona un sistema en el tiempo» — y eso es exactamente un <strong>sistema dinámico</strong>. El profesor lo conecta con la bolsa: la posición de una partícula necesita 2–3 números; el «estado» del mercado, cientos. En ambos casos buscamos la <em>evolución del estado</em> <span class="katex-inline" data-tex="\mathbf{x}(t)"></span>. El tiempo es la variable independiente de tu integrador numérico.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Ciclos naturales: día, mes, año</h2>
+    <p>Los primeros «relojes» fueron los ciclos del cielo, y la astronomía nació de observarlos.</p>
+  </div></div>
+
+  <p>Para medir el tiempo nos fijamos en <strong>ciclos de la naturaleza</strong>: el Sol que sale y se pone (el <span class="hl">día</span>), las fases de la Luna (el <span class="hl">mes</span>), y la posición del Sol al salir, que recorre un ciclo anual (el <span class="hl">año</span>). Saber estos ciclos no era trivia: servía para cosechar, anticipar migraciones de aves, organizar la vida. De ahí la importancia histórica de la astronomía.</p>
+
+  <p>Como las estructuras que sobreviven milenios son las grandes (monumentos), buena parte de la evidencia de esta «astronomía antigua» son alineaciones arquitectónicas. La <strong>Gran Pirámide de Giza</strong> está casi perfectamente alineada con los puntos cardinales (la rotación terrestre); <strong>Stonehenge</strong> apunta en una dirección ligada a la latitud y a los solsticios.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-05.jpg" alt="Vistas aéreas de las pirámides de Giza, los moái de Isla de Pascua y Stonehenge">
+    <figcaption><span class="cap">Diapositiva · Ciclos en la naturaleza</span>Arqueoastronomía: Giza, los moái de Rapa Nui y Stonehenge. Observando dónde sale el Sol a lo largo del año (que se desplaza hacia el norte/sur), se puede <strong>tabular el ciclo anual</strong> y definir días, meses y años.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Latitud con un palo (y la mano)</span>
+    <p>Clavando un palo (un <em>gnomon</em>) se halla el mediodía (sombra mínima) y la dirección N–S (donde el Sol «transita», su punto más alto). De noche, el punto que no se mueve marca el polo; su altura sobre el horizonte <strong>es</strong> tu latitud (en Santiago, ~33°). Truco de terreno: con el brazo estirado, cada <strong>dedo ≈ 1 hora de luz</strong> sobre el horizonte (el Sol baja ~15° por hora), y el meñique tapa ~½° (el tamaño angular del Sol o la Luna).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cómo se mide: del reloj de sol al atómico</h2>
+    <p>Un reloj necesita dos cosas: algo periódico y un mecanismo que registre los ciclos.</p>
+  </div></div>
+
+  <p>La receta de todo reloj es siempre la misma: <strong>(1) un fenómeno con periodicidad</strong> y <strong>(2) un mecanismo que cuente esos ciclos</strong>. La historia del reloj es la búsqueda de periodicidades cada vez más estables.</p>
+
+  <h3>Reloj de sol y reloj de agua (clepsidra)</h3>
+  <p>El <strong>reloj de sol</strong> usa la sombra del gnomon; el <strong>reloj de agua</strong> o <em>clepsidra</em> (del griego <em>klepto</em>, robar; <em>hydro</em>, agua: «ladrón de agua») mide cuánto se vacía o llena un recipiente. Funcionan, pero son poco precisos y voluminosos.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-06.jpg" alt="Reloj de sol antiguo y esquema de un reloj de agua o clepsidra">
+    <figcaption><span class="cap">Diapositiva · Midiendo el tiempo</span>Reloj de sol y clepsidra. La gotera periódica que no te deja dormir es la misma idea: marcar el tiempo por algo que ocurre a ritmo regular.</figcaption>
+  </figure>
+
+  <h3>Edad Media: el escape mecánico</h3>
+  <p>Un avance clave fue el <strong>escape</strong> (un «balancín»): un mecanismo que, alimentado por pesos que caen, convierte ese descenso en un movimiento de vaivén regular que va contando. Pero las piezas de fierro se oxidan, sufren roce y se descalibran; estos relojes había que reajustarlos seguido (de ahí el «cañonazo de las 12» del Santa Lucía, una señal pública para sincronizar relojes).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-07.jpg" alt="Mecanismo de escape de rueda (verge escapement) medieval">
+    <figcaption><span class="cap">Diapositiva · Edad Media y mecánica</span>El escape mecánico: transforma la caída de un peso en oscilaciones regulares. Preciso para su época, pero limitado por la calidad de las piezas.</figcaption>
+  </figure>
+
+  <h3>El péndulo: precisión por física, no por mecánica fina</h3>
+  <p>Galileo describió el péndulo y <strong>Huygens</strong> construyó el reloj de péndulo. Su gracia es que la periodicidad sale de la <em>física</em>, no de la calidad del fierro. Planteando las fuerzas (peso y tensión) y proyectando según el ángulo <span class="katex-inline" data-tex="\theta"></span>, se llega a la ecuación del péndulo:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\ddot{\theta} + \frac{g}{\ell}\sin\theta = 0"></div>
+    <small>Resolverla exactamente exige <em>integrales elípticas</em>. Pero para ángulos pequeños <span class="katex-inline" data-tex="\sin\theta \approx \theta"></span> (porque en un círculo, el arco se parece a la cuerda cuando el ángulo es chico), y queda la ecuación de un oscilador armónico, idéntica a la de un resorte.</small>
+  </div>
+
+  <p>De esa aproximación sale el período, y aquí está lo bonito: por <strong>análisis dimensional</strong>, la única combinación con unidades de tiempo es</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="P = 2\pi\sqrt{\frac{\ell}{g}}"></div>
+    <small>El período <strong>no depende de la masa</strong> colgada, solo del largo <span class="katex-inline" data-tex="\ell"></span> y de la gravedad <span class="katex-inline" data-tex="g"></span> (mientras el ángulo sea pequeño). Cuadruplicar el largo duplica el período.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-08.jpg" alt="Diagrama de fuerzas del péndulo, su ecuación y el reloj de péndulo de Huygens">
+    <figcaption><span class="cap">Diapositiva · Péndulos</span>De las fuerzas a <span class="katex-inline" data-tex="P=2\pi\sqrt{\ell/g}"></span>. El péndulo es el ejemplo canónico de <strong>feedback negativo</strong>: la gravedad siempre lo empuja de vuelta al centro (a diferencia de un lápiz parado de punta, que es feedback positivo e inestable). A la derecha, Huygens y su reloj.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Feedback negativo = restauración hacia un punto de equilibrio = sistema <strong>estable</strong> (como un controlador que corrige el error). Feedback positivo = el sistema se aleja y «se dispara» (inestabilidad, como el lápiz de punta o ciertos efectos de cambio climático). Toda la teoría de control vive en esta distinción.</p>
+  </div>
+
+  <div class="widget" id="w-pendulo">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Período de un péndulo</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el largo y la gravedad para ver el período (válido para oscilaciones pequeñas). Nota que la masa no aparece.</p>
+    <div class="presets" id="pen-presets">
+      <button data-l="0.994" data-g="9.81">Péndulo de 1 s (semiperíodo)</button>
+      <button data-l="1" data-g="9.81">Tierra · 1 m</button>
+      <button data-l="1" data-g="1.62">Luna · 1 m</button>
+      <button data-l="1" data-g="3.71">Marte · 1 m</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="pen-l">Largo ℓ (m)</label><input type="number" id="pen-l" step="any" value="1"></div>
+      <div><label for="pen-g">Gravedad g (m/s²)</label><input type="number" id="pen-g" step="any" value="9.81"></div>
+    </div>
+    <output id="pen-out"></output>
+  </div>
+
+  <h3>Reloj eléctrico: contar la red</h3>
+  <p>Una anécdota con punto físico: el <strong>reloj eléctrico</strong> contaba las oscilaciones de la corriente alterna. En Chile la red es de <strong>50 Hz</strong> (60 Hz en EE.&nbsp;UU.): contaba 50 ciclos y marcaba un segundo. La frecuencia de red no es perfectamente estable, así que la compañía eléctrica la ajustaba a lo largo del año para que se acumularan exactamente los <strong>86 400 s/día</strong>. El error acumulado en un año era del orden de <strong>1 segundo</strong> (≈1 parte en 30 millones).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-10.jpg" alt="Reloj eléctrico antiguo">
+    <figcaption><span class="cap">Diapositiva · Reloj eléctrico</span>Contaba ciclos de la red (50 Hz en Chile). Hoy la frecuencia de red sigue siendo un indicador: cuando hay un problema de generación, la frecuencia se desvía (y hay que meter generación de respaldo).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cuidado al leer una «precisión»</span>
+    <p>Si te dicen «1 parte en 30 millones», la tentación es pensar que <em>cada</em> segundo es así de preciso. No: ese era el error <strong>acumulado en todo el año</strong>. Es una lección de propagación de errores: distinguir entre error instantáneo y error acumulado (deriva).</p>
+  </div>
+
+  <h3>Cuarzo: el efecto piezoeléctrico y el divisor por 2¹⁵</h3>
+  <p>El reloj de <strong>cuarzo</strong> usa el <span class="hl">efecto piezoeléctrico</span>: si aprietas el cristal genera corriente, y si le metes corriente, oscila. Tallado en forma de diapasón, su frecuencia queda fijada por su geometría. El valor estándar es <strong>32 768 Hz</strong>, inaudible (~33 kHz) y de bajo consumo.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-11.jpg" alt="Efecto piezoeléctrico y diapasón de cuarzo de un reloj">
+    <figcaption><span class="cap">Diapositiva · Cuarzo</span>El cristal de cuarzo (diapasón) oscila a una frecuencia fijada por su forma. La elección de 32 768 Hz no es casual: <span class="katex-inline" data-tex="32\,768 = 2^{15}"></span>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — el flip-flop</span>
+    <p>¿Por qué <span class="katex-inline" data-tex="2^{15}"></span>? Porque un <strong>flip-flop</strong> divide la frecuencia por 2. Encadenando <strong>15</strong> divisores, <span class="katex-inline" data-tex="32\,768\,\mathrm{Hz} \to 1\,\mathrm{Hz}"></span>: exactamente un segundo. Es el mismo principio del divisor de frecuencia digital. Elegir una potencia de 2 hace que la electrónica sea trivial.</p>
+  </div>
+
+  <h3>Reloj atómico: el segundo, por definición</h3>
+  <p>El <strong>reloj atómico</strong> se basa en transiciones entre niveles de energía de un átomo. Un fotón con <em>exactamente</em> la energía de la diferencia entre dos niveles es absorbido, y al decaer se reemite con esa misma energía (un color muy preciso). Contando esos decaimientos se mide el tiempo con altísima estabilidad, <strong>sin partes móviles</strong>. Se usa una transición del <span class="hl">cesio-133</span>; de hecho el <strong>segundo se define</strong> por un número fijo de ciclos de esa transición (definición un poco circular, pero es el estándar actual).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-12.jpg" alt="Primer reloj atómico de cesio">
+    <figcaption><span class="cap">Diapositiva · Reloj atómico</span>El estándar más preciso. El segundo del SI se define hoy por la frecuencia de una transición del <strong>cesio-133</strong>, no al revés.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Longitud, navegación y el cronómetro</h2>
+    <p>El gran motor histórico de la precisión temporal: saber dónde estás en el mar.</p>
+  </div></div>
+
+  <p>La Tierra rota <strong>360° en 24 horas</strong>, así que <span class="hl">15° de longitud equivalen a 1 hora</span>. De ahí se baja a la equivalencia angular–temporal completa:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="360^\circ \leftrightarrow 24\,\mathrm{h} \quad\Rightarrow\quad 15^\circ \leftrightarrow 1\,\mathrm{h},\;\; 15'\leftrightarrow 1\,\mathrm{min},\;\; 15''\leftrightarrow 1\,\mathrm{s}"></div>
+    <small>Una <strong>milla náutica</strong> es 1 minuto de arco de longitud en el ecuador (≈1,852 km). Por eso un error de <strong>1 s</strong> en el tiempo se traduce, en el ecuador, en ≈460 m de error de posición (en Santiago, a 33°, hay un factor <span class="katex-inline" data-tex="\cos 33^\circ\approx 0{,}84"></span>, ≈390 m).</small>
+  </div>
+
+  <p>La <strong>latitud</strong> es fácil de medir (altura del polo celeste o de la Estrella Polar). La <strong>longitud</strong> era el problema: para saber qué tan al este/oeste estás necesitas comparar tu hora local con la hora de un meridiano de referencia. En el s. XVIII Inglaterra ofreció un <strong>premio</strong> por resolver «el problema de la longitud». Un péndulo no sirve en un barco que cabecea, así que la solución fue doble: durante un siglo se usaron <strong>tablas de la posición de la Luna</strong> (midiendo cuándo cruzaba ciertas estrellas, calibradas contra Greenwich), hasta que se logró un <strong>cronómetro marino</strong> robusto. De ahí que el meridiano de <strong>Greenwich</strong> siga siendo la referencia.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-09.jpg" alt="Mapa antiguo de Francia y mecanismo de cronómetro marino">
+    <figcaption><span class="cap">Diapositiva · Cronómetros y longitud</span>Izquierda: un mapa de Francia del s. XVIII con los límites «corridos» por errores de longitud. Derecha: el mecanismo de un cronómetro de precisión. Llevar un buen reloj a bordo dejó de ser un lujo: equivocarte podía costarte el continente.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-longitud">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Error de tiempo → error de posición</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Cuánto error de longitud (en grados y en km) introduce un error de reloj, según tu latitud.</p>
+    <div class="presets" id="lon-presets">
+      <button data-dt="1" data-lat="0">1 s · ecuador</button>
+      <button data-dt="1" data-lat="33">1 s · Santiago (33°)</button>
+      <button data-dt="60" data-lat="33">1 min · Santiago</button>
+      <button data-dt="4" data-lat="0">4 s · ecuador</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="lon-dt">Error de tiempo Δt (s)</label><input type="number" id="lon-dt" step="any" value="1"></div>
+      <div><label for="lon-lat">Latitud (°)</label><input type="number" id="lon-lat" step="any" value="33"></div>
+    </div>
+    <output id="lon-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Día solar vs. día sideral; cambio de fecha</h2>
+    <p>«Un día» no es lo mismo que «una vuelta de la Tierra». Difieren en ~4 minutos.</p>
+  </div></div>
+
+  <p>Aquí el profesor desafía la intuición. ¿Qué es un día? No es exactamente una rotación completa de la Tierra. Definimos el día por el <strong>Sol</strong>: del mediodía (Sol en su punto más alto) al siguiente mediodía. Pero mientras la Tierra da una vuelta sobre su eje, <em>también</em> avanza ~1° en su órbita alrededor del Sol. Para que el Sol vuelva a estar en el mismo lugar, la Tierra debe girar ese gradito de más.</p>
+
+  <div class="box physics">
+    <span class="tag">Sideral vs. solar</span>
+    <p><strong>Día sideral:</strong> una rotación completa respecto a las <em>estrellas</em> (≈23 h 56 min). <strong>Día solar:</strong> respecto al <em>Sol</em> (24 h). El solar es ~<strong>4 minutos más largo</strong> porque la Tierra orbitó un poco. En un año hay <em>una rotación sideral de más</em> que días solares. Caso límite: si la Tierra <strong>no rotara</strong>, el «día solar» duraría… un año.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-14.jpg" alt="Diagrama del día sideral vs solar: la Tierra avanza 1 grado en su órbita">
+    <figcaption><span class="cap">Diapositiva · Día sideral y solar</span>Entre el «día 1» y el «día 2», la Tierra avanzó ~1° en su órbita: por eso debe girar un poco más para que el Sol vuelva al meridiano. Ese «poco más» son los ~4 minutos de diferencia.</figcaption>
+  </figure>
+
+  <p>Como las horas pasan en momentos distintos según dónde estés, hace falta una <strong>línea de cambio de fecha</strong> (en las antípodas de Greenwich) donde se salta de un día al siguiente. De ahí curiosidades como que el ataque a Pearl Harbor sea el 7 de diciembre para EE.&nbsp;UU. y el 8 para Japón.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-15.jpg" alt="Mapa con la línea internacional de cambio de fecha">
+    <figcaption><span class="cap">Diapositiva · Cambio de día</span>La línea internacional de cambio de fecha. Todas estas definiciones (como «mesa») son convenios útiles según el contexto, no verdades absolutas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Luna, mareas, eclipses, año y precesión</h2>
+    <p>La Luna mide meses y mueve mareas; el Sol traza el año y precesa el eje.</p>
+  </div></div>
+
+  <p>La <strong>Luna</strong> da el <span class="hl">mes</span> con sus fases (creciente, llena, menguante, nueva). Pero su efecto no es solo visual: las <strong>mareas</strong> son la diferencia de atracción gravitatoria de la Luna entre el lado cercano y el lejano de la Tierra. El océano adopta una forma alargada y la Tierra rota «dentro» de él; ese roce <strong>frena la rotación</strong>, alargando los días lentamente (en el futuro lejano, día y mes coincidirán).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-16.jpg" alt="Fases de la Luna y mareas vivas y muertas">
+    <figcaption><span class="cap">Diapositiva · Luna</span>Fases y mareas. Las mareas «vivas» (<em>spring</em>) ocurren con Sol y Luna alineados; las «muertas» (<em>neap</em>), en cuadratura. El roce de mareas transfiere momento angular y desacelera la rotación terrestre.</figcaption>
+  </figure>
+
+  <p>Los <strong>eclipses</strong> también se predicen con tiempo. La órbita de la Luna no es coplanar con la de la Tierra alrededor del Sol; solo cuando la Luna está en los <span class="hl">nodos</span> (donde ambos planos se cruzan) puede haber eclipse. Por eso suelen venir de a pares (uno de Sol y, ~15 días después, uno de Luna).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-17.jpg" alt="Diagrama de la órbita lunar inclinada y los nodos ascendente y descendente">
+    <figcaption><span class="cap">Diapositiva · Eclipse</span>Solo hay eclipse cuando la alineación Sol–Tierra–Luna ocurre cerca de un <strong>nodo</strong>. La inclinación del plano lunar es la razón por la que <em>no</em> hay eclipse cada mes.</figcaption>
+  </figure>
+
+  <p>El <strong>año</strong> es el ciclo del Sol contra el fondo de estrellas: su camino aparente es la <span class="hl">eclíptica</span>, donde se ubican las constelaciones del zodíaco (y donde buscamos los planetas). Dato curioso: por la <strong>precesión</strong> del eje terrestre, las fechas de los «signos» se han corrido ~un signo desde que se definieron, y las constelaciones no tienen tamaños estándar.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-18.jpg" alt="La eclíptica, el zodíaco y la precesión del eje terrestre">
+    <figcaption><span class="cap">Diapositiva · Año</span>El Sol recorre la eclíptica a lo largo del año, proyectado sobre el zodíaco. La precesión del eje (~26 000 años) explica por qué tu «signo» ya no corresponde a la constelación donde está el Sol en tu cumpleaños.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Estándares: UTC, leap second, JD/MJD, ICRS</h2>
+    <p>Para que todos midamos lo mismo, hacen falta convenios cuidadosos —y que cambien poco.</p>
+  </div></div>
+
+  <h3>UTC y el segundo intercalar</h3>
+  <p>El <span class="hl">Tiempo Universal Coordinado (UTC)</span> es la escala que ordena los eventos para todo el planeta. Se <em>deriva</em> del tiempo atómico (TAI), pero su misión es <strong>mantenerse en sincronía con la rotación de la Tierra</strong>. El problema: la Tierra no rota a ritmo constante (terremotos, dinámica interna de sus capas la aceleran o frenan en milisegundos día a día). Esas diferencias se acumulan.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-20.jpg" alt="Gráfico de la desviación del largo del día y la acumulación de leap seconds">
+    <figcaption><span class="cap">Diapositiva · UTC</span>En verde, la desviación del largo del día respecto a 86 400 s (escala de milisegundos); en rojo, la <strong>diferencia acumulada</strong> que ha obligado a meter <em>segundos intercalares</em> (leap seconds). El segundo es fijo; minutos, horas, días, meses y años son «variables» que hay que cuadrar.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Leap second: historia, no predicción</span>
+    <p>Cuando la diferencia entre UTC y la rotación crece, se intercala un <strong>segundo</strong> (anunciado ~6 meses antes). Pero esto es <em>histórico</em>: no se puede predecir el UTC futuro con certeza, porque no sabemos cómo va a rotar la Tierra. Solo estimamos que no se desviará más de un par de segundos.</p>
+  </div>
+
+  <h3>Día Juliano (JD) y MJD</h3>
+  <p>Aunque usamos el calendario <strong>gregoriano</strong> (con su regla de bisiestos: divisible por 4, salvo los siglos no divisibles por 400), los astrónomos contamos el tiempo con el <span class="hl">Día Juliano</span>: una cuenta corrida de días desde el <strong>12:00 del 1 ene 4713 a.C.</strong>, anterior a cualquier evento histórico (así todas las fechas son positivas y restar fechas es trivial).</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-21.jpg" alt="Calendario de octubre de 1582 con los días eliminados y reglas de años bisiestos">
+    <figcaption><span class="cap">Diapositiva · Julian Day</span>Octubre de 1582: al adoptarse el calendario gregoriano se <strong>eliminaron 10 días</strong> para realinear con las estaciones. El año gregoriano dura 365,2425 días, apenas ~26 s más largo que el año trópico (365,242193 d): la diferencia acumula <strong>1 día cada ~3 250 años</strong>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — MJD</span>
+    <p>El <strong>MJD (Modified Julian Day)</strong> = <span class="katex-inline" data-tex="\mathrm{JD} - 2\,400\,000{,}5"></span>. Se introdujo (SAO, era Sputnik, ~1957) para <strong>ahorrar dígitos</strong> en la memoria de los computadores de los años 50: los primeros 6 números del JD casi no cambian, son «relleno». El <strong>.5</strong> hace que el MJD empiece a <em>medianoche</em> (y no al mediodía como el JD), de modo que casi toda una noche de observación cae en el mismo MJD. Cuando guardas una imagen astronómica, su <em>timestamp</em> suele estar en este formato dentro del archivo.</p>
+  </div>
+
+  <h3>Un marco que no se mueva: ICRS</h3>
+  <p>Para medir posiciones necesitamos un sistema de referencia <strong>estable</strong>. Las estrellas cercanas se mueven (movimiento propio). La solución: anclarse a los <span class="hl">cuásares</span> (QSOs), agujeros negros supermasivos tan lejanos que no notamos movimiento relativo con ellos. Ese es el <strong>ICRS</strong> (International Celestial Reference System), materializado por el catálogo de radiofuentes ICRF. Midiendo nuestra posición contra los cuásares sabemos, por ejemplo, cuánto cambia la rotación/traslación terrestre.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-23.jpg" alt="Mapa del cielo con las fuentes definitorias del ICRF (cuásares)">
+    <figcaption><span class="cap">Diapositiva · ICRS</span>«<em>Eppur si muove</em>»: buscamos estándares que no cambien (tanto). Las fuentes definitorias del ICRF son cuásares distribuidos por todo el cielo: prácticamente fijos por su enorme distancia.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>¿Para qué tanta precisión? VLBI y púlsares</h2>
+    <p>Dos ejemplos donde el tiempo exquisito hace posible lo imposible.</p>
+  </div></div>
+
+  <h3>La foto del agujero negro (EHT / VLBI)</h3>
+  <p>La resolución de un telescopio mejora con el tamaño de su apertura. El truco del <strong>Event Horizon Telescope</strong> fue combinar antenas repartidas por el planeta para sintetizar una apertura <em>del tamaño de la Tierra</em> (<span class="hl">interferometría de muy larga base, VLBI</span>). Pero no hay Internet capaz de transmitir en tiempo real el mismo fotón captado en sitios distintos. La solución: cada sitio (Polo Sur, ALMA, Hawái, Arizona, México, España…) grabó sus datos en discos, <strong>cada uno con su reloj atómico</strong>, y después se correlacionaron buscando la diferencia de tiempo que alinea la <em>misma</em> señal en todas las antenas.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-24.jpg" alt="Imagen del agujero negro de M87 por el EHT y mapa de las antenas participantes">
+    <figcaption><span class="cap">Diapositiva · Conectando los puntos</span>La imagen del agujero negro de M87 (EHT, 2019) salió de <strong>alinear en el tiempo</strong> los datos de antenas en todo el mundo. Sin relojes atómicos sincronizados, las señales serían solo ruido incoherente. Es la misma idea con que ALMA hace interferometría.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>VLBI es <strong>correlación de señales</strong>: buscas el desfase temporal <span class="katex-inline" data-tex="\tau"></span> que maximiza la correlación cruzada entre dos streams ruidosos. La precisión del reloj fija el límite de coherencia. Es exactamente el problema de sincronizar dos grabaciones con una <em>cross-correlation</em>, pero a escala planetaria y con timestamps de nanosegundos.</p>
+  </div>
+
+  <h3>Cronometraje de púlsares</h3>
+  <p>Un <strong>púlsar</strong> es una estrella de neutrones que gira rapidísimo y emite un haz muy regular: un reloj natural. Midiendo variaciones diminutas en el tiempo de llegada de sus pulsos se detecta el bamboleo inducido por un compañero. Así se descubrió el <strong>primer exoplaneta</strong> (PSR&nbsp;B1257+12, 1992), con una precisión en el período del orden de <strong>nanosegundos</strong>.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-25.jpg" alt="Variaciones en el período del púlsar PSR 1257+12">
+    <figcaption><span class="cap">Diapositiva · Time domain</span>Variaciones (periódicas) en el período de PSR&nbsp;1257+12: la firma de un planeta tirando del púlsar. La precisión temporal (ns) es la que hace medible un efecto tan minúsculo.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>El tiempo es relativo: relatividad</h2>
+    <p>El tiempo «absoluto» de Newton se rompe con la electricidad y la luz.</p>
+  </div></div>
+
+  <p>En mecánica clásica (Newton) el tiempo es <strong>absoluto</strong>: todos medimos el mismo. Eso funcionó por siglos, pero el s. XIX trajo dos problemas.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-29.jpg" alt="Retrato de Isaac Newton">
+    <figcaption><span class="cap">Diapositiva · Tiempo absoluto</span>El tiempo newtoniano: una variable universal igual para todos. La intuición que la relatividad vino a corregir.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Los dos problemas</span>
+    <p><strong>(1) Maxwell:</strong> sus ecuaciones dan una onda —la luz— que <em>no</em> es «covariante» si el tiempo es absoluto: un voltaje que mides como 5 V, otro observador en movimiento lo mediría distinto. Eso permitiría que «la luz esté prendida para uno y apagada para otro», lo cual es absurdo. <strong>(2) Michelson–Morley:</strong> midieron la velocidad de la luz en distintas direcciones mientras la Tierra se mueve a 30 km/s, esperando ver el «éter». No vieron <em>ninguna</em> diferencia: la luz tiene la <strong>misma velocidad para todos los observadores</strong>.</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-30.jpg" alt="Ecuaciones de Maxwell y el interferómetro de Michelson-Morley">
+    <figcaption><span class="cap">Diapositiva · Problemas</span>Las ecuaciones de Maxwell (la luz como onda electromagnética) y el interferómetro de Michelson–Morley, que buscó el éter y no lo encontró. La velocidad de la luz es invariante.</figcaption>
+  </figure>
+
+  <p>La única transformación entre observadores que respeta esto es la <strong>transformación de Lorentz</strong>, que mezcla espacio y tiempo. Su consecuencia: el tiempo y las distancias <em>cambian</em> con la velocidad. El tiempo es <span class="hl">relativo</span>.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="t' = \gamma\left(t - \frac{vx}{c^2}\right), \quad x' = \gamma\,(x - vt), \qquad \gamma = \frac{1}{\sqrt{1 - v^2/c^2}}"></div>
+    <small>El factor de Lorentz <span class="katex-inline" data-tex="\gamma"></span> mide cuánto se «dilata» el tiempo. Para velocidades cotidianas <span class="katex-inline" data-tex="v \ll c"></span> y <span class="katex-inline" data-tex="\gamma \approx 1"></span> (no notamos el efecto); cerca de <span class="katex-inline" data-tex="c"></span>, <span class="katex-inline" data-tex="\gamma"></span> se dispara.</small>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-31.jpg" alt="Transformación de Lorentz, el factor gamma y el diagrama de Minkowski">
+    <figcaption><span class="cap">Diapositiva · Tiempo relativo</span>La transformación de Lorentz y el factor <span class="katex-inline" data-tex="\gamma=1/\sqrt{1-v^2/c^2}"></span>. Espacio y tiempo dejan de ser independientes.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El reloj de luz en el tren</span>
+    <p>Imagina un reloj que rebota un pulso de luz arriba y abajo. Para quien viaja con él, la luz sube y baja recto. Para nosotros, que lo vemos pasar, la luz recorre una <strong>diagonal más larga</strong> (el reloj avanzó). Como la velocidad de la luz es la misma para ambos, el viajero debe «hacer las cosas más lento»: su tiempo pasa más despacio. La fórmula sale de pura geometría (Pitágoras sobre esos triángulos).</p>
+  </div>
+
+  <figure>
+    <img src="m2c1/assets/slide-32.jpg" alt="Diagrama del reloj de luz en un tren en movimiento">
+    <figcaption><span class="cap">Diapositiva · Experimento del tren</span>El reloj de luz: misma <span class="katex-inline" data-tex="c"></span>, distinto camino recorrido ⇒ distinta medida del tiempo. La <strong>dilatación temporal</strong> emerge de la geometría.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-lorentz">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Factor de Lorentz y dilatación temporal</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la velocidad como fracción de c y mira cómo crece <span class="katex-inline" data-tex="\gamma"></span>. 1 segundo del viajero equivale a γ segundos para ti.</p>
+    <div class="presets" id="lor-presets">
+      <button data-b="0.0000001">Avión (~900 km/h)</button>
+      <button data-b="0.0000257">Tierra orbital (30 km/s)</button>
+      <button data-b="0.1">0,1 c</button>
+      <button data-b="0.9">0,9 c</button>
+      <button data-b="0.99">0,99 c</button>
+    </div>
+    <label for="lor-b">Velocidad v / c</label>
+    <input type="number" id="lor-b" step="any" value="0.9" min="0" max="0.999999999">
+    <output id="lor-out"></output>
+  </div>
+
+  <h3>Relatividad general: la gravedad también curva el tiempo</h3>
+  <p>El tiempo no solo cambia con la velocidad, sino también con la <strong>gravedad</strong> (principio de equivalencia: aceleración y gravedad son indistinguibles localmente). La luz se curva al pasar cerca de una masa —se midió el desvío de <strong>1,75 arcsec</strong> junto al Sol durante un eclipse—, y el propio tiempo corre distinto según el campo gravitatorio.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-34.jpg" alt="Desviación de la luz de una estrella al pasar cerca del Sol">
+    <figcaption><span class="cap">Diapositiva · La luz se curva</span>La luz de una estrella se desvía ~1,75″ al rasar el Sol: la confirmación clásica de la relatividad general (eclipse de 1919). No es solo la luz: el <strong>espacio-tiempo entero</strong> se curva con la gravedad.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-35.jpg" alt="El espacio-tiempo se curva ante la gravedad y la corrección del GPS">
+    <figcaption><span class="cap">Diapositiva · GPS y gravedad</span>El <strong>GPS</strong> es el ejemplo cotidiano: para dar la posición a pocos metros, hay que corregir por dilatación temporal (relatividad especial <em>y</em> general). La NASA ya tiene escrito cómo llevar el tiempo en la Luna y en Marte, donde correrá distinto.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Sin la corrección relativista, los relojes del GPS se desviarían varios microsegundos por día ⇒ errores de posición de <strong>kilómetros</strong> acumulándose. La relatividad no es esotérica: está embebida en el firmware de tu teléfono.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>La flecha del tiempo: cosmología</h2>
+    <p>La escala más grande de todas, y el límite más pequeño de todos.</p>
+  </div></div>
+
+  <p>La escala temporal definitiva es la del <strong>universo</strong>. El <span class="hl">fondo cósmico de microondas (CMB)</span> es la primera luz que pudo escapar cuando el universo se hizo transparente, unos <strong>380 000 años</strong> tras el Big Bang. Esos fotones se han ido enfriando: de ~3 000 K en la recombinación a ~<strong>2,7 K</strong> hoy. El Big Bang ocurrió hace ~<strong>13,8 mil millones de años</strong>.</p>
+
+  <figure>
+    <img src="m2c1/assets/slide-26.jpg" alt="Esquema de la expansión del universo desde el Big Bang">
+    <figcaption><span class="cap">Diapositiva · Cosmología</span>La «flecha del tiempo» cosmológica: del Big Bang y la inflación al universo actual, ~13,8 Gyr. La luz del CMB se emitió a los 380 000 años.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c1/assets/slide-28.jpg" alt="Mapas del fondo cósmico de microondas de COBE, WMAP y Planck">
+    <figcaption><span class="cap">Diapositiva · Redshift</span>El CMB visto con creciente detalle por COBE, WMAP y Planck. A mayor <em>redshift</em> <span class="katex-inline" data-tex="z"></span>, mayor distancia y mayor «lookback time»: mirar lejos es mirar atrás en el tiempo.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El otro extremo: la escala de Planck</span>
+    <p>El universo nos parece continuo, pero la física cuántica sugiere que no lo es: existe una <strong>escala de Planck</strong> (~<span class="katex-inline" data-tex="10^{-43}"></span> s) bajo la cual el tiempo no se puede subdividir. Entre el segundo intercalar (escala humana) y la escala de Planck hay decenas de órdenes de magnitud: el tiempo abarca un rango colosal.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: <strong>el tiempo se mide con muchísimo cuidado porque casi toda la astronomía depende de él</strong> —de la longitud en el mar al GPS, del VLBI a los exoplanetas por timing. Y, paradójicamente, ese tiempo que medimos con tanto esmero <em>no</em> es absoluto. En la próxima clase: <strong>espectros</strong> y cómo los átomos absorben en longitudes de onda precisas (la base, entre otras cosas, del propio reloj atómico).</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tiempo operacional</b></td><td>Parámetro de la dinámica, <span class="katex-inline" data-tex="\vec{r}(t)"></span></td><td>«El número del movimiento»: describe cómo evolucionan los sistemas</td></tr>
+      <tr><td><b>Receta de un reloj</b></td><td>Periodicidad + mecanismo que cuenta</td><td>Marco común desde el reloj de sol al atómico</td></tr>
+      <tr><td><b>Período del péndulo</b></td><td><span class="katex-inline" data-tex="P=2\pi\sqrt{\ell/g}"></span></td><td>No depende de la masa; precisión por física, no por mecánica</td></tr>
+      <tr><td><b>Cuarzo</b></td><td>32 768 = <span class="katex-inline" data-tex="2^{15}"></span> Hz, piezoeléctrico</td><td>15 flip-flops dividen a 1 Hz exacto</td></tr>
+      <tr><td><b>Reloj atómico</b></td><td>Transición del cesio-133</td><td><strong>Define</strong> el segundo del SI</td></tr>
+      <tr><td><b>15° = 1 hora</b></td><td>360°/24 h; 15″ = 1 s de tiempo</td><td>Longitud ↔ tiempo: navegación y cronómetro</td></tr>
+      <tr><td><b>Día sideral vs. solar</b></td><td>23 h 56 min vs. 24 h (~4 min)</td><td>El solar es más largo por el avance orbital de la Tierra</td></tr>
+      <tr><td><b>UTC / leap second</b></td><td>Atómico, atado a la rotación terrestre</td><td>La Tierra no rota uniforme ⇒ se intercalan segundos</td></tr>
+      <tr><td><b>JD / MJD</b></td><td>JD desde 4713 a.C.; MJD = JD − 2 400 000,5</td><td>Cuenta corrida de días; MJD ahorra dígitos y empieza a medianoche</td></tr>
+      <tr><td><b>Año gregoriano</b></td><td>365,2425 d (bisiesto /4, no /100, sí /400)</td><td>Error de 1 día cada ~3 250 años</td></tr>
+      <tr><td><b>ICRS (cuásares)</b></td><td>Marco de referencia con QSOs lejanos</td><td>Estándar «que no se mueve» para medir posiciones</td></tr>
+      <tr><td><b>VLBI / EHT</b></td><td>Antenas globales + relojes atómicos</td><td>Apertura del tamaño de la Tierra; foto de M87</td></tr>
+      <tr><td><b>Timing de púlsares</b></td><td>Precisión de nanosegundos</td><td>Primer exoplaneta (PSR B1257+12, 1992)</td></tr>
+      <tr><td><b>Factor de Lorentz</b></td><td><span class="katex-inline" data-tex="\gamma=1/\sqrt{1-v^2/c^2}"></span></td><td>Dilatación temporal: el tiempo es relativo</td></tr>
+      <tr><td><b>GPS</b></td><td>Corrección relativista (especial + general)</td><td>Sin ella, error de km/día</td></tr>
+      <tr><td><b>CMB / Big Bang</b></td><td>380 000 yr; ~2,7 K hoy; ~13,8 Gyr</td><td>La flecha del tiempo a escala cosmológica</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c1-examen-01.html">Examen 01<small>Concepciones del tiempo</small></a></li>
+    <li><a href="m2c1-examen-02.html">Examen 02<small>Tiempo físico y ciclos</small></a></li>
+    <li><a href="m2c1-examen-03.html">Examen 03<small>Relojes: sol a cuarzo</small></a></li>
+    <li><a href="m2c1-examen-04.html">Examen 04<small>El péndulo</small></a></li>
+    <li><a href="m2c1-examen-05.html">Examen 05<small>Reloj atómico y cuarzo</small></a></li>
+    <li><a href="m2c1-examen-06.html">Examen 06<small>Longitud y navegación</small></a></li>
+    <li><a href="m2c1-examen-07.html">Examen 07<small>Día sideral y Luna</small></a></li>
+    <li><a href="m2c1-examen-08.html">Examen 08<small>UTC, JD y MJD</small></a></li>
+    <li><a href="m2c1-examen-09.html">Examen 09<small>VLBI y púlsares</small></a></li>
+    <li><a href="m2c1-examen-10.html">Examen 10<small>Relatividad e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo II del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 24 may 2026). Elaborado a partir de la transcripción del audio (<code>observación/m2/ff/Observacion-m2c1.md</code>) y las diapositivas <code>Modulo_II_Clase_1_.pdf</code> («El Tiempo»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. milla náutica ≈1,852 km; recombinación del CMB ≈3 000 K → 2,7 K hoy; Big Bang ≈13,8 Gyr; día sideral ≈23 h 56 min). Algunas frases del audio eran ambiguas y se interpretaron con cuidado. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+var C = 299792458; // m/s
+
+// ---- Widget 1: péndulo ----
+(function(){
+  var l=document.getElementById('pen-l'), g=document.getElementById('pen-g'), out=document.getElementById('pen-out');
+  function calc(){
+    var lV=parseFloat(l.value), gV=parseFloat(g.value);
+    if(!(lV>0)||!(gV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var P=2*Math.PI*Math.sqrt(lV/gV);
+    var f=1/P;
+    out.innerHTML="Período <span class='k'>P</span> = <b>"+P.toFixed(3)+"</b> s · frecuencia "+f.toFixed(3)+" Hz<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Semiperíodo (un «tic») = "+(P/2).toFixed(3)+" s. La masa no interviene.</span>";
+  }
+  l.addEventListener('input',calc); g.addEventListener('input',calc);
+  document.querySelectorAll('#pen-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ l.value=b.dataset.l; g.value=b.dataset.g; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: longitud ----
+(function(){
+  var dt=document.getElementById('lon-dt'), lat=document.getElementById('lon-lat'), out=document.getElementById('lon-out');
+  function calc(){
+    var dtV=parseFloat(dt.value), latV=parseFloat(lat.value);
+    if(!(dtV>=0)||isNaN(latV)){ out.innerHTML="Ingresa valores válidos."; return; }
+    var deg = dtV * (360/86400);          // grados de rotación
+    var arcsec = dtV * 15;                 // 1 s de tiempo = 15"
+    var kmEq = arcsec/60 * 1.852;          // 1' de arco = 1 milla náutica = 1.852 km
+    var km = kmEq * Math.cos(latV*Math.PI/180);
+    out.innerHTML="Error de longitud = <b>"+deg.toExponential(3)+"</b>° ("+arcsec.toFixed(2)+"″)<br>"+
+      "Distancia en superficie ≈ <b>"+(km*1000).toFixed(0)+"</b> m"+
+      "<span style='color:var(--muted);font-size:.9rem'> (en el ecuador serían "+(kmEq*1000).toFixed(0)+" m).</span>";
+  }
+  dt.addEventListener('input',calc); lat.addEventListener('input',calc);
+  document.querySelectorAll('#lon-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ dt.value=b.dataset.dt; lat.value=b.dataset.lat; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: Lorentz ----
+(function(){
+  var b=document.getElementById('lor-b'), out=document.getElementById('lor-out');
+  function calc(){
+    var bV=parseFloat(b.value);
+    if(!(bV>=0)||bV>=1){ out.innerHTML="Ingresa 0 ≤ v/c < 1."; return; }
+    var g=1/Math.sqrt(1-bV*bV);
+    var v=bV*C;
+    var extra=(g-1); // dilatación relativa
+    out.innerHTML="Factor de Lorentz <span class='k'>γ</span> = <b>"+(g<1000?g.toFixed(6):g.toExponential(3))+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>v ≈ "+(v/1000).toFixed(0)+" km/s · 1 s del viajero = "+g.toFixed(6)+" s para ti "+
+      "(desfase relativo "+extra.toExponential(2)+").</span>";
+  }
+  b.addEventListener('input',calc);
+  document.querySelectorAll('#lor-presets button').forEach(function(btn){
+    btn.addEventListener('click',function(){ b.value=btn.dataset.b; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
