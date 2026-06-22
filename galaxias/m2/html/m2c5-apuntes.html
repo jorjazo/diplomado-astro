@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulaciones numéricas de galaxias — Astrofísica de Galaxias, Módulo II · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo II · Clase 5</span>
+  <h1>Galaxias en el <em>computador</em>: simulaciones numéricas</h1>
+  <p class="sub">La evolución de una galaxia es demasiado compleja para resolverla a mano. Se traslada a un computador: se escriben las <em>recetas</em> de la física que entendemos, se dejan correr en el tiempo y se comparan las predicciones con las observaciones. Esta clase recorre cómo se construye una de estas simulaciones — desde la integración numérica más básica hasta las grandes simulaciones cosmológicas — y, sobre todo, <em>cómo saber cuándo creerle</em>.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Valentino González</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 8 jun 2026</span>
+    <span><b>Tema:</b> Modelos numéricos de evolución de galaxias</span>
+    <span><b>Cierre del curso de Galaxias</b></span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>na galaxia es un sistema dinámico con miles de millones de estrellas, gas que se calienta y enfría, polvo, materia oscura y un agujero negro central. No hay solución analítica cerrada para todo eso. La estrategia es la misma que en cualquier problema de ingeniería intratable a lápiz: <strong>discretizar y simular</strong>. Uno codifica las leyes físicas que cree entender (gravedad, hidrodinámica, formación estelar, supernovas), las propaga paso a paso en el tiempo, y luego confronta el resultado con el universo real. El bucle de fondo —<em>modelar → predecir → comparar → corregir la receta</em>— es exactamente un ciclo de validación de modelos. Para alguien de informática, esta clase es un curso exprés de <em>métodos numéricos, escalabilidad y convergencia</em> aplicado al universo. Cerramos el curso de galaxias entendiendo no solo qué predicen estas simulaciones, sino qué tan lejos podemos confiar en ellas.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">¿Por qué simular galaxias?</a></li>
+    <li><a href="#s2">Toomre &amp; Toomre (1972): la primera película</a></li>
+    <li><a href="#s3">¿Qué hace el computador? Integración numérica</a></li>
+    <li><a href="#s4">La receta general: materia oscura primero, gas después</a></li>
+    <li><a href="#s5">Materia oscura: simulaciones de N-cuerpos</a></li>
+    <li><a href="#s6">Agregando el gas: AMR, grillas y SPH</a></li>
+    <li><a href="#s7">Resultados zoom: elípticas y Vías Lácteas</a></li>
+    <li><a href="#s8">Simulaciones cosmológicas: EAGLE e Illustris</a></li>
+    <li><a href="#s9">¿Cómo validar una simulación?</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Por qué simular galaxias?</h2>
+    <p>El juego: qué hago en el computador vs. qué observo de verdad.</p>
+  </div></div>
+
+  <p>El tema engloba en realidad todo lo demás del curso. La evolución de galaxias es un problema <strong>complejo</strong> que es difícil desarrollar analíticamente por completo, así que se acude al computador. La idea central: uno <em>no puede modelar el universo átomo por átomo</em>, así que introduce <span class="hl">simplificaciones macroscópicas</span> — "recetas" que resumen la física que entendemos. Esas recetas generan <strong>predicciones</strong>, y esas predicciones se comparan con las <strong>observaciones</strong>.</p>
+
+  <div class="formula" style="text-align:center">
+    <span class="katex-block" data-tex="\underbrace{\text{recetas físicas}}_{\text{en el computador}}\;\longrightarrow\;\text{predicciones}\;\longleftrightarrow\;\underbrace{\text{observaciones}}_{\text{universo real}}\;\longrightarrow\;\text{mejorar la receta}"></span>
+    <small>El fin último de la astrofísica: descubrir <em>cuáles son los procesos físicos que dominan</em> la evolución de los objetos. Mejorar la receta = entender mejor la física.</small>
+  </div>
+
+  <p>El "juego", como lo llama el profesor, es contrastar lo que uno <em>hace</em> en el computador con lo que de verdad <em>observa</em>, y usar la discrepancia para corregir las recetas. Es un bucle iterativo: cada vuelta, la física modelada se acerca un poco más a la realidad.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es el ciclo clásico de <strong>simulación científica + validación</strong>: un modelo con parámetros, un conjunto de datos de referencia (las observaciones) y una métrica de discrepancia. La "receta" es el modelo; "mejorar la receta" es ajustar el modelo hasta que reproduzca los datos. La diferencia con un fit ingenuo es que aquí las reglas son <em>físicas</em> y deben generalizar, no solo interpolar el set de entrenamiento.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-03.jpg" alt="Diapositiva introductoria: simulación de colisión de galaxias de Toomre &amp; Toomre 1972 en placa azul">
+    <figcaption><span class="cap">Diapositiva · Simulando la formación y evolución de galaxias</span>El caso fundacional: <strong>Toomre &amp; Toomre (1972)</strong>, uno de los primeros y más famosos usos del poder de cómputo "moderno" para un problema extragaláctico — la colisión de dos galaxias.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Toomre &amp; Toomre (1972): la primera película</h2>
+    <p>Puentes y colas de marea como producto de la gravedad.</p>
+  </div></div>
+
+  <p>El artículo se llama <em>"Galactic Bridges and Tails"</em> y tiene casi <strong>3.000 citas</strong>. Su tesis, simple de enunciar pero revolucionaria en la época: los <span class="hl">puentes y colas</span> (bridges and tails) que se observaban en algunas galaxias son el <strong>resultado de encuentros cercanos entre galaxias</strong>. Los hermanos Toomre lo hicieron casi como proyecto de garage, usando computadores avanzados para la época.</p>
+
+  <p>La tecnología no permitía dibujar gráficos como uno quisiera: los "puntos" de la galaxia eran <strong>números impresos</strong> en placas transparentes. Tenía una ventaja inesperada — al moverse, cada número seguía identificando a su partícula, así que se podía rastrear dónde terminó algo que partió en otro lugar. Apilando placas se armaba una <em>película</em>. Una de las primeras animaciones de evolución galáctica.</p>
+
+  <div class="box prof">
+    <span class="tag">Cuidado con las unidades</span>
+    <p>El "tiempo" que aparece en esas simulaciones tempranas no necesariamente son millones de años; probablemente son solo <em>frames</em>. El profesor advierte: <em>"no confiaría en las unidades de tiempo"</em>, es una simulación demasiado temprana. Un recordatorio de que un número en pantalla no es un dato físico hasta que se calibra.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-07.jpg" alt="Secuencia de Toomre &amp; Toomre 1972 con cinco configuraciones de razón de masa -1, -0.5, 0, 0.5, 1">
+    <figcaption><span class="cap">Diapositiva · La secuencia de Toomre (1972)</span>Probaron muchas configuraciones geométricas: distintas razones de masa, ángulos y orientaciones. Estos primeros ejemplos son <strong>solo gravedad</strong> sobre algunas partículas. La evolución real es mucho más complicada: hay que sumar formación de estrellas, su evolución, explosiones de supernova, temperatura del gas, etc.</figcaption>
+  </figure>
+
+  <p>La distinción de masas que aparece aquí se usará todo el curso:</p>
+  <ul>
+    <li><strong>Minor merger:</strong> interacción entre un objeto grande y uno mucho más pequeño (la galaxia chica es prácticamente "tragada"). Son colisiones más rápidas.</li>
+    <li><strong>Major merger:</strong> razón de masa cercana a <span class="katex-inline" data-tex="1{:}1"></span>. Ambos objetos se desarman; el efecto es dramático. Las escalas de tiempo son de <strong>1.000–3.000 millones de años</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-04.jpg" alt="Simulación moderna de la formación del merger Los Ratones (The Mice), con colas de marea">
+    <figcaption><span class="cap">Diapositiva · "Los Ratones" (The Mice) · Crédito: NASA</span>Versión moderna de la misma demostración: una colisión de dos espirales reproduce la geometría de <strong>los Ratones</strong>. La lección no es reproducir <em>exactamente</em> ese objeto, sino que los Ratones son un resultado <strong>genérico</strong> de cierta configuración de colisión. El sistema final es transitorio: termina convirtiéndose en otra cosa.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>¿Qué hace el computador? Integración numérica</h2>
+    <p>Discretizar el tiempo y avanzar a pedacitos, como una película.</p>
+  </div></div>
+
+  <p>El corazón de todo es simple: <span class="hl">discretizar el tiempo</span> y tratarlo como una película que avanza en pasos <span class="katex-inline" data-tex="\Delta t"></span>. El caso más sencillo: una partícula con velocidad constante <span class="katex-inline" data-tex="v_x"></span> en el eje X. Como la velocidad es la variación de posición en el tiempo,</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="v_x=\frac{\Delta x}{\Delta t}=\frac{x_f-x_0}{\Delta t}\;\Longrightarrow\; x_f = x_0 + v_x\,\Delta t"></span>
+    <small>"Si dejo transcurrir un intervalo <span class="katex-inline" data-tex="\Delta t"></span>, la partícula estará en <span class="katex-inline" data-tex="x_f"></span>." Luego repito para el siguiente paso, y el siguiente, generando la película del movimiento. Es el <strong>método de Euler</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-05.jpg" alt="Pizarra con la integración de Euler para una partícula a velocidad constante: x_f = x_0 + v dt">
+    <figcaption><span class="cap">Diapositiva · El paso temporal Δt</span>Mientras <strong>más pequeños</strong> son los pasos <span class="katex-inline" data-tex="\Delta t"></span>, mejor la precisión — pero más cálculos hacen falta. El computador automatiza el cálculo de las nuevas posiciones <span class="katex-inline" data-tex="x_f"></span>, paso a paso.</figcaption>
+  </figure>
+
+  <p>El caso realista de una simulación gravitacional agrega la fuerza. Con mecánica <em>clásica</em> (la mayoría de estas simulaciones no usan relatividad: poca ganancia, mucha complicación), Newton da <span class="katex-inline" data-tex="F=ma"></span>, con <span class="katex-inline" data-tex="a=\Delta v/\Delta t"></span> y <span class="katex-inline" data-tex="v=\Delta x/\Delta t"></span>. La fuerza entre dos masas es la gravedad de Newton:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F=-\frac{G\,M\,m}{d^{2}}=m\,a \;\Longrightarrow\; a=-\frac{GM}{d^{2}}=\frac{x_2-2x_1+x_0}{\Delta t^{2}}"></span>
+    <span class="katex-block" data-tex="\boxed{\,x_2 = -x_0 + 2x_1 - \Delta t^{2}\,\dfrac{GM}{d^{2}}\,}"></span>
+    <small>Conociendo <em>dos</em> posiciones pasadas (<span class="katex-inline" data-tex="x_0,x_1"></span>) y la fuerza, se predice la siguiente <span class="katex-inline" data-tex="x_2"></span>, luego la siguiente, y así. La aceleración discreta es la segunda diferencia de la posición. (Es la forma del <em>integrador de Verlet</em>.)</small>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-06.jpg" alt="Pizarra con F=ma, gravedad GMm/d² y la fórmula discreta x2 = -x0 + 2x1 - dt² GM/d²">
+    <figcaption><span class="cap">Diapositiva · Un paso más elaborado: gravedad</span>Toomre lo hizo con del orden de <strong>100 partículas</strong>: escribir la fuerza entre ellas y trazar la posición en el tiempo de todas. Con dos partículas se ve la mecánica; imagínese lo mismo con 100.000 o un millón. El ciclo es: <em>avanzar el tiempo → recalcular todas las fuerzas → propagar a la siguiente posición → repetir.</em></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es el corazón de cualquier integrador de EDO: <span class="katex-inline" data-tex="\dot{\mathbf{x}}=\mathbf{v},\;\dot{\mathbf{v}}=\mathbf{a}(\mathbf{x})"></span>. Euler explícito es <span class="katex-inline" data-tex="O(\Delta t)"></span> y <em>acumula error y diverge</em> con pasos grandes; por eso en gravitación se usan esquemas simplécticos (Verlet/leapfrog) que conservan mejor la energía. El costo de fuerzas ingenuo es <span class="katex-inline" data-tex="O(N^2)"></span> (cada par); los códigos reales lo bajan a <span class="katex-inline" data-tex="O(N\log N)"></span> con árboles (tree codes) o mallas (PM). Aquí "resolución temporal" = tamaño del paso, exactamente como un solver numérico.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 1 ============ -->
+<section id="w-integrator">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Integrador gravitacional: cómo el paso temporal Δt arruina (o salva) la órbita</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una partícula orbita una masa central (gravedad de Newton, unidades normalizadas <span class="katex-inline" data-tex="GM=1"></span>, órbita inicial circular de radio 1). Integramos 6 órbitas con el <strong>método de Euler explícito</strong> — el mismo de la pizarra. Sube el paso <span class="katex-inline" data-tex="\Delta t"></span> y observa cómo la órbita deja de cerrarse y la energía deriva. Es el origen del <em>error numérico</em> del que habla la clase.</p>
+    <div class="wgrid">
+      <div>
+        <label>Paso temporal Δt = <span class="rngval" id="in-dtval">0.020</span></label>
+        <input type="range" id="in-dt" min="0.002" max="0.30" step="0.002" value="0.02">
+      </div>
+      <div>
+        <label>Esquema de integración</label>
+        <select id="in-scheme">
+          <option value="euler">Euler explícito (diverge)</option>
+          <option value="leapfrog">Leapfrog / Verlet (simpléctico)</option>
+        </select>
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-dt="0.01">Δt = 0,01 (fino)</button>
+      <button type="button" data-dt="0.05">Δt = 0,05</button>
+      <button type="button" data-dt="0.12">Δt = 0,12</button>
+      <button type="button" data-dt="0.25">Δt = 0,25 (grueso)</button>
+    </div>
+    <canvas id="in-canvas" width="900" height="360"></canvas>
+    <output id="in-out" class="wout"></output>
+    <p style="color:var(--muted);font-size:.8rem;margin:.6em 0 0">El punto naranja es la masa central; la curva celeste es la trayectoria calculada y el círculo punteado, la órbita exacta. Compara Euler (la órbita se abre en espiral) con leapfrog (se mantiene cerrada): por eso los códigos reales <em>no</em> usan Euler ingenuo.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La receta general: materia oscura primero, gas después</h2>
+    <p>Dos componentes muy distintos, dos niveles de dificultad.</p>
+  </div></div>
+
+  <p>Para simular la evolución de una galaxia "de verdad" (entre comillas) se sigue una receta. Se parte con una simulación tipo <span class="hl">N-cuerpos</span> de la <strong>materia oscura</strong>, y <em>encima</em> se agrega el gas.</p>
+
+  <h3>¿Por qué la materia oscura primero?</h3>
+  <p>Porque <strong>domina la masa</strong>: hay unas <span class="katex-inline" data-tex="5\times"></span> más materia oscura que materia ordinaria. Lo que haga la materia oscura es lo que manda gravitacionalmente. Y es la parte <em>"sencilla"</em>: la materia oscura solo interactúa por <strong>gravedad</strong>. Sus partículas <em>no chocan</em> (un choque es una interacción electromagnética, y la materia oscura no la tiene). Por eso una simulación de pura materia oscura es como la de Toomre, pero sin colisiones.</p>
+
+  <div class="box dato">
+    <span class="tag">La parte difícil es el gas</span>
+    <p>El gas hace de todo: se calienta, se enfría, radía, se comprime, forma estrellas; las estrellas evolucionan y explotan; aparece un agujero negro que afecta el gas… Toda esa física hay que <em>codificarla</em> en recetas. La gravedad es la parte fácil; la <strong>hidrodinámica + astrofísica del gas</strong> es la parte de verdad complicada.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-08.jpg" alt="Estrategia general: materia oscura N-cuerpos; gas con AMR, grillas deformables, SPH y modelos semi-analíticos">
+    <figcaption><span class="cap">Diapositiva · Estrategia general</span>Materia oscura: <strong>N-cuerpos</strong>, sin colisiones, solo gravedad. El gas, más difícil, admite varias técnicas: <strong>AMR</strong> (grilla adaptativa), <strong>grillas deformables</strong>, <strong>SPH</strong> (partículas de fluido) y <strong>modelos semi-analíticos</strong> (recetas que llevan la cuenta sin generar una "imagen").</figcaption>
+  </figure>
+
+  <p>Las cuatro familias para el gas:</p>
+  <ul>
+    <li><strong>AMR</strong> (Adaptive Mesh Refinement): el gas como fluido en una grilla que se <em>refina</em> donde hace falta.</li>
+    <li><strong>Grillas deformables:</strong> como AMR, pero las celdas además cambian de forma.</li>
+    <li><strong>SPH</strong> (Smoothed Particle Hydrodynamics): el gas como una colección de "partículas" difusas con propiedades.</li>
+    <li><strong>Modelos semi-analíticos:</strong> no producen películas; solo aplican recetas ("cuando se cumple esto, se forman tantas estrellas") y llevan la <em>contabilidad</em> de gas, estrellas y supernovas en el tiempo.</li>
+  </ul>
+
+  <h3>Dos familias según la escala</h3>
+  <figure>
+    <img src="m2c5/assets/slide-09.jpg" alt="Dos tipos de simulación: un pedazo entero del universo, o zoom-in a galaxias específicas">
+    <figcaption><span class="cap">Diapositiva · Pedazo del universo vs. zoom-in</span>O se simula un <strong>pedazo entero del universo</strong> (importa el ambiente: cuántos vecinos, qué tan cerca, cuánta masa — eso fija la frecuencia de colisiones) o se hace un <strong>zoom-in</strong> a una región específica (dos galaxias que chocarán) para estudiarla en mucho detalle.</figcaption>
+  </figure>
+  <p>El problema de escalas: en un pedazo grande del universo <em>no caben</em> a la vez el volumen enorme y los detalles chiquititos — hay demasiados órdenes de magnitud entre ambos. Por eso existen las dos familias, y combinándolas se arma la película completa: la cosmológica da el <strong>contexto</strong>; el zoom da el <strong>detalle</strong>.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es el dilema clásico de <strong>cobertura vs. resolución</strong> bajo presupuesto de cómputo fijo. La simulación cosmológica es como renderizar todo el mapa a baja resolución; el zoom-in es hacer <em>level-of-detail</em> sobre la región de interés. AMR es literalmente un <strong>quadtree/octree adaptativo</strong>: gastas memoria y FLOPs donde hay gradiente, no en el vacío.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Materia oscura: simulaciones de N-cuerpos</h2>
+    <p>De un universo homogéneo a la telaraña cósmica.</p>
+  </div></div>
+
+  <p>La base de todo. La materia oscura solo siente gravedad (Newton, <span class="katex-inline" data-tex="F=GMm/d^2"></span>), así que la simulación es "sencilla": partículas con masa que se atraen, sin colisiones. La <strong>expansión del universo</strong> también se incluye. Lo notable es el resultado: partiendo de una distribución <em>casi homogénea</em> a alto redshift, la gravedad amplifica las pequeñas inhomogeneidades hasta formar la <span class="hl">estructura a gran escala</span>: vacíos, filamentos y, donde se cruzan los filamentos, cúmulos.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-10.jpg" alt="Evolución de la materia oscura desde z alto (homogéneo) hasta hoy (filamentos), en una grilla de cubos">
+    <figcaption><span class="cap">Diapositiva · Materia oscura: simulaciones de N-cuerpos</span>Cada punto celeste es materia oscura (color arbitrario: en la realidad no la veríamos). En redshift alto (<span class="katex-inline" data-tex="z\approx 27"></span>) está casi homogénea; a medida que avanza el tiempo se va estructurando, hasta los <strong>vacíos y filamentos</strong> de hoy. Toda esta formación de estructura la traza <em>exclusivamente</em> la materia oscura.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Pregunta de clase · ¿la materia oscura interactúa consigo misma?</span>
+    <p>Sí — la materia oscura interactúa con <em>cualquier cosa que tenga gravedad</em>, incluyéndose a sí misma y a la materia ordinaria. En una simulación de pura materia oscura solo vemos su autointeracción gravitacional. La materia ordinaria también tira de ella, pero como es solo un quinto de la masa, su efecto sobre la evolución global es menor. Por eso vale la pena correr una simulación <em>solo</em> de materia oscura como base.</p>
+  </div>
+
+  <p>El modelo cosmológico estándar exige que sea <span class="hl">materia oscura fría</span> (<em>cold dark matter</em>): sus partículas se mueven <em>lento</em> (no relativista). Si se movieran cerca de la velocidad de la luz, no podrían aglomerarse en la telaraña que observamos. ¿Cómo se sabe? Precisamente comparando estas simulaciones con el universo real.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-13.jpg" alt="Simulación Millennium: telaraña cósmica de materia oscura en tonos morados y dorados">
+    <figcaption><span class="cap">Diapositiva · La simulación Millennium (Springel et al., Virgo Consortium)</span>Una de las simulaciones de N-cuerpos más importantes. El color codifica densidad: regiones oscuras = baja densidad; brillantes = alta densidad. La materia se distribuye como una <strong>esponja</strong>. Sirve de base sobre la cual luego se "pinta" el gas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-14.jpg" alt="Datos de la simulación Millennium: 10^10 partículas, JUROPA, 12000 núcleos, 300 años CPU, 100 TB">
+    <figcaption><span class="cap">Diapositiva · La escala de Millennium</span><span class="katex-inline" data-tex="\sim 10^{10}"></span> partículas. La versión <strong>Millennium XXL</strong> corrió en el supercomputador JUROPA (top 15 en 2010) usando <strong>&gt; 12.000 núcleos</strong>; el equivalente en un solo núcleo serían <strong>≈ 300 años</strong>. Produjo <strong>&gt; 100 TB</strong> de datos… y eso que <em>todavía no tiene galaxias</em>: es pura materia oscura.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Estudiar una simulación ≈ estudiar el universo</span>
+    <p>Esos <span class="katex-inline" data-tex="\sim 100"></span> TB son comparables a lo que genera un survey real (el SDSS produjo del orden de 60 TB). Explotar los datos de una simulación se vuelve tan difícil como explotar observaciones: hay regiones del resultado que <em>nadie ha mirado</em>. "Hacer observaciones de la simulación" es toda una rama del estudio.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO 2 ============ -->
+<section id="w-compute">
+  <div class="widget">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Presupuesto de cómputo: el truco del paralelismo (estilo Millennium)</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una simulación que tardaría <strong>cientos de años</strong> en un solo núcleo se vuelve factible repartiéndola en miles de núcleos en paralelo. Juega con el equivalente en un núcleo y el número de núcleos para estimar el tiempo real (modelo ideal con una fracción no paralelizable, à la Amdahl).</p>
+    <div class="wgrid">
+      <div>
+        <label>Tiempo equivalente en 1 núcleo (años CPU)</label>
+        <input type="number" id="cp-years" value="300" step="any">
+      </div>
+      <div>
+        <label>Número de núcleos en paralelo</label>
+        <input type="number" id="cp-cores" value="12000" step="1">
+      </div>
+    </div>
+    <div>
+      <label>Fracción del cálculo NO paralelizable (serial) = <span class="rngval" id="cp-sval">1.0</span>%</label>
+      <input type="range" id="cp-serial" min="0" max="10" step="0.1" value="1">
+    </div>
+    <div class="presets">
+      <button type="button" data-c="12000" data-y="300">Millennium XXL (300 a · 12.000)</button>
+      <button type="button" data-c="1" data-y="300">1 solo núcleo</button>
+      <button type="button" data-c="100000" data-y="300">100.000 núcleos</button>
+    </div>
+    <output id="cp-out" class="wout"></output>
+    <p style="color:var(--muted);font-size:.8rem;margin:.6em 0 0">Ley de Amdahl: con una fracción serial <span class="katex-inline" data-tex="s"></span>, el speed-up máximo está limitado a <span class="katex-inline" data-tex="1/s"></span> sin importar cuántos núcleos agregues. Por eso "más núcleos" no es magia infinita.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Agregando el gas: AMR, grillas y SPH</h2>
+    <p>La física difícil, encima de la materia oscura.</p>
+  </div></div>
+
+  <p>Sobre la simulación de materia oscura se <em>espolvorea</em> el gas. El gas sigue a la materia oscura por gravedad, pero hace cosas interesantes — y las hace sobre todo donde hay <strong>gradientes</strong> de densidad (paso de alta a baja densidad). No vale la pena gastar cómputo en regiones casi vacías y "fomes"; conviene gastarlo donde está pasando algo.</p>
+
+  <h3>AMR — grilla adaptativa</h3>
+  <p>La idea de <span class="hl">AMR</span> (Adaptive Mesh Refinement): no simular átomo por átomo, sino dividir el espacio en celdas (cubos, en 3D) y, dentro de cada celda, modelar <strong>propiedades macroscópicas</strong>: densidad, temperatura, presión. La presión de una celda interactúa con la de las vecinas (transferencia de materia). Si la densidad de una celda sube mucho, el gas está colapsando y <strong>forma estrellas</strong>; esas estrellas evolucionan, explotan y le devuelven energía y temperatura al gas. Donde pasan cosas interesantes, la grilla se hace <strong>más fina</strong>.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-17.jpg" alt="Grilla adaptativa AMR sobre una nube de gas: celdas más pequeñas donde hay más estructura">
+    <figcaption><span class="cap">Diapositiva · Grilla adaptativa (AMR)</span>No se simulan partículas individuales, sino las propiedades macroscópicas de cada <strong>celda</strong>: densidad, temperatura, presión y el efecto sobre las celdas vecinas. La grilla se adapta: más fina donde hay más detalle.</figcaption>
+  </figure>
+
+  <h3>Grillas deformables</h3>
+  <figure>
+    <img src="m2c5/assets/slide-18.jpg" alt="Grilla deformable móvil del código AREPO sobre una inestabilidad de Kelvin-Helmholtz (fluidos rojo y azul)">
+    <figcaption><span class="cap">Diapositiva · Grilla deformable móvil (código AREPO)</span>Variante en la que las celdas además <strong>cambian de forma</strong> (y de posición), adaptándose a la dirección en que varían las cosas. Permite mayor resolución espacial y trazar estructuras de forma especial — aquí, una <strong>inestabilidad de Kelvin–Helmholtz</strong> (dos fluidos a distinta velocidad generan esas "olitas", como las que se ven en algunas nubes). Una grilla cuadrada fija perdería esa resolución.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor · los códigos</span>
+    <p>AREPO y compañía se escriben en lenguajes <em>cercanos a la máquina</em> (Fortran, C): más áridos de programar, pero <strong>muy eficientes</strong> de ejecutar — se ahorra tiempo de cómputo a costa de tiempo de programación. Muchos son <strong>abiertos</strong> (p. ej. GADGET): uno puede bajarlos, poner condiciones iniciales y correr una simulación en su propio computador. La forma de la grilla se redefine durante la corrida: un paso extra de "recalcular la plantilla" en cada iteración.</p>
+  </div>
+
+  <h3>SPH — partículas de fluido</h3>
+  <figure>
+    <img src="m2c5/assets/slide-19.jpg" alt="SPH (Smoothed Particle Hydrodynamics): simulación de fluido con partículas, ejemplo de Sebastian Lague">
+    <figcaption><span class="cap">Diapositiva · SPH (Smoothed Particle Hydrodynamics)</span>En vez de una grilla, el gas son <strong>"partículas" difusas</strong> (de ahí <em>smoothed</em>). Cada "partícula" es en realidad una colección con propiedades — masa, energía, momentum, temperatura, densidad — y la interacción ocurre según esas propiedades. Muy usada en problemas hidrodinámicos (agua en cine y videojuegos; el youtuber <strong>Sebastian Lague</strong> hace demos didácticas).</figcaption>
+  </figure>
+
+  <p>La gran ventaja de SPH en astronomía: la "partícula" lleva <strong>mucha más información</strong> que su masa y posición. Contiene una colección de estrellas con su edad y distribución de colores, gas con su temperatura y densidad, y polvo. Como las estrellas evolucionan, la partícula <em>emite luz</em> (de una población estelar con cierto espectro), lo que permite "ver" la galaxia simulada. El mínimo para que sea SPH y no solo N-cuerpos: posición y masa <em>más</em> distinción gas/estrellas y, al menos para el gas, temperatura y densidad.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\text{partícula SPH} \;=\; \{\, \mathbf{x},\, \mathbf{v},\, m_{\text{gas}},\, m_\star,\, T,\, \rho,\, \text{edad}_\star,\, Z,\, \text{polvo} \,\}"></span>
+    <small>Cada "partícula" no es una estrella: es un <em>elemento de fluido</em> que puede valer <span class="katex-inline" data-tex="\sim 10^{6}\,M_\odot"></span>. Poco frente a las <span class="katex-inline" data-tex="\sim 10^{11}\,M_\odot"></span> de una galaxia — por eso siguen siendo muchísimas partículas. No hay límite duro de propiedades; se agregan según lo que se quiera estudiar (los campos magnéticos, por ser difíciles, suelen omitirse).</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>AMR vs. SPH es <strong>Euleriano (malla fija al espacio) vs. Lagrangiano (resolución que sigue a la masa)</strong> — el mismo dilema que en gráficos entre simular fluidos con grid o con partículas. La "partícula" SPH es, en términos de datos, una <em>struct</em> rica que arrastra un estado completo; trazar su evolución es propagar ese estado y, además, su <em>emisión</em> (rendering físico) para comparar con observaciones.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Resultados zoom: elípticas y Vías Lácteas</h2>
+    <p>Lo que aprendemos cuando seguimos una galaxia en detalle.</p>
+  </div></div>
+
+  <h3>Cómo se forma una galaxia elíptica</h3>
+  <p>Una simulación zoom de la colisión de <strong>dos discos espirales</strong> (en el espíritu de Toomre, pero con gas, estrellas y materia oscura). Al principio se forman de nuevo las <strong>colas de marea</strong> y puentes. Luego ocurre algo clave: el <span class="hl">feedback</span>. El núcleo galáctico activo (AGN) y las supernovas <strong>expulsan el gas</strong> volando fuera de la galaxia. El resultado final, visto desde dos ángulos (para confirmar que es esférico y no un disco), es un objeto <strong>esferoidal y casi sin gas ni polvo</strong>.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-20.jpg" alt="Simulación de la formación de una galaxia elíptica a partir de la colisión de dos espirales, visualización del gas a T=1020 Myr">
+    <figcaption><span class="cap">Diapositiva · Formación de una galaxia elíptica</span>Visualización del <strong>gas</strong> de dos espirales que chocan (<span class="katex-inline" data-tex="T\approx 1020"></span> Myr). Tras ≈ 2.000 Myr el gas ya fue expulsado (feedback) o consumido en nuevas estrellas. Las <em>estrellas</em> solo siguen la gravedad (la radiación no las "manda a volar" como al gas) y terminan en una estructura esferoidal sin relación con las espirales originales: una <strong>galaxia elíptica</strong>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué importa trazar el gas</span>
+    <p>Si <em>no</em> hubiéramos modelado el gas, no entenderíamos que esto es una elíptica. Una propiedad definitoria de las elípticas clásicas es que son <strong>viejas</strong>: dejaron de formar estrellas. ¿Por qué? Porque <em>no tienen gas</em> (salió volando o se calentó). Sin trazar el feedback del gas, pensaríamos que sigue formando estrellas. Así, una simulación nos <em>enseña un camino</em> para formar elípticas — algo que de otra forma no podríamos visualizar.</p>
+  </div>
+
+  <h3>FIRE y Eris: zoom de última generación</h3>
+  <figure>
+    <img src="m2c5/assets/slide-21.jpg" alt="Simulaciones FIRE: mock HST de una galaxia simulada muy realista, escala de 10 kpc">
+    <figcaption><span class="cap">Diapositiva · Simulaciones FIRE (Feedback In Realistic Environments)</span>Zoom de muy alta resolución que traza materia oscura, gas, estrellas, polvo <em>y la luz</em> que cada cosa emite. La galaxia de la imagen <strong>no es real: es simulada</strong>, pero se ve realista porque la luz se trazó físicamente (poblaciones estelares, polvo entre el gas). Incluye una simulación de la colisión Vía Láctea–Nube Grande de Magallanes.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-22.jpg" alt="Simulación Eris: zoom SPH a la formación de una galaxia tipo Vía Láctea (Guedes et al. 2011)">
+    <figcaption><span class="cap">Diapositiva · Eris: zoom a la Vía Láctea (Guedes et al. 2011)</span>Una astrónoma chilena identificó, dentro de una simulación cosmológica, un halo con la masa de nuestra galaxia y le trazó el gas con <strong>SPH</strong>. Fue de las primeras en generar efectivamente una <strong>espiral con propiedades de la Vía Láctea</strong>: un disco <em>delgado</em> (razón grosor/tamaño <span class="katex-inline" data-tex="\approx 1{:}10"></span>), algo no logrado antes. La galaxia se arma por la acumulación de muchos sistemas pequeños — a veces gas, a veces estrellas; aparece y desaparece una <em>barra</em>.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Lección sobre nuestra propia galaxia</span>
+    <p>Si esa simulación se parece a la Vía Láctea, entonces nuestra historia está <strong>plagada de colisiones</strong>. Y deberíamos ver sus <em>reliquias</em>: las <span class="hl">colas de marea</span> visibles en el cielo (p. ej. la <strong>cola de Sagitario</strong>) son vestigios de interacciones pasadas. Dato curioso: dos tercios de las espirales tienen barra — una estructura común, aunque transiente.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Simulaciones cosmológicas: EAGLE e Illustris</h2>
+    <p>Un pedazo grande del universo que reproduce lo observado.</p>
+  </div></div>
+
+  <p>Pasando del zoom a lo global: las dos simulaciones cosmológicas más importantes hoy son <span class="hl">EAGLE</span> e <span class="hl">Illustris</span>. Son grandes y, a la vez, <strong>exitosas reproduciendo propiedades observadas</strong>. Su gran logro común: reproducir la <strong>secuencia de Hubble</strong> — generar a la vez elípticas, espirales (con y sin barra) e irregulares, <em>con las mismas reglas físicas en todos lados</em>, sin adaptar la receta para cada tipo. Eso es muy distinto de un zoom que se ajusta para formar un objeto particular.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-23.jpg" alt="Simulaciones EAGLE: la secuencia de Hubble realizada en simulaciones cosmológicas (Schaye et al. 2014)">
+    <figcaption><span class="cap">Diapositiva · EAGLE (Schaye et al. 2014)</span><em>Evolution and Assembly of GaLaxies and their Environments</em>, del <strong>Virgo Consortium</strong> (los mismos de Millennium): corre sobre una base N-cuerpos y le espolvorea gas con técnica <strong>SPH</strong>. Una de las primeras en reproducir naturalmente la secuencia de Hubble.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-25.jpg" alt="Tabla de la simulación Illustris: Illustris 1/2/3 y Dark 1/2/3, volumen, partículas, tamaño de celda mínimo 48-273 pc">
+    <figcaption><span class="cap">Diapositiva · La serie Illustris</span>Misma física, distinto <strong>número de partículas/celdas</strong> a igual volumen (<span class="katex-inline" data-tex="106{,}5^3\,\text{Mpc}^3"></span>): de baja a alta resolución. Las <em>Illustris-Dark</em> son solo materia oscura (la base); encima, Illustris-1/2/3 agregan el gas en celdas. La razón bariónica/oscura es <span class="katex-inline" data-tex="\approx 1{:}5"></span>, como se espera. La celda más chica va de <strong>273 pc</strong> (peor) a <strong>48 pc</strong> (mejor) — fino frente a los <span class="katex-inline" data-tex="\sim 10"></span> kpc de radio de una galaxia, aunque no resuelve el sistema solar.</figcaption>
+  </figure>
+
+  <p>Illustris usa el código <strong>AREPO</strong> (grilla deformable y móvil: las celdas cambian de forma <em>y</em> de posición). Es tan grande que estudiarla es "casi una industria": hay regiones inexploradas, y observar la simulación se vuelve análogo a observar el universo. En su película se ve cómo una <strong>única supernova</strong> expulsa material más allá de la galaxia entera, y cómo se distribuyen los <strong>metales</strong> (elementos pesados) por el medio — incluso en zonas sin galaxias.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-26.jpg" alt="Estampilla alemana de 2018 en honor a la simulación Illustris">
+    <figcaption><span class="cap">Diapositiva · Illustris en una estampilla alemana (2018)</span>La simulación es tan emblemática que tiene su propia estampilla. El detalle recurrente: genera <strong>tantos datos</strong> que explorar sus resultados es una rama de estudio por sí sola.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">¿Cuál es "la más grande"?</span>
+    <p>EAGLE e Illustris son <strong>comparables</strong>: cantidad similar de publicaciones asociadas. "Se hacen propaganda entre ellas". La diferencia muchas veces es quién hace los <em>videos</em> más vistosos. Ambas reproducen la secuencia de Hubble. Las simulaciones también alimentan proyectos como <strong>Galaxy Zoo</strong> (ciencia ciudadana de clasificación morfológica): a la gente a veces le muestran galaxias <em>simuladas</em> sin avisar — y si no las distinguen de las reales, es prueba del realismo de la simulación.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>¿Cómo validar una simulación?</h2>
+    <p>El mensaje más importante de la clase.</p>
+  </div></div>
+
+  <p>Una simulación numérica <strong>no es perfecta</strong>, y hay que entender por qué. Dos fuentes de limitación:</p>
+  <ul>
+    <li><strong>Error numérico que se acumula.</strong> Recordemos la partícula del comienzo: si su velocidad cambia <em>durante</em> el paso <span class="katex-inline" data-tex="\Delta t"></span>, la proyección se desvía. Esos errores de discretización, sumados al hecho de que los computadores no usan números infinitamente precisos, se <strong>acumulan</strong> a lo largo de millones de pasos.</li>
+    <li><strong>Física simplificada.</strong> No se modela el universo átomo por átomo (no hay mecánica cuántica dentro): se toman propiedades macroscópicas de un pedazo de <span class="katex-inline" data-tex="\sim 50"></span> pc y se propagan. Hay <strong>pérdida de resolución espacial y temporal</strong>, y promedios de temperatura, edades estelares, supernovas, etc.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-29.jpg" alt="Diapositiva: ¿Cómo validar los resultados de una simulación? Set de simulaciones a distintas resoluciones; comparación con observaciones">
+    <figcaption><span class="cap">Diapositiva · ¿Cómo validar los resultados?</span>Los métodos no son perfectos y los errores se acumulan. Por eso una simulación es, en realidad, un <strong>set de simulaciones a distintas resoluciones</strong>: en el rango donde los resultados <em>coinciden</em>, se puede confiar. Y como la física está simplificada, hay que <strong>comparar con observaciones</strong> para ver si el resultado es realista.</figcaption>
+  </figure>
+
+  <h3>Dos preguntas distintas</h3>
+  <p>Hay que separar dos cosas que suelen confundirse:</p>
+  <ul>
+    <li><strong>¿Es correcta la física?</strong> Solo se sabe comparando con la <em>realidad</em>. Si la "receta de Newton" estuviera mal, toda la simulación lo estaría — y eso únicamente lo revela la observación.</li>
+    <li><strong>¿Es confiable el cálculo?</strong> Distinto: ¿calculé bien lo que <em>quise</em> calcular, más allá de si la receta es la correcta? Esto se contesta con <span class="hl">convergencia de resolución</span>.</li>
+  </ul>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\text{resultado confiable}\iff \text{independiente de la resolución}"></span>
+    <small>Se corre la misma simulación en baja, media y alta resolución. Si las tres dan las mismas propiedades, el resultado <strong>converge</strong> y es confiable. Si un resultado solo aparece en alta resolución y no en las otras, hay que dudar: puede ser un <em>artefacto numérico</em> (más resolución también propaga más errores).</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">La conclusión operativa</span>
+    <p>Correr una de estas simulaciones <strong>no es correr una sola</strong>: es correr una <em>familia</em> a distintas resoluciones y comparar. Solo los resultados que se <strong>repiten</strong> entre resoluciones son confiables. Por eso Illustris tiene versiones 1, 2 y 3: no es redundancia, es la prueba de convergencia.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es <strong>análisis de convergencia de malla</strong> (mesh/grid convergence), pan de cada día en métodos numéricos e ingeniería (CFD, FEM). Refinas la discretización; si la solución deja de cambiar, convergió. Y separa dos errores que un ingeniero conoce bien: <em>verificación</em> ("¿resolví bien las ecuaciones?", = convergencia) vs. <em>validación</em> ("¿son las ecuaciones correctas?", = comparar con el experimento/observación). Más resolución no garantiza más verdad: puede amplificar inestabilidades numéricas.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre del curso de Galaxias</span>
+    <p>Las simulaciones cierran el curso porque <em>integran</em> todo lo visto: gravedad y materia oscura (estructura a gran escala), gas y formación estelar, mergers y colas de marea, feedback de supernovas y AGN, secuencia de Hubble, enriquecimiento químico. El computador permite <strong>visualizar lo invisible</strong> y <em>experimentar</em> con el universo — pero solo si entendemos sus límites: resolución finita, física simplificada y la necesidad de confrontar siempre con la observación. Con eso terminamos galaxias; el profesor nos cita de vuelta en el curso de observación.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Receta física</b></td><td>Simplificación macroscópica de la física en el código</td><td>Genera predicciones que se comparan con observaciones</td></tr>
+      <tr><td><b>Toomre &amp; Toomre (1972)</b></td><td>"Galactic Bridges and Tails", ~3.000 citas</td><td>Colas/puentes = encuentros cercanos entre galaxias</td></tr>
+      <tr><td><b>Minor / major merger</b></td><td>Grande+chico / razón de masa ≈ 1:1</td><td>Escalas de tiempo de 1.000–3.000 Myr (majors)</td></tr>
+      <tr><td><b>Discretización del tiempo</b></td><td>Avanzar en pasos <span class="katex-inline" data-tex="\Delta t"></span> como una película</td><td>Menor <span class="katex-inline" data-tex="\Delta t"></span> = más precisión, más cálculos</td></tr>
+      <tr><td><b>Integración (Euler/Verlet)</b></td><td><span class="katex-inline" data-tex="x_2=-x_0+2x_1-\Delta t^2 GM/d^2"></span></td><td>El núcleo de toda simulación N-cuerpos</td></tr>
+      <tr><td><b>N-cuerpos</b></td><td>Partículas que solo sienten gravedad</td><td>Base para la materia oscura (sin colisiones)</td></tr>
+      <tr><td><b>Materia oscura primero</b></td><td>5× más masa que la ordinaria; solo gravedad</td><td>Domina; es la parte "sencilla" y la base</td></tr>
+      <tr><td><b>Cold Dark Matter</b></td><td>Materia oscura fría (lenta, no relativista)</td><td>Solo así se aglomera en la telaraña observada</td></tr>
+      <tr><td><b>AMR</b></td><td>Grilla adaptativa; celdas más finas donde hay detalle</td><td>Gasta cómputo donde hay gradientes</td></tr>
+      <tr><td><b>Grilla deformable</b></td><td>Celdas cambian forma y posición (AREPO)</td><td>Resuelve estructuras de forma especial (Kelvin–Helmholtz)</td></tr>
+      <tr><td><b>SPH</b></td><td>Gas como "partículas" de fluido con propiedades</td><td>La partícula lleva gas+estrellas+T+ρ+edad y emite luz</td></tr>
+      <tr><td><b>Modelos semi-analíticos</b></td><td>Recetas + contabilidad, sin imagen</td><td>Llevan la cuenta de estrellas/gas/SN en el tiempo</td></tr>
+      <tr><td><b>Cosmológica vs. zoom-in</b></td><td>Pedazo del universo / región específica</td><td>Contexto (ambiente) vs. detalle de alta resolución</td></tr>
+      <tr><td><b>Millennium</b></td><td><span class="katex-inline" data-tex="\sim 10^{10}"></span> partículas, &gt;12.000 núcleos, &gt;100 TB</td><td>N-cuerpos de referencia (Virgo Consortium)</td></tr>
+      <tr><td><b>Feedback</b></td><td>SN y AGN expulsan/calientan el gas</td><td>Clave para formar elípticas (sin gas → dejan de formar estrellas)</td></tr>
+      <tr><td><b>FIRE / Eris</b></td><td>Zooms de alta resolución (MW, elípticas)</td><td>Generan galaxias realistas con luz trazada</td></tr>
+      <tr><td><b>EAGLE / Illustris</b></td><td>Cosmológicas (SPH / AREPO)</td><td>Reproducen la secuencia de Hubble con física única</td></tr>
+      <tr><td><b>Resolución de celda</b></td><td>Illustris: 48–273 pc (la más chica)</td><td>Fino vs. galaxia (kpc), grueso vs. sistema solar</td></tr>
+      <tr><td><b>Convergencia de resolución</b></td><td>Resultado independiente de la resolución</td><td>Único criterio de confiabilidad del <em>cálculo</em></td></tr>
+      <tr><td><b>Verificación vs. validación</b></td><td>Cálculo correcto vs. física correcta</td><td>Convergencia / comparación con observaciones</td></tr>
+      <tr><td><b>Artefacto numérico</b></td><td>Resultado que solo aparece a una resolución</td><td>No confiar; puede ser error amplificado</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c5-examen-01.html">Examen 01<small>¿Por qué simular?</small></a></li>
+    <li><a href="m2c5-examen-02.html">Examen 02<small>Toomre y mergers</small></a></li>
+    <li><a href="m2c5-examen-03.html">Examen 03<small>Integración numérica</small></a></li>
+    <li><a href="m2c5-examen-04.html">Examen 04<small>La receta general</small></a></li>
+    <li><a href="m2c5-examen-05.html">Examen 05<small>Materia oscura N-cuerpos</small></a></li>
+    <li><a href="m2c5-examen-06.html">Examen 06<small>AMR, grillas y SPH</small></a></li>
+    <li><a href="m2c5-examen-07.html">Examen 07<small>Resultados zoom</small></a></li>
+    <li><a href="m2c5-examen-08.html">Examen 08<small>EAGLE e Illustris</small></a></li>
+    <li><a href="m2c5-examen-09.html">Examen 09<small>Validación y convergencia</small></a></li>
+    <li><a href="m2c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo II del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Valentino González, 8 jun 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m2/ff/galaxias-m2c5.md</code>) y las diapositivas <code>Modulo_II_Clase_5.pdf</code>. Créditos de figuras según cada diapositiva (Toomre &amp; Toomre 1972; Springel et al. / Virgo Consortium — Millennium; Guedes et al. 2011 — Eris; FIRE; Schaye et al. 2014 — EAGLE; Illustris Collaboration / AREPO; NASA; Sebastian Lague / Coding Adventures).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, con posibles errores de reconocimiento de voz. Se contrastaron términos y nombres con las diapositivas y se corrigieron donde correspondía (p. ej. "Toomre &amp; Toomre", "Millennium", "JUROPA", "AREPO", "GADGET", "EAGLE", "Illustris", "Eris", "SPH", "AMR", "secuencia de Hubble", "Kelvin–Helmholtz"). Las unidades de tiempo de las simulaciones más antiguas son poco confiables (lo advierte el propio docente). Las cifras de cómputo (≈300 años CPU, &gt;12.000 núcleos, &gt;100 TB, celdas de 48–273 pc) provienen de las diapositivas. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: integrador gravitacional =====
+  var inDt=document.getElementById('in-dt'), inScheme=document.getElementById('in-scheme'),
+      inDtval=document.getElementById('in-dtval'), inCanvas=document.getElementById('in-canvas'),
+      inOut=document.getElementById('in-out');
+  function inDraw(){
+    if(!inCanvas) return;
+    var dt=+inDt.value, scheme=inScheme.value;
+    inDtval.textContent=dt.toFixed(3);
+    var GM=1, Torb=2*Math.PI, totalT=6*Torb;
+    var nsteps=Math.min(60000, Math.max(10, Math.round(totalT/dt)));
+    // condiciones iniciales: órbita circular r=1
+    var x=1, y=0, vx=0, vy=1;
+    var pts=[[x,y]];
+    var E0 = 0.5*(vx*vx+vy*vy) - GM/Math.sqrt(x*x+y*y);
+    var rmax=1, escaped=false;
+    function accel(px,py){ var r=Math.sqrt(px*px+py*py); var r3=r*r*r; return [-GM*px/r3,-GM*py/r3]; }
+    if(scheme==='leapfrog'){
+      var a=accel(x,y);
+      for(var i=0;i<nsteps;i++){
+        vx+=0.5*dt*a[0]; vy+=0.5*dt*a[1];
+        x+=dt*vx; y+=dt*vy;
+        a=accel(x,y);
+        vx+=0.5*dt*a[0]; vy+=0.5*dt*a[1];
+        pts.push([x,y]); var rr=Math.sqrt(x*x+y*y); if(rr>rmax)rmax=rr; if(rr>20){escaped=true;break;}
+      }
+    } else {
+      for(var j=0;j<nsteps;j++){
+        var aa=accel(x,y);
+        x+=dt*vx; y+=dt*vy;       // Euler explícito
+        vx+=dt*aa[0]; vy+=dt*aa[1];
+        pts.push([x,y]); var r2=Math.sqrt(x*x+y*y); if(r2>rmax)rmax=r2; if(r2>20){escaped=true;break;}
+      }
+    }
+    var Ef = 0.5*(vx*vx+vy*vy) - GM/Math.sqrt(x*x+y*y);
+    var dE = Math.abs((Ef-E0)/E0)*100;
+    // dibujo
+    var ctx=inCanvas.getContext('2d'), W=inCanvas.width, H=inCanvas.height;
+    ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H/2;
+    var span=Math.min(2.6, Math.max(1.3, rmax*1.08));
+    var sc=Math.min(W,H)/(2*span)*0.92;
+    function PX(px){return cx+px*sc;} function PY(py){return cy-py*sc;}
+    // órbita exacta (círculo r=1)
+    ctx.strokeStyle="#3a465e"; ctx.setLineDash([4,4]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.arc(cx,cy,sc,0,2*Math.PI); ctx.stroke(); ctx.setLineDash([]);
+    // trayectoria
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=1.5; ctx.beginPath();
+    pts.forEach(function(p,k){ var X=PX(p[0]),Y=PY(p[1]); if(k===0)ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+    ctx.stroke();
+    // masa central
+    ctx.fillStyle="#d9a74a"; ctx.beginPath(); ctx.arc(cx,cy,6,0,2*Math.PI); ctx.fill();
+    ctx.strokeStyle="#e0382e"; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx,cy,6,0,2*Math.PI); ctx.stroke();
+    // posición final
+    var fp=pts[pts.length-1]; ctx.fillStyle="#f06a5e";
+    ctx.beginPath(); ctx.arc(PX(fp[0]),PY(fp[1]),4,0,2*Math.PI); ctx.fill();
+    // texto
+    var schemeName = scheme==='leapfrog' ? "Leapfrog/Verlet (simpléctico)" : "Euler explícito";
+    var verdict;
+    if(escaped) verdict="La partícula <b>escapó</b>: el error es catastrófico.";
+    else if(dE<1) verdict="Órbita prácticamente <b>cerrada</b>: error despreciable.";
+    else if(dE<15) verdict="Órbita con <b>deriva leve</b>.";
+    else verdict="Órbita que se <b>abre en espiral</b>: la energía no se conserva.";
+    inOut.innerHTML="Esquema: <b>"+schemeName+"</b> &nbsp;·&nbsp; Δt = <b>"+dt.toFixed(3)+"</b> &nbsp;·&nbsp; pasos ≈ <b>"+nsteps.toLocaleString('es')+"</b><br>"+
+      "<span class='k'>Error de energía acumulado:</span> <b>"+(dE>999?">999":dE.toFixed(1))+" %</b><br>"+verdict;
+  }
+  if(inDt){
+    inDt.addEventListener('input',inDraw); inScheme.addEventListener('change',inDraw);
+    document.querySelectorAll('#w-integrator .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ inDt.value=b.dataset.dt; inDraw(); });
+    });
+    inDraw();
+  }
+
+  // ===== Widget 2: presupuesto de cómputo (Amdahl) =====
+  var cpY=document.getElementById('cp-years'), cpC=document.getElementById('cp-cores'),
+      cpS=document.getElementById('cp-serial'), cpSval=document.getElementById('cp-sval'),
+      cpOut=document.getElementById('cp-out');
+  function fmtTime(years){
+    if(years>=1) return years.toFixed(years<10?2:0)+" años";
+    var days=years*365.25;
+    if(days>=1) return days.toFixed(days<10?1:0)+" días";
+    var hours=days*24;
+    if(hours>=1) return hours.toFixed(1)+" horas";
+    return (hours*60).toFixed(0)+" min";
+  }
+  function cpUpdate(){
+    var years=+cpY.value, cores=Math.max(1,Math.round(+cpC.value)), s=(+cpS.value)/100;
+    cpSval.textContent=(+cpS.value).toFixed(1);
+    // Amdahl: tiempo = years * ( s + (1-s)/cores )
+    var t = years*( s + (1-s)/cores );
+    var speedup = years / t;
+    var maxSpeedup = s>0 ? 1/s : Infinity;
+    cpOut.innerHTML="Con <b>"+cores.toLocaleString('es')+"</b> núcleos, la corrida tarda ≈ <b>"+fmtTime(t)+"</b><br>"+
+      "<span class='k'>Speed-up real:</span> <b>"+speedup.toFixed(0)+"×</b> &nbsp;·&nbsp; "+
+      "límite teórico (Amdahl): "+(maxSpeedup===Infinity?"∞":Math.round(maxSpeedup).toLocaleString('es')+"×")+"<br>"+
+      "<span style='color:var(--muted);font-size:.86rem'>Equivalente en 1 núcleo: "+fmtTime(years)+". Aun con núcleos infinitos no bajarías de ≈ "+fmtTime(years*s)+" por la parte serial.</span>";
+  }
+  if(cpY){
+    cpY.addEventListener('input',cpUpdate); cpC.addEventListener('input',cpUpdate); cpS.addEventListener('input',cpUpdate);
+    document.querySelectorAll('#w-compute .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ cpC.value=b.dataset.c; cpY.value=b.dataset.y; cpUpdate(); });
+    });
+    cpUpdate();
+  }
+});
+</script>
+</body>
+</html>
