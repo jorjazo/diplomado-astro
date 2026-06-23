@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atmósferas y Habitabilidad — Astrofísica de Planetas, Módulo II · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo II · Clase 5</span>
+  <h1>Atmósferas y <em>Habitabilidad</em></h1>
+  <p class="sub">Una atmósfera es la única ventana que tenemos hacia un exoplaneta que jamás visitaremos. Esta clase enseña a <em>leer la luz</em> que la atraviesa: desde la física de un gas que se enrarece con la altura, hasta detectar agua, CO<sub>2</sub> y oxígeno a cientos de años luz, y preguntarnos qué hace habitable —o habitada— a una roca lejana.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 8 jun 2026</span>
+    <span><b>Tema:</b> Atmósferas planetarias, espectroscopía y habitabilidad</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">N</span>o podemos meter una sonda dentro de un exoplaneta. Lo único que llega de él es <strong>luz</strong>, y casi siempre mezclada con la de su estrella, millones de veces más brillante. Toda esta clase es un ejercicio de ingeniería de la medición: aprender a <span class="hl">restar dos espectros casi idénticos</span> para quedarnos con la huella tenue de la atmósfera del planeta. Empezamos por la física básica —la ley de gases ideales y la <strong>altura de escala</strong> que explica por qué la presión cae exponencialmente con la altitud—, pasamos por cómo se observa (tránsito primario en <em>transmisión</em>, tránsito secundario en <em>emisión</em>), interpretamos las <strong>bandas moleculares</strong> de agua, CO, CO<sub>2</sub> y metano, y vemos los resultados reales de Spitzer, Hubble y el James Webb. Cerramos con la pregunta que ordena todo el campo: la <strong>habitabilidad</strong> —dónde puede haber agua líquida, qué es una <em>biofirma</em>, y por qué el oxígeno de la Tierra es inequívocamente biológico aunque en otro planeta podría no serlo—.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Física de una atmósfera: gas ideal y altura de escala</a></li>
+    <li><a href="#s2">Capas atmosféricas y perfiles de temperatura</a></li>
+    <li><a href="#s3">Espectros de atmósferas del Sistema Solar</a></li>
+    <li><a href="#s4">Cómo se observa: transmisión y emisión</a></li>
+    <li><a href="#s5">Procesos radiativos: la nube selectiva</a></li>
+    <li><a href="#s6">Modelos de atmósferas de exoplanetas</a></li>
+    <li><a href="#s7">Espectroscopía de transmisión y espectrofotometría</a></li>
+    <li><a href="#s8">Clima, albedo y vientos</a></li>
+    <li><a href="#s9">Detectabilidad: del Hubble al James Webb</a></li>
+    <li><a href="#s10">Habitabilidad: la zona del agua líquida</a></li>
+    <li><a href="#s11">Biofirmas y la Tierra a través del tiempo</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Física de una atmósfera: gas ideal y altura de escala</h2>
+    <p>Por qué la presión cae exponencialmente al subir, y qué controla la velocidad de esa caída.</p>
+  </div></div>
+
+  <p>Una atmósfera es un gas sostenido por la gravedad del planeta. Su comportamiento de partida es la <strong>ley de gases ideales</strong>, <span class="katex-inline" data-tex="PV = NkT"></span> (o, por unidad de volumen, <span class="katex-inline" data-tex="P = nkT"></span>). La temperatura no es más que una medida de <em>qué tan rápido y desordenadamente se mueven las moléculas</em>: si subes la temperatura, chocan más fuerte contra las paredes —o entre ellas— y la presión aumenta. Es la misma intuición de inflar un globo o una rueda de auto.</p>
+
+  <p>Al subir en altura <span class="katex-inline" data-tex="z"></span>, hay cada vez menos gas <em>encima</em> apretando, así que la densidad y la presión disminuyen. Combinando el equilibrio hidrostático con la ley de gases ideales aparece una escala natural, la <span class="hl">altura de escala</span> <span class="katex-inline" data-tex="H"></span>:</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-02.jpg" alt="Modelos de atmósfera: ecuación de altura de escala y diagrama temperatura vs presión para hot Jupiters, hot Saturns y enanas">
+    <figcaption><span class="cap">Diapositiva · Modelos de atmósfera</span>La densidad de número en función de la altura, <span class="katex-inline" data-tex="n(z)"></span>, decae con la altura de escala <span class="katex-inline" data-tex="H"></span> (a la izquierda). A la derecha, perfiles modelo de <strong>temperatura vs. presión</strong> para distintos objetos: <em>hot Jupiters</em> y <em>hot Saturns</em> (muy próximos a su estrella, alta presión y temperatura), y atmósferas a distintas distancias planeta-estrella (líneas punteadas en UA). El eje de presión va de 10<sup>8</sup> Pa (profundo, caliente) a ~0 (alto, tenue).</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="H = \frac{kT}{\mu\, m_u\, g}\qquad\Longrightarrow\qquad P(z) = P_0\, e^{-z/H}"></div>
+    <small>Cada vez que subes una altura de escala <span class="katex-inline" data-tex="H"></span>, la presión cae en un factor <span class="katex-inline" data-tex="e\approx 2{,}718"></span> (a un tercio aproximadamente). <span class="katex-inline" data-tex="T"></span>: temperatura; <span class="katex-inline" data-tex="\mu"></span>: peso molecular medio (composición); <span class="katex-inline" data-tex="g"></span>: gravedad superficial; <span class="katex-inline" data-tex="m_u"></span>: unidad de masa atómica; <span class="katex-inline" data-tex="k"></span>: constante de Boltzmann.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Cómo se mide en la Tierra (radiosonda)</span>
+    <p>Para construir el perfil de presión y temperatura vs. altura se suelta un <strong>globo de helio</strong> con una cajita del tamaño de un envase de leche: lleva electrónica, una antena y sensores de temperatura, presión y humedad. Sube emitiendo datos hasta ~30 km, donde revienta y cae. El profesor visitó un centro en el Círculo Polar Ártico (Finlandia) donde estos globos se lanzaban automáticamente cada hora. Para planetas del Sistema Solar usamos <em>sondas</em>; para exoplanetas, <strong>solo la luz</strong>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La altura de escala es la <strong>constante de tiempo de un decaimiento exponencial</strong>, idéntica al <span class="katex-inline" data-tex="\tau"></span> de un circuito RC o al half-life de un sistema. Cuando un fenómeno cae como <span class="katex-inline" data-tex="e^{-z/H}"></span>, basta un solo parámetro (<span class="katex-inline" data-tex="H"></span>) para describir toda la curva. Pensar en <em>cuántas constantes</em> caben en tu rango de medición es justo lo que define el rango dinámico de un sensor.</p>
+  </div>
+
+  <div class="widget" id="w-h">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Altura de escala atmosférica</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Calcula <span class="katex-inline" data-tex="H = kT/(\mu\,m_u\,g)"></span> a partir de temperatura, peso molecular medio y gravedad. Una atmósfera caliente, liviana o de baja gravedad es más «esponjosa» (H grande) y por tanto más fácil de sondear en transmisión.</p>
+    <div class="presets" id="h-presets">
+      <button data-t="255" data-mu="29" data-g="9.81">Tierra</button>
+      <button data-t="210" data-mu="44" data-g="3.72">Marte</button>
+      <button data-t="730" data-mu="44" data-g="8.87">Venus</button>
+      <button data-t="1200" data-mu="2.3" data-g="21.4">HD 189733 b (hot Jupiter)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="h-t">Temperatura T (K)</label><input type="number" id="h-t" step="any" value="255"></div>
+      <div><label for="h-mu">Peso molecular medio μ (u)</label><input type="number" id="h-mu" step="any" value="29"></div>
+      <div><label for="h-g">Gravedad superficial g (m/s²)</label><input type="number" id="h-g" step="any" value="9.81"></div>
+    </div>
+    <output id="h-out"></output>
+  </div>
+
+  <div class="widget" id="w-baro">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ley barométrica: presión vs. altitud</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Con la altura de escala <span class="katex-inline" data-tex="H"></span> y una presión de referencia <span class="katex-inline" data-tex="P_0"></span>, estima la presión a una altura <span class="katex-inline" data-tex="z"></span>: <span class="katex-inline" data-tex="P(z)=P_0\,e^{-z/H}"></span>.</p>
+    <div class="presets" id="baro-presets">
+      <button data-h="8.5" data-p="1013" data-z="0">Nivel del mar (Tierra)</button>
+      <button data-h="8.5" data-p="1013" data-z="8.8">Cima del Everest</button>
+      <button data-h="8.5" data-p="1013" data-z="30">Globo a 30 km</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="baro-h">Altura de escala H (km)</label><input type="number" id="baro-h" step="any" value="8.5"></div>
+      <div><label for="baro-p">Presión de referencia P₀ (hPa)</label><input type="number" id="baro-p" step="any" value="1013"></div>
+      <div><label for="baro-z">Altitud z (km)</label><input type="number" id="baro-z" step="any" value="8.8"></div>
+    </div>
+    <output id="baro-out"></output>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Capas atmosféricas y perfiles de temperatura</h2>
+    <p>La curva de temperatura vs. presión define la troposfera, la estratosfera y las demás capas.</p>
+  </div></div>
+
+  <p>Si seguimos cómo cambia la <strong>temperatura a medida que cambia la presión</strong> dentro de una atmósfera, podemos dibujar un perfil y, con él, <span class="hl">definir capas</span>. En la Tierra la temperatura primero <em>baja</em> al subir (troposfera); cuando vuelve a <em>subir</em> en altura empieza la estratosfera (capa de inversión), y así sucesivamente. Estas curvas sirven para predecir el clima, ubicar dónde se forman las auroras y deducir la composición.</p>
+
+  <div class="box prof">
+    <span class="tag">Aviso del profesor sobre los ejes</span>
+    <p>En distintos libros el gráfico temperatura–presión aparece «dado vuelta»: a veces la presión crece hacia abajo, a veces hacia la izquierda. El profesor advierte explícitamente sobre esta inconsistencia. <strong>Regla de oro:</strong> antes de leer cualquier espectro o perfil, mira primero las <em>unidades</em> y los <em>límites</em> de los ejes. Lo que está «más profundo» (cerca de la superficie) siempre tiene mayor presión.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-04.jpg" alt="Perfiles de capas atmosféricas de Titán, Marte, Tierra y Venus: troposfera, estratosfera, mesosfera y termosfera">
+    <figcaption><span class="cap">Diapositiva · Capas atmosféricas comparadas</span>Perfiles de Titán, Marte, Tierra y Venus. Cada planeta organiza sus capas (troposfera, estratosfera, mesosfera, termosfera) según su propia curva temperatura–altura. La <strong>presión en la superficie de Venus</strong> es enormemente mayor que la terrestre; en Marte es mucho menor; <strong>Titán</strong> (luna de Saturno, con metano) alcanza presiones comparables a la terrestre.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-05.jpg" alt="Perfiles presión-temperatura de hot Jupiters y de planetas del Sistema Solar (Urano, Saturno, Júpiter, Tierra)">
+    <figcaption><span class="cap">Diapositiva · Comparando características</span>Izquierda: perfiles modelo presión–temperatura de varios <em>hot Jupiters</em> (HD 189733, HD 209458, WASP-12, etc.) y sus espectros de emisión <span class="katex-inline" data-tex="F_p/F_\star"></span>. Derecha: perfiles de gigantes del Sistema Solar (Urano, Saturno, Júpiter) y la Tierra, donde se marcan troposfera, estratosfera y mesosfera. Las mismas herramientas de modelado se aplican dentro y fuera del Sistema Solar.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Espectros de atmósferas del Sistema Solar</h2>
+    <p>Venus, la Tierra y Marte como casos «con respuesta conocida» para calibrar el método.</p>
+  </div></div>
+
+  <p>Antes de mirar exoplanetas conviene practicar con los planetas que sí conocemos. Apuntando instrumentos desde satélites u observatorios a Venus, la Tierra y Marte obtenemos sus <strong>espectros</strong>. En el visible y el infrarrojo cercano domina la <em>luz solar reflejada</em>; más al infrarrojo, el planeta brilla por sí mismo como un <strong>cuerpo negro</strong> (la Tierra a ~300 K) sobre el que aparecen <span class="hl">bandas de absorción</span>.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-03.jpg" alt="Espectros de Venus, Tierra y Marte en el visible y flujo a 10 pc en el infrarrojo medio con bandas de CO2, H2O, O3">
+    <figcaption><span class="cap">Diapositiva · Espectros del Sistema Solar</span>Izquierda (visible/IR cercano): Venus, Tierra y Marte×10; se distinguen bandas de <strong>CO<sub>2</sub></strong>, <strong>H<sub>2</sub>O</strong> y <strong>O<sub>2</sub></strong>. Derecha (IR medio, flujo simulado a 10 pc): los tres planetas como cuerpos negros con sus huellas moleculares (CO<sub>2</sub>, H<sub>2</sub>O, O<sub>3</sub>). Marte y Venus muestran sobre todo CO<sub>2</sub>; solo la Tierra muestra O<sub>2</sub>/O<sub>3</sub> y vapor de agua abundante.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué las moléculas absorben en «bandas»</span>
+    <p>Un átomo de hidrógeno absorbe fotones de energías <em>discretas</em> (saltos de niveles electrónicos). Una <strong>molécula</strong>, en cambio, además puede <em>vibrar</em>, <em>flexionarse</em> y <em>rotar</em>: cada modo abre una <strong>gama</strong> de energías capaces de excitarla. Por eso vemos <em>bandas</em> anchas en vez de líneas finas. Esas bandas son la firma química de la atmósfera, y se calibran en laboratorio.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">El límite de resolución</span>
+    <p>A la resolución típica de exoplanetas solo distinguimos <strong>moléculas</strong> (agua, CO, CO<sub>2</sub>, metano), no elementos finos. Con la Tierra alcanzamos resolución «exquisita» y vemos hasta mapas de contaminantes (metano, CO). De Venus o Marte sabemos poco más que «hay mucho CO<sub>2</sub>». Detectar <em>vida</em> en una atmósfera lejana exigirá un salto enorme respecto de lo que hoy es posible.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cómo se observa: transmisión y emisión</h2>
+    <p>El truco maestro: restar dos espectros casi idénticos para aislar la atmósfera del planeta.</p>
+  </div></div>
+
+  <p>La estrella es muchísimo más brillante que el planeta y ambos caben sobre un mismo píxel: el detector recibe la <em>suma</em>. La estrategia consiste en tomar espectros en <strong>dos momentos</strong> de la órbita y restarlos, de modo que la enorme contribución estelar se cancele y quede solo el aporte del planeta. Hay dos geometrías complementarias:</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-06.jpg" alt="Esquema de tránsito primario (transmisión A-B) y secundario (emisión C-D) con la curva de fase de CoRoT-1">
+    <figcaption><span class="cap">Diapositiva · Cómo se observa</span>Tránsito primario: la luz estelar <strong>atraviesa la atmósfera</strong> del planeta y queda absorbida en ciertas longitudes de onda → <em>espectro de transmisión</em> = A − B. Tránsito secundario (el planeta se oculta tras la estrella): la diferencia revela la <em>emisión/reflexión</em> del planeta → <em>espectro de emisión</em> = C − D. A la derecha, la curva de fase real de <strong>CoRoT-1</strong>: el eclipse primario (profundo) y el secundario (sutil).</figcaption>
+  </figure>
+
+  <h3>Tránsito primario → transmisión</h3>
+  <p>Justo antes del tránsito se toma el espectro de la estrella sola (caso B). Durante el tránsito (caso A), una fracción de la luz pasa rozando la atmósfera del planeta y se absorbe selectivamente. La resta <span class="katex-inline" data-tex="A-B"></span> entrega el <strong>espectro de transmisión</strong>: la atmósfera proyectada como un anillo absorbente. La señal es proporcional al <em>área de ese anillo</em> frente al área de la estrella.</p>
+
+  <h3>Tránsito secundario → emisión</h3>
+  <p>Cuando el planeta pasa <em>por detrás</em> de la estrella, dejamos de ver su cara iluminada; antes y después la vemos «llena», como una luna llena. La resta entre el momento con planeta visible y el momento de eclipse aísla la <strong>luz emitida/reflejada</strong> por el planeta. Transmisión y emisión muestran las mismas especies, pero una «en negativo» de la otra: lo que falta en una es lo que sobra en la otra.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es una <strong>detección diferencial</strong> idéntica a la de un amplificador lock-in: la señal útil (el planeta) está enterrada bajo una portadora gigante (la estrella). Modulando con el tránsito y restando dos estados, el ruido común (la estrella, el instrumento) se cancela y emerge una señal de <strong>partes por millón</strong>. Saber <em>cuándo</em> ocurre el tránsito y tener el espectrógrafo listo es puro <em>timing</em> y sincronización.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Procesos radiativos: la nube selectiva</h2>
+    <p>Una analogía simple para entender por qué la transmisión y la emisión son «negativos» entre sí.</p>
+  </div></div>
+
+  <p>El profesor resume el corazón de <em>Procesos Radiativos</em> (un curso troncal de cualquier doctorado en astronomía) con una imagen: una <strong>nube de gas</strong> entre nosotros y una estrella. El gas tiene preferencia por ciertas longitudes de onda. Es como un <span class="hl">niño que solo atrapa las pelotas azules</span>: deja pasar todos los demás colores, pero las «pelotas azules» (fotones de esa longitud de onda) las absorbe, las retiene un instante y luego las relanza <em>en cualquier dirección</em>, perdiendo memoria de dónde venían.</p>
+
+  <ul>
+    <li><strong>En transmisión</strong> (miramos a través de la nube hacia la estrella): vemos la luz estelar <em>menos</em> los fotones azules que la nube se quedó y dispersó → líneas de <strong>absorción</strong>.</li>
+    <li><strong>En emisión</strong> (miramos la nube desde un lado, sin la estrella detrás): solo nos llegan algunos de esos fotones azules redirigidos → líneas de <strong>emisión</strong>.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Ópticamente grueso vs. delgado</span>
+    <p>¿Se absorben <em>todos</em> los fotones de esa longitud de onda? Depende de la <strong>densidad</strong> de la nube. Si es <em>ópticamente gruesa</em>, absorbe prácticamente todo; si es <em>ópticamente delgada</em>, deja pasar una parte. Además, en distintas longitudes de onda «sondeamos» <strong>distintas alturas</strong> de la atmósfera: las longitudes más largas penetran capas más profundas (igual que el infrarrojo atraviesa el polvo). Por eso un mismo planeta «se ve diferente» según el color en que lo observemos.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Modelos de atmósferas de exoplanetas</h2>
+    <p>El espectro «de fábrica» que entrega el computador, y por qué el problema está sub-restringido.</p>
+  </div></div>
+
+  <p>Como casi no tenemos datos directos de composición, se construyen <strong>modelos</strong>: se le pide al computador «un planeta de tantas masas de Júpiter, a tal temperatura, a tal distancia de su estrella, con esta composición» y entrega un espectro detalladísimo con bandas de agua, metano, amonio, etc. Esos espectros se comparan con las pocas observaciones disponibles. El profesor insiste: son <em>educated guesses</em> (conjeturas informadas), no inventos arbitrarios, pero dependen fuertemente del modelo.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-07.jpg" alt="Modelos de contraste planeta/estrella para HD 189733 y tau Boo, bandas fotométricas y curvas hot start vs core accretion">
+    <figcaption><span class="cap">Diapositiva · Modelos</span>Izquierda: razón de contraste planeta/estrella modelada (HD 189733, τ Boo) con redistribución completa de energía y sin nubes. Centro: densidad de flujo con las <strong>bandas fotométricas</strong> (filtros) y bandas de H<sub>2</sub>O, CO, CH<sub>4</sub>, NH<sub>3</sub>. Derecha: el flujo de un planeta joven depende de su historia de formación (<em>hot start</em> vs. <em>core accretion</em>) — puede ser ~10<sup>−5</sup> a 10<sup>−7</sup> del de la estrella.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-08.jpg" alt="HD 189733: mapa de temperatura, tránsitos en varias bandas, modelo agua+metano vs agua, emisión Spitzer">
+    <figcaption><span class="cap">Diapositiva · HD 189733</span>El exoplaneta mejor estudiado. Centro: profundidad del tránsito medida en varias bandas (3,6 a 24 µm) para armar un espectro de baja resolución. Arriba der.: la observación distingue un modelo de <strong>agua+metano</strong> de uno de <strong>solo agua</strong> (la diferencia es la banda extra). Abajo der.: emisión Spitzer con bandas de CO y H<sub>2</sub>O, comparando «solo lado día» vs. «redistribución global».</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Un problema brutalmente sub-restringido</span>
+    <p>A diferencia de un sistema <em>sobre</em>-restringido (más ecuaciones que incógnitas), aquí hay <strong>más incógnitas que datos</strong>. Podrías inventar un planeta de puro nitrógeno o de argón y «en una de esas» funcionaría. Lo que acota el modelo es la <strong>física que esperamos</strong>: composiciones parecidas a Júpiter y Saturno, temperaturas coherentes con la distancia a la estrella. La gracia del juego no es «adivinar» sino <strong>descartar</strong>: p. ej. un modelo con agua predeciría una banda que <em>no se observa</em>, así que se elimina.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es ajuste de modelos por <strong>forward modeling</strong>: generas el espectro sintético, lo pasas por la «respuesta del instrumento» (los filtros, que degradan la resolución) y comparas con los datos. El profesor describe exactamente un <em>likelihood</em> mal condicionado: muchos parámetros libres, pocas ligaduras. La solución no es una sola respuesta sino una región de modelos compatibles —pura inferencia con priors físicos—.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Espectroscopía de transmisión y espectrofotometría</h2>
+    <p>Cuando no alcanza para un espectro fino, se mide el tránsito «color por color».</p>
+  </div></div>
+
+  <p>Muchas veces no se puede obtener el espectro completo durante el tránsito. La alternativa es la <span class="hl">espectrofotometría</span>: medir la profundidad del tránsito en <strong>varios filtros</strong> (varios colores) por separado y armar un espectro de muy baja resolución. Si en la longitud de onda de una banda de metano el planeta «tapa un poco más» de luz, es indicio de que esa molécula está presente.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-09.jpg" alt="Espectros de transmisión de muchos hot Jupiters en alturas de escala, con bandas de Na, K y H2O">
+    <figcaption><span class="cap">Diapositiva · Transmisión</span>Espectros de transmisión de ~10 exoplanetas (WASP-17b, HD 209458b, HD 189733b, WASP-6b…), con la altura expresada en <strong>alturas de escala</strong> <span class="katex-inline" data-tex="z(\lambda)/H"></span>. Se marcan las líneas de <strong>sodio (Na)</strong>, <strong>potasio (K)</strong> y bandas de <strong>H<sub>2</sub>O</strong>. La magnitud de la señal en altura de escala es lo que vuelve a un planeta «fácil» o «difícil» de sondear.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cuidado con las unidades del eje vertical</span>
+    <p>A veces el espectro viene en flujo físico (W m<sup>−2</sup> µm<sup>−1</sup>), pero muchas veces es simplemente la razón <span class="katex-inline" data-tex="F_\mathrm{planeta}/F_\mathrm{estrella}"></span> (lo que se obtiene de restar dos espectros). Para convertir a flujo hay que saber cuánto ilumina la estrella en ese punto. El profesor repite: <strong>mira siempre la unidad antes de interpretar</strong>.</p>
+  </div>
+
+  <div class="widget" id="w-trans">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Señal de transmisión de una altura de escala</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La profundidad extra que aporta una capa de una altura de escala es <span class="katex-inline" data-tex="\delta \approx \dfrac{2 R_P H}{R_\star^2}"></span>. Mide en partes por millón (ppm) cuán fácil es detectar la atmósfera. Ingresa radio del planeta, altura de escala y radio de la estrella.</p>
+    <div class="presets" id="trans-presets">
+      <button data-rp="1.14" data-h="212" data-rs="0.76">HD 189733 b</button>
+      <button data-rp="1.36" data-h="585" data-rs="1.20">HD 209458 b</button>
+      <button data-rp="1.27" data-h="1037" data-rs="0.93">WASP-39 b</button>
+      <button data-rp="0.089" data-h="8.5" data-rs="1.0">Tierra–Sol</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="trans-rp">Radio del planeta R_P (R_Júpiter)</label><input type="number" id="trans-rp" step="any" value="1.14"></div>
+      <div><label for="trans-h">Altura de escala H (km)</label><input type="number" id="trans-h" step="any" value="212"></div>
+      <div><label for="trans-rs">Radio de la estrella R★ (R☉)</label><input type="number" id="trans-rs" step="any" value="0.76"></div>
+    </div>
+    <output id="trans-out"></output>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Clima, albedo y vientos</h2>
+    <p>La curva de fase del planeta delata nubes, redistribución de calor y vientos supersónicos.</p>
+  </div></div>
+
+  <p>Si seguimos el brillo del planeta a lo largo de su órbita (su <strong>curva de fase</strong>) aprendemos sobre su clima. El <span class="hl">albedo</span> es la fracción de luz que refleja: un planeta cubierto de nubes refleja más y se ve más brillante cerca del eclipse secundario. Un dato concreto de la clase: WASP-43b (y casos como HD 209458b) tienen albedo de Bond ≈ <strong>0,18</strong> —reflejan ~18% de la luz; bastante oscuro, aunque hay materiales aún más negros—.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-11.jpg" alt="Clima: curva de fase de WASP-43b con albedo de Bond 0.18 y modelo de HD 17156 con mapas de temperatura">
+    <figcaption><span class="cap">Diapositiva · Clima</span>Izquierda: curva de fase de <strong>WASP-43b</strong>; el brillo varía según la fase (cara día/noche) y revela albedo y redistribución de calor. Derecha: modelo de <strong>HD 17156</strong> en órbita muy excéntrica, con mapas de temperatura de la atmósfera a lo largo de la órbita. Estudiar esto permite, en principio, medir la <strong>rotación</strong> del planeta o el tamaño de las nubes.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El punto caliente corrido: vientos</span>
+    <p>Una compañera de doctorado del profesor descubrió, con Spitzer, que el punto más brillante de un hot Jupiter <strong>no estaba justo frente a la estrella</strong>, sino corrido. El planeta está <em>anclado por marea</em> (siempre da la misma cara a su estrella), pero su atmósfera tiene <strong>vientos muy fuertes</strong> que arrastran el calor antes de que pueda re-irradiarse. Una sola observación de tiempo de eclipse reveló la circulación atmosférica global.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-10.jpg" alt="Tabla de datos de hot Jupiters con radio, periodo, gravedad, temperatura de equilibrio, altura de escala, número de Rossby y curva de HD 209458">
+    <figcaption><span class="cap">Diapositiva · Más datos</span>Tabla con propiedades derivadas de varios hot Jupiters: radio <span class="katex-inline" data-tex="R_p"></span>, periodo (= rotación, por anclaje de marea), gravedad <span class="katex-inline" data-tex="g"></span>, temperatura de equilibrio <span class="katex-inline" data-tex="T_{eq}"></span>, flujo estelar <span class="katex-inline" data-tex="F_\star"></span>, <strong>altura de escala H</strong> y número de Rossby. Todo se apoya en conocer bien la estrella y suponer un modelo, pero entrega valores con buena precisión.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Detectabilidad: del Hubble al James Webb</h2>
+    <p>Qué planetas son alcanzables, y por qué el JWST multiplicó los blancos posibles.</p>
+  </div></div>
+
+  <p>Que una atmósfera sea detectable depende de dos cosas: cuán <strong>brillante</strong> es la estrella (más fotones = mejor) y cuán grande es la <strong>señal de transmisión</strong> por altura de escala (en ppm). Las estrellas anfitrionas favoritas son brillantes pero pequeñas comparadas con su planeta, lo que maximiza el contraste.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-12.jpg" alt="Diagrama de magnitud en banda J vs señal de transmisión en ppm, con las regiones accesibles a HST y JWST">
+    <figcaption><span class="cap">Diapositiva · Detectabilidad</span>Magnitud en banda J (brillo, más arriba = más brillante) vs. <strong>señal de transmisión de una altura de escala</strong> (ppm). Las líneas separan lo accesible al <strong>HST</strong> y al <strong>JWST</strong>. El Hubble solo alcanza unos pocos blancos (HD 189733b, HD 209458b); el <strong>James Webb</strong> abre un rango enorme. Aparecen también 55 Cnc e, GJ 1214b, CoRoT-7b, planetas Kepler, etc.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El James Webb y sus misiones</span>
+    <p>El JWST tiene unas cinco misiones principales; <strong>una de ellas es tomar espectros de exoplanetas</strong>. Hay una cola de planetas esperando turno. Vienen más misiones (p. ej. <em>Roman</em>) que poblarán aún más este diagrama. La diferencia clave del JWST es su <strong>tamaño y sensibilidad</strong> en el infrarrojo, donde el contraste planeta/estrella es más favorable que en el visible.</p>
+  </div>
+
+  <h3>WASP-39b: el caso estrella del JWST</h3>
+  <p>El JWST midió la atmósfera del hot Jupiter <strong>WASP-39b</strong> con varios instrumentos, detectando claramente <strong>CO<sub>2</sub></strong> (la primera detección inequívoca en un exoplaneta), además de agua, CO, SO<sub>2</sub>, sodio y potasio.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-13.jpg" alt="Esquema didáctico del espectro de transmisión de un exoplaneta tipo Tierra mostrando dónde absorben distintas moléculas">
+    <figcaption><span class="cap">Diapositiva · JWST — esquema</span>Cómo se forma un espectro de transmisión: la luz estelar atraviesa la atmósfera y deja «mordidas» (caídas de luz) en las longitudes de onda donde absorben distintas moléculas (oxígeno, agua, metano, CO<sub>2</sub>) a lo largo del visible, infrarrojo cercano y medio.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-14.jpg" alt="Espectro JWST NIRSpec de WASP-39b mostrando la banda clara de CO2 hacia 4.3 micrones">
+    <figcaption><span class="cap">Diapositiva · WASP-39b — CO<sub>2</sub></span>Espectro NIRSpec de WASP-39b: en el eje vertical, «cantidad de luz bloqueada»; los puntos son datos y la curva azul el mejor modelo. La <strong>banda de CO<sub>2</sub> hacia 4,3 µm</strong> es nítida e inequívoca — un hito del JWST.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-15.jpg" alt="Espectros de WASP-39b con cuatro instrumentos del JWST: NIRISS, NIRCam, NIRSpec G395H y PRISM">
+    <figcaption><span class="cap">Diapositiva · WASP-39b — multi-instrumento</span>El mismo planeta visto con <strong>cuatro modos del JWST</strong> (NIRISS, NIRCam F322W2, NIRSpec G395H y PRISM), cada uno cubriendo un rango y resolución distintos. Combinándolos se identifican agua, CO, CO<sub>2</sub>, SO<sub>2</sub>, sodio y potasio. Distintos instrumentos «sondean» distintas longitudes de onda y, con ello, distintas moléculas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Habitabilidad: la zona del agua líquida</h2>
+    <p>La «zona habitable» es útil pero plana; la realidad la complica con nubes, órbitas y mareas.</p>
+  </div></div>
+
+  <p>La <span class="hl">zona habitable</span> es la franja alrededor de una estrella donde un planeta rocoso podría tener <strong>agua líquida en superficie</strong> (la química de la vida que conocemos es soluble en agua). Se aleja de la estrella cuanto más caliente y luminosa sea ésta. En el Sistema Solar: Venus está un poco <em>dentro</em> (demasiado caliente), la Tierra al centro, y Marte en el borde exterior frío.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-16.jpg" alt="Diagrama masa estelar vs separación planeta-estrella con la zona habitable, el radio de anclaje de marea y los planetas del Sistema Solar">
+    <figcaption><span class="cap">Diapositiva · Habitabilidad</span>Masa de la estrella (con su tipo espectral M–K–G–F–A) vs. separación planeta-estrella. La franja gris es la <strong>zona habitable</strong>; la línea punteada marca el <strong>radio de anclaje de marea</strong> (dentro de él, el planeta da siempre la misma cara). Cita de Richard Bentley sobre «poner la Tierra a una distancia que no está ni muy caliente ni muy fría» — pero la lógica se invierte: <em>nosotros nos adaptamos a estar aquí</em>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-19.jpg" alt="Zona habitable empírica con la posición de Venus, Tierra y Marte y la fracción de nubes según distancia">
+    <figcaption><span class="cap">Diapositiva · Zona habitable empírica</span>La zona habitable «empírica» calibrada con el Sistema Solar: Venus (hace 1 Gyr) marca el borde interior y Marte (hace 4 Gyr) el exterior. Más cerca de la estrella la atmósfera se llena de <strong>nubes</strong> (que reflejan luz y pueden ampliar o reducir la habitabilidad); más lejos, nubes de CO<sub>2</sub>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-20.jpg" alt="Complicaciones: excentricidad orbital vs semieje mayor con tidal Venus, snowball Earth, super Io y órbitas excéntricas">
+    <figcaption><span class="cap">Diapositiva · Complicaciones</span>La habitabilidad no es solo distancia. Arriba: excentricidad orbital vs. semieje mayor — una órbita muy <strong>excéntrica</strong> hace que el planeta sea habitable solo durante una <em>parte</em> de su año. Abajo: sistemas reales (Solar, HD 131664, HD 80606) donde la órbita atraviesa y abandona la zona habitable. Casos límite: «tidal Venus», «snowball Earth», «super Europa».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-21.jpg" alt="Evolución dinámica y estelar: masa estelar vs semieje con rotación síncrona y zona habitable, y flujo recibido por Kepler-452 con la edad">
+    <figcaption><span class="cap">Diapositiva · Evolución dinámica y estelar</span>La zona habitable <strong>cambia con el tiempo</strong>: a medida que la estrella envejece y brilla más, el flujo que recibe el planeta crece (curva de Kepler-452). Además, cerca de la estrella la rotación se vuelve <strong>síncrona</strong> (una cara siempre iluminada); el «terminador» (la línea día/noche) podría ser el lugar más habitable.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El terminador y las lunas habitables</span>
+    <p>En un planeta anclado por marea (como Mercurio, con una cara a ~400 °C y otra muy fría), uno «elige» su temperatura caminando hacia el <strong>terminador</strong>. Y no solo los planetas importan: hay <strong>lunas</strong> con agua líquida bajo el hielo (cerca de Júpiter) que podrían ser habitables aunque no entren en la definición clásica de zona habitable. El profesor lo conecta con <em>Pandora</em> de la película Avatar: una luna habitable orbitando un gigante.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-22.jpg" alt="Compendio: temperatura estelar vs flujo estelar con los tipos de planetas Subterran, Terran, Superterran, Neptunian y Jovian">
+    <figcaption><span class="cap">Diapositiva · Compendio</span>Censo de planetas en el plano <strong>temperatura estelar vs. flujo estelar</strong> (normalizado al de la Tierra). El tamaño del círculo indica el tipo: <em>Subterran</em> (tamaño Marte), <em>Terran</em> (Tierra), <em>Superterran</em> (super-Tierra/mini-Neptuno), <em>Neptunian</em> y <em>Jovian</em>. Permite ubicar a todos los sistemas y su zona habitable en un solo gráfico; la Tierra queda en flujo = 1.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Biofirmas y la Tierra a través del tiempo</h2>
+    <p>El oxígeno terrestre es biológico… pero en otro planeta no lo sería necesariamente.</p>
+  </div></div>
+
+  <p>Una <span class="hl">biofirma</span> es una huella espectral que sugiere vida. En la Tierra, el <strong>oxígeno molecular (O<sub>2</sub>) y el ozono (O<sub>3</sub>) tienen origen biológico</strong>: hace miles de millones de años, las <strong>cianobacterias</strong> fueron transformando lentamente el metano de origen volcánico, acumulando oxígeno. Toda la atmósfera oxigenada de la Tierra es, literalmente, un producto de la vida —es «inequívocamente biológica»—.</p>
+
+  <div class="box dato">
+    <span class="tag">El ritmo del oxígeno (con cautela)</span>
+    <p>El profesor advierte que no puede verificar todas las cifras, pero el orden de magnitud es ilustrativo: las cianobacterias tardaron <em>millones de años</em> en acumular una fracción pequeña del oxígeno actual, mientras que la biosfera vegetal de hoy podría reponer todo el O<sub>2</sub> atmosférico (~21%) en escalas de ~mil años. La lección es la <strong>terraformación natural</strong>: la vida cambió la atmósfera del planeta entero. <em>(Cifras a tomar con cautela: provienen de la transcripción y el propio profesor las marca como inciertas.)</em></p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">La trampa del «falso positivo»</span>
+    <p>Si encontramos O<sub>2</sub> en otro planeta, <strong>no implica</strong> automáticamente que haya vida: aunque en la Tierra sea biológico, hay procesos abióticos que pueden generarlo. El caso emblemático es la <strong>fosfina en Venus</strong> (anunciada hace algunos años): en la Tierra esa molécula se asocia a la vida, lo que causó gran revuelo, pero su origen sigue en disputa. Buscar vida es buscar <em>combinaciones improbables</em> de gases, no una sola molécula.</p>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-23.jpg" alt="Espectros de Venus, Tierra y Marte con curvas de cuerpo negro y la banda de ozono O3 destacada">
+    <figcaption><span class="cap">Diapositiva · ¿Qué tan habitables somos?</span>Espectros de Venus, Tierra y Marte en visible (izq.) e IR medio (der.), con curvas de cuerpo negro a 220–276 K. Solo la <strong>Tierra</strong> muestra vapor de agua abundante y la banda de <strong>O<sub>3</sub></strong> (~9,6 µm). Venus y Marte muestran sobre todo CO<sub>2</sub>. Si halláramos agua y O<sub>3</sub> en un planeta de la zona habitable, se «parecería a la Tierra».</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-24.jpg" alt="Reflectancia de una hoja mostrando el chlorophyll bump y el red edge">
+    <figcaption><span class="cap">Diapositiva · Vida — la hoja</span>Reflectancia de una hoja: absorbe casi todo el espectro solar (por eso es eficiente), pero muestra el pequeño <strong>chlorophyll bump</strong> en el verde y un salto brusco hacia el infrarrojo cercano llamado <strong>red edge</strong>. Buscar este «borde rojo» en el espectro global de un planeta es una estrategia para detectar vegetación.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-18.jpg" alt="Espectros de la Tierra (TPF-C y Darwin/TPF-I) y reflectividad en seis épocas geológicas">
+    <figcaption><span class="cap">Diapositiva · La Tierra a través del tiempo</span>La Tierra <strong>no siempre se vio igual</strong>: seis «épocas» geológicas muestran espectros muy distintos. En las primeras épocas dominaban el metano y el agua; las bandas de <strong>oxígeno aparecen recién entre la época 2 y la 3</strong>, cuando las cianobacterias oxigenaron la atmósfera. Los instrumentos propuestos <strong>TPF-C/Darwin/TPF-I</strong> apuntaban a medir esto en exoplanetas rocosos (proyectos pospuestos, quizá retomados hacia 2030).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-25.jpg" alt="Reflectividad de nieve, arena, mar, árboles, pasto y basalto, y evolución del espectro terrestre por épocas">
+    <figcaption><span class="cap">Diapositiva · Superficies y cambio</span>Reflectividad de distintas superficies terrestres (nieve, arena, mar, árboles, pasto, basalto) y cómo cambió el espectro de la Tierra a lo largo de su historia geológica (de −3,9 Gyr a −0,3 Gyr): el metano cede paso al oxígeno. La <strong>superficie</strong> también deja firmas observables, no solo la atmósfera.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Vida inteligente y cierre</span>
+    <p>Más allá de la bioquímica, se especula con <strong>vida inteligente</strong>: señales de radio rebotadas en atmósferas, técnicas de SETI, o la ficción de <em>El problema de los tres cuerpos</em> (usar la estrella como amplificador para enviar mensajes). Cierre de la clase: medir incluso lo más básico de una atmósfera —su altura de escala, sus bandas moleculares— abre la puerta a química, clima, habitabilidad y, quizás, vida. <em>La próxima sesión continúa con observación práctica (GOTO).</em></p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ley de gases ideales</b></td><td><span class="katex-inline" data-tex="P=nkT"></span></td><td>Relaciona presión, densidad y temperatura del gas</td></tr>
+      <tr><td><b>Altura de escala H</b></td><td><span class="katex-inline" data-tex="H=kT/(\mu m_u g)"></span></td><td>Cada H, la presión cae en un factor e; mide cuán «esponjosa» es la atmósfera</td></tr>
+      <tr><td><b>Ley barométrica</b></td><td><span class="katex-inline" data-tex="P(z)=P_0 e^{-z/H}"></span></td><td>Decaimiento exponencial de la presión con la altura</td></tr>
+      <tr><td><b>Capas atmosféricas</b></td><td>Troposfera, estratosfera, mesosfera, termosfera</td><td>Se definen por el perfil temperatura–presión</td></tr>
+      <tr><td><b>Bandas moleculares</b></td><td>Vibración + rotación + flexión de moléculas</td><td>Huella química (H<sub>2</sub>O, CO, CO<sub>2</sub>, CH<sub>4</sub>) de la atmósfera</td></tr>
+      <tr><td><b>Tránsito primario</b></td><td>Espectro de transmisión = A − B</td><td>La luz atraviesa la atmósfera y se absorbe</td></tr>
+      <tr><td><b>Tránsito secundario</b></td><td>Espectro de emisión = C − D</td><td>Mide la luz emitida/reflejada por el planeta</td></tr>
+      <tr><td><b>Profundidad óptica</b></td><td>Ópticamente grueso vs. delgado</td><td>Cuánto absorbe la atmósfera depende de la densidad</td></tr>
+      <tr><td><b>Señal de transmisión</b></td><td><span class="katex-inline" data-tex="\delta\approx 2R_P H/R_\star^2"></span> (ppm)</td><td>Define qué atmósferas son detectables (HST vs JWST)</td></tr>
+      <tr><td><b>Albedo de Bond</b></td><td>≈ 0,18 (WASP-43b, HD 209458b)</td><td>Fracción de luz reflejada; clima y nubes</td></tr>
+      <tr><td><b>Curva de fase / vientos</b></td><td>Punto caliente corrido</td><td>Revela circulación atmosférica y anclaje de marea</td></tr>
+      <tr><td><b>Zona habitable</b></td><td>Franja con agua líquida en superficie</td><td>Se aleja al subir T/L estelar; depende de nubes, órbita y marea</td></tr>
+      <tr><td><b>Biofirma (O<sub>2</sub>/O<sub>3</sub>)</b></td><td>En la Tierra es biológica (cianobacterias)</td><td>Pero no es prueba de vida: hay falsos positivos</td></tr>
+      <tr><td><b>Red edge</b></td><td>Salto de reflectancia de la vegetación</td><td>Firma de superficie buscada como biofirma</td></tr>
+      <tr><td><b>WASP-39b (JWST)</b></td><td>Detección clara de CO<sub>2</sub> + agua, CO, SO<sub>2</sub></td><td>Hito de la espectroscopía de exoplanetas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c5-examen-01.html">Examen 01<small>Gas ideal y altura de escala</small></a></li>
+    <li><a href="m2c5-examen-02.html">Examen 02<small>Capas y perfiles</small></a></li>
+    <li><a href="m2c5-examen-03.html">Examen 03<small>Espectros del Sistema Solar</small></a></li>
+    <li><a href="m2c5-examen-04.html">Examen 04<small>Transmisión y emisión</small></a></li>
+    <li><a href="m2c5-examen-05.html">Examen 05<small>Procesos radiativos</small></a></li>
+    <li><a href="m2c5-examen-06.html">Examen 06<small>Modelos de atmósferas</small></a></li>
+    <li><a href="m2c5-examen-07.html">Examen 07<small>Transmisión y espectrofotometría</small></a></li>
+    <li><a href="m2c5-examen-08.html">Examen 08<small>Clima, albedo y vientos</small></a></li>
+    <li><a href="m2c5-examen-09.html">Examen 09<small>Detectabilidad y JWST</small></a></li>
+    <li><a href="m2c5-examen-10.html">Examen 10<small>Habitabilidad y biofirmas</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo II del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 8 jun 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m2/ff/planetas-m2c5.md</code>) y las diapositivas <code>Modulo_II_Clase_5_.pdf</code> («Atmósferas y Habitabilidad»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. «WASP/Wash 39» → <em>WASP-39b</em>; «189-7331 / 29458» → <em>HD 189733b / HD 209458b</em>; «cianobacterias» y la cronología del oxígeno; «scale height» → <em>altura de escala</em>; «MIRIS» → instrumento <em>MIRI</em> del JWST; «Plato/Roman» → telescopio <em>Roman</em>). Las cifras sobre el ritmo de acumulación de oxígeno fueron señaladas como inciertas por el propio profesor y deben tomarse con cautela. Los widgets usan fórmulas estándar y valores ilustrativos. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var KB = 1.380649e-23;       // J/K
+var MU_UNIT = 1.66053907e-27;// kg (unidad de masa atómica)
+var RSUN = 6.957e8;          // m
+var RJUP = 7.1492e7;         // m
+var REARTH = 6.371e6;        // m
+
+// ---- Widget 1: altura de escala ----
+(function(){
+  var t=document.getElementById('h-t'), mu=document.getElementById('h-mu'), g=document.getElementById('h-g');
+  var out=document.getElementById('h-out');
+  function calc(){
+    var tV=parseFloat(t.value), muV=parseFloat(mu.value), gV=parseFloat(g.value);
+    if(!(tV>0)||!(muV>0)||!(gV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var H = KB*tV/(muV*MU_UNIT*gV);  // m
+    var Hkm = H/1000;
+    var nota = Hkm>100 ? "atmósfera muy «esponjosa»: fácil de sondear en transmisión" :
+               Hkm>5 ? "altura de escala moderada, tipo planeta rocoso o gigante frío" :
+               "atmósfera compacta: señal de transmisión pequeña";
+    out.innerHTML = "Altura de escala <span class='k'>H</span> = <b>"+Hkm.toFixed(1)+"</b> km ("+H.toFixed(0)+" m)<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Cada "+Hkm.toFixed(1)+" km de altura la presión cae a 1/e (~37%). "+nota+".</span>";
+  }
+  [t,mu,g].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#h-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ t.value=b.dataset.t; mu.value=b.dataset.mu; g.value=b.dataset.g; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: ley barometrica ----
+(function(){
+  var h=document.getElementById('baro-h'), p=document.getElementById('baro-p'), z=document.getElementById('baro-z');
+  var out=document.getElementById('baro-out');
+  function calc(){
+    var hV=parseFloat(h.value), pV=parseFloat(p.value), zV=parseFloat(z.value);
+    if(!(hV>0)||!(pV>0)||!(zV>=0)){ out.innerHTML="Ingresa H>0, P₀>0 y z≥0."; return; }
+    var Pz = pV*Math.exp(-zV/hV);
+    var frac = Pz/pV*100;
+    var escalas = zV/hV;
+    out.innerHTML = "Presión a "+zV+" km: <span class='k'>P(z)</span> = <b>"+Pz.toFixed(1)+"</b> hPa<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Equivale al "+frac.toFixed(1)+"% de la presión de referencia ("+escalas.toFixed(2)+" alturas de escala).</span>";
+  }
+  [h,p,z].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#baro-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ h.value=b.dataset.h; p.value=b.dataset.p; z.value=b.dataset.z; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: senal de transmision ----
+(function(){
+  var rp=document.getElementById('trans-rp'), hh=document.getElementById('trans-h'), rs=document.getElementById('trans-rs');
+  var out=document.getElementById('trans-out');
+  function calc(){
+    var rpV=parseFloat(rp.value), hV=parseFloat(hh.value), rsV=parseFloat(rs.value);
+    if(!(rpV>0)||!(hV>0)||!(rsV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var Rp = rpV*RJUP;       // m
+    var H = hV*1000;         // m
+    var Rs = rsV*RSUN;       // m
+    var delta = 2*Rp*H/(Rs*Rs);   // fraccion
+    var ppm = delta*1e6;
+    var nota = ppm>=200 ? "señal grande: detectable incluso desde el Hubble" :
+               ppm>=40 ? "señal moderada: alcanzable por el JWST" :
+               "señal muy pequeña: muy difícil de medir";
+    out.innerHTML = "Señal de 1 altura de escala <span class='k'>δ</span> = <b>"+ppm.toFixed(0)+"</b> ppm<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+nota+". (Suele sondearse ~5–10 alturas de escala, así que la señal observable es varias veces mayor.)</span>";
+  }
+  [rp,hh,rs].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#trans-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ rp.value=b.dataset.rp; hh.value=b.dataset.h; rs.value=b.dataset.rs; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

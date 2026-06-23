@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Data en Astronomía — Instrumentación y Observación, Módulo II · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo II · Clase 5</span>
+  <h1>Big Data en <em>Astronomía</em></h1>
+  <p class="sub">La astronomía moderna es, en buena medida, un <strong>problema de datos</strong>. Esta clase recorre cómo se llegó hasta aquí: del ojo a la placa fotográfica, de la placa al CCD, y del CCD a cámaras de <strong>gigapíxeles</strong> que llenan <em>petabytes</em>. Dos curvas exponenciales —la ley de Moore y el área colectora de los telescopios— se cruzan con surveys gigantes (SDSS, LSST/Rubin, SKA), archivos públicos como servicio, computación de alto rendimiento, observatorios virtuales, machine learning y ciencia ciudadana.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Tema:</b> Big Data, surveys y ciencia de datos</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">¿</span>Qué hace un astrónomo cuando los telescopios producen más datos de los que cualquier persona podría mirar en mil vidas? La diapositiva titular de esta clase no dice «espectroscopía» ni «fotometría»: dice <span class="hl">Big Data</span>. El hilo es la transición desde una astronomía artesanal —observar a ojo, grabar en placas de vidrio, revisarlas con lupa buscando «agujas en pajares»— a una astronomía industrial donde una sola cámara (la de <em>Vera Rubin/LSST</em>, 3,2 gigapíxeles) genera por noche lo que antes era el catálogo de toda una carrera. Para un ingeniero/informático, esta clase es terreno conocido: <strong>volumen, velocidad, variedad y acceso</strong> de los datos; pipelines, almacenamiento, cómputo paralelo, bases de datos y aprendizaje automático. La astronomía se vuelve una disciplina de <strong>ciencia de datos aplicada al cielo</strong>.</p>
+
+<div class="box dato">
+  <span class="tag">Cómo leer estos apuntes</span>
+  <p>Esta clase <strong>no cuenta con transcripción de audio</strong> (en <code>ff/</code> solo existen las clases 1 a 4). Los apuntes se reconstruyeron a partir de las <strong>diapositivas</strong> del PDF <code>Modulo_II_Clase_5_.pdf</code> y se complementaron con conocimiento del dominio. Donde el texto va más allá de lo que muestra la lámina, se marca como <em>inferencia</em> o <em>material externo</em>; no se atribuyen frases textuales al docente. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</div>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Del ojo al CCD: historia de los detectores</a></li>
+    <li><a href="#s2">Placas: «agujas en pajares»</a></li>
+    <li><a href="#s3">Dos exponenciales: Moore y área colectora</a></li>
+    <li><a href="#s4">Digitalización: de fotones a bytes</a></li>
+    <li><a href="#s5">¿Cuántos datos? El zoológico de surveys</a></li>
+    <li><a href="#s6">Surveys modernos y LSST/Vera Rubin</a></li>
+    <li><a href="#s7">Radio e interferometría: correlación</a></li>
+    <li><a href="#s8">Datos como servicio: archivos</a></li>
+    <li><a href="#s9">Cómputo: HPC y la naturaleza del dato</a></li>
+    <li><a href="#s10">Machine Learning y ciencia abierta</a></li>
+    <li><a href="#s11">El futuro: ELTs y el espacio</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Del ojo al CCD: historia de los detectores</h2>
+    <p>Cuatro etapas: a ojo, método de grabación (placas), digitalización y computación.</p>
+  </div></div>
+
+  <p>La lámina de <strong>historia</strong> ordena la observación astronómica en cuatro grandes etapas, que también son cuatro modos de <em>guardar</em> la información:</p>
+  <ul>
+    <li><strong>A ojo:</strong> el primer «detector» fue la <span class="hl">retina</span>. Funciona razonablemente bien en el verde (el peak del Sol), pero su eficiencia cuántica es bajísima, no integra (no «acumula» luz por horas) y no deja registro: lo que ves se pierde salvo que lo dibujes.</li>
+    <li><strong>Método de grabación:</strong> la <span class="hl">placa fotográfica</span> de vidrio. Por primera vez el dato queda <em>archivado</em> en un soporte físico que se puede volver a mirar, medir y comparar. Es ineficiente (~1 % de los fotones), pero permanente.</li>
+    <li><strong>Digitalización:</strong> el detector electrónico (<span class="hl">CCD</span> y luego CMOS) convierte fotones en números. El dato nace ya como un arreglo de píxeles que un computador puede procesar.</li>
+    <li><strong>Computación:</strong> hoy el cuello de botella no es captar la luz, sino <strong>procesar, almacenar y analizar</strong> el torrente de datos. La astronomía se vuelve ciencia de datos.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-02.jpg" alt="Lámina HISTORIA: anatomía del ojo, astrónomo trabajando con placa fotográfica de noche, y persona sosteniendo un mosaico gigante de CCD">
+    <figcaption><span class="cap">Diapositiva · Historia</span>Las cuatro etapas —<strong>a ojo, grabación, digitalización, computación</strong>— ilustradas con la anatomía del <strong>ojo</strong> (el detector original), un astrónomo trabajando de noche con <strong>placas</strong>, y una persona sosteniendo un <strong>mosaico moderno de CCDs</strong>: el salto de un sensor biológico a una grilla de silicio de muchos sensores.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es la misma evolución de cualquier sistema de adquisición: <em>sensor analógico → soporte de registro → digitalización (ADC) → procesamiento</em>. Cada salto cambia el cuello de botella. Mientras el problema fue «captar señal», la innovación estuvo en el detector; cuando el detector dejó de ser el límite, el problema se trasladó a <strong>I/O, almacenamiento y cómputo</strong>: exactamente lo que hoy llamamos <em>big data</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Placas: «agujas en pajares»</h2>
+    <p>La era de las placas: archivos enormes que había que revisar a mano, buscando lo raro.</p>
+  </div></div>
+
+  <p>Antes de los detectores digitales, una observación quedaba en una <strong>placa de vidrio</strong> que luego se revisaba con lupa sobre una mesa de luz. El problema de fondo —que no ha cambiado— es <span class="hl">buscar «agujas en pajares»</span>: en un campo con miles de estrellas y galaxias, encontrar el objeto que cambió, que se movió o que simplemente no estaba antes. Esa tarea, hecha ojo a ojo y placa a placa, era lentísima y dependía de la paciencia (y los prejuicios) del observador.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-05.jpg" alt="Lámina PLACAS: persona revisando una placa fotográfica con lupa y mosaico de recortes de campos estelares con un objeto marcado">
+    <figcaption><span class="cap">Diapositiva · Placas</span>Revisar placas era buscar «<strong>agujas en pajares</strong>»: comparar campos casi idénticos para detectar el objeto distinto (marcado con líneas en los recortes). Hoy esa comparación la hace una <em>pipeline</em> de diferencia de imágenes, pero la pregunta es la misma: ¿qué cambió en este pedazo de cielo?</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Continuidad con la Clase 3</span>
+    <p>«Encontrar la aguja» es el mismo problema de la <strong>señal a ruido</strong> de la clase anterior: decidir si lo que vemos en un píxel es real o es ruido. Lo que cambia con el big data es la <em>escala</em>: ya no es una placa, son millones de imágenes por noche. La estadística de Poisson (<span class="katex-inline" data-tex="\sigma=\sqrt{N}"></span>) sigue gobernando cuándo creerle a una detección.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Dos exponenciales: Moore y área colectora</h2>
+    <p>El big data astronómico nace del cruce de dos crecimientos exponenciales que se potencian.</p>
+  </div></div>
+
+  <p>El centro conceptual de la clase: la astronomía explota en datos porque <strong>dos curvas crecen exponencialmente al mismo tiempo</strong>.</p>
+  <ul>
+    <li>La <span class="hl">ley de Moore</span>: el número de transistores por chip se duplica aproximadamente cada <strong>~2 años</strong>. Más cómputo, más memoria, más píxeles por sensor y por menos dinero.</li>
+    <li>El <span class="hl">área colectora</span> de los telescopios: desde el de Galileo (1609, unos centímetros) hasta el E-ELT (~39 m), el área crece varios órdenes de magnitud a lo largo de los siglos. Más área = más fotones = poder ver más lejos y más débil.</li>
+  </ul>
+  <p>Cuando un detector que crece como Moore se monta en un telescopio cuya área también crece, el <strong>volumen de datos</strong> se dispara como el producto de ambas tendencias. Un eje logarítmico que sube como una recta es la firma de un crecimiento exponencial (igual que en cualquier gráfico de capacidad de cómputo o almacenamiento).</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-03.jpg" alt="Lámina ANÁLISIS: gráfico de la ley de Moore (transistores vs año) junto a gráfico de área colectora de telescopios vs año, de Galileo 1609 a E-ELT">
+    <figcaption><span class="cap">Diapositiva · Análisis — las dos exponenciales</span>Izquierda: la <strong>ley de Moore</strong> (transistores por chip, eje log, doblando cada ~2 años). Derecha: el <strong>área colectora</strong> de los telescopios en función del año, de «Galileo's 1609» a Hooker, Hale, Keck, GTC y el <strong>E-ELT</strong>, también en eje logarítmico. Dos rectas en escala log = dos exponenciales que, combinadas, hacen estallar el volumen de datos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — escalas logarítmicas</span>
+    <p>Una recta en un gráfico semilog significa <span class="katex-inline" data-tex="N(t)=N_0\,2^{t/T}"></span>, con <span class="katex-inline" data-tex="T"></span> el <em>tiempo de duplicación</em>. Es la misma matemática del interés compuesto, del crecimiento de tráfico o del tamaño de datasets. Pensar en «órdenes de magnitud» (potencias de 10) en vez de números absolutos es el reflejo de ingeniería que esta clase entrena.</p>
+  </div>
+
+  <div class="widget" id="w-moore">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Crecimiento exponencial (duplicación)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa un tiempo de duplicación <span class="katex-inline" data-tex="T"></span> y un intervalo de años. El factor de crecimiento es <span class="katex-inline" data-tex="2^{\,\text{años}/T}"></span>. Compara la ley de Moore con la vida de un proyecto.</p>
+    <div class="presets" id="moore-presets">
+      <button data-t="2" data-y="20">Moore · 20 años</button>
+      <button data-t="2" data-y="10">Moore · 10 años</button>
+      <button data-t="1" data-y="10">Doblar cada año · 10</button>
+      <button data-t="2" data-y="50">Moore · 50 años</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="moore-t">Tiempo de duplicación T (años)</label><input type="number" id="moore-t" step="any" value="2" min="0.01"></div>
+      <div><label for="moore-y">Intervalo de tiempo (años)</label><input type="number" id="moore-y" step="any" value="20" min="0"></div>
+    </div>
+    <output id="moore-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Digitalización: de fotones a bytes</h2>
+    <p>Convertir lo físico en datos: gigapíxeles, prefijos decimales vs binarios y el peso real de una imagen.</p>
+  </div></div>
+
+  <p>Digitalizar es pasar <strong>«de físico a datos»</strong>. Una cámara astronómica moderna es un mosaico de muchos sensores. El ejemplo de la lámina es la cámara de <strong>LSST</strong> (hoy Observatorio Vera C. Rubin): <span class="hl">189 sensores de 16 Mpx</span> cada uno, que suman <strong>~3,2 gigapíxeles</strong>. Cada exposición es una imagen colosal, y cada píxel pesa varios bytes.</p>
+
+  <p>Para medir ese volumen hay que manejar los <strong>prefijos</strong> de unidades. Aquí aparece una sutileza muy de informática: <em>decimal vs binario</em>. En base 10, «kilo» es <span class="katex-inline" data-tex="10^3"></span>; pero en computación se usa la potencia de 2 más cercana, <span class="katex-inline" data-tex="2^{10}=1024"></span>. La diferencia es pequeña en kilobytes (2,4 %) pero se <strong>acumula</strong>: en el rango peta/exa supera el 10 %.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="1\,\text{KiB}=2^{10}\,\text{B}=1024\,\text{B}\quad\neq\quad 1\,\text{KB}=10^{3}\,\text{B}=1000\,\text{B}"></div>
+    <small>Prefijos decimales (K, M, G, T, P, E = <span class="katex-inline" data-tex="10^{3,6,9,12,15,18}"></span>) frente a binarios (Ki, Mi, Gi… = <span class="katex-inline" data-tex="2^{10,20,30,40,50,60}"></span>). El «address variable size» de la tabla es cuántos <strong>bits</strong> hacen falta para direccionar ese rango: ~10 bits por cada factor 1000.</small>
+  </div>
+
+  <figure>
+    <img src="m2c5/assets/slide-06.jpg" alt="Lámina DIGITALIZACION: tabla de prefijos kilo a exa (decimal y binario) y la cámara LSST de 3.2 gigapíxeles">
+    <figcaption><span class="cap">Diapositiva · Digitalización</span>«De físico a datos»: la cámara <strong>LSST</strong> con sus <strong>189 sensores de 16 Mpx</strong> (≈3,2 Gpx). A la izquierda, la tabla de prefijos: nombre, tamaño <strong>decimal</strong> (<span class="katex-inline" data-tex="10^3"></span>…<span class="katex-inline" data-tex="10^{18}"></span>), «en miles», y la <strong>aproximación binaria</strong> (<span class="katex-inline" data-tex="1024=2^{10}"></span>…<span class="katex-inline" data-tex="2^{60}"></span>). Es el vocabulario para hablar del peso de los datos.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-units">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Conversor de unidades de datos (decimal vs binario)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa una cantidad y un prefijo. Verás el valor en bytes usando el sistema <strong>decimal</strong> (<span class="katex-inline" data-tex="10^3"></span>) y el <strong>binario</strong> (<span class="katex-inline" data-tex="2^{10}"></span>), y cuánto se desvían entre sí.</p>
+    <div class="presets" id="u-presets">
+      <button data-v="1" data-p="4">1 TB</button>
+      <button data-v="40" data-p="4">40 TB (SDSS)</button>
+      <button data-v="200" data-p="5">200 PB (LSST)</button>
+      <button data-v="4.6" data-p="6">4,6 EB (SKA)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="u-v">Cantidad</label><input type="number" id="u-v" step="any" value="1" min="0"></div>
+      <div><label for="u-p">Prefijo</label>
+        <select id="u-p">
+          <option value="1">kilo (K)</option>
+          <option value="2">mega (M)</option>
+          <option value="3">giga (G)</option>
+          <option value="4" selected>tera (T)</option>
+          <option value="5">peta (P)</option>
+          <option value="6">exa (E)</option>
+        </select>
+      </div>
+    </div>
+    <output id="u-out"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>¿Cuántos datos? El zoológico de surveys</h2>
+    <p>De terabytes a exabytes: el volumen de datos crece con cada generación de surveys.</p>
+  </div></div>
+
+  <p>Un <span class="hl">survey</span> es una campaña que «barre» sistemáticamente una región del cielo (o todo el cielo) con un conjunto fijo de filtros y reglas. La lámina <em>«crecen los datos»</em> pone cifras a la escalada generacional:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Proyecto (survey)</th><th>Volumen de datos</th></tr></thead>
+    <tbody>
+      <tr><td><b>DPOSS</b> — Palomar Digital Sky Survey</td><td>3 TB</td></tr>
+      <tr><td><b>2MASS</b> — Two Micron All-Sky Survey</td><td>10 TB</td></tr>
+      <tr><td><b>GBT</b> — Green Bank Telescope</td><td>20 PB</td></tr>
+      <tr><td><b>GALEX</b> — Galaxy Evolution Explorer</td><td>30 TB</td></tr>
+      <tr><td><b>SDSS</b> — Sloan Digital Sky Survey</td><td>40 TB</td></tr>
+      <tr><td><b>SkyMapper</b> — Southern Sky Survey</td><td>500 TB</td></tr>
+      <tr><td><b>PanSTARRS</b></td><td>~40 PB esperados</td></tr>
+      <tr><td><b>LSST</b> — Vera C. Rubin</td><td>~200 PB esperados</td></tr>
+      <tr><td><b>SKA</b> — Square Kilometre Array</td><td>~4,6 EB esperados</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m2c5/assets/slide-10.jpg" alt="Lámina CRECEN LOS DATOS: tabla de prefijos y tabla de volúmenes de datos de surveys, de DPOSS 3TB a SKA 4.6 EB">
+    <figcaption><span class="cap">Diapositiva · Crecen los datos</span>Volúmenes de datos por proyecto, del <strong>DPOSS</strong> (3 TB) al <strong>SKA</strong> (~4,6 <em>exabytes</em>). El salto SDSS (40 TB) → LSST (~200 PB) → SKA (~4,6 EB) es de varios órdenes de magnitud por generación: el big data no crece lineal, crece exponencial.</figcaption>
+  </figure>
+
+  <p>¿Por qué tantos surveys distintos? Porque cada uno cubre una combinación distinta de <strong>área de cielo</strong>, <strong>longitud de onda</strong>, <strong>profundidad</strong> (magnitud límite) y <strong>número de objetos</strong>. Las láminas de <em>«por qué»</em> y <em>«más sensible, más área»</em> muestran a cada survey como un punto en estos espacios de compromiso: nadie cubre todo a la vez.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-11.jpg" alt="Lámina POR QUE: dispersión de surveys en área de cielo vs longitud de onda, y número de objetos vs magnitud límite">
+    <figcaption><span class="cap">Diapositiva · Por qué tantos surveys</span>Cada survey (Fermi, ROSAT, GALEX, 2MASS, SDSS, GAIA, WISE…) ocupa un lugar distinto en el plano <strong>área de cielo vs. longitud de onda</strong> (izq.) y <strong>número de objetos vs. magnitud límite</strong> (der.). El cielo es demasiado grande y variado para un solo instrumento: se reparte el trabajo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-12.jpg" alt="Lámina MAS SENSIBLE MAS AREA: sensibilidad vs longitud de onda para 2MASS, WISE, Spitzer, Herschel, ALMA, Planck, WMAP y radio surveys">
+    <figcaption><span class="cap">Diapositiva · Más sensible, más área</span>Sensibilidad (en mJy, menor = mejor) vs. longitud de onda para distintas misiones (2MASS, WISE, Spitzer, AKARI, IRAS, Herschel, ALMA, Planck, WMAP, radio surveys). La frontera se empuja en dos direcciones a la vez: <strong>llegar más débil</strong> y <strong>cubrir más cielo</strong>, ambas a costa de más datos.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-survey">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿Cuánto pesa un survey? (estimador de volumen)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Estima los datos crudos de una campaña: <span class="katex-inline" data-tex="\text{bytes}=\text{Mpx}\times\text{bytes/px}\times\text{imágenes/noche}\times\text{noches}"></span>. Por defecto, parámetros tipo LSST/Rubin.</p>
+    <div class="presets" id="sv-presets">
+      <button data-mp="3200" data-bp="2" data-img="1000" data-n="3650">LSST · 10 años</button>
+      <button data-mp="3200" data-bp="2" data-img="1000" data-n="1">LSST · 1 noche</button>
+      <button data-mp="570" data-bp="2" data-img="300" data-n="500">DECam (campaña)</button>
+      <button data-mp="16" data-bp="2" data-img="200" data-n="100">Cámara 16 Mpx</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="sv-mp">Megapíxeles por imagen</label><input type="number" id="sv-mp" step="any" value="3200" min="0"></div>
+      <div><label for="sv-bp">Bytes por píxel</label><input type="number" id="sv-bp" step="any" value="2" min="0"></div>
+      <div><label for="sv-img">Imágenes por noche</label><input type="number" id="sv-img" step="any" value="1000" min="0"></div>
+      <div><label for="sv-n">Número de noches</label><input type="number" id="sv-n" step="any" value="3650" min="0"></div>
+    </div>
+    <output id="sv-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Surveys modernos y LSST/Vera Rubin</h2>
+    <p>SDSS, DECam, DESI y, sobre todo, el Observatorio Vera Rubin: una película del cielo entero cada pocas noches.</p>
+  </div></div>
+
+  <p>La lámina de <strong>surveys</strong> enumera la genealogía moderna: <span class="hl">SDSS</span> (el survey que «miró todo el cielo» y estandarizó filtros), <span class="hl">DECam</span> (Dark Energy Camera, en Cerro Tololo, Chile), <span class="hl">DESI</span> (espectroscopía masiva con miles de fibras) y <span class="hl">LSST</span> en el Observatorio Vera C. Rubin (Cerro Pachón, Chile). Observar hoy es <em>«curar datos»</em>: definir estrategia, calibrar, versionar y publicar catálogos.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-07.jpg" alt="Lámina SURVEYS: arreglo de filtros de la cámara LSST, mapa de cobertura del cielo y panorámica del Observatorio Vera Rubin en Cerro Pachón">
+    <figcaption><span class="cap">Diapositiva · Surveys</span>«Curando datos»: el carrusel de <strong>filtros</strong> de la cámara LSST, un mapa de cobertura del cielo y la construcción del <strong>Observatorio Vera C. Rubin</strong> en Cerro Pachón (Chile). Un survey no es solo tomar imágenes: es un sistema de adquisición, calibración y publicación de catálogos.</figcaption>
+  </figure>
+
+  <p>El <strong>LSST</strong> (<em>Legacy Survey of Space and Time</em>) es el caso paradigmático. Su estrategia <em>Wide-Fast-Deep</em> apunta a fotografiar el cielo austral completo repetidamente durante 10 años, acumulando <strong>cientos de visitas</strong> por región. El resultado es una verdadera <strong>«película» del universo</strong>: no una foto, sino la <em>variabilidad</em> del cielo en el tiempo (supernovas, asteroides, estrellas variables). Esto requiere comparar cada imagen nueva con un modelo del cielo y emitir <strong>alertas</strong> de lo que cambió, millones por noche.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-15.jpg" alt="Lámina LSST/Vera Rubin: ajuste de conteo de objetos, mapa de número de visitas Wide-Fast-Deep y comparación de tamaños de telescopios">
+    <figcaption><span class="cap">Diapositiva · LSST / Vera Rubin</span>El conteo de objetos vs. magnitud (ajuste empírico), el mapa de <strong>número de visitas</strong> en 10 años (estrategia <em>Wide-Fast-Deep</em>, con campos especiales como los <em>Deep Drilling Fields</em>) y la clásica comparación de <strong>tamaños de telescopios</strong> que sitúa a Rubin y a los futuros gigantes en escala.</figcaption>
+  </figure>
+
+  <p>El big data también trae <strong>problemas nuevos de calidad del dato</strong>. Las constelaciones de satélites (como Starlink) dejan <strong>trazas brillantes</strong> que cruzan las imágenes y contaminan los datos. Es un caso real de <em>ruido sistemático</em> introducido por la actividad humana, que hay que detectar y enmascarar en la pipeline.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-16.jpg" alt="Lámina LSST/Vera Rubin: mosaico de imágenes con múltiples trazas diagonales brillantes de satélites cruzando el campo">
+    <figcaption><span class="cap">Diapositiva · LSST y las trazas de satélites</span>Un mosaico real con decenas de <strong>trazas de satélites</strong> (constelaciones tipo Starlink) cruzando las imágenes. Son contaminación sistemática a escala industrial: hay que detectarla y enmascararla automáticamente antes de medir.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — streaming y alertas</span>
+    <p>LSST es esencialmente un sistema de <em>stream processing</em>: ingiere imágenes, las compara contra una referencia (diferencia de imágenes), detecta cambios y emite <strong>~10 millones de alertas por noche</strong> en tiempo casi real (atribución externa, cifra de planificación del proyecto). Filtrar esas alertas requiere <em>brokers</em> y clasificadores automáticos: es Kafka aplicado al cielo. Las trazas de satélites son, en términos de ML, <em>outliers</em> sistemáticos a enmascarar.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Radio e interferometría: correlación</h2>
+    <p>En radio el dato no es una imagen: es señal que hay que correlacionar entre antenas para sintetizar un telescopio gigante.</p>
+  </div></div>
+
+  <p>En radioastronomía, <span class="hl">«no sólo imágenes»</span>: una antena entrega una <strong>señal temporal</strong>, no una foto. La resolución angular de un telescopio va como <span class="katex-inline" data-tex="\theta\sim\lambda/D"></span>; como las ondas de radio tienen <span class="katex-inline" data-tex="\lambda"></span> enorme, harían falta antenas imposiblemente grandes. La solución es la <span class="hl">interferometría</span>: combinar muchas antenas separadas y <strong>correlacionar</strong> sus señales, de modo que el conjunto se comporta como un telescopio del tamaño de la <em>distancia entre antenas</em>.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-08.jpg" alt="Lámina RADIO: antena tipo ALMA, el arreglo de antenas de ALMA en el desierto y racks de un correlador">
+    <figcaption><span class="cap">Diapositiva · Radio</span>«No sólo imágenes»: una antena del tipo <strong>ALMA</strong>, el arreglo completo en el llano de Chajnantor y los <strong>racks del correlador</strong> (un supercomputador especializado). El dato bruto en radio es señal que hay que combinar electrónicamente entre antenas.</figcaption>
+  </figure>
+
+  <p>La operación clave es la <span class="hl">correlación</span>, que puede ser entre antenas de un mismo sitio (como ALMA) o entre estaciones repartidas por el planeta:</p>
+  <ul>
+    <li><strong>VLBI</strong> (<em>Very Long Baseline Interferometry</em>): antenas en distintos continentes; la línea de base llega a ser el diámetro de la Tierra.</li>
+    <li><strong>EHT</strong> (<em>Event Horizon Telescope</em>): una red VLBI que sintetizó un telescopio del tamaño del planeta para obtener la primera <strong>imagen de un agujero negro</strong>.</li>
+    <li><strong>SKA</strong> (<em>Square Kilometre Array</em>): el futuro gran arreglo, con un área colectora efectiva cercana al kilómetro cuadrado y volúmenes de datos en exabytes.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-09.jpg" alt="Lámina SAMPLEANDO FOTONES: correlación en ALMA, VLBI/EHT/SKA, mapas mundiales de redes VLBI y la imagen del agujero negro del EHT junto a su simulación">
+    <figcaption><span class="cap">Diapositiva · Sampleando fotones (correlación)</span>La <strong>correlación</strong> en un mismo sitio (ALMA) o en varias ubicaciones (VLBI, EHT, SKA). Abajo, la <strong>simulación</strong> de un agujero negro junto a la <strong>reconstrucción del EHT</strong> (<span class="katex-inline" data-tex="50\,\mu\text{as}\approx 7\,R_{\text{Sch}}"></span>); arriba, los mapas de las redes VLBI globales que abarcan el planeta entero.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c5/assets/slide-17.jpg" alt="Lámina Square Kilometer Array SKA: campo de antenas parabólicas, mapa mundial de países miembros y render de las antenas de baja frecuencia">
+    <figcaption><span class="cap">Diapositiva · Square Kilometre Array (SKA)</span>El <strong>SKA</strong>: arreglos en Sudáfrica (antenas parabólicas) y Australia (antenas de baja frecuencia), con un mapa de los países miembros. Su flujo de datos esperado (~4,6 EB) lo convierte en uno de los mayores generadores de datos científicos del planeta.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — correlación y FFT</span>
+    <p>El correlador es un computador de propósito especial que calcula <strong>correlaciones cruzadas</strong> entre pares de señales digitalizadas a altísima tasa de muestreo (rige el teorema de Nyquist). La imagen se reconstruye con transformadas de Fourier desde el plano de las líneas de base (síntesis de apertura). Es procesamiento de señales puro: muestreo, FFT, y un problema de <em>I/O</em> brutal antes incluso de almacenar nada.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Datos como servicio: archivos públicos</h2>
+    <p>Los grandes telescopios publican sus datos. La observación se vuelve, en parte, consultar un archivo.</p>
+  </div></div>
+
+  <p>Una consecuencia central del big data: <span class="hl">el dato se vuelve un servicio</span>. Misiones como <strong>Chandra</strong> (rayos X), <strong>IRAS</strong> (infrarrojo) o <strong>Kepler</strong> (exoplanetas) depositan sus observaciones en archivos públicos, típicamente abiertos tras un período de embargo. El portal <strong>MAST</strong> (<em>Barbara A. Mikulski Archive for Space Telescopes</em>) reúne datos de Hubble, JWST y muchas otras misiones en un solo lugar consultable.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-13.jpg" alt="Lámina ESPACIO Y DATOS COMO SERVICIO: Chandra, IRAS, Kepler, telescopio Hubble y captura del portal MAST">
+    <figcaption><span class="cap">Diapositiva · Espacio y datos como servicio</span>Misiones como <strong>Chandra, IRAS, Kepler</strong> alimentan archivos consultables; el portal <strong>MAST</strong> permite buscar por objeto, coordenadas o colección. Hacer ciencia puede empezar bajando datos que tomó otro: la observación se transforma en parte en una <em>query</em>.</figcaption>
+  </figure>
+
+  <p>Para que esto funcione a escala global hace falta <strong>interoperar</strong>: que los datos de distintos observatorios se puedan combinar. De ahí los <span class="hl">Observatorios Virtuales</span> (la alianza IVOA reúne organizaciones de muchos países). El gran desafío, como en cualquier integración de sistemas, es el <strong>problema de los estándares</strong>: formatos, metadatos y protocolos comunes para que los catálogos «conversen».</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-22.jpg" alt="Lámina DATOS Y CIENCIA ABIERTA: logos de la International Virtual Observatory Alliance de muchos países">
+    <figcaption><span class="cap">Diapositiva · Datos y ciencia abierta</span>La <strong>International Virtual Observatory Alliance (IVOA)</strong> con sus organizaciones miembro. Tres ideas: <strong>observatorios virtuales</strong>, <strong>datos disponibles</strong> y el <strong>problema de los estándares</strong> —cómo lograr que datos heterogéneos sean interoperables.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — FAIR e interoperabilidad</span>
+    <p>Es exactamente el problema de las <em>APIs</em> y los <em>data lakes</em>: sin esquemas, metadatos y protocolos comunes, los datos no se pueden combinar. La astronomía adoptó temprano un formato estándar (<strong>FITS</strong>) y principios tipo <strong>FAIR</strong> (<em>Findable, Accessible, Interoperable, Reusable</em>). El «problema de estándares» de la lámina es el mismo de cualquier arquitectura de integración de datos.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Cómputo: HPC y la naturaleza del dato</h2>
+    <p>Procesar el torrente exige computación de alto rendimiento y entender qué tipo de dato tenemos.</p>
+  </div></div>
+
+  <p>Cuando los datos llegan a petabytes, ya no caben en un laptop ni se procesan en serie. Entra la <span class="hl">computación de alto rendimiento (HPC)</span>. La lámina la resume en cuatro palabras: <strong>Intensive, Parallel, Precise, Visualization</strong>.</p>
+  <ul>
+    <li><strong>Intensiva:</strong> simulaciones y reducciones que consumen millones de horas-CPU/GPU.</li>
+    <li><strong>Paralela:</strong> el trabajo se reparte en miles de núcleos (un cielo se divide naturalmente en regiones independientes — <em>embarrassingly parallel</em>).</li>
+    <li><strong>Precisa:</strong> control de errores numéricos y reproducibilidad.</li>
+    <li><strong>Visualización:</strong> convertir tensores enormes en algo que un humano pueda inspeccionar.</li>
+  </ul>
+
+  <figure>
+    <img src="m2c5/assets/slide-19.jpg" alt="Lámina High Performance Computing: lista Intensive, Parallel, Precise, Visualization junto a un data center">
+    <figcaption><span class="cap">Diapositiva · High Performance Computing</span>El cómputo astronómico moderno es <strong>intensivo, paralelo, preciso</strong> y necesita <strong>visualización</strong>. El cuello de botella se mueve del telescopio al <em>data center</em>: el desafío ya no es captar fotones, sino procesarlos.</figcaption>
+  </figure>
+
+  <p>Antes de procesar, hay que entender la <strong>naturaleza del dato</strong>. La lámina <em>DATA</em> destaca cuatro ejes —<strong>Espacio, Disponibilidad, Velocidad, Acceso</strong>— que recuerdan las célebres «V» del big data (volumen, velocidad, variedad). Y distingue <strong>datos estructurados vs. no estructurados</strong>: una tabla SQL ordenada (catálogo) frente a un cúmulo de imágenes, espectros y series temporales heterogéneas.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-20.jpg" alt="Lámina DATA: ejes Espacio, Disponibilidad, Velocidad, Acceso; una consulta SQL y diagrama de datos estructurados vs no estructurados">
+    <figcaption><span class="cap">Diapositiva · Data</span>Cuatro propiedades del dato (<strong>espacio, disponibilidad, velocidad, acceso</strong>), una <strong>consulta SQL</strong> sobre una base, y el contraste <strong>estructurado vs. no estructurado</strong>. Un catálogo es una tabla; las imágenes crudas, no. Gran parte del trabajo es transformar lo no estructurado en estructurado.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — las V del big data</span>
+    <p>«Espacio/disponibilidad/velocidad/acceso» mapea casi 1:1 a las <strong>V</strong> (volumen, velocidad, variedad, veracidad). El flujo astronómico es un <em>pipeline ETL</em> clásico: extraer (telescopio), transformar (reducir/calibrar) y cargar (catálogo consultable). Una vez que el dato es una tabla indexada, una <em>query</em> SQL reemplaza meses de mirar placas.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Machine Learning y ciencia abierta</h2>
+    <p>Demasiados datos para mirarlos a mano: clasificadores automáticos y, donde la máquina falla, voluntarios humanos.</p>
+  </div></div>
+
+  <p>Con millones de objetos por noche, clasificar a mano es imposible. Entra el <span class="hl">machine learning</span>. La lámina ordena el campo en círculos anidados: <strong>IA ⊃ Machine Learning ⊃ Deep Learning ⊃ IA Generativa</strong>. En astronomía se usa para clasificar galaxias y transientes, separar estrellas de galaxias, estimar <em>redshifts</em> fotométricos, detectar anomalías y filtrar las alertas de surveys como LSST.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-21.jpg" alt="Lámina Machine Learning: círculos anidados Artificial Intelligence, Machine Learning, Deep Learning, Generative AI con sus definiciones">
+    <figcaption><span class="cap">Diapositiva · Machine Learning</span>La jerarquía <strong>IA ⊃ ML ⊃ Deep Learning ⊃ IA Generativa</strong>. ML es un subconjunto de IA que detecta patrones en grandes conjuntos de datos (supervisado o no supervisado); Deep Learning usa redes neuronales profundas. En astronomía, son la herramienta para domar el volumen.</figcaption>
+  </figure>
+
+  <p>Pero la máquina no lo resuelve todo: hay tareas donde el ojo humano (y la intuición) aún ganan, sobre todo para <strong>etiquetar</strong> datos de entrenamiento o detectar lo verdaderamente inesperado. Ahí entra la <span class="hl">ciencia ciudadana</span>: proyectos como <strong>Galaxy Zoo</strong> reclutan a miles de voluntarios para clasificar galaxias. Esas etiquetas humanas, además, sirven para <em>entrenar</em> los modelos de ML — un círculo virtuoso.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-23.jpg" alt="Lámina CITIZEN SCIENCE: captura del sitio Galaxy Zoo">
+    <figcaption><span class="cap">Diapositiva · Citizen Science</span><strong>Galaxy Zoo</strong>: voluntarios de todo el mundo clasifican galaxias por su morfología. Es <em>crowdsourcing</em> científico: resuelve tareas que la máquina aún no domina y, de paso, genera el conjunto etiquetado que luego entrena a los clasificadores automáticos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática — el dato etiquetado es el cuello de botella</span>
+    <p>En aprendizaje supervisado, el limitante rara vez es el algoritmo: es conseguir <strong>datos etiquetados</strong> de calidad. Galaxy Zoo es esencialmente una operación de <em>human-in-the-loop labeling</em> a escala masiva. El patrón —humanos etiquetan, modelos aprenden, modelos pre-filtran para que los humanos se concentren en lo difícil— es el mismo de cualquier proyecto serio de ML.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>El futuro: ELTs y el espacio</h2>
+    <p>Telescopios extremadamente grandes en tierra y observatorios en órbitas lejanas: más área, más datos.</p>
+  </div></div>
+
+  <p>La lámina de <strong>futuro</strong> apunta a los <span class="hl">telescopios extremadamente grandes (ELTs)</span>: <strong>E-ELT</strong> (~39 m, ESO, Chile), <strong>TMT</strong> (Thirty Meter Telescope) y <strong>GMT</strong> (Giant Magellan Telescope, también en Chile). Cada salto de diámetro multiplica el área colectora (que crece como <span class="katex-inline" data-tex="D^2"></span>) y, con ella, el volumen de datos. La sigla «QM» de la lámina queda ambigua en el material (posiblemente «quantum» o un proyecto específico); se deja anotada sin sobreinterpretar.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-24.jpg" alt="Lámina FUTURO: lista E-ELT, TMT, GMT, QM">
+    <figcaption><span class="cap">Diapositiva · Futuro</span>La próxima generación en tierra: <strong>E-ELT, TMT, GMT</strong> (más «QM», anotado tal cual aparece). Diámetros de decenas de metros: el área crece como <span class="katex-inline" data-tex="D^2"></span>, y con ella la sensibilidad y el flujo de datos.</figcaption>
+  </figure>
+
+  <p>En paralelo, el <strong>espacio</strong> permite observar fuera de la atmósfera y en órbitas lejanas. El <strong>JWST</strong> orbita el punto de Lagrange <strong>L2</strong>, a ~1,5 millones de km de la Tierra (la Luna está ~10× más cerca). Comunicarse con instrumentos tan lejanos exige la <strong>Deep Space Network</strong> (antenas en Goldstone, Madrid y Canberra): tres estaciones repartidas en longitud para que, con la rotación de la Tierra, siempre haya una «viendo» la nave.</p>
+
+  <figure>
+    <img src="m2c5/assets/slide-18.jpg" alt="Lámina JWST: el telescopio, su órbita en L2 y el esquema de cobertura de las antenas Goldstone, Madrid y Canberra">
+    <figcaption><span class="cap">Diapositiva · JWST</span>El <strong>JWST</strong> y su distancia: opera cerca de <strong>L2</strong>, mucho más lejos que la órbita geosíncrona (la Luna está ~10× más cerca que L2). El esquema muestra las coberturas de <strong>Goldstone, Madrid y Canberra</strong>: la red que baja los datos desde el espacio profundo.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre — la astronomía como ciencia de datos</span>
+    <p>El hilo de toda la clase: <strong>cada salto en detectores y telescopios multiplica los datos, y el cuello de botella se desplaza del fotón al cómputo</strong>. Del ojo a la placa, de la placa al CCD, del CCD a los gigapíxeles; de mirar una placa con lupa a consultar archivos petabyte con SQL, correlacionar antenas, entrenar redes neuronales y coordinar voluntarios. Para un ingeniero informático, la astronomía moderna es un laboratorio de lujo de <em>big data</em>: volumen, velocidad, variedad, pipelines, HPC y ML, aplicados a la pregunta más antigua de todas —qué hay ahí afuera.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Etapas históricas</b></td><td>Ojo → placa → digitalización → computación</td><td>El cuello de botella pasa del detector al cómputo</td></tr>
+      <tr><td><b>Placa fotográfica</b></td><td>Soporte físico, ~1 % de eficiencia</td><td>Primer registro permanente; «agujas en pajares»</td></tr>
+      <tr><td><b>Ley de Moore</b></td><td>Transistores ×2 cada ~2 años</td><td>Una de las dos exponenciales que disparan los datos</td></tr>
+      <tr><td><b>Área colectora</b></td><td>Crece como <span class="katex-inline" data-tex="D^2"></span>, de Galileo a E-ELT</td><td>Más fotones; la otra exponencial</td></tr>
+      <tr><td><b>Cámara LSST</b></td><td>189 sensores × 16 Mpx ≈ 3,2 Gpx</td><td>El gigapíxel como unidad de imagen</td></tr>
+      <tr><td><b>Prefijos K–E</b></td><td>Decimal <span class="katex-inline" data-tex="10^{3..18}"></span> vs binario <span class="katex-inline" data-tex="2^{10..60}"></span></td><td>La diferencia se acumula hasta &gt;10 % en exabytes</td></tr>
+      <tr><td><b>Survey</b></td><td>Barrido sistemático del cielo</td><td>SDSS 40 TB → LSST ~200 PB → SKA ~4,6 EB</td></tr>
+      <tr><td><b>Compromisos</b></td><td>Área vs λ vs profundidad vs nº objetos</td><td>Por eso hay muchos surveys, no uno solo</td></tr>
+      <tr><td><b>LSST / Rubin</b></td><td>Wide-Fast-Deep, 10 años, Cerro Pachón</td><td>Una «película» del cielo; alertas en tiempo real</td></tr>
+      <tr><td><b>Trazas de satélites</b></td><td>Starlink cruzando imágenes</td><td>Ruido sistemático nuevo a enmascarar</td></tr>
+      <tr><td><b>Interferometría</b></td><td>Correlación de antenas; <span class="katex-inline" data-tex="\theta\sim\lambda/D"></span></td><td>Sintetiza un telescopio del tamaño de la red</td></tr>
+      <tr><td><b>VLBI / EHT / SKA</b></td><td>Redes globales de radio</td><td>Imagen del agujero negro; exabytes de datos</td></tr>
+      <tr><td><b>Datos como servicio</b></td><td>MAST, archivos públicos</td><td>Observar = a veces, consultar un archivo</td></tr>
+      <tr><td><b>Observatorio virtual</b></td><td>IVOA, estándares (FITS, FAIR)</td><td>Interoperar datos heterogéneos</td></tr>
+      <tr><td><b>HPC</b></td><td>Intensivo, paralelo, preciso, visualización</td><td>Procesar petabytes; cómputo paralelo</td></tr>
+      <tr><td><b>Estructurado vs no</b></td><td>Tabla SQL vs imágenes/espectros</td><td>El trabajo es estructurar lo no estructurado</td></tr>
+      <tr><td><b>Machine Learning</b></td><td>IA ⊃ ML ⊃ DL ⊃ IA generativa</td><td>Clasificar y filtrar a escala</td></tr>
+      <tr><td><b>Ciencia ciudadana</b></td><td>Galaxy Zoo</td><td>Etiquetado humano que entrena modelos</td></tr>
+      <tr><td><b>ELTs y JWST</b></td><td>E-ELT/TMT/GMT; JWST en L2</td><td>Más área y el espacio profundo → más datos</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c5-examen-01.html">Examen 01<small>Historia de los detectores</small></a></li>
+    <li><a href="m2c5-examen-02.html">Examen 02<small>Placas y agujas en pajares</small></a></li>
+    <li><a href="m2c5-examen-03.html">Examen 03<small>Las dos exponenciales</small></a></li>
+    <li><a href="m2c5-examen-04.html">Examen 04<small>Digitalización y unidades</small></a></li>
+    <li><a href="m2c5-examen-05.html">Examen 05<small>Volúmenes de surveys</small></a></li>
+    <li><a href="m2c5-examen-06.html">Examen 06<small>LSST / Vera Rubin</small></a></li>
+    <li><a href="m2c5-examen-07.html">Examen 07<small>Radio e interferometría</small></a></li>
+    <li><a href="m2c5-examen-08.html">Examen 08<small>Datos como servicio</small></a></li>
+    <li><a href="m2c5-examen-09.html">Examen 09<small>HPC y naturaleza del dato</small></a></li>
+    <li><a href="m2c5-examen-10.html">Examen 10<small>ML, ciencia abierta y futuro</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo II del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes). Elaborado a partir de las diapositivas <code>Modulo_II_Clase_5_.pdf</code> («Big Data»), convertidas a imágenes en <code>m2c5/assets/</code>.</p>
+  <p class="disc"><b>Aviso importante — sin transcripción de audio.</b> A diferencia de las clases 1 a 4, <strong>esta clase no cuenta con transcripción</strong> en <code>ff/</code>. Por lo tanto, estos apuntes se <strong>reconstruyeron a partir de las diapositivas</strong> y se complementaron con conocimiento del dominio. No se transcriben ni se atribuyen frases textuales al docente: las explicaciones que van más allá del texto literal de las láminas son <em>inferencia propia</em> o <em>material externo</em> (por ejemplo: las ~10 millones de alertas/noche de LSST, el JWST en L2, la Deep Space Network, los principios FAIR/FITS, y las cifras de volumen de datos más allá de lo tabulado). Algunas siglas de las láminas son ambiguas (p. ej. «QM» en la lámina de futuro) y se dejaron anotadas sin sobreinterpretar. Ante cualquier duda, primar las diapositivas y fuentes académicas confiables.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: crecimiento exponencial / Moore ----
+(function(){
+  var t=document.getElementById('moore-t'), y=document.getElementById('moore-y'), out=document.getElementById('moore-out');
+  function calc(){
+    var T=parseFloat(t.value), Y=parseFloat(y.value);
+    if(!(T>0)||!(Y>=0)){ out.innerHTML="Ingresa un tiempo de duplicación positivo y años ≥ 0."; return; }
+    var factor=Math.pow(2, Y/T);
+    var dups=Y/T;
+    var fmt = factor>=1000 ? factor.toExponential(2) : factor.toFixed(2);
+    out.innerHTML="Factor de crecimiento = 2^("+Y+"/"+T+") = <b>×"+fmt+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Son <span class='k'>"+dups.toFixed(1)+"</span> duplicaciones en "+Y+" años. Lo que valía 1 ahora vale "+fmt+": así crece el volumen de datos cuando se cruzan Moore y el área colectora.</span>";
+  }
+  t.addEventListener('input',calc); y.addEventListener('input',calc);
+  document.querySelectorAll('#moore-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ t.value=b.dataset.t; y.value=b.dataset.y; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: conversor de unidades de datos (decimal vs binario) ----
+(function(){
+  var v=document.getElementById('u-v'), p=document.getElementById('u-p'), out=document.getElementById('u-out');
+  var names=["","kilo","mega","giga","tera","peta","exa"];
+  function calc(){
+    var val=parseFloat(v.value), exp=parseInt(p.value,10);
+    if(!(val>=0)){ out.innerHTML="Ingresa una cantidad ≥ 0."; return; }
+    var dec=val*Math.pow(10,3*exp);     // bytes en sistema decimal
+    var bin=val*Math.pow(1024,exp);     // bytes en sistema binario
+    var diff=100*(bin-dec)/dec;
+    out.innerHTML=val+" "+names[exp]+"byte(s)<br>"+
+      "Decimal (10^"+(3*exp)+"): <b>"+dec.toExponential(3)+"</b> bytes<br>"+
+      "Binario (2^"+(10*exp)+"): <b>"+bin.toExponential(3)+"</b> bytes<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>El binario es <span class='k'>"+diff.toFixed(2)+"%</span> mayor que el decimal. La brecha crece con el prefijo: despreciable en KB, pero &gt;10% en PB/EB.</span>";
+  }
+  v.addEventListener('input',calc); p.addEventListener('change',calc);
+  document.querySelectorAll('#u-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ v.value=b.dataset.v; p.value=b.dataset.p; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: estimador de volumen de un survey ----
+(function(){
+  var mp=document.getElementById('sv-mp'), bp=document.getElementById('sv-bp'),
+      img=document.getElementById('sv-img'), n=document.getElementById('sv-n'), out=document.getElementById('sv-out');
+  function human(bytes){
+    var u=["B","KB","MB","GB","TB","PB","EB","ZB"]; var i=0;
+    while(bytes>=1000 && i<u.length-1){ bytes/=1000; i++; }
+    return bytes.toFixed(2)+" "+u[i];
+  }
+  function calc(){
+    var MP=parseFloat(mp.value), BP=parseFloat(bp.value), IM=parseFloat(img.value), N=parseFloat(n.value);
+    if(!(MP>=0)||!(BP>=0)||!(IM>=0)||!(N>=0)){ out.innerHTML="Ingresa valores ≥ 0."; return; }
+    var perImg=MP*1e6*BP;          // bytes por imagen
+    var perNight=perImg*IM;         // bytes por noche
+    var total=perNight*N;           // bytes totales
+    out.innerHTML="Por imagen: <b>"+human(perImg)+"</b> · por noche: <b>"+human(perNight)+"</b><br>"+
+      "Total ("+N+" noches): <span class='k'>"+human(total)+"</span><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Datos crudos, sin compresión ni calibraciones. Una sola cámara de gigapíxeles llena petabytes en pocos años: por eso el cuello de botella es el cómputo, no el fotón.</span>";
+  }
+  [mp,bp,img,n].forEach(function(el){ el.addEventListener('input',calc); });
+  document.querySelectorAll('#sv-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ mp.value=b.dataset.mp; bp.value=b.dataset.bp; img.value=b.dataset.img; n.value=b.dataset.n; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

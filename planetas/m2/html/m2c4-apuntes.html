@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistemas Exoplanetarios — Astrofísica de Planetas, Módulo II · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+canvas{display:block;width:100%;height:auto;background:#05070d;border:1px solid var(--line);border-radius:10px;margin-top:6px}
+.rangeval{color:var(--gold);font-family:"Fraunces",serif}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo II — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo II · Clase 4</span>
+  <h1>Sistemas <em>Exoplanetarios</em></h1>
+  <p class="sub">Donde ya hay un planeta, probablemente hay más. Esta clase trata de <strong>sistemas con varios planetas</strong>: cómo se les arranca la señal a los datos (periodograma, MCMC, residuos), por qué sus órbitas tienen que ser <strong>estables</strong>, qué papel juegan las <strong>resonancias</strong> y el <strong>caos</strong>, y cómo la astrometría, los tránsitos y las TTV revelan compañeros ocultos.</p>
+  <div class="meta">
+    <span><b>Docente:</b> César Fuentes</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 8 jun 2026</span>
+    <span><b>Tema:</b> Sistemas con múltiples planetas, dinámica y descubrimiento</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">S</span>i quieres pescar, te pones donde ya hay peces. La misma lógica guía la búsqueda de exoplanetas: <span class="hl">donde ya se detectó un planeta, lo más probable es que haya más</span>. Por eso esta clase abandona el planeta solitario y mira el <em>sistema</em> completo. La idea de fondo es que encontrar planetas nuevos <strong>no es fácil ni barato</strong>: hay que «masajear» los datos. Cada punto de una curva de velocidad radial esconde un espectro, una calibración Doppler y la resta de los movimientos de la Tierra, el Sol y la estrella; recién entonces aparece el bamboleo planetario. Para hallar la periodicidad usamos el <strong>periodograma</strong> (una transformada de Fourier), para ajustar la órbita usamos <strong>cadenas de Markov (MCMC)</strong>, y los <strong>residuos</strong> de ese ajuste son la pista del siguiente planeta. Sobre esa solución imponemos física: la configuración debe ser <strong>dinámicamente estable</strong> (lo verificamos con simulaciones del problema de N cuerpos), y muchas veces las protege una <strong>resonancia</strong> —una conmensurabilidad de números enteros entre los períodos, como la de Plutón–Neptuno o las lunas galileanas—. Cierre: astrometría (Gaia), tránsitos múltiples (TRAPPIST-1), TTV y la estadística de Kepler, que dice que <strong>casi la mitad</strong> de sus planetas viven en sistemas múltiples.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Qué es un sistema exoplanetario (y por qué buscarlos)</a></li>
+    <li><a href="#s2">Panorama: métodos de detección y clasificación</a></li>
+    <li><a href="#s3">Velocidad radial: de la órbita a la curva</a></li>
+    <li><a href="#s4">El censo: sistemas simples vs. múltiples</a></li>
+    <li><a href="#s5">Cazar la señal: periodograma y Fourier</a></li>
+    <li><a href="#s6">Ajuste, MCMC y residuos → el 2.º planeta</a></li>
+    <li><a href="#s7">Estabilidad dinámica: la foto del camello</a></li>
+    <li><a href="#s8">Resonancias: relojería de números enteros</a></li>
+    <li><a href="#s9">Evolución y migración: el modelo de Niza</a></li>
+    <li><a href="#s10">Astrometría: el baile del baricentro (Gaia)</a></li>
+    <li><a href="#s11">Tránsitos: detrending y sistemas múltiples</a></li>
+    <li><a href="#s12">TTV: variaciones en el tiempo de tránsito</a></li>
+    <li><a href="#s13">Estadística, formación y configuraciones exóticas</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Qué es un sistema exoplanetario (y por qué buscarlos)</h2>
+    <p>Un sistema = varios planetas en torno a la misma estrella. Donde hay uno, conviene seguir mirando.</p>
+  </div></div>
+
+  <p>Tras dos clases dedicadas a <em>detectar</em> y a <em>medir</em> exoplanetas, esta se enfoca en los <span class="hl">sistemas planetarios</span>: configuraciones con <strong>muchos planetas</strong>, como el Sistema Solar. La estrategia es eficiente: si una estrella ya muestra un planeta que transita, sabemos que la vemos «de canto», y es muy probable que <strong>otros planetas del mismo sistema también transiten</strong> (las órbitas tienden a ser coplanares). Ese segundo planeta puede ser «más valioso»: más pequeño, más lejano, quizás en la zona habitable.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-04.jpg" alt="Kepler Orrery: animación de sistemas planetarios descubiertos por Kepler a escala">
+    <figcaption><span class="cap">Diapositiva · Kepler Orrery</span>El <strong>Kepler Orrery</strong> (E. Kruse, 2011): cada anillo es un sistema planetario real descubierto por Kepler, a escala y con colores que indican temperatura de equilibrio. La mayoría de las órbitas son <strong>mucho más compactas</strong> que la del Sistema Solar (dibujado al centro). Aún nos falta para hallar un verdadero «análogo solar»: ese sesgo es de método, no de la naturaleza.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es <strong>muestreo dirigido por evidencia</strong>: en lugar de explorar el espacio de estrellas a ciegas, concentramos el esfuerzo donde la probabilidad <em>a posteriori</em> de encontrar más planetas es alta (ya hay uno confirmado). Es la misma idea de un crawler que prioriza vecinos de un nodo con señal, o de una búsqueda que explota una región prometedora antes de seguir explorando.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Panorama: métodos de detección y clasificación</h2>
+    <p>Velocidad radial y tránsitos llevan la delantera; el resto aporta vistas sin sesgo o muy específicas.</p>
+  </div></div>
+
+  <p>El «árbol» de métodos de detección reúne familias <strong>dinámicas</strong> (velocidad radial, astrometría, timing/pulsares), <strong>fotométricas</strong> (tránsitos, imagen directa, microlente) e <strong>indirectas/misceláneas</strong>. Las dos dominantes son la <strong>velocidad radial (RV)</strong> y los <strong>tránsitos</strong>. Algunos métodos «esotéricos» como el <em>microlente gravitacional</em> son valiosos porque ven planetas con <strong>poco sesgo</strong> (no exigen cercanía ni orientación especial).</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-02.jpg" alt="Árbol de métodos de detección de exoplanetas y conteo por método (single vs multiple)">
+    <figcaption><span class="cap">Diapositiva · Descubrimientos (NASA Exoplanet Archive)</span>Árbol de métodos según la masa del planeta (eje vertical) y desglose <strong>múltiples / total</strong> por método (datos a ene-2018): tránsito 474/2053, RV 102/504, microlente 2/51, imagen 2/40, astrometría 0/1, timing 5/20. Los números cambian año a año, pero el orden de magnitud y el dominio de tránsito + RV se mantiene.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-03.jpg" alt="Clasificación de planetas y estrellas por masa, en escala logarítmica">
+    <figcaption><span class="cap">Diapositiva · Clasificación por masa</span>Escala (log) de masas en <span class="katex-inline" data-tex="M_\oplus"></span>, <span class="katex-inline" data-tex="M_J"></span> y <span class="katex-inline" data-tex="M_\odot"></span>: de sub-Tierras y Tierras a super-Tierras, Neptunos, Júpiters, super-Júpiters, enanas café y estrellas. La nomenclatura es solo un acuerdo para nombrar tamaños; lo común en exoplanetas (super-Tierras / sub-Neptunos) <strong>no tiene análogo en el Sistema Solar</strong>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · escalas log</span>
+    <p>Casi todo aquí se grafica en <strong>logaritmo</strong>: masas que cubren ~7 órdenes de magnitud (de Mercurio a una estrella) solo caben en una escala log. Igual que medir tamaños de archivo o latencias que van de bytes a gigabytes: el eje lineal es inútil; el log convierte «multiplicar por 10» en «un paso constante».</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Velocidad radial: de la órbita a la curva</h2>
+    <p>La forma de la curva de RV depende fuertemente de la excentricidad y de cómo está orientada la elipse.</p>
+  </div></div>
+
+  <p>En RV no vemos el planeta: vemos a la <strong>estrella bambolearse</strong>. Si la órbita es <strong>circular</strong> (<span class="katex-inline" data-tex="e\approx 0"></span>), la velocidad radial es una <strong>sinusoide</strong> limpia: la estrella se acerca (corrimiento al azul, <span class="katex-inline" data-tex="v<0"></span>) y se aleja (al rojo, <span class="katex-inline" data-tex="v>0"></span>). Pero al aumentar la <span class="hl">excentricidad</span>, la curva se deforma muchísimo, y su forma también depende del ángulo <span class="katex-inline" data-tex="\omega"></span> (cómo está «parada» la elipse respecto al observador).</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-05.jpg" alt="Geometría orbital y curvas de velocidad radial para distintas excentricidades">
+    <figcaption><span class="cap">Diapositiva · Según método: RV</span>Izq.: parámetros que orientan la elipse en el espacio (inclinación, foco F donde está la estrella, plano del cielo). Der.: la curva de RV para <span class="katex-inline" data-tex="e=0.03"></span> es casi senoidal; con <span class="katex-inline" data-tex="e=0.53"></span> y sobre todo <span class="katex-inline" data-tex="e=0.90"></span> aparece un <strong>pico abrupto</strong>: por la 2.ª ley de Kepler el planeta corre muy rápido cerca del periastro y se arrastra el resto del tiempo.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué la curva se vuelve un pico</span>
+    <p>La <strong>2.ª ley de Kepler</strong> (áreas iguales en tiempos iguales) obliga al planeta a moverse veloz cerca de la estrella y lentísimo en el afelio. En una órbita muy excéntrica, casi todo el tiempo «no pasa nada» y, de golpe, hay un <strong>tirón</strong> de velocidad. Si tus observaciones caen fuera de ese instante, te lo pierdes: hay que tener la suerte (o la planificación) de muestrear justo el periastro.</p>
+  </div>
+
+  <p>Una vez ajustada la órbita, la semiamplitud <span class="katex-inline" data-tex="K"></span> de la curva permite estimar la <strong>masa mínima</strong> del planeta (mínima porque la inclinación <span class="katex-inline" data-tex="i"></span> es desconocida en RV puro):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="M_P\sin i \;\approx\; K\,\sqrt{1-e^2}\;\left(\frac{P}{2\pi G}\right)^{1/3} M_\star^{2/3}"></div>
+    <small>Válida cuando <span class="katex-inline" data-tex="M_P\ll M_\star"></span>. Como solo medimos <span class="katex-inline" data-tex="M_P\sin i"></span>, RV entrega una <em>cota inferior</em>: hace falta un tránsito (que fija <span class="katex-inline" data-tex="i\approx 90^\circ"></span>) para conocer la masa real.</small>
+  </div>
+
+  <div class="widget" id="w-rv">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Velocidad radial → masa mínima del planeta</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la semiamplitud <span class="katex-inline" data-tex="K"></span>, el período <span class="katex-inline" data-tex="P"></span>, la excentricidad y la masa estelar. El widget calcula <span class="katex-inline" data-tex="M_P\sin i"></span> en masas de Júpiter y de la Tierra.</p>
+    <div class="presets" id="rv-presets">
+      <button data-k="12.5" data-p="4333" data-e="0.05" data-m="1">Júpiter–Sol</button>
+      <button data-k="0.089" data-p="365.25" data-e="0.017" data-m="1">Tierra–Sol</button>
+      <button data-k="56" data-p="3.52" data-e="0.0" data-m="1.1">Hot Jupiter (51 Peg b)</button>
+      <button data-k="4.2" data-p="11.2" data-e="0.1" data-m="0.12">Proxima b (enana M)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="rv-k">Semiamplitud K (m/s)</label><input type="number" id="rv-k" step="any" value="12.5"></div>
+      <div><label for="rv-p">Período P (días)</label><input type="number" id="rv-p" step="any" value="4333"></div>
+      <div><label for="rv-e">Excentricidad e (0–1)</label><input type="number" id="rv-e" step="any" value="0.05"></div>
+      <div><label for="rv-m">Masa estrella M★ (M☉)</label><input type="number" id="rv-m" step="any" value="1"></div>
+    </div>
+    <output id="rv-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El censo: sistemas simples vs. múltiples</h2>
+    <p>Mirar solo planetas «solitarios» distorsiona el panorama; la familia entera cuenta otra historia.</p>
+  </div></div>
+
+  <p>Si distribuimos los planetas por su <strong>semieje mayor</strong> (distancia media a la estrella), aparecen dos poblaciones distintas. Los sistemas con <strong>un solo planeta conocido</strong> se concentran muy cerca de la estrella (los <em>hot Jupiters</em>) y en un pico cerca de <span class="katex-inline" data-tex="1\,\mathrm{UA}"></span>. En cambio, los sistemas <strong>múltiples</strong> reparten sus planetas de forma más <strong>plana y uniforme</strong>, pareciéndose más al Sistema Solar: «hay un paradero de planetas cada cierto trecho».</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-06.jpg" alt="Histograma de número de planetas por semieje mayor y catálogo de sistemas con planetas múltiples">
+    <figcaption><span class="cap">Diapositiva · Censo</span>Izq.: histograma del número de planetas vs. semieje mayor <span class="katex-inline" data-tex="a"></span> (log): <strong>punteada</strong> = sistemas de un planeta; <strong>relleno</strong> = sistemas múltiples (distribución más plana). Der.: catálogo de estrellas cercanas y brillantes (HD, GJ, HIP…) con sus planetas; cada barra es la distancia mínima–máxima (periastro–apoastro) de la órbita; un punto = órbita circular. Casi todos detectados por velocidad radial.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Sesgo de selección, no la naturaleza</span>
+    <p>¿La «escasez» de planetas a ciertas distancias es real o es un eco del método? Una <strong>distribución más plana</strong> (como la de los múltiples) sugiere que muchos planetas a esas distancias están <em>escondidos</em> en los sistemas que creemos simples. Mirar la familia completa corrige la imagen: el planeta solitario casi nunca está solo.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Cazar la señal: periodograma y Fourier</h2>
+    <p>Antes de ajustar nada hay que conocer el período. La herramienta es una transformada de Fourier.</p>
+  </div></div>
+
+  <p>Cada punto de una curva de RV cuesta una noche de telescopio: apuntar, tomar un <strong>espectro</strong>, medir el corrimiento Doppler de una línea de absorción (p. ej. comparándola con líneas telúricas conocidas) y <strong>restar</strong> el movimiento de la Tierra, del Sol y el movimiento medio de la estrella. Lo que queda es el bamboleo. Pero para <em>doblar</em> esos puntos dispersos en el tiempo y ver la órbita, primero hay que adivinar el <span class="hl">período</span>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-07.jpg" alt="Datos de velocidad radial en el tiempo y su periodograma con un pico claro">
+    <figcaption><span class="cap">Diapositiva · Periodograma</span>Izq.: velocidad radial de HD 142022 a lo largo de ~4 años (día juliano). Der.: el <strong>periodograma</strong> (potencia vs. período) muestra un <strong>pico</strong> en <span class="katex-inline" data-tex="P\approx 1926"></span> días — ahí está la periodicidad. Abajo, la <em>window function</em> advierte sobre falsos picos que introduce el propio muestreo (huecos por el día/noche, temporadas).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Fourier: de tiempo a frecuencia</span>
+    <p>El periodograma es esencialmente una <strong>transformada de Fourier</strong> de una señal muestreada irregularmente: descompone la serie temporal en frecuencias y revela cuánta «potencia» hay en cada período. Es el mismo Fourier de la interferometría y de las <em>frecuencias espaciales</em> de una imagen: bajas frecuencias = los trazos gruesos que ves de lejos; altas frecuencias = los detalles finos.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · JPEG y mezclar imágenes</span>
+    <p>El profesor lo ilustra con compresión <strong>JPEG</strong> (descarta altas frecuencias y la imagen «se ve igual» de lejos) y con esas imágenes híbridas que de lejos muestran un rostro (bajas frecuencias) y de cerca otro (altas frecuencias). Para un ingeniero informático, el periodograma es literalmente <strong>análisis espectral</strong>: FFT, ventanas, fugas espectrales (<em>window function</em>) y detección de picos sobre ruido.</p>
+  </div>
+
+  <div class="widget" id="w-fold">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Folding de fase: encuentra el período oculto</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Estos «datos» son una señal periódica + ruido, muestreada en tiempos irregulares (como una campaña de RV). Mueve el <strong>período de prueba</strong>: cuando se acerca al verdadero, los puntos doblados se ordenan en una curva limpia y la <em>dispersión</em> cae a un mínimo (eso es lo que detecta un periodograma).</p>
+    <label for="fold-p">Período de prueba: <span class="rangeval" id="fold-pv">10.00</span> días</label>
+    <input type="range" id="fold-p" min="4" max="20" step="0.02" value="10">
+    <canvas id="fold-canvas" width="900" height="320" aria-label="Gráfico de fase doblada"></canvas>
+    <output id="fold-out"></output>
+    <div class="presets"><button id="fold-reveal" type="button">Revelar período verdadero</button></div>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Ajuste, MCMC y residuos → el 2.º planeta</h2>
+    <p>El modelo tiene muchos parámetros; se exploran con cadenas de Markov, y los residuos delatan otro planeta.</p>
+  </div></div>
+
+  <p>Conocido el período, hay que <strong>ajustar un modelo</strong> mucho más rico que una recta: parámetros orbitales completos, masa, excentricidad… El espacio de parámetros tiene <strong>6, 10 o hasta 60 dimensiones</strong>. Se explora «al azar guiado» con <span class="hl">cadenas de Markov (MCMC)</span>: se parte de parámetros cualesquiera, se da un paso aleatorio, y si mejora el ajuste te quedas… pero a veces aceptas un paso <em>peor</em> a propósito, para no quedar atrapado en un óptimo local.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-08.jpg" alt="Ajuste de la curva de velocidad radial y trazas de MCMC para cada parámetro">
+    <figcaption><span class="cap">Diapositiva · Fiteo (MCMC y otros métodos)</span>Izq.(a): el modelo ajustado a la RV; (b) los <strong>residuos</strong> (datos − modelo). Der.: las <strong>trazas de MCMC</strong> de cada parámetro (período, semiamplitud K, excentricidad, velocidad sistémica, etc.) a lo largo de 100.000 iteraciones, recorriendo el espacio de soluciones.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · MCMC = simulated annealing</span>
+    <p>«Para llegar a La Serena a veces hay que partir hacia el sur.» Aceptar pasos peores con cierta probabilidad es exactamente la idea de <strong>Metropolis–Hastings / simulated annealing</strong>: escapar de mínimos locales para alcanzar el óptimo global. Además aparece la <strong>degeneración</strong>: muchas combinaciones de parámetros producen casi la misma curva. Más datos (mejor cobertura temporal) <em>rompen</em> esa degeneración, igual que más restricciones reducen el espacio de soluciones de un sistema sub-determinado.</p>
+  </div>
+
+  <figure>
+    <img src="m2c4/assets/slide-09.jpg" alt="Eficiencia de observación a lo largo del tiempo: épocas buenas, malas e imposibles">
+    <figcaption><span class="cap">Diapositiva · Prior — «más información, mejores decisiones»</span>No todas las épocas valen lo mismo. Cuando la estrella está <strong>detrás del Sol</strong>, no se puede observar; otras épocas (cerca del periastro) son <strong>especialmente informativas</strong> y rompen degeneraciones. Planificar <em>cuándo</em> observar es parte del problema.</figcaption>
+  </figure>
+
+  <p>Lo crucial para los sistemas múltiples son los <span class="hl">residuos</span>: lo que sobra tras restar el movimiento de la estrella y el del primer planeta. Si en esos residuos aparece <strong>otra periodicidad</strong>, hay un <strong>segundo planeta</strong>. Así se descubren compañeros en sistemas de velocidad radial — y por eso siempre interesa seguir observando una estrella que ya tiene un planeta.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-10.jpg" alt="Extracción de un segundo planeta a partir de los residuos de velocidad radial, doblado en fase">
+    <figcaption><span class="cap">Diapositiva · Extrayendo el 2.º</span>Distintos modelos para el primer planeta (izq.) dejan residuos diferentes. En uno de ellos, los residuos <strong>doblados en fase</strong> (der.) dibujan una segunda señal coherente: el <strong>2.º planeta</strong>. <em>(La curva está repetida dos veces en fase, un truco visual habitual para que el patrón periódico salte a la vista.)</em></figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Estabilidad dinámica: la foto del camello</h2>
+    <p>Una solución no solo debe ajustar los datos: la configuración tiene que poder sobrevivir en el tiempo.</p>
+  </div></div>
+
+  <p>Ajustar los datos no basta. A los físicos les importa que la configuración sea <strong>estable</strong>. La analogía del profesor: si fotografías un camello y aparece flotando, no concluyes «estaba saltando justo»; concluyes que <em>algo anda mal</em>. Igual con un sistema planetario: sería rarísimo pillarlo justo en el breve instante en que se está desarmando. Por eso, entre todas las soluciones que ajustan la RV, <strong>descartamos las dinámicamente inestables</strong>.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-11.jpg" alt="Simulación de estabilidad del sistema mu Arae mostrando las zonas que ocupan las órbitas">
+    <figcaption><span class="cap">Diapositiva · Estabilidad (Pepe et al., 2007)</span>Simulación del sistema <strong>μ Arae</strong>: cada anillo grueso es la región que barre la órbita de un planeta (b, c, d, e) al precesar y cambiar su excentricidad a lo largo de miles de años. Que las regiones <strong>no se crucen</strong> de forma destructiva indica una configuración estable y, por tanto, físicamente plausible.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Estabilidad = un problema de N cuerpos</span>
+    <p>Con varios planetas, las interacciones mutuas importan: es el <strong>problema de los tres (o N) cuerpos</strong>, que no tiene solución analítica general. Se ataca por <strong>simulación numérica</strong>. Criterio práctico (heredado del Sistema Solar): si la configuración sobrevive ~<strong>10.000 años/órbitas</strong> sin desarmarse, la consideramos estable. Es una <em>línea de Kármán</em> dinámica: un umbral convencional pero útil. Si la mitad de las simulaciones expulsa un planeta, esa solución se descarta.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La estabilidad actúa como <strong>restricción (constraint) y regularizador</strong>: poda regiones del espacio de parámetros que ajustan los datos pero violan la física. Es como un test de propiedades en un solver: la solución no solo debe minimizar el error, también pasar validaciones (aquí, sobrevivir una integración numérica de N cuerpos).</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Resonancias: relojería de números enteros</h2>
+    <p>Cuando los períodos guardan una razón de enteros, los planetas se sincronizan: caos domesticado.</p>
+  </div></div>
+
+  <p>Una <span class="hl">resonancia</span> de movimiento medio es una <strong>conmensurabilidad</strong>: una relación de <strong>números enteros</strong> entre los períodos orbitales. El ejemplo clásico son las lunas galileanas de Júpiter, con <strong>Ío : Europa : Ganímedes en 1 : 2 : 4</strong>. Esa sincronía las calienta por marea (los volcanes de Ío, el océano interior de Europa). En exoplanetas, <strong>GJ 876</strong> tiene planetas en resonancia (sus períodos ≈ 30,4 : 61,1 : 126,6 días, cercanos a 1:2:4).</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-12.jpg" alt="Resonancias: lunas galileanas en 1:2:4 y planetas de GJ 876">
+    <figcaption><span class="cap">Diapositiva · Resonancias (Laughlin 2005; Rivera 2010)</span>Arriba: las <strong>galileanas</strong> Ío–Europa–Ganímedes vuelven a alinearse con cadencia 1:2:4. Abajo y der.: <strong>GJ 876</strong>, donde la resonancia hace que las órbitas vuelvan a la <em>misma</em> configuración tras un número entero de vueltas. La RV del sistema (abajo der.) muestra la modulación correspondiente.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El abuelo en el columpio y Plutón–Neptuno</span>
+    <p>Resonancia = darle el empujón <strong>en el momento justo</strong>, una y otra vez: como el abuelo que columpia a su nieta y, al sincronizar, la lanza por los aires. Esa misma sincronía puede <strong>expulsar</strong> material… o <strong>proteger</strong>lo. <strong>Plutón</strong> cruza la órbita de Neptuno, pero su resonancia <strong>3:2</strong> (por cada 3 vueltas de Neptuno, Plutón da 2) garantiza que <em>nunca</em> se encuentren cerca: la resonancia lo protege. Una fracción importante de los sistemas exoplanetarios muestra resonancias, posiblemente por esta protección.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Caos: la pelota de rugby</span>
+    <p>El caos gravitacional es <strong>sensibilidad exponencial a las condiciones iniciales</strong>. Una pelota redonda que rebota se desvía poco si la pateas un poco distinto; pero una pelota de rugby (forma de limón) puede salir disparada hacia lados opuestos ante un cambio mínimo: las trayectorias <strong>divergen exponencialmente</strong>. En gravedad, un encuentro cercano con Júpiter amplifica diferencias diminutas — y puede eyectar un planeta.</p>
+  </div>
+
+  <div class="widget" id="w-res">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>¿Hay resonancia? Calculadora de conmensurabilidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa dos períodos orbitales. El widget calcula la razón y busca la <strong>fracción de enteros pequeños</strong> más cercana (p:q, con p,q ≤ 8). Si la razón cae muy cerca de una conmensurabilidad simple, el sistema podría estar en resonancia.</p>
+    <div class="presets" id="res-presets">
+      <button data-p1="1.769" data-p2="3.551">Ío–Europa</button>
+      <button data-p1="3.551" data-p2="7.155">Europa–Ganímedes</button>
+      <button data-p1="30.4" data-p2="61.1">GJ 876 c–b</button>
+      <button data-p1="164.8" data-p2="247.9">Neptuno–Plutón</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="res-p1">Período planeta interior P₁ (días)</label><input type="number" id="res-p1" step="any" value="30.4"></div>
+      <div><label for="res-p2">Período planeta exterior P₂ (días)</label><input type="number" id="res-p2" step="any" value="61.1"></div>
+    </div>
+    <output id="res-out"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Evolución y migración: el modelo de Niza</h2>
+    <p>Los planetas no nacen donde los vemos: migran dentro del disco y pueden quedar atrapados en resonancia.</p>
+  </div></div>
+
+  <p>Los planetas se forman en un <strong>disco protoplanetario</strong> e interactúan con planetesimales (rocas más chicas). Al dispersarlos, los planetas <strong>migran</strong>: un Júpiter que arroja material hacia afuera se mueve hacia adentro, y al alcanzar una <strong>resonancia</strong> puede quedar <em>atrapado</em>. Estas capturas explican por qué tantos sistemas exhiben resonancias.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-13.jpg" alt="Simulación de evolución: migración, captura en resonancia y evolución de la excentricidad">
+    <figcaption><span class="cap">Diapositiva · Evolución (Sándor &amp; Kley 2010; Gomes et al. 2005)</span>Capturas, migración y eyección. Der.: dos planetas (HD 60532) migran y, en <span class="katex-inline" data-tex="t\sim 2000"></span> períodos, ocurre la <strong>captura resonante</strong>: el ángulo de corrotación se «engancha» y las excentricidades cambian de régimen. Es el tipo de evolución caótica que esculpe los sistemas.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El modelo de Niza y el agua de la Tierra</span>
+    <p>El <strong>modelo de Niza</strong> (por el observatorio de Niza) parte con Júpiter, Saturno, Urano y Neptuno cerca de una resonancia <strong>1:2</strong> entre Júpiter y Saturno. Tras ~500 millones de años, esa resonancia «se activa» y provoca un reordenamiento caótico (¡Urano y Neptuno pueden intercambiar lugar!). Ese gatillo tardío encajaría con el <strong>Bombardeo Masivo Tardío</strong> registrado en la Luna ~700 Ma después de la formación, que pudo traer <strong>hielo y volátiles (agua)</strong> desde el sistema solar externo hacia los planetas rocosos.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática · simulación y "best of N"</span>
+    <p>Estas simulaciones son <strong>caóticas</strong>: misma física, condiciones iniciales casi idénticas → resultados muy distintos. Por eso se corren <strong>miles</strong> y se conserva la que termina pareciéndose al objetivo (p. ej. recrear Mercurio–Venus–Tierra–Marte). Es un Monte Carlo con selección a posteriori: hay que ser conscientes del <em>sesgo de supervivencia</em> al interpretar «la simulación que funcionó».</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Astrometría: el baile del baricentro (Gaia)</h2>
+    <p>Medir con extrema precisión la posición de la estrella revela el tirón de sus planetas.</p>
+  </div></div>
+
+  <p>La <span class="hl">astrometría</span> mide la posición de la estrella en el cielo con precisión exquisita. Como los planetas tiran de ella, la estrella traza un <strong>bucle</strong> en torno al baricentro del sistema. La misión <strong>Gaia</strong> mide posiciones a nivel de <em>microsegundos de arco</em>, así que puede detectar este movimiento reflejo para muchas estrellas.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-14.jpg" alt="Desplazamiento astrométrico del Sol y de otros sistemas por efecto de sus planetas">
+    <figcaption><span class="cap">Diapositiva · Astrometría (Perryman &amp; Schulze-Hartung 2011)</span>(a) El <strong>Sol</strong> se desplaza en torno al baricentro por culpa de Júpiter, Saturno, Urano y Neptuno (escala en UA, ~radios solares, a lo largo de 60 años). (b) μ Ara y (c) HD 37124 con varios planetas: el patrón se vuelve más complejo cuantos más planetas hay.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-15.jpg" alt="Trayectoria astrométrica en forma de roseta del sistema upsilon Andromedae">
+    <figcaption><span class="cap">Diapositiva · Astrometría: υ Andromedae (McArthur et al., 2010)</span>La señal astrométrica crece con la masa del planeta y decrece con la inclinación (panel a). Al graficar la <strong>trayectoria en el cielo</strong> (Δx, Δy) del baricentro estelar, aparece una <strong>«rosa» o «florcita»</strong>: el movimiento reflejo combinado de los planetas b, c, d. Restando residuos podrían hallarse aún más compañeros.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Momento angular y la patinadora</span>
+    <p>En el Sistema Solar, ~<strong>99,7%</strong> del momento angular está en los planetas, no en el Sol. Al colapsar la nube, cualquier rotación se amplifica (como una patinadora que junta los brazos), define el <strong>eje y el plano del disco</strong> y, por tanto, el plano (coplanar) en que nacen los planetas. Comparar el momento angular de estrellas con y sin planetas puede ayudar a delatar compañeros ocultos.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Tránsitos: detrending y sistemas múltiples</h2>
+    <p>La curva de luz cruda esconde los tránsitos; hay que "masajear" los datos para revelarlos.</p>
+  </div></div>
+
+  <p>En un tránsito, el planeta bloquea parte de la luz de la estrella. Pero la curva de luz <strong>cruda</strong> está dominada por variaciones instrumentales y estelares (manchas, condiciones de observación). Hay que hacer <span class="hl">detrending</span>: modelar y restar esa tendencia principal para que los pequeños <strong>baches</strong> de los tránsitos emerjan.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-17.jpg" alt="Curva de luz cruda con tendencia y la misma curva tras el detrending mostrando los tránsitos">
+    <figcaption><span class="cap">Diapositiva · Tránsitos: «primero detrend»</span>Arriba: <strong>flujo crudo</strong> (raw flux), dominado por una variación lenta. Abajo: tras el <strong>detrending</strong>, la línea de base queda plana y aparecen los <strong>tránsitos</strong> como caídas regulares. Es ingeniería de señales tanto como astrofísica.</figcaption>
+  </figure>
+
+  <p>Cuando un sistema es <strong>coplanar</strong> y lo vemos de canto, es probable que <strong>varios planetas transiten</strong>. El caso emblemático es <strong>TRAPPIST-1</strong>: siete planetas rocosos en torno a una enana roja fría (~2500–3000 K). Como la estrella es pequeña, cada tránsito bloquea una fracción mayor de luz y se ve mejor.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-18.jpg" alt="Curva de luz de TRAPPIST-1 con los tránsitos de sus siete planetas marcados">
+    <figcaption><span class="cap">Diapositiva · Múltiples tránsitos — TRAPPIST-1 (ESO/Gillon et al.)</span>Datos desde el espacio (negro) y desde tierra (verde, con huecos cada 12 h). La «ensalada» de tránsitos se desenreda con un <strong>periodograma</strong>: primero el pico principal (planeta de ~1,5 d), se resta, se busca el siguiente (~2,4 d), y así hasta siete (b–h). Varios caen en la <strong>zona habitable</strong>.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Combinar tránsito + RV = densidad</span>
+    <p>El tránsito da el <strong>radio</strong> (relativo al estelar) y la inclinación (<span class="katex-inline" data-tex="i\approx 90^\circ"></span>); la velocidad radial da la <strong>masa</strong> (ya no solo mínima, porque conocemos <span class="katex-inline" data-tex="i"></span>). Con masa y radio se obtiene la <strong>densidad</strong> ⇒ rocoso, oceánico o gaseoso. Por eso el «sweet spot» es un planeta que <em>transita y además</em> tiene RV medible.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>TTV: variaciones en el tiempo de tránsito</h2>
+    <p>Un planeta invisible delata su presencia adelantando o atrasando los tránsitos de otro.</p>
+  </div></div>
+
+  <p>El método de <span class="hl">Transit Timing Variation (TTV)</span> detecta planetas que <strong>no vemos transitar</strong>. Si un planeta perturbador tira de la estrella (o del planeta que sí transita), el <strong>instante exacto</strong> de cada tránsito deja de ser perfectamente periódico: a veces llega un poco antes, a veces un poco después.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-19.jpg" alt="Esquema de tránsito temprano, en tiempo medio y tardío por efecto de un segundo planeta">
+    <figcaption><span class="cap">Diapositiva · TTV (Transit Timing Variations)</span>El planeta interior transita, pero un planeta exterior (que no transita) mueve la estrella y el baricentro. Según dónde esté el perturbador, el tránsito ocurre <strong>temprano</strong>, en <strong>tiempo medio</strong> o <strong>tarde</strong>. La diferencia respecto a un período estable revela al compañero oculto.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-21.jpg" alt="Diagramas de río de Kepler-36 y Kepler-9 mostrando variaciones en el tiempo de tránsito">
+    <figcaption><span class="cap">Diapositiva · Estadística — diagramas de río (Kepler)</span><strong>Diagramas de río</strong>: cada fila es un tránsito sucesivo, apilado verticalmente. Si los tránsitos ocurrieran a período fijo se verían como una línea recta; las <strong>ondulaciones</strong> (Kepler-36, KOI-103) son la firma de TTV. En <strong>Kepler-9b/9c</strong> las variaciones llegan a ~4 y ~39 min por órbita: dos planetas perturbándose mutuamente.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>TTV es detección de <strong>jitter de fase</strong>: comparas los tiempos de llegada medidos contra un reloj de período constante y mides la desviación (un diagrama O−C, «observado menos calculado»). El patrón de esas desviaciones <em>codifica</em> la masa y la órbita del perturbador, igual que el jitter en una señal periódica delata una perturbación externa en el sistema.</p>
+  </div>
+</section>
+
+<!-- ============ S13 ============ -->
+<section id="s13">
+  <div class="shead"><span class="num">13</span><div>
+    <h2>Estadística, formación y configuraciones exóticas</h2>
+    <p>Casi la mitad de los planetas de Kepler viven en sistemas múltiples; y hay arquitecturas mucho más raras.</p>
+  </div></div>
+
+  <p>El mensaje estadístico central: encontrar planetas nuevos <strong>no es fácil</strong> — hay que masajear datos de RV, tener suerte con un tránsito, o acumular muchísimos tránsitos para ver TTV. Pero Kepler, con su <strong>cadencia</strong> regular, mostró que <strong>casi la mitad</strong> de sus planetas están en sistemas <strong>múltiples</strong>: si uno transita, es muy probable que sus hermanos también lo hagan.</p>
+
+  <figure>
+    <img src="m2c4/assets/slide-22.jpg" alt="Diagrama radio-período de candidatos de Kepler clasificados por número de planetas en el sistema">
+    <figcaption><span class="cap">Diapositiva · Estadística — multiplicidad (Kepler)</span>Radio del planeta vs. período orbital; los símbolos indican cuántos planetas tiene el sistema (n=1: 2117 sistemas; n=2: 384; … n=7: 1). La gran población en <strong>órbitas cercanas</strong> y la alta multiplicidad sugieren una «ley de Kepler» de abundancia. Aún hay <strong>sesgo</strong>: faltan los análogos de Júpiter/Saturno, que exigirían ~10 años de datos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-23.jpg" alt="Simulación de formación planetaria con migración y captura en resonancias">
+    <figcaption><span class="cap">Diapositiva · Formación (Paardekooper et al., 2013)</span>Cómo se configuran los planetas mientras aún hay planetesimales: migración, captura en resonancias de bajo y alto orden, y dónde terminan (semieje mayor, excentricidad). Explica por qué unos sistemas quedan ordenados y otros excéntricos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m2c4/assets/slide-24.jpg" alt="Tipos de órbitas en sistemas binarios (P-type, S-type, T-type) y configuraciones resonantes 2:1">
+    <figcaption><span class="cap">Diapositiva · Resonancias 2.0 — arquitecturas exóticas</span>Más allá de una estrella con planetas: órbitas <strong>S-type</strong> (alrededor de una estrella de una binaria), <strong>P-type</strong> (circumbinaria, rodeando ambas) y <strong>T-type</strong> (troyana, en los puntos de Lagrange a 60°). A la derecha, variantes de resonancia 2:1 (alineada, anti-alineada, libración apsidal): muchas son caóticas y terminan eyectando planetas.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">¿Por qué el Sistema Solar parece tan "ordenado"?</span>
+    <p>El Sistema Solar tiene órbitas casi circulares, coplanares y bien espaciadas (rocosos cerca, gigantes tras la <em>línea de hielo</em>). Pero ese arreglo «bien portado» <strong>no parece ser lo común</strong>… o no tenemos aún las herramientas para verlo con nitidez en otros sistemas. La pregunta abierta —relevante para la habitabilidad— es si eventos caóticos como el del modelo de Niza (que trajo agua) son <strong>necesarios</strong> para una «Tierra 2.0».</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Lección central de la clase: <strong>hallar planetas en un sistema es un trabajo de procesamiento de señales y dinámica</strong> — periodograma, MCMC, residuos, estabilidad, resonancias. Todo método tiene su sesgo (Kepler aún no ve los «Júpiter lejanos»). La <strong>próxima clase</strong> (última del módulo) cerrará con sistemas específicos. El Módulo III retomará la <strong>formación planetaria</strong> y los discos protoplanetarios en detalle.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sistema exoplanetario</b></td><td>Varios planetas en torno a una estrella</td><td>Donde hay uno, probablemente hay más (coplanaridad)</td></tr>
+      <tr><td><b>Curva de RV y excentricidad</b></td><td>Sinusoide si <span class="katex-inline" data-tex="e\approx0"></span>; pico abrupto si <span class="katex-inline" data-tex="e"></span> alta</td><td>2.ª ley de Kepler: rápido en periastro, lento en apoastro</td></tr>
+      <tr><td><b>Masa mínima (RV)</b></td><td><span class="katex-inline" data-tex="M_P\sin i"></span> a partir de <span class="katex-inline" data-tex="K,P,e,M_\star"></span></td><td>Solo cota inferior: el tránsito fija <span class="katex-inline" data-tex="i"></span> y da la masa real</td></tr>
+      <tr><td><b>Periodograma</b></td><td>Transformada de Fourier de la serie de RV</td><td>Encuentra el período (pico) antes de ajustar</td></tr>
+      <tr><td><b>Folding de fase</b></td><td>Doblar los datos módulo el período</td><td>Revela la órbita y permite ver la señal coherente</td></tr>
+      <tr><td><b>MCMC</b></td><td>Cadenas de Markov; aceptan pasos peores</td><td>Exploran espacios de 6–60 parámetros sin caer en óptimos locales</td></tr>
+      <tr><td><b>Residuos</b></td><td>Datos − modelo del 1.er planeta</td><td>Una periodicidad en el residuo = 2.º planeta</td></tr>
+      <tr><td><b>Estabilidad dinámica</b></td><td>Simulación N cuerpos; criterio ~10.000 años</td><td>Descarta soluciones que ajustan pero no sobreviven</td></tr>
+      <tr><td><b>Resonancia (conmensurabilidad)</b></td><td>Razón de enteros entre períodos (1:2:4, 3:2)</td><td>Sincroniza, calienta (Ío) y protege (Plutón–Neptuno)</td></tr>
+      <tr><td><b>Caos</b></td><td>Divergencia exponencial (pelota de rugby)</td><td>Encuentros cercanos pueden eyectar planetas</td></tr>
+      <tr><td><b>Migración / modelo de Niza</b></td><td>Planetas se mueven en el disco; gatillo resonante</td><td>Explica capturas resonantes y el agua de la Tierra</td></tr>
+      <tr><td><b>Astrometría (Gaia)</b></td><td>Posición a microsegundos de arco; «roseta»</td><td>El baile del baricentro delata planetas</td></tr>
+      <tr><td><b>Detrending de tránsitos</b></td><td>Restar la tendencia de la curva de luz</td><td>Revela los baches de los tránsitos sobre el ruido</td></tr>
+      <tr><td><b>TTV</b></td><td>Tránsitos que se adelantan/atrasan (O−C)</td><td>Detecta planetas que no transitan</td></tr>
+      <tr><td><b>Multiplicidad de Kepler</b></td><td>~½ de los planetas en sistemas múltiples</td><td>«Ley de Kepler»: abundancia en órbitas cercanas</td></tr>
+      <tr><td><b>Binarias: S / P / T-type</b></td><td>Órbita alrededor de una, ambas, o troyana</td><td>Arquitecturas exóticas, a menudo caóticas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m2c4-examen-01.html">Examen 01<small>Qué es un sistema</small></a></li>
+    <li><a href="m2c4-examen-02.html">Examen 02<small>Métodos y clasificación</small></a></li>
+    <li><a href="m2c4-examen-03.html">Examen 03<small>Velocidad radial</small></a></li>
+    <li><a href="m2c4-examen-04.html">Examen 04<small>Censo y poblaciones</small></a></li>
+    <li><a href="m2c4-examen-05.html">Examen 05<small>Periodograma y Fourier</small></a></li>
+    <li><a href="m2c4-examen-06.html">Examen 06<small>MCMC y residuos</small></a></li>
+    <li><a href="m2c4-examen-07.html">Examen 07<small>Estabilidad y caos</small></a></li>
+    <li><a href="m2c4-examen-08.html">Examen 08<small>Resonancias</small></a></li>
+    <li><a href="m2c4-examen-09.html">Examen 09<small>Astrometría y tránsitos</small></a></li>
+    <li><a href="m2c4-examen-10.html">Examen 10<small>TTV, estadística e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo II del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: César Fuentes, 8 jun 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m2/ff/planetas-m2c4.md</code>) y las diapositivas <code>Modulo_II_Clase_4.pdf</code> («Sistemas Exoplanetarios»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron o aclararon donde correspondía (p. ej. «periodo G»/«periodo G» → <em>periodograma</em>; «exoplaneta Arkhair» → <em>NASA Exoplanet Archive</em>; «GJ» de las resonancias → <em>GJ 876</em>; «Muaura»/«Ank» → sistemas <em>μ Arae</em> y <em>υ Andromedae</em>; «Niza» como el <em>modelo de Niza</em>; «bombardeo masivo temprano/tardío» → <em>Bombardeo Masivo Tardío</em>; «línea de Kármán» como umbral convencional; la resonancia de Plutón es <strong>con Neptuno</strong>, no con Venus como dice el audio en un lapsus). Los widgets usan fórmulas estándar y valores ilustrativos; el de <em>folding</em> emplea datos sintéticos generados con una semilla fija. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var G = 6.674e-11;          // m^3 kg^-1 s^-2
+var MSUN = 1.989e30;        // kg
+var MJUP = 1.898e27;        // kg
+var MEARTH = 5.972e24;      // kg
+var DAY = 86400;            // s
+
+// ---- Widget 1: velocidad radial -> masa minima ----
+(function(){
+  var k=document.getElementById('rv-k'), p=document.getElementById('rv-p');
+  var e=document.getElementById('rv-e'), m=document.getElementById('rv-m');
+  var out=document.getElementById('rv-out');
+  function calc(){
+    var kV=parseFloat(k.value), pV=parseFloat(p.value), eV=parseFloat(e.value), mV=parseFloat(m.value);
+    if(!(kV>0)||!(pV>0)||!(eV>=0&&eV<1)||!(mV>0)){ out.innerHTML="Ingresa valores válidos (0 ≤ e &lt; 1)."; return; }
+    var Ps=pV*DAY, Ms=mV*MSUN;
+    var Mp = Math.pow(Ps/(2*Math.PI*G),1/3) * kV * Math.sqrt(1-eV*eV) * Math.pow(Ms,2/3); // kg
+    var Mj=Mp/MJUP, Me=Mp/MEARTH;
+    var tipo = Me<2 ? "tipo Tierra / super-Tierra" : Me<20 ? "tipo Neptuno / sub-Neptuno" :
+               Mj<13 ? "tipo Júpiter (gigante gaseoso)" : "régimen de enana café";
+    out.innerHTML = "Masa mínima <span class='k'>M<sub>P</sub> sin i</span> = <b>"+Mj.toFixed(3)+"</b> M<sub>Júpiter</sub> = <b>"+Me.toFixed(2)+"</b> M⊕<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+tipo+". Recuerda: es una <em>cota inferior</em>; sin la inclinación <i>i</i> (que da un tránsito) no se conoce la masa real.</span>";
+  }
+  [k,p,e,m].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#rv-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ k.value=b.dataset.k; p.value=b.dataset.p; e.value=b.dataset.e; m.value=b.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: folding de fase ----
+(function(){
+  var slider=document.getElementById('fold-p'), pv=document.getElementById('fold-pv');
+  var cv=document.getElementById('fold-canvas'), out=document.getElementById('fold-out');
+  var reveal=document.getElementById('fold-reveal');
+  if(!cv) return;
+  var ctx=cv.getContext('2d');
+  var P_TRUE=12.30, K=42, baseline=180, N=46, noise=7;
+  // RNG con semilla fija (mulberry32)
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  var rnd=mulberry32(20260608);
+  var data=[];
+  for(var i=0;i<N;i++){
+    var t=rnd()*baseline;
+    var g=(rnd()+rnd()+rnd()-1.5); // ~gaussiano
+    var v=K*Math.sin(2*Math.PI*t/P_TRUE+0.7)+noise*g;
+    data.push({t:t,v:v});
+  }
+  var vmax=0; data.forEach(function(d){ if(Math.abs(d.v)>vmax) vmax=Math.abs(d.v); }); vmax*=1.12;
+  function dispersion(P){
+    // string length de los puntos ordenados por fase (proxy de periodograma: menor = mas coherente)
+    var pts=data.map(function(d){ return {ph:((d.t%P)+P)%P/P, v:d.v}; });
+    pts.sort(function(a,b){return a.ph-b.ph;});
+    var L=0;
+    for(var i=1;i<pts.length;i++){
+      var dx=pts[i].ph-pts[i-1].ph, dy=(pts[i].v-pts[i-1].v)/(2*vmax);
+      L+=Math.sqrt(dx*dx+dy*dy);
+    }
+    return L;
+  }
+  function draw(P){
+    var W=cv.width, H=cv.height, pad=34;
+    ctx.clearRect(0,0,W,H);
+    // ejes
+    ctx.strokeStyle="#26324a"; ctx.lineWidth=1;
+    ctx.strokeRect(pad,pad,W-2*pad,H-2*pad);
+    ctx.fillStyle="#9aa6bb"; ctx.font="13px Spectral, serif";
+    ctx.fillText("Fase (t mód P / P)", W/2-50, H-10);
+    ctx.save(); ctx.translate(14,H/2+50); ctx.rotate(-Math.PI/2);
+    ctx.fillText("Velocidad radial (m/s)", 0,0); ctx.restore();
+    // linea cero
+    var y0=pad+(H-2*pad)*0.5;
+    ctx.strokeStyle="#1a2438"; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(pad,y0); ctx.lineTo(W-pad,y0); ctx.stroke(); ctx.setLineDash([]);
+    // puntos doblados
+    data.forEach(function(d){
+      var ph=((d.t%P)+P)%P/P;
+      var x=pad+ph*(W-2*pad);
+      var y=pad+(0.5-d.v/(2*vmax))*(H-2*pad);
+      ctx.beginPath(); ctx.arc(x,y,4,0,2*Math.PI);
+      ctx.fillStyle="#f06a5e"; ctx.fill();
+    });
+  }
+  function update(){
+    var P=parseFloat(slider.value);
+    pv.textContent=P.toFixed(2);
+    draw(P);
+    var L=dispersion(P), Lbest=dispersion(P_TRUE);
+    var ratio=L/Lbest;
+    var msg = ratio<1.18 ? "¡Curva coherente! Estás muy cerca del período verdadero — esto es lo que marca un pico en el periodograma." :
+              ratio<1.6 ? "Vas bien: la nube empieza a ordenarse. Afina el período." :
+              "Puntos dispersos: este período no es el correcto (mucha dispersión).";
+    out.innerHTML = "Dispersión relativa = <b>"+ratio.toFixed(2)+"</b>× el mínimo<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+msg+"</span>";
+  }
+  slider.addEventListener('input', update);
+  reveal.addEventListener('click', function(){ slider.value=P_TRUE; update(); });
+  update();
+})();
+
+// ---- Widget 3: resonancia / conmensurabilidad ----
+(function(){
+  var p1=document.getElementById('res-p1'), p2=document.getElementById('res-p2');
+  var out=document.getElementById('res-out');
+  function bestFrac(x){
+    // busca p:q con p,q <= 8 mas cercano a x (x>=1)
+    var best={p:1,q:1,err:Infinity};
+    for(var q=1;q<=8;q++) for(var p=q;p<=8;p++){
+      var err=Math.abs(x-p/q);
+      if(err<best.err){ best={p:p,q:q,err:err}; }
+    }
+    return best;
+  }
+  function calc(){
+    var a=parseFloat(p1.value), b=parseFloat(p2.value);
+    if(!(a>0)||!(b>0)){ out.innerHTML="Ingresa períodos positivos."; return; }
+    var Pin=Math.min(a,b), Pout=Math.max(a,b);
+    var ratio=Pout/Pin;            // >= 1
+    var f=bestFrac(ratio);
+    var relErr=f.err/ratio*100;
+    var verdict = relErr<1.5 ? "<b style='color:var(--cyan)'>cerca de resonancia</b> "+f.p+":"+f.q+" — conmensurabilidad fuerte." :
+                  relErr<4 ? "cercano a la conmensurabilidad "+f.p+":"+f.q+", pero no exacta." :
+                  "sin resonancia simple evidente (la razón no se acerca a enteros pequeños).";
+    out.innerHTML = "Razón de períodos P<sub>ext</sub>/P<sub>int</sub> = <b>"+ratio.toFixed(3)+"</b><br>"+
+      "Fracción de enteros más cercana: <span class='k'>"+f.p+" : "+f.q+"</span> (desviación "+relErr.toFixed(2)+"%)<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+verdict+" Una resonancia p:q significa que por cada "+f.p+" vueltas del interior, el exterior da "+f.q+".</span>";
+  }
+  [p1,p2].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#res-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ p1.value=b.dataset.p1; p2.value=b.dataset.p2; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

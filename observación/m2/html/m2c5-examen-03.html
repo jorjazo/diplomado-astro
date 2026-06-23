@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 03 — m2c5 · Las dos exponenciales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m2c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo II · Clase 5</span>
+<h1>Examen 03 — Las dos exponenciales</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,c,c">
+  <fieldset data-q="1"><legend>1. La ley de Moore, según la lámina «Análisis», dice que el número de transistores por chip se duplica aproximadamente cada:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">10 años</label>
+    <label class="opt"><input type="radio" name="q1" value="b">2 años</label>
+    <label class="opt"><input type="radio" name="q1" value="c">6 meses</label>
+    <label class="opt"><input type="radio" name="q1" value="d">50 años</label>
+    <p class="fb" hidden>La formulación habitual (y la de la lámina) es duplicación cada ~2 años.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La segunda exponencial de la clase es el crecimiento de:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El número de astrónomos en el mundo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La distancia a las galaxias</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El área colectora de los telescopios (de Galileo 1609 al E-ELT)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El tamaño de las placas fotográficas</label>
+    <p class="fb" hidden>La lámina muestra el área colectora vs. año, creciendo varios órdenes de magnitud.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Qué significa que una curva se vea como una recta en un gráfico de eje logarítmico?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Que el crecimiento es lineal</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Que la cantidad no cambia con el tiempo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Que el crecimiento es exponencial</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Que el crecimiento es logarítmico (cada vez más lento)</label>
+    <p class="fb" hidden>Una recta en semilog equivale a N(t)=N₀·2^(t/T): crecimiento exponencial.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica por qué el cruce de las dos exponenciales (Moore y área colectora) hace que el volumen de datos crezca tan rápido.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El volumen de datos por unidad de tiempo depende aproximadamente del <strong>producto</strong> de cuántos píxeles tiene el detector (que crece con la ley de Moore: más y mejores sensores por menos dinero) y de cuántos fotones capta el telescopio (que crece con el área colectora). Si ambos factores crecen exponencialmente, su producto también lo hace, con una tasa que suma los exponentes. Por eso no estamos ante un crecimiento lineal «un poco más cada año», sino ante saltos de órdenes de magnitud por generación de instrumentos.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Si un detector duplica sus píxeles cada 2 años, ¿cuántas veces más datos tendrá en 20 años? Muestra el cálculo y comenta el resultado.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">En 20 años hay <span class="katex-inline" data-tex="20/2 = 10"></span> duplicaciones, así que el factor es <span class="katex-inline" data-tex="2^{10} = 1024"></span>, es decir, ~<strong>1000 veces más datos</strong>. Comentario: este es el efecto de <em>solo una</em> de las exponenciales; si además el área colectora crece, el factor total es aún mayor. Pensar en potencias de 2 / órdenes de magnitud (no en porcentajes pequeños) es la intuición correcta para planificar almacenamiento y cómputo a largo plazo.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 5, Módulo II (Instrumentación y Observación). Reconstruido desde las diapositivas (sin transcripción de audio). <a href="m2c5-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  function r(){document.querySelectorAll('.katex-inline').forEach(function(el){try{katex.render(el.dataset.tex,el,{throwOnError:false});}catch(e){}});}
+  if(window.katex)r();else{var s=document.querySelector('script[src*="katex.min.js"]');if(s)s.addEventListener('load',r);}
+});
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>
