@@ -142,6 +142,17 @@ Directorio: `observación/`
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 4 y 5, más transcripciones compartidas con planetas | Compendio: `observación/m1/compendio.md`; compendio enriquecido: `observación/m1/compendio_enriquecido_openstax.md`; respuestas: `observación/m1/respuestas_preguntas_repaso.md`; exámenes: `observación/m1/examenes_practica/`; diapositivas en `observación/m1/diapos/`; transcripciones en `observación/m1/ff/` | En revisión |
 | Módulo 2 | 5 clases con diapositivas (`observación/m2/diapos/`) y 4 con transcripciones (`observación/m2/ff/`, clases 1–4); clases 1 a 5 resumidas en HTML (clase 5 reconstruida solo desde diapositivas) | Apuntes HTML interactivos del módulo: `observación/m2/html/index.html` | En curso |
+| Módulo 3 | 3 clases con transcripciones (`observación/m3/ff/`) y diapositivas (`observación/m3/diapos/`); clases 1 a 3 resumidas en HTML | Apuntes HTML interactivos del módulo: `observación/m3/html/index.html` (clases 1–3 resumidas) | En curso |
+
+#### Módulo 3 — Apuntes HTML interactivos
+
+Directorio: `observación/m3/html/` (índice: `observación/m3/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | Telescopios: refractores vs reflectores (Newton, Cassegrain), área colectora y ley 1/r², escala histórica (Herschel, Yerkes, Palomar, Dupont), revestimiento de espejos y Mirror Lab, óptica activa (Gemini, Magallanes, pistones ~1 min), espejos segmentados (Keck, GMT, ELT), Vera Rubin (8,4 m, 3,5°, 3,2 Gpx), límite de difracción θ≈1,22λ/D, seeing atmosférico y óptica adaptativa (láser Na, Sgr A*) | `observación/m3/html/m3c1-apuntes.html` | `observación/m3/html/m3c1-examen-01.html` … `m3c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Detectores ópticos e infrarrojos: placas fotográficas y blinkers (Tololo SN), efecto fotoeléctrico (E=hν), CCD (transferencia de carga, EQ ~90% vs ojo ~1%), silicio y longitud de absorción, bits/FITS/overscan/dark, rayos cósmicos y dithering, flat field y columnas muertas, Vera Rubin (200 CCD, lectura ~2 s), JWST/NIRCam (detectores IR, overscan físico) | `observación/m3/html/m3c2-apuntes.html` | `observación/m3/html/m3c2-examen-01.html` … `m3c2-examen-10.html` (10) | Resumida |
+| Clase 3 | Radioastronomía y alta energía: ventanas atmosféricas, antenas dipolo y parabólicas (coherencia de fase), resolución en radio (FAST), interferometría y correlador (ALMA, baselines km), EHT/VLBI (M87*), detección gamma (Compton, Fermi), radiación Cherenkov y CTA, mapa multibanda del centro galáctico | `observación/m3/html/m3c3-apuntes.html` | `observación/m3/html/m3c3-examen-01.html` … `m3c3-examen-10.html` (10) | Resumida |
 
 #### Módulo 2 — Apuntes HTML interactivos
 
