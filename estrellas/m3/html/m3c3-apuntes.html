@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remanentes estelares — Astrofísica de Estrellas, Módulo III · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+.cmp .col{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#080d18}
+.cmp .col h5{font-family:"Fraunces",serif;margin:0 0 8px;font-size:.95rem}
+.cmp .col.nova h5{color:var(--gold)}
+.cmp .col.sn h5{color:var(--red-soft)}
+.cmp .col ul{margin:.3em 0;padding-left:1.1em;font-size:.92rem;color:var(--muted)}
+.canvas-wrap{margin-top:12px;background:#05070d;border:1px solid var(--line);border-radius:10px;padding:8px}
+canvas{display:block;width:100%;height:auto}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 3</span>
+  <h1>El <em>cementerio</em> estelar</h1>
+  <p class="sub">Qué queda cuando una estrella deja de fusionar: enanas blancas sostenidas por materia degenerada, la relación masa–radio al revés de la intuición, el límite de Chandrasekhar, binarias con lóbulos de Roche, novas recurrentes y supernovas tipo&nbsp;Ia como candelas estándar del universo lejano.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Andrea Pérez</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 6 jul 2026</span>
+    <span><b>Tema:</b> Remanentes estelares</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as clases anteriores del módulo siguieron la evolución de estrellas de baja y alta masa hasta su muerte. Esta clase responde la pregunta complementaria: <span class="hl">¿qué objetos quedan?</span> El universo acumula un extravagante <em>cementerio estelar</em> — enanas blancas, estrellas de neutrones, agujeros negros, nebulosas planetarias — cuya variedad depende casi por completo de la <strong>masa inicial</strong>. Hoy nos concentramos en el remanente más común de estrellas como el Sol: la <span class="hl">enana blanca</span>, y en cómo las binarias pueden reavivarla en novas o destruirla en supernovas tipo&nbsp;Ia.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Remanentes y cementerio estelar</a></li>
+    <li><a href="#s2">Enana blanca: núcleo expuesto</a></li>
+    <li><a href="#s3">Presión degenerada y mecánica cuántica</a></li>
+    <li><a href="#s4">Masa–radio y Chandrasekhar</a></li>
+    <li><a href="#s5">Sirio B y medición de masas</a></li>
+    <li><a href="#s6">Sistemas binarios y lóbulos de Roche</a></li>
+    <li><a href="#s7">Novas vs. supernovas tipo Ia</a></li>
+    <li><a href="#s8">Candelas estándar y cosmología</a></li>
+    <li><a href="#s9">Adelanto: estrellas de neutrones</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Remanentes estelares</h2>
+    <p>Lo que sobrevive cuando se apaga la fusión termonuclear.</p>
+  </div></div>
+
+  <p>Un <span class="hl">remanente estelar</span> es lo que queda de una estrella cuando ya no puede generar energía fusionando elementos livianos en otros más pesados. La masa inicial determina el destino final:</p>
+  <ul>
+    <li><strong>≲ 8 M<sub>☉</sub></strong> (estrellas de baja/intermedia masa): nebulosa planetaria + <strong>enana blanca</strong>.</li>
+    <li><strong>≳ 8 M<sub>☉</sub></strong> (alta masa): explosión como supernova tipo&nbsp;II (u otras) + <strong>estrella de neutrones</strong> o <strong>agujero negro</strong> (clases 4–5).</li>
+  </ul>
+  <p>Los púlsares son estrellas de neutrones vistas de cierta orientación; no todas las estrellas de neutrones son púlsares. Los magnetars son un subtipo con campos magnéticos extremos.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-03.jpg" alt="Diapositiva cementerio estelar con imagen generada por IA">
+    <figcaption><span class="cap">Diapositiva · Cementerio estelar</span>Metáfora visual del «cementerio» que va poblando la galaxia con objetos compactos. La imagen es generativa (IA); el mensaje físico es que cada estrella deja un remanente distinto según su masa.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Masa sigue mandando</span>
+    <p>Hasta el final de la vida estelar, la <strong>masa</strong> es el parámetro dominante. No es lo mismo comparar dos enanas blancas distintas (cada una nació con cierta masa) que imaginar una enana blanca «engordando» en solitario: una enana blanca aislada solo se enfría; la que gana masa lo hace en <em>binarias</em>, como veremos.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Enana blanca: el núcleo desnudo</h2>
+    <p>C/O, sin fusión, tamaño terrestre, masa solar.</p>
+  </div></div>
+
+  <p>La <span class="hl">enana blanca</span> es el <strong>núcleo expuesto</strong> de una estrella de baja masa tras expulsar sus capas en una nebulosa planetaria. Ya no hay reacciones termonucleares: es un remanente inerte que solo <em>enfría</em> liberando el calor residual de toda su vida previa.</p>
+
+  <h3>Composición y escala</h3>
+  <ul>
+    <li>Núcleo de <strong>carbono</strong> y, en menor medida, <strong>oxígeno</strong> (producto de la evolución de estrellas como el Sol).</li>
+    <li>Masa típica <span class="katex-inline" data-tex="\sim 0.6\text{–}1.0\,M_\odot"></span>; radio <span class="katex-inline" data-tex="\sim 0.01\,R_\odot \approx 7\,000\ \mathrm{km}"></span> (del orden del tamaño de la Tierra).</li>
+    <li>Densidad <span class="katex-inline" data-tex="\sim 10^6\ \mathrm{g/cm^3}"></span> (≈ un millón de gramos por centímetro cúbico).</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-06.jpg" alt="Comparación Sirio B enana blanca con la Tierra">
+    <figcaption><span class="cap">Diapositiva · Escala</span><strong>Sirio B</strong> (enana blanca) comparado con la Tierra: similar en tamaño, pero con masa del orden de una estrella. Una masa solar comprimida en un volumen planetario.</figcaption>
+  </figure>
+
+  <h3>Trayectoria en el diagrama HR</h3>
+  <p>Al final de la evolución de una estrella tipo Sol ocurre una secuencia contraintuitiva en el HR:</p>
+  <ul>
+    <li><strong>(A)</strong> Pérdida de masa y colapso del núcleo; el núcleo caliente queda expuesto dentro de la nebulosa planetaria.</li>
+    <li><strong>(B)</strong> La <em>temperatura efectiva</em> sube (nos movemos hacia la izquierda en el HR) <em>sin</em> que la estrella se esté calentando: desaparecen las capas externas frías y empezamos a ver directamente el núcleo caliente.</li>
+    <li><strong>(C)</strong> La luminosidad baja porque emitimos desde un área mucho más pequeña; luego el <strong>track de enfriamiento</strong> desciende lentamente durante miles de millones de años.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-05.jpg" alt="Trayectoria HR de enana blanca puntos A B C">
+    <figcaption><span class="cap">Diapositiva · Track de enfriamiento</span>Trayectoria A→B→C en el HR para una estrella como el Sol. El «subidón» de temperatura en B es un efecto de capas, no de nueva fusión.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Enanas negras (hipotéticas)</span>
+    <p>Si una enana blanca terminara de enfriar y dejara de emitir luz detectable, sería una <strong>enana negra</strong>. El tiempo de enfriamiento es tan largo que probablemente ninguna ha terminado en la edad del universo. Se han buscado como candidatos a materia oscura (proyecto <strong>MACHOs</strong>: <em>Massive Compact Halo Objects</em>), sin éxito concluyente. Detección teórica: microlentes gravitacionales.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>¿Por qué no colapsa? Presión degenerada</h2>
+    <p>Sin fusión, la gravedad gana… salvo que entra la mecánica cuántica.</p>
+  </div></div>
+
+  <p>En una estrella de secuencia principal la presión de radiación y la presión térmica del gas equilibran la gravedad gracias a la energía de fusión. En una enana blanca <strong>no hay fusión</strong>. ¿Qué la sostiene?</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-08.jpg" alt="Comparación presión fusión vs enana blanca sin fusión">
+    <figcaption><span class="cap">Diapositiva · ¿Qué evita el colapso?</span>Izquierda: la fusión empuja hacia afuera. Derecha: la enana blanca está «apagada» — la respuesta es la <strong>presión degenerada de electrones</strong>.</figcaption>
+  </figure>
+
+  <p>La materia está tan comprimida que los electrones ocupan estados cuánticos y la <span class="hl">presión degenerada</span> resiste la compresión. Dos ideas clave de la clase:</p>
+  <ul>
+    <li><strong>Principio de exclusión de Pauli:</strong> dos fermiones idénticos no pueden ocupar el mismo estado cuántico (analogía del estacionamiento lleno en Navidad).</li>
+    <li><strong>Principio de incertidumbre de Heisenberg:</strong> al confinar las partículas (menor Δx), aumenta la incertidumbre en el momento (Δp) y con ello la presión.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Presión que no depende de T</span>
+    <p>En un gas ideal, subir la temperatura aumenta la presión. En materia <em>degenerada</em>, la presión crece con la <strong>densidad</strong>, no con la temperatura. Para sostener una enana blanca solo con presión térmica haría falta del orden de <strong>10⁹ K</strong> — muchísimo más que la temperatura del núcleo progenitor. Los electrones «se aprietan» y empujan hacia afuera por pura estadística cuántica.</p>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P \propto \rho^{5/3} \quad\text{(gas degenerado no relativista de electrones)}"></div>
+    <small>La presión escala con la densidad <span class="katex-inline" data-tex="\rho"></span> elevada a 5/3. Las constantes no importan para la intuición: al comprimir, la presión sube fuerte. Take-away de la clase: <em>presión degenerada ∝ densidad</em>, no ∝ temperatura.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>Piensa en un gas ideal como un resorte <em>térmico</em> (más calor ⇒ más presión). La materia degenerada es un resorte <em>geométrico</em>: cuanto más la comprimes, más dura se pone, independiente del «termostato». Es un régimen de ecuación de estado distinto — como cambiar de modelo constitutivo en un simulador de materiales.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Relación masa–radio y límite de Chandrasekhar</h2>
+    <p>Más masa ⇒ enana más pequeña. Hasta 1,4 M<sub>☉</sub>.</p>
+  </div></div>
+
+  <p>Comparando enanas blancas de distintas masas (no una misma estrella ganando masa), ocurre algo antiintuitivo:</p>
+  <ul>
+    <li>Más masa ⇒ mayor gravedad ⇒ los electrones deben apretarse más para generar más presión degenerada.</li>
+    <li>Al apretarse, <strong>baja el radio</strong>: una enana blanca de 1,2 M<sub>☉</sub> es <em>más pequeña</em> que una de 0,4 M<sub>☉</sub>.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-10.jpg" alt="Gráfico masa radio enanas blancas límite Chandrasekhar">
+    <figcaption><span class="cap">Diapositiva · Masa–radio</span>Relación inversa masa–radio. El gráfico se corta en <strong>1,4 M<sub>☉</sub></strong>: ninguna enana blanca estable supera ese valor.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="M_{\mathrm{Ch}} \approx 1.4\,M_\odot \quad\text{(límite de Chandrasekhar)}"></div>
+    <small>Subrahmanyan Chandrasekhar (1931). Por encima de esta masa, los electrones degenerados no pueden sostener el peso: harían falta velocidades &gt; <span class="katex-inline" data-tex="c"></span>. El objeto colapsa. <strong>Ninguna enana blanca observada en binaria supera 1,4 M<sub>☉</sub>.</strong></small>
+  </div>
+
+  <div class="widget" id="w-mr">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Enana blanca: masa, radio y densidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la masa y observa cómo el radio <em>disminuye</em> al aumentar M. Aproximación no relativista: <span class="katex-inline" data-tex="R \propto M^{-1/3}"></span>.</p>
+    <div class="presets" id="mr-presets">
+      <button data-m="0.4">0,4 M☉</button>
+      <button data-m="0.6">0,6 M☉</button>
+      <button data-m="1.0">1,0 M☉ (Sirio B)</button>
+      <button data-m="1.2">1,2 M☉</button>
+      <button data-m="1.38">cerca del límite</button>
+    </div>
+    <label for="mr-m">Masa M (M<sub>☉</sub>): <span id="mr-mlab"></span></label>
+    <input type="range" id="mr-m" min="0.17" max="1.39" step="0.01" value="1.0">
+    <div class="canvas-wrap"><canvas id="mr-canvas" width="520" height="220" aria-label="Gráfico masa-radio"></canvas></div>
+    <output id="mr-out"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Sirio B: medir lo «exótico»</h2>
+    <p>Binarias + leyes de Kepler = báscula cósmica.</p>
+  </div></div>
+
+  <p>Las enanas blancas son diminutas y difíciles de detectar en solitario. La forma más fiable de medir su masa es encontrarlas en <strong>sistemas binarios</strong>: con las leyes de Kepler y la curva de velocidad radial se determinan las masas de ambas componentes.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-12.jpg" alt="Sirio A y Sirio B en visible y rayos X">
+    <figcaption><span class="cap">Diapositiva · Sirio</span><strong>Sirio A</strong> domina en visible (estrella brillante de secuencia principal). <strong>Sirio B</strong> (flecha) es la enana blanca: casi invisible en óptico, pero más prominente en <strong>rayos X</strong> porque el núcleo expuesto es muy caliente. Es el centro de una estrella expuesto al vacío — impresionante pensarlo así.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato observacional</span>
+    <p>Todas las enanas blancas con masa medida en binarias cumplen <strong>M &lt; 1,4 M<sub>☉</sub></strong>. Es una de las verificaciones más limpias del límite de Chandrasekhar en la naturaleza.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Sistemas binarios y lóbulos de Roche</h2>
+    <p>Más de la mitad de las estrellas van acompañadas.</p>
+  </div></div>
+
+  <p>Por estadística, <strong>más del 50&nbsp;%</strong> de las estrellas pertenecen a sistemas múltiples (Gaia ha catalogado millones de binarias). Dos estrellas orbitan su <em>centro de masa común</em>; no tienen por qué tener la misma masa, y eso cambia toda la evolución.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-14.jpg" alt="Collage de binarias detectadas por Gaia">
+    <figcaption><span class="cap">Diapositiva · Binarias con Gaia</span>Muestra de sistemas binarios descubiertos por el telescopio espacial Gaia. El Sol parece ser una excepción (aunque pudo haber tenido compañera en el pasado; proyectos de «filogenia galáctica» buscan hermanos estelares del Sol).</figcaption>
+  </figure>
+
+  <h3>Reglas de oro en binarias</h3>
+  <ul>
+    <li>La componente <strong>más masiva evoluciona primero</strong> (vive menos tiempo en la secuencia principal).</li>
+    <li>En binarias cercanas, una gigante roja puede <strong>llenar su lóbulo de Roche</strong> y transferir masa a la compañera.</li>
+    <li>El intercambio forma a menudo un disco de acreción y espirales de gas (conservación del momento angular).</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-18.jpg" alt="Diagrama lóbulos de Roche y puntos de Lagrange">
+    <figcaption><span class="cap">Diapositiva · Lóbulo de Roche</span>Superficies equipotenciales en una binaria. El <strong>lóbulo de Roche</strong> es la región donde el material está ligado gravitacionalmente a cada estrella. El material que cruza el punto L₁ pasa a la compañera.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c3/assets/slide-22.jpg" alt="Evolución binaria gigante roja dona masa a enana blanca">
+    <figcaption><span class="cap">Diapositiva · Evolución binaria</span>Secuencia típica: la primaria (más masiva) evoluciona primero → enana blanca; luego la secundaria se infla como gigante roja → llena su lóbulo → <strong>acreción sobre la enana blanca</strong>. Escenario clave para novas y SN&nbsp;Ia.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Sistema dinámico acoplado</span>
+    <p>Una binaria en transferencia de masa es un problema de <strong>acoplamiento gravitatorio + conservación de momento angular + disipación por fricción</strong> en el disco. Si una estrella pierde masa, las órbitas se reajustan; el disco disipa energía y puede acercar las componentes. Es ingeniería de sistemas con pérdidas — solo que a escala estelar.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Novas vs. supernovas tipo Ia</h2>
+    <p>Misma cocina binaria, distinto desenlace.</p>
+  </div></div>
+
+  <h3>Novas: fusión superficial en un «cascarón»</h3>
+  <p>Cuando hidrógeno de la gigante compañera cae sobre la enana blanca (rica en C/O), se forma una capa de H en la superficie. Si la temperatura y presión son suficientes, hay <strong>fusión termonuclear local y rápida</strong> del H → He. No es un «pum» que destruye la estrella: es un <em>encendido</em> que puede repetirse mientras siga cayendo material.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-25.jpg" alt="Nova GK Persei y curvas de luz">
+    <figcaption><span class="cap">Diapositiva · Nova GK Persei</span>Imagen de la nova Persei 1901 y curvas de luz con estallidos cuasi periódicos (escalas de semanas a meses; periodos largos pueden «bailar» un poco).</figcaption>
+  </figure>
+
+  <ul>
+    <li>Luminosidad sube típicamente ×100–×1000 durante semanas o meses.</li>
+    <li>La enana blanca <strong>sobrevive</strong>; el fenómeno es superficial.</li>
+    <li>Pueden ser <strong>recurrentes</strong> (p. ej. RS Oph, T CrB en Corona Austral).</li>
+  </ul>
+
+  <h3>Supernova tipo Ia: destrucción total</h3>
+  <p>Si la enana blanca acumula material tan rápido (o en cantidad suficiente) que supera <strong>1,4 M<sub>☉</sub></strong>, la presión degenerada de electrones ya no alcanza. El núcleo de carbono colapsa y se enciende la fusión explosiva de todo el objeto. La enana blanca se <strong>destruye por completo</strong> — no queda estrella de neutrones ni agujero negro central.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-27.jpg" alt="Secuencia evolución binaria hasta supernova tipo Ia">
+    <figcaption><span class="cap">Diapositiva · Camino a SN Ia</span>Cuando la acreción empuja la masa de la enana blanca sobre el límite de Chandrasekhar → colapso → <strong>supernova tipo Ia</strong>. La gigante compañera puede sobrevivir como remanente.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c3/assets/slide-30.jpg" alt="Comparación nova vs supernova tipo Ia">
+    <figcaption><span class="cap">Diapositiva · Nova o supernova</span>Contraste directo: la SN es del orden de <strong>10⁷ veces más luminosa</strong> que una nova. Nova = fusión de H en capa; SN Ia = explosión completa de la enana blanca.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-cmp">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿Nova o supernova tipo Ia?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige un escenario y mira qué ocurre con la enana blanca.</p>
+    <label for="cmp-sel">Escenario de acreción en binaria</label>
+    <select id="cmp-sel">
+      <option value="nova-slow">Acreción lenta y continua de H</option>
+      <option value="nova-rec">Nova recurrente (varios ciclos)</option>
+      <option value="sne-fast">Acreción rápida → supera Chandrasekhar</option>
+      <option value="sne-nova-then">Novas repetidas y luego acreción violenta</option>
+    </select>
+  <div class="cmp">
+    <div class="col nova" id="cmp-nova">
+      <h5>Nova</h5>
+      <ul id="cmp-nova-list"></ul>
+    </div>
+    <div class="col sn" id="cmp-sn">
+      <h5>Supernova tipo Ia</h5>
+      <ul id="cmp-sn-list"></ul>
+    </div>
+  </div>
+    <output id="cmp-out" class="wout"></output>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Espectro como huella dactilar</span>
+    <p>Las SN&nbsp;Ia muestran líneas de <strong>silicio</strong> (formado al fusionar C/O en la explosión) y poco hidrógeno — coherente con una enana blanca de núcleo C/O, no con una estrella masiva envuelta en H. Las SN tipo&nbsp;II (clase anterior) sí tienen mucho H.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Candelas estándar y el universo lejano</h2>
+    <p>Todas las SN Ia «leen igual» porque todas nacen igual.</p>
+  </div></div>
+
+  <p>Como <strong>todas</strong> las supernovas tipo Ia provienen de enanas blancas que alcanzan ≈ 1,4 M<sub>☉</sub>, sus curvas de luz son muy similares. Son <span class="hl">candelas estándar</span>: fuentes de luminosidad conocida que permiten medir distancias extragalácticas comparando el brillo observado con el esperado.</p>
+
+  <ul>
+    <li>La luminosidad de una SN Ia puede superar la de toda su galaxia huésped.</li>
+    <li>Equipos liderados por <strong>José Maza</strong> y <strong>Adam Riess</strong> (entre otros) usaron este método para demostrar que la expansión del universo se <strong>acelera</strong> (Nobel 2011).</li>
+    <li>La explosión también <strong>enriquece el medio interestelar</strong> con elementos más pesados que el carbono (fusión explosiva del C/O).</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-28.jpg" alt="Representación artística supernova tipo Ia">
+    <figcaption><span class="cap">Diapositiva · SN Ia artística</span>Enana blanca compacta + gigante donante → acreción → explosión que destruye por completo el remanente. Representación artística: el evento real dura segundos.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Zoológico binario</span>
+    <p>No todas las binarias siguen el mismo guion: masas, separación, campos magnéticos y momento de acreción cambian si hay novas, SN Ia u otros fenómenos exóticos. La diapositiva final de la clase es un mapa de posibilidades — un «zoológico» de evolución binaria.</p>
+  </div>
+
+  <figure>
+    <img src="m3c3/assets/slide-32.jpg" alt="Diagrama zoológico evolución binaria">
+    <figcaption><span class="cap">Diapositiva · Posibilidades</span>Mapa esquemático de caminos evolutivos en binarias (masas, separaciones, estados). Sirve para recordar que los ejemplos de esta clase son <em>casos típicos</em>, no el único destino posible.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Adelanto: estrellas de neutrones (clases 4–5)</h2>
+    <p>El siguiente escalón de compactación.</p>
+  </div></div>
+
+  <p>Cuando la masa supera lo que los electrones degenerados pueden sostener (y no explota como SN Ia en binaria), el colapso continúa. En estrellas masivas la supernova tipo&nbsp;II deja un remanente de <strong>estrella de neutrones</strong> o <strong>agujero negro</strong>.</p>
+  <ul>
+    <li>Densidad ~10¹⁴ g/cm³ (órdenes de magnitud por encima de una enana blanca).</li>
+    <li>Sostenidas por presión degenerada de <em>neutrones</em> (y repulsión nuclear fuerte).</li>
+    <li><strong>Púlsares</strong>: haz de radio que barre la Tierra si la estrella de neutrones rota y está orientada como un faro.</li>
+    <li><strong>Magnetars</strong>: subtipo con campos magnéticos extremos.</li>
+  </ul>
+
+  <div class="box next">
+    <span class="tag">Próximas clases del módulo</span>
+    <p>Las clases 4 y 5 profundizarán en remanentes de <strong>alta masa</strong>: estrellas de neutrones, púlsares, magnetars y agujeros negros — el otro «panteón» del cementerio estelar.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Remanente estelar</b></td><td>Objeto sin fusión tras la muerte estelar</td><td>Destino depende de la masa inicial</td></tr>
+      <tr><td><b>Enana blanca</b></td><td>Núcleo C/O expuesto; ~0,01 R<sub>☉</sub>; ~10⁶ g/cm³</td><td>Remanente típico de estrellas como el Sol</td></tr>
+      <tr><td><b>Presión degenerada</b></td><td><span class="katex-inline" data-tex="P \propto \rho^{5/3}"></span>; no depende de T</td><td>Evita el colapso sin fusión</td></tr>
+      <tr><td><b>Masa–radio</b></td><td>Más M ⇒ menor R (comparando distintas EB)</td><td>Efecto contraintuitivo de materia degenerada</td></tr>
+      <tr><td><b>Chandrasekhar</b></td><td><span class="katex-inline" data-tex="M_{\mathrm{Ch}} \approx 1.4\,M_\odot"></span></td><td>Máxima masa de enana blanca estable</td></tr>
+      <tr><td><b>Sirio B</b></td><td>EB en binaria con Sirio A</td><td>Ejemplo clásico; más visible en rayos X</td></tr>
+      <tr><td><b>Lóbulo de Roche</b></td><td>Región de captura gravitatoria en binaria</td><td>Permite transferencia de masa vía L₁</td></tr>
+      <tr><td><b>Nova</b></td><td>Fusión de H superficial; ×10²–10³ en L</td><td>EB intacta; puede repetirse</td></tr>
+      <tr><td><b>SN tipo Ia</b></td><td>Explosión termonuclear de EB a ~1,4 M<sub>☉</sub></td><td>Destruye el remanente; ~10⁷× más luminosa que nova</td></tr>
+      <tr><td><b>Candelas estándar</b></td><td>SN Ia con luminosidad casi uniforme</td><td>Distancias extragalácticas; expansión acelerada</td></tr>
+      <tr><td><b>Enana negra</b></td><td>EB totalmente enfriada (hipotética)</td><td>Tiempo de enfriamiento &gt; edad del universo</td></tr>
+      <tr><td><b>Estrella de neutrones</b></td><td>Remanente de alta masa (clases 4–5)</td><td>Siguiente nivel de compactación</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c3-examen-01.html">Examen 01<small>Enana blanca</small></a></li>
+    <li><a href="m3c3-examen-02.html">Examen 02<small>Degeneración</small></a></li>
+    <li><a href="m3c3-examen-03.html">Examen 03<small>Chandrasekhar</small></a></li>
+    <li><a href="m3c3-examen-04.html">Examen 04<small>Binarias</small></a></li>
+    <li><a href="m3c3-examen-05.html">Examen 05<small>Novas</small></a></li>
+    <li><a href="m3c3-examen-06.html">Examen 06<small>Supernova Ia</small></a></li>
+    <li><a href="m3c3-examen-07.html">Examen 07<small>Observación</small></a></li>
+    <li><a href="m3c3-examen-08.html">Examen 08<small>Evolución binaria</small></a></li>
+    <li><a href="m3c3-examen-09.html">Examen 09<small>Conceptos</small></a></li>
+    <li><a href="m3c3-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Pérez, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c3.md</code>) y las diapositivas <code>Modulo_III_Clase_3.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas (p. ej. límite de Chandrasekhar ≈ 1,4 M<sub>☉</sub>; densidad de enana blanca ≈ 10⁶ g/cm³; luminosidad relativa SN Ia vs. nova ≈ 10⁷). La diapositiva de título lista «Andrea Mejías»; el índice del módulo registra «Andrea Pérez». Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var MCH = 1.4;
+var RSUN_KM = 695700;
+var MSUN_G = 1.989e33;
+var R_EARTH_KM = 6371;
+
+// Radio aproximado no relativista: R/Rsun = k * M^(-1/3), normalizado a ~0.011 Rsun a 1 Msun
+function wdRadius(M){
+  if(M >= MCH - 0.005) return 0;
+  return 0.0112 * Math.pow(M, -1/3);
+}
+
+function wdDensity(M){
+  var R = wdRadius(M) * RSUN_KM; // km
+  if(R <= 0) return Infinity;
+  var vol = (4/3) * Math.PI * Math.pow(R*1e5, 3); // cm^3
+  var mass = M * MSUN_G;
+  return mass / vol;
+}
+
+// ---- Widget masa-radio ----
+(function(){
+  var slider = document.getElementById('mr-m');
+  var lab = document.getElementById('mr-mlab');
+  var out = document.getElementById('mr-out');
+  var canvas = document.getElementById('mr-canvas');
+  var ctx = canvas.getContext('2d');
+
+  function drawCurve(highlightM){
+    var w = canvas.width, h = canvas.height;
+    var pad = {l:52, r:18, t:18, b:38};
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#0a0f18';
+    ctx.fillRect(0,0,w,h);
+
+    var x0 = pad.l, x1 = w - pad.r;
+    var y0 = h - pad.b, y1 = pad.t;
+    var mMax = 1.45, rMax = 0.025;
+
+    function xMap(m){ return x0 + (m / mMax) * (x1 - x0); }
+    function yMap(r){ return y0 - (r / rMax) * (y0 - y1); }
+
+    // grid
+    ctx.strokeStyle = '#1a2438';
+    ctx.lineWidth = 1;
+    for(var gi=0; gi<=4; gi++){
+      var mx = gi * 0.35;
+      ctx.beginPath(); ctx.moveTo(xMap(mx), y0); ctx.lineTo(xMap(mx), y1); ctx.stroke();
+    }
+    for(var gj=0; gj<=4; gj++){
+      var ry = gj * 0.006;
+      ctx.beginPath(); ctx.moveTo(x0, yMap(ry)); ctx.lineTo(x1, yMap(ry)); ctx.stroke();
+    }
+
+    // axes
+    ctx.strokeStyle = '#4a5870';
+    ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y0); ctx.lineTo(x1,y1); ctx.stroke();
+    ctx.fillStyle = '#9aa6bb';
+    ctx.font = '12px Spectral, serif';
+    ctx.fillText('M (M☉)', (x0+x1)/2 - 20, h - 8);
+    ctx.save();
+    ctx.translate(14, (y0+y1)/2 + 30);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText('R (R☉)', 0, 0);
+    ctx.restore();
+
+    // curve
+    ctx.strokeStyle = '#e0382e';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    var started = false;
+    for(var m = 0.17; m <= 1.39; m += 0.01){
+      var r = wdRadius(m);
+      var x = xMap(m), y = yMap(r);
+      if(!started){ ctx.moveTo(x,y); started = true; }
+      else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // Chandrasekhar line
+    ctx.setLineDash([5,4]);
+    ctx.strokeStyle = '#6fc7d6';
+    ctx.beginPath();
+    ctx.moveTo(xMap(MCH), y0); ctx.lineTo(xMap(MCH), y1);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#6fc7d6';
+    ctx.fillText('1,4 M☉', xMap(MCH) - 28, y1 + 2);
+
+    // highlight point
+    var rH = wdRadius(highlightM);
+    var xh = xMap(highlightM), yh = yMap(rH);
+    ctx.fillStyle = '#d9a74a';
+    ctx.beginPath(); ctx.arc(xh, yh, 6, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  function calc(){
+    var M = parseFloat(slider.value);
+    lab.textContent = M.toFixed(2);
+    var R = wdRadius(M);
+    var Rkm = R * RSUN_KM;
+    var rho = wdDensity(M);
+    drawCurve(M);
+
+    var near = M >= 1.35;
+    var msg = near
+      ? "<b style='color:#f06a5e'>Cerca del límite de Chandrasekhar</b> — los electrones ya no pueden sostener más masa."
+      : "Relación <span class='k'>inversa</span>: más masa ⇒ objeto más compacto.";
+
+    out.innerHTML = "Radio: <b>"+(R*100).toFixed(2)+"</b> % R<sub>☉</sub> = <b>"+Rkm.toLocaleString('es-CL',{maximumFractionDigits:0})+"</b> km "+
+      " (Tierra ≈ "+(2*R_EARTH_KM).toLocaleString('es-CL')+" km de diámetro)<br>"+
+      "Densidad media: <b>"+rho.toExponential(2)+"</b> g/cm³<br>"+msg;
+  }
+
+  slider.addEventListener('input', calc);
+  document.querySelectorAll('#mr-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ slider.value = btn.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget nova vs SN Ia ----
+(function(){
+  var sel = document.getElementById('cmp-sel');
+  var out = document.getElementById('cmp-out');
+  var novaList = document.getElementById('cmp-nova-list');
+  var snList = document.getElementById('cmp-sn-list');
+
+  var scenarios = {
+    'nova-slow': {
+      verdict: 'Nova superficial recurrente posible.',
+      nova: ['H se acumula en capa superficial','Fusión H→He local y rápida','Luminosidad ×100–×1000 por semanas/meses','Enana blanca intacta'],
+      sn: ['Masa total sigue &lt; 1,4 M<sub>☉</sub>','Sin colapso del núcleo C/O','No hay destrucción del remanente'],
+      highlight: 'nova'
+    },
+    'nova-rec': {
+      verdict: 'Sistema tipo RS Oph / T CrB: novas que se repiten.',
+      nova: ['Varios ciclos de acreción + encendido','Curvas de luz cuasi periódicas','Cada evento es superficial','Compañera sigue donando H'],
+      sn: ['Mientras M &lt; M<sub>Ch</sub>, no hay SN','La EB sobrevive cada estallido'],
+      highlight: 'nova'
+    },
+    'sne-fast': {
+      verdict: 'Supernova tipo Ia: la enana blanca se destruye.',
+      nova: ['Puede haber un flash previo si hay capa de H','Pero la escala de energía es otra'],
+      sn: ['Acreción rápida supera 1,4 M<sub>☉</sub>','Presión degenerada insuficiente','Fusión explosiva de C/O en todo el objeto','Sin remanente central; ×10⁷ más luminosa que nova'],
+      highlight: 'sn'
+    },
+    'sne-nova-then': {
+      verdict: 'Posible en binarias dinámicas: novas primero, SN Ia después.',
+      nova: ['Fase inicial: novas recurrentes','EB sigue viva entre eventos'],
+      sn: ['Si la tasa de acreción aumenta (o el sistema se inestabiliza)','M supera Chandrasekhar','Explosión termonuclear total → SN Ia'],
+      highlight: 'sn'
+    }
+  };
+
+  function render(){
+    var sc = scenarios[sel.value];
+    novaList.innerHTML = sc.nova.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+    snList.innerHTML = sc.sn.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+    document.getElementById('cmp-nova').style.borderColor = sc.highlight==='nova' ? '#d9a74a' : '#26324a';
+    document.getElementById('cmp-sn').style.borderColor = sc.highlight==='sn' ? '#e0382e' : '#26324a';
+    out.innerHTML = '<span class="k">Resultado:</span> '+sc.verdict;
+  }
+
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+</body>
+</html>

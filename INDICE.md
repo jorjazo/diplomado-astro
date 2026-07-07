@@ -75,6 +75,17 @@ Directorio: `estrellas/`
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `estrellas/m1/compendio.md`; compendio enriquecido: `estrellas/m1/compendio_enriquecido_openstax.md`; respuestas: `estrellas/m1/respuestas_preguntas_repaso.md`; exámenes: `estrellas/m1/examenes_practica/`; diapositivas en `estrellas/m1/diapos/`; transcripciones en `estrellas/m1/ff/` | En revisión |
 | Módulo 2 | 5 clases con diapositivas y transcripciones (`estrellas/m2/diapos/`, `estrellas/m2/ff/`) | Apuntes HTML interactivos del módulo: `estrellas/m2/html/index.html` | En curso |
+| Módulo 3 | 5 clases con diapositivas, audios y transcripciones (`estrellas/m3/diapos/`, `estrellas/m3/ff/`, `estrellas/m3/audio/`) | Apuntes HTML interactivos del módulo: `estrellas/m3/html/index.html` (clases 1–3 resumidas) | En curso |
+
+#### Módulo 3 — Apuntes HTML interactivos
+
+Directorio: `estrellas/m3/html/` (índice: `estrellas/m3/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | Evolución estelar I (estrellas de baja masa, ≤4 M☉): diagrama HR y clases de luminosidad; relación masa–luminosidad (L∝M⁴ en MS) y tiempo de vida en secuencia principal (t∝M/L); transporte radiativo vs. convectivo; turn-off e isócronas para datar cúmulos; agotamiento del H en el núcleo, subgigante y gigante roja; fusión de helio y flash de helio (presión degenerada de electrones); rama horizontal, AGB y estructura en capas; nebulosa planetaria y enana blanca | `estrellas/m3/html/m3c1-apuntes.html` | `estrellas/m3/html/m3c1-examen-01.html` … `m3c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Evolución estelar II (estrellas de alta masa): umbral ~4 M☉; ciclo CNO vs. cadena protón–protón y Población III; supergigantes, vientos estelares y pérdida de masa; fusión por capas (H→He→C→O→Si→Fe); energía de enlace nuclear y pico del hierro; colapso del núcleo, rebote por presión degenerada de neutrones y supernova tipo II; nucleosíntesis de elementos pesados; evidencia (metalicidad, abundancias pares, SN 1987A, curvas de luz) | `estrellas/m3/html/m3c2-apuntes.html` | `estrellas/m3/html/m3c2-examen-01.html` … `m3c2-examen-10.html` (10) | Resumida |
+| Clase 3 | Remanentes estelares (cementerio estelar): enanas blancas (núcleo C/O expuesto, enfriamiento, presión degenerada de electrones, P∝ρ^(5/3)); relación masa–radio contraintuitiva; límite de Chandrasekhar (1,4 M☉); sistemas binarios y lóbulos de Roche; novas (fusión superficial de H) vs. supernovas tipo Ia (destrucción completa de la enana blanca); candelas estándar y Nobel de la expansión acelerada; Sirio B y espectros distintivos de SN Ia vs. SN II | `estrellas/m3/html/m3c3-apuntes.html` | `estrellas/m3/html/m3c3-examen-01.html` … `m3c3-examen-10.html` (10) | Resumida |
 
 #### Módulo 2 — Apuntes HTML interactivos
 
@@ -98,6 +109,16 @@ Directorio: `galaxias/`
 | --- | --- | --- | --- |
 | Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `galaxias/m1/compendio.md`; compendio enriquecido: `galaxias/m1/compendio_enriquecido_openstax.md`; respuestas: `galaxias/m1/respuestas_preguntas_repaso.md`; exámenes: `galaxias/m1/examenes_practica/`; diapositivas en `galaxias/m1/diapos/`; transcripciones en `galaxias/m1/ff/` | En revisión |
 | Módulo 2 | 5 clases con transcripciones (`galaxias/m2/ff/`) y diapositivas (`galaxias/m2/diapos/`); clases 1 a 5 resumidas en HTML | Apuntes HTML interactivos del módulo: `galaxias/m2/html/index.html` | Resumido |
+| Módulo 3 | 3 clases con transcripciones (`galaxias/m3/ff/`) y diapositivas (`galaxias/m3/diapos/`); clases 1 y 2 resumidas en HTML | Apuntes HTML interactivos del módulo: `galaxias/m3/html/index.html` (clases 1–2 resumidas) | En curso |
+
+#### Módulo 3 — Apuntes HTML interactivos
+
+Directorio: `galaxias/m3/html/` (índice: `galaxias/m3/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | Relatividad especial y general: Einstein 1905/1915, postulado de c y dilatación temporal, principio de equivalencia, curvatura del espacio-tiempo, redshift gravitacional y correcciones GPS, precesión de Mercurio, eclipse de 1919, lentes gravitacionales (cúmulos, arcos de Einstein), ondas gravitacionales, Hulse–Taylor, LIGO/Virgo/KAGRA y fusiones de agujeros negros estelares / kilonovas | `galaxias/m3/html/m3c1-apuntes.html` | `galaxias/m3/html/m3c1-examen-01.html` … `m3c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Agujeros negros: solución de Schwarzschild y horizonte de eventos (r_s = 2GM/c²), compacidad y espaguetificación, remanentes estelares y supernovas (SN 1987A, Cangrejo, Eta Carinae), detección por acreción (binarias de rayos X) y dinámica, SS 433 y jets, TDE y mareas, agujeros negros supermasivos vs. estelares, cuásares y AGN (Schmidt 1963, variabilidad c·Δt, acreción como motor) | `galaxias/m3/html/m3c2-apuntes.html` | `galaxias/m3/html/m3c2-examen-01.html` … `m3c2-examen-10.html` (10) | Resumida |
 
 #### Módulo 2 — Apuntes HTML interactivos
 

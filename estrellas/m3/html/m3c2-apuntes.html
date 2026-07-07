@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolución de Alta Masa — Astrofísica de Estrellas, Módulo III · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+  --ok:#7ee07e; --bad:#f06a5e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+.bar-wrap{display:flex;align-items:flex-end;gap:4px;height:140px;margin:12px 0 8px;padding:8px 4px;background:#070d18;border-radius:10px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar-fill{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:.2s}
+.bar-lbl{font-size:.62rem;color:var(--muted);margin-top:4px;text-align:center;line-height:1.2}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
+  <h1>Evolución de <em>Alta Masa</em></h1>
+  <p class="sub">De la secuencia principal breve al ciclo CNO, la fusión por capas hasta el hierro, el colapso del núcleo y la explosión de supernova que enriquece el universo con elementos pesados.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Laura Pérez</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 6 jul 2026</span>
+    <span><b>Tema:</b> Evolución estelar II</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase pasada cerró el capítulo de las estrellas de <span class="hl">baja masa</span>: agotan el hidrógeno, pasan por gigante roja, expulsan capas externas y dejan una <em>enana blanca</em> de carbono y oxígeno. Hoy abrimos el otro extremo: estrellas que viven poco, queman combustible a tasas enormes, alcanzan temperaturas de cientos de millones de kelvin y terminan en <strong>supernovas</strong>. El hilo conductor es la misma física de equilibrio hidrostático, pero el desenlace es radicalmente distinto.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Recapitulación: baja masa</a></li>
+    <li><a href="#s2">Umbral de masa y vidas cortas</a></li>
+    <li><a href="#s3">Supergigantes y pérdida de masa</a></li>
+    <li><a href="#s4">Ciclo CNO vs cadena protón–protón</a></li>
+    <li><a href="#s5">Fusión por capas hasta el hierro</a></li>
+    <li><a href="#s6">Pico del hierro y energía de enlace</a></li>
+    <li><a href="#s7">Colapso y supernova Tipo II</a></li>
+    <li><a href="#s8">Tiempos y energía liberada</a></li>
+    <li><a href="#s9">Nucleosíntesis y evidencia</a></li>
+    <li><a href="#interactivo">Widgets interactivos</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- S1 -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Recapitulación: estrellas de baja masa</h2>
+    <p>El punto de partida de la clase de hoy.</p>
+  </div></div>
+
+  <p>En la secuencia principal, una estrella como el Sol fusiona <strong>hidrógeno → helio</strong> en el núcleo. Cuando el H se agota, el núcleo de helio se contrae, sube la temperatura y la estrella se expande a <span class="hl">gigante roja</span>. La fusión continúa por <em>capas</em>: una cáscara de H fusionando alrededor de un núcleo inerte de He.</p>
+
+  <p>En baja masa el camino se detiene en el <strong>carbono</strong>: no hay temperatura ni densidad suficientes para fusionar C en el núcleo. Las capas externas se expulsan → <em>nebulosa planetaria</em> → queda un núcleo compacto de C/O: la <strong>enana blanca</strong>, sostenida por presión degenerada de electrones (tema del «cementerio estelar», clases siguientes).</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-02.jpg" alt="Recapitulación evolución de baja masa">
+    <figcaption><span class="cap">Diapositiva 2</span>Resumen de la clase anterior: vida en secuencia principal (fusión de H), fase gigante roja con fusión por capas, núcleo inerte de C y muerte como nebulosa planetaria + enana blanca.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-03.jpg" alt="Diagrama de Hertzsprung-Russell">
+    <figcaption><span class="cap">Diapositiva 3</span>El diagrama HR ordena estrellas por temperatura (tipo espectral) y luminosidad. La secuencia principal es la diagonal donde fusionan H → He; gigantes, supergigantes y enanas blancas son etapas evolutivas posteriores.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>Laura comparó la vida estelar con un presupuesto: si tienes poca «plata» (masa), la gastas despacio; si tienes mucha, la quemas en poco tiempo. Con la relación de clase 1 (<span class="katex-inline" data-tex="L \propto M^{4}"></span> en MS), el tiempo de vida escala como <span class="katex-inline" data-tex="t_{\rm MS}\propto M^{-3}"></span>: duplicar la masa reduce la vida en un factor ~8.</p>
+  </div>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Umbral de masa ≈ 4 M<sub>☉</sub></h2>
+    <p>No es un corte afilado, sino un gradiente.</p>
+  </div></div>
+
+  <p>La separación entre evolución «solar» y «masiva» no ocurre exactamente en 4 masas solares, pero ese valor es un <strong>umbral útil</strong> (<span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span>): por encima, la estrella alcanza temperaturas y densidades que permiten fusionar elementos cada vez más pesados y seguir generando energía mucho después del agotamiento del hidrógeno.</p>
+
+  <ul>
+    <li><strong>&lt; ~4 M<sub>☉</sub>:</strong> núcleo final de C/O; enana blanca; nebulosa planetaria.</li>
+    <li><strong>&gt; ~4 M<sub>☉</sub>:</strong> puede avanzar hasta O, Si, Fe; supergigante; muerte en supernova Tipo II.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c2/assets/slide-04.jpg" alt="Tabla masa y tiempo de vida estelar">
+    <figcaption><span class="cap">Diapositiva 4</span>Cuánto vive una estrella depende casi solo de su masa. Una O5 de 40 M<sub>☉</sub> vive ~1 millón de años en secuencia principal; una M0 de 0,4 M<sub>☉</sub>, ~200.000 millones. El Sol (G0, ~1,1 M<sub>☉</sub>): ~9.000 millones de años.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-05.jpg" alt="Introducción evolución alta masa">
+    <figcaption><span class="cap">Diapositiva 5</span>Las etapas iniciales de una estrella masiva son similares a las de baja masa, pero aceleradas: H → He en el núcleo, luego cáscara de H alrededor de un núcleo de He, y fusión gradual de He → C (sin el flash de helio abrupto de la baja masa).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Órdenes de magnitud</span>
+    <p>Una estrella de 10 M<sub>☉</sub> vive ~10 millones de años en secuencia principal; una de 30 M<sub>☉</sub>, ~2 millones. El Sol: ~10<sup>10</sup> años. La diferencia son varios órdenes de magnitud — pensar en escalas logarítmicas ayuda a no perderse.</p>
+  </div>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Supergigantes y pérdida dramática de masa</h2>
+    <p>No son «gigantes»: son otro régimen de tamaño.</p>
+  </div></div>
+
+  <p>Las estrellas masivas salen rápido de la secuencia principal y entran en la fase de <span class="hl">supergigante roja</span> (no solo «gigante»). La expansión puede llevar el radio hasta ~5 UA — del orden de la órbita de Júpiter. En esta fase dominan <strong>vientos estelares intensos</strong> y episodios de eyección masiva de material (<em>outbursts</em>).</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-06.jpg" alt="Eta Carinae y nebulosa expulsada">
+    <figcaption><span class="cap">Diapositiva 6</span><strong>Eta Carinae</strong> (~100 M<sub>☉</sub>): la estrella (pequeña en el centro) está envuelta en material expulsado durante su evolución — una escala comparable a varias UA, mucho mayor que el Sistema Solar. La nebulosa circunestelar delata la magnitud de la pérdida de masa.</figcaption>
+  </figure>
+
+  <p>El equilibrio hidrostático se mantiene mientras haya fusión que aporte temperatura y presión de radiación. El problema llega cuando el combustible del núcleo se agota en la etapa más pesada posible: el hierro.</p>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Ciclo CNO vs cadena protón–protón</h2>
+    <p>Dos vías para H → He; dominan en distinto régimen.</p>
+  </div></div>
+
+  <p>En baja masa domina la <strong>cadena protón–protón (pp)</strong>: dos protones se fusionan paso a paso hasta formar <sup>4</sup>He, sin necesitar núcleos pesados como catalizadores. En alta masa domina el <strong>ciclo CNO</strong> (carbono–nitrógeno–oxígeno): C, N y O actúan como <em>catalizadores</em> — participan en las reacciones pero se regeneran al cerrar el ciclo.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-07.jpg" alt="Diagrama del ciclo CNO">
+    <figcaption><span class="cap">Diapositiva 7</span>El ciclo CNO: cuatro protones entran, un núcleo de helio sale, y el carbono «vuelve» al inicio. Se liberan fotones γ y neutrinos en pasos intermedios. Ambas cadenas coexisten; lo que cambia es cuál domina la luminosidad.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="{}^{12}\mathrm{C} + {}^{1}\mathrm{H} \rightarrow {}^{13}\mathrm{N} + \gamma \;\rightarrow\; {}^{13}\mathrm{C} + e^+ + \nu_e \;\rightarrow\; \cdots \;\rightarrow\; {}^{12}\mathrm{C} + {}^{4}\mathrm{He}"></span>
+    <small>Esquema simplificado: el carbono inicial se conserva; el «costo» neto son 4 protones convertidos en un α (helio).</small>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-08.jpg" alt="Ciclo CNO y vida en secuencia principal masiva">
+    <figcaption><span class="cap">Diapositiva 8</span>En estrellas <span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span> el ciclo CNO procede a mayor tasa que la cadena pp, consumiendo el H disponible en mucho menos tiempo. Vida en secuencia principal: millones de años (masivas) frente a miles de millones (tipo Sol).</figcaption>
+  </figure>
+
+  <h3>¿Por qué CNO es más eficiente en alta masa?</h3>
+  <p>A altísima temperatura y densidad, la tasa de reacciones del ciclo CNO supera por órdenes de magnitud a la pp. En el Sol, por cada millón de fotones vía pp hay solo unos pocos vía CNO; en una estrella de 20 M<sub>☉</sub> la proporción se invierte. Ambas cadenas <em>existen</em> en ambos tipos de estrella; lo que cambia es cuál <strong>domina la luminosidad</strong> — tanto por tasa de fusión como por energía liberada por reacción.</p>
+
+  <div class="box physics">
+    <span class="tag">Dependencia física</span>
+    <p>La fusión requiere que los núcleos superen la barrera de Coulomb. A mayor temperatura, mayor velocidad térmica de los protones ⇒ mayor probabilidad de túnel cuántico hacia núcleos de C. Por eso CNO «enciende» solo donde T y ρ son altos. La cadena pp escala aproximadamente como <span class="katex-inline" data-tex="\varepsilon_{\rm pp}\propto \rho^2 T^4"></span>; el CNO, mucho más sensible a T (~<span class="katex-inline" data-tex="T^{17}"></span> en el régimen relevante).</p>
+  </div>
+
+  <h3>¿De dónde sale el carbono? Población III</h3>
+  <p>El carbono catalizador <strong>no</strong> estaba en el Big Bang (solo H, He y trazas de Li). Proviene de <strong>generaciones estelares anteriores</strong>. Las primeras estrellas del universo — <span class="hl">Población III</span> — carecían de metales; probablemente usaron solo la cadena pp, con luminosidades que aún generan debate entre cosmólogos. En el universo actual, las trazas de C/N/O (~2% de la masa) bastan para alimentar el CNO.</p>
+
+  <div class="box prof">
+    <span class="tag">De la clase</span>
+    <p>«Somos polvo de estrellas»: el C y el N que permiten el ciclo CNO hoy fueron creados en generaciones previas. Sin nucleosíntesis estelar previa, las estrellas masivas actuales no podrían brillar como lo hacen.</p>
+  </div>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Fusión por capas en estrellas masivas</h2>
+    <p>Un núcleo del tamaño de una estrella normal dentro de un monstruo.</p>
+  </div></div>
+
+  <p>Tras agotar el H en el núcleo, la estrella masiva puede encender sucesivamente: <strong>He → C → O → Si → Fe</strong>, cada etapa en el núcleo con capas externas fusionando el elemento anterior. Las temperaturas centrales alcanzan ~600 millones K (frente a ~15 millones K para H en el Sol).</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-09.jpg" alt="Estructura en capas del núcleo de supergigante">
+    <figcaption><span class="cap">Diapositiva 9</span>Estructura esquemática del <em>núcleo</em> de una supergigante roja (no de toda la estrella): de afuera hacia adentro, capas de H→He, He→C, C→O, O→Si, Si→Fe, y un núcleo de hierro inerte. La estrella completa puede tener radio ~5 UA.</figcaption>
+  </figure>
+
+  <p>A diferencia de la baja masa, el <strong>flash de helio</strong> no es abrupto: la mayor masa permite comprimir el núcleo de He gradualmente hasta encender la fusión triple-α sin inestabilidad violenta.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-10.jpg" alt="Núcleo de hierro inerte">
+    <figcaption><span class="cap">Diapositiva 10</span>Cuando se forma un núcleo de Fe inerte, la fusión de hierro hacia elementos más pesados <em>no libera energía</em> — es el «punto de quiebre» que desencadena el colapso.</figcaption>
+  </figure>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Pico del hierro y energía de enlace</h2>
+    <p>El «máximo» de estabilidad nuclear.</p>
+  </div></div>
+
+  <p>Cada fusión de elementos ligeros a más pesados libera energía porque el producto tiene <em>menos masa</em> que los reactantes (defecto de masa → <span class="katex-inline" data-tex="E=\Delta m c^2"></span>). La <strong>energía de enlace por nucleón</strong> B/A es la energía necesaria para descomponer un núcleo en nucleones libres; crece con el número atómico hasta un máximo en el <span class="hl">hierro (Fe)</span> y luego decrece.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-12.jpg" alt="Curva de energía de enlace por nucleón">
+    <figcaption><span class="cap">Diapositiva 12</span>Curva de B/A vs número de masa A. El máximo en <sup>56</sup>Fe (~8,8 MeV/nucleón) implica que fusionar hacia elementos más pesados que Fe <em>consume</em> energía; fisión de núcleos muy pesados hacia Fe libera energía (reactores nucleares terrestres).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-13.jpg" alt="Fusión exotérmica y endoérgica respecto al hierro">
+    <figcaption><span class="cap">Diapositiva 13</span>Fusión de núcleos con A ≪ Fe (y fisión de núcleos con A ≫ Fe) son <strong>exotérmicas</strong>. Fusionar Fe hacia elementos más pesados requiere aportar energía — imposible en el interior estelar en equilibrio.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición nuclear</span>
+    <p>En núcleos pequeños, la fuerza fuerte «gana» a la repulsión entre protones al agregar nucleones. En núcleos muy grandes, la repulsión electromagnética entre protones en la superficie empieza a competir. El hierro es el punto de balance óptimo: el núcleo más estable del período.</p>
+  </div>
+
+  <p>Cuando el núcleo es de hierro, ya no hay fusión que libere energía. Sin fuente térmica, la presión de radiación cae y la gravedad gana → comienza el colapso.</p>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Colapso del núcleo y supernova Tipo II</h2>
+    <p>Rebote por degeneración de neutrones.</p>
+  </div></div>
+
+  <ol>
+    <li>El núcleo de Fe deja de generar energía → pierde soporte térmico.</li>
+    <li>El núcleo colapsa en fracciones de segundo hasta densidades de núcleo atómico (~4×10<sup>17</sup> g/cm<sup>3</sup>).</li>
+    <li>La <strong>presión degenerada de neutrones</strong> frena el colapso (análogo a electrones en enana blanca, pero con partículas más masivas).</li>
+    <li>El material exterior en caída libre <em>rebota</em> contra el núcleo compacto → onda de choque.</li>
+    <li>La onda atraviesa la estrella, expulsa las capas → <strong>supernova Tipo II</strong> (colapso de núcleo de estrella masiva).</li>
+  </ol>
+
+  <figure>
+    <img src="m3c2/assets/slide-15.jpg" alt="Secuencia colapso y rebote supernova">
+    <figcaption><span class="cap">Diapositiva 15</span>Secuencia conceptual (a–f): núcleo de Fe colapsa, el material infallante rebota contra el núcleo de neutrones increíblemente denso, la onda de choque se propaga hacia afuera y destruye la estrella.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-16.jpg" alt="Rebote y eyección en supernova">
+    <figcaption><span class="cap">Diapositiva 16</span>Detalle del rebote (d–f): el frente de choque (rojo) y los neutrinos impulsan el material hacia fuera de forma heterogénea. Queda un remanente compacto (estrella de neutrones o agujero negro).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Analogía de la sala de clases</span>
+    <p>Laura ilustró la degeneración: una sala con asientos ocupados no acepta más gente en el mismo lugar — hay una «presión» que resiste la compresión. Los neutrones en el remanente central hacen lo mismo a densidades extremas.</p>
+  </div>
+
+  <p>En la onda de choque se inyecta energía suficiente para crear elementos <strong>más pesados que el hierro</strong> (Au, Pt, U, etc.) y dispersar todo el material procesado al medio interestelar.</p>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Tiempos y energía liberada</h2>
+    <p>Instantáneo frente a millones de años de vida.</p>
+  </div></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Etapa</th><th>Escala de tiempo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Contracción del núcleo de Fe</b></td><td>~0,1 s</td></tr>
+      <tr><td><b>Colapso del material exterior</b></td><td>~1 s</td></tr>
+      <tr><td><b>Propagación de la onda de choque</b></td><td>Horas (atravesar una supergigante de ~5 UA)</td></tr>
+      <tr><td><b>Vida total en secuencia principal (10 M<sub>☉</sub>)</b></td><td>~10<sup>7</sup> años</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m3c2/assets/slide-17.jpg" alt="Tiempos del colapso y supernova">
+    <figcaption><span class="cap">Diapositiva 17</span>Los tiempos de cada etapa del colapso: contracción del núcleo de Fe en décimas de segundo, colapso estelar en ~1 s, propagación de la onda de choque en horas. La estrella vive millones de años y se desarma en una hora.</figcaption>
+  </figure>
+
+  <p>La energía liberada en la supernova es del orden de <strong>10<sup>46</sup> J</strong>. No proviene principalmente de reacciones nucleares en ese instante, sino de la <strong>energía gravitacional</strong> convertida en cinética del rebote. Para comparar: la luminosidad solar es ~3,9×10<sup>26</sup> W; integrada en ~10<sup>10</sup> años da ~10<sup>44</sup> J — la supernova libera ~100 veces la energía total radiada por el Sol en toda su vida, en un instante.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-18.jpg" alt="Energía liberada en supernova">
+    <figcaption><span class="cap">Diapositiva 18</span>La fuente de energía en la supernova es gravitacional, no termonuclear. La onda de choque inyecta energía suficiente para fusionar elementos más pesados que Fe — proceso que no ocurre en el interior estelar en equilibrio.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Señales y detección</span>
+    <p>El pico de luminosidad es un evento breve pero enorme en amplitud — como un pulso de gran relación señal/ruido en un detector lejano. La curva de luz muestra un salto abrupto (eje logarítmico) seguido de decaimiento en meses. Por eso las supernovas funcionan como <strong>faros cosmológicos</strong>.</p>
+  </div>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Nucleosíntesis y evidencia observacional</h2>
+    <p>«Somos polvo de estrellas» con datos.</p>
+  </div></div>
+
+  <figure>
+    <img src="m3c2/assets/slide-20.jpg" alt="Tabla periódica del origen de los elementos">
+    <figcaption><span class="cap">Diapositiva 20</span>Origen de los elementos: Big Bang (H, He, Li); baja masa (He, C, O y proceso s); alta masa hasta Fe; supernovas y otros eventos para Z &gt; Fe; binarias y fusiones de estrellas de neutrones también contribuyen (clases futuras).</figcaption>
+  </figure>
+
+  <h3>Evidencias clave</h3>
+  <ul>
+    <li><strong>Metalicidad:</strong> estrellas viejas (baja masa, formadas al inicio de la Galaxia) tienen pocos metales; las jóvenes, muchos más — el gas se «enriqueció» con cada generación.</li>
+    <li><strong>Abundancia de números pares:</strong> C, O, Si son más abundantes que elementos de número impar vecino, porque la fusión estelar prefiere combinar pares de nucleones (proceso α).</li>
+    <li><strong>SN 1987A:</strong> supernova observada en la Gran Nube de Magallanes (23 feb 1987); remanente seguido décadas (p. ej. JWST). Confirmó la teoría en tiempo real.</li>
+    <li><strong>Supernovas como faros:</strong> detectadas en galaxias a alto redshift; base del Nobel de expansión acelerada del universo (junto con supernovas Ia).</li>
+  </ul>
+
+  <figure>
+    <img src="m3c2/assets/slide-21.jpg" alt="Abundancia cósmica de elementos">
+    <figcaption><span class="cap">Diapositiva 21</span>Abundancia logarítmica vs número atómico: pico en Fe, predominio de elementos de número par (C, O, Ne, Mg, Si) y menor metalicidad en estrellas viejas — tres firmas de nucleosíntesis estelar.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-22.jpg" alt="Remanente SN 1987A JWST">
+    <figcaption><span class="cap">Diapositiva 22</span>Remanente de SN 1987A observado con JWST: anillo ecuatorial, ejecta internos y expansión del material eyectado en el medio interestelar, casi 40 años después del evento. También se observó con telescopios de radio (VLA).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-23.jpg" alt="Supernovas en galaxias lejanas">
+    <figcaption><span class="cap">Diapositiva 23</span>Supernovas detectadas en galaxias distintas (antes/después con HST): son tan brillantes que búsquedas sistemáticas las encuentran a distintos redshifts.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Próximas clases</span>
+    <p>Remanentes: estrellas de neutrones, pulsares, agujeros negros; supernovas Tipo Ia desde enanas blancas en binarias; novas y el «zoológico» de sistemas dobles. La clase de hoy cierra la evolución masiva hasta la explosión.</p>
+  </div>
+</section>
+
+<!-- INTERACTIVO -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Widgets para visualizar dominancia CNO/pp y el pico del hierro.</p>
+  </div></div>
+
+  <div class="widget" id="w-fusion">
+    <span class="tagband">Widget 1</span>
+    <h4>Dominancia CNO vs cadena protón–protón</h4>
+    <p style="font-size:.92rem;color:var(--muted);margin:0 0 10px">Ajusta la masa estelar (en secuencia principal) y la temperatura central. El modelo usa tasas relativas simplificadas: CNO ∝ ρX<sub>C</sub>T<sup>17</sup>, pp ∝ ρ²T<sup>4</sup> (escalado pedagógico, no cálculo estelar completo).</p>
+    <label for="fm-m">Masa estelar: <span id="fm-mlab">1,0 M<sub>☉</sub></span></label>
+    <input type="range" id="fm-m" min="0.5" max="40" step="0.1" value="1">
+    <label for="fm-t">Temperatura central (millones K): <span id="fm-tlab">15</span></label>
+    <input type="range" id="fm-t" min="8" max="40" step="0.5" value="15">
+    <div class="presets">
+      <button type="button" data-m="1" data-t="15">Sol (1 M<sub>☉</sub>)</button>
+      <button type="button" data-m="4" data-t="20">Umbral (~4 M<sub>☉</sub>)</button>
+      <button type="button" data-m="10" data-t="28">10 M<sub>☉</sub></button>
+      <button type="button" data-m="25" data-t="35">25 M<sub>☉</sub></button>
+    </div>
+    <div class="wout" id="fm-out"></div>
+    <div style="display:flex;gap:8px;margin-top:10px;height:22px;border-radius:6px;overflow:hidden" id="fm-bar"></div>
+  </div>
+
+  <div class="widget" id="w-binding">
+    <span class="tagband">Widget 2</span>
+    <h4>Energía de enlace por nucleón — pico del hierro</h4>
+    <p style="font-size:.92rem;color:var(--muted);margin:0 0 10px">Selecciona un elemento. La barra muestra B/A relativo al máximo (<sup>56</sup>Fe). Indica si la fusión hacia ese elemento libera o absorbe energía (respecto al hierro).</p>
+    <label for="be-z">Número atómico Z</label>
+    <input type="range" id="be-z" min="1" max="26" step="1" value="1">
+    <div class="presets">
+      <button type="button" data-z="1">H</button>
+      <button type="button" data-z="2">He</button>
+      <button type="button" data-z="6">C</button>
+      <button type="button" data-z="8">O</button>
+      <button type="button" data-z="14">Si</button>
+      <button type="button" data-z="26">Fe</button>
+    </div>
+    <div class="bar-wrap" id="be-bars"></div>
+    <div class="wout" id="be-out"></div>
+  </div>
+</section>
+
+<!-- CONCEPTOS -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Umbral ~4 M<sub>☉</sub></b></td><td>Gradiente, no corte exacto</td><td>Marca dónde puede continuar la fusión más allá del C</td></tr>
+      <tr><td><b>Supergigante</b></td><td>Radios ~ hasta 5 UA; vientos intensos</td><td>Fase post-MS masiva; Eta Carinae como ejemplo</td></tr>
+      <tr><td><b>Ciclo CNO</b></td><td>C,N,O catalizan H→He</td><td>Domina en alta masa; requiere metales de generaciones previas</td></tr>
+      <tr><td><b>Cadena pp</b></td><td>H→He sin catalizador pesado</td><td>Domina en baja masa y en Población III</td></tr>
+      <tr><td><b>Población III</b></td><td>Primeras estrellas, sin metales</td><td>Solo pp disponible; debate sobre luminosidades</td></tr>
+      <tr><td><b>Fusión por capas</b></td><td>H, He, C, O, Si → Fe</td><td>Estructura «cebolla» del núcleo masivo</td></tr>
+      <tr><td><b>Pico del Fe</b></td><td>Máximo B/A (~8,8 MeV/nucleón)</td><td>Fusión más allá de Fe consume energía</td></tr>
+      <tr><td><b>Colapso + rebote</b></td><td>~0,1 s Fe; ~1 s colapso; horas la onda</td><td>Mecanismo de SN II; remanente de neutrones</td></tr>
+      <tr><td><b>Energía SN</b></td><td>~10<sup>46</sup> J (gravitacional)</td><td>~100× energía total radiada por el Sol en su vida</td></tr>
+      <tr><td><b>Nucleosíntesis</b></td><td>BB, estrellas, SN, binarias</td><td>Explica composición del Sol, la Tierra y nosotros</td></tr>
+      <tr><td><b>SN 1987A</b></td><td>SN II en LMC (1987)</td><td>Prueba observacional directa de la teoría</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- EXAMENES -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c2-examen-01.html">Examen 01<small>Recap y umbral</small></a></li>
+    <li><a href="m3c2-examen-02.html">Examen 02<small>Supergigantes</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>Ciclo CNO</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>CNO vs pp</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>Población III</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Fusión por capas</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>Pico del hierro</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>Colapso y SN II</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>Tiempos y energía</small></a></li>
+    <li><a href="m3c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Laura Pérez, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c2.md</code>) y las diapositivas <code>Modulo_III_Clase_2_LPerez.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas (p. ej. ciclo CNO, umbral ~4 M<sub>☉</sub>, energía ~10<sup>46</sup> J, SN 1987A). Algunas digresiones sobre neutrinos, binarias y Población III se resumieron sin alterar el núcleo físico. Ante duda, primar las diapositivas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// Widget 1: CNO vs pp
+(function(){
+  var mSl = document.getElementById('fm-m');
+  var tSl = document.getElementById('fm-t');
+  var mLab = document.getElementById('fm-mlab');
+  var tLab = document.getElementById('fm-tlab');
+  var out = document.getElementById('fm-out');
+  var bar = document.getElementById('fm-bar');
+  function rates(M, T){
+    var rho = Math.pow(M, 3);
+    var Xc = Math.min(0.02 + 0.001 * Math.max(M - 1, 0), 0.04);
+    var pp = rho * rho * Math.pow(T, 4);
+    var cno = rho * Xc * Math.pow(T, 17);
+    return {pp: pp, cno: cno};
+  }
+  function fmtLife(M){
+    if(M <= 0.8) return '~2×10<sup>10</sup> años';
+    if(M < 1.5) return '~10<sup>10</sup> años';
+    if(M < 4) return '~10<sup>9</sup>–10<sup>10</sup> años';
+    var yrs = 10 * Math.pow(10 / M, 3);
+    if(yrs >= 1) return '~' + Math.round(yrs) + ' millones de años';
+    return '~' + Math.round(yrs * 1000) + ' mil años';
+  }
+  function calc(){
+    var M = parseFloat(mSl.value);
+    var T = parseFloat(tSl.value);
+    mLab.innerHTML = M.toFixed(1) + ' M<sub>☉</sub>';
+    tLab.textContent = T;
+    var r = rates(M, T);
+    var tot = r.pp + r.cno;
+    var fp = (100 * r.pp / tot).toFixed(1);
+    var fc = (100 * r.cno / tot).toFixed(1);
+    var dom = r.cno > r.pp ? '<b style="color:var(--cyan)">Ciclo CNO</b>' : '<b style="color:var(--gold)">Cadena protón–protón</b>';
+    out.innerHTML = 'Fracción de potencia (modelo): <span class="k">pp</span> <b>'+fp+'%</b> · <span class="k">CNO</span> <b>'+fc+'%</b><br>Domina: '+dom+'<br>Vida aprox. en MS: '+fmtLife(M);
+    bar.innerHTML = '<div style="width:'+fp+'%;background:var(--gold);height:100%" title="pp"></div><div style="width:'+fc+'%;background:var(--cyan);height:100%" title="CNO"></div>';
+  }
+  mSl.addEventListener('input', calc);
+  tSl.addEventListener('input', calc);
+  document.querySelectorAll('#w-fusion .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      mSl.value = btn.dataset.m;
+      tSl.value = btn.dataset.t;
+      calc();
+    });
+  });
+  calc();
+})();
+
+// Widget 2: binding energy curve (pedagogical values, MeV/nucleon)
+(function(){
+  var names = ['H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca','Sc','Ti','V','Cr','Mn','Fe'];
+  var ba = [0,7.07,5.6,6.46,6.93,7.68,7.48,7.77,7.78,8.03,8.11,8.26,8.33,8.48,8.48,8.49,8.52,8.77,8.67,8.79,8.86,8.93,9.05,9.04,8.85,8.79];
+  var maxB = 8.79;
+  var zSl = document.getElementById('be-z');
+  var out = document.getElementById('be-out');
+  var bars = document.getElementById('be-bars');
+  function renderBars(hiZ){
+    bars.innerHTML = '';
+    [1,2,6,8,14,26].forEach(function(z){
+      var col = document.createElement('div');
+      col.className = 'bar-col';
+      var h = Math.max(4, (ba[z-1]/maxB)*120);
+      var fill = document.createElement('div');
+      fill.className = 'bar-fill';
+      fill.style.height = h+'px';
+      fill.style.background = z===26 ? 'var(--red)' : (z===hiZ ? 'var(--cyan)' : '#3a4a6a');
+      var lbl = document.createElement('div');
+      lbl.className = 'bar-lbl';
+      lbl.textContent = names[z-1];
+      col.appendChild(fill);
+      col.appendChild(lbl);
+      bars.appendChild(col);
+    });
+  }
+  function calc(){
+    var z = parseInt(zSl.value, 10);
+    var b = ba[z-1];
+    var rel = (100*b/maxB).toFixed(1);
+    var proc;
+    if(z < 26){ proc = 'Fusión hacia <b>'+names[z-1]+'</b> (desde elementos más ligeros) <b style="color:var(--ok)">libera energía</b>.'; }
+    else if(z === 26){ proc = '<b>Fe</b> está en el <b>máximo</b> de B/A: el núcleo más estable. Ni fusión ni fisión de Fe libera energía netamente en condiciones estelares.'; }
+    else { proc = 'Fusión hacia elementos más pesados que Fe <b style="color:var(--bad)">requiere energía</b>.'; }
+    out.innerHTML = 'Elemento: <b>'+names[z-1]+'</b> (Z='+z+') · B/A ≈ <b>'+b.toFixed(2)+'</b> MeV/nucleón ('+rel+'% del máximo)<br>'+proc;
+    renderBars(z);
+  }
+  zSl.addEventListener('input', calc);
+  document.querySelectorAll('#w-binding .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ zSl.value = btn.dataset.z; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

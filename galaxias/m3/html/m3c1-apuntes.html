@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatividad y ondas gravitacionales — Módulo III · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+<div class="hero">
+<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 1</span>
+<h1>Del espacio-tiempo plano a las <em>ondas gravitacionales</em></h1>
+<p class="sub">Einstein, relatividad especial y general, lentes gravitacionales y detección de ondas gravitacionales.</p>
+</div>
+<p class="lead"><span class="drop">E</span>l Módulo III entra en régimen relativista: agujeros negros, núcleos activos y ondas gravitacionales. Esta clase es el andamiaje físico — postulados, predicciones e instrumentos de verificación.</p>
+<nav class="idx"><span class="tag">Contenido</span><ol>
+<li><a href="#s1">Einstein y 1905</a></li><li><a href="#s2">Velocidad relativa vs. SR</a></li>
+<li><a href="#s3">c constante y dilatación temporal</a></li><li><a href="#s4">Equivalencia y E=mc²</a></li>
+<li><a href="#s5">Relatividad general</a></li><li><a href="#s6">GPS y redshift gravitacional</a></li>
+<li><a href="#s7">Mercurio y eclipse 1919</a></li><li><a href="#s8">Lentes gravitacionales</a></li>
+<li><a href="#s9">Ondas gravitacionales y LIGO</a></li><li><a href="#interactivo">Widgets</a></li>
+<li><a href="#conceptos">Conceptos</a></li><li><a href="#examenes">Exámenes</a></li>
+</ol></nav>
+
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Einstein y el año 1905</h2></div></div>
+<p><strong>1905:</strong> fotoeléctrico, browniano, relatividad especial, <span class="katex-inline" data-tex="E=mc^2"></span>. <strong>1915:</strong> relatividad general (RG). La equivalencia masa–energía explicó el brillo estelar (fusión nuclear).</p>
+<figure>
+<img src="m3c1/assets/slide-01.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 1</span>Apertura del módulo III.</figcaption>
+</figure>
+</section>
+
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Velocidad relativa cotidiana</h2></div></div>
+<p>Perro en tren, metro que parte: la velocidad depende del observador. A escala galáctica sumamos órbitas anidadas. Esto es cinemática clásica, <em>no</em> relatividad especial.</p>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Relatividad especial</h2></div></div>
+<p>Postulado central: <strong>c es constante</strong> en el vacío para todos los observadores inerciales (compatible con Michelson–Morley y con mediciones astronómicas en distintas épocas del año).</p>
+<p>Experimento del <strong>reloj de luz</strong>: en el vagón, ida y vuelta vertical (distancia 2L). Para quien ve el tren moverse, la luz recorre hipotenusa → trayectoria más larga. Con la misma c, el tiempo medido en tierra debe ser mayor: <span class="hl">dilatación temporal</span>. También aparece <strong>contracción de longitudes</strong> en la dirección del movimiento.</p>
+<div class="box cs"><span class="tag">Ingeniería</span><p>Piensa en sincronizar dos relojes en redes distribuidas: si asumes simultaneidad absoluta pero las señales viajan a c finita, cometes errores sistemáticos. La SR formaliza ese error en marcos que se mueven uno respecto al otro.</p></div>
+<div class="formula"><span class="katex-block" data-tex="\Delta t' = \gamma \Delta t,\quad \gamma = 1/\sqrt{1-v^2/c^2}"></span></div>
+<figure>
+<img src="m3c1/assets/slide-08.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 8</span>Reloj de luz en vagón en movimiento.</figcaption>
+</figure>
+</section>
+
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Principio de equivalencia</h2></div></div>
+<p>Campo gravitatorio uniforme ≡ aceleración. Caída libre ≡ ingravidez (astronautas en órbita). Distinto del principio de inercia (Galileo/Newton).</p>
+</section>
+
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Relatividad general</h2></div></div>
+<p>Materia y energía curvan el espacio-tiempo (4D). Los cuerpos siguen geodésicas. Metáfora de la malla 2D es limitada.</p>
+<figure>
+<img src="m3c1/assets/slide-15.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 15</span>Curvatura por Sol, Tierra y Júpiter.</figcaption>
+</figure>
+<div class="box physics"><span class="tag">Tiempo y luz</span><p>Cerca de masa: relojes más lentos; luz que escapa se enrojece (redshift gravitacional).</p></div>
+</section>
+
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>GPS y efectos medibles</h2></div></div>
+<p>Interestelar: cerca del agujero negro el tiempo es mucho más lento. GPS requiere corrección relativista.</p>
+<div class="box dato"><span class="tag">Orden de magnitud</span><p>Corrección neta ~<strong>38–45 microsegundos/día</strong> (no milisegundos; posible lapsus en transcripción).</p></div>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>Mercurio y eclipse 1919</h2></div></div>
+<p>Perihelio de Mercurio: +43″/siglo por RG. Eclipse 1919: deflexión de luz estelar; mayor desplazamiento más cerca del Sol. Sobral y Príncipe; Crommelin y Eddington.</p>
+<figure>
+<img src="m3c1/assets/slide-22.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 22</span>Esquema del eclipse.</figcaption>
+</figure><figure>
+<img src="m3c1/assets/slide-24.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 24</span>Placa fotográfica 1919.</figcaption>
+</figure>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Lentes gravitacionales</h2></div></div>
+<p>Cúmulos masivos (p. ej. Abell 2218) distorsionan luz de fondo → arcos, anillos de Einstein. Materia oscura domina el potencial. Supernovas lenteadas con retardos temporales entre imágenes.</p>
+<figure>
+<img src="m3c1/assets/slide-27.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 27</span>Lente fuerte en cúmulo.</figcaption>
+</figure>
+</section>
+
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Ondas gravitacionales y LIGO</h2></div></div>
+<p>Las <strong>ondas gravitacionales (GW)</strong> son perturbaciones del espacio-tiempo que se propagan a c. Se generan cuando distribuciones de masa <em>aceleran</em> de forma no simétrica (radiación cuadrupolar). La amplitud típica en LIGO es ~10<sup>−21</sup> (cambio relativo de longitud del orden del tamaño atómico en brazos de 4 km).</p>
+<ul>
+<li><strong>Analogía EM:</strong> cargas aceleradas → ondas electromagnéticas; masas aceleradas → GW. La gravedad es muchísimo más débil → señales minúsculas.</li>
+<li><strong>Hulse–Taylor (PSR B1913+16):</strong> el período orbital de un binario de pulsares decrece ~76 μs/año, consistente con pérdida de energía por GW → Nobel 1993 (detección indirecta).</li>
+<li><strong>LIGO (14 sep 2015):</strong> GW150914, fusión de dos BH ~30 M<sub>☉</sub> a ~1,3 Gpc. Virgo y KAGRA se sumaron después.</li>
+</ul>
+<p>El detector es un <strong>interferómetro Michelson</strong> con brazos perpendiculares: la GW modula ligeramente la diferencia de camino óptico. Se exige coincidencia entre observatorios separados (Hanford WA, Livingston LA) para descartar ruido local. La forma de la señal: <em>chirp</em> (frecuencia creciente al acercarse), pico de fusión, <em>ringdown</em> (modos cuasinormales del BH final).</p>
+<p>Implicancia astrofísica: apareció una población de BH estelares más masiva que la conocida solo por rayos X. Las <strong>kilonovas</strong> (fusión de estrellas de neutrones, GW170817) unen GW y luz, confirmando producción de elementos pesados por r-proceso.</p>
+<figure>
+<img src="m3c1/assets/slide-33.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 33</span>Primera señal LIGO.</figcaption>
+</figure><figure>
+<img src="m3c1/assets/slide-35.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 35</span>Masas GW vs. EM.</figcaption>
+</figure>
+<div class="box next"><span class="tag">Siguiente</span><p>Clase 2: Schwarzschild, horizonte y agujeros negros observables.</p></div>
+</section>
+
+<section id="interactivo">
+<div class="widget" id="w-rs"><h4>Radio de Schwarzschild</h4>
+<label>M (M<sub>☉</sub>)</label><input type="number" id="rs-m" value="1" step="any">
+<div class="presets"><button data-m="1">1 M<sub>☉</sub></button><button data-m="10">10 M<sub>☉</sub></button><button data-m="4e6">Sgr A*</button></div>
+<output class="wout" id="rs-out"></output></div>
+<div class="widget" id="w-gps"><h4>Corrección GPS (μs/día)</h4>
+<label>Altitud km</label><input type="range" id="gps-h" min="200" max="40000" value="20200">
+<p><span id="gps-hv">20200</span> km</p><output class="wout" id="gps-out"></output></div>
+<div class="widget"><h4>Factor γ(v)</h4>
+<input type="range" id="g-v" min="0" max="0.999" step="0.001" value="0.5"> v/c=<span id="gv">0.5</span>
+<output class="wout" id="g-out"></output></div>
+</section>
+
+<section id="conceptos"><div class="tbl"><table>
+<thead><tr><th>Concepto</th><th>Resumen</th></tr></thead>
+<tbody>
+<tr><td><b>SR</b></td><td>c invariante; tiempo y longitud relativos</td></tr>
+<tr><td><b>RG</b></td><td>Curvatura por masa-energía</td></tr>
+<tr><td><b>Redshift grav.</b></td><td>Luz pierde energía al escapar</td></tr>
+<tr><td><b>Lente grav.</b></td><td>Masa magnifica fondo</td></tr>
+<tr><td><b>GW / LIGO</b></td><td>Astronomía de ondas a c; fusiones compactas</td></tr>
+</tbody></table></div></section>
+<section id="examenes">
+<div class="shead"><span class="num">✓</span><div>
+<h2>Exámenes de práctica</h2>
+<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
+</div></div>
+<ol class="examlist">
+    <li><a href="m3c1-examen-01.html">Examen 01<small>Relatividad especial</small></a></li>
+    <li><a href="m3c1-examen-02.html">Examen 02<small>Principio equivalencia</small></a></li>
+    <li><a href="m3c1-examen-03.html">Examen 03<small>Efectos gravitacionales</small></a></li>
+    <li><a href="m3c1-examen-04.html">Examen 04<small>Evidencia histórica</small></a></li>
+    <li><a href="m3c1-examen-05.html">Examen 05<small>Lentes gravitacionales</small></a></li>
+    <li><a href="m3c1-examen-06.html">Examen 06<small>Ondas gravitacionales I</small></a></li>
+    <li><a href="m3c1-examen-07.html">Examen 07<small>Hulse–Taylor y LIGO</small></a></li>
+    <li><a href="m3c1-examen-08.html">Examen 08<small>Poblaciones de fusiones</small></a></li>
+    <li><a href="m3c1-examen-09.html">Examen 09<small>Tipos de ondas</small></a></li>
+    <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador clase 1</small></a></li>
+</ol>
+</section>
+<footer><p><b>Fuentes:</b> <code>galaxias/m3/ff/galaxias-m3c1.md</code>, diapositivas Módulo III Clase 1.</p>
+<p class="disc">Transcripción automática; contrastada con diapositivas y física estándar.</p></footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
+  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
+
+  var G=6.67430e-11, c=299792458, Msun=1.98847e30;
+  function rsCalc(){
+    var M=+document.getElementById('rs-m').value*Msun;
+    var rs=2*G*M/(c*c);
+    document.getElementById('rs-out').innerHTML='r<sub>s</sub> ≈ <b>'+(rs/1000).toFixed(3)+'</b> km';
+  }
+  var rsm=document.getElementById('rs-m');
+  if(rsm){rsm.oninput=rsCalc;document.querySelectorAll('#w-rs button').forEach(function(b){b.onclick=function(){rsm.value=b.dataset.m;rsCalc();};});rsCalc();}
+  function gpsCalc(){
+    var h=+document.getElementById('gps-h').value*1000, Re=6371000, M=5.972e24;
+    document.getElementById('gps-hv').textContent=(h/1000).toLocaleString('es');
+    var r=Re+h, v=Math.sqrt(6.67430e-11*M/r);
+    var dtGR=(6.67430e-11*M/(c*c*Re)-6.67430e-11*M/(c*c*r))*86400*1e6;
+    var dtSR=-0.5*(v*v/(c*c))*86400*1e6;
+    document.getElementById('gps-out').innerHTML='Neto ≈ <b>'+(dtGR+dtSR).toFixed(1)+'</b> μs/día (estimación GPS)';
+  }
+  var gpsh=document.getElementById('gps-h'); if(gpsh){gpsh.oninput=gpsCalc;gpsCalc();}
+  function gCalc(){
+    var v=+document.getElementById('g-v').value;
+    document.getElementById('gv').textContent=v.toFixed(3);
+    var g=1/Math.sqrt(1-v*v);
+    document.getElementById('g-out').innerHTML='γ = <b>'+g.toFixed(4)+'</b>';
+  }
+  var gv=document.getElementById('g-v'); if(gv){gv.oninput=gCalc;gCalc();}
+
+});
+</script>
+</body>
+</html>

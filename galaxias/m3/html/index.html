@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrofísica de Galaxias — Módulo III — Apuntes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),
+    linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 90px}
+a{color:var(--red-soft);text-decoration:none}a:hover{text-decoration:underline}
+.hero{padding:54px 0 30px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-family:"Fraunces",serif;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.02;margin:.28em 0 .15em;font-weight:600;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);max-width:62ch}
+.card{display:block;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px;margin:14px 0;transition:.15s}
+.card:hover{border-color:var(--red);transform:translateY(-2px);text-decoration:none}
+.card h2{font-family:"Fraunces",serif;font-size:1.28rem;margin:.1em 0 .25em;color:var(--ink);font-weight:600}
+.card h2 b{color:var(--red-soft)}
+.card p{margin:.2em 0 .5em;color:var(--muted);font-size:.95rem}
+.card .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.card .links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink)}
+.card .links a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none}
+.pending{opacity:.45}
+.pending .card{cursor:default}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="kick">Astrofísica de Galaxias · Módulo III</span>
+    <h1>Apuntes <em>HTML</em> interactivos</h1>
+    <p class="sub">Relatividad general, agujeros negros, núcleos activos y ondas gravitacionales. Cada clase incluye apuntes con widgets y 10 exámenes de práctica.</p>
+  </div>
+
+  <a class="card" href="m3c1-apuntes.html">
+    <h2>Clase 1 — <b>Relatividad y ondas gravitacionales</b></h2>
+    <p>Einstein 1905/1915; relatividad especial (c constante, dilatación temporal); principio de equivalencia; curvatura del espacio-tiempo; redshift gravitacional y GPS; Mercurio y eclipse 1919; lentes gravitacionales (cúmulos, Abell 2218); Hulse–Taylor; LIGO y fusiones de agujeros negros / kilonovas. Widgets: r<sub>s</sub>, corrección GPS, factor γ.</p>
+    <div class="links">
+      <a href="m3c1-apuntes.html">Apuntes</a>
+      <a href="m3c1-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <a class="card" href="m3c2-apuntes.html">
+    <h2>Clase 2 — <b>Agujeros negros y camino a los AGN</b></h2>
+    <p>Schwarzschild y horizonte de eventos; compacidad (Sol, enana blanca, estrella de neutrones, BH); espaguetificación; remanentes estelares y SN 1987A; binarias de rayos X y discos de acreción; SS 433; TDE y mareas; agujeros negros supermasivos; cuásares (Schmidt 1963) y argumento de variabilidad c·Δt. Widgets: límite de tamaño y luminosidad de acreción.</p>
+    <div class="links">
+      <a href="m3c2-apuntes.html">Apuntes</a>
+      <a href="m3c2-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <div class="pending">
+    <div class="card">
+      <h2>Clase 3 — <b>AGN y núcleos activos</b> (pendiente)</h2>
+      <p>Material en transcripción y diapositivas; apuntes HTML aún no generados.</p>
+    </div>
+  </div>
+
+  <footer>
+    Diplomado en Fundamentos de Astronomía, U. de Chile · Astrofísica de Galaxias, Módulo III. Apuntes desde transcripciones (<code>galaxias/m3/ff/</code>) y diapositivas PDF.
+  </footer>
+</div>
+</body>
+</html>

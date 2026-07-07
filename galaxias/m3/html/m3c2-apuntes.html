@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agujeros negros y AGN — Módulo III · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c1-apuntes.html">Clase 1</a></nav>
+<div class="hero">
+<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 2</span>
+<h1>Agujeros negros: de <em>Schwarzschild</em> a los AGN</h1>
+<p class="sub">Horizonte, remanentes estelares, detección por acreción y dinámica, camino hacia cuásares.</p>
+</div>
+<p class="lead"><span class="drop">L</span>o decisivo no es solo la masa sino la <strong>compacidad</strong>. La clase une predicción relativista, supernovas, binarias de rayos X y agujeros negros supermasivos activos.</p>
+<nav class="idx"><span class="tag">Contenido</span><ol>
+<li><a href="#s1">Schwarzschild</a></li><li><a href="#s2">Horizonte y compacidad</a></li>
+<li><a href="#s3">Espaguetificación</a></li><li><a href="#s4">Supernovas y remanentes</a></li>
+<li><a href="#s5">Detectar BH estelares</a></li><li><a href="#s6">Jets y TDE</a></li>
+<li><a href="#s7">SMBH y AGN</a></li><li><a href="#s8">Cuásares y variabilidad</a></li>
+<li><a href="#interactivo">Widgets</a></li><li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#examenes">Exámenes</a></li>
+</ol></nav>
+
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Schwarzschild (1916)</h2></div></div>
+<div class="box prof"><span class="tag">Transcripción</span><p>«Churchill» en audio = <strong>Karl Schwarzschild</strong>.</p></div>
+<div class="formula"><span class="katex-block" data-tex="r_s = 2GM/c^2"></span>
+<small>1 M<sub>☉</sub> → ~3 km; Tierra → ~9 mm.</small></div>
+<figure>
+<img src="m3c2/assets/slide-04.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 4</span>Horizonte y escalas.</figcaption>
+</figure>
+</section>
+
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Horizonte y compacidad</h2></div></div>
+<p>Horizonte = límite causal, no superficie material. Misma masa: Sol vs. enana blanca vs. BH → mismo campo lejos, pozo distinto cerca. Estrella de neutrones ~10 km vs. horizonte de BH similar: la EN tiene superficie.</p>
+<figure>
+<img src="m3c2/assets/slide-08.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 8</span>Pozos gravitacionales comparados.</figcaption>
+</figure>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Espaguetificación y gusanos</h2></div></div>
+<p>Mareas intensas cerca del BH. Puentes Einstein–Rosen: matemática sin evidencia observacional. ISCO: órbitas inestables interior.</p>
+<figure>
+<img src="m3c2/assets/slide-11.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 11</span>Caída hacia agujero negro.</figcaption>
+</figure>
+</section>
+
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Remanentes y supernovas</h2></div></div>
+<p>~10<sup>11</sup> estrellas en galaxia tipo Vía Láctea; ~10<sup>8</sup> BH estelares. Baja masa → enana blanca; alta masa → SN → EN o BH.</p>
+<p><strong>SN 1987A</strong> (LMC): ~24 neutrinos; <strong>Cangrejo</strong> (1054); <strong>Eta Carinae</strong> candidata.</p>
+<figure>
+<img src="m3c2/assets/slide-16.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 16</span>SN 1987A.</figcaption>
+</figure><figure>
+<img src="m3c2/assets/slide-18.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 18</span>Diagrama evolutivo.</figcaption>
+</figure>
+</section>
+
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Detectar agujeros negros</h2></div></div>
+<p><strong>Acreción:</strong> disco caliente, rayos X (~200 binarias X en la Vía Láctea). <strong>Dinámica:</strong> órbitas estelares (Sgr A*).</p>
+<figure>
+<img src="m3c2/assets/slide-21.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 21</span>Binaria de rayos X.</figcaption>
+</figure>
+</section>
+
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Jets, mareas, TDE</h2></div></div>
+<p>SS 433: jets precesionando (sacacorcho). Colas de marea HI (Magallanes). TDE: estrella despedazada por BH.</p>
+<figure>
+<img src="m3c2/assets/slide-23.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 23</span>SS 433.</figcaption>
+</figure>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>SMBH y AGN</h2></div></div>
+<p>SMBH: 10<sup>6</sup>–10<sup>10</sup> M<sub>☉</sub> en núcleos. Sgr A* ~4×10<sup>6</sup> M<sub>☉</sub>. Alimentados → AGN.</p>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Cuásares y variabilidad</h2></div></div>
+<p>En los años 50–60 aparecieron fuentes <strong>cuasi estelares</strong> de radio (QSO). Parecían estrellas puntuales pero con luminosidad y espectros anómalos.</p>
+<p><strong>Maarten Schmidt (1963):</strong> en 3C 273 las líneas «desconocidas» eran Hα, Hβ, Hγ… con <strong>gran redshift</strong> (z ≈ 0,16). Objeto extragaláctico ultraluminoso: L ~ 10× la de la Vía Láctea. El núcleo brilla tanto que opaca la galaxia anfitriona.</p>
+<p><strong>Argumento de variabilidad:</strong> si el brillo cambia en tiempo Δt, la región emisora no puede ser mucho mayor que R ≲ c·Δt (cota superior; la señal no puede coordinar un cambio instantáneo en toda una galaxia). Variaciones en ~1 año → tamaño ≲ 1 año-luz; variaciones en días → escala del Sistema Solar, pero con luminosidad de muchas galaxias → requiere <strong>acreción sobre agujero negro supermasivo</strong>.</p>
+<p>La acreción convierte energía gravitacional en radiación con eficiencia η hasta ~10% (Ṁc²), muy por encima de la fusión nuclear estelar (~0,7%). Es el motor de los AGN. Solo ~10% de AGN muestran jets de radio prominentes; el resto son «radio-quiet» pero igualmente luminosos en otras bandas.</p>
+<figure>
+<img src="m3c2/assets/slide-27.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 27</span>Curva de luz de cuásar con variabilidad fuerte.</figcaption>
+</figure><figure>
+<img src="m3c2/assets/slide-28.jpg" alt="">
+<figcaption><span class="cap">Diapositiva 28</span>Modelo esquemático AGN: disco, corona, jet.</figcaption>
+</figure>
+</section>
+
+<section id="interactivo">
+<div class="widget"><h4>c·Δt</h4>
+<input type="number" id="var-dt" value="1" step="any">
+<select id="var-unit"><option value="3600">horas</option><option value="86400">días</option><option value="31557600" selected>años</option></select>
+<output class="wout" id="var-out"></output></div>
+<div class="widget"><h4>Luminosidad de acreción L≈ηṀc²</h4>
+<input type="number" id="acc-mdot" value="1" step="any"> M<sub>☉</sub>/año
+<input type="range" id="acc-eta" min="0.01" max="0.4" step="0.01" value="0.1"> η=<span id="acc-etav">0.10</span>
+<output class="wout" id="acc-out"></output></div>
+</section>
+
+<section id="conceptos"><div class="tbl"><table>
+<thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td><b>r_s</b></td><td>Horizonte BH estático</td></tr>
+<tr><td><b>Binaria X</b></td><td>~200 en Vía Láctea</td></tr>
+<tr><td><b>TDE</b></td><td>Flare por estrella rota</td></tr>
+<tr><td><b>AGN</b></td><td>SMBH alimentado; cuásar si muy luminoso</td></tr>
+</tbody></table></div></section>
+<section id="examenes">
+<div class="shead"><span class="num">✓</span><div>
+<h2>Exámenes de práctica</h2>
+<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
+</div></div>
+<ol class="examlist">
+    <li><a href="m3c2-examen-01.html">Examen 01<small>Schwarzschild</small></a></li>
+    <li><a href="m3c2-examen-02.html">Examen 02<small>Compacidad</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>Espaguetificación</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>Remanentes</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>SN 1987A</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Detectar BH</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>SS 433</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>TDE</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>SMBH</small></a></li>
+    <li><a href="m3c2-examen-10.html">Examen 10<small>Quásares y AGN</small></a></li>
+</ol>
+</section>
+<footer><p><b>Fuentes:</b> <code>galaxias-m3c2.md</code>, diapositivas Clase 2. Ver <a href="m3c1-apuntes.html">clase 1</a>.</p></footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
+  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
+
+  var c=299792458, ly=9.4607e15, AU=1.496e11, Msun=1.98847e30, yr=365.25*86400;
+  function varCalc(){
+    var dt=+document.getElementById('var-dt').value*+document.getElementById('var-unit').value;
+    var R=c*dt;
+    document.getElementById('var-out').innerHTML='R ≲ <b>'+(R/AU).toExponential(2)+'</b> UA · <b>'+(R/ly).toFixed(3)+'</b> ly';
+  }
+  document.getElementById('var-dt').oninput=varCalc;
+  document.getElementById('var-unit').oninput=varCalc; varCalc();
+  function accCalc(){
+    var mdot=+document.getElementById('acc-mdot').value*Msun/yr;
+    var eta=+document.getElementById('acc-eta').value;
+    document.getElementById('acc-etav').textContent=eta.toFixed(3);
+    var L=eta*mdot*c*c, Lsun=3.828e26;
+    document.getElementById('acc-out').innerHTML='L ≈ <b>'+(L/Lsun).toExponential(2)+'</b> L<sub>☉</sub>';
+  }
+  document.getElementById('acc-mdot').oninput=accCalc;
+  document.getElementById('acc-eta').oninput=accCalc; accCalc();
+
+});
+</script>
+</body>
+</html>
