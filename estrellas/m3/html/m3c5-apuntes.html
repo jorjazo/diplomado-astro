@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agujeros Negros — Astrofísica de Estrellas, Módulo III · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 5</span>
+  <h1>Agujeros <em>Negros</em></h1>
+  <p class="sub">El remanente final de las estrellas más masivas: espacio-tiempo curvado, horizontes de eventos, velocidades de escape imposibles, detección por rayos X y microlentes, y la revolución de las <em>ondas gravitacionales</em> que fusionan la relatividad general con la observación.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Estrellas</span>
+    <span><b>Módulo:</b> III · Clase 5 (final del curso)</span>
+    <span><b>Fecha:</b> 6 jul 2026</span>
+    <span><b>Tema:</b> Black holes, GW y kilonovas</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">S</span>i algo ha demostrado este curso es que <span class="hl">la masa lo decide todo</span> en la vida de una estrella: cuánto vive, cuánto brilla, qué elementos fabrica y qué cadáver deja. Esta clase final llega al extremo de esa escala: cuando el núcleo colapsante de una estrella supera unas <strong>3 masas solares</strong>, ninguna presión conocida puede frenar el colapso y se forma un <span class="hl">agujero negro</span>. Para entenderlo hay que abandonar la gravedad de Newton y pensar como Einstein: la gravedad no es una fuerza que tira, es la <em>geometría del espacio-tiempo</em>. Y aunque de un agujero negro no escapa ni la luz, hoy los detectamos por sus efectos: estrellas que "bailan solas", discos de acreción que brillan en rayos X, lupas gravitacionales y, desde hace poco, ondulaciones del propio espacio-tiempo medidas con láseres.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La masa decide el remanente</a></li>
+    <li><a href="#s2">Espacio-tiempo y relatividad general</a></li>
+    <li><a href="#s3">Velocidad de escape: la definición clásica</a></li>
+    <li><a href="#s4">Horizonte de eventos y radio de Schwarzschild</a></li>
+    <li><a href="#s5">Densidad, no solo masa</a></li>
+    <li><a href="#s6">Cómo se detectan: binarias y rayos X</a></li>
+    <li><a href="#s7">Microlentes y los agujeros negros de Gaia</a></li>
+    <li><a href="#s8">Ondas gravitacionales: LIGO y el Nobel 2017</a></li>
+    <li><a href="#s9">Kilonovas y el origen de los elementos pesados</a></li>
+    <li><a href="#s10">Fronteras: lo que aún no sabemos</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La masa decide el remanente</h2>
+    <p>El parámetro más importante de la astrofísica estelar… y uno de los más difíciles de medir.</p>
+  </div></div>
+
+  <p>La clase abre retomando la tabla-resumen del curso: la <span class="hl">masa</span> de una estrella determina cuánto tiempo vive, cuánto brilla, qué elementos químicos genera, cómo muere y qué remanente deja. Irónicamente, junto con la edad, la masa es uno de los parámetros <strong>más difíciles de medir</strong> en astronomía — y a la vez el más importante.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Objeto de partida</th><th>Qué lo sostiene al final</th><th>Remanente</th></tr></thead>
+    <tbody>
+      <tr><td><b>Enana marrón</b> (subestelar)</td><td>Nunca fusiona H; solo deuterio (y algo de litio)</td><td>Sigue siendo enana marrón "para siempre"</td></tr>
+      <tr><td><b>Estrella de baja masa</b></td><td>Presión de degeneración de <em>electrones</em></td><td>Enana blanca</td></tr>
+      <tr><td><b>Estrella de alta masa</b> (núcleo &lt; ~3 M<sub>☉</sub>)</td><td>Presión de degeneración de <em>neutrones</em></td><td>Estrella de neutrones (púlsares, magnetares)</td></tr>
+      <tr><td><b>Estrella de alta masa</b> (núcleo &gt; ~3 M<sub>☉</sub>)</td><td><strong>Nada</strong> puede detener el colapso</td><td><span class="hl">Agujero negro</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box prof">
+    <span class="tag">Precisión del profesor</span>
+    <p>El límite de ~3 M<sub>☉</sub> se refiere a la <strong>masa del núcleo</strong> de la estrella, no a la masa total. Sobre ese núcleo hay capas y capas de material que salen expulsadas en la supernova; lo que colapsa es solo el núcleo. Además, ese límite de 3 M<sub>☉</sub> para estrellas de neutrones <em>sigue en debate</em> — es un valor aproximado, no una constante grabada en piedra.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La masa funciona como el <em>parámetro de configuración maestro</em> de un sistema: un único valor de entrada que determina el flujo completo de ejecución (rama evolutiva, tiempo de vida, salida final). Y como en muchos sistemas reales, el parámetro que más importa es justamente el más difícil de observar directamente: hay que <strong>inferirlo</strong> a partir de efectos indirectos (órbitas, espectros, luminosidad), igual que se infiere el estado interno de un sistema a partir de sus logs.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Espacio-tiempo y relatividad general</h2>
+    <p>La gravedad no tira de las cosas: curva el escenario donde las cosas se mueven.</p>
+  </div></div>
+
+  <p>Antes de analizar el agujero negro como objeto astronómico hay que hablar de <span class="hl">espacio-tiempo</span>. Einstein propuso que el espacio no es independiente del tiempo: existe una entidad única, el espacio-tiempo, donde si el espacio se estira o se contrae, el tiempo también se dilata. Costó mucho instalar esta idea, porque intuitivamente el espacio son "las tres dimensiones X, Y, Z" y el tiempo algo que corre por separado.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición: capturas de pantalla</span>
+    <p>Más que "una cuarta dimensión" mística, conviene pensar el tiempo como <strong>estampas temporales del espacio</strong>: imagina que a tu espacio X, Y, Z le tomas capturas de pantalla sucesivas. La dimensión temporal es esa <em>acumulación de timestamps</em> de las tres dimensiones espaciales; los eventos ocurren en esas distintas capturas. (Para una persona de informática: el espacio-tiempo es el <em>log completo</em> del sistema, no solo su estado actual.)</p>
+  </div>
+
+  <h3>La malla elástica y la hormiga</h3>
+  <p>El ejemplo clásico: una tela <strong>elástica</strong> estirada (no puede ser rígida) y una hormiga que camina sobre ella, representando un <em>fotón</em>:</p>
+  <ul>
+    <li><strong>Sin masa sobre la malla:</strong> la hormiga camina en línea recta — la luz siempre "quiere" viajar en línea recta.</li>
+    <li><strong>Masa diminuta (un grano de arena):</strong> no deforma nada apreciable; la hormiga ni se entera.</li>
+    <li><strong>Masa grande (una bola de acero):</strong> la malla se hunde. Lejos de la deformación el camino sigue siendo casi recto, pero cerca la hormiga <em>no puede</em> seguir caminando como venía: está obligada a seguir la deformación, porque ese es el nuevo espacio por donde circula. No puede levitar por encima.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">El principio de fondo</span>
+    <p>Todo se reduce a esto: la luz (y cualquier cuerpo libre) siempre intenta moverse por el <strong>camino más corto posible</strong> a través del espacio-tiempo. En un espacio plano, el camino más corto es una recta. En un espacio deformado por una gran concentración de masa (un gran <em>potencial gravitacional</em>), el camino más corto es una <strong>curva</strong> — porque el propio espacio-tiempo está curvado. La gravedad no "atrae" a la luz: la luz simplemente sigue la geometría.</p>
+  </div>
+
+  <h3>Dos confirmaciones históricas</h3>
+  <ul>
+    <li><strong>Eclipse solar de 1919:</strong> nadie le creía a Einstein hasta que, observando un eclipse desde Brasil y África, se midió que la luz de estrellas de fondo se desviaba al pasar cerca del Sol. La luz efectivamente viaja en trayectorias curvas cerca de grandes masas.</li>
+    <li><strong>La sonda Viking:</strong> si la sonda, vista desde la Tierra, está angularmente cerca del Sol y nos manda una señal de radio, esa señal atraviesa la deformación del espacio-tiempo solar y recorre un <em>camino curvado</em>, no recto. Conociendo la distancia, esperamos la señal en cierto tiempo; llega <strong>más tarde</strong> de lo esperado, exactamente porque el camino es más largo. Cuánto se retrasa depende de cuánta deformación atraviesa. <em>(Este retraso se conoce en la literatura como retardo de Shapiro — nombre no mencionado en clase.)</em></li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Todos deformamos el espacio-tiempo</span>
+    <p>Cualquier objeto con masa genera un potencial gravitacional a su alrededor: tú, tu lápiz al moverse, todo. Cada vez que caminas estás generando una (ridículamente pequeña) deformación del espacio-tiempo. La diferencia con un agujero negro es puramente de <em>magnitud y concentración</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Velocidad de escape: la definición clásica</h2>
+    <p>Cuando ni la luz alcanza la velocidad necesaria para salir.</p>
+  </div></div>
+
+  <p>La <span class="hl">velocidad de escape</span> es la velocidad que necesito para librarme de la atracción gravitacional de un objeto. Es una escalera que la clase recorre con valores concretos:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Objeto</th><th>Velocidad de escape</th><th>Comparación con c</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tierra</b></td><td>≈ 11 km/s</td><td>0,004% de c — a esta velocidad despegan los cohetes</td></tr>
+      <tr><td><b>Sol</b></td><td>≈ 618 km/s</td><td>0,2% de c</td></tr>
+      <tr><td><b>Enana blanca</b> (1 M<sub>☉</sub>)</td><td>≈ 5.500 km/s</td><td>~2% de c — mismo material, mucho más denso</td></tr>
+      <tr><td><b>Estrella de neutrones</b> (~1 M<sub>☉</sub>)</td><td>≈ 125.000 km/s (valor de clase)</td><td>~40% de c</td></tr>
+      <tr><td><b>Agujero negro</b></td><td><strong>&gt; c</strong></td><td>Imposible de alcanzar ⇒ nada sale, ni la luz</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="v_{\mathrm{esc}} = \sqrt{\frac{2\,G\,M}{R}}"></div>
+    <small>A igual masa <span class="katex-inline" data-tex="M"></span>, comprimir el objeto (reducir <span class="katex-inline" data-tex="R"></span>) dispara la velocidad de escape. La secuencia Sol → enana blanca → estrella de neutrones → agujero negro es la misma masa cada vez más comprimida.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">La definición clásica de agujero negro</span>
+    <p>Un agujero negro es un objeto <strong>tan compacto que su velocidad de escape supera la velocidad de la luz</strong>. Como nada puede viajar más rápido que la luz, nada puede salir de él — ni siquiera la propia luz, que tampoco puede superar c. Por eso es <em>negro</em>: adentro hay materia, masa, propiedades físicas… pero ninguna luz sale, así que no recibimos información directa del objeto.</p>
+  </div>
+
+  <div class="widget" id="w-vesc">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Comprime una masa solar hasta hacerla agujero negro</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Fija la masa y reduce el radio con el deslizador (escala logarítmica). Observa cómo crece la velocidad de escape hasta superar la velocidad de la luz.</p>
+    <label for="ve-m">Masa del objeto (masas solares)</label>
+    <input type="number" id="ve-m" min="0.1" max="100" step="any" value="1">
+    <label for="ve-r">Radio: <span id="ve-rlab"></span></label>
+    <input type="range" id="ve-r" min="0" max="600" step="1" value="0">
+    <div class="presets">
+      <button data-r="695700">Radio del Sol</button>
+      <button data-r="6000">Enana blanca (~Tierra)</button>
+      <button data-r="10">Estrella de neutrones (10 km)</button>
+      <button data-r="2.95">R. Schwarzschild 1 M☉</button>
+    </div>
+    <output id="ve-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Horizonte de eventos y radio de Schwarzschild</h2>
+    <p>Una superficie en el espacio-tiempo desde donde no hay vuelta atrás.</p>
+  </div></div>
+
+  <p>El <span class="hl">horizonte de eventos</span> — asociado al <strong>radio de Schwarzschild</strong> — es el concepto central para describir un agujero negro. Ojo con la definición: no es un límite de <em>distancia</em> a secas, es un límite <strong>en el espacio-tiempo</strong> alrededor del agujero negro. Una vez cruzado, no hay vuelta atrás.</p>
+
+  <div class="box physics">
+    <span class="tag">Definición física correcta</span>
+    <p>El horizonte de eventos es una <strong>superficie</strong> (en 3D: no un anillo, una superficie cerrada) alrededor del agujero negro donde la curvatura del espacio-tiempo es tal que <strong>ni siquiera la luz puede escapar</strong>. En términos puristas: lo que cruza el horizonte <em>deja de tener interacción y efectos sobre el universo exterior</em>. Qué pasa adentro — con la materia, con la información — es una de las grandes preguntas abiertas de la física.</p>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="R_s = \frac{2\,G\,M}{c^2} \approx 3\ \mathrm{km} \times \frac{M}{M_\odot}"></div>
+    <small>El radio de Schwarzschild crece <em>linealmente</em> con la masa: ~3 km por cada masa solar. Un agujero negro de 1 M<sub>☉</sub> cabe con holgura dentro de una ciudad; compárese con los ~10 km de radio de una estrella de neutrones de masa similar.</small>
+  </div>
+
+  <h3>La luz que se enrolla sobre sí misma</h3>
+  <p>¿Cómo visualizar que la luz no salga? En la Tierra, si enciendo una linterna, los haces salen en todas direcciones y se van. Cerca de un agujero negro, los haces <em>salen</em>… pero el espacio está tan curvado que las trayectorias <strong>se curvan sobre sí mismas</strong> y conducen de vuelta hacia adentro. No es que la luz "se caiga" o deje de moverse: se mueve siempre a velocidad c, pero por caminos que se enrollan y nunca conducen afuera.</p>
+
+  <div class="box dato">
+    <span class="tag">Órbitas posibles (y el guiño a Interstellar)</span>
+    <p><strong>Fuera</strong> del horizonte de eventos sí es posible orbitar un agujero negro, igual que se orbita cualquier masa. En la película <em>Interstellar</em> hay un planeta orbitando muy cerca del agujero negro Gargantúa: puede existir precisamente porque está <em>fuera</em> del horizonte de eventos. Adentro, no existiría como tal.</p>
+  </div>
+
+  <p>Como el agujero negro en sí (la singularidad) es imposible de medir directamente, en la práctica se usa el <strong>radio de Schwarzschild como tamaño de referencia</strong> del objeto: hasta dónde llega su zona de no-retorno. Los tamaños típicos son de <strong>pocos kilómetros</strong> — objetos con masas de estrellas comprimidos a escala de comunas.</p>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Densidad, no solo masa</h2>
+    <p>¿Por qué el Sol, con la misma masa, no hace lo mismo que un agujero negro de 1 M☉?</p>
+  </div></div>
+
+  <p>Un punto que suele confundir: si existiera un agujero negro de exactamente 1 masa solar, ¿por qué deformaría el espacio-tiempo de forma tan distinta que el Sol, que tiene la misma masa? La respuesta de la clase: <span class="hl">lo que importa es lo compacto que es el objeto</span>, no solo su masa.</p>
+
+  <ul>
+    <li><strong>Lejos del objeto, la deformación es la misma.</strong> Una masa solar deforma el espacio-tiempo igual, sea Sol o agujero negro: un planeta lejano orbitaría idéntico alrededor de ambos.</li>
+    <li><strong>El Sol ocupa un volumen enorme:</strong> en la imagen de la malla, el "cono" de deformación queda <em>relleno</em> por el propio Sol. No se puede interactuar con la parte más profunda del pozo porque ahí está la superficie solar: llegas hasta donde llega el Sol y te lo topas.</li>
+    <li><strong>El agujero negro está comprimidísimo:</strong> el pozo baja muchísimo más y queda <em>expuesto</em>. Las cosas pueden acercarse y "caer" hasta regiones de curvatura extrema que en el Sol simplemente no son accesibles.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es la diferencia entre dos funciones con la misma integral pero distinto soporte: misma "masa total" de la señal, pero una concentrada en un impulso casi tipo delta de Dirac. El campo lejano es igual (misma masa total), pero el <em>campo cercano</em> — el gradiente accesible — es brutalmente distinto. El agujero negro no es especial por la masa: es especial porque puedes <strong>acercarte mucho más</strong> a toda esa masa.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Cómo se detectan: binarias, discos de acreción y rayos X</h2>
+    <p>No vemos el agujero negro; vemos lo que le hace a su vecindario.</p>
+  </div></div>
+
+  <p>Formación, en resumen: en una estrella de alta masa ocurre la explosión de supernova igual que para las estrellas de neutrones — el núcleo colapsa, hay rebote, las capas externas salen volando — pero la <strong>presión de degeneración de los neutrones ya no puede soportar el colapso</strong> y se forma una <span class="hl">singularidad</span>: un objeto con masa y rotación, compactadísimo.</p>
+
+  <p>No hay imágenes directas: la luz no sale de ellos, miden pocos kilómetros y están a miles de años luz. La mejor detección es <strong>a través del efecto de su gravedad</strong> sobre el entorno, principalmente en <span class="hl">sistemas binarios</span>:</p>
+
+  <h3>El pipeline de detección (dos "checks")</h3>
+  <ul>
+    <li><strong>Check 1 — Masa dinámica:</strong> la estrella visible orbita en torno a un centro de masa común: parece "bailar solita". Con las <strong>leyes de Kepler</strong> y velocidades radiales (efecto Doppler en las líneas del espectro) se calcula la masa del compañero invisible. Si da <strong>más de ~3 M<sub>☉ </sub></strong> y no emite luz, no puede ser enana blanca ni estrella de neutrones: candidato a agujero negro.</li>
+    <li><strong>Check 2 — Rayos X del disco de acreción:</strong> la gravedad del agujero negro arranca material de la estrella donante y forma un <strong>disco de acreción</strong>: el gas cae conservando momento angular (nunca es exactamente cero, así que todo cae girando, en espiral), se acelera a velocidades cercanas a la luz y alcanza <strong>millones de Kelvin</strong> ⇒ emisión intensa y <em>variable</em> de <strong>rayos X</strong>. Cerca del agujero hay además una región de caída libre donde el material ya no vuelve. Los agujeros negros acretantes tienden también a formar <em>jets</em>.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Caso de estudio: Cygnus X-1</span>
+    <p>El clásico (y el favorito de la profesora, por la canción de Rush). Es un sistema binario a ~7.000 años luz con una <strong>estrella donante de tipo O</strong>. Las estrellas O emiten rayos X de forma natural, pero este sistema emite <em>mucho más</em> de lo esperable ⇒ algo más está pasando. La espectroscopía (Doppler en las líneas) revela un compañero invisible de <strong>≈ 21 M<sub>☉ </sub></strong>: demasiado masivo para enana blanca o estrella de neutrones. Conclusión: lo único compatible con algo invisible, emisor de rayos X y capaz de hacer "bailar" a la estrella es un <strong>agujero negro</strong>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Detectar agujeros negros es <em>inferencia sobre variables latentes</em>: el objeto no es observable, pero sí sus efectos sobre observables (órbita de la compañera, espectro de rayos X). El "check 1 + check 2" es un clasificador con dos features independientes: masa dinámica &gt; 3 M<sub>☉</sub> <em>y</em> firma de acreción en rayos X. Ninguna basta por sí sola; juntas dejan una única hipótesis viable.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Microlentes gravitacionales y los agujeros negros de Gaia</h2>
+    <p>Cuando el agujero negro se cruza en la línea de visión y actúa como lupa.</p>
+  </div></div>
+
+  <p>La segunda vía de detección no necesita binaria: usa el propio efecto de curvatura de la luz. Hay que distinguir dos regímenes:</p>
+  <ul>
+    <li><strong>Lente gravitacional</strong> (p. ej. cúmulos de galaxias): deforma las imágenes de fondo — se ven arcos, "gusanitos" de luz estirada, anillos de Einstein.</li>
+    <li><strong>Microlente gravitacional</strong> (objetos de masa estelar, de ahí el "micro"): no deforma la imagen, la <strong>amplifica como una lupa</strong>. Observo una estrella lejana de fondo; un agujero negro de masa estelar cruza entre mi telescopio y la estrella; la luz de la estrella se ve amplificada mientras dura el cruce, y luego vuelve a su brillo normal. La curva de luz sube y baja.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Bonus: así también se encuentran planetas</span>
+    <p>No solo los agujeros negros generan microlentes: cualquier objeto masivo que se cruce sirve. Si el objeto que cruza tiene un planeta, la curva de amplificación muestra una <strong>segunda "colita"</strong> producida por el planeta. El microlensing es de hecho una técnica establecida de detección de exoplanetas.</p>
+  </div>
+
+  <h3>Agujeros negros estelares con nombre y apellido</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Objeto</th><th>Masa</th><th>Distancia</th><th>Cómo se detectó</th></tr></thead>
+    <tbody>
+      <tr><td><b>Gaia BH1</b></td><td>≈ 10 M<sub>☉</sub></td><td>≈ 1.500 años luz</td><td>Astrometría (misión Gaia): movimiento de la estrella compañera</td></tr>
+      <tr><td><b>Gaia BH3</b></td><td>≈ 33 M<sub>☉</sub></td><td>≈ 2.000 años luz</td><td>Astrometría (misión Gaia)</td></tr>
+      <tr><td><b>Cygnus X-1</b></td><td>≈ 21 M<sub>☉</sub></td><td>≈ 7.000 años luz</td><td>Binaria con rayos X + espectroscopía Doppler</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Sus radios de Schwarzschild siguen siendo del orden de <strong>pocas decenas de kilómetros</strong> (≈ 3 km por masa solar). Las "imágenes" que circulan de estos objetos son <strong>simulaciones</strong>: lo bonito de simularlos es ver cómo deforman lo que hay detrás, como pequeños lentes gravitatorios. Y un dato tranquilizador de la clase: <strong>no hay ningún agujero negro lo bastante cerca de nosotros como para representar peligro alguno</strong>.</p>
+
+  <div class="widget" id="w-rs">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Radio de Schwarzschild y densidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige una masa y calcula el tamaño de la zona de no-retorno, R<sub>s</sub> = 2GM/c². Presets con los objetos de la clase.</p>
+    <div class="presets" id="rs-presets">
+      <button data-m="1">Sol (1 M☉)</button>
+      <button data-m="10">Gaia BH1 (10)</button>
+      <button data-m="21">Cygnus X-1 (21)</button>
+      <button data-m="33">Gaia BH3 (33)</button>
+      <button data-m="4.1e6">Sgr A* (centro galáctico)</button>
+      <button data-m="3.003e-6">La Tierra</button>
+    </div>
+    <label for="rs-m">Masa (masas solares)</label>
+    <input type="number" id="rs-m" min="0" step="any" value="1">
+    <output id="rs-out"></output>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Ondas gravitacionales: LIGO y el Nobel 2017</h2>
+    <p>Medir deformaciones de 10⁻²¹ con láseres de kilómetros.</p>
+  </div></div>
+
+  <p>La tercera y más reciente vía de detección: las <span class="hl">ondas gravitacionales</span>, la gran confirmación moderna de la relatividad general. No solo hay sistemas binarios de estrellas de neutrones: también hay <strong>binarias de agujeros negros</strong>. Igual que antes, la energía orbital se transfiere al espacio-tiempo y se pierde en forma de ondas gravitacionales; la órbita se encoge y los objetos se acercan en espiral.</p>
+
+  <h3>La firma del "chirp"</h3>
+  <ul>
+    <li>A medida que la separación orbital disminuye, los objetos giran <strong>más rápido</strong> ⇒ la <strong>frecuencia</strong> de las ondas gravitacionales <em>aumenta</em> (y también su amplitud).</li>
+    <li>En la <strong>fusión</strong> (merger) hay una gran liberación de energía: el <em>pico</em> de la señal.</li>
+    <li>Después, un periodo de calma (<em>ringdown</em>): queda un solo agujero negro y las ondas desaparecen del detector.</li>
+  </ul>
+  <p>En la predicción teórica que se mostró en clase, las velocidades de acercamiento van del <strong>30% al 60% de la velocidad de la luz</strong> justo antes de fusionarse. Y lo que midió LIGO fue <em>exactamente</em> lo que decía la teoría.</p>
+
+  <div class="box physics">
+    <span class="tag">Las masas no se suman linealmente</span>
+    <p>Si fusiono un agujero negro de 4 M<sub>☉</sub> con uno de 5 M<sub>☉</sub>, el resultado <strong>no</strong> es uno de 9 M<sub>☉</sub>. En la fusión se disipa energía (ondas gravitacionales, radiación), y por <span class="katex-inline" data-tex="E = mc^2"></span> esa energía disipada es masa que se pierde: 3 + 3 puede dar 5,2 en vez de 6. La equivalencia masa-energía de Einstein en acción.</p>
+  </div>
+
+  <h3>El interferómetro: cómo se mide lo inmedible</h3>
+  <p><strong>LIGO</strong> (y su análogo europeo <strong>Virgo</strong>) son interferómetros láser: un láser se divide con un <em>splitter</em> en dos brazos kilométricos perpendiculares, con espejos en los extremos. Como el láser viaja a velocidad c y los espejos son casi perfectos, se sabe exactamente cuánto tarda la luz en ir y volver por cada brazo. Cuando pasa una onda gravitacional, <em>nos deforma también a nosotros</em>: los caminos de los dos brazos se "descuadran" y aparece una <strong>diferencia de fase</strong> entre ambos. Esa diferencia de fase es la detección.</p>
+
+  <div class="box dato">
+    <span class="tag">Por qué se necesitan DOS detectores</span>
+    <p>La deformación a medir es del orden de <strong>10⁻²¹</strong> (adimensional: ΔL/L). Un camión pasando cerca, un temblor, casi cualquier cosa puede imitar una señal en <em>un</em> detector. Por eso LIGO tiene dos instalaciones separadas ~3.000 km — <strong>Hanford (Washington)</strong> y <strong>Livingston (Louisiana)</strong> — y se exige: (1) ver <em>la misma señal</em> en ambos, y (2) verla con el <strong>desfase temporal exacto</strong> que corresponde al tiempo de viaje de la onda entre los dos sitios. Un camión mueve un detector, no los dos con el desfase correcto. Es, en términos de ingeniería, <em>detección por coincidencia para filtrar falsos positivos</em>.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Nobel de Física 2017</span>
+    <p>Tras más de 40 años de proyecto LIGO: <strong>Rainer Weiss</strong> (la instrumentación, la parte técnica), <strong>Kip Thorne</strong> (el desarrollo y análisis teórico detrás del interferómetro) y <strong>Barry Barish</strong> (quien consolidó la colaboración internacional que hizo posible el proyecto). Kip Thorne, además, fue asesor científico y productor ejecutivo de <em>Interstellar</em>.</p>
+  </div>
+
+  <h3>El catálogo de fusiones y el "mass gap"</h3>
+  <p>Con los interferómetros se ha detectado un montón de eventos de fusión: agujero negro + agujero negro, estrella de neutrones + estrella de neutrones, y casos mixtos (en clase se mostró la animación del evento <strong>GW230529</strong>, la fusión de un agujero negro con una estrella de neutrones). En los diagramas de catálogo, las flechas unen los dos progenitores con el objeto resultante — y las sumas nunca son lineales.</p>
+
+  <div class="box dato">
+    <span class="tag">El hueco entre 3 y 5 masas solares</span>
+    <p>Curiosidad abierta: hay muchas estrellas de neutrones bajo ~3 M<sub>☉</sub> y muchos agujeros negros sobre ~5 M<sub>☉</sub>, pero <strong>entre 3 y 5 M<sub>☉</sub> casi no se encuentran objetos</strong> (el <em>mass gap</em>). Se han detectado unos pocos, y no se sabe si el hueco es real (la física del colapso evita ese rango) o un <strong>efecto observacional</strong> (sesgo de selección). Las estrellas, como estrellas de secuencia principal, llegan como máximo a ~250 M<sub>☉</sub>; los agujeros negros del catálogo pueden superar eso porque crecen por fusiones.</p>
+  </div>
+
+  <div class="widget" id="w-gw">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>El "chirp": frecuencia orbital de una binaria compacta</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Dos agujeros negros en órbita circular. Reduce la separación (como hace la emisión de ondas gravitacionales) y mira cómo sube la frecuencia de la onda gravitacional (f<sub>GW</sub> = 2 × f<sub>orbital</sub>, por Kepler).</p>
+    <div class="wgrid">
+      <div><label for="gw-m1">Masa 1 (M☉)</label><input type="number" id="gw-m1" min="1" step="any" value="30"></div>
+      <div><label for="gw-m2">Masa 2 (M☉)</label><input type="number" id="gw-m2" min="1" step="any" value="35"></div>
+    </div>
+    <label for="gw-a">Separación entre los objetos: <span id="gw-alab"></span></label>
+    <input type="range" id="gw-a" min="0" max="100" step="1" value="0">
+    <output id="gw-out"></output>
+  </div>
+
+  <div class="widget" id="w-strain">
+    <span class="tagband">Widget interactivo 4</span>
+    <h4>¿Qué tan pequeño es un strain de 10⁻²¹?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">ΔL = h · L. Elige el largo del brazo del interferómetro y el strain, y compara el desplazamiento medido con objetos conocidos.</p>
+    <div class="wgrid">
+      <div><label for="st-L">Largo del brazo L (km)</label><input type="number" id="st-L" min="0.001" step="any" value="4"></div>
+      <div><label for="st-h">Strain h (exponente: 10^−x)</label><input type="number" id="st-h" min="15" max="25" step="1" value="21"></div>
+    </div>
+    <output id="st-out"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Kilonovas y el origen de los elementos más pesados</h2>
+    <p>La tabla periódica se termina de llenar chocando estrellas de neutrones.</p>
+  </div></div>
+
+  <p>Al fusionar objetos compactos no solo se emiten ondas gravitacionales: son objetos hechos de materia, y la energía liberada genera <span class="hl">nucleosíntesis</span> de nuevos elementos. Existe la nova, la supernova… y también la <strong>kilonova</strong>: la explosión producto de la <strong>fusión de dos estrellas de neutrones</strong>. Fue precisamente uno de estos eventos, medido por primera vez (con ondas gravitacionales y luz), el que dio nombre observacional a las kilonovas.</p>
+
+  <ul>
+    <li><strong>NS + NS:</strong> explosión muy intensa, vientos rapidísimos, y un remanente que depende de la masa total: dos estrellas de neutrones muy masivas probablemente dejan un <strong>agujero negro</strong>; si no son tan masivas, puede quedar una estrella de neutrones más masiva que las originales.</li>
+    <li><strong>NS + agujero negro:</strong> también hay explosión, pero la estrella de neutrones "sufre bastante más": el potencial gravitacional del agujero negro es mucho más intenso y el proceso de fusión es diferente.</li>
+    <li><strong>Solo ~1% de la masa se expulsa:</strong> la gravedad involucrada es tanta que casi todo queda en el sistema. Pero ese 1% sale expulsado violentamente y basta para fabricar elementos pesados.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">La tabla periódica completa</span>
+    <p>Actualización del mapa de la nucleosíntesis: el <strong>Big Bang</strong> aportó hidrógeno, helio y una fracción del litio; las <strong>estrellas de baja masa</strong> al morir aportan carbono, nitrógeno y algo de oxígeno; las <strong>estrellas masivas</strong> fusionan hasta el hierro; las <strong>supernovas</strong> (incluidas las tipo Ia de enanas blancas) generan elementos más pesados; y las <strong>fusiones de estrellas de neutrones</strong> (kilonovas) fabrican buena parte de lo más pesado de la tabla periódica — hay elementos que se generan <em>solo</em> en esos eventos. El romanticismo del "polvo de estrellas" ahora incluye también polvo de <em>choques</em> de estrellas.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Tarea recomendada: el problema del litio</span>
+    <p>La profesora recomendó leer sobre el <strong>problema del litio</strong>: la cantidad de litio observada en el universo <em>no calza</em> con la que debió formarse en el Big Bang según los modelos. Se sigue buscando dónde está (o por qué falta) ese litio. Lectura entretenida de cosmología/nucleosíntesis pendiente de resolver.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Fronteras: lo que aún no sabemos</h2>
+    <p>Donde termina el curso de estrellas y empieza la física que falta por descubrir.</p>
+  </div></div>
+
+  <p>El curso de Astrofísica de Estrellas termina aquí, y no es casualidad: más allá del horizonte de eventos empieza lo que <em>no</em> entendemos. Preguntas abiertas que salieron en clase:</p>
+  <ul>
+    <li><strong>¿Qué pasa adentro?</strong> Entendemos los efectos del agujero negro sobre su entorno, pero del interior del horizonte de eventos no tenemos idea de absolutamente nada. Es donde habría que <strong>unificar la relatividad general con la mecánica cuántica</strong>.</li>
+    <li><strong>La singularidad:</strong> para que las ecuaciones calcen, una masa solar debería comprimirse a un tamaño absurdamente pequeño (en clase: "como la cabeza de un alfiler", y en el límite matemático, un punto). Físicamente no sabemos qué significa eso.</li>
+    <li><strong>Campos magnéticos y el teorema de "no pelo":</strong> ante la pregunta de qué pasa con los campos magnéticos, la profesora mencionó (con honestidad sobre los límites de su área) que existe el resultado de que "los agujeros negros no tienen pelo", y que los libros clasifican agujeros negros con/sin rotación y con/sin carga-campo. Hay toda una rama de física teórica pura — la <strong>termodinámica de agujeros negros</strong> — dedicada a qué ocurre dentro del horizonte.</li>
+    <li><strong>¿Por dónde vendrán los avances?</strong> Habrá telescopios más precisos y más detecciones de ondas gravitacionales (quizá rellenando el mass gap), pero los avances de fondo se esperan del <strong>laboratorio</strong>: aceleradores de partículas y física de partículas, más que de la observación astronómica pura.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Interstellar y Gargantúa</span>
+    <p>Kip Thorne no solo asesoró científicamente <em>Interstellar</em>: las simulaciones numéricas que produjeron la imagen del agujero negro <strong>Gargantúa</strong> corrieron durante meses y son <strong>simulaciones físicamente reales</strong>, del tipo que se usa en investigación para estudiar agujeros negros. Hollywood financiando cómputo científico de frontera.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre del curso</span>
+    <p>Con los agujeros negros se cierra la secuencia completa de remanentes estelares del módulo: enanas marrones → enanas blancas → estrellas de neutrones → agujeros negros. Y el mensaje final del curso sigue siendo el del principio: <strong>en astrofísica estelar, todo lo decide la masa</strong>.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Límite núcleo → agujero negro</b></td><td>Núcleo colapsante &gt; ~3 M<sub>☉</sub> (en debate)</td><td>Sobre eso, nada detiene el colapso; bajo eso, estrella de neutrones</td></tr>
+      <tr><td><b>Espacio-tiempo</b></td><td>Espacio y tiempo como entidad única (Einstein)</td><td>La masa lo curva; la gravedad es geometría, no fuerza</td></tr>
+      <tr><td><b>Geodésica</b></td><td>El camino más corto en el espacio-tiempo</td><td>La luz sigue geodésicas: rectas en espacio plano, curvas cerca de masas</td></tr>
+      <tr><td><b>Eclipse de 1919</b></td><td>Luz de estrellas desviada por el Sol</td><td>Primera confirmación observacional de la relatividad general</td></tr>
+      <tr><td><b>Velocidad de escape</b></td><td><span class="katex-inline" data-tex="v_{esc}=\sqrt{2GM/R}"></span>; Tierra 11, Sol 618 km/s</td><td>Agujero negro: v<sub>esc</sub> &gt; c ⇒ nada sale, ni la luz</td></tr>
+      <tr><td><b>Horizonte de eventos</b></td><td>Superficie de no-retorno (no un anillo)</td><td>Adentro: sin interacción posible con el exterior</td></tr>
+      <tr><td><b>Radio de Schwarzschild</b></td><td><span class="katex-inline" data-tex="R_s = 2GM/c^2"></span> ≈ 3 km/M<sub>☉</sub></td><td>Tamaño de referencia del agujero negro</td></tr>
+      <tr><td><b>Densidad vs masa</b></td><td>Sol y BH de 1 M<sub>☉</sub>: igual campo lejano</td><td>Lo especial del BH es lo compacto: permite acercarse al pozo profundo</td></tr>
+      <tr><td><b>Disco de acreción</b></td><td>Gas en espiral a ~c, millones de K</td><td>Emisión de rayos X intensa y variable: firma observacional</td></tr>
+      <tr><td><b>Cygnus X-1</b></td><td>≈ 21 M<sub>☉</sub>, ~7.000 ly, donante tipo O</td><td>Caso clásico: Kepler + Doppler + rayos X ⇒ agujero negro</td></tr>
+      <tr><td><b>Microlente gravitacional</b></td><td>Amplificación tipo lupa (no deformación)</td><td>Detecta BH aislados… y también exoplanetas</td></tr>
+      <tr><td><b>Gaia BH1 / BH3</b></td><td>10 M<sub>☉</sub> a 1.500 ly / 33 M<sub>☉</sub> a 2.000 ly</td><td>Detectados por astrometría de su compañera</td></tr>
+      <tr><td><b>Ondas gravitacionales</b></td><td>Deformaciones del espacio-tiempo, strain ~10⁻²¹</td><td>Nueva ventana observacional; confirman la relatividad general</td></tr>
+      <tr><td><b>LIGO / Virgo</b></td><td>Interferómetros láser; Hanford + Livingston (~3.000 km)</td><td>Dos detectores + desfase exacto = filtro de falsos positivos</td></tr>
+      <tr><td><b>Nobel 2017</b></td><td>Weiss, Thorne y Barish</td><td>40+ años de LIGO: teoría, instrumentación y colaboración</td></tr>
+      <tr><td><b>Fusión no lineal</b></td><td>M<sub>final</sub> &lt; M₁ + M₂ (E = mc²)</td><td>Parte de la masa se radia como energía gravitacional</td></tr>
+      <tr><td><b>Mass gap</b></td><td>Casi no hay objetos entre 3 y 5 M<sub>☉</sub></td><td>¿Física del colapso o sesgo observacional? Pregunta abierta</td></tr>
+      <tr><td><b>Kilonova</b></td><td>Fusión NS+NS; expulsa ~1% de la masa</td><td>Fabrica los elementos más pesados de la tabla periódica</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c5-examen-01.html">Examen 01<small>Masa y remanentes</small></a></li>
+    <li><a href="m3c5-examen-02.html">Examen 02<small>Espacio-tiempo</small></a></li>
+    <li><a href="m3c5-examen-03.html">Examen 03<small>Velocidad de escape</small></a></li>
+    <li><a href="m3c5-examen-04.html">Examen 04<small>Horizonte de eventos</small></a></li>
+    <li><a href="m3c5-examen-05.html">Examen 05<small>Densidad y formación</small></a></li>
+    <li><a href="m3c5-examen-06.html">Examen 06<small>Binarias y rayos X</small></a></li>
+    <li><a href="m3c5-examen-07.html">Examen 07<small>Microlentes y Gaia</small></a></li>
+    <li><a href="m3c5-examen-08.html">Examen 08<small>Ondas gravitacionales</small></a></li>
+    <li><a href="m3c5-examen-09.html">Examen 09<small>Kilonovas</small></a></li>
+    <li><a href="m3c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c5.md</code>). <strong>Esta clase no tiene diapositivas disponibles en el repositorio</strong>, por lo que los apuntes se basan únicamente en la transcripción.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se corrigieron términos evidentemente mal transcritos (p. ej. «radio del Churchill/Cha» → radio de <em>Schwarzschild</em>; «disco de adhesión/atracción» → disco de <em>acreción</em>; «Signos X» → <em>Cygnus X-1</em>; «Hamster, Washington» → <em>Hanford, Washington</em>; «Livingston, en Isia» → <em>Livingston, Louisiana</em>; «el NOI 2017» → el <em>Nobel</em> 2017; «Barry Bizo» → <em>Barry Barish</em>; «VIR» → <em>Virgo</em>; «tripio» → <em>tritio</em>; «evento 23.529 GW» → <em>GW230529</em>). El valor de ~125.000 km/s para la velocidad de escape de una estrella de neutrones es el dicho en clase (cálculos con R = 10 km dan valores algo mayores, ~40–50% de c según la masa exacta). Ante cualquier duda, primar fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes físicas ----
+var G = 6.6743e-11;         // m^3 kg^-1 s^-2
+var C = 299792458;          // m/s
+var MSUN = 1.98892e30;      // kg
+var RSUN_KM = 695700;       // km
+
+// ---- Widget 1: velocidad de escape ----
+(function(){
+  var mIn = document.getElementById('ve-m');
+  var rIn = document.getElementById('ve-r');
+  var rLab = document.getElementById('ve-rlab');
+  var out = document.getElementById('ve-out');
+  // slider 0..600 mapea log10(R/km) de log10(695700)≈5.84 a log10(1)=0
+  var LOGMAX = Math.log10(RSUN_KM), LOGMIN = 0;
+  function sliderToR(v){ return Math.pow(10, LOGMAX - (v/600)*(LOGMAX-LOGMIN)); }
+  function rToSlider(rkm){ return Math.round(600*(LOGMAX - Math.log10(rkm))/(LOGMAX-LOGMIN)); }
+  function fmtR(rkm){
+    if(rkm >= 10000) return rkm.toExponential(2)+" km";
+    if(rkm >= 10) return rkm.toFixed(0)+" km";
+    return rkm.toFixed(2)+" km";
+  }
+  function calc(){
+    var M = parseFloat(mIn.value)*MSUN;
+    var rkm = sliderToR(parseFloat(rIn.value));
+    rLab.textContent = fmtR(rkm);
+    if(!(M>0)){ out.innerHTML = "Ingresa una masa positiva."; return; }
+    var v = Math.sqrt(2*G*M/(rkm*1000)); // m/s
+    var frac = v/C;
+    var rs = 2*G*M/(C*C)/1000; // km
+    var msg;
+    if(frac >= 1){
+      msg = "→ <b style='color:#e0382e'>v<sub>esc</sub> ≥ c: es un AGUJERO NEGRO.</b> Ni la luz puede salir. "+
+            "(El radio ya es menor o igual que el radio de Schwarzschild.)";
+    } else if(frac > 0.1){
+      msg = "→ Objeto ultracompacto (régimen de enana blanca / estrella de neutrones).";
+    } else {
+      msg = "→ Objeto 'normal': la luz escapa sin problema.";
+    }
+    out.innerHTML = "<span class='k'>v<sub>esc</sub></span> = <b>"+(v/1000).toFixed(0)+"</b> km/s = <b>"+
+      (frac*100).toFixed(2)+"%</b> de la velocidad de la luz<br>"+
+      "Radio de Schwarzschild para esta masa: <b>"+rs.toFixed(2)+"</b> km<br>"+msg;
+  }
+  mIn.addEventListener('input', calc);
+  rIn.addEventListener('input', calc);
+  document.querySelectorAll('#w-vesc .presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      rIn.value = rToSlider(parseFloat(btn.dataset.r)); calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 2: radio de Schwarzschild ----
+(function(){
+  var mIn = document.getElementById('rs-m');
+  var out = document.getElementById('rs-out');
+  function calc(){
+    var msol = parseFloat(mIn.value);
+    if(!(msol>0)){ out.innerHTML = "Ingresa una masa positiva."; return; }
+    var M = msol*MSUN;
+    var rs = 2*G*M/(C*C); // m
+    var rskm = rs/1000;
+    var vol = (4/3)*Math.PI*Math.pow(rs,3);
+    var dens = M/vol; // kg/m3 dentro de Rs
+    var comp;
+    if(rs < 1) comp = "apenas <b>"+(rs*1000).toFixed(1)+" milímetros</b>: la Tierra comprimida cabría en una mano";
+    else if(rskm < 1) comp = "del orden de <b>"+rs.toFixed(1)+" metros</b>: cabría en una sala de clases";
+    else if(rskm < 100) comp = "comparable a una <b>comuna o ciudad</b> (una estrella de neutrones mide ~10 km de radio)";
+    else if(rskm < 1e7) comp = "comparable a <b>planetas o al Sol</b> (R☉ ≈ 7×10⁵ km)";
+    else comp = "mayor que el Sol: escala de <b>agujero negro supermasivo</b>";
+    out.innerHTML = "<span class='k'>R<sub>s</sub></span> = <b>"+ (rskm>=1000? rskm.toExponential(3): rskm.toFixed(2)) +"</b> km — "+comp+"<br>"+
+      "Densidad media dentro de R<sub>s</sub>: <b>"+dens.toExponential(2)+"</b> kg/m³ "+
+      "(el agua: 10³ kg/m³; núcleo atómico: ~10¹⁷ kg/m³)<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Nota: a mayor masa, R<sub>s</sub> crece linealmente pero la densidad media ~cae como 1/M²: los supermasivos son 'menos densos' en promedio.</span>";
+  }
+  mIn.addEventListener('input', calc);
+  document.querySelectorAll('#rs-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ mIn.value = btn.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: chirp de binaria compacta ----
+(function(){
+  var m1In = document.getElementById('gw-m1');
+  var m2In = document.getElementById('gw-m2');
+  var aIn = document.getElementById('gw-a');
+  var aLab = document.getElementById('gw-alab');
+  var out = document.getElementById('gw-out');
+  // slider 0..100 mapea log10(a/km) de 6 (10^6 km) a 2 (100 km)
+  function sliderToA(v){ return Math.pow(10, 6 - (v/100)*4); } // km
+  function calc(){
+    var m1 = parseFloat(m1In.value), m2 = parseFloat(m2In.value);
+    if(!(m1>0)||!(m2>0)){ out.innerHTML="Masas positivas, por favor."; return; }
+    var akm = sliderToA(parseFloat(aIn.value));
+    aLab.textContent = (akm>=1000? akm.toExponential(2) : akm.toFixed(0))+" km";
+    var M = (m1+m2)*MSUN;
+    var a = akm*1000;
+    var forb = Math.sqrt(G*M/Math.pow(a,3))/(2*Math.PI); // Hz
+    var fgw = 2*forb;
+    var vorb = Math.sqrt(G*M/a); // velocidad orbital relativa aprox
+    var frac = vorb/C;
+    var rs = 2*G*M/(C*C)/1000; // km, del sistema combinado
+    var estado = akm <= rs*2 ?
+      "<b style='color:#e0382e'>¡Zona de fusión!</b> Separación comparable a los horizontes: aquí viene el pico de la señal (merger) y luego el ringdown." :
+      (frac>0.3 ? "Fase final del inspiral: velocidades del 30–60% de c, como el gráfico de la clase." : "Inspiral temprano: la órbita se encoge lentamente emitiendo ondas gravitacionales.");
+    out.innerHTML = "<span class='k'>f<sub>GW</sub></span> ≈ <b>"+ (fgw<0.01? fgw.toExponential(2): fgw.toFixed(2)) +"</b> Hz &nbsp;·&nbsp; "+
+      "velocidad orbital ≈ <b>"+(frac*100).toFixed(1)+"%</b> de c<br>"+
+      "R<sub>s</sub> combinado ≈ <b>"+rs.toFixed(0)+"</b> km<br>"+estado+
+      "<br><span style='color:var(--muted);font-size:.88rem'>LIGO escucha entre ~10 Hz y ~1000 Hz: solo ve los últimos segundos del inspiral.</span>";
+  }
+  [m1In,m2In,aIn].forEach(function(el){ el.addEventListener('input', calc); });
+  calc();
+})();
+
+// ---- Widget 4: strain ----
+(function(){
+  var LIn = document.getElementById('st-L');
+  var hIn = document.getElementById('st-h');
+  var out = document.getElementById('st-out');
+  function calc(){
+    var L = parseFloat(LIn.value)*1000; // m
+    var hexp = parseInt(hIn.value,10);
+    if(!(L>0)||!(hexp>0)){ out.innerHTML="Valores positivos, por favor."; return; }
+    var h = Math.pow(10,-hexp);
+    var dL = h*L; // m
+    var proton = 8.4e-16; // m (radio del protón)
+    var atomo = 1e-10;
+    var ratioP = dL/proton;
+    var comp;
+    if(dL < proton) comp = "eso es <b>"+(proton/dL).toFixed(0)+" veces MÁS PEQUEÑO que un protón</b>";
+    else if(dL < atomo) comp = "eso es <b>"+ratioP.toFixed(1)+"</b> radios de protón (aún mucho menor que un átomo)";
+    else comp = "eso ya es comparable o mayor que un átomo (~10⁻¹⁰ m)";
+    out.innerHTML = "<span class='k'>ΔL</span> = h·L = <b>"+dL.toExponential(2)+"</b> m — "+comp+".<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Por eso un camión o un temblor arruinan la medición en un solo detector, y se exige coincidencia entre Hanford y Livingston (~3.000 km, desfase de ~10 ms).</span>";
+  }
+  LIn.addEventListener('input', calc);
+  hIn.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 05 — m3c1 · LTE y expansión en MS</title>
+<title>Examen 05 — m3c1 · Vida en la secuencia principal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 05 — LTE y expansión en MS</h1>
+<h1>Examen 05 — Vida en la secuencia principal (M ≲ 4 M☉)</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="a,b,c">
-  <fieldset data-q="1"><legend>1. En MS, asumir LTE permite usar con buena aproximación:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">La ley de gases ideales</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Solo mecánica cuántica</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo relatividad</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Ninguna ecuación de estado</label>
-    <p class="fb" hidden>LTE + equilibrio hidrostático ⇒ PV = NkT como guía.</p>
+
+<form id="quiz" data-answers="d,a,c">
+  <fieldset data-q="1"><legend>1. En la ley de los gases ideales PV = Nk<sub>B</sub>T aplicada al núcleo estelar, ¿qué le ocurre a N mientras la estrella fusiona hidrógeno?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Aumenta, porque se crean nuevos núcleos de helio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Se mantiene exactamente constante por el equilibrio</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Aumenta, porque se liberan fotones</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Disminuye: 4 núcleos de H se convierten en 1 de He</label>
+    <p class="fb" hidden>La cadena protón-protón convierte 4 H en 1 He (devuelve 2 H en el proceso, pero el balance neto es perder partículas).</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Al fusionar 4H → He en el núcleo, el número de partículas libres en el núcleo:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Aumenta</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Disminuye (neto 4→2 por ciclo pp)</label>
-    <label class="opt"><input type="radio" name="q2" value="c">No cambia</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Se duplica</label>
-    <p class="fb" hidden>Menos partículas contables para el gas ideal.</p>
+  <fieldset data-q="2"><legend>2. Como el núcleo pierde partículas pero debe mantener la presión (equilibrio hidrostático), la consecuencia es que:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Las partículas se mueven más rápido y la temperatura del núcleo sube gradualmente</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La estrella se contrae hasta ser una enana blanca</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La temperatura del núcleo baja para compensar</label>
+    <label class="opt"><input type="radio" name="q2" value="d">La fusión se detiene inmediatamente</label>
+    <p class="fb" hidden>Con menos partículas, mantener P exige más energía cinética por partícula: sube T, sube la tasa de fusión, sube L y la estrella se expande un poco.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Durante la MS el Sol ha crecido en radio aproximadamente un:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">50%</label>
-    <label class="opt"><input type="radio" name="q3" value="b">0,01%</label>
-    <label class="opt"><input type="radio" name="q3" value="c">~6%</label>
-    <label class="opt"><input type="radio" name="q3" value="d">10×</label>
-    <p class="fb" hidden>Era ~6% más pequeño al nacer en la MS.</p>
+  <fieldset data-q="3"><legend>3. Comparado con cuando entró a la secuencia principal hace ~4.500 millones de años, el Sol actual es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Idéntico: el equilibrio impide todo cambio</label>
+    <label class="opt"><input type="radio" name="q3" value="b">~50% más pequeño y más frío</label>
+    <label class="opt"><input type="radio" name="q3" value="c">~30–40% más luminoso, ~6% más grande y ~300 K más caliente</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El doble de masivo</label>
+    <p class="fb" hidden>La secuencia principal no es estática: es una deriva lenta de L, R y T causada por la pérdida de partículas del núcleo.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Describe la cadena: menos partículas en el núcleo → más T → más L → ligera expansión.</p>
+  <p class="q">4. Explica paso a paso el «bucle» visto en clase: por qué el simple hecho de que 4 H se conviertan en 1 He hace que la estrella brille cada vez más y se expanda ligeramente durante la secuencia principal.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">H→He reduce <strong>N</strong>; P debe sostener gravedad ⇒ partículas más rápidas ⇒ sube <strong>T</strong> ⇒ más fusión ⇒ más <strong>L</strong> ⇒ expansión ~6%.</div>
+    <div class="answer">1) La fusión reduce el número de partículas N del núcleo (4 → 1, con retorno parcial de 2 H, pero neto negativo). 2) La estrella está en equilibrio hidrostático: la <strong>presión</strong> del núcleo debe seguir sosteniendo el peso de las capas superiores, así que P no puede bajar. 3) Según PV = Nk<sub>B</sub>T, si N baja y P debe mantenerse, las partículas restantes deben <strong>moverse más rápido</strong>: esa mayor energía cinética es un aumento de <strong>temperatura</strong> del núcleo. 4) A mayor temperatura, más choques efectivos entre núcleos de H ⇒ <strong>sube la tasa de fusión</strong> ⇒ se genera más energía por segundo ⇒ <strong>sube la luminosidad</strong>. 5) Esa radiación extra empuja las capas hacia afuera y la estrella <strong>se expande ligeramente</strong>, alcanzando un nuevo equilibrio apenas corrido. El ciclo se repite lentamente durante toda la secuencia principal: es una retroalimentación que produce una deriva secular, no una explosión.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué la temperatura superficial del Sol subió ~300 K desde que entró en MS?</p>
+  <p class="q">5. ¿Qué significa LTE (equilibrio termodinámico local) y qué comentario hizo la profesora sobre las enanas rojas en relación con este concepto?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Consecuencia del ajuste de equilibrio: más L y radio ligeramente mayor; con L=4πR²σT⁴ puede subir T<sub>eff</sub>.</div>
+    <div class="answer">El <strong>LTE</strong> (Local Thermodynamic Equilibrium) es la suposición de que cada región pequeña de la estrella está en equilibrio termodinámico consigo misma, de modo que se le pueden aplicar relaciones como la ley de los gases ideales con una temperatura local bien definida. Es la aproximación estándar para modelar interiores y atmósferas estelares: uno trabaja «asumiendo LTE» o «no asumiendo LTE». El comentario de la clase: las <strong>enanas rojas son pesadas de estudiar</strong> porque en sus capas más externas <em>no</em> se cumple el LTE, así que los modelos simples dejan de ser válidos y el análisis se complica. Para los propósitos del curso, en cambio, se asume gas ideal y LTE — hasta que la degeneración de electrones (núcleos muy densos) rompe esa física «normal».</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estrellas de Neutrones y Púlsares — Astrofísica de Estrellas, Módulo III · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.widget canvas{display:block;width:100%;background:#05070d;border:1px solid var(--line);border-radius:10px;margin-top:10px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 4</span>
+  <h1>Estrellas de Neutrones y <em>Púlsares</em></h1>
+  <p class="sub">El remanente de las estrellas de alta masa: un Sol comprimido al tamaño de Santiago. Cómo colapsa un núcleo de hierro, por qué el resultado es una esfera de neutrones, cómo Jocelyn Bell descubrió los púlsares, el modelo de faro, los magnetares, y por qué estos objetos son los relojes más precisos y los laboratorios más extremos del universo.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Estrellas</span>
+    <span><b>Módulo:</b> III · Clase 4</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · U. de Chile</span>
+    <span><b>Fecha:</b> julio 2026</span>
+    <span><b>Fuente:</b> solo transcripción (sin diapositivas)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">S</span>i a una estrella de <strong>alta masa</strong> (≥ 8 M<sub>☉</sub>) ya vieja le quitamos todas las capas externas, queda un <span class="hl">núcleo de hierro</span>: el último elemento que la fusión puede fabricar liberando energía. Ese núcleo, muerto e inerte, no genera nada que lo sostenga, así que colapsa bajo su propio peso. En el colapso los átomos se desarman y el resultado es una <span class="hl">estrella de neutrones</span>: hasta ~3 masas solares comprimidas en una esfera de unos 10 km de radio. Cuando además gira rápido y su campo magnético dispara haces de radiación desde los polos, la vemos <em>pulsar</em> como un faro cósmico: un <span class="hl">púlsar</span>. Esta clase recorre cómo se forman, cómo se descubrieron y para qué sirven.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El cementerio estelar: contexto</a></li>
+    <li><a href="#s2">Colapso del núcleo de hierro</a></li>
+    <li><a href="#s3">Anatomía de una estrella de neutrones</a></li>
+    <li><a href="#s4">Jocelyn Bell y los Little Green Men</a></li>
+    <li><a href="#s5">El modelo de faro</a></li>
+    <li><a href="#s6">Momento angular y flujo magnético</a></li>
+    <li><a href="#s7">Envejecimiento y magnetares</a></li>
+    <li><a href="#s8">Relojes, laboratorios y ondas gravitacionales</a></li>
+    <li><a href="#s9">Púlsares de milisegundos y exoplanetas</a></li>
+    <li><a href="#s10">El cielo desde una estrella de neutrones</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El cementerio estelar: dónde estamos</h2>
+    <p>Repaso: qué remanente deja cada tipo de estrella.</p>
+  </div></div>
+
+  <p>La clase anterior cerró con las <strong>enanas blancas</strong>: el núcleo expuesto de una estrella de <em>baja masa</em> (como el Sol), compuesto principalmente de <strong>carbono y oxígeno</strong>, sostenido por la presión de degeneración de <em>electrones</em>. Y vimos que, en un sistema binario, una enana blanca puede acretar material de su compañera hasta superar el límite de Chandrasekhar y explotar como <span class="hl">supernova tipo Ia</span>.</p>
+
+  <p>Ahora completamos el cuadro con los remanentes de las estrellas de <strong>alta masa</strong> (≥ 8 M<sub>☉</sub>). Su núcleo final no es de carbono y oxígeno sino de <span class="hl">hierro</span>, porque el hierro es el último elemento que una estrella puede formar en su núcleo. El destino de ese núcleo depende de cuánta masa esté cayendo sobre él: si la presión de degeneración de neutrones logra frenar el colapso, queda una <strong>estrella de neutrones</strong>; si no, el colapso continúa y se forma un <strong>agujero negro</strong> (tema de la clase 5).</p>
+
+  <div class="box dato">
+    <span class="tag">Límites de masa estelar</span>
+    <p>De paso, la profesora recordó que las estrellas mismas tienen un techo de masa: por encima de ~<strong>200–250 M<sub>☉</sub></strong> (límite aún debatido) la presión de radiación es tan violenta que la estrella se dispersa mientras intenta formarse. No se pueden fabricar estrellas de masa arbitraria.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El "árbol de destinos" estelar funciona como un <em>árbol de decisión</em> cuyo atributo dominante es la masa: &lt; 8 M<sub>☉</sub> → enana blanca; ≥ 8 M<sub>☉</sub> → estrella de neutrones o agujero negro según la masa del núcleo colapsante. Los sistemas binarios agregan ramas combinatorias (acreción, fusiones, reciclaje) que multiplican los estados finales posibles.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Colapso del núcleo de hierro</h2>
+    <p>Fotodesintegración, captura electrónica, rebote… y supernova.</p>
+  </div></div>
+
+  <p>¿Qué tiene de especial el hierro? Que su fusión es <span class="hl">endotérmica</span>: fusionar hidrógeno, helio, carbono, oxígeno o silicio <em>libera</em> energía (es la fuente de energía de la estrella), pero fusionar hierro <em>consume</em> energía. Cuando el núcleo llega a hierro, la central eléctrica se apaga. Sin generación de energía no hay presión térmica que sostenga el peso, el núcleo supera el límite de Chandrasekhar y <strong>se hunde sobre sí mismo</strong>, sin nada que lo detenga.</p>
+
+  <p>Al comprimirse, la temperatura del núcleo se dispara hasta ~<strong>10⁹ K</strong>. A esas temperaturas se activan dos procesos que desarman los átomos y convierten el núcleo en una "sopa" de neutrones:</p>
+
+  <h3>Fotodesintegración</h3>
+  <p>Fotones de altísima energía son absorbidos por los núcleos atómicos y los <strong>disocian</strong> en elementos más livianos. Un núcleo de hierro puede romperse en núcleos de helio y neutrones libres; luego esos núcleos de helio vuelven a chocar con fotones y se rompen a su vez, en un efecto en cadena:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\gamma + {}^{56}\mathrm{Fe} \;\rightarrow\; 13\,{}^{4}\mathrm{He} + 4n \qquad\quad \gamma + {}^{4}\mathrm{He} \;\rightarrow\; 2p + 2n"></div>
+    <small>La estrella pasa millones de años construyendo elementos pesados y la fotodesintegración los desarma en segundos. Recordar que aquí "hierro" o "helio" son <em>núcleos desnudos</em>: en el centro de la estrella los electrones ya no están ligados a sus átomos.</small>
+  </div>
+
+  <h3>Captura electrónica</h3>
+  <p>Los protones capturan electrones libres y se convierten en neutrones, emitiendo un <strong>neutrino</strong> para que la contabilidad de la física de partículas cierre:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="p + e^{-} \;\rightarrow\; n + \nu_{e}"></div>
+    <small>Ambos procesos producen neutrones libres. El núcleo de hierro se va transformando en una esfera de neutrones, y sale un diluvio de neutrinos.</small>
+  </div>
+
+  <h3>El rebote y la supernova de colapso</h3>
+  <p>El colapso se detiene cuando la densidad alcanza la de un <strong>núcleo atómico</strong>: ahí la <span class="hl">presión de degeneración de neutrones</span> dice "hasta acá". La materia que venía cayendo a gran velocidad se encuentra con ese muro incompresible y se genera un <strong>rebote</strong>: una onda de choque que, ayudada por el empuje de los neutrinos de la captura electrónica, expulsa violentamente las capas externas de la estrella. Eso es una <span class="hl">supernova de colapso de núcleo</span> (tipo II).</p>
+
+  <div class="box physics">
+    <span class="tag">Dos supernovas muy distintas</span>
+    <p><strong>Tipo Ia:</strong> una enana blanca en binaria acreta material, supera Chandrasekhar y detona; la estrella se destruye por <em>exceso de combustible</em>. <strong>Tipo II (colapso):</strong> una estrella masiva sola se queda <em>sin</em> fuente de energía, el núcleo implota, rebota y expulsa las capas externas. En la tipo II queda un remanente compacto en el centro (estrella de neutrones o agujero negro); en la Ia normalmente no queda nada.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El núcleo de hierro es un sistema con <em>feedback</em> que pierde su lazo de control: la fusión era el actuador que compensaba la gravedad. Al llegar a hierro, el actuador no solo se apaga sino que se vuelve un consumidor (reacción endotérmica) — como un proceso que, en vez de liberar memoria, empieza a consumirla en el peor momento. El sistema diverge (colapso) hasta chocar con una restricción dura de nivel inferior: el principio de exclusión de Pauli aplicado a neutrones.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Anatomía de una estrella de neutrones</h2>
+    <p>Un Sol comprimido al tamaño de Santiago.</p>
+  </div></div>
+
+  <p>Los números de estos objetos son para decir "wow":</p>
+  <ul>
+    <li><strong>Radio:</strong> ~10 km (diámetro ~20 km). Cabría dentro de la ciudad de Santiago.</li>
+    <li><strong>Masa:</strong> entre <strong>1,4 M<sub>☉</sub></strong> (el límite de Chandrasekhar por abajo: si el núcleo pesa menos, queda enana blanca) y ~<strong>3 M<sub>☉</sub></strong> (límite superior aún en investigación; en promedio se miden ~1,4–2 M<sub>☉</sub>).</li>
+    <li><strong>Densidad:</strong> 10¹³–10¹⁵ g/cm³. Una cucharadita de estrella de neutrones tiene la masa de una montaña.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho \;=\; \frac{3M}{4\pi R^{3}} \;\sim\; 10^{14}\text{–}10^{15}\ \mathrm{g/cm^{3}}"></div>
+    <small>Comparable a la densidad de un núcleo atómico. Para lograr algo así con química habría que fabricar un "elemento" con número atómico ~10⁵⁷: no existe nada parecido en la tabla periódica.</small>
+  </div>
+
+  <h3>Un núcleo atómico gigante… amarrado por gravedad</h3>
+  <p>Como es esencialmente un mar de neutrones (con protones y electrones sueltos), se puede pensar la estrella de neutrones como un <span class="hl">núcleo atómico gigantesco</span>. La diferencia clave: en un núcleo atómico las partículas se unen por la <strong>fuerza nuclear fuerte</strong>; en la estrella de neutrones lo que mantiene todo junto es la <strong>gravedad</strong>.</p>
+
+  <h3>¿Quién la sostiene? Neutrones degenerados</h3>
+  <p>En la enana blanca eran los <em>electrones</em> degenerados los que aguantaban el peso. Aquí los electrones ya no dan abasto (son demasiado livianos) y son los <span class="hl">neutrones degenerados</span> los que sostienen el objeto: por el <strong>principio de exclusión de Pauli</strong> (con la incertidumbre de Heisenberg detrás), los neutrones se "ordenan" ocupando cada uno su estado cuántico, y esa resistencia a apilarse en el mismo estado genera una presión que no depende de la temperatura.</p>
+
+  <div class="box prof">
+    <span class="tag">Pasta nuclear: lasaña y ñoquis</span>
+    <p>La estructura interna de las estrellas de neutrones no se entiende bien: son tan pequeñas que hacer astrosismología es dificilísimo, y casi todo el trabajo es <strong>teórico y computacional</strong>. Hay modelos que describen fases de la materia del interior con nombres de pastas: <em>lasaña</em> (capas), <em>ñoquis</em> (grumos), etc. La profesora lo mencionó como curiosidad para buscar: "pasta nuclear" (<em>nuclear pasta</em>).</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Dónde quedan los electrones?</span>
+    <p>No desaparecen todos: una parte queda moviéndose cerca de la superficie de la estrella. Electrones en movimiento son <strong>corrientes eléctricas</strong>, y corrientes eléctricas generan <strong>campos magnéticos</strong>. Guardar esta idea: es la semilla de los púlsares.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Jocelyn Bell y los "Little Green Men"</h2>
+    <p>Cómo se descubrieron los púlsares: señal, ruido e historia.</p>
+  </div></div>
+
+  <p>En <strong>1967</strong>, <span class="hl">Jocelyn Bell</span>, estudiante de doctorado en Cambridge bajo la supervisión de <strong>Tony Hewish</strong>, detectó con la antena del observatorio Mullard una señal de radio que venía <em>siempre de la misma región del cielo</em> (ascensión recta 19h 19min: de ahí el nombre de catálogo <strong>CP 1919</strong>). Apuntaban a otro lado y no había nada; volvían a apuntar y ahí estaba, con una regularidad tan perfecta que bromearon con que era clave Morse alienígena y bautizaron la fuente <span class="hl">LGM</span>: <em>Little Green Men</em>, los hombrecitos verdes.</p>
+
+  <p>Al registrar la señal con mejor resolución temporal descubrieron que no era un tono continuo sino <strong>pulsos</strong> que llegaban con un periodo de <strong>1,3373011 segundos</strong>, siempre con esa precisión de todas las cifras. Ninguna civilización hacía falta: al aprender a identificar la firma, empezaron a encontrar señales similares en otras regiones del cielo. Nacía una clase nueva de objeto: los <span class="hl">púlsares</span> (<em>pulsars</em> = <strong>puls</strong>ating <strong>r</strong>adio <strong>s</strong>ources, fuentes de radio pulsantes).</p>
+
+  <div class="box dato">
+    <span class="tag">La injusticia del Nobel de 1974</span>
+    <p>El descubrimiento recibió el Premio Nobel de Física en <strong>1974</strong>… entregado solo al supervisor, Tony Hewish. Jocelyn Bell —quien hizo las observaciones, las mediciones y el cálculo del periodo— quedó fuera. Se la considera una de las grandes injusticias de la historia de la astrofísica, agravada por el sesgo de género de la época.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática: señal vs. ruido</span>
+    <p>El registro original (en rollo de papel, sin computadores) es un ejercicio clásico de <em>detección de señal en ruido</em>: la radio está llena de interferencia, y la clave fue la <strong>periodicidad estable</strong> y la <strong>repetibilidad direccional</strong> (solo aparece apuntando a esa coordenada). Es el mismo criterio con que se separa una señal real de un artefacto en cualquier pipeline de datos. La anécdota inversa: años después, otro observatorio detectó una "señal" que aparecía todas las noches a la misma hora… era el <strong>microondas</strong> de un operador calentando café. Moraleja: antes de publicar, descartar las fuentes de interferencia locales.</p>
+  </div>
+
+  <p>Los púlsares emiten sobre todo en <strong>radio</strong>. En el óptico son casi invisibles (son demasiado pequeños), aunque los más energéticos —como el púlsar de la <strong>Nebulosa del Cangrejo</strong>, con periodo de ~33 milisegundos— se alcanzan a ver parpadeando en luz visible, y también en rayos X. Las ondas de radio tienen además la ventaja de atravesar la nebulosa que rodea al objeto.</p>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El modelo de faro</h2>
+    <p>Por qué un objeto que gira se ve como pulsos.</p>
+  </div></div>
+
+  <p>Juntemos las piezas. En la superficie de la estrella de neutrones hay partículas cargadas (electrones, protones) moviéndose muy rápido: eso son corrientes, y las corrientes generan <span class="hl">campos magnéticos intensísimos</span>. Las partículas cargadas quedan atrapadas por las líneas de campo y se concentran en los <strong>polos magnéticos</strong>, desde donde salen disparadas en dos <strong>haces</strong> (jets) de radiación <em>y</em> partículas, acelerados a velocidades relativistas (≳ 90% de la velocidad de la luz). La estrella funciona como un <strong>acelerador de partículas natural</strong>.</p>
+
+  <p>El detalle clave: los polos magnéticos <strong>no están alineados</strong> con el eje de rotación (igual que en la Tierra, donde el polo magnético no coincide con el geográfico). Como la estrella gira muy rápido, los haces barren el cielo como la luz de un <span class="hl">faro</span>: cada vez que un haz cruza la dirección de la Tierra, recibimos un pulso. El <strong>periodo del pulso es el periodo de rotación</strong> de la estrella (o la mitad, si ambos haces nos barren).</p>
+
+  <div class="box physics">
+    <span class="tag">Todos los púlsares son estrellas de neutrones, pero…</span>
+    <p>…no todas las estrellas de neutrones son púlsares. Es un <strong>efecto observacional</strong>: si la geometría hace que ningún haz barra jamás la dirección de la Tierra, no vemos pulsos, aunque el objeto sea idéntico. Es lo mismo que pasa con los exoplanetas por tránsito: solo detectamos los sistemas cuya orientación nos favorece.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué no puede ser una enana blanca girando?</span>
+    <p>Porque la física no da: un objeto del tamaño de la Tierra no puede girar con periodos de segundos o milisegundos sin despedazarse. Solo un objeto de ~10 km puede rotar tan rápido. El periodo del pulso delata el <em>tamaño</em> del emisor.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Auroras al revés</span>
+    <p>La profesora propuso pensar el haz de un púlsar como el <em>efecto inverso</em> de una aurora: en la Tierra, partículas que vienen <em>de afuera</em> son canalizadas por el campo magnético <em>hacia</em> los polos, donde iluminan la atmósfera. En el púlsar, partículas de la estrella se concentran en los polos magnéticos y salen disparadas <em>hacia afuera</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Por qué giran tan rápido: dos leyes de conservación</h2>
+    <p>Momento angular y flujo magnético en el colapso.</p>
+  </div></div>
+
+  <h3>Conservación del momento angular</h3>
+  <p>La estrella progenitora ya rotaba. Al comprimir el núcleo desde escalas de miles o millones de kilómetros hasta 10 km, el momento angular debe conservarse, así que la rotación se dispara — la clásica bailarina de patinaje cerrando los brazos, en versión extrema:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="I_1\,\omega_1 = I_2\,\omega_2,\qquad I \propto M R^2 \;\;\Rightarrow\;\; P_2 \simeq P_1\left(\frac{R_2}{R_1}\right)^{2}"></div>
+    <small>Si el radio cae en un factor 10⁵, el periodo cae en un factor 10¹⁰: de rotaciones de días a rotaciones de milisegundos.</small>
+  </div>
+
+  <h3>Conservación del flujo magnético</h3>
+  <p>Lo mismo pasa con el campo magnético: el <strong>flujo magnético</strong> (campo × área) se conserva. Al reducir el radio, el área cae como <span class="katex-inline" data-tex="R^2"></span> y el campo debe crecer en el mismo factor:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\Phi = B \cdot 4\pi R^{2} \approx \text{cte} \;\;\Rightarrow\;\; B_2 = B_1\left(\frac{R_1}{R_2}\right)^{2} \sim B_1 \times 10^{10}"></div>
+    <small>Una estrella de secuencia principal con ~100 Gauss termina como estrella de neutrones con ~10¹² Gauss: diez órdenes de magnitud más. (El Gauss es la unidad que usaremos para campos magnéticos.)</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Las leyes de conservación funcionan como <em>invariantes</em> del sistema: cantidades que el "refactor" del colapso no puede cambiar. Si conozco el invariante y el estado final (R = 10 km), puedo <em>inferir</em> el estado sin observarlo directamente — igual que se razona sobre un sistema distribuido a partir de sus invariantes. Nota de escalas: todo aquí se maneja en órdenes de magnitud (factores 10¹⁰), el hábito mental de las escalas logarítmicas.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Envejecimiento, línea de muerte y magnetares</h2>
+    <p>Los púlsares se apagan; algunos primos rotan lento con campos brutales.</p>
+  </div></div>
+
+  <h3>La vida de un púlsar</h3>
+  <p>Emitir tiene costo: los haces se llevan energía y partículas, así que el púlsar <strong>se frena</strong> a medida que envejece. Los púlsares jóvenes giran más rápido y tienen campos más intensos; los viejos giran lento (periodos de segundos) y sus haces se debilitan hasta ser indetectables. La vida típica como púlsar es del orden de <strong>10 millones de años</strong>. En un diagrama campo magnético vs. periodo existe una región —la <em>línea de muerte</em>— bajo la cual (campos ≲ 10¹¹ Gauss y periodos largos) la estrella ya no logra disparar partículas: sigue siendo estrella de neutrones, pero deja de ser púlsar.</p>
+
+  <div class="box dato">
+    <span class="tag">¿Por qué hay pocos púlsares dentro de remanentes de supernova?</span>
+    <p>Dos razones vistas en clase: (1) el <strong>gas del remanente se dispersa ~100 veces más rápido</strong> que la vida del púlsar, así que la nebulosa desaparece mucho antes de que el púlsar se apague; y (2) las explosiones pueden ser <strong>asimétricas</strong>, dándole al púlsar una "patada" que lo expulsa fuera del remanente.</p>
+  </div>
+
+  <h3>La fuente de energía de un púlsar</h3>
+  <p>Ya no hay fusión: la energía que ilumina todo es la <span class="hl">energía rotacional</span> de la estrella. El campo magnético girando a gran velocidad impulsa las partículas cargadas, y esas partículas transfieren energía a la nebulosa circundante (por eso el remanente sigue brillando después de la explosión). Una verificación hermosa: la energía rotacional que el púlsar del Cangrejo pierde al frenarse <strong>coincide con la energía que emite su nebulosa</strong>. Las observaciones confirman la teoría.</p>
+
+  <h3>Magnetares</h3>
+  <p>Se conocen algo más de <strong>3.000 púlsares</strong>. Además existen los <span class="hl">magnetares</span>: también estrellas de neutrones, pero con campos magnéticos ~<strong>1.000 veces más intensos</strong> que los de un púlsar y <strong>rotación muy lenta</strong>. Su fuente de energía no es la rotación sino el <strong>decaimiento del campo magnético</strong>. Al girar tan lento, en general no producen pulsos (aunque se conocen unos pocos magnetares con pulso, lo más raro de lo raro).</p>
+
+  <div class="box physics">
+    <span class="tag">¿Cómo se mide un campo magnético a años luz?</span>
+    <p>Por la <strong>polarización de la luz</strong>: los campos magnéticos cambian la orientación de la onda electromagnética, y ese cambio es medible. El experimento casero de la clase: mirar una pantalla a través de lentes de sol polarizados y girarlos — la luz cambia porque el filtro selecciona una orientación de la onda.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Relojes cósmicos, laboratorios y ondas gravitacionales</h2>
+    <p>Para qué sirven los púlsares.</p>
+  </div></div>
+
+  <h3>Relojes de precisión atómica</h3>
+  <p>Los pulsos son tan regulares que los púlsares funcionan como <strong>relojes atómicos en el espacio</strong>, con errores relativos del orden de <strong>10⁻¹⁶</strong>. El primer púlsar de milisegundos (descubierto en <strong>1982</strong>) tiene un periodo conocido con muchísimas cifras significativas. Además, se ha medido su <strong>frenado</strong>: el periodo crece ~10⁻¹⁹ s por segundo, y esa desaceleración a su vez cambia en ~10⁻³⁰: es como pisar el freno cada vez más fuerte, pero con números diminutos.</p>
+
+  <div class="box dato">
+    <span class="tag">El mapa de púlsares del Voyager</span>
+    <p>El disco de oro de las Voyager lleva un <strong>mapa de púlsares</strong>: líneas rectas que indican la distancia desde el Sol a púlsares conocidos, con marcas perpendiculares que codifican el <strong>periodo de cada púlsar en binario</strong>. Como los periodos son tan precisos y distintivos, cualquier civilización que lo encuentre podría <em>triangular</em> la ubicación del sistema solar en la galaxia. Es literalmente usar púlsares como un GPS galáctico.</p>
+  </div>
+
+  <h3>Laboratorios de física extrema</h3>
+  <ul>
+    <li>Campos magnéticos de 10¹² Gauss y materia a densidad nuclear: condiciones imposibles de reproducir en la Tierra.</li>
+    <li>Partículas aceleradas a régimen relativista (≳ 90% de c).</li>
+    <li>Potenciales gravitacionales enormes: espacio-tiempo fuertemente curvado sin llegar a agujero negro.</li>
+    <li>En binarias, permiten medir masas con precisión y acotar el límite superior de masa de las estrellas de neutrones.</li>
+  </ul>
+
+  <h3>Ondas gravitacionales y púlsares binarios</h3>
+  <p>Un objeto masivo quieto solo "hunde la sábana" del espacio-tiempo; pero <strong>dos objetos masivos orbitando</strong> en torno a su centro de masa generan <span class="hl">ondas gravitacionales</span> que se propagan a la velocidad de la luz, como las ondas al pasar la mano por el agua de un lago. Einstein las predijo en 1915; la primera detección directa (LIGO) llegó recién en <strong>2015–2016</strong>, un siglo después.</p>
+
+  <p>Los <strong>púlsares binarios</strong> (dos estrellas de neutrones orbitándose) son la herramienta perfecta para estudiarlas: cualquier perturbación del espacio-tiempo produce un <em>retraso medible</em> (time delay) en la llegada de pulsos que deberían ser perfectamente periódicos. Con el primer púlsar binario se comprobó que la órbita <strong>decae</strong> tal como predice la relatividad general: el periastro (la distancia mínima entre las estrellas; <em>peri</em> = cercano, <em>astro</em> = estrella) se acerca ~<strong>3,5 metros por año</strong>, y el sistema debería fusionarse en ~<strong>300 millones de años</strong>. Ese descubrimiento ganó el <strong>Nobel de 1993</strong>. Más recientemente, el proyecto <strong>NANOGrav</strong> (resultados de junio de 2023) usó un conjunto de púlsares de milisegundos como red de detección: las correlaciones medidas entre pares de púlsares siguen la curva predicha por la teoría.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Usar púlsares para detectar ondas gravitacionales es <em>timing analysis</em> puro: tienes N relojes remotos ultraestables, mides el <strong>jitter</strong> correlacionado entre ellos, y de la estructura espacial de esa correlación (en función de la separación angular entre púlsares) infieres la perturbación del medio. Es el mismo principio que sincronizar relojes distribuidos y detectar anomalías de red por sus retardos correlacionados.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Púlsares de milisegundos y los primeros exoplanetas</h2>
+    <p>Reciclaje en binarias y planetas donde nadie los esperaba.</p>
+  </div></div>
+
+  <h3>Púlsares reciclados</h3>
+  <p>¿Cómo puede un púlsar viejo girar en <em>milisegundos</em>, si con la edad deberían frenarse? La respuesta está en los <strong>sistemas binarios</strong>: la estrella masiva del par muere primero y deja una estrella de neutrones que se va frenando y enfriando. Cuando la compañera de baja masa evoluciona a gigante roja, la estrella de neutrones empieza a <strong>acretar material</strong> a través de un disco de acreción (igual que la enana blanca antes de una nova). Ese material le transfiere <strong>momento angular</strong>: la estrella de neutrones se <em>reacelera</em> y "renace" como <span class="hl">púlsar de milisegundos</span> — un púlsar reciclado. A diferencia de la enana blanca (que acumula y explota), aquí el sistema se autorregula: lo que gana acretando lo va expulsando por los haces.</p>
+
+  <h3>Los primeros exoplanetas de la historia (1992)</h3>
+  <p>El primer exoplaneta no se descubrió alrededor de una estrella tipo Sol, sino alrededor de un <strong>púlsar</strong>: en <strong>1992</strong>, con el radiotelescopio de <strong>Arecibo</strong> (Puerto Rico) observando a 430 MHz, se detectaron <strong>tres planetas</strong> alrededor del púlsar <strong>PSR B1257+12</strong>: uno de ~3 masas terrestres, uno de ~1 masa terrestre y un tercero con masa comparable a la Luna. ¿Cómo se detecta algo tan pequeño? Por los <strong>retrasos en los pulsos</strong>: cualquier cosa que orbite al púlsar perturba el tiempo de llegada de un reloj que conocemos con precisión de 10⁻¹⁶.</p>
+
+  <div class="box dato">
+    <span class="tag">El Nobel fue para el otro planeta</span>
+    <p>El Nobel por exoplanetas se otorgó por el descubrimiento de <strong>1995</strong>: el primer planeta alrededor de una estrella <em>tipo Sol</em> (51 Pegasi b, por <strong>Michel Mayor y Didier Queloz</strong>, mediante velocidad radial). Pesó más por su conexión con la búsqueda de vida: alrededor de un púlsar no esperamos ambientes habitables. En la transcripción los nombres aparecen distorsionados ("mayor y Kellogg / Didier Kellós"); los correctos son Mayor y Queloz.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">¿Cuenta como "exoplaneta" si orbita un remanente?</span>
+    <p>Debate filosófico de la clase: un estudiante objetó que la estrella de neutrones "ya no es una estrella". Respuesta de la profesora: es un <strong>remanente estelar</strong>, sigue siendo un objeto estelar, y el planeta que lo orbita se clasifica como exoplaneta (a diferencia de un asteroide, que es un cuerpo menor, deforme y con otro mecanismo de formación).</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>El cielo desde una estrella de neutrones</h2>
+    <p>Curiosidad relativista: ver bajo el horizonte.</p>
+  </div></div>
+
+  <p>Experimento mental de cierre: ¿cómo veríamos el cielo parados en la superficie de una estrella de neutrones?</p>
+  <ul>
+    <li><strong>Todo borroso por la rotación:</strong> si la estrella da una vuelta por segundo, no veríamos estrellas puntuales sino trazos de luz barriendo el cielo.</li>
+    <li><strong>Objetos bajo el horizonte:</strong> el espacio-tiempo está tan curvado que la luz de objetos físicamente <em>debajo</em> del horizonte se curva y llega igual a nuestros ojos.</li>
+    <li><strong>Los polos desde el ecuador:</strong> parados en el ecuador podríamos ver ambos polos celestes, porque la luz llega "doblada" desde todas las direcciones.</li>
+  </ul>
+  <p>La gravedad de una estrella de neutrones no es la de un agujero negro —la luz sí escapa— pero se le acerca lo suficiente como para que la <strong>curvatura del espacio-tiempo</strong> produzca estos efectos, que retomaremos en la clase 5 (agujeros negros). De hecho, la deformación del espacio-tiempo depende de la masa <em>y</em> de lo compacto del objeto: dos masas iguales curvan igual a gran distancia, pero solo el objeto compacto permite acercarse tanto como para ver la curvatura extrema.</p>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con los números de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-colapso">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Colapso y conservación: periodo de rotación y campo magnético</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Parte de una estrella con cierto radio, periodo de rotación y campo magnético, comprímela a una estrella de neutrones de 10 km y mira qué exigen las leyes de conservación (P ∝ R², B ∝ 1/R²).</p>
+    <div class="presets" id="col-presets">
+      <button data-r="700000" data-p="25" data-b="100">Estrella tipo Sol</button>
+      <button data-r="5000000" data-p="10" data-b="100">Supergigante</button>
+      <button data-r="7000" data-p="0.01" data-b="1e6">Núcleo tipo enana blanca</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="col-r">Radio inicial R₁ (km)</label><input type="number" id="col-r" step="any" value="700000"></div>
+      <div><label for="col-p">Periodo inicial P₁ (días)</label><input type="number" id="col-p" step="any" value="25"></div>
+      <div><label for="col-b">Campo magnético inicial B₁ (Gauss)</label><input type="number" id="col-b" step="any" value="100"></div>
+      <div><label for="col-r2">Radio final R₂ (km)</label><input type="number" id="col-r2" step="any" value="10"></div>
+    </div>
+    <output id="col-out"></output>
+  </div>
+
+  <div class="widget" id="w-dens">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Densidad: ¿cuánto pesa una cucharadita de estrella de neutrones?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ajusta masa y radio dentro de los rangos vistos en clase (1,4–3 M☉, ~10 km) y calcula la densidad media y la masa de una cucharadita (5 cm³).</p>
+    <label for="dn-m">Masa (masas solares): <span id="dn-mlab"></span></label>
+    <input type="range" id="dn-m" min="1.4" max="3" step="0.1" value="1.4">
+    <label for="dn-r">Radio (km): <span id="dn-rlab"></span></label>
+    <input type="range" id="dn-r" min="8" max="20" step="0.5" value="10">
+    <output id="dn-out"></output>
+  </div>
+
+  <div class="widget" id="w-faro">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>El modelo de faro: pulsos según geometría</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La estrella gira y sus haces salen de los polos magnéticos, desalineados del eje de rotación. Ajusta el periodo y la desalineación: el tren de pulsos de abajo es lo que "vería" la Tierra (a la derecha). Con desalineación 0°, el haz nunca nos barre: estrella de neutrones sí, púlsar no.</p>
+    <label for="fa-p">Periodo de rotación (s): <span id="fa-plab"></span></label>
+    <input type="range" id="fa-p" min="0.3" max="3" step="0.1" value="1">
+    <label for="fa-a">Desalineación haz–eje de rotación (°): <span id="fa-alab"></span></label>
+    <input type="range" id="fa-a" min="0" max="90" step="5" value="60">
+    <canvas id="fa-canvas" width="720" height="300"></canvas>
+    <output id="fa-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Estrella de neutrones</b></td><td>Remanente del colapso del núcleo de hierro de una estrella ≥ 8 M☉</td><td>Segundo destino final posible; el más denso antes del agujero negro</td></tr>
+      <tr><td><b>Fusión del hierro</b></td><td>Endotérmica (consume energía)</td><td>Apaga la estrella y gatilla el colapso del núcleo</td></tr>
+      <tr><td><b>Fotodesintegración</b></td><td>Fotones de alta energía rompen núcleos (Fe → He → p, n)</td><td>Junto con la captura electrónica, fabrica la "sopa de neutrones"</td></tr>
+      <tr><td><b>Captura electrónica</b></td><td>p + e⁻ → n + ν</td><td>Convierte protones en neutrones; los neutrinos ayudan a expulsar las capas</td></tr>
+      <tr><td><b>Presión degenerada de neutrones</b></td><td>Principio de exclusión de Pauli aplicado a neutrones</td><td>Detiene el colapso a densidad nuclear; sostiene a la estrella</td></tr>
+      <tr><td><b>Tamaño y masa</b></td><td>R ≈ 10 km; 1,4–~3 M☉</td><td>Un Sol comprimido al tamaño de Santiago; límites Chandrasekhar y superior (debatido)</td></tr>
+      <tr><td><b>Densidad</b></td><td>10¹³–10¹⁵ g/cm³ (densidad nuclear)</td><td>Equivale a un "núcleo atómico" con Z ~ 10⁵⁷, unido por gravedad</td></tr>
+      <tr><td><b>Púlsar</b></td><td><em>Pulsating radio source</em>; estrella de neutrones cuyo haz nos barre</td><td>Descubierto por Jocelyn Bell (1967, CP 1919, P = 1,3373011 s)</td></tr>
+      <tr><td><b>Modelo de faro</b></td><td>Haces en los polos magnéticos, desalineados del eje de rotación</td><td>Explica los pulsos; todos los púlsares son EN, no toda EN es púlsar</td></tr>
+      <tr><td><b>Momento angular</b></td><td>P₂ ≈ P₁ (R₂/R₁)²</td><td>Explica rotaciones de milisegundos tras el colapso</td></tr>
+      <tr><td><b>Flujo magnético</b></td><td>B₂ ≈ B₁ (R₁/R₂)² → ~10¹² Gauss</td><td>Campos 10¹⁰ veces mayores; acelerador natural de partículas</td></tr>
+      <tr><td><b>Vida de un púlsar</b></td><td>~10 millones de años; se frena al radiar</td><td>Línea de muerte: bajo ~10¹¹ G y periodos largos, deja de pulsar</td></tr>
+      <tr><td><b>Magnetar</b></td><td>EN con campo ~1.000× mayor y rotación lenta</td><td>Su energía viene del decaimiento del campo magnético, no de la rotación</td></tr>
+      <tr><td><b>Púlsar de milisegundos</b></td><td>Púlsar "reciclado" por acreción en binaria (1er caso: 1982)</td><td>El disco de acreción le devuelve momento angular</td></tr>
+      <tr><td><b>Púlsares binarios y OG</b></td><td>Decaimiento orbital ~3,5 m/año; fusión en ~300 Ma; Nobel 1993</td><td>Confirmaron la relatividad general; base de NANOGrav (2023)</td></tr>
+      <tr><td><b>PSR B1257+12</b></td><td>Primeros exoplanetas (1992, Arecibo, 430 MHz)</td><td>Detectados por retrasos en pulsos; antes que 51 Peg b (1995, Mayor y Queloz)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c4-examen-01.html">Examen 01<small>Colapso del núcleo</small></a></li>
+    <li><a href="m3c4-examen-02.html">Examen 02<small>Anatomía de la EN</small></a></li>
+    <li><a href="m3c4-examen-03.html">Examen 03<small>Jocelyn Bell</small></a></li>
+    <li><a href="m3c4-examen-04.html">Examen 04<small>Modelo de faro</small></a></li>
+    <li><a href="m3c4-examen-05.html">Examen 05<small>Leyes de conservación</small></a></li>
+    <li><a href="m3c4-examen-06.html">Examen 06<small>Envejecimiento y magnetares</small></a></li>
+    <li><a href="m3c4-examen-07.html">Examen 07<small>Relojes y laboratorios</small></a></li>
+    <li><a href="m3c4-examen-08.html">Examen 08<small>Ondas gravitacionales</small></a></li>
+    <li><a href="m3c4-examen-09.html">Examen 09<small>Milisegundos y exoplanetas</small></a></li>
+    <li><a href="m3c4-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (julio 2026). Elaborado exclusivamente a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c4.md</code>). <b>Esta clase no tiene diapositivas disponibles</b> en el repositorio, por lo que los apuntes no incluyen figuras de slides.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se corrigieron términos evidentes: «Chandaseka» → Chandrasekhar; «Paule» → Pauli; «CT 1919» → CP 1919; «radiotelescopio agresivo» → Arecibo; «Proyecto Libre» → LIGO; «Nanograph» → NANOGrav; «radiotería general» → relatividad general; «Carlos Egan» → Carl Sagan; «mayor y Kellogg / Didier Kellós» → Michel Mayor y Didier Queloz; el periodo de CP 1919 se normalizó a 1,3373011 s y el del púlsar del Cangrejo a ~33 ms (la cifra estaba cortada en el audio). La primera detección de ondas gravitacionales por LIGO fue en septiembre de 2015 (anunciada en 2016); la transcripción dudaba entre 2016 y 2017 (2017 corresponde a la fusión de estrellas de neutrones GW170817). El decaimiento orbital del púlsar binario («3 puntos metros por año») se interpretó como ~3,5 m/año, el valor conocido para el sistema de Hulse–Taylor. Ante cualquier duda, primar fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: colapso y conservación ----
+(function(){
+  var r1 = document.getElementById('col-r'), p1 = document.getElementById('col-p'),
+      b1 = document.getElementById('col-b'), r2 = document.getElementById('col-r2'),
+      out = document.getElementById('col-out');
+  function fmtP(sec){
+    if(sec < 1e-3) return (sec*1e6).toFixed(2)+" microsegundos";
+    if(sec < 1) return (sec*1e3).toFixed(2)+" milisegundos";
+    if(sec < 120) return sec.toFixed(3)+" segundos";
+    if(sec < 7200) return (sec/60).toFixed(2)+" minutos";
+    if(sec < 172800) return (sec/3600).toFixed(2)+" horas";
+    return (sec/86400).toFixed(2)+" días";
+  }
+  function calc(){
+    var R1 = parseFloat(r1.value), P1d = parseFloat(p1.value),
+        B1 = parseFloat(b1.value), R2 = parseFloat(r2.value);
+    if(!(R1>0 && P1d>0 && B1>0 && R2>0 && R2<R1)){
+      out.innerHTML = "Requiere valores positivos y R₂ &lt; R₁."; return;
+    }
+    var f = (R1/R2)*(R1/R2);            // factor de área
+    var P2 = P1d*86400 / f;              // s
+    var B2 = B1 * f;                     // Gauss
+    out.innerHTML =
+      "Factor de compresión de área <span class='k'>(R₁/R₂)²</span> = <b>"+f.toExponential(2)+"</b><br>"+
+      "Periodo final <span class='k'>P₂</span> = <b>"+fmtP(P2)+"</b><br>"+
+      "Campo magnético final <span class='k'>B₂</span> = <b>"+B2.toExponential(2)+"</b> Gauss"+
+      (B2>=1e11 && P2<10 ? "<br>→ Números de <b>púlsar</b>: rotación rapidísima y campo ~10¹² G, como en la clase." : "");
+  }
+  [r1,p1,b1,r2].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#col-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      r1.value = btn.dataset.r; p1.value = btn.dataset.p; b1.value = btn.dataset.b; calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 2: densidad ----
+(function(){
+  var m = document.getElementById('dn-m'), r = document.getElementById('dn-r'),
+      mlab = document.getElementById('dn-mlab'), rlab = document.getElementById('dn-rlab'),
+      out = document.getElementById('dn-out');
+  var MSUN = 1.989e33; // g
+  function calc(){
+    var M = parseFloat(m.value), R = parseFloat(r.value);
+    mlab.textContent = M.toFixed(1)+" M☉"; rlab.textContent = R.toFixed(1)+" km";
+    var Rcm = R*1e5;
+    var rho = 3*M*MSUN/(4*Math.PI*Rcm*Rcm*Rcm); // g/cm3
+    var tsp = rho*5;                              // g en 5 cm3
+    var tspTon = tsp/1e6;                         // toneladas
+    var everest = tspTon/1.6e11;                  // masa aprox del Everest ~1.6e11 t
+    out.innerHTML =
+      "Densidad media <span class='k'>ρ</span> = <b>"+rho.toExponential(2)+"</b> g/cm³<br>"+
+      "Una cucharadita (5 cm³) = <b>"+tspTon.toExponential(2)+"</b> toneladas"+
+      (everest>0.01 ? " ≈ <b>"+(everest).toFixed(2)+"</b> montes Everest" : "")+"<br>"+
+      "→ En el rango 10¹³–10¹⁵ g/cm³ de la clase: densidad de núcleo atómico.";
+  }
+  m.addEventListener('input', calc); r.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 3: faro del púlsar ----
+(function(){
+  var pin = document.getElementById('fa-p'), ain = document.getElementById('fa-a'),
+      plab = document.getElementById('fa-plab'), alab = document.getElementById('fa-alab'),
+      out = document.getElementById('fa-out');
+  var cv = document.getElementById('fa-canvas'), ctx = cv.getContext('2d');
+  var t0 = null, hist = [];               // historial de intensidad recibida
+  var HAZ_HALF = 9*Math.PI/180;           // semiancho del haz (rad)
+  function params(){
+    return { P: parseFloat(pin.value), A: parseFloat(ain.value)*Math.PI/180 };
+  }
+  function labels(){
+    var p = params();
+    plab.textContent = p.P.toFixed(1)+" s";
+    alab.textContent = ain.value+"°";
+    out.innerHTML = (parseFloat(ain.value)===0)
+      ? "Desalineación 0°: el haz gira sobre su propio eje y <b>nunca barre la Tierra</b>. Es estrella de neutrones, pero no la vemos como púlsar."
+      : "Cada barrido del haz sobre la Tierra genera un pulso. Frecuencia de pulsos observada: <b>"+(2/p.P).toFixed(2)+"</b> por segundo (dos haces por vuelta).";
+  }
+  function draw(ts){
+    if(t0===null) t0 = ts;
+    var t = (ts-t0)/1000;
+    var p = params();
+    var w = cv.width, h = cv.height;
+    ctx.clearRect(0,0,w,h);
+    var cx = 170, cy = 118, R = 26;
+    var phase = 2*Math.PI*t/p.P;
+    // Dirección del haz proyectada: oscila ±A alrededor del plano según la fase
+    // Modelo 2D: el haz apunta en ángulo theta(t) = A*cos... usamos barrido circular simple:
+    // haz 1 en ángulo phase inclinado A desde el eje (vertical). Proyección al plano de pantalla:
+    var beamAng = phase;                   // ángulo del haz en el plano del cielo
+    // Tierra a la derecha (ángulo 0)
+    var dAng = Math.atan2(Math.sin(beamAng), Math.cos(beamAng)); // [-pi,pi]
+    var dAng2 = Math.atan2(Math.sin(beamAng+Math.PI), Math.cos(beamAng+Math.PI));
+    var eff = p.A/(Math.PI/2);             // 0 (alineado) → 1 (90°)
+    var intens = 0;
+    if(eff>0){
+      var s1 = Math.exp(-(dAng*dAng)/(2*HAZ_HALF*HAZ_HALF));
+      var s2 = Math.exp(-(dAng2*dAng2)/(2*HAZ_HALF*HAZ_HALF));
+      intens = Math.max(s1,s2)*eff;
+    }
+    hist.push(intens); if(hist.length>360) hist.shift();
+
+    // estrella
+    ctx.save();
+    ctx.translate(cx,cy);
+    // eje de rotación (vertical)
+    ctx.strokeStyle = "#3a4a6a"; ctx.setLineDash([4,4]); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0,-70); ctx.lineTo(0,70); ctx.stroke(); ctx.setLineDash([]);
+    // haces (rotados según fase, abiertos según desalineación)
+    var len = 110*(0.25+0.75*eff);
+    ctx.rotate(beamAng);
+    var grad = ctx.createLinearGradient(0,0,len,0);
+    grad.addColorStop(0,"rgba(111,199,214,.9)"); grad.addColorStop(1,"rgba(111,199,214,0)");
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(len, -12); ctx.lineTo(len, 12); ctx.closePath(); ctx.fill();
+    ctx.rotate(Math.PI);
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(len, -12); ctx.lineTo(len, 12); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    // cuerpo de la estrella
+    var g2 = ctx.createRadialGradient(cx,cy,2,cx,cy,R);
+    g2.addColorStop(0,"#fff"); g2.addColorStop(1,"#6fc7d6");
+    ctx.fillStyle = g2;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,2*Math.PI); ctx.fill();
+    // Tierra
+    var ex = 640, ey = cy;
+    ctx.fillStyle = "#5fd07e";
+    ctx.beginPath(); ctx.arc(ex,ey,9,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = "#9aa6bb"; ctx.font = "12px Spectral, serif";
+    ctx.fillText("Tierra", ex-18, ey+26);
+    ctx.fillText("eje de rotación", cx+8, cy-56);
+    // línea estrella-Tierra
+    ctx.strokeStyle = "rgba(154,166,187,.25)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx+R+4,cy); ctx.lineTo(ex-12,ey); ctx.stroke();
+
+    // tren de pulsos
+    var gy = 232, gh = 52, gx0 = 40, gw = w-80;
+    ctx.strokeStyle = "#26324a";
+    ctx.strokeRect(gx0, gy-gh, gw, gh+6);
+    ctx.fillStyle = "#9aa6bb"; ctx.fillText("intensidad recibida en la Tierra →", gx0+6, gy-gh-6);
+    ctx.strokeStyle = "#f06a5e"; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for(var i=0;i<hist.length;i++){
+      var x = gx0 + gw*i/360;
+      var y = gy - hist[i]*gh;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    requestAnimationFrame(draw);
+  }
+  pin.addEventListener('input', labels);
+  ain.addEventListener('input', labels);
+  labels();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

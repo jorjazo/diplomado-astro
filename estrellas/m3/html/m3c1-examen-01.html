@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 01 — m3c1 · Diagrama HR y masa</title>
+<title>Examen 01 — m3c1 · Diagrama H-R y clases de luminosidad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 01 — Diagrama HR y masa</h1>
+<h1>Examen 01 — Diagrama H-R y clases de luminosidad</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,b,a">
-  <fieldset data-q="1"><legend>1. ¿Qué relaciona principalmente el diagrama Hertzsprung–Russell (HR)?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">La distancia con la paralaje</label>
-    <label class="opt"><input type="radio" name="q1" value="b">La temperatura (o color) con la luminosidad</label>
-    <label class="opt"><input type="radio" name="q1" value="c">La masa con la edad del universo</label>
-    <label class="opt"><input type="radio" name="q1" value="d">El metalicidad con la velocidad radial</label>
-    <p class="fb" hidden>Cada punto es una estrella; el HR ordena brillo vs. temperatura superficial.</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. ¿Qué condición define, en estricto rigor, que una estrella pertenezca a la secuencia principal?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Que su temperatura superficial supere los 10.000 K</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Que esté fusionando helio en carbono</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Que esté fusionando hidrógeno en helio en su núcleo</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Que su masa sea menor que 4 masas solares</label>
+    <p class="fb" hidden>Si el H fusiona en una capa (y no en el núcleo), la estrella ya no es de secuencia principal. La definición es estricta.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Cuando en clase se habla de «gigante», «subgigante» o «enana blanca» sin letra espectral, se refiere a:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">El tipo espectral (O, B, A…)</label>
-    <label class="opt"><input type="radio" name="q2" value="b">La clase de luminosidad</label>
-    <label class="opt"><input type="radio" name="q2" value="c">La distancia en parsec</label>
-    <label class="opt"><input type="radio" name="q2" value="d">La metalicidad [Fe/H]</label>
-    <p class="fb" hidden>Son clases de luminosidad; no confundir con el tipo espectral OBAFGKM.</p>
+  <fieldset data-q="2"><legend>2. Cuando decimos que una estrella es «enana», «gigante», «supergigante» o «enana blanca», estamos hablando de su:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Tipo espectral</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Clase de luminosidad</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Metalicidad</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Índice de color</label>
+    <p class="fb" hidden>Las clases de luminosidad son una clasificación adicional al tipo espectral (O, B, A, F, G, K, M) y marcan la etapa evolutiva.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La relación L ∝ M⁴ es válida para:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Estrellas en secuencia principal</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Gigantes rojas</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Enanas blancas</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Cualquier estrella del HR</label>
-    <p class="fb" hidden>Solo en MS; una gigante roja ya no obedece esta ley.</p>
+  <fieldset data-q="3"><legend>3. ¿Qué dos cantidades relaciona el diagrama de Hertzsprung-Russell (en su versión teórica)?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Masa y radio</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Distancia y velocidad radial</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Edad y composición química</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Temperatura (o tipo espectral) y luminosidad</label>
+    <p class="fb" hidden>Su versión empírica es el diagrama color–magnitud: el color aproxima la temperatura y la magnitud absoluta aproxima la luminosidad.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica la cadena física por la que una estrella más masiva en secuencia principal es también más luminosa.</p>
+  <p class="q">4. En el video de Omega Centauri mostrado en clase, las estrellas del cúmulo se ordenan primero por color y luego por brillo, y «mágicamente» aparece el diagrama H-R. Explica por qué ese simple reordenamiento produce el diagrama y qué estructuras se hacen visibles.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Más masa ⇒ mayor gravedad ⇒ se necesita mayor presión para el <strong>equilibrio hidrostático</strong>. Eso eleva la <strong>temperatura central</strong>, acelera la <strong>tasa de fusión</strong> y por tanto la <strong>energía liberada</strong>. Como la luminosidad es energía radiada por unidad de tiempo, la estrella brilla más.</div>
+    <div class="answer">El diagrama H-R (en su versión empírica, color–magnitud) <strong>es exactamente eso</strong>: un gráfico donde cada estrella se posiciona según su color (que aproxima la temperatura superficial) y su brillo (magnitud, que aproxima la luminosidad). Al ordenar la población por esas dos variables, las estrellas no se distribuyen al azar sino que se agrupan en las regiones que corresponden a sus etapas evolutivas: la <strong>secuencia principal</strong> (la diagonal, estrellas fusionando H en el núcleo), la <strong>rama de las gigantes rojas</strong>, las <strong>subgigantes</strong> (saliendo de la secuencia principal), la <strong>rama horizontal azul</strong>, la <strong>rama asintótica</strong> y las <strong>enanas blancas</strong> (poco luminosas y azules). Que emerjan estos grupos refleja que la población tiene estructura física real: estrellas de la misma edad pero distinta masa transitando distintas etapas.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Resume la analogía de la clase entre estrellas masivas y poco masivas (F-150 vs. Suzuki) y qué enseña sobre eficiencia.</p>
+  <p class="q">5. En los diagramas color–magnitud de cúmulos reales mostrados en clase aparecen muchos puntos «contaminantes» en la zona de baja luminosidad y colores rojos. Explica qué son esos contaminantes, por qué aparecen y por qué se pueden descartar como miembros del cúmulo.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Las masivas son como una <strong>F-150 bencinera</strong>: mucho combustible pero lo queman muy rápido. Las enanas rojas son como un <strong>Suzuki petrolero</strong>: poco brillo pero enorme autonomía. Además las M son <strong>totalmente convectivas</strong> y mezclan H hacia el núcleo.</div>
+    <div class="answer">Al observar un cúmulo miramos una <strong>línea de visión</strong>: se cuela todo lo que está por delante y por detrás del objeto. Los contaminantes típicos de esa región del diagrama (débiles y rojos) son <strong>galaxias de fondo</strong>, que están lejísimos y por eso se ven poco luminosas y enrojecidas. Una galaxia no puede ser miembro de Omega Centauri (es un objeto de otra naturaleza y a otra distancia), así que esos puntos se identifican y se filtran al limpiar la muestra. Es un ejemplo de limpieza de datos: separar la señal (miembros del cúmulo) del ruido de fondo del canal de observación.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

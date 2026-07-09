@@ -10,7 +10,7 @@
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
-  background-image:radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.4),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b 50%,#080b14);background-attachment:fixed}
+  background-image:radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.4),transparent),radial-gradient(1.6px 1.6px at 42% 64%,rgba(255,255,255,.45),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b 50%,#080b14);background-attachment:fixed}
 .wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
 .hero{padding:64px 0 30px;border-bottom:1px solid var(--line);margin-bottom:24px}
 .kick{font-family:"Fraunces",serif;display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
@@ -27,8 +27,6 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .links{display:flex;flex-wrap:wrap;gap:8px}
 .links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink);text-decoration:none}
 .links a:hover{border-color:var(--red);color:var(--red-soft)}
-.soon{border-style:dashed;opacity:.6}
-.soon h2{color:var(--muted)}
 footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
 </style>
 </head>
@@ -36,15 +34,15 @@ footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:v
 <main class="wrap">
   <div class="hero">
     <span class="kick">Astrofísica de Estrellas · Diplomado U. de Chile</span>
-    <h1>Módulo III — <em>Evolución estelar</em></h1>
+    <h1>Módulo III — <em>Apuntes HTML</em></h1>
     <p class="sub">Material de estudio interactivo generado a partir de las transcripciones de clase y las diapositivas. Cada clase incluye apuntes navegables, widgets y 10 exámenes de práctica autocorregibles.</p>
   </div>
 
   <div class="grid">
     <a class="card" href="m3c1-apuntes.html">
       <span class="cn">Clase 1</span>
-      <h2>Evolución estelar (I) — estrellas ≤ 4 M<sub>☉</sub></h2>
-      <p>Diagrama HR; masa–luminosidad y tiempo de vida en MS; transporte radiativo/convectivo; isócronas y turn-off; LTE y expansión en MS; gigante roja; triple-α y flash de helio; rama horizontal y AGB; nebulosa planetaria y enana blanca.</p>
+      <h2>Evolución estelar I: estrellas de baja masa</h2>
+      <p>Cuánto viven las estrellas según su masa (L ∝ M⁴, t ∝ M/L); turn-off e isócronas para datar cúmulos; gigante roja; proceso triple-α; presión degenerada de electrones y flash de helio; estructura de capas C-O; nebulosa planetaria y enana blanca.</p>
       <div class="links">
         <a href="m3c1-apuntes.html">Apuntes</a>
         <a href="m3c1-apuntes.html#examenes">Exámenes (10)</a>
@@ -53,8 +51,8 @@ footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:v
 
     <a class="card" href="m3c2-apuntes.html">
       <span class="cn">Clase 2</span>
-      <h2>Evolución estelar (II) — estrellas masivas</h2>
-      <p>Umbral ~4 M<sub>☉</sub>; ciclo CNO; supergigantes y vientos; fusión por capas hasta el hierro; colapso del núcleo y supernova tipo II; nucleosíntesis de elementos pesados; SN 1987A.</p>
+      <h2>Evolución estelar II: estrellas masivas y supernovas</h2>
+      <p>Estrellas de alta masa (≳4 M☉); ciclo CNO como vía dominante de fusión de H; supergigante roja y fusión por capas hasta el núcleo de hierro; energía de enlace nuclear; colapso, rebote y supernova tipo II; nucleosíntesis y dispersión de elementos pesados.</p>
       <div class="links">
         <a href="m3c2-apuntes.html">Apuntes</a>
         <a href="m3c2-apuntes.html#examenes">Exámenes (10)</a>
@@ -63,23 +61,37 @@ footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:v
 
     <a class="card" href="m3c3-apuntes.html">
       <span class="cn">Clase 3</span>
-      <h2>Remanentes estelares — el cementerio estelar</h2>
-      <p>Enanas blancas; presión degenerada de electrones; relación masa–radio; límite de Chandrasekhar; sistemas binarios y lóbulos de Roche; novas vs. supernovas tipo Ia; candelas estándar y cosmología.</p>
+      <h2>El cementerio estelar: enanas blancas, novas y supernovas Ia</h2>
+      <p>Enana blanca sostenida por presión degenerada de electrones; relación masa-radio invertida y límite de Chandrasekhar (1,4 M☉); binarias, lóbulos de Roche y discos de acreción; novas recurrentes; supernovas tipo Ia como candelas estándar (Maza y Hamuy).</p>
       <div class="links">
         <a href="m3c3-apuntes.html">Apuntes</a>
         <a href="m3c3-apuntes.html#examenes">Exámenes (10)</a>
       </div>
     </a>
 
-    <div class="card soon">
-      <span class="cn">Clases 4–5</span>
-      <h2>Próximamente</h2>
-      <p>Estrellas de neutrones, púlsares, agujeros negros y temas avanzados del módulo.</p>
-    </div>
+    <a class="card" href="m3c4-apuntes.html">
+      <span class="cn">Clase 4</span>
+      <h2>Estrellas de neutrones y púlsares</h2>
+      <p>Colapso del núcleo de hierro (fotodesintegración y captura electrónica); estructura de las estrellas de neutrones; Jocelyn Bell y el descubrimiento de los púlsares; modelo de faro; magnetares; púlsares de milisegundos; primeros exoplanetas y ondas gravitacionales.</p>
+      <div class="links">
+        <a href="m3c4-apuntes.html">Apuntes</a>
+        <a href="m3c4-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m3c5-apuntes.html">
+      <span class="cn">Clase 5</span>
+      <h2>Agujeros negros</h2>
+      <p>Remanentes con núcleos sobre ~3 M☉; espacio-tiempo y relatividad general; horizonte de eventos y radio de Schwarzschild; detección vía binarias de rayos X (Cygnus X-1), astrometría y microlentes (Gaia BH1/BH3) y ondas gravitacionales (LIGO/Virgo); kilonovas.</p>
+      <div class="links">
+        <a href="m3c5-apuntes.html">Apuntes</a>
+        <a href="m3c5-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
   </div>
 
   <footer>
-    <p>Diplomado en Fundamentos de Astronomía · Universidad de Chile · 2026. Apuntes elaborados como material de estudio a partir de transcripciones (que pueden contener errores de reconocimiento de voz) y diapositivas oficiales del curso.</p>
+    <p>Diplomado en Fundamentos de Astronomía · Universidad de Chile · 2026. Apuntes elaborados como material de estudio a partir de transcripciones (que pueden contener errores de reconocimiento de voz) y diapositivas oficiales del curso. Las clases 4 y 5 no cuentan con diapositivas disponibles; sus apuntes se basan solo en la transcripción.</p>
   </footer>
 </main>
 </body>

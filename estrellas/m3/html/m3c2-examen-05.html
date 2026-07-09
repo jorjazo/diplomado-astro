@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 05 — m3c2 · Población III</title>
+<title>Examen 05 — m3c2 · Energía de enlace nuclear</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Población III</h1>
+<h1>Examen 05 — Energía de enlace y el muro del hierro</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="d,c,a">
-  <fieldset data-q="1"><legend>1. Las estrellas de Población III son:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">El tercer componente del Sol</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Enanas blancas en binarias</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Estrellas con tres planetas</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Las primeras estrellas del universo, casi sin metales</label>
-    <p class="fb" hidden>Formadas del gas primordial post-Big Bang, sin enriquecimiento previo.</p>
+
+<form id="quiz" data-answers="b,d,a">
+  <fieldset data-q="1"><legend>1. La energía de enlace nuclear de un núcleo se define como:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La energía cinética de sus electrones</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La energía necesaria para descomponer el núcleo en sus protones y neutrones separados</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La energía que emite el núcleo al enfriarse</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La energía del fotón gamma más energético que puede absorber</label>
+    <p class="fb" hidden>Corresponde a la diferencia de masa (Δmc²) entre los nucleones separados (mayor masa) y el núcleo armado (menor masa).</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. En Población III se cree que dominaba la producción de energía vía:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Ciclo CNO exclusivamente</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Fusión de hierro</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Cadena protón–protón</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Fisión nuclear</label>
-    <p class="fb" hidden>Sin carbono abundante, el CNO no puede operar eficientemente.</p>
+  <fieldset data-q="2"><legend>2. La curva de energía de enlace por nucleón tiene su máximo en:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El helio (⁴He)</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El uranio (²³⁵U)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El carbono (¹²C)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El hierro (⁵⁶Fe)</label>
+    <p class="fb" hidden>El ⁵⁶Fe es el núcleo más estable de la naturaleza: cuesta energía tanto fusionarlo como fisionarlo.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La nucleosíntesis del Big Bang produjo principalmente:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Hidrógeno, helio y trazas de litio</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Hierro y elementos pesados</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo carbono y oxígeno</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Uranio y torio</label>
-    <p class="fb" hidden>Los elementos más pesados requieren estrellas y explosiones posteriores.</p>
+  <fieldset data-q="3"><legend>3. ¿Cuál de estos procesos requiere (en vez de liberar) energía?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Fusionar hierro en elementos más pesados</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Fusionar hidrógeno en helio</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Fisionar uranio en núcleos más livianos</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Fusionar helio en carbono</label>
+    <p class="fb" hidden>Fusión con A &lt; 56 y fisión con A &gt; 56 son exotérmicas. Fusionar Fe se puede, pero hay que entregarle energía — por eso el núcleo estelar de Fe queda inerte.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué la ausencia de carbono era un problema para modelar las primeras estrellas masivas?</p>
+  <p class="q">4. Explica físicamente, en términos de la fuerza nuclear fuerte y la repulsión electromagnética, por qué la curva de energía de enlace por nucleón sube, alcanza un máximo en el hierro y luego baja.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Sin C, N, O el <strong>CNO no cataliza</strong> H a la tasa necesaria para luminosidades muy altas; hay tensiones con modelos de Población III.</div>
+    <div class="answer">La <strong>fuerza fuerte</strong> une a los nucleones, pero su alcance es cortísimo: del porte de un núcleo atómico. En núcleos <strong>chicos</strong>, todos los nucleones están dentro del alcance mutuo y agregarles nucleones mejora el amarre promedio: la energía de enlace por nucleón <strong>sube</strong>. A medida que el núcleo <strong>crece</strong>, los nucleones más externos quedan lejos de gran parte del resto — la fuerza fuerte “se les diluye” — mientras que la <strong>repulsión electromagnética</strong> entre protones, de largo alcance, sigue sumando con cada protón nuevo. Llega un punto en que agregar nucleones <strong>empeora</strong> el amarre promedio: la curva <strong>baja</strong>. El compromiso óptimo — “donde estás mejor armado” — ocurre en núcleos con masa cercana al <strong>⁵⁶Fe</strong>, la región de núcleos increíblemente estables que cuesta tanto desarmar como hacer crecer.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Qué evidencia observacional indica que el universo se enriqueció en metales con el tiempo?</p>
+  <p class="q">5. En la fusión de 4 núcleos de hidrógeno en un núcleo de helio, ¿de dónde sale exactamente la energía liberada? Menciona el porcentaje aproximado y en qué formas aparece esa energía.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Estrellas <strong>viejas</strong> tienen <strong>baja metalicidad</strong>; las <strong>jóvenes</strong>, alta. El gas se contamina generación tras generación.</div>
+    <div class="answer">De la <strong>diferencia de masa</strong>: si pesamos los 4 protones por separado, su masa es un poquito <strong>mayor</strong> que la del núcleo de ⁴He resultante. Ese diferencial — calculado en clases anteriores como ~<strong>0,7%</strong> de la masa — se convierte en energía según <strong>E = Δm·c²</strong>. No sale solo como fotones: aparece como <strong>fotones gamma</strong>, <strong>neutrinos</strong> y <strong>energía cinética</strong> de las partículas. Este mismo principio explica toda la escalera de fusiones: cada paso de elementos livianos a más pesados (hasta el Fe) deja una masa resultante levemente menor, y ese “pelín menos de masa” es la luminosidad de la estrella.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

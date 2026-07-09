@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Relatividad y ondas gravitacionales — Módulo III · Clase 1</title>
+<title>El universo según Einstein — Astrofísica de Galaxias, Módulo III · Clase 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
 :root{
@@ -35,10 +35,8 @@ body{
 h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
 a{color:var(--red-soft);text-decoration:none}
 a:hover{text-decoration:underline}
-
 nav.top{padding:18px 0 0;font-size:.9rem}
 nav.top a{color:var(--muted)}
-
 .hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--red-soft);font-weight:600}
@@ -51,11 +49,9 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
   border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
 .meta span b{color:var(--red-soft);font-weight:600}
-
 .lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
 .lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
   padding:6px 12px 0 0;color:var(--red)}
-
 .idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
 .idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
@@ -65,7 +61,6 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
 .idx a:hover{color:var(--red-soft);text-decoration:none}
 @media(max-width:680px){.idx ol{grid-template-columns:1fr}}
-
 section{margin:52px 0;scroll-margin-top:20px}
 .shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
 .num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
@@ -81,7 +76,6 @@ strong{color:#fff;font-weight:600}
 ul,ol.body{margin:.6em 0;padding-left:1.2em}
 li{margin:.34em 0}
 li::marker{color:var(--red)}
-
 figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
   box-shadow:0 24px 60px -34px #000}
 figure img{display:block;width:100%;height:auto}
@@ -89,7 +83,6 @@ figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1
   border-top:1px solid var(--line)}
 figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
   text-transform:uppercase;display:block;margin-bottom:3px}
-
 .box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
   background:linear-gradient(180deg,#0e1626,#0b1120)}
 .box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
@@ -101,14 +94,12 @@ figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-sp
 .box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
 .box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
 .box.next .tag{color:#aeb8cc}
-
 .formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
   padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
   box-shadow:inset 0 0 40px -28px var(--cyan)}
 .formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
   letter-spacing:0;margin-top:6px;line-height:1.5}
 sub,sup{font-size:.66em}
-
 .tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:.97rem}
 th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
@@ -117,7 +108,6 @@ thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);f
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#0d1422}
 td b{color:var(--gold);font-weight:600}
-
 .widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
   padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
 .widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
@@ -134,18 +124,12 @@ td b{color:var(--gold);font-weight:600}
 .widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
   border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
-.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
 .rngval{color:var(--gold);font-family:"Fraunces",serif}
-.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
-.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
-
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
   background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
 .examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
 .examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
-
 footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
 footer b{color:var(--ink)}
 .disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
@@ -153,180 +137,473 @@ footer b{color:var(--ink)}
 </style>
 </head>
 <body>
-
 <main class="wrap">
 <nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
 <div class="hero">
-<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 1</span>
-<h1>Del espacio-tiempo plano a las <em>ondas gravitacionales</em></h1>
-<p class="sub">Einstein, relatividad especial y general, lentes gravitacionales y detección de ondas gravitacionales.</p>
+  <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 1</span>
+  <h1>El universo según <em>Einstein</em></h1>
+  <p class="sub">Espacio y tiempo dejan de ser un escenario fijo y pasan a ser actores: se estiran, se contraen y vibran. De la relatividad especial de 1905 a la general de 1915, y de ahí a las comprobaciones que la han vuelto una de las teorías más exitosas de la física: la órbita de Mercurio, el eclipse de 1919, los lentes gravitacionales y las ondas gravitacionales detectadas exactamente 100 años después de su predicción.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> III · Clase 1</span>
+    <span><b>Tema:</b> Teoría de la Relatividad</span>
+    <span><b>Fuentes:</b> transcripción <code>ff/</code> + diapositivas</span>
+  </div>
 </div>
-<p class="lead"><span class="drop">E</span>l Módulo III entra en régimen relativista: agujeros negros, núcleos activos y ondas gravitacionales. Esta clase es el andamiaje físico — postulados, predicciones e instrumentos de verificación.</p>
-<nav class="idx"><span class="tag">Contenido</span><ol>
-<li><a href="#s1">Einstein y 1905</a></li><li><a href="#s2">Velocidad relativa vs. SR</a></li>
-<li><a href="#s3">c constante y dilatación temporal</a></li><li><a href="#s4">Equivalencia y E=mc²</a></li>
-<li><a href="#s5">Relatividad general</a></li><li><a href="#s6">GPS y redshift gravitacional</a></li>
-<li><a href="#s7">Mercurio y eclipse 1919</a></li><li><a href="#s8">Lentes gravitacionales</a></li>
-<li><a href="#s9">Ondas gravitacionales y LIGO</a></li><li><a href="#interactivo">Widgets</a></li>
-<li><a href="#conceptos">Conceptos</a></li><li><a href="#examenes">Exámenes</a></li>
-</ol></nav>
 
-<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Einstein y el año 1905</h2></div></div>
-<p><strong>1905:</strong> fotoeléctrico, browniano, relatividad especial, <span class="katex-inline" data-tex="E=mc^2"></span>. <strong>1915:</strong> relatividad general (RG). La equivalencia masa–energía explicó el brillo estelar (fusión nuclear).</p>
-<figure>
-<img src="m3c1/assets/slide-01.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 1</span>Apertura del módulo III.</figcaption>
-</figure>
+<p class="lead"><span class="drop">E</span>ste módulo abandona los objetos "simples" —una estrella, una galaxia— y entra en lo exótico: agujeros negros, núcleos activos, cosmología. Para eso necesitamos primero el andamiaje teórico, y ese andamiaje es la <strong>teoría de la relatividad</strong>. La profesora la presenta en dos actos: la <em>relatividad especial</em> (1905), que nace de un solo hecho experimental —la velocidad de la luz es la misma para todos— y la <em>relatividad general</em> (1915), que reinterpreta la gravedad como geometría del espacio-tiempo. Para alguien de ingeniería, la moraleja es familiar: cuando los datos contradicen la intuición, se ajusta el modelo, no los datos.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">1905, el año milagroso</a></li>
+    <li><a href="#s2">La velocidad siempre fue relativa</a></li>
+    <li><a href="#s3">Relatividad especial: la luz no negocia</a></li>
+    <li><a href="#s4">El principio de equivalencia</a></li>
+    <li><a href="#s5">Relatividad general: gravedad = geometría</a></li>
+    <li><a href="#s6">Las comprobaciones clásicas</a></li>
+    <li><a href="#s7">Lentes gravitacionales</a></li>
+    <li><a href="#s8">Ondas gravitacionales</a></li>
+    <li><a href="#s9">De Hulse–Taylor a LIGO</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>1905, el año milagroso</h2>
+    <p>Un empleado de patentes de 26 años publica cuatro artículos que cambian la física.</p>
+  </div></div>
+
+  <p>En 1905 —su <span class="hl">annus mirabilis</span>— Einstein publicó <strong>cuatro artículos</strong>, cada uno suficiente para una carrera entera:</p>
+  <ul>
+    <li><strong>Marzo:</strong> el <em>efecto fotoeléctrico</em> (la luz como cuantos de energía), que le valió el Premio Nobel en 1921.</li>
+    <li><strong>Mayo:</strong> el <em>movimiento browniano</em>, evidencia decisiva de que los átomos existen.</li>
+    <li><strong>Septiembre:</strong> la <em>relatividad especial</em>, que conecta espacio y tiempo.</li>
+    <li><strong>Noviembre:</strong> la <em>equivalencia masa–energía</em>: <span class="katex-inline" data-tex="E=mc^2"></span>.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-04.jpg" alt="Diapositiva con los cuatro artículos del annus mirabilis de Einstein en 1905">
+    <figcaption><span class="cap">Diapositiva · Annus mirabilis</span>Los cuatro artículos de 1905. La profesora lo pone en perspectiva con humor: "yo necesito años para publicar un simple paper que muestra lo que hacen algunas galaxias, y este hombre tiene este año milagroso".</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="E = m\,c^2"></span>
+    <small>La energía y la masa son dos caras de la misma cantidad; el factor de conversión es <span class="katex-inline" data-tex="c^2"></span>, con <span class="katex-inline" data-tex="c \approx 3\times10^{8}"></span> m/s. Esta equivalencia fue, además, la primera pista de <em>por qué brillan las estrellas</em>: en sus centros hay un mecanismo (la fusión nuclear) que convierte masa en energía. Hasta entonces el origen de la radiación estelar era un misterio.</small>
+  </div>
+
+  <p>Diez años después, en <strong>1915</strong>, llegó la <span class="hl">relatividad general</span>, la teoría que "cambió completamente el paradigma de nuestro entendimiento del universo". A diferencia de la mecánica cuántica —construida por muchas manos con pequeños aportes de laboratorio—, la relatividad se la debemos casi entera a una sola persona.</p>
 </section>
 
-<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Velocidad relativa cotidiana</h2></div></div>
-<p>Perro en tren, metro que parte: la velocidad depende del observador. A escala galáctica sumamos órbitas anidadas. Esto es cinemática clásica, <em>no</em> relatividad especial.</p>
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>La velocidad siempre fue relativa</h2>
+    <p>Antes de Einstein ya había cantidades relativas; lo suyo fue otra cosa.</p>
+  </div></div>
+
+  <p>Cuando se dice "para Einstein todo es relativo" se malinterpreta la teoría. Hay cantidades que <em>siempre</em> han sido relativas y no tienen nada de einsteinianas. La clase usa simulaciones sencillas:</p>
+  <ul>
+    <li>Una <strong>ardilla</strong> parada junto al camino ve pasar un auto hacia la derecha y un pájaro hacia la izquierda: percibe sus velocidades sin ambigüedad.</li>
+    <li>Un <strong>perro camina sobre un tren</strong> en dirección contraria al movimiento del tren. Si sus rapideces coinciden, para la ardilla el perro <em>no se mueve</em>. Si el tren acelera, el perro retrocede; si el perro apura el paso, avanza. La velocidad medida depende del observador.</li>
+    <li>En el <strong>metro</strong>: si dos trenes están detenidos lado a lado y uno parte suavemente, por un instante no sabes cuál se movió. Sin aceleración (sin "tirones") la ambigüedad es total.</li>
+  </ul>
+
+  <p>Y a escala astronómica: creemos que "damos vueltas al Sol y se acabó", pero el Sol orbita el centro de la Vía Láctea, así que la Tierra en realidad describe una <strong>espiral</strong>; y la galaxia entera se mueve, aproximadamente hacia Andrómeda. <span class="hl">El movimiento siempre se define respecto a algo.</span></p>
+
+  <div class="box physics">
+    <span class="tag">La distinción clave</span>
+    <p>Nada de lo anterior es "relatividad de Einstein": es la relatividad galileana de toda la vida. Lo revolucionario de 1905 es que una cantidad que nadie cuestionaba como absoluta —<strong>el ritmo al que avanza el tiempo</strong>— también resulta ser relativa.</p>
+  </div>
 </section>
 
-<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Relatividad especial</h2></div></div>
-<p>Postulado central: <strong>c es constante</strong> en el vacío para todos los observadores inerciales (compatible con Michelson–Morley y con mediciones astronómicas en distintas épocas del año).</p>
-<p>Experimento del <strong>reloj de luz</strong>: en el vagón, ida y vuelta vertical (distancia 2L). Para quien ve el tren moverse, la luz recorre hipotenusa → trayectoria más larga. Con la misma c, el tiempo medido en tierra debe ser mayor: <span class="hl">dilatación temporal</span>. También aparece <strong>contracción de longitudes</strong> en la dirección del movimiento.</p>
-<div class="box cs"><span class="tag">Ingeniería</span><p>Piensa en sincronizar dos relojes en redes distribuidas: si asumes simultaneidad absoluta pero las señales viajan a c finita, cometes errores sistemáticos. La SR formaliza ese error en marcos que se mueven uno respecto al otro.</p></div>
-<div class="formula"><span class="katex-block" data-tex="\Delta t' = \gamma \Delta t,\quad \gamma = 1/\sqrt{1-v^2/c^2}"></span></div>
-<figure>
-<img src="m3c1/assets/slide-08.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 8</span>Reloj de luz en vagón en movimiento.</figcaption>
-</figure>
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Relatividad especial: la luz no negocia</h2>
+    <p>Un postulado experimental y sus consecuencias: el tiempo se dilata, los largos se contraen.</p>
+  </div></div>
+
+  <p>El punto de partida es un <strong>hecho experimental</strong>: cada vez que se medía la velocidad de la luz, salía el mismo valor, sin importar el estado de movimiento de quien medía. Un ejemplo con sabor astronómico: como la Tierra orbita el Sol, se midió <span class="katex-inline" data-tex="c"></span> cuando la Tierra va en una dirección y seis meses después, cuando va en la contraria. Resultado: <strong>idéntico</strong>. Einstein tomó ese dato en serio: <span class="hl">asumamos que <em>c</em> es constante para todos los observadores</span> y veamos qué consecuencias tiene.</p>
+
+  <h3>El reloj de luz</h3>
+  <p>El experimento mental: dentro de un vagón, un pulso de luz va desde una pared, rebota en un espejo y vuelve. Para el pasajero, la luz recorre <span class="katex-inline" data-tex="2L"></span> (ida y vuelta). Pero para alguien parado en la calle que ve pasar el vagón, la luz recorre una trayectoria <strong>diagonal, más larga</strong>. Y aquí está la trampa: la velocidad de la luz es la misma para ambos. Si la distancia es mayor y la velocidad es la misma, entonces <strong>el tiempo transcurrido tiene que ser mayor</strong>:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\Delta t = \gamma\,\Delta t_0,\qquad \gamma=\frac{1}{\sqrt{1-v^2/c^2}}\;\ge 1"></span>
+    <small><span class="katex-inline" data-tex="\Delta t_0"></span> es el tiempo propio (medido por quien viaja con el reloj) y <span class="katex-inline" data-tex="\Delta t"></span> el medido por quien lo ve moverse. El mismo análisis da la <strong>contracción de los largos</strong>: <span class="katex-inline" data-tex="L = L_0/\gamma"></span>. A velocidades cotidianas <span class="katex-inline" data-tex="\gamma\approx 1"></span> y no notamos nada; prueba el widget más abajo.</small>
+  </div>
+
+  <figure>
+    <img src="m3c1/assets/slide-07.jpg" alt="Diapositiva del reloj de luz: trayectorias de la luz vistas desde el vagón y desde el reposo">
+    <figcaption><span class="cap">Diapositiva · El reloj de luz</span>Para la observadora del carrito la luz recorre 2L; para quien lo ve pasar, una diagonal más larga. Con <em>c</em> fija, los relojes no pueden avanzar igual. <small>Crédito: ck12.org.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase</span>
+    <p>"¿Y para el que va arriba del tren?" — La situación es <strong>totalmente simétrica</strong>: para el pasajero, quien se mueve es la persona de la calle, y es el reloj de <em>ella</em> el que se dilata. Por eso la palabra <em>relativo</em>: no hay un observador privilegiado. En tiempos de Einstein no había tecnología para medirlo; hoy la relatividad especial está completamente comprobada.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La constancia de <em>c</em> funciona como una <strong>invariante del sistema</strong>: si un requisito no negociable entra en conflicto con supuestos implícitos (tiempo absoluto), lo que se refactoriza son los supuestos. Y la simetría entre observadores recuerda a los relojes en sistemas distribuidos: no existe un "reloj global" privilegiado; cada nodo tiene su línea de tiempo y las comparaciones requieren protocolo.</p>
+  </div>
 </section>
 
-<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Principio de equivalencia</h2></div></div>
-<p>Campo gravitatorio uniforme ≡ aceleración. Caída libre ≡ ingravidez (astronautas en órbita). Distinto del principio de inercia (Galileo/Newton).</p>
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El principio de equivalencia</h2>
+    <p>1915: gravedad y aceleración no se parecen — son lo mismo.</p>
+  </div></div>
+
+  <p>El salto a la relatividad general parte de una afirmación que Einstein formuló en 1907: hay una <span class="hl">completa equivalencia física</span> entre estar en un campo gravitacional y estar en un sistema acelerado con <span class="katex-inline" data-tex="a=-g"></span>. No es que "se sientan parecido": <strong>son la misma cosa</strong>.</p>
+  <ul>
+    <li>Encerrado en una caja sobre la Tierra, sientes que el piso te empuja. Encerrado en la misma caja en el espacio, acelerada "hacia arriba" con <span class="katex-inline" data-tex="a=g"></span>, sientes exactamente lo mismo. <strong>No hay experimento físico que distinga ambas situaciones.</strong></li>
+    <li>El recíproco: <strong>caer libremente</strong> en un campo gravitacional es indistinguible de <strong>flotar en el espacio</strong> sin gravedad.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-10.jpg" alt="Diapositiva comparando la zambullida libre con astronautas flotando en una nave">
+    <figcaption><span class="cap">Diapositiva · Caída libre = flotar</span>Los astronautas no flotan por estar "lejos de la gravedad": a la altura de la estación espacial el campo terrestre sigue siendo fuerte. Flotan porque <em>orbitar es caer permanentemente</em>: un estado de caída libre perpetua. <small>Créditos: NASA / Warner Bros.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Aclaración de la clase (inercia)</span>
+    <p>Alguien preguntó por el "principio de inercia". No es esto: la inercia (primera ley de Newton, formulada originalmente por Galileo) describe qué hace un cuerpo cuando <em>no</em> hay fuerzas: mantiene su estado de movimiento. El principio de equivalencia habla de otra cosa: de la identidad entre gravedad y la aceleración que la gravedad induce. Consejo de la profesora: la palabra "inercia" está tan mal usada que conviene quedarse con <span class="katex-inline" data-tex="F=ma"></span>.</p>
+  </div>
 </section>
 
-<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Relatividad general</h2></div></div>
-<p>Materia y energía curvan el espacio-tiempo (4D). Los cuerpos siguen geodésicas. Metáfora de la malla 2D es limitada.</p>
-<figure>
-<img src="m3c1/assets/slide-15.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 15</span>Curvatura por Sol, Tierra y Júpiter.</figcaption>
-</figure>
-<div class="box physics"><span class="tag">Tiempo y luz</span><p>Cerca de masa: relojes más lentos; luz que escapa se enrojece (redshift gravitacional).</p></div>
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Relatividad general: gravedad = geometría</h2>
+    <p>La materia y la energía deforman el espacio-tiempo; esa deformación es lo que llamamos gravedad.</p>
+  </div></div>
+
+  <p>Puesto en ecuaciones (con ayuda matemática de otros, pero con la idea enteramente suya), el principio de equivalencia lleva a la conclusión de 1915: <span class="hl">la gravedad no es una fuerza, es la deformación del espacio y del tiempo causada por la presencia de materia y/o energía</span> (recordando que por <span class="katex-inline" data-tex="E=mc^2"></span> ambas son intercambiables). Los cuerpos "intentan" viajar en línea recta, pero deben seguir la curvatura del espacio-tiempo — y eso se manifiesta como aceleración.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-18.jpg" alt="Diapositiva de la malla elástica deformada por el Sol, la Tierra y Júpiter">
+    <figcaption><span class="cap">Diapositiva · La malla elástica</span>Representación bidimensional clásica (una cama elástica). Ojo con la limitación: lo que se deforma es un ente <strong>cuadridimensional</strong> (3 de espacio + 1 de tiempo). Todos los cuerpos con masa deforman el espacio-tiempo — el Sol notoriamente, Júpiter menos, la Tierra casi nada, y nosotros de forma insignificante pero no nula.</figcaption>
+  </figure>
+
+  <h3>Qué le pasa al espacio, al tiempo y a la luz</h3>
+  <ul>
+    <li><strong>El espacio</strong> se contrae cerca de un cuerpo masivo y se dilata lejos de él.</li>
+    <li><strong>El tiempo</strong> hace lo opuesto: avanza <em>más lento</em> cerca de un cuerpo masivo y más rápido lejos de él.</li>
+    <li><strong>La luz</strong> que escapa de un cuerpo masivo pierde energía: se corre al rojo. Es el <span class="hl">redshift gravitacional</span> — distinto del Doppler y distinto del redshift cosmológico.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-14.jpg" alt="Diapositiva del redshift gravitacional: relojes a distinta altura y luz que se enrojece al alejarse de la Tierra">
+    <figcaption><span class="cap">Diapositiva · Redshift gravitacional</span>Al nivel del suelo el reloj marca 14:50; en el piso de arriba ya son las 15:00 (el tiempo corre más rápido lejos de la masa). La luz que sube se estira: más roja, menos energética. La que baja se azula.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El ejemplo de Interestelar</span>
+    <p>En la película, los protagonistas pasan unas horas en un planeta que orbita muy cerca de un agujero negro; al volver a la nave nodriza, el compañero que esperó lejos envejeció décadas. La regla mnemotécnica de la clase: <strong>cerca del campo gravitacional intenso, el tiempo va más lento</strong>. Es el mismo efecto del reloj del subsuelo vs. el del piso alto, llevado al extremo.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">GPS: relatividad de uso diario</span>
+    <p>Los satélites de navegación orbitan a ~20.000 km de altura, donde el tiempo corre distinto que en el suelo (según la lámina, los relojes se adelantan del orden de decenas de milisegundos por día; el valor estándar en la literatura es ≈ 38 <em>micro</em>segundos/día netos — ver nota al pie). Como el sistema requiere precisión de nanosegundos, <strong>sin correcciones relativistas el GPS acumularía kilómetros de error</strong>: "terminaríamos todos en Argentina tomando vino Malbec".</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El redshift gravitacional y la dilatación temporal son un problema de <strong>sincronización de relojes con deriva sistemática conocida</strong>: como servidores NTP donde un nodo corre consistentemente más rápido. La solución del GPS es la misma de ingeniería: modelar la deriva y compensarla en el protocolo.</p>
+  </div>
 </section>
 
-<section id="s6"><div class="shead"><span class="num">6</span><div><h2>GPS y efectos medibles</h2></div></div>
-<p>Interestelar: cerca del agujero negro el tiempo es mucho más lento. GPS requiere corrección relativista.</p>
-<div class="box dato"><span class="tag">Orden de magnitud</span><p>Corrección neta ~<strong>38–45 microsegundos/día</strong> (no milisegundos; posible lapsus en transcripción).</p></div>
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Las comprobaciones clásicas</h2>
+    <p>Mercurio ya lo insinuaba; el eclipse de 1919 lo confirmó ante el mundo.</p>
+  </div></div>
+
+  <h3>La precesión de Mercurio</h3>
+  <p>La órbita de Mercurio es levemente elíptica y su elipse <strong>rota lentamente</strong> (precesa). La mecánica newtoniana no explicaba del todo esa precesión; al estar Mercurio tan cerca del Sol, hacen falta <strong>correcciones relativistas</strong>, y con ellas el número calza. Fue la primera evidencia a favor de la teoría.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-19.jpg" alt="Diapositiva de la precesión apsidal de la órbita de Mercurio">
+    <figcaption><span class="cap">Diapositiva · Precesión de Mercurio</span>La elipse orbital va rotando con el tiempo (precesión apsidal). Solo la relatividad general da cuenta del valor observado.</figcaption>
+  </figure>
+
+  <h3>El eclipse de 1919</h3>
+  <p>Si la masa curva el espacio, <strong>la luz también debe desviarse</strong> al pasar cerca del Sol: las estrellas cuya luz roza el disco solar deberían verse <em>corridas hacia afuera</em>, "como una flor que se abre". El problema: con el Sol en el cielo es de día y no se ven estrellas. La solución: <strong>apagar el Sol un ratito</strong> — un eclipse total.</p>
+
+  <p>En 1919, cuatro años después de publicada la teoría, los ingleses enviaron dos expediciones: una a <strong>Sobral</strong> (costa norte de Brasil) y otra a una isla frente a la costa <em>occidental</em> de África (Príncipe — la transcripción dice "costa este", ver nota al pie). En Príncipe iba <strong>Sir Arthur Eddington</strong>; a Brasil viajó el "grupo astrónomo" liderado por <strong>Andrew Crommelin</strong>… y fue la placa fotográfica de la expedición menos famosa la que permitió validar la relatividad general: las estrellas aparecieron desplazadas exactamente como predecía Einstein, con un corrimiento mayor cuanto más cerca del Sol.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-21.jpg" alt="Diapositiva del esquema de deflexión de la luz durante el eclipse de 1919: ubicación real vs aparente de la estrella">
+    <figcaption><span class="cap">Diapositiva · Ubicación real vs. aparente</span>La luz de una estrella lejana viaja "derechita" por el espacio casi vacío, pero se deflecta justo al pasar junto al Sol: la vemos proyectada en una posición corrida hacia afuera.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c1/assets/slide-24.jpg" alt="Retratos de Sir Arthur Eddington y Andrew Crommelin">
+    <figcaption><span class="cap">Diapositiva · Los protagonistas</span>Eddington pasó a la historia; Crommelin, cuyo equipo tomó la placa decisiva en Sobral, quedó como nota al pie. Anécdota de la clase incluida sin costo adicional.</figcaption>
+  </figure>
 </section>
 
-<section id="s7"><div class="shead"><span class="num">7</span><div><h2>Mercurio y eclipse 1919</h2></div></div>
-<p>Perihelio de Mercurio: +43″/siglo por RG. Eclipse 1919: deflexión de luz estelar; mayor desplazamiento más cerca del Sol. Sobral y Príncipe; Crommelin y Eddington.</p>
-<figure>
-<img src="m3c1/assets/slide-22.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 22</span>Esquema del eclipse.</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-24.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 24</span>Placa fotográfica 1919.</figcaption>
-</figure>
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Lentes gravitacionales</h2>
+    <p>El mismo efecto del eclipse, multiplicado por la masa de cientos de galaxias.</p>
+  </div></div>
+
+  <p>Los <span class="hl">cúmulos de galaxias</span> son las estructuras más masivas del universo actual: congregaciones de <strong>cientos de galaxias</strong> en regiones no mucho mayores que nuestro Grupo Local. Esa concentración de masa distorsiona tanto el espacio que actúa como un <strong>lente</strong>: luz de galaxias lejanas que "no debía" llegar a nosotros se curva y nos alcanza, formando <strong>arcos</strong>, anillos y cruces de Einstein según la geometría exacta del sistema.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-26.jpg" alt="Diapositiva del cúmulo Abell 2218 con arcos gravitacionales">
+    <figcaption><span class="cap">Diapositiva · Cúmulo Abell 2218</span>Las galaxias amarillentas pertenecen al cúmulo; los arcos azulados son <em>imágenes distorsionadas</em> de galaxias mucho más lejanas, detrás del cúmulo. Un mismo objeto puede aparecer en varios arcos a la vez.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La supernova con reloj</span>
+    <p>Hace unos 10 años explotó una supernova en una galaxia con <strong>imágenes múltiples</strong> (la clase se refiere al caso conocido como SN Refsdal). Como el modelo del lente indicaba qué camino recorre la luz de cada imagen, se pudo <strong>predecir</strong> que la explosión "reaparecería" meses después en los otros arcos — y así ocurrió, una tras otra, con la precisión calculada. Predecir el retardo exige entender perfectamente la distorsión del espacio.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Dato importante</span>
+    <p>La masa que produce el efecto lente en un cúmulo es principalmente <strong>materia oscura</strong>, no la materia luminosa de las galaxias. Por eso modelar un lente no es trivial: el mapa de masa no coincide con el mapa de luz.</p>
+  </div>
 </section>
 
-<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Lentes gravitacionales</h2></div></div>
-<p>Cúmulos masivos (p. ej. Abell 2218) distorsionan luz de fondo → arcos, anillos de Einstein. Materia oscura domina el potencial. Supernovas lenteadas con retardos temporales entre imágenes.</p>
-<figure>
-<img src="m3c1/assets/slide-27.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 27</span>Lente fuerte en cúmulo.</figcaption>
-</figure>
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Ondas gravitacionales</h2>
+    <p>Cuando la masa se acelera, el espacio-tiempo mismo ondula.</p>
+  </div></div>
+
+  <p>Todo lo anterior asume masas quietas. Pero el universo no es pacífico: hay fusiones de galaxias, explosiones, colisiones de objetos compactos. Cuando una <strong>masa se acelera</strong>, la deformación del espacio-tiempo se propaga como una onda: una <span class="hl">onda gravitacional</span>, predicha por Einstein (que pensó que jamás serían medibles) y detectada por primera vez en <strong>2015, exactamente 100 años después</strong> de su artículo.</p>
+
+  <ul>
+    <li>Al pasar la onda, el espacio <strong>se contrae en una dirección y se estira en la perpendicular</strong>, alternadamente; el tiempo también oscila.</li>
+    <li>Viajan a la <strong>velocidad de la luz</strong>, como las ondas electromagnéticas.</li>
+    <li>La analogía de la clase: <em>cargas aceleradas → luz; masas aceleradas → ondas gravitacionales</em>. Pero la gravedad es tan débil comparada con el electromagnetismo que el efecto es minúsculo: los cambios de longitud medidos son <strong>del orden del tamaño de un átomo</strong> en un brazo de 4 km.</li>
+    <li>Se atenúan con la distancia como cualquier fenómeno ondulatorio: la misma energía se reparte en frentes cada vez mayores (como los corchos que suben y bajan cada vez menos lejos de la piedra que cayó al lago).</li>
+    <li>No son ondas mecánicas (como el sonido, que necesita un fluido): son oscilaciones <em>del espacio-tiempo mismo</em>, asociadas a una fuerza fundamental.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-27.jpg" alt="Diapositiva de ondas gravitacionales: anillo de partículas deformándose al paso de la onda">
+    <figcaption><span class="cap">Diapositiva · El paso de una onda</span>Un anillo de partículas se estira y contrae alternadamente en direcciones perpendiculares. La animación exagera el efecto de forma gigantesca: en la realidad la deformación relativa es ~10⁻²¹.</figcaption>
+  </figure>
+
+  <p>Lo único detectable hoy son los eventos dinámicamente más extremos: <strong>fusiones de agujeros negros y de estrellas de neutrones</strong>, cuerpos ultracompactos que en los instantes previos a fusionarse viajan a velocidades cercanas a la de la luz.</p>
 </section>
 
-<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Ondas gravitacionales y LIGO</h2></div></div>
-<p>Las <strong>ondas gravitacionales (GW)</strong> son perturbaciones del espacio-tiempo que se propagan a c. Se generan cuando distribuciones de masa <em>aceleran</em> de forma no simétrica (radiación cuadrupolar). La amplitud típica en LIGO es ~10<sup>−21</sup> (cambio relativo de longitud del orden del tamaño atómico en brazos de 4 km).</p>
-<ul>
-<li><strong>Analogía EM:</strong> cargas aceleradas → ondas electromagnéticas; masas aceleradas → GW. La gravedad es muchísimo más débil → señales minúsculas.</li>
-<li><strong>Hulse–Taylor (PSR B1913+16):</strong> el período orbital de un binario de pulsares decrece ~76 μs/año, consistente con pérdida de energía por GW → Nobel 1993 (detección indirecta).</li>
-<li><strong>LIGO (14 sep 2015):</strong> GW150914, fusión de dos BH ~30 M<sub>☉</sub> a ~1,3 Gpc. Virgo y KAGRA se sumaron después.</li>
-</ul>
-<p>El detector es un <strong>interferómetro Michelson</strong> con brazos perpendiculares: la GW modula ligeramente la diferencia de camino óptico. Se exige coincidencia entre observatorios separados (Hanford WA, Livingston LA) para descartar ruido local. La forma de la señal: <em>chirp</em> (frecuencia creciente al acercarse), pico de fusión, <em>ringdown</em> (modos cuasinormales del BH final).</p>
-<p>Implicancia astrofísica: apareció una población de BH estelares más masiva que la conocida solo por rayos X. Las <strong>kilonovas</strong> (fusión de estrellas de neutrones, GW170817) unen GW y luz, confirmando producción de elementos pesados por r-proceso.</p>
-<figure>
-<img src="m3c1/assets/slide-33.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 33</span>Primera señal LIGO.</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-35.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 35</span>Masas GW vs. EM.</figcaption>
-</figure>
-<div class="box next"><span class="tag">Siguiente</span><p>Clase 2: Schwarzschild, horizonte y agujeros negros observables.</p></div>
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>De Hulse–Taylor a LIGO</h2>
+    <p>Primero una inferencia elegante (1974), luego la detección directa (2015).</p>
+  </div></div>
+
+  <h3>El púlsar binario de Hulse y Taylor</h3>
+  <p>En 1974, Hulse y Taylor estudiaron el sistema <strong>B1913+16</strong>: dos estrellas de neutrones orbitándose muy de cerca (período ~8 horas), y al menos una de ellas púlsar — es decir, un <strong>reloj natural</strong> más preciso que los relojes atómicos. Si el sistema emite ondas gravitacionales, <em>pierde energía</em> y las órbitas deben encogerse a un ritmo calculable. Midieron los parámetros orbitales durante años: el decaimiento observado calza sobre la <strong>predicción teórica</strong> punto por punto. Premio Nobel de Física 1993. Este mismo mecanismo —radiar energía, acercarse, girar más rápido, radiar más— es el que finalmente lleva a estos sistemas a la fusión.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-28.jpg" alt="Diapositiva del púlsar binario de Hulse y Taylor con el decaimiento orbital observado sobre la predicción teórica">
+    <figcaption><span class="cap">Diapositiva · Hulse &amp; Taylor</span>Desviaciones orbitales acumuladas desde 1974: los puntos (observaciones) caen sobre la curva (predicción de la relatividad general por emisión de ondas gravitacionales).</figcaption>
+  </figure>
+
+  <h3>LIGO: interferometría láser</h3>
+  <p><strong>LIGO</strong> (Laser Interferometer Gravitational-wave Observatory) tiene dos brazos perpendiculares de <strong>4 km</strong>. Un láser se divide, recorre ambos brazos, rebota y se recombina. Si los brazos miden exactamente lo mismo, las ondas vuelven en fase; si una onda gravitacional cambia el largo de un brazo (¡en una fracción del tamaño de un átomo!), la luz vuelve <strong>fuera de fase</strong> y aparece una señal de interferencia. Para descartar perturbaciones locales (camiones, sismos, pájaros) hay <strong>dos observatorios gemelos</strong> en extremos opuestos de EE. UU. (estados de Washington y Luisiana): una señal real debe verse en ambos, con el retardo correcto.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-30.jpg" alt="Diapositiva de la primera detección GW150914: señal de los dos observatorios y fases de la fusión">
+    <figcaption><span class="cap">Diapositiva · Primera detección (2015)</span>La señal <em>real</em> de interferometría en ambos sitios: espiral de acercamiento (chirp), fusión y ring-down. Dos agujeros negros de ~30 masas solares cada uno, fusionados hace 1.300 millones de años.</figcaption>
+  </figure>
+
+  <h3>Lo que las ondas nos enseñaron</h3>
+  <p>De la pura señal se extraen la <strong>distancia</strong> del sistema, las <strong>masas</strong> de los progenitores y la masa final. Con LIGO, <strong>Virgo</strong> (Italia) y <strong>KAGRA</strong> (Japón) se ha acumulado un catálogo de fusiones que reveló <strong>una población de agujeros negros estelares más masivos</strong> (decenas de masas solares, hasta ~100) que los conocidos por métodos electromagnéticos — con el sesgo esperable: los sistemas más masivos producen ondas de mayor amplitud y se detectan preferentemente. Es la lección de siempre: <em>una nueva forma de medir revela objetos que la forma antigua no veía</em>.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-31.jpg" alt="Diapositiva con las masas de agujeros negros y estrellas de neutrones detectados por ondas gravitacionales vs electromagnéticamente">
+    <figcaption><span class="cap">Diapositiva · El "cementerio estelar"</span>Azul: agujeros negros vistos por ondas gravitacionales; rojo: los conocidos electromagnéticamente (por su radiación); naranja/amarillo: estrellas de neutrones. El único eje con significado físico es el vertical (masa).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La kilonova</span>
+    <p>La fusión de <strong>dos estrellas de neutrones</strong> se llama <em>kilonova</em>. En la primera detectada (2017), la triangulación entre LIGO y Virgo indicó la dirección; esa noche los telescopios del mundo apuntaron allí y <strong>vieron el objeto brillar y apagarse</strong>. Fue el inicio de la astronomía "multimensajera": ondas gravitacionales + luz del mismo evento.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase: ¿púlsar = estrella de neutrones?</span>
+    <p><strong>Todos los púlsares son estrellas de neutrones, pero no toda estrella de neutrones es púlsar.</strong> Recién formada, la estrella de neutrones tiene campos magnéticos intensísimos que aceleran partículas y producen pulsos de radiación (efecto faro). Esa actividad gasta energía: el campo decae y, con el tiempo, la estrella deja de pulsar.</p>
+  </div>
 </section>
 
+<!-- ============ INTERACTIVO ============ -->
 <section id="interactivo">
-<div class="widget" id="w-rs"><h4>Radio de Schwarzschild</h4>
-<label>M (M<sub>☉</sub>)</label><input type="number" id="rs-m" value="1" step="any">
-<div class="presets"><button data-m="1">1 M<sub>☉</sub></button><button data-m="10">10 M<sub>☉</sub></button><button data-m="4e6">Sgr A*</button></div>
-<output class="wout" id="rs-out"></output></div>
-<div class="widget" id="w-gps"><h4>Corrección GPS (μs/día)</h4>
-<label>Altitud km</label><input type="range" id="gps-h" min="200" max="40000" value="20200">
-<p><span id="gps-hv">20200</span> km</p><output class="wout" id="gps-out"></output></div>
-<div class="widget"><h4>Factor γ(v)</h4>
-<input type="range" id="g-v" min="0" max="0.999" step="0.001" value="0.5"> v/c=<span id="gv">0.5</span>
-<output class="wout" id="g-out"></output></div>
+  <div class="shead"><span class="num">✦</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Dos calculadoras para desarrollar intuición sobre las dos dilataciones del tiempo.</p>
+  </div></div>
+
+  <div class="widget" id="w-lorentz">
+    <h4>Widget 1 · Dilatación del tiempo por velocidad (relatividad especial)</h4>
+    <label>Velocidad como fracción de c: <span class="rngval" id="lz-vval">0.50</span> c</label>
+    <input type="range" id="lz-v" min="0" max="0.999" step="0.001" value="0.5">
+    <div class="presets">
+      <button type="button" data-v="0.0000001">Auto en carretera</button>
+      <button type="button" data-v="0.0000257">Sonda espacial rápida</button>
+      <button type="button" data-v="0.1">0.1 c</button>
+      <button type="button" data-v="0.9">0.9 c</button>
+      <button type="button" data-v="0.99">0.99 c</button>
+      <button type="button" data-v="0.999">0.999 c</button>
+    </div>
+    <div class="wout" id="lz-out"></div>
+  </div>
+
+  <div class="widget" id="w-grav">
+    <h4>Widget 2 · Dilatación del tiempo por gravedad (relatividad general)</h4>
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 6px">Un reloj a distancia <span class="katex-inline" data-tex="r"></span> de una masa <span class="katex-inline" data-tex="M"></span> corre más lento que uno lejano por el factor <span class="katex-inline" data-tex="\sqrt{1-r_s/r}"></span>, con <span class="katex-inline" data-tex="r_s=2GM/c^2"></span> (esto anticipa la Clase 2).</p>
+    <div class="wgrid">
+      <div><label>Masa del cuerpo (masas solares)</label><input type="number" id="gv-m" value="4000000" step="any" min="0.001"></div>
+      <div><label>Distancia del reloj, en radios r<sub>s</sub></label><input type="number" id="gv-r" value="1.5" step="any" min="1.001"></div>
+    </div>
+    <div class="presets">
+      <button type="button" data-m="1" data-r="235000">Superficie del Sol</button>
+      <button type="button" data-m="1.4" data-r="2.4">Superficie de estrella de neutrones</button>
+      <button type="button" data-m="100000000" data-r="1.01">Planeta de Interestelar (aprox.)</button>
+      <button type="button" data-m="4000000" data-r="1.5">Cerca de Sgr A*</button>
+    </div>
+    <div class="wout" id="gv-out"></div>
+  </div>
 </section>
 
-<section id="conceptos"><div class="tbl"><table>
-<thead><tr><th>Concepto</th><th>Resumen</th></tr></thead>
-<tbody>
-<tr><td><b>SR</b></td><td>c invariante; tiempo y longitud relativos</td></tr>
-<tr><td><b>RG</b></td><td>Curvatura por masa-energía</td></tr>
-<tr><td><b>Redshift grav.</b></td><td>Luz pierde energía al escapar</td></tr>
-<tr><td><b>Lente grav.</b></td><td>Masa magnifica fondo</td></tr>
-<tr><td><b>GW / LIGO</b></td><td>Astronomía de ondas a c; fusiones compactas</td></tr>
-</tbody></table></div></section>
-<section id="examenes">
-<div class="shead"><span class="num">✓</span><div>
-<h2>Exámenes de práctica</h2>
-<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
-</div></div>
-<ol class="examlist">
-    <li><a href="m3c1-examen-01.html">Examen 01<small>Relatividad especial</small></a></li>
-    <li><a href="m3c1-examen-02.html">Examen 02<small>Principio equivalencia</small></a></li>
-    <li><a href="m3c1-examen-03.html">Examen 03<small>Efectos gravitacionales</small></a></li>
-    <li><a href="m3c1-examen-04.html">Examen 04<small>Evidencia histórica</small></a></li>
-    <li><a href="m3c1-examen-05.html">Examen 05<small>Lentes gravitacionales</small></a></li>
-    <li><a href="m3c1-examen-06.html">Examen 06<small>Ondas gravitacionales I</small></a></li>
-    <li><a href="m3c1-examen-07.html">Examen 07<small>Hulse–Taylor y LIGO</small></a></li>
-    <li><a href="m3c1-examen-08.html">Examen 08<small>Poblaciones de fusiones</small></a></li>
-    <li><a href="m3c1-examen-09.html">Examen 09<small>Tipos de ondas</small></a></li>
-    <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador clase 1</small></a></li>
-</ol>
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">✎</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Idea esencial</th></tr></thead>
+    <tbody>
+      <tr><td><b>Annus mirabilis (1905)</b></td><td>Cuatro artículos de Einstein: efecto fotoeléctrico, movimiento browniano, relatividad especial y E = mc².</td></tr>
+      <tr><td><b>Postulado de c</b></td><td>La velocidad de la luz es la misma para todos los observadores; es un hecho experimental, no una hipótesis cómoda.</td></tr>
+      <tr><td><b>Dilatación del tiempo</b></td><td>Un reloj en movimiento avanza más lento visto desde el reposo (factor γ). El efecto es simétrico entre observadores.</td></tr>
+      <tr><td><b>Contracción de largos</b></td><td>Las longitudes en la dirección del movimiento se acortan en el mismo factor γ.</td></tr>
+      <tr><td><b>Principio de equivalencia</b></td><td>Gravedad y aceleración son físicamente indistinguibles; caída libre equivale a flotar sin gravedad.</td></tr>
+      <tr><td><b>Relatividad general (1915)</b></td><td>La materia-energía deforma el espacio-tiempo; los cuerpos y la luz siguen esa curvatura. Eso es la gravedad.</td></tr>
+      <tr><td><b>Redshift gravitacional</b></td><td>La luz que escapa de un cuerpo masivo se enrojece; el tiempo corre más lento cerca de la masa (GPS, Interestelar).</td></tr>
+      <tr><td><b>Precesión de Mercurio</b></td><td>La rotación de la elipse orbital solo se explica con correcciones relativistas.</td></tr>
+      <tr><td><b>Eclipse de 1919</b></td><td>Eddington y Crommelin midieron la deflexión de la luz estelar junto al Sol: primera confirmación de la RG.</td></tr>
+      <tr><td><b>Lente gravitacional</b></td><td>Cúmulos de galaxias curvan la luz de objetos lejanos: arcos, anillos, imágenes múltiples; domina la materia oscura.</td></tr>
+      <tr><td><b>Onda gravitacional</b></td><td>Oscilación del espacio-tiempo emitida por masas aceleradas; viaja a c; amplitud detectada ~ tamaño de un átomo.</td></tr>
+      <tr><td><b>Hulse–Taylor (1974)</b></td><td>Decaimiento orbital de un púlsar binario = pérdida de energía por ondas gravitacionales (Nobel 1993).</td></tr>
+      <tr><td><b>LIGO / Virgo / KAGRA</b></td><td>Interferómetros láser de km; primera detección directa en 2015 (GW150914, ~30+30 M☉).</td></tr>
+      <tr><td><b>Kilonova</b></td><td>Fusión de dos estrellas de neutrones; la de 2017 inauguró la astronomía multimensajera.</td></tr>
+    </tbody>
+  </table></div>
 </section>
-<footer><p><b>Fuentes:</b> <code>galaxias/m3/ff/galaxias-m3c1.md</code>, diapositivas Módulo III Clase 1.</p>
-<p class="disc">Transcripción automática; contrastada con diapositivas y física estándar.</p></footer>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas: 3 de alternativas autocorregibles + 2 de respuesta escrita con solución propuesta.</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c1-examen-01.html">Examen 01<small>1905 y la relatividad de la velocidad</small></a></li>
+    <li><a href="m3c1-examen-02.html">Examen 02<small>El reloj de luz</small></a></li>
+    <li><a href="m3c1-examen-03.html">Examen 03<small>Principio de equivalencia</small></a></li>
+    <li><a href="m3c1-examen-04.html">Examen 04<small>Espacio-tiempo curvo</small></a></li>
+    <li><a href="m3c1-examen-05.html">Examen 05<small>Redshift gravitacional y GPS</small></a></li>
+    <li><a href="m3c1-examen-06.html">Examen 06<small>Mercurio y el eclipse de 1919</small></a></li>
+    <li><a href="m3c1-examen-07.html">Examen 07<small>Lentes gravitacionales</small></a></li>
+    <li><a href="m3c1-examen-08.html">Examen 08<small>Ondas gravitacionales</small></a></li>
+    <li><a href="m3c1-examen-09.html">Examen 09<small>Hulse–Taylor y LIGO</small></a></li>
+    <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo III del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción del audio (<code>galaxias/m3/ff/galaxias-m3c1.md</code>) y las diapositivas <code>Modulo_III_Clase_1_for_pdf.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática que puede contener errores de reconocimiento de voz. Correcciones aplicadas contrastando con diapositivas y fuentes: el cúmulo "Abel 22 18" es <b>Abell 2218</b>; "Rose Einstein" es el puente de <b>Einstein–Rosen</b> (Clase 2); la expedición africana del eclipse de 1919 fue a la isla de <b>Príncipe</b>, en la costa <em>occidental</em> de África (la transcripción dice "costa este"); KAGRA es un observatorio <b>japonés</b>; los relojes GPS: la lámina indica "45 milisegundos por día", el valor estándar en la literatura es ≈ <b>38 microsegundos por día</b> (efecto neto GR+SR) — se señala como material externo. La cifra de "1 hora = 3 años" del ejemplo tipo Interestelar es ilustrativa. El widget 2 usa la métrica de Schwarzschild (inferencia propia consistente con la clase).</p>
+</footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded",function(){
-  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
-  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
-  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
 
-  var G=6.67430e-11, c=299792458, Msun=1.98847e30;
-  function rsCalc(){
-    var M=+document.getElementById('rs-m').value*Msun;
-    var rs=2*G*M/(c*c);
-    document.getElementById('rs-out').innerHTML='r<sub>s</sub> ≈ <b>'+(rs/1000).toFixed(3)+'</b> km';
+  // ===== Widget 1: factor de Lorentz =====
+  var lzV=document.getElementById('lz-v'), lzVal=document.getElementById('lz-vval'), lzOut=document.getElementById('lz-out');
+  function fmt(x){
+    if(!isFinite(x)) return "∞";
+    if(x>=1e6||x<1e-4&&x>0) return x.toExponential(3);
+    return (Math.round(x*1e6)/1e6).toString();
   }
-  var rsm=document.getElementById('rs-m');
-  if(rsm){rsm.oninput=rsCalc;document.querySelectorAll('#w-rs button').forEach(function(b){b.onclick=function(){rsm.value=b.dataset.m;rsCalc();};});rsCalc();}
-  function gpsCalc(){
-    var h=+document.getElementById('gps-h').value*1000, Re=6371000, M=5.972e24;
-    document.getElementById('gps-hv').textContent=(h/1000).toLocaleString('es');
-    var r=Re+h, v=Math.sqrt(6.67430e-11*M/r);
-    var dtGR=(6.67430e-11*M/(c*c*Re)-6.67430e-11*M/(c*c*r))*86400*1e6;
-    var dtSR=-0.5*(v*v/(c*c))*86400*1e6;
-    document.getElementById('gps-out').innerHTML='Neto ≈ <b>'+(dtGR+dtSR).toFixed(1)+'</b> μs/día (estimación GPS)';
-  }
-  var gpsh=document.getElementById('gps-h'); if(gpsh){gpsh.oninput=gpsCalc;gpsCalc();}
-  function gCalc(){
-    var v=+document.getElementById('g-v').value;
-    document.getElementById('gv').textContent=v.toFixed(3);
+  function lzUpdate(){
+    var v=+lzV.value;
+    lzVal.textContent=v<0.001? v.toExponential(1): v.toFixed(3);
     var g=1/Math.sqrt(1-v*v);
-    document.getElementById('g-out').innerHTML='γ = <b>'+g.toFixed(4)+'</b>';
+    var trip=1; // 1 año propio
+    var extra=(g-1)*365.25*24*3600; // segundos de desfase por año
+    var extraTxt;
+    if(extra<1e-3) extraTxt=(extra*1e6).toFixed(3)+" microsegundos";
+    else if(extra<60) extraTxt=extra.toFixed(3)+" segundos";
+    else if(extra<86400) extraTxt=(extra/3600).toFixed(2)+" horas";
+    else extraTxt=(extra/86400).toFixed(1)+" días";
+    lzOut.innerHTML='<span class="k">Factor de Lorentz:</span> γ = <b>'+fmt(g)+'</b><br>'+
+      'Mientras para el viajero pasa <b>1 año</b>, para quien queda en reposo pasan <b>'+fmt(g)+' años</b> '+
+      '(desfase acumulado ≈ '+extraTxt+' por año).<br>'+
+      'Una regla de 1 m a bordo se ve de <b>'+fmt(1/g)+' m</b> desde el reposo.';
   }
-  var gv=document.getElementById('g-v'); if(gv){gv.oninput=gCalc;gCalc();}
+  lzV.addEventListener('input',lzUpdate);
+  document.querySelectorAll('#w-lorentz .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ lzV.value=b.dataset.v; lzUpdate(); });
+  });
+  lzUpdate();
 
+  // ===== Widget 2: dilatación gravitacional =====
+  var gvM=document.getElementById('gv-m'), gvR=document.getElementById('gv-r'), gvOut=document.getElementById('gv-out');
+  var G=6.674e-11, C=2.998e8, MSUN=1.989e30;
+  function gvUpdate(){
+    var m=+gvM.value, rr=+gvR.value;
+    if(!(m>0)||!(rr>1)){ gvOut.innerHTML='Ingresa una masa &gt; 0 y una distancia &gt; 1 r<sub>s</sub> (fuera del horizonte).'; return; }
+    var rs=2*G*m*MSUN/(C*C); // metros
+    var f=Math.sqrt(1-1/rr); // dt_local/dt_infinito
+    var slow=1/f;
+    var rsTxt = rs>=1000 ? (rs/1000).toLocaleString('es-CL',{maximumFractionDigits:0})+" km" : rs.toFixed(2)+" m";
+    var hora = 1/f; // horas lejanas por hora local
+    var horaTxt = hora<1.001 ? "prácticamente 1 hora" : hora.toFixed(hora<10?3:1)+" horas";
+    gvOut.innerHTML='<span class="k">Radio de Schwarzschild:</span> r<sub>s</sub> = <b>'+rsTxt+'</b><br>'+
+      '<span class="k">Factor del reloj local:</span> √(1−r<sub>s</sub>/r) = <b>'+f.toFixed(6)+'</b><br>'+
+      'Por cada hora del reloj cercano a la masa, lejos transcurre(n) <b>'+horaTxt+'</b>. '+
+      (slow>2? 'Régimen tipo <em>Interestelar</em>: el tiempo local va notoriamente más lento.':'Efecto '+(slow>1.0001?'medible':'diminuto')+' — pero real (GPS).');
+  }
+  gvM.addEventListener('input',gvUpdate); gvR.addEventListener('input',gvUpdate);
+  document.querySelectorAll('#w-grav .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ gvM.value=b.dataset.m; gvR.value=b.dataset.r; gvUpdate(); });
+  });
+  gvUpdate();
 });
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 09 — m3c1 · Rama horizontal y AGB</title>
+<title>Examen 09 — m3c1 · Nebulosa planetaria y enana blanca</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 09 — Rama horizontal y AGB</h1>
+<h1>Examen 09 — Nebulosa planetaria y enana blanca</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
 <form id="quiz" data-answers="c,a,d">
-  <fieldset data-q="1"><legend>1. Tras el flash de helio, una estrella de baja masa alcanza el equilibrio en la:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Secuencia principal</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Rama asintótica gigante (directo)</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Rama horizontal</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Nebulosa planetaria</label>
-    <p class="fb" hidden>Post-flash: He en núcleo, menor L, mayor T<sub>eff</sub>.</p>
+  <fieldset data-q="1"><legend>1. ¿Por qué una estrella de M ≲ 4 M☉ no pasa de tener un núcleo de carbono y oxígeno?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Porque el carbono es el elemento más estable del universo</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Porque se queda sin helio en las capas externas</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Porque por más que el núcleo se contraiga, nunca alcanza la temperatura necesaria para fusionar carbono</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Porque el flash de helio destruye el núcleo</label>
+    <p class="fb" hidden>Cada elemento sucesivo exige más temperatura (más repulsión coulombiana). Para ≤4 M☉, la del carbono es inalcanzable: la fuente de energía se termina ahí.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La segunda subida (AGB) ocurre cuando:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Se agota el He del núcleo (núcleo C/O inerte)</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Aún hay H en el núcleo</label>
-    <label class="opt"><input type="radio" name="q2" value="c">La estrella es masiva >30 M☉</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Termina la convección</label>
-    <p class="fb" hidden>Mismo patrón que RGB pero con núcleo C/O.</p>
+  <fieldset data-q="2"><legend>2. Una nebulosa planetaria es:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Las capas externas de una estrella de baja masa, expulsadas al morir; el nombre es un error histórico sin relación con planetas</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El disco de gas donde se forman los planetas</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El remanente de una explosión de supernova</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Una nube de polvo que orbita una estrella joven</label>
+    <p class="fb" hidden>Cuando se descubrieron parecían discos planetarios y les pusieron ese nombre; nadie lo cambió. Las estrellas de baja masa no explotan como supernova.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Las estrellas ≤ 4 M☉ no pueden fusionar en el centro:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Hidrógeno</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Helio</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Oxígeno en la MS</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Carbono</label>
-    <p class="fb" hidden>No alcanzan T para fusión de C.</p>
+  <fieldset data-q="3"><legend>3. Una enana blanca es, en esencia:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Una estrella pequeña que sigue fusionando hidrógeno lentamente</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Una estrella de neutrones de baja masa</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El núcleo de helio de una gigante roja</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El núcleo inerte de carbono y oxígeno de la estrella muerta, desnudo tras la expulsión de las capas</label>
+    <p class="fb" hidden>Es un cadáver estelar: ya no fusiona nada, solo se enfría paulatinamente durante miles de millones de años.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Describe qué pasa en el HR durante y después del flash de helio.</p>
+  <p class="q">4. Explica el mecanismo completo por el cual se forma la nebulosa planetaria: qué procesos expulsan el material, por qué ese material está enriquecido en metales, y qué papel juega la convección de las capas externas.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Subida rápida en L; luego reajuste y asentamiento en <strong>rama horizontal</strong>.</div>
+    <div class="answer">Durante las últimas etapas, las capas externas de la estrella son <strong>convectivas</strong>: el material se revuelve continuamente, y esa mezcla va <strong>subiendo hacia la superficie los metales</strong> (todo lo que no es H ni He, en la jerga astronómica) fabricados en el interior — carbono, oxígeno, etc. Al mismo tiempo, varios procesos empujan el material hacia afuera: la <strong>presión de radiación</strong>, la energía remanente del <strong>flash de helio</strong>, las <strong>pulsaciones estelares</strong> y la actividad de las capas de fusión que siguen operando fuera del núcleo. Como en esas capas superiores la <strong>gravedad es débil</strong> (están lejísimos del centro de una estrella inflada), ese empuje basta para <strong>expulsar la envoltura al espacio</strong>. El gas expulsado y brillante alrededor del núcleo desnudo es la nebulosa planetaria, y su efecto de largo plazo es <strong>enriquecer el medio interestelar</strong> con metales que se incorporarán a futuras estrellas y planetas.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Qué queda en el núcleo tras agotar el He en una estrella de 4 M☉?</p>
+  <p class="q">5. Las nebulosas planetarias fotografiadas (Ring, Hubble 5, Helix…) se ven muy distintas entre sí. Según lo visto en clase, ¿de qué factores depende su aspecto, y qué tienen todas en común en su centro?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Núcleo <strong>inerte de C y O</strong>; sin fusión de C.</div>
+    <div class="answer">Su aspecto depende principalmente de <strong>cómo está orientada la nebulosa respecto al observador</strong> (la misma estructura de toro más flujos bipolares se ve como un «reloj de arena» de perfil, tipo Hubble 5, o como un anillo/ojo de frente, tipo Helix) y del <strong>medio interestelar que rodea a la estrella</strong>, que moldea la expansión del material. Es decir, gran parte de la diversidad es geometría de proyección más entorno, no física distinta. Lo que todas tienen en común: en el centro queda el <strong>remanente inerte de la estrella, una enana blanca</strong> — el núcleo de C-O desnudo cuya radiación además ilumina e ioniza el gas en expansión que lo rodea.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

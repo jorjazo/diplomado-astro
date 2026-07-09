@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 05 — m3c4 · Leyes de conservación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo III · Clase 4</span>
+<h1>Examen 05 — Leyes de conservación</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="a,c,b">
+  <fieldset data-q="1"><legend>1. ¿Por qué las estrellas de neutrones giran tan rápido?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Por conservación del momento angular: al comprimirse el núcleo, la rotación debe acelerarse</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Porque la explosión de supernova les da un empujón rotacional</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Porque el campo magnético las hace girar como un motor</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Porque capturan momento angular del medio interestelar</label>
+    <p class="fb" hidden>La estrella progenitora ya rotaba; al comprimir el núcleo de miles/millones de km a ~10 km, conservar L = Iω exige que ω se dispare. Como la bailarina que cierra los brazos.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Si el área de la estrella (∝ R²) disminuye en un factor 10¹⁰ durante el colapso, ¿qué pasa con el campo magnético para conservar el flujo magnético?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Disminuye en un factor 10¹⁰</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Se mantiene constante</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Aumenta en un factor 10¹⁰</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Aumenta en un factor 10⁵ (la raíz del factor de área)</label>
+    <p class="fb" hidden>Φ = B·(área) ≈ constante: si el área cae 10¹⁰ veces, B sube 10¹⁰ veces para compensar. Así se pasa de ~100 Gauss a ~10¹² Gauss.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Una estrella de alta masa en secuencia principal tiene un campo de ~100 Gauss. ¿Qué campo tiene la estrella de neutrones resultante?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">~10⁶ Gauss</label>
+    <label class="opt"><input type="radio" name="q3" value="b">~10¹² Gauss</label>
+    <label class="opt"><input type="radio" name="q3" value="c">~100 Gauss, el campo no cambia</label>
+    <label class="opt"><input type="radio" name="q3" value="d">~10²⁴ Gauss</label>
+    <p class="fb" hidden>100 Gauss × 10¹⁰ = 10¹² Gauss: diez órdenes de magnitud más. Esos campos brutales son los que atrapan y aceleran las partículas.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Escribe (o describe) la relación de conservación del momento angular y úsala para estimar el orden de magnitud: si un núcleo estelar con periodo de rotación de ~1 día se comprime desde ~10⁴ km hasta 10 km de radio, ¿de qué orden queda el nuevo periodo?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Conservación del momento angular: L = Iω = constante, con I ∝ MR². Si la masa se conserva, ω ∝ 1/R², es decir <strong>P₂ ≈ P₁ (R₂/R₁)²</strong>. Con R₂/R₁ = 10 km / 10⁴ km = 10⁻³, el factor es (10⁻³)² = 10⁻⁶. Entonces P₂ ≈ 86.400 s × 10⁻⁶ ≈ <strong>0,09 s ≈ 90 milisegundos</strong>. Un núcleo que rotaba una vez al día termina girando ~10 veces por segundo: el orden de magnitud de los púlsares rápidos sale directo de una ley de conservación, sin necesidad de física nueva.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La clase presentó el momento angular y el flujo magnético como dos cantidades que "el colapso no puede cambiar". Explica por qué este razonamiento por invariantes es tan poderoso: ¿qué nos permite inferir sobre un objeto que no podemos observar de cerca?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Las leyes de conservación funcionan como <strong>invariantes del sistema</strong>: no importa lo violento o complejo que sea el proceso intermedio (colapso, supernova), esas cantidades deben ser las mismas antes y después. Eso permite <strong>predecir propiedades del estado final sin observarlo directamente</strong>: conociendo el radio y la rotación típica de una estrella masiva, y sabiendo que el remanente mide ~10 km, se <em>deduce</em> que debe girar en escalas de milisegundos-segundos y tener campos de ~10¹² Gauss. Cuando después las observaciones (periodos de púlsares medidos, campos inferidos por polarización) coinciden con esas predicciones, la teoría queda validada. Es análogo a razonar sobre un sistema de ingeniería a partir de sus invariantes (conservación de energía, de flujo, de masa) cuando no se puede instrumentar el interior: los invariantes acotan el espacio de estados posibles.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 4, Módulo III (Astrofísica de Estrellas). <a href="m3c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

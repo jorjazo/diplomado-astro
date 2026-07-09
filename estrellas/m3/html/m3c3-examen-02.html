@@ -3,27 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 02 — m3c3 · Degeneración</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Examen 02 — m3c3 · La enana blanca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
-  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
 .wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
-nav{font-size:.9rem;margin-bottom:18px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
 .kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
-h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
 .intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
 fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
 legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
 .qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
 .qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
-label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
 label.opt:hover{background:#10203a}
 label.opt input{accent-color:var(--red);margin-right:10px}
-.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;cursor:pointer;margin-top:8px}
-.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
 .fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
 fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
 details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
@@ -36,50 +39,51 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <body>
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
-<span class="kick">Astrofísica de Estrellas · Módulo 3 · Clase 3</span>
-<h1>Examen 02 — Degeneración</h1>
-<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
+<span class="kick">Astrofísica de Estrellas · Módulo III · Clase 3</span>
+<h1>Examen 02 — La enana blanca</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="b,a,b">
-  <fieldset data-q="1"><legend>1. En materia degenerada, la presión depende principalmente de:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">La temperatura</label>
-    <label class="opt"><input type="radio" name="q1" value="b">La densidad</label>
-    <label class="opt"><input type="radio" name="q1" value="c">El color</label>
-    <label class="opt"><input type="radio" name="q1" value="d">La distancia</label>
-    <p class="fb" hidden>P ∝ ρ^(5/3) para electrones no relativistas.</p>
+<form id="quiz" data-answers="b,c,a">
+  <fieldset data-q="1"><legend>1. ¿De qué elementos químicos está compuesto principalmente el núcleo de una enana blanca?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Hidrógeno y helio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Carbono, con algo de oxígeno</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Hierro y níquel</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Silicio y azufre</label>
+    <p class="fb" hidden>Es el núcleo inerte de una estrella de baja masa: la fusión llegó hasta carbono (y “pintitas” de oxígeno), no más allá.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El principio de Pauli establece que:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Dos fermiones idénticos no pueden ocupar el mismo estado cuántico</label>
-    <label class="opt"><input type="radio" name="q2" value="b">La energía se conserva siempre en estrellas</label>
-    <label class="opt"><input type="radio" name="q2" value="c">La luz es solo onda</label>
-    <label class="opt"><input type="radio" name="q2" value="d">El hierro no fusiona</label>
-    <p class="fb" hidden>Base de la presión degenerada.</p>
+  <fieldset data-q="2"><legend>2. ¿Qué tamaño y densidad típicos tiene una enana blanca de ~1 M<sub>☉</sub>?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Radio como el del Sol; densidad como el agua</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Radio como Júpiter; densidad ~10³ g/cm³</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Radio ~7.000 km (similar a la Tierra); densidad ~10⁶ g/cm³</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Radio ~10 km; densidad ~10¹⁴ g/cm³</label>
+    <p class="fb" hidden>~1 M☉ en ~0,01 R☉ ≈ 7.000 km: millones de gramos por cm³. (La opción d corresponde a una estrella de neutrones.)</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Si intentaras sostener una enana blanca solo con gas ideal calentándola, necesitarías T del orden de:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">6000 K</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Millones de K</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Cero K</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Igual que el Sol</label>
-    <p class="fb" hidden>La temperatura real no explica la presión; hace falta degeneración.</p>
+  <fieldset data-q="3"><legend>3. Una vez formada, la única “actividad” de una enana blanca aislada es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Enfriarse lentamente, irradiando su calor residual</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Fusionar helio en carbono a ritmo lento</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Contraerse hasta volverse agujero negro</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Expulsar capas periódicamente</label>
+    <p class="fb" hidden>No genera energía: solo libera la temperatura residual de su vida anterior, durante miles de millones de años.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica por qué una enana blanca más masiva es más pequeña.</p>
+  <p class="q">4. En el diagrama HR, la trayectoria final de una estrella como el Sol se mueve primero hacia la izquierda (mayor temperatura) manteniendo luminosidad, y luego cae. Explica por qué la temperatura medida <em>aumenta</em> si la estrella ya no genera energía.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Más masa ⇒ más gravedad ⇒ electrones deben comprimirse más para generar suficiente presión degenerada ⇒ menor radio. Relación contraintuitiva propia de materia degenerada.</div>
-  </details>
-</div>
-<div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Relaciona Heisenberg (incertidumbre) con la presión degenerada conceptualmente.</p>
-  <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Al confinar electrones en menor volumen, crece la incertidumbre en su momento; esto se manifiesta como presión que resiste la compresión adicional.</div>
+    <div class="answer">No es que la estrella se caliente: lo que cambia es <strong>qué capa estamos viendo</strong>. Las capas externas de la estrella son frías (están lejos del núcleo); al ser expulsadas en la fase de nebulosa planetaria, va quedando expuesto el <strong>núcleo</strong>, que alcanzó temperaturas de ~100 millones de K para fusionar helio. Por eso la temperatura <em>observada</em> sube al movernos a la izquierda del diagrama HR. La luminosidad luego cae porque el área emisora se reduce muchísimo: ya solo emite el núcleo compacto, del tamaño de la Tierra. Finalmente, como enana blanca, se enfría con luminosidad decreciente.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 3, Módulo III (Remanentes estelares). Fuentes: <code>estrellas/m3/ff/estrellas-m3c3.md</code>, <code>Modulo_III_Clase_3.pdf</code>. <a href="m3c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La profesora insistió en que la enana blanca “no es una estrella per se” y en que tampoco es un objeto sólido. Justifica ambas afirmaciones.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer"><strong>No es una estrella</strong> porque no genera energía: no hay ninguna reacción termonuclear en su interior. Es una estrella <em>muerta</em>, un remanente estelar — el núcleo desnudo que quedó tras la expulsión de las capas externas. <strong>No es un sólido</strong> porque sigue siendo un <em>plasma</em>: materia completamente ionizada, con núcleos de carbono y oxígeno y electrones libres, con corrientes eléctricas intensas y campos magnéticos. Es un plasma tan comprimido que se comporta como materia <em>degenerada</em> (rigen las leyes cuánticas), y prueba de que no es sólido es que puede seguir acretando material en su superficie cuando está en un sistema binario.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 3, Módulo III (Astrofísica de Estrellas). <a href="m3c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

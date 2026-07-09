@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Integrador</h1>
+<h1>Examen 10 — Integrador</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="d,b,c">
-  <fieldset data-q="1"><legend>1. Las estrellas viejas de baja masa en la Galaxia típicamente tienen:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Alta metalicidad</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Solo hierro en la superficie</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Composición idéntica al Big Bang puro</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Baja metalicidad</label>
-    <p class="fb" hidden>Se formaron de gas poco procesado; las jóvenes heredan más metales.</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. ¿Cuál es LA diferencia central entre cómo generan energía las estrellas de baja y de alta masa durante la secuencia principal?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Las de alta masa fusionan helio y las de baja masa hidrógeno</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Las de baja masa no producen neutrinos</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Ambas convierten 4 protones en helio, pero por vías distintas: p–p domina en baja masa y CNO en alta masa</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Las de alta masa usan fisión en vez de fusión</label>
+    <p class="fb" hidden>Como dijo la profesora: "la gran diferencia es cómo juntan los cuatro protones en un helio". El resultado neto es el mismo; la vía y las tasas, no.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Los elementos de número atómico par (C, O, Si…) son más abundantes porque:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">El Big Bang solo creó pares</label>
-    <label class="opt"><input type="radio" name="q2" value="b">La fusión estelar favorece núcleos pares</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Los impares desaparecen al instante</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Solo ocurre en la Tierra</label>
-    <p class="fb" hidden>La nucleosíntesis por fusión de pares de nucleones explica el patrón.</p>
+  <fieldset data-q="2"><legend>2. ¿Por qué una estrella de baja masa NO puede fusionar su núcleo de carbono, mientras que una masiva sí sigue adelante?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque el carbono de las estrellas chicas es de otro isótopo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque no alcanza la temperatura y densidad necesarias en su núcleo; una masiva comprime más y llega a ~600 millones de K</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque fusionar carbono siempre requiere energía</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque el carbono está en la superficie y no en el núcleo</label>
+    <p class="fb" hidden>Fusionar C sí libera energía (A &lt; 56); lo que falta en baja masa es la compresión gravitacional para alcanzar el umbral de temperatura y densidad.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La supernova SN 1987A ocurrió en:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">El centro de la Vía Láctea</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Andrómeda</label>
-    <label class="opt"><input type="radio" name="q3" value="c">La Gran Nube de Magallanes</label>
-    <label class="opt"><input type="radio" name="q3" value="d">El Sistema Solar</label>
-    <p class="fb" hidden>Primera supernova cercana observada con detalle moderno.</p>
+  <fieldset data-q="3"><legend>3. Los neutrinos de una supernova se emiten a una tasa gigante porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El remanente los refleja hacia afuera</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La estrella deja de ser transparente a la luz</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El campo magnético los acelera</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Se fusionan elementos pesados prácticamente en un instante, concentrando la emisión que una estrella normal reparte en millones de años</label>
+    <p class="fb" hidden>Una estrella libera neutrinos "a una tasa chiquitita" durante ~un millón de años; la supernova concentra una emisión enorme en segundos-horas. Además casi no interactúan con la materia, por eso son tan difíciles de detectar.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Resume el ciclo vida–muerte de una estrella de ~15 M☉ desde la secuencia principal hasta el remanente.</p>
+  <p class="q">4. Escribe el “resumen de la clase” completo: las etapas de la vida de una estrella de alta masa desde la secuencia principal hasta la supernova, mencionando ciclo CNO, fusión por capas, supergigante roja, hierro y colapso.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">MS corta con CNO → supergigante con capas hasta Fe → <strong>colapso y SN II</strong> → <strong>estrella de neutrones</strong> (o agujero negro) + enriquecimiento del medio.</div>
+    <div class="answer">Una estrella de alta masa (≳4 M☉) fusiona H → He en su núcleo mediante el <strong>ciclo CNO</strong> (dominante por su alta temperatura central), gastando el combustible tan rápido que su vida en <strong>secuencia principal</strong> es de solo millones de años. Al agotar el H central, sale de secuencia principal: fusiona H en cascarón, luego He → C gradualmente (sin flash de helio), y gracias a temperaturas de ~600 millones de K sigue con etapas de <strong>fusión por capas</strong> de elementos cada vez más pesados (C, O, Ne, Mg, Si, S). La alta tasa de fusión expande la estrella hasta una <strong>supergigante roja</strong> (~5 UA, con fuertes pérdidas de masa por vientos y outbursts). La fusión por capas termina depositando un <strong>núcleo de hierro inerte</strong> que no puede generar energía: el núcleo se enfría, pierde presión y <strong>colapsa</strong> hasta densidad de núcleo atómico (presión degenerada de neutrones); las capas en caída libre <strong>rebotan</strong> contra ese remanente y las ondas de choque (más los neutrinos) <strong>desarman la estrella</strong> en una explosión de supernova, dispersando los elementos fabricados — y creando otros más pesados que el Fe — al medio interestelar, con un remanente central que se estudia más adelante.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Integra nucleosíntesis y evidencia observacional para argumentar «somos polvo de estrellas».</p>
+  <p class="q">5. Una enana blanca aislada, ¿qué proceso sigue internamente tras formarse? ¿Y qué puede “reactivarla” si no está sola? (pregunta final de la clase)</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Big Bang: H/He. Estrellas: C–Fe. SN: dispersión y Z&gt;Fe. Evidencia: metalicidad, abundancias pares, SN 1987A, espectros de SN. Ese gas formó el Sol y la Tierra.</div>
+    <div class="answer">Aislada, una enana blanca <strong>no fusiona nada: solo se enfría</strong>. En el diagrama HR va cayendo hacia menor luminosidad y menor temperatura — su “muerte” es un enfriamiento indefinido. Pero una enana blanca es el <strong>núcleo desnudo de una estrella de baja masa</strong>, y si está en órbita con otra estrella que evoluciona y se expande (fase gigante), puede <strong>robarle material fresco</strong> (hidrógeno) que se deposita en su superficie. Ese hidrógeno puede fusionarse y producir energía nuevamente (fenómeno tipo <strong>nova</strong>). Y si la enana blanca “se pone muy comilona” y supera la <strong>masa de Chandrasekhar</strong>, colapsa y genera una <strong>supernova de otro tipo</strong>, pudiendo dejar una estrella de neutrones. Todo el zoológico de posibilidades de sistemas binarios (dobles remanentes, compañeras desarmadas por la explosión, etc.) se ve en la próxima clase.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 06 — m3c2 · Fusión por capas</title>
+<title>Examen 06 — m3c2 · Colapso y rebote</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Fusión por capas</h1>
+<h1>Examen 06 — Colapso, rebote y presión degenerada</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,d,b">
-  <fieldset data-q="1"><legend>1. La secuencia de fusión en el núcleo de una estrella masiva es:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Fe → Si → O → C → He → H</label>
-    <label class="opt"><input type="radio" name="q1" value="b">H → He → C → O → Si → Fe</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo H → He y luego enana blanca</label>
-    <label class="opt"><input type="radio" name="q1" value="d">H → Fe directamente</label>
-    <p class="fb" hidden>Cada etapa deposita ceniza más pesada en el centro.</p>
+
+<form id="quiz" data-answers="c,a,d">
+  <fieldset data-q="1"><legend>1. ¿Qué detiene la compresión de la parte más interna del núcleo estelar durante el colapso?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La fusión renovada de hidrógeno</label>
+    <label class="opt"><input type="radio" name="q1" value="b">El campo magnético de la estrella</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La presión degenerada de neutrones</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La rotación acelerada del núcleo</label>
+    <p class="fb" hidden>El principio de exclusión impide comprimir más allá de cierto punto: la presión degenerada de neutrones da al remanente un tamaño físico definido.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La temperatura central en una supergigante masiva puede alcanzar del orden de:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">15 millones K</label>
-    <label class="opt"><input type="radio" name="q2" value="b">6000 K</label>
-    <label class="opt"><input type="radio" name="q2" value="c">15 K</label>
-    <label class="opt"><input type="radio" name="q2" value="d">~600 millones K</label>
-    <p class="fb" hidden>Mucho mayor que en el Sol; permite fusiones de núcleos pesados.</p>
+  <fieldset data-q="2"><legend>2. La densidad que alcanza el núcleo colapsado es comparable a la de:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Un núcleo atómico (~4×10¹⁷ en las unidades de la diapositiva)</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El agua (10³ kg/m³)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El centro del Sol</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El plomo sólido</label>
+    <p class="fb" hidden>Queda "como un gran átomo": ~1 masa solar comprimida a densidad nuclear — equivalente a comprimir la Tierra a un diámetro de 300 m.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Los diagramas de cebolla del interior muestran:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Toda la estrella incluyendo la fotosfera</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Solo el núcleo interno</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Únicamente la nebulosa expulsada</label>
-    <label class="opt"><input type="radio" name="q3" value="d">El remanente post-supernova</label>
-    <p class="fb" hidden>La supergigante completa puede tener radio ~5 UA; el diagrama es el centro.</p>
+  <fieldset data-q="3"><legend>3. La explosión de supernova de colapso de núcleo se origina, en último término, en:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">La ignición explosiva de hidrógeno fresco</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Una colisión con otra estrella</label>
+    <label class="opt"><input type="radio" name="q3" value="c">La fisión del núcleo de hierro</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El rebote del material en caída libre contra el núcleo incompresible, que genera una onda de choque</label>
+    <p class="fb" hidden>A las capas "se les cae el piso", caen en caída libre, chocan contra la superficie del remanente degenerado y rebotan: esa onda de choque (más los neutrinos) desarma la estrella.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Compara el encendido del helio en baja masa vs alta masa.</p>
+  <p class="q">4. Explica la analogía de la “sala de clases” que usó la profesora para la presión degenerada, y cómo se extiende a enanas blancas, estrellas de neutrones y agujeros negros.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">En <strong>baja masa</strong>: <strong>flash de helio</strong>. En <strong>alta masa</strong>: compresión más <strong>gradual</strong> sin flash tan abrupto.</div>
+    <div class="answer">Por el <strong>principio de exclusión</strong>, a las partículas “no les gusta” ocupar el mismo estado que otras — como estudiantes en una sala: si hay asientos libres, los nuevos se sientan sin problema; si la sala está <strong>llena</strong>, nadie acepta que se le sienten encima, y el conjunto ejerce una presión contra nuevos ocupantes. Esa es la <strong>presión degenerada</strong>. En una <strong>enana blanca</strong> la ejercen los <strong>electrones</strong> (sala llena, un ocupante por asiento). Si la masa es mucho mayor, se puede “apretar un poco más”: sentar gente encima de otra — incómodo pero posible — que es la <strong>presión degenerada de neutrones</strong> de una <strong>estrella de neutrones</strong>. Y si se sobrepasa “incluso lo razonable” — la sala colapsa, caos total — la densidad es tan alta que el espacio-tiempo colapsa sobre sí mismo: un <strong>agujero negro</strong>.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué se acumula hierro en el centro de la estrella masiva?</p>
+  <p class="q">5. Ordena y describe la secuencia completa de la muerte de una estrella masiva, desde que el núcleo de hierro deja de generar energía hasta la eyección del material.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Cuando se forma <strong>Fe</strong>, ya no hay fusión exotérmica hacia Z mayores; el hierro queda como <strong>núcleo inerte</strong> hasta el colapso.</div>
+    <div class="answer">(1) El <strong>núcleo de Fe</strong> no puede fusionar con ganancia de energía: se enfría, pierde presión, mientras las cáscaras siguen fusionando y depositando más hierro. (2) Cuando la gravedad supera la presión, el núcleo <strong>colapsa sobre sí mismo</strong>; la parte más interna se compacta hasta densidad de núcleo atómico, donde la <strong>presión degenerada de neutrones</strong> detiene la compresión. (3) A las capas superiores “se les cae el piso”: entran en <strong>caída libre</strong> — una chorrera de masa, porque la densidad interna de la estrella es altísima. (4) Ese material <strong>rebota</strong> contra la superficie incompresible del remanente, generando una <strong>onda de choque</strong> que se propaga hacia afuera. (5) Choque y <strong>neutrinos</strong> propelen el material de forma heterogénea: las partes externas son <strong>eyectadas</strong>, en la onda de choque se fusionan elementos más pesados que el Fe, y queda solo un <strong>remanente</strong> central (estrella de neutrones o agujero negro).</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

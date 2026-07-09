@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 10 — m3c1 · Integrador baja masa</title>
+<title>Examen 10 — m3c1 · Integrador</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 10 — Integrador baja masa</h1>
+<h1>Examen 10 — Integrador</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,a,c">
-  <fieldset data-q="1"><legend>1. La convección en estrellas evolucionadas de baja masa puede:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Evitar cualquier metalicidad</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Arrastrar (dredge-up) metales a la superficie</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Apagar la fusión</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Crear agujeros negros</label>
-    <p class="fb" hidden>Los «metales» suben antes de la expulsión.</p>
+
+<form id="quiz" data-answers="b,d,a">
+  <fieldset data-q="1"><legend>1. Ordena correctamente las etapas de la vida de una estrella tipo Sol vistas en clase:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Gigante roja → secuencia principal → flash de helio → nebulosa planetaria → enana blanca</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Secuencia principal → gigante roja → flash de helio → fusión estable de He → núcleo C-O inerte → nebulosa planetaria → enana blanca</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Secuencia principal → flash de helio → gigante roja → supernova → enana blanca</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Secuencia principal → enana blanca → gigante roja → nebulosa planetaria</label>
+    <p class="fb" hidden>Ese es el camino completo de una estrella de baja masa. Sin supernova: eso es para las masivas (próxima clase).</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El nombre «nebulosa planetaria» se debe a que:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Contienen planetas en formación</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Históricamente parecían discos planetarios</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Solo aparecen en sistemas planetarios</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Fueron descubiertas por planetólogos</label>
-    <p class="fb" hidden>Nombre histórico engañoso.</p>
+  <fieldset data-q="2"><legend>2. Según lo adelantado en clase, lo que determina si una estrella masiva termina como estrella de neutrones o como agujero negro es principalmente:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Su temperatura superficial</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Su velocidad de rotación</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Su distancia al centro galáctico</label>
+    <label class="opt"><input type="radio" name="q2" value="d">La masa de su núcleo, más que la masa total de la estrella</label>
+    <p class="fb" hidden>El detalle que subrayó la profesora: no es la masa completa sino cuánta masa tiene el núcleo lo que decide el tipo de cadáver estelar.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El remanente central de una estrella ≤ 4 M☉ es una:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Supernova de tipo II</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Estrella de neutrones</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Enana blanca (núcleo C/O expuesto)</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Gigante azul</label>
-    <p class="fb" hidden>Núcleo compacto sin fusión.</p>
+  <fieldset data-q="3"><legend>3. Betelgeuse tiene solo ~10 millones de años y ya es una supergigante roja, mientras el Sol lleva ~4.500 millones de años en secuencia principal. La explicación es que Betelgeuse:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Es mucho más masiva (~16 M☉), y las masivas evolucionan muchísimo más rápido</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Se formó con helio en vez de hidrógeno</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Está más cerca del centro galáctico</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Es en realidad más vieja que el Sol</label>
+    <p class="fb" hidden>t ∝ M⁻³: con ~16 M☉, su vida completa es de solo decenas de millones de años. Vive rápido y morirá joven (y de otra manera: es del rango masivo).</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Resume la evolución completa del Sol (≤ 4 M☉) desde MS hasta enana blanca.</p>
+  <p class="q">4. Dibuja (o describe) la «cebolla» final de una estrella de M ≲ 4 M☉, nombrando cada capa desde afuera hacia adentro, e indica cuáles capas están fusionando y cuáles están inertes. ¿Por qué se detiene ahí la fábrica de elementos?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>MS</strong> → <strong>RGB</strong> → <strong>flash de He</strong> → <strong>rama horizontal</strong> → <strong>AGB</strong> → <strong>nebulosa planetaria</strong> → <strong>enana blanca</strong> C/O.</div>
+    <div class="answer">Desde afuera hacia adentro: 1) <strong>envoltura de hidrógeno inerte</strong> (demasiado fría para fusionar); 2) <strong>capa de fusión H→He</strong> (activa); 3) <strong>capa de helio inerte</strong>; 4) <strong>capa de fusión He→C</strong> (activa); 5) <strong>núcleo inerte de carbono y oxígeno</strong>. Las dos capas de fusión son las únicas fuentes de energía; el núcleo ya no produce nada. La fábrica se detiene porque cada salto a un elemento más pesado exige vencer una repulsión coulombiana mayor y por lo tanto temperaturas más altas (H ~15 millones K, He ~100 millones K, C aún más), y la contracción gravitacional de un núcleo de una estrella de ≤4 M☉ <strong>nunca genera la temperatura necesaria para fusionar carbono</strong>. La masa de la estrella determina hasta qué elemento de la tabla periódica llega su nucleosíntesis.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Cómo enriquece el medio interestelar una nebulosa planetaria?</p>
+  <p class="q">5. «Somos polvo de estrellas»: usa el ciclo completo visto en clase (fusión en el núcleo, triple-alfa, convección, nebulosa planetaria) para justificar esta frase respecto del carbono y el oxígeno de nuestro cuerpo, indicando el rol del medio interestelar en el reciclaje.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Expulsa capas con <strong>metales</strong> mezclados por convección, disponibles para nuevas estrellas y planetas.</div>
+    <div class="answer">El universo primitivo era esencialmente hidrógeno y helio: el <strong>carbono y el oxígeno no existían</strong> en cantidades apreciables. Se fabrican dentro de estrellas: el carbono nace del <strong>proceso triple-alfa</strong> (3 núcleos de ⁴He → ¹²C, vía ⁸Be) cuando el núcleo de una gigante roja alcanza ~100 millones de K, y el oxígeno se forma cuando un carbono captura otra partícula alfa. Luego, la <strong>convección</strong> de las capas externas transporta esos «metales» hacia la superficie, y al morir la estrella, la <strong>nebulosa planetaria</strong> los expulsa al <strong>medio interestelar</strong>. Ese gas enriquecido se incorpora a nuevas nubes que forman <strong>nuevas estrellas y sistemas planetarios</strong> — como el nuestro. El carbono de nuestras células y el oxígeno que respiramos pasaron por el núcleo de alguna estrella que murió antes de que naciera el Sol: somos, literalmente, producto del reciclaje estelar.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

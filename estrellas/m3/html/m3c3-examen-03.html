@@ -3,27 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c3 · Chandrasekhar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Examen 03 — m3c3 · Presión degenerada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
-  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
 .wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
-nav{font-size:.9rem;margin-bottom:18px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
 .kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
-h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
 .intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
 fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
 legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
 .qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
 .qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
-label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
 label.opt:hover{background:#10203a}
 label.opt input{accent-color:var(--red);margin-right:10px}
-.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;cursor:pointer;margin-top:8px}
-.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
 .fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
 fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
 details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
@@ -36,50 +39,51 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <body>
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
-<span class="kick">Astrofísica de Estrellas · Módulo 3 · Clase 3</span>
-<h1>Examen 03 — Chandrasekhar</h1>
-<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
+<span class="kick">Astrofísica de Estrellas · Módulo III · Clase 3</span>
+<h1>Examen 03 — Presión degenerada de electrones</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="a,b,a">
-  <fieldset data-q="1"><legend>1. El límite de Chandrasekhar es aproximadamente:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">1,4 M☉</label>
-    <label class="opt"><input type="radio" name="q1" value="b">0,08 M☉</label>
-    <label class="opt"><input type="radio" name="q1" value="c">100 M☉</label>
-    <label class="opt"><input type="radio" name="q1" value="d">10 M☉</label>
-    <p class="fb" hidden>Máxima masa para enana blanca estable.</p>
+<form id="quiz" data-answers="c,a,d">
+  <fieldset data-q="1"><legend>1. Si la enana blanca no genera energía, ¿qué evita que colapse bajo su propia gravedad?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La presión de radiación de fotones residuales</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Su rotación rápida</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La presión degenerada de los electrones</label>
+    <label class="opt"><input type="radio" name="q1" value="d">El campo magnético</label>
+    <p class="fb" hidden>Al degenerarse la materia, los electrones generan una presión puramente cuántica que sostiene el peso del objeto.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Si una enana blanca supera ese límite:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Sigue creciendo indefinidamente</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Colapsa (no la sostienen los electrones)</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Se convierte en MS</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Se enfría más rápido</label>
-    <p class="fb" hidden>Los electrones no pueden moverse más rápido que c.</p>
+  <fieldset data-q="2"><legend>2. ¿Cuál es la diferencia clave entre la presión de un gas degenerado y la de un gas ideal?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">En el gas degenerado la presión depende de la densidad, no de la temperatura</label>
+    <label class="opt"><input type="radio" name="q2" value="b">En el gas degenerado la presión depende solo de la temperatura</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El gas degenerado no ejerce presión alguna</label>
+    <label class="opt"><input type="radio" name="q2" value="d">No hay diferencia: ambas siguen la ley de gases ideales</label>
+    <p class="fb" hidden>Take-away de la clase: en materia degenerada, P ∝ n^(5/3) — sube al comprimir, y la temperatura deja de importar.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Observacionalmente, enanas blancas en binarios:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Nunca superan ~1,4 M☉</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Llegan a 10 M☉</label>
-    <label class="opt"><input type="radio" name="q3" value="c">No tienen masa medible</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Siempre son iguales al Sol</label>
-    <p class="fb" hidden>Confirma el límite teórico.</p>
+  <fieldset data-q="3"><legend>3. ¿Qué temperatura se necesitaría para sostener una enana blanca solo con movimiento térmico de sus partículas (gas ordinario)?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">~6.000 K, como la superficie del Sol</label>
+    <label class="opt"><input type="radio" name="q3" value="b">~15 millones de K, como el núcleo del Sol</label>
+    <label class="opt"><input type="radio" name="q3" value="c">~100 millones de K, como el núcleo de una gigante roja</label>
+    <label class="opt"><input type="radio" name="q3" value="d">~1.000 millones de K, mucho más que el núcleo de la progenitora</label>
+    <p class="fb" hidden>Según la diapositiva: ~10⁹ K, temperatura que estos objetos no tienen. Por eso el sostén tiene que ser otra cosa: la degeneración.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué 1,4 M☉ es un límite físico fundamental?</p>
+  <p class="q">4. Reconstruye la cadena de proporcionalidades vista en clase que lleva del principio de incertidumbre de Heisenberg a la relación P ∝ n<sup>5/3</sup> (sin derivación formal, solo el argumento conceptual).</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">La presión degenerada de electrones no relativistas no puede sostener más masa; al acercarse a límites relativistas, el colapso continúa hacia estrella de neutrones o agujero negro.</div>
-  </details>
-</div>
-<div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Describe Sirius A y Sirius B como sistema binario.</p>
-  <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Sirio A: estrella A brillante en MS. Sirio B: enana blanca compañera; visible en rayos X; masas medibles con leyes de Kepler.</div>
+    <div class="answer">1) Heisenberg: <strong>Δx·Δp ≈ ħ</strong> — las incertezas de posición y momentum no pueden ser ambas pequeñas. 2) Si la densidad de partículas es n, cada electrón dispone de un volumen ~1/n, así que <strong>Δx ≈ n^(−1/3)</strong>. 3) Despejando: <strong>Δp ≈ ħ/Δx ≈ ħ·n^(1/3)</strong> — al confinar más los electrones (mayor densidad), su momentum crece obligatoriamente. 4) La presión se estima como en un gas: P ≈ n·kT, y aproximando kT ~ ½mv² (energía cinética) con p = mv, resulta P ~ n·Δp². 5) Sustituyendo Δp: P ~ n·(ħ·n^(1/3))² ∝ <strong>n^(5/3)</strong>. Conclusión: la presión degenerada depende <em>solo de la densidad</em>, no de la temperatura — es una estimación no relativista, hecha con proporciones y descartando constantes.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 3, Módulo III (Remanentes estelares). Fuentes: <code>estrellas/m3/ff/estrellas-m3c3.md</code>, <code>Modulo_III_Clase_3.pdf</code>. <a href="m3c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. En clase se usaron dos analogías cuánticas: el “estacionamiento del mall en Navidad” y los “± de error de una medición”. ¿A qué principio corresponde cada una y qué ilustran?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El <strong>estacionamiento del mall</strong> ilustra el <strong>principio de exclusión de Pauli</strong>: dos electrones no pueden ocupar el mismo estado cuántico, igual que dos autos no pueden ocupar el mismo estacionamiento — cuando el espacio escasea (alta densidad), los electrones se ven forzados a “estados” de mayor energía. Los <strong>± de error</strong> ilustran el <strong>principio de incertidumbre de Heisenberg</strong>: Δx y Δp no son los valores de posición y momentum, sino sus <em>incertezas</em> — cuánto desconozco de cada cantidad, como la barra de error de una medición. El principio dice que el producto de ambas incertezas es ≈ ħ: si conozco muy bien dónde está la partícula, no tengo idea de cuánto se mueve, y viceversa. Ambos principios en conjunto explican por qué la materia degenerada resiste la compresión.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 3, Módulo III (Astrofísica de Estrellas). <a href="m3c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

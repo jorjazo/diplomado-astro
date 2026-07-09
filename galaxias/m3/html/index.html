@@ -14,6 +14,8 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georg
   background-image:
     radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.55),transparent),
     radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1.5px 1.5px at 42% 64%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%,rgba(255,255,255,.35),transparent),
     radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),
     linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
 .wrap{max-width:920px;margin:0 auto;padding:0 22px 90px}
@@ -32,8 +34,6 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .card .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .card .links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink)}
 .card .links a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none}
-.pending{opacity:.45}
-.pending .card{cursor:default}
 footer{margin-top:50px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
 </style>
 </head>
@@ -42,12 +42,12 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:22px;color:v
   <div class="hero">
     <span class="kick">Astrofísica de Galaxias · Módulo III</span>
     <h1>Apuntes <em>HTML</em> interactivos</h1>
-    <p class="sub">Relatividad general, agujeros negros, núcleos activos y ondas gravitacionales. Cada clase incluye apuntes con widgets y 10 exámenes de práctica.</p>
+    <p class="sub">Relatividad, agujeros negros y núcleos galácticos activos. Material de estudio generado a partir de las transcripciones de audio y las diapositivas de cada clase. Cada clase incluye apuntes con widgets interactivos y 10 exámenes de práctica autocorregibles.</p>
   </div>
 
   <a class="card" href="m3c1-apuntes.html">
-    <h2>Clase 1 — <b>Relatividad y ondas gravitacionales</b></h2>
-    <p>Einstein 1905/1915; relatividad especial (c constante, dilatación temporal); principio de equivalencia; curvatura del espacio-tiempo; redshift gravitacional y GPS; Mercurio y eclipse 1919; lentes gravitacionales (cúmulos, Abell 2218); Hulse–Taylor; LIGO y fusiones de agujeros negros / kilonovas. Widgets: r<sub>s</sub>, corrección GPS, factor γ.</p>
+    <h2>Clase 1 — <b>El universo según Einstein: teoría de la relatividad</b></h2>
+    <p>El año milagroso de 1905; la velocidad como cantidad relativa; relatividad especial (c constante, dilatación del tiempo, contracción de longitudes y su simetría); el principio de equivalencia (gravedad = aceleración, caída libre = flotar); relatividad general como deformación del espacio-tiempo; redshift gravitacional y correcciones del GPS; precesión de Mercurio; el eclipse de 1919 (Eddington y Crommelin); lentes gravitacionales y cúmulos; ondas gravitacionales: Hulse–Taylor, LIGO/Virgo/KAGRA, GW150914, kilonovas y la nueva población de agujeros negros. Widgets: factor de Lorentz y relojes en órbita (GPS).</p>
     <div class="links">
       <a href="m3c1-apuntes.html">Apuntes</a>
       <a href="m3c1-apuntes.html#examenes">Exámenes (10)</a>
@@ -55,23 +55,25 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:22px;color:v
   </a>
 
   <a class="card" href="m3c2-apuntes.html">
-    <h2>Clase 2 — <b>Agujeros negros y camino a los AGN</b></h2>
-    <p>Schwarzschild y horizonte de eventos; compacidad (Sol, enana blanca, estrella de neutrones, BH); espaguetificación; remanentes estelares y SN 1987A; binarias de rayos X y discos de acreción; SS 433; TDE y mareas; agujeros negros supermasivos; cuásares (Schmidt 1963) y argumento de variabilidad c·Δt. Widgets: límite de tamaño y luminosidad de acreción.</p>
+    <h2>Clase 2 — <b>Agujeros negros: de la ecuación a la evidencia</b></h2>
+    <p>Schwarzschild y la singularidad; el horizonte de eventos (R = 2GM/c²: 3 km para el Sol, 1 cm para la Tierra); compacidad, no masa, es lo especial; caer a una estrella de neutrones vs. a un agujero negro; agujeros de gusano como solución no física; espaguetificación y fuerzas de marea; supernovas y remanentes (SN 1987A y sus neutrinos, Nebulosa del Cangrejo, Kepler 1604, Eta Carinae); ~10⁸ agujeros negros estelares en la galaxia; cómo detectarlos: acreción (binarias de rayos X, SS 433 y su jet sacacorchos) y dinámica (mareas, TDE); los cuásares: descubrimiento, Schmidt 1963, líneas anchas, variabilidad y la cota c·Δt. Widgets: radio de Schwarzschild y cota de tamaño por variabilidad.</p>
     <div class="links">
       <a href="m3c2-apuntes.html">Apuntes</a>
       <a href="m3c2-apuntes.html#examenes">Exámenes (10)</a>
     </div>
   </a>
 
-  <div class="pending">
-    <div class="card">
-      <h2>Clase 3 — <b>AGN y núcleos activos</b> (pendiente)</h2>
-      <p>Material en transcripción y diapositivas; apuntes HTML aún no generados.</p>
+  <a class="card" href="m3c3-apuntes.html">
+    <h2>Clase 3 — <b>Núcleos activos: anatomía, Sgr A* y las semillas de los monstruos</b></h2>
+    <p>Anatomía de un AGN (disco de acreción termal, corona de rayos X, jet no termal presente solo en ~10%); Cygnus A y Hércules A: jets de 225.000 años luz; el agujero negro de la Vía Láctea: Sgr A*, el cúmulo nuclear, la órbita de la estrella S2 y el instrumento GRAVITY; resolución espacial e interferometría (θ = 1.22 λ/D); la «sombra» de un agujero negro: M87* y Sgr A* con el Event Horizon Telescope; un AGN es un agujero negro engordando; evolución cósmica y el Cosmic Noon; agujeros negros de masa intermedia y el problema de las semillas; los AGN más lejanos: J0313−1806 (z = 7.6) y UHZ1 (z ≈ 10.3). Widgets: calculadora de resolución angular y crecimiento de semillas.</p>
+    <div class="links">
+      <a href="m3c3-apuntes.html">Apuntes</a>
+      <a href="m3c3-apuntes.html#examenes">Exámenes (10)</a>
     </div>
-  </div>
+  </a>
 
   <footer>
-    Diplomado en Fundamentos de Astronomía, U. de Chile · Astrofísica de Galaxias, Módulo III. Apuntes desde transcripciones (<code>galaxias/m3/ff/</code>) y diapositivas PDF.
+    Diplomado en Fundamentos de Astronomía, U. de Chile · Curso de Astrofísica de Galaxias, Módulo III. Apuntes elaborados a partir de transcripciones (que pueden contener errores de reconocimiento de voz) y diapositivas de clase.
   </footer>
 </div>
 </body>

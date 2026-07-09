@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 01 — m3c2 · Recap y umbral</title>
+<title>Examen 01 — m3c2 · Repaso y contexto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Recap y umbral</h1>
+<h1>Examen 01 — Repaso y contexto</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,c,c">
-  <fieldset data-q="1"><legend>1. ¿Cuál es el remanente típico al final de la evolución de una estrella de baja masa?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Supernova y agujero negro</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Enana blanca</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Estrella de neutrones</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Gigante roja permanente</label>
-    <p class="fb" hidden>Tras expulsar capas (nebulosa planetaria), queda el núcleo compacto C/O: la enana blanca.</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. ¿Cuál es el elemento de mayor número atómico que llega a producirse en el interior de una estrella de baja masa?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Helio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Oxígeno</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Carbono</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Hierro</label>
+    <p class="fb" hidden>Las estrellas de baja masa llegan hasta el carbono; su núcleo de C queda inerte porque nunca alcanzan la temperatura y densidad para fusionarlo.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El núcleo inerte de una enana blanca está compuesto principalmente de:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Hidrógeno y helio puros</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Hierro y níquel</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Carbono y oxígeno</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Silicio y azufre</label>
-    <p class="fb" hidden>La baja masa no alcanza temperaturas para fusionar carbono; el C/O queda como ceniza nuclear.</p>
+  <fieldset data-q="2"><legend>2. En el diagrama de Hertzsprung–Russell, la secuencia principal corresponde a estrellas que:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Están expulsando sus capas externas</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Fusionan hidrógeno en helio en su núcleo</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Ya agotaron todo su combustible</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Fusionan helio en carbono en una cáscara</label>
+    <p class="fb" hidden>La diagonal central del diagrama HR agrupa a la mayoría de las estrellas, todas fusionando H → He en su núcleo.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El umbral convencional entre evolución de baja y alta masa es aproximadamente:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">1 M☉ (exactamente el Sol)</label>
-    <label class="opt"><input type="radio" name="q3" value="b">0,1 M☉</label>
-    <label class="opt"><input type="radio" name="q3" value="c">4 M☉</label>
-    <label class="opt"><input type="radio" name="q3" value="d">100 M☉</label>
-    <p class="fb" hidden>Es un gradiente, no un corte afilado, pero ~4 M☉ marca dónde puede continuar la fusión más allá del carbono.</p>
+  <fieldset data-q="3"><legend>3. Según la tabla vista en clase, una estrella O5 de 40 M☉ vive en secuencia principal aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">10 mil millones de años</label>
+    <label class="opt"><input type="radio" name="q3" value="b">500 millones de años</label>
+    <label class="opt"><input type="radio" name="q3" value="c">100 mil años</label>
+    <label class="opt"><input type="radio" name="q3" value="d">1 millón de años</label>
+    <p class="fb" hidden>≈ 1 millón de años: varios órdenes de magnitud menos que el Sol (~10 mil millones), porque fusiona su masa a tasas altísimas.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica qué es una nebulosa planetaria y por qué el nombre puede resultar confuso.</p>
+  <p class="q">4. Explica la analogía de la “plata en el banco” que usó la profesora para relacionar la masa de una estrella con su tiempo de vida.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Una <strong>nebulosa planetaria</strong> es la envoltura de gas ionizado expulsada por una estrella de baja masa en fase avanzada, antes de quedar la enana blanca. El nombre es <em>histórico y engañoso</em>: en telescopios antiguos parecían discos planetarios, pero no tienen relación con formación de planetas.</div>
+    <div class="answer">La masa de la estrella es como el dinero en la cuenta: quien tiene <strong>poco</strong> lo gasta despacio y lo hace durar (estrellas de baja masa: poca masa, tasas de fusión bajas, vidas de miles de millones de años), mientras que quien tiene <strong>mucho</strong> lo gasta rapidísimo (estrellas masivas: aunque tienen mucho más combustible, lo fusionan a tasas tan altas que su vida en secuencia principal es de solo millones de años). Lo contraintuitivo es que <strong>más combustible implica vida más corta</strong>, porque la luminosidad crece mucho más rápido que la masa.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Compara la vida en secuencia principal de una estrella de 1 M☉ con una de 10 M☉ (órdenes de magnitud).</p>
+  <p class="q">5. En clase quedaron planteadas dos preguntas abiertas sobre las estrellas de alta masa relacionadas con la vida y los planetas. ¿Cuáles son y por qué son problemáticas?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">El Sol (~1 M☉) vive ~10<sup>10</sup> años en secuencia principal. Una de 10 M☉ vive ~10<sup>7</sup> años: unas <strong>tres órdenes de magnitud menos</strong>. Más masa implica mayor luminosidad y mayor tasa de consumo de combustible (t<sub>MS</sub> ∝ M<sup>−2,5</sup> aprox.).</div>
+    <div class="answer">Primera: ¿puede <strong>evolucionar vida</strong> alrededor de una estrella masiva? Su vida en secuencia principal es de apenas ~1 millón de años, y la evolución biológica parece requerir estabilidad durante escalas de tiempo mucho más largas (“a la vida no le gusta el caos”). Segunda: ¿alcanzan siquiera a <strong>formar planetas</strong>? La formación planetaria toma tiempo y el entorno de una estrella masiva es violento (vientos, radiación intensa, vida corta). Ambas son <strong>preguntas de investigación actual</strong>, sin respuesta cerrada — la profesora las presentó explícitamente como abiertas.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

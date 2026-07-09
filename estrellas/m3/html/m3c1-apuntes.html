@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evolución Estelar I — Astrofísica de Estrellas, Módulo III · Clase 1</title>
+<title>Evolución Estelar I: Vida y Muerte de las Estrellas de Baja Masa — Astrofísica de Estrellas, Módulo III · Clase 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -35,13 +35,16 @@ body{
 h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
 a{color:var(--red-soft);text-decoration:none}
 a:hover{text-decoration:underline}
+
 nav.top{padding:18px 0 0;font-size:.9rem}
 nav.top a{color:var(--muted)}
+
+/* HERO */
 .hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--red-soft);font-weight:600}
 .kick::before{content:"";width:34px;height:2px;background:var(--red)}
-h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
   font-optical-sizing:auto;letter-spacing:-.01em}
 h1 em{font-style:italic;color:var(--red-soft)}
 .sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
@@ -49,9 +52,13 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
   border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
 .meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
 .lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
 .lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
   padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
 .idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
 .idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
@@ -61,6 +68,8 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
 .idx a:hover{color:var(--red-soft);text-decoration:none}
 @media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
 section{margin:52px 0;scroll-margin-top:20px}
 .shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
 .num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
@@ -74,8 +83,11 @@ em{color:#f4efe4}
 strong{color:#fff;font-weight:600}
 .hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
 ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
 li{margin:.34em 0}
 li::marker{color:var(--red)}
+
+/* FIGURE */
 figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
   box-shadow:0 24px 60px -34px #000}
 figure img{display:block;width:100%;height:auto}
@@ -83,6 +95,8 @@ figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1
   border-top:1px solid var(--line)}
 figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
   text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
 .box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
   background:linear-gradient(180deg,#0e1626,#0b1120)}
 .box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
@@ -94,11 +108,16 @@ figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-sp
 .box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
 .box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
 .box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
 .formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
   padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
   box-shadow:inset 0 0 40px -28px var(--cyan)}
 .formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
   letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
 .tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:.97rem}
 th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
@@ -107,6 +126,8 @@ thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);f
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#0d1422}
 td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
 .widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
   padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
 .widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
@@ -125,11 +146,21 @@ td b{color:var(--gold);font-weight:600}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
 .tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.stagebar{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+.stagebar button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;font-family:"Fraunces",serif;flex:1 1 auto;min-width:104px}
+.stagebar button.active{border-color:var(--red);background:#26141a;color:var(--red-soft)}
+.starviz{display:flex;align-items:center;justify-content:center;min-height:190px;margin-top:12px}
+.starviz .core{border-radius:50%;display:grid;place-items:center;transition:.4s}
+
+/* EXAM LIST */
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
   background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
 .examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
 .examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
 footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
 footer b{color:var(--ink)}
 .disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
@@ -142,30 +173,32 @@ footer b{color:var(--ink)}
 
 <div class="hero">
   <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-  <h1>Evolución estelar I — <em>estrellas de baja masa</em></h1>
-  <p class="sub">Del diagrama HR y el tiempo de vida en secuencia principal hasta la gigante roja, el flash de helio, la rama asintótica y la muerte suave: nebulosa planetaria y enana blanca. Rango de esta clase: <strong>M ≲ 4 M<sub>☉</sub></strong>.</p>
+  <h1>Evolución Estelar I: vida y muerte de las estrellas de <em>baja masa</em></h1>
+  <p class="sub">Cuánto viven las estrellas y por qué la masa lo decide todo. El reloj del punto de <em>turn-off</em> para fechar cúmulos, y el camino completo de una estrella tipo Sol: gigante roja, flash de helio, cebolla de capas, nebulosa planetaria y enana blanca.</p>
   <div class="meta">
-    <span><b>Docente:</b> Andrea Pérez</span>
-    <span><b>Curso:</b> Diplomado en Fundamentos de Astronomía · U. de Chile</span>
+    <span><b>Docente:</b> Laura Pérez</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
     <span><b>Fecha:</b> 6 jul 2026</span>
-    <span><b>Alcance:</b> M ≤ 4 M<sub>☉</sub></span>
+    <span><b>Rango de esta clase:</b> M<sub>★</sub> ≲ 4 M<sub>☉</sub></span>
   </div>
 </div>
 
-<p class="lead"><span class="drop">L</span>a <span class="hl">evolución estelar</span> es la historia de cómo una estrella cambia con el tiempo: qué fusiona, cómo transporta energía, cómo se equilibra contra la gravedad y qué deja cuando muere. La <strong>masa inicial</strong> es el parámetro dominante: no solo fija el brillo y la temperatura en la secuencia principal (MS), sino también la velocidad del recorrido y el destino final. En esta clase nos concentramos en estrellas de <em>baja masa</em> (hasta unas 4 masas solares): el Sol, Próxima Centauri, Spica en el límite superior del rango. No explotan como supernova; terminan como <strong>enanas blancas</strong> envueltas en una <strong>nebulosa planetaria</strong>. Todo el módulo III gira en torno al diagrama HR como mapa de esa biografía.</p>
+<p class="lead"><span class="drop">L</span>as estrellas no son eternas: son máquinas térmicas con un <span class="hl">tanque de combustible finito</span>. Esta clase abre el módulo de evolución estelar respondiendo tres preguntas encadenadas: ¿cuánto tiempo vive una estrella?, ¿cómo cambia cuando se le acaba el hidrógeno del núcleo?, y ¿qué queda cuando muere? La respuesta a las tres depende de un solo parámetro dominante: la <strong>masa</strong>. Aquí nos concentramos en las estrellas de hasta ~4 masas solares —como el Sol—, que terminan sus días expulsando sus capas como nebulosa planetaria y dejando una enana blanca. Las más masivas quedan para la próxima clase.</p>
 
 <nav class="idx">
   <span class="tag">Contenido de la clase</span>
   <ol>
-    <li><a href="#s1">Diagrama HR y clases de luminosidad</a></li>
-    <li><a href="#s2">Relación M–L y tiempo de vida en MS</a></li>
-    <li><a href="#s3">Transporte radiativo y convectivo</a></li>
-    <li><a href="#s4">Turn-off e isócronas</a></li>
-    <li><a href="#s5">Evolución sutil en MS (gas ideal)</a></li>
-    <li><a href="#s6">Salida de MS y rama de gigantes rojas</a></li>
-    <li><a href="#s7">Fusión de helio y flash de helio</a></li>
-    <li><a href="#s8">Rama asintótica y estructura en capas</a></li>
-    <li><a href="#s9">Nebulosa planetaria y enana blanca</a></li>
+    <li><a href="#s1">Repaso: el diagrama H-R</a></li>
+    <li><a href="#s2">Relación masa–luminosidad</a></li>
+    <li><a href="#s3">Tiempo de vida de una estrella</a></li>
+    <li><a href="#s4">Fechar cúmulos: el turn-off</a></li>
+    <li><a href="#s5">Vida en secuencia principal (≤4 M☉)</a></li>
+    <li><a href="#s6">Se agota el H: la gigante roja</a></li>
+    <li><a href="#s7">Fusión de helio: proceso triple-α</a></li>
+    <li><a href="#s8">Presión degenerada y flash de helio</a></li>
+    <li><a href="#s9">La cebolla final: C y O inertes</a></li>
+    <li><a href="#s10">Nebulosa planetaria y enana blanca</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
     <li><a href="#conceptos">Conceptos clave</a></li>
     <li><a href="#examenes">Exámenes de práctica</a></li>
   </ol>
@@ -174,311 +207,416 @@ footer b{color:var(--ink)}
 <!-- ============ S1 ============ -->
 <section id="s1">
   <div class="shead"><span class="num">1</span><div>
-    <h2>Diagrama HR y clases de luminosidad</h2>
-    <p>Temperatura (o color) versus luminosidad: el mapa de la vida estelar.</p>
+    <h2>Repaso: el diagrama de Hertzsprung-Russell</h2>
+    <p>El mapa donde ocurren todos los capítulos de la vida estelar.</p>
   </div></div>
 
-  <p>El <span class="hl">diagrama de Hertzsprung–Russell</span> (HR) relaciona la <strong>luminosidad</strong> de una estrella con su <strong>temperatura efectiva</strong> (o, empíricamente, con su color o magnitud). Cada punto es una estrella; en una muestra grande aparece una <strong>secuencia principal</strong> diagonal: estrellas que fusionan hidrógeno en el núcleo. Esa es la “vida adulta” estelar.</p>
+  <p>El <span class="hl">diagrama H-R</span> relaciona la <strong>temperatura superficial</strong> (o el tipo espectral, o el color) con la <strong>luminosidad</strong> (o la magnitud absoluta) de las estrellas. Cada punto es una estrella. Cuando graficamos una muestra grande, la mayoría cae sobre una diagonal —la <span class="hl">secuencia principal</span>— que va desde estrellas calientes y luminosas (tipos O, B) hasta estrellas frías y débiles (tipo M).</p>
 
-  <p>Además del <em>tipo espectral</em> (O, B, A, F, G, K, M…), los astrónomos usan <strong>clases de luminosidad</strong> (I, II, III, IV, V…): enana, subgigante, gigante, supergigante, enana blanca. El nombre puede confundir: no siempre implica “más brillante que otra”, sino una etapa evolutiva en el diagrama. Cuando hablamos de “gigante” o “enana blanca”, nos referimos a esa clasificación, no al tipo espectral.</p>
+  <div class="box dato">
+    <span class="tag">Definición estricta</span>
+    <p>Una estrella está en la <strong>secuencia principal</strong> si y solo si está <strong>fusionando hidrógeno en helio en su núcleo</strong>. Si el hidrógeno se fusiona en otro lado (por ejemplo, en una capa alrededor del núcleo), ya <em>no</em> es secuencia principal. Esta definición es la llave de toda la clase.</p>
+  </div>
 
   <figure>
-    <img src="m3c1/assets/slide-05.jpg" alt="Diagrama HR con secuencia principal, gigantes rojas y enanas blancas">
-    <figcaption><span class="cap">Diapositiva · Diagrama HR</span>La mayoría de las estrellas caen en la <strong>secuencia principal</strong> (fusión de H en el núcleo). Al agotar el combustible nuclear del centro, abandonan la MS y recorren otras regiones: subgigantes, <strong>gigantes rojas</strong>, rama horizontal, rama asintótica de gigantes (AGB) y, al final, el <strong>cúmulo de enanas blancas</strong>. El camino depende de la masa inicial.</figcaption>
+    <img src="m3c1/assets/slide-04.jpg" alt="Diagrama de Hertzsprung-Russell con secuencia principal, gigantes rojas, supergigantes y enanas blancas">
+    <figcaption><span class="cap">Diapositiva · Diagrama H-R</span>Luminosidad vs. clase espectral (≈ temperatura). La diagonal es la secuencia principal; arriba a la derecha las gigantes rojas y supergigantes; abajo a la izquierda las enanas blancas. Su versión empírica es el diagrama <em>color–magnitud</em>.</figcaption>
   </figure>
 
+  <h3>Clases de luminosidad</h3>
+  <p>Además del tipo espectral (O, B, A, F, G, K, M, cada letra subdividida de 0 a 9), las estrellas se clasifican por <span class="hl">clase de luminosidad</span>: enana (secuencia principal), gigante, supergigante, enana blanca. El nombre confunde —puedo tener enanas y gigantes con luminosidades parecidas—, pero es la nomenclatura histórica para distinguir en qué <em>etapa</em> de su vida está la estrella.</p>
+
   <div class="box prof">
-    <span class="tag">Video ESA · Omega Centauri</span>
-    <p>En clase se mostró un video de la Agencia Espacial Europea sobre el cúmulo globular ω Centauri: al ordenar miles de estrellas por color y luego por brillo, el diagrama HR “aparece mágicamente”. Ese cúmulo es uno de los más masivos de la Vía Láctea; se sospecha que podría ser el núcleo de una galaxia enana que la Vía Láctea absorbió.</p>
+    <span class="tag">Del video de la clase (ESA)</span>
+    <p>La profesora mostró un video del cúmulo globular <strong>Omega Centauri</strong> (uno de los más masivos de la Vía Láctea; se sospecha que es el núcleo de una galaxia que la nuestra se tragó, y se busca allí un agujero negro central). Al ordenar sus estrellas por <em>color</em> y luego por <em>brillo</em>, el diagrama H-R «aparece mágicamente»: secuencia principal, gigantes rojas, rama horizontal azul y enanas blancas. Un diagrama H-R no es más que eso: ordenar una población estelar por color y por magnitud.</p>
   </div>
 
   <div class="box cs">
-    <span class="tag">Analogía de ingeniería</span>
-    <p>El diagrama HR es un <strong>espacio de estados</strong> en variables observables (T, L). Una estrella no salta al azar: sigue trayectorias determinadas por la masa y la física interna, como un sistema dinámico que evoluciona en un plano de fase. Las isócronas (más adelante) son curvas de nivel de “edad” en ese espacio.</p>
+    <span class="tag">Analogía informática</span>
+    <p>El diagrama H-R es un <em>scatter plot</em> de dos features observables (color, magnitud) en el que las etapas evolutivas emergen como <strong>clusters</strong>. Y como en todo dataset real, hay <em>contaminación</em>: al observar un cúmulo se cuelan objetos de la línea de visión (sobre todo galaxias de fondo, rojas y débiles) que hay que filtrar antes de interpretar — limpieza de datos antes del análisis.</p>
   </div>
 </section>
 
 <!-- ============ S2 ============ -->
 <section id="s2">
   <div class="shead"><span class="num">2</span><div>
-    <h2>Relación masa–luminosidad y tiempo de vida en MS</h2>
-    <p>Más masa ⇒ más brillo ⇒ vida más corta: t ∝ M/L ∝ 1/M³.</p>
+    <h2>La relación masa–luminosidad</h2>
+    <p>Más masa ⇒ más presión ⇒ más temperatura ⇒ más fusión ⇒ más brillo.</p>
   </div></div>
 
-  <p>En la secuencia principal existe una relación empírica muy útil (válida <em>solo</em> en la MS; no aplicar a una gigante roja):</p>
+  <p>Para estrellas <strong>de secuencia principal</strong> —y solo para ellas— existe una correlación empírica entre masa y luminosidad:</p>
 
   <div class="formula">
-    <div class="katex-block" data-tex="L \propto M^{4} \qquad\text{(solo en secuencia principal)}"></div>
-    <small>En un gráfico log L vs log M la pendiente es 4, aunque en escala lineal parezca casi una recta. Más masa ⇒ mayor presión y temperatura central ⇒ mayor tasa de fusión ⇒ mayor luminosidad.</small>
+    <div class="katex-block" data-tex="L_\star \propto M_\star^{4}"></div>
+    <small>Válida <strong>solo en secuencia principal</strong>. Una gigante roja ya no obedece esta relación: no se le puede estimar la masa así. El exponente ~4 es aproximado (varía según el rango de masa).</small>
   </div>
 
-  <p>¿Por qué? Más masa implica más gravedad; para mantener el <strong>equilibrio hidrostático</strong> la estrella necesita mayor presión, de ahí mayor temperatura central y una <strong>tasa de fusión nuclear</strong> (reacciones por segundo) mucho más alta. La luminosidad es energía liberada por unidad de tiempo.</p>
+  <p>La cadena causal que la explica es puro equilibrio hidrostático:</p>
+  <ol class="steps">
+    <li><strong>Más masa</strong> ⇒ más peso que sostener ⇒ se necesita <strong>más presión</strong> para mantener a la estrella en equilibrio (para que «siga siendo una pelota»).</li>
+    <li>Más presión ⇒ <strong>más temperatura</strong>, particularmente en el núcleo.</li>
+    <li>Más temperatura ⇒ mayor <strong>tasa de fusión nuclear</strong> (más reacciones termonucleares por segundo).</li>
+    <li>Más reacciones ⇒ más energía liberada por unidad de tiempo ⇒ <strong>más luminosidad</strong> (la luminosidad <em>es</em> energía por segundo).</li>
+  </ol>
 
   <figure>
-    <img src="m3c1/assets/slide-08.jpg" alt="Relación masa-luminosidad en secuencia principal">
-    <figcaption><span class="cap">Diapositiva · M–L en MS</span>Estrellas famosas en el diagrama: Sirio (~2 M<sub>☉</sub>), Achernar (~6 M<sub>☉</sub>, achatada por rotación rápida), Spica (~10 M<sub>☉</sub>), Próxima Centauri (enana M, ~0,12 M<sub>☉</sub>). Arriba en la MS: las más masivas y brillantes; abajo: las enanas rojas.</figcaption>
+    <img src="m3c1/assets/slide-05.jpg" alt="Relación empírica masa-luminosidad, L proporcional a M a la cuarta">
+    <figcaption><span class="cap">Diapositiva · Masa–luminosidad</span>La relación se ve casi lineal en el gráfico, pero ojo: <strong>ambos ejes son logarítmicos</strong>. Una recta en log-log es una ley de potencia, L ∝ M⁴ — pendiente 4 en escala log.</figcaption>
   </figure>
 
-  <h3>Tiempo de vida en secuencia principal</h3>
-  <p>Definimos el <strong>tiempo de vida en MS</strong> como el tiempo que la estrella brilla fusionando hidrógeno <em>en el núcleo</em> con la luminosidad típica de esa fase. No es toda la vida hasta la muerte, pero es ~90% del total para estrellas como el Sol.</p>
-
-  <div class="formula">
-    <div class="katex-block" data-tex="t_{\mathrm{MS}} \approx \frac{E_{\mathrm{combustible}}}{L} \propto \frac{M}{L} \propto \frac{M}{M^{4}} = M^{-3}"></div>
-    <small>Combustible disponible ~ proporcional a la masa (solo el H del núcleo cuenta, no el 98% de H de toda la estrella). El Sol: t<sub>MS</sub> ≈ 10<sup>10</sup> años. Una estrella de 10 M<sub>☉</sub> (L ~ 10<sup>4</sup> L<sub>☉</sub>): t ~ 10<sup>7</sup> años. Una de 0,1 M<sub>☉</sub> (L ~ 10<sup>−2</sup> L<sub>☉</sub>): t ~ 10<sup>11</sup> años.</small>
-  </div>
-
-  <div class="formula">
-    <div class="katex-block" data-tex="t_{\mathrm{MS}}(M) \approx t_{\odot}\left(\frac{M}{M_{\odot}}\right)^{-3} \qquad t_{\odot} \approx 10^{10}\ \mathrm{años}"></div>
-    <small>Escalado directo a partir del Sol. Ejemplo: M = 2 M<sub>☉</sub> ⇒ t ≈ 10<sup>10</sup>/8 ≈ 1,25×10<sup>9</sup> años.</small>
-  </div>
+  <p>Consecuencia inmediata: como mayor luminosidad implica mayor masa, la secuencia principal del diagrama H-R también <strong>ordena a las estrellas por masa</strong>. Arriba (brillantes): las masivas, hasta ~60 M<sub>☉</sub> en el gráfico de la clase. Abajo (débiles): las menos masivas.</p>
 
   <figure>
-    <img src="m3c1/assets/slide-11.jpg" alt="Tabla resumen de tipos espectrales, temperaturas y tiempos de vida">
-    <figcaption><span class="cap">Diapositiva · Tiempos de vida</span>Resumen por tipo espectral: una estrella O (~50.000 K) vive ~10<sup>6</sup> años en MS; una M puede superar 10<sup>12</sup> años. Las enanas rojas serán, en un futuro lejano, las últimas estrellas “encendidas” del universo.</figcaption>
+    <img src="m3c1/assets/slide-06.jpg" alt="Diagrama H-R con masas y tiempos de vida marcados sobre la secuencia principal">
+    <figcaption><span class="cap">Diapositiva · La secuencia principal ordena por masa</span>Estrellas famosas ubicadas por masa: <strong>Sirio</strong> (algo más masiva que el Sol), <strong>Achernar</strong> (~6 M<sub>☉</sub>, tan achatada por su rotación rápida que parece «pelotita de rugby»), <strong>Spica</strong> (~10 M<sub>☉</sub>, la más brillante de Virgo) y <strong>Próxima Centauri</strong>, la enana roja vecina a ~4 años luz. En verde, los tiempos de vida: nótese que <em>decrecen</em> hacia arriba.</figcaption>
   </figure>
 
-  <div class="box prof">
-    <span class="tag">Analogía del profesor</span>
-    <p>Las estrellas masivas en la MS son como una <strong>F-150 bencinera</strong>: queman combustible rapidísimo. Las enanas rojas son un <strong>Suzuki Celerio diesel</strong>: poco brillo, autonomía enorme. Spica (~10 M<sub>☉</sub>) es el “Kurt Cobain” del cielo; Próxima es el viaje largo.</p>
-  </div>
-
-  <div class="box dato">
-    <span class="tag">Astrobiología</span>
-    <p>Si la vida terrestre tardó ~3.800 millones de años en pasar de microbios a civilización, una estrella O con solo ~1 millón de años en MS no da tiempo para un recorrido parecido al nuestro. Por eso la búsqueda de vida inteligente suele enfocarse en estrellas de vida larga (espectrales F, G, K, M).</p>
-  </div>
-
-  <div class="widget" id="w-lifetime">
-    <span class="tagband">Widget interactivo</span>
-    <h4>Calculadora de tiempo de vida en secuencia principal</h4>
-    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Modelo de clase: <span class="katex-inline" data-tex="L = M^4"></span> (en unidades solares) y <span class="katex-inline" data-tex="t_{\mathrm{MS}} = t_{\odot}(M/M_{\odot})^{-3}"></span> con <span class="katex-inline" data-tex="t_{\odot}=10^{10}"></span> años.</p>
-    <div class="presets">
-      <button type="button" data-m="0.1">Próxima (0,1 M<sub>☉</sub>)</button>
-      <button type="button" data-m="1">Sol (1 M<sub>☉</sub>)</button>
-      <button type="button" data-m="2">Sirio (2 M<sub>☉</sub>)</button>
-      <button type="button" data-m="4">Umbral (4 M<sub>☉</sub>)</button>
-      <button type="button" data-m="10">Spica (10 M<sub>☉</sub>)</button>
-    </div>
-    <label for="lt-m">Masa M (M<sub>☉</sub>): <span id="lt-mlab">1,0</span></label>
-    <input type="range" id="lt-m" min="0.08" max="60" step="0.02" value="1">
-    <output class="wout" id="lt-out"></output>
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>L ∝ M⁴ es una <strong>ley de potencia</strong>: en log-log es una recta de pendiente 4. Duplicar la masa multiplica el brillo por 16. Este tipo de escalamiento no lineal es el mismo que aparece en complejidad de algoritmos (O(n⁴)): crecimientos pequeños de la entrada disparan el consumo del recurso — aquí, el combustible nuclear.</p>
   </div>
 </section>
 
 <!-- ============ S3 ============ -->
 <section id="s3">
   <div class="shead"><span class="num">3</span><div>
-    <h2>Transporte de energía: radiativo y convectivo</h2>
-    <p>Cómo la energía sale del núcleo depende de la masa — y afecta la eficiencia.</p>
+    <h2>El tiempo de vida de una estrella</h2>
+    <p>Tanque de combustible dividido por tasa de consumo.</p>
   </div></div>
 
-  <p>La energía generada en el centro debe llegar a la superficie. Hay dos mecanismos principales:</p>
-  <ul>
-    <li><strong>Transporte radiativo:</strong> los fotones se absorben y reemiten capa a capa (como una “estufa” que irradia hacia afuera).</li>
-    <li><strong>Transporte convectivo:</strong> celdas de gas caliente suben y frío baja (revuelo, como hervir agua).</li>
-  </ul>
+  <p>Definimos <span class="hl">tiempo de vida</span> como el tiempo que la estrella puede brillar con su luminosidad actual generando energía por fusión de hidrógeno en el núcleo. Es decir, es el tiempo <strong>en la secuencia principal</strong> —que de todas formas es ~90% de la vida total de la estrella, así que es una excelente aproximación.</p>
 
-  <p>En el <strong>Sol</strong>: el interior (~0–70% del radio) es radiativo; hacia afuera hay una zona convectiva superficial. Las estrellas <em>menos masivas</em> que el Sol (enanas rojas) son <strong>totalmente convectivas</strong> del núcleo a la superficie. Eso mezcla el hidrógeno: el combustible de capas externas puede llegar al centro. En el Sol, el H de las capas externas <em>no</em> se mezcla con el núcleo — se queda arriba convectando solo en la envoltura.</p>
-
-  <figure>
-    <img src="m3c1/assets/slide-13.jpg" alt="Esquema de transporte radiativo y convectivo según masa">
-    <figcaption><span class="cap">Diapositiva · Modos de transporte</span>A mayor masa, el núcleo es proporcionalmente más grande y domina la radiación en el interior. Las enanas rojas convectivas todo el camino son más eficientes quemando su combustible: otro factor (además de L ∝ M⁴) que alarga su vida.</figcaption>
-  </figure>
-
-  <div class="box physics">
-    <span class="tag">Criterio de Schwarzschild (idea)</span>
-    <p>La convección aparece cuando el gradiente de temperatura es demasiado empinado para que la radiación transporte toda la energía de forma estable. En estrellas masivas el núcleo muy caliente y la alta opacidad favorecen zonas radiativas internas amplias; en estrellas pequeñas y frías, la convección domina.</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="t_{\text{vida}} \approx \frac{\text{energía disponible por fusión}}{\text{energía radiada por segundo}} = \frac{E_{\text{fusión H}\to\text{He}} \times (\text{H disponible})}{L}"></div>
+    <small>Para el Sol da ≈ <strong>10.000 millones de años</strong> (10¹⁰ años). Importante: el «H disponible» es solo el del <strong>núcleo</strong>, donde ocurren las reacciones — no el 98% de H+He de toda la estrella.</small>
   </div>
 
-  <div class="box cs">
-    <span class="tag">Analogía de ingeniería</span>
-    <p>Radiación ≈ transferencia por <strong>ondas</strong> (señal que se propaga sin mover la materia de a poquito). Convección ≈ <strong>corriente de masa</strong> que transporta energía (como un intercambiador de calor con flujo convectivo forzado). Mezclar combustible por convección es como tener un tanque agitado en lugar de uno estratificado: accedes a más reservas.</p>
+  <p>Como la cantidad de hidrógeno de una estrella escala con su masa total, podemos aproximar:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="t_{\text{vida}\,\star} \propto \frac{M_\star}{L_\star} \qquad\Rightarrow\qquad t_{\text{vida}\,\star} \approx t_{\text{vida}\,\odot} \times \left(\frac{M_\star/M_\odot}{L_\star/L_\odot}\right)"></div>
+    <small>Y usando L ∝ M⁴: <span class="katex-inline" data-tex="t_{\text{vida}} \propto M/M^4 = M^{-3}"></span>. Más masa ⇒ vida <em>mucho</em> más corta.</small>
+  </div>
+
+  <h3>Dos ejemplos de la clase</h3>
+  <ul>
+    <li><strong>Estrella masiva</strong> (10 M<sub>☉</sub>, como Spica): del diagrama H-R, L ≈ 10⁴ L<sub>☉</sub>. Tiene 10 veces más combustible pero lo quema 10.000 veces más rápido ⇒ <span class="katex-inline" data-tex="t \approx 10^{10} \times \tfrac{10}{10^4} = 10^{7}"></span> años. Diez millones de años: mucho para nosotros, poquísimo para una estrella. Son las estrellas «rockeras» que viven rápido y mueren jóvenes.</li>
+    <li><strong>Estrella de baja masa</strong> (0.1 M<sub>☉</sub>, una enana roja): L ≈ 10⁻² L<sub>☉</sub>. Tiene 10 veces menos combustible pero lo consume 100 veces más lento ⇒ <span class="katex-inline" data-tex="t \approx 10^{10} \times \tfrac{0.1}{10^{-2}} = 10^{11}"></span> años. ¡Más que la edad actual del universo! Por eso se dice que las enanas rojas serán <em>la última luz del universo</em>.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-09.jpg" alt="Cálculo del tiempo de vida de una estrella masiva de 10 masas solares">
+    <figcaption><span class="cap">Diapositiva · Estrella masiva</span>10 M<sub>☉</sub> ⇒ ~10⁴ L<sub>☉</sub> ⇒ vida de ~10⁷ años. El «monstruo» consume su tanque a un ritmo desproporcionado respecto a lo que tiene de más.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Analogía de la profesora</span>
+    <p>Las estrellas masivas son como una <strong>camioneta F-150 bencinera</strong>: tanque grande pero consumo brutal. Las enanas rojas son el <strong>Suzuki Celerio petrolero</strong>: tanque chico, consumo mínimo, autonomía fantástica. Además las enanas rojas son <strong>completamente convectivas</strong>: se «revuelven» enteras, así que el hidrógeno de las capas externas eventualmente llega al núcleo y también se quema. En el Sol no: el H externo nunca baja al núcleo (el Sol es radiativo por dentro, convectivo solo desde ~70% del radio hacia afuera, con la <em>tacoclina</em> como zona de transición). Doble ventaja de eficiencia para las enanas rojas.</p>
+  </div>
+
+  <figure>
+    <img src="m3c1/assets/slide-11.jpg" alt="Tabla de tipos espectrales con temperatura, masa y vida en secuencia principal">
+    <figcaption><span class="cap">Diapositiva · Tabla resumen</span>De O5 (54.000 K, 40 M<sub>☉</sub>, <strong>1 millón de años</strong>) a M0 (3.750 K, 0.4 M<sub>☉</sub>, <strong>200.000 millones de años</strong>). «Vida» = mientras la fusión de H→He en el núcleo genere la energía.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">¿Vida alrededor de estrellas masivas?</span>
+    <p>En la Tierra, la primera vida (microbiana) apareció hace ~3.800 millones de años y necesitó otros ~3.800 millones para llegar a nosotros. Una estrella O5 vive <em>1 millón</em> de años en secuencia principal: no hay tiempo para que evolucione vida como la que conocemos. Instituciones como el <strong>Instituto SETI</strong> exploran alternativas (¿vida basada en silicio?), pero buscamos lo que conocemos porque es lo único que sabríamos reconocer.</p>
   </div>
 </section>
 
 <!-- ============ S4 ============ -->
 <section id="s4">
   <div class="shead"><span class="num">4</span><div>
-    <h2>Turn-off e isócronas</h2>
-    <p>Datación de cúmulos estelares con el diagrama HR.</p>
+    <h2>Fechar cúmulos estelares: el punto de turn-off</h2>
+    <p>La secuencia principal como reloj de arena.</p>
   </div></div>
 
-  <p>Un <span class="hl">cúmulo estelar</span> (abierto o globular) se forma cuando un nubarrón colapsa y produce muchas estrellas a la vez (coetáneas, aunque con distinta masa). Al principio todas están en la MS y el HR muestra una diagonal limpia.</p>
-
-  <p>Con el tiempo, las estrellas <strong>más masivas</strong> agotan primero el H del núcleo y <em>salen</em> de la MS. En el diagrama aparece un <strong>turn-off point</strong> (“punto de quiebre” o “codito”): el lugar donde la secuencia principal deja de ser poblada por las estrellas más brillantes que aún no han terminado su MS.</p>
-
-  <p>Una <strong>isócrona</strong> (iso = igual, crono = tiempo) es una curva de <em>igual edad</em> en el HR: indica dónde deberían estar estrellas de distintas masas si el cúmulo tiene esa edad. No es una trayectoria de una sola estrella, sino un “timestamp” evolutivo.</p>
+  <p>Un <span class="hl">cúmulo</span> es un grupo de estrellas que se formaron juntas (coetáneas, dentro de un margen). Eso lo convierte en un laboratorio perfecto: misma edad, misma composición inicial, pero <strong>masas distintas</strong>. Y como las masivas mueren primero, el diagrama H-R del cúmulo evoluciona de forma predecible:</p>
+  <ol class="steps">
+    <li><strong>Cúmulo joven:</strong> todas las estrellas están en la secuencia principal ⇒ se ve la diagonal completa.</li>
+    <li><strong>Pasa el tiempo:</strong> las más masivas agotan su combustible y salen de la secuencia principal ⇒ se forma un «codito»: el <span class="hl">punto de turn-off</span>.</li>
+    <li><strong>Cúmulo viejo:</strong> el turn-off baja, porque ya están saliendo estrellas cada vez menos masivas.</li>
+  </ol>
+  <p>Regla práctica: <strong>turn-off más abajo ⇒ cúmulo más viejo</strong>. La edad del cúmulo es, esencialmente, el tiempo de vida de las estrellas que están justo en el codo.</p>
 
   <figure>
-    <img src="m3c1/assets/slide-17.jpg" alt="Diagrama HR de cúmulo con secuencia principal, turn-off y gigantes">
-    <figcaption><span class="cap">Diapositiva · ω Centauri</span>Secuencia principal, turn-off, subgigantes, rama de gigantes rojas, horizontales azules y enanas blancas. La región inferior rojiza suele estar <strong>contaminada por galaxias de fondo</strong> (no miembros del cúmulo).</figcaption>
+    <img src="m3c1/assets/slide-12.jpg" alt="Evolución del diagrama H-R de un cúmulo: al inicio, a los 100 millones de años, a los 10.000 millones">
+    <figcaption><span class="cap">Diapositiva · El reloj del turn-off</span>Tres instantes de un cúmulo: al inicio (diagonal completa), 100 millones de años después (las masivas ya salieron) y 10.000 millones después (el turn-off ha bajado hasta las estrellas tipo Sol).</figcaption>
   </figure>
 
   <figure>
-    <img src="m3c1/assets/slide-18.jpg" alt="Comparación de turn-off en dos cúmulos de distinta edad">
-    <figcaption><span class="cap">Diapositiva · Edades de cúmulos</span>Dos cúmulos (M67 y NGC 188): el turn-off más <em>bajo</em> (hacia estrellas menos masivas) indica mayor edad — ha pasado más tiempo para que estrellas de menor masa abandonen la MS. NGC 188 (~7 Gyr) es más viejo que M67 (~4 Gyr).</figcaption>
+    <img src="m3c1/assets/slide-13.jpg" alt="Diagramas color-magnitud de los cúmulos M67 y NGC 188 superpuestos">
+    <figcaption><span class="cap">Diapositiva · M67 vs NGC 188</span>Dos cúmulos reales con turn-off distinto. El de <strong>NGC 188</strong> (azul) está más abajo ⇒ es más viejo: ~7.000 millones de años, contra ~4.000 millones de <strong>M67</strong> (amarillo). Nótese la contaminación en la parte baja del diagrama: en esa zona los contaminantes típicos son <em>galaxias de fondo</em>, rojas y débiles, que por supuesto no son miembros del cúmulo.</figcaption>
   </figure>
 
-  <div class="box dato">
-    <span class="tag">Omega Centauri</span>
-    <p>Este cúmulo globular tiene casi la edad de la galaxia (~10–12 Gyr). Su HR está muy bien definido observacionalmente (datos espaciales, p. ej. Hubble). Es una herramienta clave para calibrar modelos de evolución estelar.</p>
+  <h3>Isócronas</h3>
+  <p>Una <span class="hl">isócrona</span> (iso = igual, crono = tiempo) es la curva que marca <em>dónde debería estar en el diagrama H-R cada estrella de cada masa si todas tuvieran la misma edad</em>. No es el camino evolutivo de una estrella: es una <strong>captura instantánea</strong> —un <em>timestamp</em>— de toda la población. Ajustar isócronas a los datos de un cúmulo es el método estándar para medirle la edad.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Isócrona vs. camino evolutivo es la clásica distinción entre <strong>snapshot y trayectoria</strong>: una isócrona es un corte transversal del sistema en t fijo (como el estado de todos los procesos en un instante), mientras que el track evolutivo es la serie temporal de un solo objeto. Confundirlos es como confundir un <em>profile dump</em> con un <em>trace</em>.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Omega Centauri, de nuevo</span>
+    <p>La profesora mostró fotometría de Omega Centauri (trabajo de Sandro Villanova, con bandas de un telescopio espacial, probablemente Hubble) donde se distinguen secuencia principal, turn-off, rama de las gigantes rojas, subgigantes, rama asintótica, rama horizontal azul y enanas blancas. El cúmulo tiene casi la edad de la galaxia (del orden de 12.000 millones de años).</p>
   </div>
 </section>
 
 <!-- ============ S5 ============ -->
 <section id="s5">
   <div class="shead"><span class="num">5</span><div>
-    <h2>Evolución sutil en secuencia principal</h2>
-    <p>Gas ideal, menos partículas y un Sol que crece ~6% en 10 Gyr.</p>
+    <h2>Vida en la secuencia principal (M ≲ 4 M☉)</h2>
+    <p>Equilibrio… con una deriva lenta que ya afecta al Sol.</p>
   </div></div>
 
-  <p>Mientras la estrella permanece en MS, no está “congelada”: fusiona H → He. Cada 4 protones producen 1 núcleo de <sup>4</sup>He (cadena protón–protón), así que el número de partículas libres en el núcleo <strong>disminuye</strong>. Si asumimos <strong>equilibrio termodinámico local</strong> (LTE) y ley de gases ideales:</p>
+  <p>Desde aquí la clase se restringe a estrellas de <strong>hasta ~4 masas solares</strong>. En secuencia principal, la estrella está en <span class="hl">equilibrio hidrostático</span> (presión vs. gravedad) y <span class="hl">equilibrio térmico</span>, con pequeñas variaciones (campos magnéticos, llamaradas). Eso permite tratar su gas con la <strong>ley de los gases ideales</strong>:</p>
 
   <div class="formula">
-    <div class="katex-block" data-tex="P V = N k T"></div>
-    <small>N baja (menos partículas), pero la estrella debe mantener equilibrio hidrostático (presión contra gravedad). Para sostener P con N menor, T debe subir ⇒ las partículas se mueven más rápido ⇒ mayor tasa de fusión ⇒ mayor L.</small>
+    <div class="katex-block" data-tex="P\,V = N\,k_B\,T"></div>
+    <small>P = presión, V = volumen, N = número de partículas, k<sub>B</sub> = constante de Boltzmann, T = temperatura. En jerga astrofísica se habla de <strong>LTE</strong>: equilibrio termodinámico local. (Curiosidad de la clase: las enanas rojas son «pesadas» de estudiar porque sus capas externas <em>no</em> están en LTE.)</small>
   </div>
 
-  <p>La cadena causal de la clase:</p>
-  <ol>
-    <li>H → He reduce N en el núcleo.</li>
-    <li>Para mantener presión, sube T.</li>
-    <li>Sube la tasa de fusión y la luminosidad.</li>
-    <li>Más radiación empuja hacia afuera ⇒ la estrella se <strong>expande un poco</strong>.</li>
+  <h3>El truco de contar partículas</h3>
+  <p>La cadena protón-protón convierte <strong>4 núcleos de hidrógeno en 1 de helio</strong> (con 2 protones devueltos en el proceso, pero el balance neto sigue siendo perder partículas). Entonces, mientras la estrella fusiona, el núcleo estelar va quedando <span class="hl">con menos partículas</span>: N baja. Siga la cadena:</p>
+  <ol class="steps">
+    <li>N baja, pero la presión P debe mantenerse (equilibrio hidrostático: hay que seguir sosteniendo el peso de la estrella).</li>
+    <li>Para compensar, las partículas deben <strong>moverse más rápido</strong> ⇒ la temperatura del núcleo <strong>sube</strong> gradualmente.</li>
+    <li>Más temperatura ⇒ más choques ⇒ <strong>sube la tasa de fusión</strong> ⇒ sube la luminosidad.</li>
+    <li>Esa energía extra empuja hacia afuera ⇒ la estrella <strong>se expande ligeramente</strong> durante la secuencia principal.</li>
   </ol>
 
   <figure>
-    <img src="m3c1/assets/slide-21.jpg" alt="Evolución del Sol en secuencia principal">
-    <figcaption><span class="cap">Diapositiva · Sol en MS</span>El Sol al nacer era ~6% más pequeño y ~300 K más frío en superficie que hoy. Tras ~5 Gyr en MS ya aumentó su radio y su luminosidad levemente. Son “pequeñas variaciones” alrededor del equilibrio, no contradicen la MS.</figcaption>
+    <img src="m3c1/assets/slide-16.jpg" alt="El Sol al inicio de la secuencia principal comparado con el Sol actual">
+    <figcaption><span class="cap">Diapositiva · El Sol ya cambió</span>El Sol actual es ~30–40% <strong>más luminoso</strong>, tiene un radio ~6% mayor y es ~300 K más caliente que cuando entró a la secuencia principal, hace ~4.500 millones de años. La secuencia principal no es estática: es una deriva lenta.</figcaption>
   </figure>
 
-  <div class="box physics">
-    <span class="tag">LTE y enanas rojas</span>
-    <p>Asumir gas ideal + LTE simplifica los modelos, pero las enanas rojas en capas externas <em>no</em> están en LTE: son objetos difíciles de modelar. Para este diplomado usamos la aproximación hasta que la física interna se vuelve más extrema (flash de helio, degeneración).</p>
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Es un <strong>lazo de control con retroalimentación</strong>: la variable de proceso (presión) debe seguir una referencia fijada por la gravedad; la «planta» compensa la pérdida de partículas subiendo temperatura. El sistema es estable pero con <em>drift</em> secular del punto de operación — como un controlador que compensa el envejecimiento de un componente hasta que el actuador se queda sin rango.</p>
   </div>
 </section>
 
 <!-- ============ S6 ============ -->
 <section id="s6">
   <div class="shead"><span class="num">6</span><div>
-    <h2>Salida de MS y rama de gigantes rojas</h2>
-    <p>Núcleo de He inerte, capa de H ardiendo y una estrella que se infla.</p>
+    <h2>Se agota el H del núcleo: subida a gigante roja</h2>
+    <p>El motor central se apaga, pero se enciende una cáscara.</p>
   </div></div>
 
-  <p>Cuando se agota el H <em>en el núcleo</em>, la fusión allí cesa. Sin presión de radiación, el núcleo de He <strong>se contrae</strong>. Por gas ideal, la contracción sube T y P, pero no lo suficiente para encender He (hace falta ~10<sup>8</sup> K; el H fusiona a ~10<sup>7</sup> K).</p>
+  <p>El hidrógeno que la estrella puede usar es <strong>solo el del núcleo</strong>. Cuando se acaba, no hay más fusión central, y sin fusión no hay presión que sostenga el peso de las capas superiores:</p>
+  <ol class="steps">
+    <li>El <strong>núcleo</strong> (ahora de helio, inerte) <strong>se contrae</strong> por gravedad.</li>
+    <li>La contracción sube temperatura y presión del núcleo y sus alrededores… pero <em>no lo suficiente</em> para fusionar helio: el H fusiona a ~15 millones de K (centro del Sol); el He necesita <strong>~100 millones de K</strong>.</li>
+    <li>El calentamiento sí basta para encender una <span class="hl">capa de fusión de H→He</span> justo <em>afuera</em> del núcleo — la primera «capita de la cebolla» — con una tasa de fusión incluso mayor que antes.</li>
+    <li>Esa cáscara genera energía desde una posición más externa ⇒ <strong>empuja e infla las capas exteriores</strong>.</li>
+    <li>El núcleo sigue contrayéndose (nada lo detiene) ⇒ más temperatura ⇒ más fusión en la cáscara ⇒ <strong>gran aumento de luminosidad</strong>.</li>
+    <li>Las capas externas, ahora lejísimos del núcleo, se enfrían y enrojecen ⇒ nace la <span class="hl">gigante roja</span>.</li>
+  </ol>
 
-  <p>En cambio, la contracción calienta una <strong>capa de H</strong> justo fuera del núcleo: empieza la fusión en “cáscara” (shell burning). Esa capa empuja las envolturas hacia afuera ⇒ la estrella se <strong>infla</strong> hacia la <span class="hl">gigante roja</span> (RGB). La transición es rápida: &lt; 1 millón de años — por eso es difícil “pillar” una estrella en plena subida.</p>
+  <figure>
+    <img src="m3c1/assets/slide-17.jpg" alt="Estrella con núcleo de helio inerte y capa de fusión de hidrógeno alrededor">
+    <figcaption><span class="cap">Diapositiva · Núcleo inerte + cáscara encendida</span>Sin fusión central el núcleo de He se encoge; el calentamiento activa la fusión de H→He en una capa externa al núcleo. Ojo con la definición: la estrella <strong>ya no es de secuencia principal</strong>, aunque siga fusionando hidrógeno — porque no lo hace en el núcleo.</figcaption>
+  </figure>
+
+  <p>¿Por qué sube tanto el brillo si la superficie se enfría? Por la ley de Stefan-Boltzmann:</p>
 
   <div class="formula">
-    <div class="katex-block" data-tex="L = 4\pi R^{2}\,\sigma\,T_{\mathrm{eff}}^{4} \qquad\text{(Ley de Stefan–Boltzmann)}"></div>
-    <small>Al expandirse, R crece mucho. Aunque T<sub>eff</sub> superficial baja (superficie más lejos del calor ⇒ más roja), el área 4πR² crece aún más ⇒ L sube fuertemente. La gigante brilla mucho pero con superficie fría.</small>
+    <div class="katex-block" data-tex="L = 4\pi R^{2}\,\sigma\,T^{4}"></div>
+    <small>La luminosidad depende de T⁴ pero también del <strong>área</strong> (R²). Al inflarse miles de veces, el aumento de superficie emisora gana: la estrella brilla mucho más aunque esté más fría por fuera.</small>
   </div>
 
   <figure>
-    <img src="m3c1/assets/slide-24.jpg" alt="Trayectorias en el diagrama HR hacia la rama de gigantes rojas">
-    <figcaption><span class="cap">Diapositiva · Subida a la RGB</span>Líneas de evolución según masa: el Sol sube casi vertical en luminosidad (T casi constante al principio) y luego se enfría. Al final de la subida el Sol podría alcanzar ~la órbita de Marte — “chao Tierra”. Betelgeuse (fuera de este rango de masa) ilustra el tamaño extremo de una supergigante.</figcaption>
+    <img src="m3c1/assets/slide-19.jpg" alt="Caminos evolutivos hacia la rama de las gigantes rojas para estrellas de distinta masa">
+    <figcaption><span class="cap">Diapositiva · Caminos hacia la gigante roja</span>Tracks evolutivos para 0.5–15 M<sub>☉</sub>. Los números sobre cada track son <strong>edades en años</strong>: para 1 M<sub>☉</sub>, la salida de secuencia principal ocurre a ~10¹⁰ años (10.000 millones), consistente con el cálculo de la sección 3. El Sol subirá casi verticalmente (gran aumento de L a temperatura casi constante). El último punto marca la máxima expansión.</figcaption>
   </figure>
 
-  <div class="widget" id="w-sb">
-    <span class="tagband">Widget interactivo</span>
-    <h4>Luminosidad de Stefan–Boltzmann al expandirse</h4>
-    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Fija la temperatura superficial y aumenta el radio respecto al Sol. ¿Cuánto sube L = 4πR²σT⁴?</p>
-    <label for="sb-t">Temperatura efectiva T<sub>eff</sub> (K): <span id="sb-tlab">3500</span></label>
-    <input type="range" id="sb-t" min="3000" max="6000" step="50" value="3500">
-    <label for="sb-r">Radio R (en R<sub>☉</sub>): <span id="sb-rlab">100</span></label>
-    <input type="range" id="sb-r" min="1" max="1000" step="1" value="100">
-    <div class="presets">
-      <button type="button" data-t="5772" data-r="1">Sol hoy</button>
-      <button type="button" data-t="3500" data-r="100">Gigante roja típica</button>
-      <button type="button" data-t="3500" data-r="700">Sol al máximo RGB</button>
-    </div>
-    <output class="wout" id="sb-out"></output>
+  <div class="box dato">
+    <span class="tag">Chao, Tierra</span>
+    <p>Cuando al Sol le toque (en ~5.000 millones de años), se expandirá hasta un diámetro de ~2 UA — según los modelos, engullendo la órbita terrestre y llegando aproximadamente hasta la órbita de Marte. Júpiter pasará a ser un «hot Jupiter». La subida de secuencia principal a gigante roja es <em>rapidísima</em> en términos astronómicos (menos de un millón de años): por eso casi no observamos estrellas «en plena subida» — hay que pillarlas justo.</p>
   </div>
 
-  <div class="box dato">
-    <span class="tag">Definición estricta de MS</span>
-    <p><strong>Secuencia principal</strong> = fusión de H en el <em>núcleo</em>. Si el H fusiona en una capa externa, ya no es MS aunque siga “viva” y fusionando. Esta distinción es examen y es fundamental para leer el diagrama HR.</p>
-  </div>
+  <figure>
+    <img src="m3c1/assets/slide-21.jpg" alt="Tabla comparativa Sol vs Betelgeuse y su ubicación en Orión">
+    <figcaption><span class="cap">Diapositiva · Betelgeuse, la supergigante</span>Comparativa Sol vs <strong>Betelgeuse</strong> (hombro de Orión): 16 M<sub>☉</sub>, radio ~700× el solar, núcleo a 160 millones de K, 46.000 L<sub>☉</sub>… y solo 10 millones de años de edad — tan masiva que vive a toda velocidad. Es una <em>super</em>gigante roja: las masivas siguen otro camino (próxima clase). La clase cerró la anécdota recomendando el videojuego <em>Outer Wilds</em>, donde el ciclo de vida estelar es parte de la trama.</figcaption>
+  </figure>
 </section>
 
 <!-- ============ S7 ============ -->
 <section id="s7">
   <div class="shead"><span class="num">7</span><div>
-    <h2>Fusión de helio y flash de helio</h2>
-    <p>Triple-α, carbono en nuestros cuerpos y un evento cuántico explosivo.</p>
+    <h2>Una nueva fuente de energía: fusión de helio</h2>
+    <p>El proceso triple-alfa fabrica el carbono del que estamos hechos.</p>
   </div></div>
 
-  <p>Al seguir contrayéndose, el núcleo de He alcanza ~10<sup>8</sup> K y enciende la <strong>fusión de helio</strong> vía <strong>proceso triple-α</strong>: tres núcleos de He (partículas α) forman <sup>12</sup>C; hay un paso intermedio inestable con berilio. También puede formarse algo de oxígeno (<sup>16</sup>O) al fusionar C con He.</p>
+  <p>Durante la fase de gigante roja, el núcleo de helio sigue comprimiéndose hasta alcanzar los <strong>100 millones de K</strong>. ¿Por qué tanto? Un núcleo de <span class="katex-inline" data-tex="^4\text{He}"></span> tiene 2 protones y 2 neutrones: el doble de carga que el hidrógeno, o sea una <strong>repulsión electrostática mucho mayor</strong> que vencer. (Recordar que la estrella es <em>plasma</em>: núcleos desnudos y electrones libres dando vueltas. Al núcleo de helio también se le llama <span class="hl">partícula alfa</span> — la misma de los experimentos históricos de Rutherford con láminas de oro.)</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="^4\text{He} + {}^4\text{He} \to {}^8\text{Be}; \qquad {}^8\text{Be} + {}^4\text{He} \to {}^{12}\text{C} + \gamma"></div>
+    <small>El <strong>proceso triple-alfa</strong>: dos helios forman berilio-8, que es inestable — debe chocar con un tercer helio <em>antes de decaer</em> para formar carbono-12. Tres partículas alfa ⇒ un carbono. Aquí nace el carbono de nuestros cuerpos: «somos polvo de estrellas».</small>
+  </div>
 
   <figure>
-    <img src="m3c1/assets/slide-28.jpg" alt="Reacción triple-alfa y diagrama HR con flash de helio">
-    <figcaption><span class="cap">Diapositiva · Triple-α y flash</span>“Somos polvo de estrellas”: el carbono de la vida proviene de esta nucleosíntesis. En el HR, el flash de helio produce un subidón vertical muy breve seguido de un descenso hacia la rama horizontal (fase de núcleo de He quemando).</figcaption>
+    <img src="m3c1/assets/slide-22.jpg" alt="Esquema del proceso triple alfa: dos helios forman berilio-8 y con otro helio, carbono-12">
+    <figcaption><span class="cap">Diapositiva · Proceso triple-α</span>⁴He + ⁴He → ⁸Be, y ⁸Be + ⁴He → ¹²C + γ. La fusión de He exige ~100 millones de K por la mayor repulsión coulombiana entre partículas alfa.</figcaption>
   </figure>
 
-  <h3>Flash de helio</h3>
-  <p>Cuando el He empieza a fusionar, la temperatura central se dispara, pero el núcleo está tan comprimido que entra en <strong>degeneración de electrones</strong> (principio de exclusión de Pauli): la presión ya no depende tanto de T sino de la densidad. Subir T no expande el núcleo como en un gas ideal.</p>
-
-  <div class="box prof">
-    <span class="tag">Analogía del estacionamiento</span>
-    <p>A baja densidad, los electrones “eligen” estado como autos en un mall vacío. A densidad extrema, todos los espacios bajos están ocupados y subir T no aumenta P — como un estacionamiento lleno en 23 de diciembre: la presión sube por competencia por espacio, no porque los autos vayan más rápido.</p>
-  </div>
-
-  <p>Resultado: la tasa de fusión de He se descontrola momentáneamente — el <strong>flash de helio</strong>. Libera energía enorme en el núcleo, pero ocurre tan rápido y tan adentro que <em>no</em> lo vemos directamente en la superficie. Después la estrella reequilibra: núcleo de He activo, luminosidad baja un poco, T superficial sube — baja en el HR hacia la rama horizontal.</p>
-
-  <div class="box physics">
-    <span class="tag">Presión degenerada</span>
-    <p>En condiciones normales P ∝ ρT (gas ideal). En materia degenerada, P crece con ρ por Pauli. Las enanas blancas viven enteramente sostenidas por presión degenerada de electrones — tema que retomaremos al final de la clase.</p>
-  </div>
+  <p>Mientras tanto, la capa de fusión de hidrógeno sigue activa y va «alimentando» el núcleo con helio fresco, ayudando a sostener la nueva fusión central. La estructura de cebolla comienza a formarse.</p>
 </section>
 
 <!-- ============ S8 ============ -->
 <section id="s8">
   <div class="shead"><span class="num">8</span><div>
-    <h2>Rama asintótica de gigantes y estructura en capas</h2>
-    <p>La “cebolla” estelar: H, He, C/O y núcleo inerte.</p>
+    <h2>Presión degenerada de electrones y el flash de helio</h2>
+    <p>Donde la física «normal» se acaba y entra la mecánica cuántica.</p>
   </div></div>
 
-  <p>Tras agotar el He del núcleo queda un núcleo de <strong>carbono y oxígeno</strong> inerte (en estrellas ≤ 4 M<sub>☉</sub> no se alcanza T para fusionar C). Se repite el guion: contracción, capa de He fusionando, capa de H fusionando, nueva expansión — la <span class="hl">rama asintótica de gigantes</span> (AGB). La estrella pulsa y tiene vientos intensos.</p>
+  <p>Al encenderse la fusión de He, el núcleo se calienta muchísimo, pero su presión térmica venía débil (el núcleo venía colapsando, y una estrella inflada es más inestable: no basta con equilibrarse, primero hay que <em>frenar</em> el colapso). ¿Qué detiene el colapso entonces? Un efecto cuántico: la <span class="hl">presión degenerada de electrones</span>.</p>
+
+  <h3>La analogía del estacionamiento</h3>
+  <p>El <strong>principio de exclusión de Pauli</strong> prohíbe que dos electrones ocupen el mismo estado cuántico en el mismo lugar. A densidades normales eso no molesta: es como estacionar en el mall un martes de julio — hay espacio de sobra, te ubicas donde quieras, sin estrés. Pero a las densidades extremas del núcleo de una gigante roja, es el mall un 23 de diciembre: <strong>todos los espacios de baja energía están ocupados</strong>, y los electrones se ven obligados a ocupar estados de mayor energía <em>no porque estén más calientes, sino porque no hay otro lugar donde meterse</em>. Esa ocupación forzada genera presión: presión de degeneración.</p>
 
   <figure>
-    <img src="m3c1/assets/slide-32.jpg" alt="Estructura en capas de una estrella AGB">
-    <figcaption><span class="cap">Diapositiva · Cebolla estelar</span>De afuera hacia adentro: capa de H → He → C/O, con un núcleo inerte de C+O. Los “metales” (para el astrónomo: todo lo que no es H ni He) se mezclan hacia afuera por convección en las envolturas.</figcaption>
+    <img src="m3c1/assets/slide-26.jpg" alt="Analogía del estacionamiento normal versus degenerado">
+    <figcaption><span class="cap">Diapositiva · Estacionamiento «degenerado»</span>Estacionamiento vacío = gas normal (la presión viene de la temperatura). Estacionamiento lleno = materia degenerada (la presión viene de la <strong>densidad</strong>: dos autos no pueden ocupar el mismo lugar).</figcaption>
   </figure>
 
-  <div class="box cs">
-    <span class="tag">Analogía de ingeniería</span>
-    <p>La estrella en AGB es un <strong>reactor con quemado en capas</strong> (shell burning): cada vez que un combustible del núcleo se apaga, el “fuego” se enciende en una cáscara más externa. El núcleo es un residuo inerte; la potencia depende de dónde arde la reacción, no solo de cuánto combustible queda.</p>
-  </div>
+  <figure>
+    <img src="m3c1/assets/slide-27.jpg" alt="Electrones ocupando niveles de energía a baja y alta densidad">
+    <figcaption><span class="cap">Diapositiva · Niveles de energía llenos</span>A bajas densidades los electrones eligen los estados de baja energía. A densidades altísimas, todos los estados bajos están ocupados y los electrones «suben» forzados a estados de mayor energía. La presión ya <strong>no depende de la temperatura</strong>: depende de la densidad. Se rompe la ley de gases ideales.</figcaption>
+  </figure>
 
-  <div class="box next">
-    <span class="tag">Más allá de 4 M<sub>☉</sub></span>
-    <p>Estrellas más masivas pueden fusionar C, Ne, O, Si… hasta formar un núcleo de hierro y explotar como supernova. Eso es el contenido de la Clase 2 del módulo III.</p>
+  <h3>La olla a presión: el flash</h3>
+  <p>Aquí está la clave del <span class="hl">flash de helio</span>. En un gas normal, encender fusión sube la temperatura, sube la presión, el núcleo se expande, se enfría y la reacción se autorregula (termostato natural). Pero en materia degenerada:</p>
+  <ol class="steps">
+    <li>Sube la temperatura por la fusión de He… pero <strong>la presión no responde</strong> (la controla la densidad, no la temperatura).</li>
+    <li>Sin aumento de presión, <strong>el núcleo no se expande ni se enfría</strong> — es una olla a presión sin válvula.</li>
+    <li>Más temperatura ⇒ más fusión ⇒ más temperatura ⇒ … la tasa de fusión <strong>se dispara</strong>.</li>
+    <li>Todo el helio del núcleo <strong>se enciende prácticamente a la vez</strong>: una inyección de energía gigantesca y muy breve. Eso es el flash de helio.</li>
+  </ol>
+
+  <figure>
+    <img src="m3c1/assets/slide-28.jpg" alt="Diagrama H-R con el recorrido del flash de helio">
+    <figcaption><span class="cap">Diapositiva · El flash en el diagrama H-R</span>(a) subida por la rama de las gigantes rojas, (b) flash de helio en la punta. El proceso es tan rápido que <strong>no lo podemos observar directamente</strong>: es física teórica consistente con todo lo que sí medimos.</figcaption>
+  </figure>
+
+  <p>Tras el flash, el núcleo completo queda fusionando He→C de forma ordenada. La estructura interna se reacomoda: sube la temperatura superficial, baja un poco la luminosidad (las capas infladas se recogen y el área emisora disminuye), y la estrella encuentra un <strong>nuevo equilibrio hidrostático y radiativo</strong>. Paz temporal.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El flash de helio es un <strong>runaway térmico por pérdida del lazo de retroalimentación negativa</strong>: en el gas ideal, presión-expansión-enfriamiento actúa como regulador; la degeneración «desconecta el sensor» (P deja de responder a T) y el sistema pasa a retroalimentación positiva pura hasta saturar. Igual que un thermal runaway en una batería o un proceso sin <em>backpressure</em>.</p>
   </div>
 </section>
 
 <!-- ============ S9 ============ -->
 <section id="s9">
   <div class="shead"><span class="num">9</span><div>
-    <h2>Nebulosa planetaria y enana blanca</h2>
-    <p>Muerte suave: expulsar las capas y dejar el núcleo compacto.</p>
+    <h2>La cebolla final: núcleo inerte de carbono y oxígeno</h2>
+    <p>Hasta aquí llega el motor de una estrella de baja masa.</p>
   </div></div>
 
-  <p>Las estrellas de baja masa no tienen supernova. Cuando el núcleo de C/O deja de aportar energía, las capas externas — aún con algo de fusión y mucha convección — se <strong>expulsan</strong> por pulsaciones y vientos. Ese material ionizado forma una <span class="hl">nebulosa planetaria</span> (nombre histórico: en telescopios antiguos parecían discos planetarios; no tienen relación con planetas).</p>
+  <p>El helio del núcleo también se agota. El carbono recién formado a veces captura otro núcleo de helio y forma <strong>oxígeno</strong> — otro elemento esencial que nace dentro de estrellas. Cuando el He central se acaba, queda un <span class="hl">núcleo inerte de carbono (y oxígeno)</span>, y la historia se repite:</p>
+  <ol class="steps">
+    <li>El núcleo de C-O, sin fusión, <strong>se contrae</strong>.</li>
+    <li>La estrella se expande otra vez: sube la luminosidad, baja la temperatura superficial. Es el <strong>segundo episodio de inflación</strong> (el primero fue con el núcleo de He inerte).</li>
+    <li>Pero esta vez no hay próximo capítulo: para fusionar carbono se necesitan temperaturas que una estrella de ≤4 M<sub>☉</sub> <strong>jamás alcanzará</strong>, por más que se contraiga. La fuente de energía se terminó.</li>
+  </ol>
 
   <figure>
-    <img src="m3c1/assets/slide-35.jpg" alt="Imágenes de nebulosas planetarias">
-    <figcaption><span class="cap">Diapositiva · Nebulosas planetarias</span>Estructuras diversas según el ángulo de visión y la asimetría de la expulsión. En el centro queda la estrella expuesta: la <strong>enana blanca</strong>.</figcaption>
+    <img src="m3c1/assets/slide-31.jpg" alt="Estructura por capas de una estrella de baja masa en su fase final">
+    <figcaption><span class="cap">Diapositiva · La cebolla de baja masa</span>De afuera hacia adentro: hidrógeno inerte → capa de fusión H→He → helio inerte → capa de fusión He→C → núcleo inerte de carbono y oxígeno. Esta es la estructura final del motor de una estrella tipo Sol.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué la fusión se detiene aquí</span>
+    <p>Cada elemento sucesivo tiene más protones ⇒ más repulsión coulombiana ⇒ exige más temperatura para fusionar. H: 15 millones de K. He: 100 millones. El carbono exige aún más, y la contracción gravitacional de un núcleo de ≤4 M<sub>☉</sub> no da para tanto. La masa de la estrella fija <em>hasta qué elemento de la tabla periódica</em> llega su fábrica. Con más masa se sube más alto en la tabla — tema de la próxima clase.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Muerte: nebulosa planetaria y enana blanca</h2>
+    <p>La estrella devuelve al medio interestelar los metales que fabricó.</p>
+  </div></div>
+
+  <p>¿Cómo termina? Sin supernova. Las estrellas de baja masa mueren con más elegancia:</p>
+  <ul>
+    <li>Las capas externas de estas estrellas son <strong>convectivas</strong>: se revuelven y van subiendo hacia la superficie los <span class="hl">metales</span> (para el astrónomo, todo lo que no es H ni He) fabricados durante la vida de la estrella.</li>
+    <li>La presión de radiación, la energía remanente del flash de helio, las pulsaciones estelares y otros fenómenos de las capas externas —donde además la gravedad es débil— terminan de <strong>expulsar el material al espacio</strong>.</li>
+    <li>Ese material expulsado, brillando alrededor del núcleo desnudo, es la <span class="hl">nebulosa planetaria</span> — que <em>nada</em> tiene que ver con planetas: el nombre es un error histórico que nadie corrigió.</li>
+    <li>En el centro queda el núcleo inerte de C-O al desnudo: la <span class="hl">enana blanca</span>, que se enfría lentamente durante miles de millones de años. Es un cadáver estelar (como lo son también las estrellas de neutrones y los agujeros negros, para estrellas más masivas).</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-32.jpg" alt="Diagrama H-R con el camino completo: secuencia principal, gigante roja, nebulosa planetaria y enana blanca">
+    <figcaption><span class="cap">Diapositiva · El camino completo en el H-R</span>Pre-secuencia (10 millones de años) → secuencia principal (9.500 millones) → gigante roja (2.000 millones) → nebulosa planetaria (10.000 años, ¡un suspiro!) → enana blanca (muchos miles de millones de años enfriándose).</figcaption>
   </figure>
 
   <figure>
-    <img src="m3c1/assets/slide-37.jpg" alt="Resumen de evolución de estrellas de baja masa">
-    <figcaption><span class="cap">Diapositiva · Resumen del recorrido</span>MS → RGB → flash de He → AGB → nebulosa planetaria + enana blanca. El gas enriquecido en C, O y otros “metales” alimenta el medio interestelar para la próxima generación de estrellas y planetas.</figcaption>
+    <img src="m3c1/assets/slide-34.jpg" alt="Esquema de una nebulosa planetaria vista desde distintos ángulos, con torus y viento estelar">
+    <figcaption><span class="cap">Diapositiva · Nebulosas planetarias</span>Tienen aspectos muy distintos según la orientación respecto al observador y el medio interestelar circundante (compárense Hubble 5 y Helix, que serían estructuras similares vistas de perfil y de frente). En el centro siempre queda la enana blanca.</figcaption>
   </figure>
-
-  <p>La <strong>enana blanca</strong> es el núcleo muerto de C y O: del tamaño de la Tierra, masivo (~0,6 M<sub>☉</sub> para un progenitor como el Sol), sostenido por <strong>presión degenerada de electrones</strong>, sin fusión. Enfría lentamente durante miles de millones de años. Es un “cadáver estelar” — al igual que las estrellas de neutrones y los agujeros negros para progenitores más masivos, aunque esos últimos quedan fuera del rango de esta clase.</p>
 
   <div class="box dato">
-    <span class="tag">Legado químico</span>
-    <p>“Somos polvo de estrellas” es literal: el carbono y oxígeno de nuestro cuerpo se formó en interiores estelares y viajó al ISM vía vientos y nebulosas planetarias. Los elementos más pesados que el hierro requieren supernovas o fusiones de objetos compactos — tema de clases posteriores.</p>
+    <span class="tag">Reciclaje cósmico</span>
+    <p>Al expulsar sus capas, la estrella <strong>enriquece el medio interestelar</strong> con carbono, oxígeno y otros metales, que pasarán a formar parte de nuevas estrellas y sistemas planetarios. Nosotros somos, literalmente, producto de ese reciclaje. Los elementos más pesados requieren otros procesos (próximas clases).</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>¿Qué pasa con estrellas de <strong>más de 4 M<sub>☉</sub></strong>? Alcanzan temperaturas para fusionar carbono y elementos más pesados, generan otros elementos químicos y mueren de forma mucho más violenta (supernovas, estrellas de neutrones, agujeros negros — que dependen de la masa <em>del núcleo</em>, no de la masa total). También veremos la presión degenerada de <em>neutrones</em>.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-vida">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Calculadora de tiempo de vida: t ∝ M/L con L ∝ M⁴</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la masa y mira cómo cambian la luminosidad y la vida en secuencia principal. Referencia: Sol = 1 M☉, 1 L☉, 10.000 millones de años.</p>
+    <div class="presets" id="vida-presets">
+      <button data-m="0.1">Enana roja 0.1 M☉</button>
+      <button data-m="0.4">M0 · 0.4 M☉</button>
+      <button data-m="1">Sol 1 M☉</button>
+      <button data-m="6">Achernar ~6 M☉</button>
+      <button data-m="10">Spica ~10 M☉</button>
+      <button data-m="40">O5 · 40 M☉</button>
+    </div>
+    <label for="vida-m">Masa (M☉): <span id="vida-mlab"></span></label>
+    <input type="range" id="vida-m" min="-1" max="1.78" step="0.01" value="0">
+    <output id="vida-out"></output>
+  </div>
+
+  <div class="widget" id="w-turnoff">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>El reloj del cúmulo: edad ↔ punto de turn-off</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige la edad de un cúmulo y descubre qué estrellas ya salieron de la secuencia principal (usando t ≈ 10¹⁰/M³ años). El turn-off baja con el tiempo.</p>
+    <div class="presets" id="to-presets">
+      <button data-t="7">10 millones de años</button>
+      <button data-t="8">100 millones</button>
+      <button data-t="9.602">M67 (~4.000 mill.)</button>
+      <button data-t="9.845">NGC 188 (~7.000 mill.)</button>
+      <button data-t="10.08">Omega Cen (~12.000 mill.)</button>
+    </div>
+    <label for="to-t">Edad del cúmulo (log₁₀ años): <span id="to-tlab"></span></label>
+    <input type="range" id="to-t" min="6" max="10.3" step="0.01" value="9">
+    <output id="to-out"></output>
+  </div>
+
+  <div class="widget" id="w-etapas">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>El viaje de una estrella tipo Sol, etapa por etapa</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Recorre las etapas de la clase. El esquema (no a escala) muestra el estado del núcleo y las capas.</p>
+    <div class="stagebar" id="et-bar"></div>
+    <div class="starviz"><div class="core" id="et-viz"></div></div>
+    <output id="et-out"></output>
   </div>
 </section>
 
@@ -491,23 +629,20 @@ footer b{color:var(--ink)}
   <div class="tbl"><table>
     <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
     <tbody>
-      <tr><td><b>Diagrama HR</b></td><td>L vs T<sub>eff</sub> (o color)</td><td>Mapa de etapas evolutivas; cada punto es una estrella</td></tr>
-      <tr><td><b>Clase de luminosidad</b></td><td>I (supergigante) … V (enana), III (gigante), WD</td><td>Etapa evolutiva, distinta del tipo espectral</td></tr>
-      <tr><td><b>Secuencia principal</b></td><td>Fusión de H en el <em>núcleo</em></td><td>~90% de la vida; definición estricta para el examen</td></tr>
-      <tr><td><b>L ∝ M⁴</b></td><td>Solo en MS</td><td>Estima luminosidad a partir de masa</td></tr>
-      <tr><td><b>t<sub>MS</sub> ∝ M⁻³</b></td><td>t<sub>☉</sub> ≈ 10<sup>10</sup> años</td><td>Más masa ⇒ vida MS mucho más corta</td></tr>
-      <tr><td><b>Transporte radiativo / convectivo</b></td><td>Fotones vs revuelo de gas</td><td>Enanas rojas totalmente convectivas ⇒ más eficientes</td></tr>
-      <tr><td><b>Isócrona</b></td><td>Curva de igual edad en el HR</td><td>Datación de cúmulos estelares</td></tr>
-      <tr><td><b>Turn-off</b></td><td>Fin de la MS masiva en un cúmulo</td><td>Turn-off más bajo ⇒ cúmulo más viejo</td></tr>
-      <tr><td><b>Gas ideal en MS</b></td><td>PV = NkT; N baja al formar He</td><td>Explica ligero aumento de L y R en MS</td></tr>
-      <tr><td><b>Gigante roja (RGB)</b></td><td>Núcleo He inerte + capa de H</td><td>Expansión rápida; T<sub>eff</sub> baja, L alta</td></tr>
-      <tr><td><b>Stefan–Boltzmann</b></td><td>L = 4πR²σT⁴</td><td>R grande domina el aumento de L al inflar</td></tr>
-      <tr><td><b>Triple-α</b></td><td>3 He → C (+ algo de O)</td><td>Origen del carbono biológico</td></tr>
-      <tr><td><b>Flash de helio</b></td><td>Ignición degenerada del He</td><td>Evento rápido e interno; reequilibrio posterior</td></tr>
-      <tr><td><b>AGB</b></td><td>Segunda fase de gigante; quemado en capas</td><td>Pulsaciones y vientos; expulsión de material</td></tr>
-      <tr><td><b>Nebulosa planetaria</b></td><td>Capas expulsadas ionizadas</td><td>No tiene que ver con planetas; muerte de baja masa</td></tr>
-      <tr><td><b>Enana blanca</b></td><td>Núcleo C/O; soporte por degeneración</td><td>Remanente final para M ≲ 8 M<sub>☉</sub> (núcleo ≲ 1,4 M<sub>☉</sub>)</td></tr>
-      <tr><td><b>Rango de esta clase</b></td><td>M ≲ 4 M<sub>☉</sub></td><td>No fusionan C; sin supernova</td></tr>
+      <tr><td><b>Secuencia principal</b></td><td>Fusión de H→He <em>en el núcleo</em></td><td>Define la «vida adulta»; ~90% de la vida de la estrella</td></tr>
+      <tr><td><b>Clases de luminosidad</b></td><td>Enana, gigante, supergigante, enana blanca</td><td>Etiquetan la etapa evolutiva (no solo el brillo)</td></tr>
+      <tr><td><b>Masa–luminosidad</b></td><td><span class="katex-inline" data-tex="L \propto M^4"></span> (solo secuencia principal)</td><td>La secuencia principal ordena a las estrellas por masa</td></tr>
+      <tr><td><b>Tiempo de vida</b></td><td><span class="katex-inline" data-tex="t \propto M/L \propto M^{-3}"></span>; Sol ≈ 10¹⁰ años</td><td>Masivas viven 10⁶–10⁷ años; enanas rojas hasta 10¹¹</td></tr>
+      <tr><td><b>Punto de turn-off</b></td><td>El «codo» donde las estrellas dejan la secuencia principal</td><td>Reloj para fechar cúmulos (M67 ~4.000, NGC 188 ~7.000 mill. años)</td></tr>
+      <tr><td><b>Isócrona</b></td><td>Curva de igual edad en el H-R para todas las masas</td><td>Snapshot (no trayectoria); método estándar de datación</td></tr>
+      <tr><td><b>Gas ideal + menos partículas</b></td><td>4H → 1He baja N en PV = Nk<sub>B</sub>T</td><td>Explica la lenta subida de T, L y R durante la secuencia principal</td></tr>
+      <tr><td><b>Gigante roja</b></td><td>Núcleo He inerte + cáscara de fusión de H</td><td>Más luminosa (L = 4πR²σT⁴, gana el área) pero más fría</td></tr>
+      <tr><td><b>Proceso triple-α</b></td><td>3 ⁴He → ¹²C (vía ⁸Be inestable), a ~10⁸ K</td><td>Origen del carbono; el C + He forma oxígeno</td></tr>
+      <tr><td><b>Presión degenerada</b></td><td>Presión por exclusión de Pauli: depende de densidad, no de T</td><td>Detiene el colapso del núcleo; rompe la ley de gases ideales</td></tr>
+      <tr><td><b>Flash de helio</b></td><td>Encendido explosivo de todo el He del núcleo</td><td>Runaway porque el núcleo degenerado no puede expandirse y enfriarse</td></tr>
+      <tr><td><b>Nebulosa planetaria</b></td><td>Capas externas expulsadas (nada que ver con planetas)</td><td>Enriquece el medio interestelar con metales</td></tr>
+      <tr><td><b>Enana blanca</b></td><td>Núcleo inerte de C-O al desnudo</td><td>El cadáver de las estrellas de baja masa; se enfría para siempre</td></tr>
+      <tr><td><b>Temperaturas de fusión</b></td><td>H: ~15×10⁶ K · He: ~10⁸ K · C: inalcanzable si M ≲ 4 M☉</td><td>La masa fija hasta qué elemento llega la fábrica estelar</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -519,27 +654,28 @@ footer b{color:var(--ink)}
     <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
   </div></div>
   <ol class="examlist">
-    <li><a href="m3c1-examen-01.html">Examen 01<small>Diagrama HR</small></a></li>
-    <li><a href="m3c1-examen-02.html">Examen 02<small>M–L y tiempos</small></a></li>
-    <li><a href="m3c1-examen-03.html">Examen 03<small>Transporte de energía</small></a></li>
-    <li><a href="m3c1-examen-04.html">Examen 04<small>Isócronas y turn-off</small></a></li>
-    <li><a href="m3c1-examen-05.html">Examen 05<small>Evolución en MS</small></a></li>
+    <li><a href="m3c1-examen-01.html">Examen 01<small>Diagrama H-R y clases</small></a></li>
+    <li><a href="m3c1-examen-02.html">Examen 02<small>Masa–luminosidad</small></a></li>
+    <li><a href="m3c1-examen-03.html">Examen 03<small>Tiempo de vida</small></a></li>
+    <li><a href="m3c1-examen-04.html">Examen 04<small>Cúmulos y turn-off</small></a></li>
+    <li><a href="m3c1-examen-05.html">Examen 05<small>Secuencia principal</small></a></li>
     <li><a href="m3c1-examen-06.html">Examen 06<small>Gigante roja</small></a></li>
-    <li><a href="m3c1-examen-07.html">Examen 07<small>Stefan–Boltzmann</small></a></li>
-    <li><a href="m3c1-examen-08.html">Examen 08<small>Flash de helio</small></a></li>
-    <li><a href="m3c1-examen-09.html">Examen 09<small>AGB y cebolla</small></a></li>
+    <li><a href="m3c1-examen-07.html">Examen 07<small>Fusión de helio</small></a></li>
+    <li><a href="m3c1-examen-08.html">Examen 08<small>Degeneración y flash</small></a></li>
+    <li><a href="m3c1-examen-09.html">Examen 09<small>Nebulosa y enana blanca</small></a></li>
     <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
   </ol>
 </section>
 
 <footer>
-  <p><b>Fuentes.</b> Clase 1 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Pérez, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c1.md</code>) y las diapositivas <code>Modulo_III_Clase_1_LPerez.pdf</code>.</p>
-  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas (p. ej. diagrama HR, L ∝ M⁴, t<sub>MS</sub> ∝ M⁻³, flash de helio, rango M ≲ 4 M<sub>☉</sub>). Digresiones de clase (video ESA, Outer Wilds, SETI) se omitieron o resumieron sin alterar el núcleo físico. Ante duda, primar las diapositivas y fuentes académicas.</p>
+  <p><b>Fuentes.</b> Clase 1 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Laura Pérez, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c1.md</code>) y las diapositivas <code>Modulo_III_Clase_1_LPerez.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «diagrama de Sierra/CHER» → diagrama H-R; «Vireldus/Virelius/Beus» → Betelgeuse; «A Chernar» → Achernar; «Stica/Espica» → Spica; «taco clínea» → tacoclina; «berilio 7» → berilio-8 (⁸Be); las edades de los cúmulos «M 4 millones / NGC 188 7 millones» corresponden a <em>miles</em> de millones de años (M67 ~4.000 y NGC 188 ~7.000 millones, según la diapositiva); «7×10⁹ = un billón de años» → 7.000 millones de años; «secuencia municipal» → secuencia principal. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
 </footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script>
+// ---- KaTeX render ----
 document.addEventListener("DOMContentLoaded", function(){
   function renderAll(){
     document.querySelectorAll('.katex-block').forEach(function(el){
@@ -556,71 +692,111 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 });
 
-// Widget 1: MS lifetime
+// ---- Utilidades ----
+function fmtYears(y){
+  if(y >= 1e9) return (y/1e9).toLocaleString('es-CL',{maximumFractionDigits:1})+" mil millones de años";
+  if(y >= 1e6) return (y/1e6).toLocaleString('es-CL',{maximumFractionDigits:1})+" millones de años";
+  return Math.round(y).toLocaleString('es-CL')+" años";
+}
+
+// ---- Widget 1: tiempo de vida ----
 (function(){
-  var T_SUN = 1e10; // years
-  var mSl = document.getElementById('lt-m');
-  var mLab = document.getElementById('lt-mlab');
-  var out = document.getElementById('lt-out');
-  function fmtYears(y){
-    if(y >= 1e11) return (y/1e9).toFixed(0) + ' mil millones de años';
-    if(y >= 1e9) return (y/1e9).toFixed(2) + ' mil millones de años';
-    if(y >= 1e6) return (y/1e6).toFixed(1) + ' millones de años';
-    return y.toExponential(2) + ' años';
-  }
+  var m = document.getElementById('vida-m');
+  var lab = document.getElementById('vida-mlab');
+  var out = document.getElementById('vida-out');
+  var T_SUN = 1e10; // años
+  var AGE_UNIVERSE = 1.38e10;
   function calc(){
-    var M = parseFloat(mSl.value);
-    mLab.textContent = M.toFixed(2);
-    var L = Math.pow(M, 4);
-    var t = T_SUN * Math.pow(M, -3);
-    var ratio = t / T_SUN;
-    out.innerHTML = '<span class="k">L</span> = M<sup>4</sup> = <b>' + L.toExponential(2) + '</b> L<sub>☉</sub><br>' +
-      '<span class="k">t</span><sub>MS</sub> = t<sub>☉</sub> · M<sup>−3</sup> = <b>' + fmtYears(t) + '</b><br>' +
-      'Fracción de la vida del Sol: <b>' + ratio.toExponential(2) + '</b>' +
-      (M > 4 ? '<br><em style="color:var(--muted);font-size:.9rem">Nota: M &gt; 4 M<sub>☉</sub> sale del alcance de esta clase (evolución de alta masa).</em>' : '');
+    var mass = Math.pow(10, parseFloat(m.value));
+    lab.textContent = mass.toFixed(2)+" M☉";
+    var L = Math.pow(mass, 4);
+    var t = T_SUN * mass / L; // = 1e10 / M^3
+    var nota;
+    if(t > AGE_UNIVERSE) nota = "→ Vive <b>más que la edad actual del universo</b> (~13.800 millones de años): ninguna de estas estrellas ha muerto todavía.";
+    else if(t < 5e7) nota = "→ Estrella «rockera»: vive rápido y muere joven. Sin tiempo para que evolucione vida compleja a su alrededor.";
+    else nota = "→ Vida comparable a la del Sol en orden de magnitud.";
+    out.innerHTML = "<span class='k'>Luminosidad</span> ≈ <b>"+ (L>=100 ? L.toExponential(2) : L.toLocaleString('es-CL',{maximumFractionDigits:2})) +"</b> L☉ (L ∝ M⁴)<br>"+
+      "<span class='k'>Vida en secuencia principal</span> ≈ <b>"+fmtYears(t)+"</b><br>"+nota;
   }
-  mSl.addEventListener('input', calc);
-  document.querySelectorAll('#w-lifetime .presets button').forEach(function(btn){
-    btn.addEventListener('click', function(){ mSl.value = btn.dataset.m; calc(); });
+  m.addEventListener('input', calc);
+  document.querySelectorAll('#vida-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ m.value = Math.log10(parseFloat(btn.dataset.m)); calc(); });
   });
   calc();
 })();
 
-// Widget 2: Stefan-Boltzmann
+// ---- Widget 2: turn-off ----
 (function(){
-  var SIGMA = 5.670374419e-8; // W m^-2 K^-4
-  var R_SUN = 6.957e8;        // m
-  var L_SUN = 3.828e26;       // W
-  var tSl = document.getElementById('sb-t');
-  var rSl = document.getElementById('sb-r');
-  var tLab = document.getElementById('sb-tlab');
-  var rLab = document.getElementById('sb-rlab');
-  var out = document.getElementById('sb-out');
+  var t = document.getElementById('to-t');
+  var lab = document.getElementById('to-tlab');
+  var out = document.getElementById('to-out');
+  var tipos = [
+    {tipo:"O5", m:40}, {tipo:"B0", m:16}, {tipo:"A0", m:3.3},
+    {tipo:"F0", m:1.7}, {tipo:"G0 (~Sol)", m:1.1}, {tipo:"K0", m:0.8}, {tipo:"M0", m:0.4}
+  ];
   function calc(){
-    var T = parseFloat(tSl.value);
-    var R = parseFloat(rSl.value) * R_SUN;
-    tLab.textContent = T;
-    rLab.textContent = parseFloat(rSl.value);
-    var L = 4 * Math.PI * R * R * SIGMA * Math.pow(T, 4);
-    var Lsol = L / L_SUN;
-    var rRatio = parseFloat(rSl.value);
-    var tRatio = T / 5772;
-    out.innerHTML = '<span class="k">L</span> = 4πR²σT⁴ = <b>' + Lsol.toExponential(3) + '</b> L<sub>☉</sub><br>' +
-      'Factores: (R/R<sub>☉</sub>)² = <b>' + (rRatio*rRatio).toFixed(1) + '</b> · (T/T<sub>☉</sub>)⁴ = <b>' + Math.pow(tRatio, 4).toExponential(3) + '</b><br>' +
-      (Lsol > 1000 ? 'La expansión domina sobre el enfriamiento superficial → gigante muy luminosa.' :
-       Lsol > 10 ? 'Típico de una gigante roja: mucho más brillante que el Sol.' :
-       'Comparable o menos luminosa que el Sol actual.');
+    var logt = parseFloat(t.value);
+    var age = Math.pow(10, logt);
+    lab.textContent = "10^"+logt.toFixed(2)+" = "+fmtYears(age);
+    // t = 1e10 / M^3  =>  M_TO = (1e10/t)^(1/3)
+    var mto = Math.pow(1e10/age, 1/3);
+    var fuera = tipos.filter(function(s){ return s.m > mto; }).map(function(s){ return s.tipo; });
+    var dentro = tipos.filter(function(s){ return s.m <= mto; }).map(function(s){ return s.tipo; });
+    out.innerHTML = "<span class='k'>Masa del turn-off</span> ≈ <b>"+mto.toFixed(2)+" M☉</b> "+
+      "(las estrellas de esa masa están saliendo justo ahora de la secuencia principal)<br>"+
+      "Ya salieron: <b style='color:var(--red-soft)'>"+(fuera.length? fuera.join(", ") : "ninguna todavía")+"</b><br>"+
+      "Siguen en secuencia principal: <b style='color:#5fd07e'>"+(dentro.length? dentro.join(", ") : "ninguna")+"</b><br>"+
+      "→ Mientras más viejo el cúmulo, <b>más abajo</b> está el codo del turn-off en el diagrama H-R.";
   }
-  tSl.addEventListener('input', calc);
-  rSl.addEventListener('input', calc);
-  document.querySelectorAll('#w-sb .presets button').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tSl.value = btn.dataset.t;
-      rSl.value = btn.dataset.r;
-      calc();
-    });
+  t.addEventListener('input', calc);
+  document.querySelectorAll('#to-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ t.value = btn.dataset.t; calc(); });
   });
   calc();
+})();
+
+// ---- Widget 3: etapas ----
+(function(){
+  var etapas = [
+    {n:"Secuencia principal", viz:{size:70, bg:"radial-gradient(circle,#fff3b0 0%,#ffd34d 45%,#f5a623 100%)", glow:"#f5a623"},
+     txt:"Fusión de <b>H→He en el núcleo</b>. Equilibrio hidrostático y térmico. Dura ~10.000 millones de años para 1 M☉ (~90% de la vida). La estrella brilla y crece <i>ligeramente</i> porque el núcleo pierde partículas y compensa subiendo su temperatura."},
+    {n:"Se agota el H central", viz:{size:80, bg:"radial-gradient(circle,#9db8ff 0%,#3a5bd9 18%,#ffd34d 30%,#f5a623 100%)", glow:"#f5a623"},
+     txt:"El núcleo, ahora de <b>He inerte</b>, se contrae. El calentamiento enciende una <b>cáscara de fusión de H</b> justo afuera. Ya <b>no</b> es secuencia principal (el H no fusiona en el núcleo)."},
+    {n:"Gigante roja", viz:{size:170, bg:"radial-gradient(circle,#9db8ff 0%,#3a5bd9 6%,#ffb347 12%,#e2582e 60%,#b93318 100%)", glow:"#e2582e"},
+     txt:"La cáscara empuja las capas externas: la estrella se infla miles de veces, <b>sube L</b> (gana el área en L = 4πR²σT⁴) y <b>baja T superficial</b> ⇒ se enrojece. El Sol llegará hasta ~la órbita de Marte."},
+    {n:"Flash de helio", viz:{size:150, bg:"radial-gradient(circle,#ffffff 0%,#ffe680 8%,#ff9a3d 18%,#e2582e 60%,#b93318 100%)", glow:"#ffe680"},
+     txt:"El núcleo degenerado alcanza ~10⁸ K y el He se enciende <b>todo a la vez</b>: la presión degenerada no responde a la temperatura, el núcleo no puede expandirse ni enfriarse ⇒ <b>runaway</b>. Subidón brevísimo en el diagrama H-R."},
+    {n:"Fusión estable de He", viz:{size:110, bg:"radial-gradient(circle,#d0ffd8 0%,#57c96b 12%,#ffd34d 25%,#f5a623 100%)", glow:"#57c96b"},
+     txt:"Núcleo completo fusionando <b>He→C</b> (triple-α), con capa de H→He encima. Nuevo equilibrio: la estrella se recoge un poco, baja L, sube T superficial. Se forma algo de <b>oxígeno</b> (C + He)."},
+    {n:"Núcleo C-O inerte", viz:{size:160, bg:"radial-gradient(circle,#e8b3ff 0%,#8b3fc9 8%,#57c96b 16%,#ffd34d 26%,#e2582e 65%,#b93318 100%)", glow:"#e2582e"},
+     txt:"Se agota el He central: queda un <b>núcleo inerte de carbono y oxígeno</b> que se contrae, y la estrella se infla por segunda vez. Para M ≲ 4 M☉ la temperatura para fusionar C es <b>inalcanzable</b>: la cebolla llegó a su última capa."},
+    {n:"Nebulosa planetaria", viz:{size:180, bg:"radial-gradient(circle,#ffffff 0%,#cfe6ff 4%,transparent 10%,#3a86a833 30%,#7c3aa833 55%,#e2582e22 80%,transparent 100%)", glow:"#6fc7d6"},
+     txt:"Presión de radiación, pulsaciones y la débil gravedad superficial <b>expulsan las capas externas</b>, enriquecidas en metales por la convección. Nada que ver con planetas: nombre histórico. Dura ~10.000 años."},
+    {n:"Enana blanca", viz:{size:34, bg:"radial-gradient(circle,#ffffff 0%,#cfe6ff 60%,#9db8ff 100%)", glow:"#cfe6ff"},
+     txt:"El <b>núcleo desnudo de C-O</b>, sostenido por presión degenerada de electrones. Un cadáver estelar que se enfría lentamente por miles de millones de años. Así terminará el Sol."}
+  ];
+  var bar = document.getElementById('et-bar');
+  var viz = document.getElementById('et-viz');
+  var out = document.getElementById('et-out');
+  var current = 0;
+  etapas.forEach(function(e, i){
+    var b = document.createElement('button');
+    b.type = "button";
+    b.textContent = (i+1)+". "+e.n;
+    b.addEventListener('click', function(){ show(i); });
+    bar.appendChild(b);
+  });
+  function show(i){
+    current = i;
+    bar.querySelectorAll('button').forEach(function(b, j){ b.classList.toggle('active', j===i); });
+    var v = etapas[i].viz;
+    viz.style.width = v.size+"px";
+    viz.style.height = v.size+"px";
+    viz.style.background = v.bg;
+    viz.style.boxShadow = "0 0 "+(v.size*0.6)+"px -6px "+v.glow;
+    out.innerHTML = "<b>"+(i+1)+" / "+etapas.length+" · "+etapas[i].n+"</b><br>"+etapas[i].txt;
+  }
+  show(0);
 })();
 </script>
 </body>

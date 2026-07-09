@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agujeros negros y AGN — Módulo III · Clase 2</title>
+<title>Agujeros negros: de la ecuación a la evidencia — Astrofísica de Galaxias, Módulo III · Clase 2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
 :root{
@@ -35,10 +35,8 @@ body{
 h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
 a{color:var(--red-soft);text-decoration:none}
 a:hover{text-decoration:underline}
-
 nav.top{padding:18px 0 0;font-size:.9rem}
 nav.top a{color:var(--muted)}
-
 .hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--red-soft);font-weight:600}
@@ -51,11 +49,9 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
   border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
 .meta span b{color:var(--red-soft);font-weight:600}
-
 .lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
 .lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
   padding:6px 12px 0 0;color:var(--red)}
-
 .idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
 .idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
@@ -65,7 +61,6 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
 .idx a:hover{color:var(--red-soft);text-decoration:none}
 @media(max-width:680px){.idx ol{grid-template-columns:1fr}}
-
 section{margin:52px 0;scroll-margin-top:20px}
 .shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
 .num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
@@ -81,7 +76,6 @@ strong{color:#fff;font-weight:600}
 ul,ol.body{margin:.6em 0;padding-left:1.2em}
 li{margin:.34em 0}
 li::marker{color:var(--red)}
-
 figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
   box-shadow:0 24px 60px -34px #000}
 figure img{display:block;width:100%;height:auto}
@@ -89,7 +83,6 @@ figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1
   border-top:1px solid var(--line)}
 figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
   text-transform:uppercase;display:block;margin-bottom:3px}
-
 .box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
   background:linear-gradient(180deg,#0e1626,#0b1120)}
 .box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
@@ -99,16 +92,12 @@ figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-sp
 .box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
 .box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
 .box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
-.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
-.box.next .tag{color:#aeb8cc}
-
 .formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
   padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
   box-shadow:inset 0 0 40px -28px var(--cyan)}
 .formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
   letter-spacing:0;margin-top:6px;line-height:1.5}
 sub,sup{font-size:.66em}
-
 .tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:.97rem}
 th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
@@ -117,7 +106,6 @@ thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);f
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#0d1422}
 td b{color:var(--gold);font-weight:600}
-
 .widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
   padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
 .widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
@@ -134,18 +122,12 @@ td b{color:var(--gold);font-weight:600}
 .widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
   border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
-.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
 .rngval{color:var(--gold);font-family:"Fraunces",serif}
-.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
-.swatch{display:inline-block;width:26px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0006}
-
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
   background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
 .examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
 .examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
-
 footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
 footer b{color:var(--ink)}
 .disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
@@ -153,162 +135,461 @@ footer b{color:var(--ink)}
 </style>
 </head>
 <body>
-
 <main class="wrap">
-<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c1-apuntes.html">Clase 1</a></nav>
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
 <div class="hero">
-<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 2</span>
-<h1>Agujeros negros: de <em>Schwarzschild</em> a los AGN</h1>
-<p class="sub">Horizonte, remanentes estelares, detección por acreción y dinámica, camino hacia cuásares.</p>
+  <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 2</span>
+  <h1>Agujeros negros: de la ecuación <em>a la evidencia</em></h1>
+  <p class="sub">Karl Schwarzschild resolvió las ecuaciones de Einstein en 1915 y encontró algo inquietante: una singularidad con un punto de no retorno. Un siglo después sabemos que esos objetos existen, cómo se forman (supernovas), cuántos hay (~100 millones en nuestra galaxia) y cómo delatarse sin emitir luz: acreción, mareas y — al final de la clase — los cuásares, los faros más luminosos del universo.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> III · Clase 2</span>
+    <span><b>Tema:</b> Agujeros negros estelares, supernovas y cuásares</span>
+    <span><b>Fuentes:</b> transcripción <code>ff/</code> + diapositivas</span>
+  </div>
 </div>
-<p class="lead"><span class="drop">L</span>o decisivo no es solo la masa sino la <strong>compacidad</strong>. La clase une predicción relativista, supernovas, binarias de rayos X y agujeros negros supermasivos activos.</p>
-<nav class="idx"><span class="tag">Contenido</span><ol>
-<li><a href="#s1">Schwarzschild</a></li><li><a href="#s2">Horizonte y compacidad</a></li>
-<li><a href="#s3">Espaguetificación</a></li><li><a href="#s4">Supernovas y remanentes</a></li>
-<li><a href="#s5">Detectar BH estelares</a></li><li><a href="#s6">Jets y TDE</a></li>
-<li><a href="#s7">SMBH y AGN</a></li><li><a href="#s8">Cuásares y variabilidad</a></li>
-<li><a href="#interactivo">Widgets</a></li><li><a href="#conceptos">Conceptos</a></li>
-<li><a href="#examenes">Exámenes</a></li>
-</ol></nav>
 
-<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Schwarzschild (1916)</h2></div></div>
-<div class="box prof"><span class="tag">Transcripción</span><p>«Churchill» en audio = <strong>Karl Schwarzschild</strong>.</p></div>
-<div class="formula"><span class="katex-block" data-tex="r_s = 2GM/c^2"></span>
-<small>1 M<sub>☉</sub> → ~3 km; Tierra → ~9 mm.</small></div>
-<figure>
-<img src="m3c2/assets/slide-04.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 4</span>Horizonte y escalas.</figcaption>
-</figure>
+<p class="lead"><span class="drop">L</span>a clase pasada terminó con el espacio-tiempo curvado y vibrando. Esta clase lo lleva al extremo: ¿qué pasa cuando la materia se concentra <em>demasiado</em>? La respuesta la encontró Karl Schwarzschild jugando con las ecuaciones recién publicadas de Einstein: aparece un radio crítico dentro del cual nada — ni la luz — puede salir. Lo notable es el arco completo de la historia: una solución matemática que parecía una curiosidad terminó siendo un censo de objetos reales, detectables por el brillo del material que devoran o por el caos dinámico que provocan a su alrededor.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Schwarzschild y la singularidad</a></li>
+    <li><a href="#s2">El horizonte de eventos</a></li>
+    <li><a href="#s3">Lo especial es la compacidad, no la masa</a></li>
+    <li><a href="#s4">Agujeros de gusano y espaguetificación</a></li>
+    <li><a href="#s5">Fábricas de agujeros negros: supernovas</a></li>
+    <li><a href="#s6">Eta Carinae: la próxima candidata</a></li>
+    <li><a href="#s7">Cómo detectar lo que no brilla</a></li>
+    <li><a href="#s8">Binarias de rayos X y SS 433</a></li>
+    <li><a href="#s9">Fuerzas de marea y TDEs</a></li>
+    <li><a href="#s10">Los cuásares y el argumento c·Δt</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Schwarzschild y la singularidad</h2>
+    <p>La primera solución exacta de las ecuaciones de Einstein — y su predicción más extraña.</p>
+  </div></div>
+
+  <p><strong>Karl Schwarzschild</strong> (1873–1916) resolvió las ecuaciones de campo de Einstein el mismo año de su publicación, 1915, y fue la primera persona en encontrar que predecían lo que hoy llamamos un <span class="hl">agujero negro</span>. Murió al año siguiente en el frente de la Primera Guerra Mundial, no por heridas sino por enfermedad contraída en las condiciones miserables del campo de batalla.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-33.jpg" alt="Retratos de Albert Einstein y Karl Schwarzschild">
+    <figcaption><span class="cap">Diapositiva · Einstein y Schwarzschild</span>Einstein planteó las ecuaciones; Schwarzschild encontró su primera solución exacta trabajando, literalmente, desde el frente de guerra. (En la transcripción automática su apellido aparece como "Churchill" — es un error de reconocimiento de voz.)</figcaption>
+  </figure>
+
+  <p>¿Qué encontró? Que si la materia de un cuerpo se concentra lo suficiente, la "malla" del espacio-tiempo no solo se deforma: <strong>se perfora</strong>. La luz que pasa cerca ya no se desvía y sigue — cae y no vuelve a salir. Matemáticamente el objeto central es una <span class="hl">singularidad</span>: algo infinitamente pequeño e infinitamente denso.</p>
+
+  <div class="box physics">
+    <span class="tag">Los límites de la física actual</span>
+    <p>No tenemos herramientas físicas para describir el interior de un agujero negro: es un régimen donde haría falta unir <strong>gravitación y mecánica cuántica</strong>, y esa teoría unificada no existe. Sí tenemos física impecable para las <em>inmediaciones</em>: la relatividad general describe el espacio-tiempo cercano y, hasta ahora, ha pasado todas las pruebas experimentales sin excepción. Nuestro conocimiento del interior es solo la representación matemática; nada puede salir del horizonte para "informarnos" qué hay adentro.</p>
+  </div>
 </section>
 
-<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Horizonte y compacidad</h2></div></div>
-<p>Horizonte = límite causal, no superficie material. Misma masa: Sol vs. enana blanca vs. BH → mismo campo lejos, pozo distinto cerca. Estrella de neutrones ~10 km vs. horizonte de BH similar: la EN tiene superficie.</p>
-<figure>
-<img src="m3c2/assets/slide-08.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 8</span>Pozos gravitacionales comparados.</figcaption>
-</figure>
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El horizonte de eventos</h2>
+    <p>Una fórmula sorprendentemente simple para el punto de no retorno.</p>
+  </div></div>
+
+  <p>Para un agujero negro que no rota, el <span class="hl">horizonte de eventos</span> (también llamado <em>radio de Schwarzschild</em>) se calcula con una ecuación de una línea:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="R_s = \frac{2\,G\,M}{c^2}"></span>
+    <small><span class="katex-inline" data-tex="G"></span> es la constante de gravitación universal y <span class="katex-inline" data-tex="c"></span> la velocidad de la luz: ambas fijas. Lo único que entra es la <strong>masa</strong>: el horizonte escala <em>linealmente</em> con ella. Sol → <b>3 km</b>. Tierra → <b>1 cm</b>. Un agujero de 100 M☉ → 300 km.</small>
+  </div>
+
+  <figure>
+    <img src="m3c1/assets/slide-38.jpg" alt="Diapositiva con la fórmula del horizonte de eventos y los valores para el Sol y la Tierra">
+    <figcaption><span class="cap">Diapositiva · R = 2GM/c²</span>Si comprimiéramos el Sol a un punto, su horizonte mediría 3 km; la Tierra, 1 cm. Ojo: los agujeros negros <strong>no tienen superficie</strong> — R marca el punto de no retorno, no un "borde" material.</figcaption>
+  </figure>
+
+  <p>Importante desmitificar: cruzar el horizonte <strong>no se siente como atravesar un umbral</strong> de película. Es simplemente la distancia a partir de la cual, dinámicamente, ya no existe trayectoria de escape: "por mucho que aprietes los frenos o pongas marcha atrás", harían falta cantidades infinitas de energía. De hecho la suerte se sella antes: existe la <span class="hl">ISCO</span> (última órbita circular estable, a 3 veces el radio del horizonte), más allá de la cual toda órbita es inestable y terminas cayendo igual.</p>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase</span>
+    <p>"¿Un objeto que cae puede alcanzar la velocidad de la luz?" — No: <strong>nada con masa puede llegar a c</strong>. Los cuerpos que caen o los agujeros negros a punto de fusionarse alcanzan velocidades <em>cercanas</em> a la de la luz (relativistas), pero nunca la igualan ni la superan.</p>
+  </div>
 </section>
 
-<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Espaguetificación y gusanos</h2></div></div>
-<p>Mareas intensas cerca del BH. Puentes Einstein–Rosen: matemática sin evidencia observacional. ISCO: órbitas inestables interior.</p>
-<figure>
-<img src="m3c2/assets/slide-11.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 11</span>Caída hacia agujero negro.</figcaption>
-</figure>
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Lo especial es la compacidad, no la masa</h2>
+    <p>Tres objetos con la misma masa y destinos muy distintos para quien cae.</p>
+  </div></div>
+
+  <p>Un agujero negro <strong>no es especial por ser masivo</strong> — hay estrellas y galaxias mucho más masivas que un agujero negro estelar. Lo especial es <em>cuán concentrada</em> está esa masa (densidad = masa/volumen). El experimento mental de la clase: tres objetos de <strong>1 masa solar</strong> cada uno:</p>
+  <ul>
+    <li><strong>El Sol</strong> (radio 700.000 km): la curvatura lejana es idéntica en los tres casos, pero al caer chocas con la superficie cuando la gravedad aún es "suave".</li>
+    <li><strong>Una enana blanca</strong>: misma deformación lejana, pero al ser mucho más compacta puedes caer más adentro del pozo de potencial y experimentar gravedad mucho más intensa antes de chocar.</li>
+    <li><strong>Un agujero negro</strong>: no hay superficie donde chocar; solo el horizonte de 3 km. Caes hasta regiones de gravedad extrema… y desapareces de la vista.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-35.jpg" alt="Diapositiva: tres objetos de la misma masa y distinto tamaño deformando el espacio-tiempo">
+    <figcaption><span class="cap">Diapositiva · Misma masa, distinto tamaño</span>La parte externa del pozo de potencial es idéntica; lo que cambia es cuánto puedes "bajar" antes de encontrar el objeto. <small>Crédito: Addison Wesley.</small></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Estrella de neutrones vs. agujero negro</span>
+    <p>Una estrella de neutrones tiene un radio de pocos kilómetros — <strong>parecido al horizonte de un agujero negro de masa similar</strong>. Caer hacia una u otro es casi igual de violento; la diferencia final es que en la estrella de neutrones <em>chocas contra una superficie</em>, mientras que en el agujero negro cruzas el horizonte y ni siquiera tu radiación vuelve a salir: "un túnel sin salida". De ahí el nombre <strong>agujero negro</strong>: ni la luz escapa.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El horizonte funciona como una <strong>operación irreversible sin canal de retorno</strong>: pasado el commit, no hay rollback ni logs hacia afuera. Toda la información observable hay que capturarla <em>antes</em> del punto de no retorno — igual que la radiación del material que cae, observable solo hasta cruzar el horizonte.</p>
+  </div>
 </section>
 
-<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Remanentes y supernovas</h2></div></div>
-<p>~10<sup>11</sup> estrellas en galaxia tipo Vía Láctea; ~10<sup>8</sup> BH estelares. Baja masa → enana blanca; alta masa → SN → EN o BH.</p>
-<p><strong>SN 1987A</strong> (LMC): ~24 neutrinos; <strong>Cangrejo</strong> (1054); <strong>Eta Carinae</strong> candidata.</p>
-<figure>
-<img src="m3c2/assets/slide-16.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 16</span>SN 1987A.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-18.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 18</span>Diagrama evolutivo.</figcaption>
-</figure>
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Agujeros de gusano y espaguetificación</h2>
+    <p>No todo lo que sale de las ecuaciones existe en la naturaleza.</p>
+  </div></div>
+
+  <p>Las ecuaciones de Einstein también admiten los <span class="hl">agujeros de gusano</span> — en jerga física, el <strong>puente de Einstein–Rosen</strong> — que conectarían un agujero negro con un "agujero blanco". Es una predicción matemática real, pero <strong>jamás se ha observado</strong> evidencia de agujeros blancos ni de puentes. Lección de método: a veces uno encuentra soluciones y concluye "esta no es física" — y quedan como material para Hollywood.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-39.jpg" alt="Diapositiva de la vaca cayendo al Sol versus a un agujero negro de la misma masa">
+    <figcaption><span class="cap">Diapositiva · La vaca de la profesora</span>Dibujo hecho por la propia docente: una vaca cae hacia el Sol (radio 700.000 km, gravedad experimentada suave) y hacia un agujero negro de la misma masa (horizonte 3 km): el espacio profundamente curvo la <em>espaguetifica</em>.</figcaption>
+  </figure>
+
+  <p>La <span class="hl">espaguetificación</span> es el efecto de marea llevado al extremo (los efectos de marea se detallan en la sección 9): las partes del cuerpo más cercanas al agujero son atraídas mucho más fuerte que las lejanas, y el cuerpo se estira hasta romperse. Lo que llega al agujero "en ningún caso es la vaca, sino pedacitos de vaca". Nosotros como observadores dejamos de verla al cruzar el horizonte, pero el material sigue cayendo hasta fusionarse con la singularidad central — así los agujeros negros <strong>ganan masa</strong>.</p>
 </section>
 
-<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Detectar agujeros negros</h2></div></div>
-<p><strong>Acreción:</strong> disco caliente, rayos X (~200 binarias X en la Vía Láctea). <strong>Dinámica:</strong> órbitas estelares (Sgr A*).</p>
-<figure>
-<img src="m3c2/assets/slide-21.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 21</span>Binaria de rayos X.</figcaption>
-</figure>
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Fábricas de agujeros negros: supernovas</h2>
+    <p>De la teoría a los objetos reales: cómo la muerte estelar puebla la galaxia de remanentes.</p>
+  </div></div>
+
+  <p>Una galaxia como la Vía Láctea tiene del orden de <strong>10<sup>11</sup> estrellas</strong> vivas — y muchas generaciones ya muertas. El tipo de "cadáver" depende de la masa:</p>
+  <ul>
+    <li><strong>Estrellas tipo Sol:</strong> vida larga en secuencia principal → gigante roja → rama asintótica (AGB) → nebulosa planetaria → <strong>enana blanca</strong> (~0.5 M☉; el Sol devuelve cerca de la mitad de su masa al medio interestelar).</li>
+    <li><strong>Estrellas masivas (&gt;10 M☉):</strong> vida corta y furiosa (millones de años) → supergigante → <strong>supernova</strong> → dejan una <strong>estrella de neutrones</strong> o, las más masivas, un <strong>agujero negro</strong>.</li>
+  </ul>
+  <p>Estos remanentes <em>ya no son estrellas</em>: no generan energía por fusión nuclear. Contando generaciones pasadas, la Vía Láctea debe albergar <span class="hl">~10<sup>8</sup> (cien millones) de agujeros negros estelares</span>, muchas más estrellas de neutrones y muchísimas enanas blancas. Solo ~1 de cada 1000 estrellas termina como agujero negro.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-08.jpg" alt="Diapositiva del diagrama de evolución estelar y remanentes según la masa inicial">
+    <figcaption><span class="cap">Diapositiva · ¿Qué remanente deja cada estrella?</span>Eje de masas en escala logarítmica. Baja masa → enana blanca; alta masa → supernova → estrella de neutrones o agujero negro. <small>Crédito: Addison Wesley.</small></figcaption>
+  </figure>
+
+  <h3>SN 1987A: la supernova de nuestras narices</h3>
+  <p>La supernova cercana más reciente de la era telescópica explotó el <strong>23 de febrero de 1987 en la Nube Grande de Magallanes</strong> y fue descubierta desde Chile: un astrónomo observando en Cerro Tololo veía una mancha brillante "que no debía estar", salió del telescopio, miró al cielo… y ahí estaba. Como las Nubes están muy estudiadas, incluso se sabe <em>qué estrella</em> explotó.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-07.jpg" alt="Diapositiva de la detección de neutrinos de SN1987A: pico de 24 neutrinos">
+    <figcaption><span class="cap">Diapositiva · El evento de neutrinos</span>En una supernova de tipo II, ~99% de la energía se libera en <strong>~10<sup>58</sup> neutrinos</strong>. En la Tierra se detectaron <strong>24</strong> — un pico enorme sobre el nivel de fondo — algunas horas <em>antes</em> de que la explosión fuera visible. Ese pico puso "relojito" preciso al momento de la explosión. <small>© ICRR, U. de Tokio.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Neutrinos</span>
+    <p>Partículas casi sin masa y sin carga eléctrica: casi no interactúan con nada, por eso atraviesan la estrella en explosión y llegan primero. Que tienen masa (pequeñísima) se confirmó recién hace ~20 años; viajan a velocidades muy cercanas a c.</p>
+  </div>
+
+  <h3>El Cangrejo, Kepler y la deuda estadística</h3>
+  <p>La supernova de <strong>1054</strong>, registrada por astrónomos chinos y árabes, dejó la <strong>Nebulosa del Cangrejo</strong>: el material eyectado lleva ~1000 años expandiéndose. Por la estadística de estrellas masivas, debería explotar <strong>~1 supernova cada 100 años</strong> en la Vía Láctea; la última observada la reportó <strong>Kepler en 1604</strong>. ¿Estamos "al debe" con 3 o 4? No necesariamente: las supernovas ocurren en el <strong>disco galáctico</strong>, donde el polvo bloquea nuestra visión — pueden haber explotado sin que nadie las viera.</p>
 </section>
 
-<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Jets, mareas, TDE</h2></div></div>
-<p>SS 433: jets precesionando (sacacorcho). Colas de marea HI (Magallanes). TDE: estrella despedazada por BH.</p>
-<figure>
-<img src="m3c2/assets/slide-23.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 23</span>SS 433.</figcaption>
-</figure>
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Eta Carinae: la próxima candidata</h2>
+    <p>Una estrella al borde del estallido, visible desde Chile.</p>
+  </div></div>
+
+  <p><span class="hl">Eta Carinae</span> (η Car), en el hemisferio sur (constelación de Carina, cerca de Canopus), es el mejor candidato a la próxima supernova galáctica: un <strong>sistema binario</strong> a ~8000 años luz cuya estrella principal tiene <strong>~150 M☉</strong> y una luminosidad de <strong>~5 millones de soles</strong>. Su remanente será, con seguridad, un agujero negro.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-12.jpg" alt="Diapositiva de Eta Carinae con sus lóbulos bipolares de material expulsado">
+    <figcaption><span class="cap">Diapositiva · Los lóbulos de η Car</span>Ha perdido ~30 M☉ en erupciones violentas. En la "Gran Erupción" de ~1840 llegó a ser la segunda estrella más brillante del cielo; las dos burbujas visibles hoy son el material expulsado entonces. La geometría bipolar (nada isotrópica) se asocia a su condición de binaria.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Preguntas de la clase</span>
+    <p><strong>¿Nos mataría una supernova cercana?</strong> Probablemente (onda de choque, rayos X), pero las estrellas de masa tan alta son rarísimas — la <em>función inicial de masas</em> dice que por cada estrella masiva se forman decenas de miles de baja masa — y ninguna candidata está lo bastante cerca. Betelgeuse también está lejos. Podemos dormir tranquilos… y pedir de cumpleaños que η Car explote pronto: por unas semanas se podría leer de noche con su luz.</p>
+  </div>
 </section>
 
-<section id="s7"><div class="shead"><span class="num">7</span><div><h2>SMBH y AGN</h2></div></div>
-<p>SMBH: 10<sup>6</sup>–10<sup>10</sup> M<sub>☉</sub> en núcleos. Sgr A* ~4×10<sup>6</sup> M<sub>☉</sub>. Alimentados → AGN.</p>
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Cómo detectar lo que no brilla</h2>
+    <p>Dos estrategias: mirar lo que cae (acreción) y mirar cómo se mueve lo que orbita (dinámica).</p>
+  </div></div>
+
+  <p>Nada escapa de un agujero negro, así que no podemos observarlo directamente. Las dos vías indirectas:</p>
+  <ol class="body">
+    <li><strong>Acreción:</strong> si hay material cayendo (típicamente <em>gas</em>, no vacas ni pelotas de tenis), forma un remolino — el <span class="hl">disco de acreción</span> — donde la fricción interna lo calienta hasta emitir radiación intensa y de alta energía. Un agujero así se dice <strong>activo</strong>: no vemos el agujero, vemos el gas incandescente que cae.</li>
+    <li><strong>Dinámica:</strong> aunque nada esté cayendo, estrellas o gas cercanos orbitan con velocidades enormes que delatan la masa invisible; y si se acercan demasiado, los <strong>efectos de marea</strong> los destruyen.</li>
+  </ol>
+
+  <div class="box physics">
+    <span class="tag">Por qué el gas que cae brilla</span>
+    <p>El gas en el remolino se fricciona consigo mismo y se calienta; la emisión resultante es en gran parte <strong>termal</strong> (el material tiene temperatura, luego radia — como se vio en el Módulo I, la mayor parte de la radiación del universo es de origen térmico). En la parte interna del disco alrededor de un agujero negro estelar, el gas alcanza temperaturas tan altas que emite en <strong>rayos X</strong>.</p>
+  </div>
 </section>
 
-<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Cuásares y variabilidad</h2></div></div>
-<p>En los años 50–60 aparecieron fuentes <strong>cuasi estelares</strong> de radio (QSO). Parecían estrellas puntuales pero con luminosidad y espectros anómalos.</p>
-<p><strong>Maarten Schmidt (1963):</strong> en 3C 273 las líneas «desconocidas» eran Hα, Hβ, Hγ… con <strong>gran redshift</strong> (z ≈ 0,16). Objeto extragaláctico ultraluminoso: L ~ 10× la de la Vía Láctea. El núcleo brilla tanto que opaca la galaxia anfitriona.</p>
-<p><strong>Argumento de variabilidad:</strong> si el brillo cambia en tiempo Δt, la región emisora no puede ser mucho mayor que R ≲ c·Δt (cota superior; la señal no puede coordinar un cambio instantáneo en toda una galaxia). Variaciones en ~1 año → tamaño ≲ 1 año-luz; variaciones en días → escala del Sistema Solar, pero con luminosidad de muchas galaxias → requiere <strong>acreción sobre agujero negro supermasivo</strong>.</p>
-<p>La acreción convierte energía gravitacional en radiación con eficiencia η hasta ~10% (Ṁc²), muy por encima de la fusión nuclear estelar (~0,7%). Es el motor de los AGN. Solo ~10% de AGN muestran jets de radio prominentes; el resto son «radio-quiet» pero igualmente luminosos en otras bandas.</p>
-<figure>
-<img src="m3c2/assets/slide-27.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 27</span>Curva de luz de cuásar con variabilidad fuerte.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-28.jpg" alt="">
-<figcaption><span class="cap">Diapositiva 28</span>Modelo esquemático AGN: disco, corona, jet.</figcaption>
-</figure>
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Binarias de rayos X y SS 433</h2>
+    <p>Cómo alimentar un agujero negro estelar: con una estrella compañera muy cercana.</p>
+  </div></div>
+
+  <p>Para que un agujero negro estelar esté activo necesita comida, y la despensa natural es una <strong>estrella compañera</strong> en órbita muy cercana (las binarias son comunes, y más aún entre estrellas masivas). La historia típica: de las dos estrellas originales, la más masiva evolucionó más rápido y se convirtió en agujero negro; ahora roba masa a su compañera. El material forma un disco de acreción cuya zona interna emite en rayos X: son las <span class="hl">binarias de rayos X</span>. Se conocen <strong>~200</strong> en la galaxia — no porque haya solo 200 agujeros negros (hay ~10<sup>8</sup>), sino porque la configuración "compañera lo bastante cerca para alimentarlo" es poco común. El mismo fenómeno ocurre si el objeto compacto es una estrella de neutrones: el material cae igual de profundo y se calienta a temperaturas similares.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-15.jpg" alt="Diapositiva de una binaria de rayos X: estrella transfiriendo masa a un disco de acreción con jet">
+    <figcaption><span class="cap">Diapositiva · Binaria de rayos X</span>La compañera transfiere masa; el disco se calienta al caer; donde el disco "desaparece" está el horizonte de eventos. Verticalmente al disco pueden salir <strong>jets</strong> de material.</figcaption>
+  </figure>
+
+  <h3>SS 433 y la Nebulosa del Manatí</h3>
+  <p>El sistema <strong>SS 433</strong> vive dentro de la <em>Nebulosa del Manatí</em> (que efectivamente parece un manatí, observada en radio). Tiene <strong>jets</strong> — chorros de partículas ultrarrelativistas expulsados perpendicularmente al disco, con material que viene de las inmediaciones, nunca del interior del agujero. Su gracia: el disco <strong>precesa</strong> (probablemente por torques de la compañera), así que el jet va cambiando de dirección y el material eyectado dibuja un <span class="hl">sacacorchos</span>, mapeado en observaciones de radio a lo largo de ~40 días. A 25 parsecs del agujero, los jets chocan contra el gas del entorno y ese <em>choque</em> se observa en rayos X.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-17.jpg" alt="Diapositiva de SS433 y la Nebulosa del Manatí con el agujero negro, la nebulosa en radio y el jet en rayos X">
+    <figcaption><span class="cap">Diapositiva · La Nebulosa del Manatí</span>Nebulosa en radio; jets vistos en rayos X donde chocan con el medio; el agujero negro (BH) marcado al centro. El campo cubre ~2 grados en el cielo. <small>Crédito: NASA.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase: ¿por qué observar jets en radio?</span>
+    <p>Los jets emiten en todas las longitudes de onda, pero en radio (1) hay pocas otras fuentes que "contaminen" — el cielo queda limpio —, y (2) la <strong>interferometría</strong> de radio da las mejores resoluciones espaciales. Lo que se ve lejos del agujero en rayos X no es el jet propagándose sino el <em>choque</em> contra gas más denso.</p>
+  </div>
 </section>
 
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Fuerzas de marea y TDEs</h2>
+    <p>La gravedad diferencial: de las mareas oceánicas a estrellas despedazadas.</p>
+  </div></div>
+
+  <p>El <span class="hl">efecto de marea</span> es gravedad diferencial: en un cuerpo extendido, la parte cercana a la masa central es atraída más fuerte que la lejana (en lenguaje newtoniano, <span class="katex-inline" data-tex="F=GMm/r^2"></span> con distintos <span class="katex-inline" data-tex="r"></span>; en lenguaje relativista, los pies están en espacio más curvado que la cabeza). El resultado: el cuerpo se estira "como un chicle". Las mareas oceánicas son exactamente esto (Sol y Luna tirando de la Tierra — hasta la corteza terrestre se deforma fracciones de centímetro). La resistencia interna del cuerpo (electromagnética: tejidos, redes cristalinas) lucha contra la marea… hasta que pierde.</p>
+
+  <ul>
+    <li><strong>Cometa Shoemaker–Levy 9 (1994):</strong> al pasar cerca de Júpiter las mareas lo partieron en pedazos alineados "en fila india", que luego impactaron el planeta uno tras otro.</li>
+    <li><strong>Nubes de Magallanes:</strong> observadas en la línea de 21 cm del hidrógeno neutro, muestran <strong>colas de marea</strong> y un puente de gas entre ambas — el rastro gravitacional de su interacción con la Vía Láctea, extendido ~160 grados en el cielo.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c2/assets/slide-21.jpg" alt="Diapositiva con el cometa Shoemaker-Levy 9 fragmentado y las colas de marea de las Nubes de Magallanes">
+    <figcaption><span class="cap">Diapositiva · Mareas en acción</span>Arriba: el cometa fragmentado antes de impactar Júpiter. Abajo: la Corriente Magallánica en H I (21 cm) — gas, no estrellas, estirado por la interacción con nuestra galaxia.</figcaption>
+  </figure>
+
+  <h3>Tidal Disruption Events (TDE)</h3>
+  <p>Un <span class="hl">TDE</span> es una estrella que pasa <em>demasiado</em> cerca de un agujero negro — sin ser su compañera — y las mareas la despedazan. El material forma por semanas o meses una estructura tipo disco (inestable, transitoria) que alimenta brevemente al agujero: un destello que delata agujeros negros <strong>aislados</strong> que de otro modo serían invisibles. Es un área de estudio en plena expansión.</p>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Los cuásares y el argumento c·Δt</h2>
+    <p>Estrellas que no eran estrellas: el descubrimiento de los agujeros negros supermasivos activos.</p>
+  </div></div>
+
+  <p>Además de los agujeros negros estelares existen los <span class="hl">supermasivos</span> (SMBH): desde ~10<sup>6</sup> hasta ~10<sup>10</sup> masas solares, ubicados — hasta donde sabemos — <strong>siempre en los núcleos de las galaxias</strong>. Cuando uno está activo (acretando) se le llama <strong>núcleo galáctico activo, AGN</strong> (el tema de investigación de la profesora).</p>
+
+  <h3>Historia: los quasi-stellar radio sources</h3>
+  <p>En los años 40–60, con la radioastronomía potenciada por la tecnología de posguerra, aparecieron fuentes que parecían estrellas pero emitían fuertemente en <strong>radio</strong> — imposible para una estrella, que por su temperatura solo emite entre el ultravioleta y el infrarrojo cercano. Se las bautizó <em>quasi-stellar radio sources</em> → <strong>quásar</strong>. Sus espectros eran incomprensibles: <strong>líneas de emisión</strong> (no de absorción como las estrellas), anchísimas, sobre un continuo muy azul, y que no calzaban con ningún elemento conocido.</p>
+
+  <p>En <strong>1963, Maarten Schmidt</strong> resolvió el rompecabezas: las líneas de <strong>3C 273</strong> eran simplemente la serie del hidrógeno (Hα, Hβ, Hγ…) corridas por un redshift de <strong>z ≈ 0.158</strong>. Conclusión demoledora: no era una estrella sino un objeto <em>extragaláctico y lejanísimo</em>, con una luminosidad <strong>~10 veces la de nuestra galaxia entera</strong> — tan brillante que opaca por completo a la galaxia que lo alberga.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-26.jpg" alt="Diapositiva de la curva de luz de 3C 273 mostrando variaciones de 6 magnitudes">
+    <figcaption><span class="cap">Diapositiva · La variabilidad de 3C 273</span>Veinte años de curva de luz: cambios de ~6 magnitudes — un factor <strong>250 en flujo</strong> — en escalas de ~un año. Una galaxia normal, en promedio, "está quietecita"; esto varía "como malo de la cabeza".</figcaption>
+  </figure>
+
+  <h3>El argumento de causalidad</h3>
+  <p>La variabilidad rápida acota el tamaño del emisor. La idea: un cambio global de brillo debe <em>propagarse</em> por la fuente (una casa no se incendia entera instantáneamente; hasta una explosión empieza en un punto), y nada se propaga más rápido que la luz. Entonces:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="R \;\lesssim\; c\,\Delta\tau"></span>
+    <small>Si el brillo cambia coherentemente en un tiempo <span class="katex-inline" data-tex="\Delta\tau"></span>, la región emisora no puede ser mayor que <span class="katex-inline" data-tex="c\,\Delta\tau"></span> (cota superior). Para Δτ = 1 año: R ≲ 1 año luz (~9.5 billones de km, la distancia a Próxima Centauri). Con las variaciones más rápidas observadas, la región queda <strong>del tamaño de un sistema planetario</strong>.</small>
+  </div>
+
+  <p>El veredicto: algo del tamaño de un sistema planetario que brilla como 10 galaxias juntas. <strong>El único mecanismo conocido capaz de esa eficiencia es la acreción a un pozo de potencial profundísimo</strong>: gas cayendo y friccionándose hacia un agujero negro supermasivo — un proceso mucho más eficiente en convertir materia en radiación que la fusión nuclear estelar. Les presento un AGN: agujero negro + disco de acreción + (a veces, ~10% de los casos) un jet responsable de la emisión en radio. Continuará en la Clase 3.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>El argumento c·Δτ es un <strong>límite de latencia de propagación</strong>: si un sistema distribuido cambia de estado globalmente en Δτ, su "diámetro" no supera velocidad-de-señal × Δτ. Es el mismo razonamiento con que se acota el tamaño de un dominio de sincronización por el clock skew tolerable.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
 <section id="interactivo">
-<div class="widget"><h4>c·Δt</h4>
-<input type="number" id="var-dt" value="1" step="any">
-<select id="var-unit"><option value="3600">horas</option><option value="86400">días</option><option value="31557600" selected>años</option></select>
-<output class="wout" id="var-out"></output></div>
-<div class="widget"><h4>Luminosidad de acreción L≈ηṀc²</h4>
-<input type="number" id="acc-mdot" value="1" step="any"> M<sub>☉</sub>/año
-<input type="range" id="acc-eta" min="0.01" max="0.4" step="0.01" value="0.1"> η=<span id="acc-etav">0.10</span>
-<output class="wout" id="acc-out"></output></div>
+  <div class="shead"><span class="num">✦</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Dos calculadoras: el tamaño del horizonte y la cota de variabilidad.</p>
+  </div></div>
+
+  <div class="widget" id="w-rs">
+    <h4>Widget 1 · Radio de Schwarzschild: R = 2GM/c²</h4>
+    <label>Masa del objeto (en masas solares)</label>
+    <input type="number" id="rs-m" value="1" step="any" min="0.000001">
+    <div class="presets">
+      <button type="button" data-m="0.000003">La Tierra</button>
+      <button type="button" data-m="1">El Sol</button>
+      <button type="button" data-m="30">GW150914 (cada uno)</button>
+      <button type="button" data-m="150">Eta Carinae</button>
+      <button type="button" data-m="4000000">Sgr A*</button>
+      <button type="button" data-m="4000000000">M87*</button>
+    </div>
+    <div class="wout" id="rs-out"></div>
+  </div>
+
+  <div class="widget" id="w-var">
+    <h4>Widget 2 · Cota de tamaño por variabilidad: R ≲ c·Δτ</h4>
+    <div class="wgrid">
+      <div><label>Tiempo de variación Δτ</label><input type="number" id="vr-t" value="1" step="any" min="0.0001"></div>
+      <div><label>Unidad</label><select id="vr-u">
+        <option value="3600">horas</option>
+        <option value="86400">días</option>
+        <option value="2592000">meses (30 d)</option>
+        <option value="31557600" selected>años</option>
+      </select></div>
+    </div>
+    <div class="presets">
+      <button type="button" data-t="1" data-u="31557600">3C 273 (~1 año)</button>
+      <button type="button" data-t="1" data-u="86400">Variación de 1 día</button>
+      <button type="button" data-t="1" data-u="3600">Rayos X: 1 hora</button>
+    </div>
+    <div class="wout" id="vr-out"></div>
+  </div>
 </section>
 
-<section id="conceptos"><div class="tbl"><table>
-<thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
-<tbody>
-<tr><td><b>r_s</b></td><td>Horizonte BH estático</td></tr>
-<tr><td><b>Binaria X</b></td><td>~200 en Vía Láctea</td></tr>
-<tr><td><b>TDE</b></td><td>Flare por estrella rota</td></tr>
-<tr><td><b>AGN</b></td><td>SMBH alimentado; cuásar si muy luminoso</td></tr>
-</tbody></table></div></section>
-<section id="examenes">
-<div class="shead"><span class="num">✓</span><div>
-<h2>Exámenes de práctica</h2>
-<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
-</div></div>
-<ol class="examlist">
-    <li><a href="m3c2-examen-01.html">Examen 01<small>Schwarzschild</small></a></li>
-    <li><a href="m3c2-examen-02.html">Examen 02<small>Compacidad</small></a></li>
-    <li><a href="m3c2-examen-03.html">Examen 03<small>Espaguetificación</small></a></li>
-    <li><a href="m3c2-examen-04.html">Examen 04<small>Remanentes</small></a></li>
-    <li><a href="m3c2-examen-05.html">Examen 05<small>SN 1987A</small></a></li>
-    <li><a href="m3c2-examen-06.html">Examen 06<small>Detectar BH</small></a></li>
-    <li><a href="m3c2-examen-07.html">Examen 07<small>SS 433</small></a></li>
-    <li><a href="m3c2-examen-08.html">Examen 08<small>TDE</small></a></li>
-    <li><a href="m3c2-examen-09.html">Examen 09<small>SMBH</small></a></li>
-    <li><a href="m3c2-examen-10.html">Examen 10<small>Quásares y AGN</small></a></li>
-</ol>
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">✎</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Idea esencial</th></tr></thead>
+    <tbody>
+      <tr><td><b>Karl Schwarzschild</b></td><td>Resolvió las ecuaciones de Einstein en 1915; primera predicción de un agujero negro. Murió en 1916.</td></tr>
+      <tr><td><b>Singularidad</b></td><td>Descripción matemática del centro: tamaño ~0, densidad infinita. No hay física para describir el interior.</td></tr>
+      <tr><td><b>Horizonte de eventos</b></td><td>R = 2GM/c²: punto de no retorno (no una superficie). Sol → 3 km; Tierra → 1 cm; escala linealmente con M.</td></tr>
+      <tr><td><b>ISCO</b></td><td>Última órbita circular estable (~3 R<sub>s</sub>); más adentro toda órbita es inestable.</td></tr>
+      <tr><td><b>Compacidad</b></td><td>Lo especial no es la masa sino la concentración: se puede caer mucho más adentro del pozo de potencial.</td></tr>
+      <tr><td><b>Puente de Einstein–Rosen</b></td><td>"Agujero de gusano": solución matemática sin evidencia observacional. No todo lo que las ecuaciones permiten existe.</td></tr>
+      <tr><td><b>Espaguetificación</b></td><td>Estiramiento y ruptura por marea al caer: llegan "pedacitos de vaca", no la vaca.</td></tr>
+      <tr><td><b>SN 1987A</b></td><td>Supernova en la Nube Grande de Magallanes descubierta desde Chile; ~10⁵⁸ neutrinos, 24 detectados horas antes de la luz.</td></tr>
+      <tr><td><b>Censo de remanentes</b></td><td>Vía Láctea: ~10¹¹ estrellas y ~10⁸ agujeros negros estelares; ~1 SN esperada cada 100 años (última vista: Kepler 1604).</td></tr>
+      <tr><td><b>Eta Carinae</b></td><td>Binaria a ~8000 al; ~150 M☉ y ~5×10⁶ L☉; candidata a próxima supernova; dejará un agujero negro.</td></tr>
+      <tr><td><b>Binaria de rayos X</b></td><td>Compañera cercana alimenta al agujero; disco de acreción emite rayos X; ~200 conocidas (SS 433 y su jet sacacorchos).</td></tr>
+      <tr><td><b>Efecto de marea / TDE</b></td><td>Gravedad diferencial que estira cuerpos (Shoemaker–Levy 9, colas de Magallanes); un TDE es una estrella despedazada por un agujero negro.</td></tr>
+      <tr><td><b>Cuásar / AGN</b></td><td>Núcleo galáctico activo: SMBH acretando. Schmidt (1963) identificó las líneas de 3C 273 a z≈0.158: luminosidad ~10 galaxias.</td></tr>
+      <tr><td><b>Argumento c·Δτ</b></td><td>Variabilidad rápida ⇒ región emisora pequeña: 3C 273 cabe en ~un sistema planetario y brilla como 10 galaxias.</td></tr>
+      <tr><td><b>Acreción</b></td><td>El mecanismo de emisión de radiación más eficiente del universo, muy por sobre la fusión nuclear.</td></tr>
+    </tbody>
+  </table></div>
 </section>
-<footer><p><b>Fuentes:</b> <code>galaxias-m3c2.md</code>, diapositivas Clase 2. Ver <a href="m3c1-apuntes.html">clase 1</a>.</p></footer>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas: 3 de alternativas autocorregibles + 2 de respuesta escrita con solución propuesta.</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c2-examen-01.html">Examen 01<small>Schwarzschild y la singularidad</small></a></li>
+    <li><a href="m3c2-examen-02.html">Examen 02<small>El horizonte de eventos</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>Compacidad y caídas</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>Gusanos y espaguetificación</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>SN 1987A y neutrinos</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Remanentes y Eta Carinae</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>Detección y acreción</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>Binarias de rayos X y SS 433</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>Mareas, TDE y cuásares</small></a></li>
+    <li><a href="m3c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo III del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción del audio (<code>galaxias/m3/ff/galaxias-m3c2.md</code>) y las diapositivas <code>Modulo_III_Clase_2_for_pdf.pdf</code> (más las láminas finales de la Clase 1, que la profesora retomó en esta sesión).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática que puede contener errores de reconocimiento de voz. Correcciones aplicadas contrastando con diapositivas y fuentes: "Carl/Karl Churchill" es <b>Karl Schwarzschild</b>; "radio de Churchill" es <b>radio de Schwarzschild</b>; "puente Rose Einstein" es puente de <b>Einstein–Rosen</b>; "espagitificación" es <b>espaguetificación</b>; "13.273" y "C 273" son <b>3C 273</b>; "disco de agresión/adhesión/ampliación" es <b>disco de acreción</b>; "Schumacher Levy" es <b>Shoemaker–Levy 9</b> (1994); "Nebulosa del Manapí" es <b>Nebulosa del Manatí</b>; "Haltz y Taylor" son <b>Hulse y Taylor</b>. La transcripción menciona estrellas de neutrones "de unos 5 km"; el valor típico en la literatura es un radio de ~10–12 km (material externo). El dato de que los neutrinos de SN 1987A llegaron <em>horas antes</em> que la luz proviene de la lámina. Ante dudas, priman las diapositivas.</p>
+</footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded",function(){
-  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
-  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
-  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
-
-  var c=299792458, ly=9.4607e15, AU=1.496e11, Msun=1.98847e30, yr=365.25*86400;
-  function varCalc(){
-    var dt=+document.getElementById('var-dt').value*+document.getElementById('var-unit').value;
-    var R=c*dt;
-    document.getElementById('var-out').innerHTML='R ≲ <b>'+(R/AU).toExponential(2)+'</b> UA · <b>'+(R/ly).toFixed(3)+'</b> ly';
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
   }
-  document.getElementById('var-dt').oninput=varCalc;
-  document.getElementById('var-unit').oninput=varCalc; varCalc();
-  function accCalc(){
-    var mdot=+document.getElementById('acc-mdot').value*Msun/yr;
-    var eta=+document.getElementById('acc-eta').value;
-    document.getElementById('acc-etav').textContent=eta.toFixed(3);
-    var L=eta*mdot*c*c, Lsun=3.828e26;
-    document.getElementById('acc-out').innerHTML='L ≈ <b>'+(L/Lsun).toExponential(2)+'</b> L<sub>☉</sub>';
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
   }
-  document.getElementById('acc-mdot').oninput=accCalc;
-  document.getElementById('acc-eta').oninput=accCalc; accCalc();
 
+  var G=6.674e-11, C=2.998e8, MSUN=1.989e30;
+
+  // ===== Widget 1: Schwarzschild =====
+  var rsM=document.getElementById('rs-m'), rsOut=document.getElementById('rs-out');
+  function rsUpdate(){
+    var m=+rsM.value;
+    if(!(m>0)){ rsOut.textContent='Ingresa una masa positiva.'; return; }
+    var rs=2*G*m*MSUN/(C*C); // m
+    var txt;
+    if(rs<0.01) txt=(rs*1000).toFixed(3)+' milímetros';
+    else if(rs<1) txt=(rs*100).toFixed(2)+' centímetros';
+    else if(rs<1000) txt=rs.toFixed(1)+' metros';
+    else if(rs<9.461e12) txt=(rs/1000).toLocaleString('es-CL',{maximumFractionDigits:0})+' km';
+    else txt=(rs/9.461e15).toFixed(3)+' años luz';
+    var comp='';
+    if(rs>5.9e12) comp=' — más grande que la órbita de Plutón';
+    else if(rs>5.8e10) comp=' — comparable a órbitas planetarias internas';
+    else if(rs>=1000&&rs<20000) comp=' — como una ciudad; similar a una estrella de neutrones';
+    rsOut.innerHTML='<span class="k">Horizonte de eventos:</span> R<sub>s</sub> = <b>'+txt+'</b>'+comp+'.<br>'+
+      'Recuerda: escala <em>linealmente</em> con la masa (el doble de masa → el doble de radio).';
+  }
+  rsM.addEventListener('input',rsUpdate);
+  document.querySelectorAll('#w-rs .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ rsM.value=b.dataset.m; rsUpdate(); });
+  });
+  rsUpdate();
+
+  // ===== Widget 2: c * dt =====
+  var vrT=document.getElementById('vr-t'), vrU=document.getElementById('vr-u'), vrOut=document.getElementById('vr-out');
+  function vrUpdate(){
+    var t=+vrT.value, u=+vrU.value;
+    if(!(t>0)){ vrOut.textContent='Ingresa un tiempo positivo.'; return; }
+    var sec=t*u, d=2.998e5*sec; // km
+    var au=d/1.496e8, ly=d/9.461e12;
+    var comp;
+    if(ly>=0.5) comp='del orden de la distancia a la estrella más cercana (Próxima Centauri, ~4.2 al)';
+    else if(au>100) comp='mayor que nuestro Sistema Solar planetario (~80 UA de diámetro)';
+    else if(au>1) comp='del tamaño de un sistema planetario';
+    else comp='¡más chica que la órbita de la Tierra!';
+    vrOut.innerHTML='<span class="k">Cota superior:</span> R ≲ c·Δτ = <b>'+d.toLocaleString('es-CL',{maximumFractionDigits:0})+' km</b>'+
+      ' ≈ <b>'+(au>=1?au.toFixed(1)+' UA':au.toExponential(2)+' UA')+'</b>'+
+      (ly>=0.01?' ≈ <b>'+ly.toFixed(2)+' años luz</b>':'')+'.<br>'+
+      'La región que varía coherentemente es '+comp+'. Y aún así puede brillar como 10 galaxias.';
+  }
+  vrT.addEventListener('input',vrUpdate); vrU.addEventListener('change',vrUpdate);
+  document.querySelectorAll('#w-var .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ vrT.value=b.dataset.t; vrU.value=b.dataset.u; vrUpdate(); });
+  });
+  vrUpdate();
 });
 </script>
 </body>

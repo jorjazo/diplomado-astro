@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c2 · Ciclo CNO</title>
+<title>Examen 03 — m3c2 · CNO: tasas y orígenes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Ciclo CNO</h1>
+<h1>Examen 03 — CNO: tasas, dominancia y orígenes</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="c,d,c">
-  <fieldset data-q="1"><legend>1. En el ciclo CNO, el carbono, nitrógeno y oxígeno actúan como:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Combustible que se agota en un ciclo</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Productos finales de la estrella</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Catalizadores (se regeneran al cerrar el ciclo)</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Barreras que impiden la fusión</label>
-    <p class="fb" hidden>Participan en las reacciones pero vuelven al estado inicial; solo se consumen protones.</p>
+
+<form id="quiz" data-answers="c,a,d">
+  <fieldset data-q="1"><legend>1. ¿Qué determina que en una estrella domine el ciclo CNO o la cadena protón–protón?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La edad de la estrella únicamente</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La distancia de la estrella a la galaxia</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La temperatura y densidad del núcleo estelar (ligadas a la masa)</label>
+    <label class="opt"><input type="radio" name="q1" value="d">El campo magnético de la estrella</label>
+    <p class="fb" hidden>Ambos procesos ocurren en todas las estrellas; a mayor temperatura y densidad (alta masa) la tasa del CNO se dispara y domina.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Cuántos protones se incorporan netamente por ciclo CNO completo para producir un núcleo de helio?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Uno</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Dos</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Tres</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Cuatro</label>
-    <p class="fb" hidden>Cuatro protones entran; sale un <sup>4</sup>He y el carbono catalizador queda listo para otro ciclo.</p>
+  <fieldset data-q="2"><legend>2. En una estrella de baja masa como el Sol, ¿ocurre el ciclo CNO?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Sí, pero a una tasa órdenes de magnitud menor que la cadena p–p</label>
+    <label class="opt"><input type="radio" name="q2" value="b">No, es físicamente imposible en baja masa</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Sí, y es la vía dominante</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Solo cuando la estrella se convierte en gigante roja</label>
+    <p class="fb" hidden>Existe en ambas: en baja masa, por cada millón de fotones de la cadena p–p hay solo unos cuantos del CNO. En alta masa la relación se invierte.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El carbono necesario para el CNO en estrellas actuales proviene principalmente de:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">El Big Bang exclusivamente</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Reacciones en la atmósfera terrestre</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Generaciones estelares anteriores</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Fisión de uranio en el núcleo estelar</label>
-    <p class="fb" hidden>El Big Bang no produjo carbono en abundancia; estrellas previas fabricaron C, N, O.</p>
+  <fieldset data-q="3"><legend>3. Las estrellas de Población III (las primeras del universo) no podían usar el ciclo CNO porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Eran demasiado frías</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Tenían demasiado hierro</label>
+    <label class="opt"><input type="radio" name="q3" value="c">No contenían hidrógeno</label>
+    <label class="opt"><input type="radio" name="q3" value="d">No existían aún carbono, nitrógeno ni oxígeno en el universo</label>
+    <p class="fb" hidden>El Big Bang solo produjo H, He y algo de Li. Sin los catalizadores C, N, O, las primeras estrellas solo tenían disponible la cadena p–p.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Esboza los pasos principales del ciclo CNO e indica qué partículas se liberan.</p>
+  <p class="q">4. ¿Por qué el descubrimiento del ciclo CNO fue históricamente importante para explicar las estrellas masivas? ¿Qué “no daba” en los cálculos previos?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><sup>12</sup>C + p → <sup>13</sup>N + γ; decaimiento a <sup>13</sup>C; capturas sucesivas de p hasta <sup>15</sup>O y <sup>15</sup>N; cierre con <sup>12</sup>C + <sup>4</sup>He. Se liberan <strong>γ</strong>, <strong>e⁺</strong> y <strong>neutrinos</strong>.</div>
+    <div class="answer">Al estimar la generación de energía de una estrella muy masiva usando solo la <strong>cadena protón–protón</strong>, la tasa de reacciones resultante <strong>no alcanzaba</strong> para explicar su enorme luminosidad: “el cálculo no daba”. Durante un tiempo estas estrellas “funcionaban raro”. El trabajo conjunto de astrofísicos y físicos nucleares mostró que a las temperaturas y densidades de un núcleo masivo domina otra cadena —el ciclo CNO— cuya tasa sí reproduce la energía observada, siempre que existan <strong>trazas de C, N y O</strong> como catalizadores. Al medir por espectroscopía las abundancias reales de esos elementos en estrellas masivas, <strong>todo calza</strong>. (Nota: la transcripción menciona “los años 60”, pero el ciclo fue propuesto a fines de los años 1930 por Bethe y von Weizsäcker.)</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué el descubrimiento del ciclo CNO (años 60) fue crucial?</p>
+  <p class="q">5. ¿De dónde proviene el carbono que usan hoy las estrellas masivas de nuestra galaxia para el ciclo CNO, y por qué basta con “trazas”?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Con solo la cadena <strong>pp</strong>, la tasa de energía de estrellas masivas <em>no alcanzaba</em> para su luminosidad. El CNO cuadró teoría y observación.</div>
+    <div class="answer">Ese carbono <strong>no estaba en el Big Bang</strong>: fue fabricado por <strong>generaciones estelares anteriores</strong> (estrellas de baja masa que llegan al C, y masivas que van más allá) y esparcido al medio interestelar por su evolución y muerte (nebulosas planetarias, supernovas). Las estrellas actuales nacen de ese material “contaminado”: la composición típica es ~3/4 hidrógeno, ~1/4 helio y <strong>trazas</strong> del resto. Con trazas basta porque el carbono actúa como <strong>catalizador</strong>: se usa para avanzar en la cadena pero se libera intacto al final de cada vuelta, así que no se agota — solo se necesita que esté presente. Por eso mismo “somos polvo de estrellas”: el C y N de nuestro cuerpo vienen de esas generaciones previas.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

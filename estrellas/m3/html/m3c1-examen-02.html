@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 02 — m3c1 · Tiempo de vida en MS</title>
+<title>Examen 02 — m3c1 · Relación masa–luminosidad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 02 — Tiempo de vida en MS</h1>
+<h1>Examen 02 — Relación masa–luminosidad</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,c,d">
-  <fieldset data-q="1"><legend>1. El tiempo de vida en secuencia principal del Sol es del orden de:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">10⁶ años</label>
-    <label class="opt"><input type="radio" name="q1" value="b">10¹⁰ años (~10 Gyr)</label>
-    <label class="opt"><input type="radio" name="q1" value="c">10¹³ años</label>
-    <label class="opt"><input type="radio" name="q1" value="d">10³ años</label>
-    <p class="fb" hidden>≈ 10.000 millones de años fusionando H en el núcleo.</p>
+
+<form id="quiz" data-answers="b,d,a">
+  <fieldset data-q="1"><legend>1. La relación empírica masa–luminosidad vista en clase es aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">L ∝ M (lineal)</label>
+    <label class="opt"><input type="radio" name="q1" value="b">L ∝ M⁴</label>
+    <label class="opt"><input type="radio" name="q1" value="c">L ∝ M² </label>
+    <label class="opt"><input type="radio" name="q1" value="d">L ∝ √M</label>
+    <p class="fb" hidden>La luminosidad crece como la masa a la cuarta potencia. En el gráfico log-log de la clase se ve como una recta, pero es una ley de potencia.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Una estrella de ~10 M☉ en MS vive aproximadamente:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">10 Gyr</label>
-    <label class="opt"><input type="radio" name="q2" value="b">10⁹ años</label>
-    <label class="opt"><input type="radio" name="q2" value="c">10⁷ años</label>
-    <label class="opt"><input type="radio" name="q2" value="d">10¹¹ años</label>
-    <p class="fb" hidden>Con L ~ 10⁴ L☉, t ~ M/L ~ 10⁻³ de la vida solar ⇒ ~10⁷ yr.</p>
+  <fieldset data-q="2"><legend>2. ¿A qué estrellas se les puede aplicar la relación masa–luminosidad para estimar su masa?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">A todas las estrellas del diagrama H-R</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Solo a las gigantes rojas</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Solo a las enanas blancas</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Solo a las estrellas de secuencia principal</label>
+    <p class="fb" hidden>Una gigante roja ya no está en secuencia principal, así que la relación no le sirve: ese fue el ejemplo explícito de la clase.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Si L ∝ M⁴ en MS, entonces t_MS ∝ M/L es proporcional a:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">M⁴</label>
-    <label class="opt"><input type="radio" name="q3" value="b">M²</label>
-    <label class="opt"><input type="radio" name="q3" value="c">M</label>
-    <label class="opt"><input type="radio" name="q3" value="d">M⁻³</label>
-    <p class="fb" hidden>t ∝ M/M⁴ = M⁻³.</p>
+  <fieldset data-q="3"><legend>3. Como L y M están correlacionadas, la secuencia principal del diagrama H-R también ordena a las estrellas por:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Masa: las más masivas arriba (brillantes), las menos masivas abajo</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Edad: las más viejas arriba, las más jóvenes abajo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Distancia: las más cercanas arriba, las más lejanas abajo</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Metalicidad: las más ricas en metales arriba</label>
+    <p class="fb" hidden>Mayor luminosidad ⇔ mayor masa (en secuencia principal): la diagonal es también un eje de masas, desde ~60 M☉ arriba hasta ~0.1 M☉ abajo.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué al estimar t_MS solo se cuenta el hidrógeno del núcleo y no el 98% de H de toda la estrella?</p>
+  <p class="q">4. Reconstruye la cadena causal física que explica por qué una estrella más masiva de secuencia principal es más luminosa (parte de «más masa» y llega a «más luminosidad»).</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">La fusión ocurre solo en el <strong>núcleo</strong> con T y densidad suficientes. El H externo no participa (en el Sol, el H convectivo exterior no llega al centro).</div>
+    <div class="answer">1) <strong>Más masa</strong> significa más peso que sostener: para que la estrella se mantenga en <strong>equilibrio hidrostático</strong> (que «siga siendo una pelota»), la presión interna debe ser mayor. 2) Mayor presión implica <strong>mayor temperatura</strong>, sobre todo en el núcleo. 3) A mayor temperatura, los núcleos de hidrógeno se mueven más rápido y chocan más ⇒ <strong>aumenta la tasa de fusión nuclear</strong> (reacciones por segundo). 4) Más reacciones por segundo significan más energía liberada por unidad de tiempo, y como la <strong>luminosidad se define como energía radiada por segundo</strong>, la estrella brilla más. El resultado neto es la ley empírica L ∝ M⁴.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué una enana roja de 0,1 M☉ puede vivir ~10¹¹ años en MS?</p>
+  <p class="q">5. El gráfico de masa–luminosidad de la clase «parece muy lineal», pero la profesora advirtió que hay que fijarse en las escalas. Explica el rol de las escalas logarítmicas en ese gráfico y qué implica, en números, duplicar la masa de una estrella.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Menos combustible pero L ∝ M⁴ muy baja ⇒ consumo lento; además es <strong>totalmente convectiva</strong> y mezcla H al núcleo. Balance: t ∝ M⁻³ enorme.</div>
+    <div class="answer">Ambos ejes del gráfico son <strong>logarítmicos</strong>. Una ley de potencia L ∝ M⁴ aparece en escala log-log como una <strong>recta de pendiente 4</strong>: por eso «parece lineal» aunque la relación subyacente es fuertemente no lineal. En números: duplicar la masa multiplica la luminosidad por 2⁴ = <strong>16</strong>; multiplicar la masa por 10 la multiplica por 10⁴ = <strong>10.000</strong> (el ejemplo de la clase: una estrella de 10 M☉ tiene ~10⁴ L☉). Es la misma idea que usar ejes log en ingeniería (diagramas de Bode, análisis de complejidad): las leyes de potencia se vuelven rectas y la pendiente delata el exponente.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

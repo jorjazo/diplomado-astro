@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 08 — m3c1 · Fusión de He y flash</title>
+<title>Examen 08 — m3c1 · Presión degenerada y flash de helio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 08 — Fusión de He y flash</h1>
+<h1>Examen 08 — Presión degenerada y flash de helio</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="d,c,b">
-  <fieldset data-q="1"><legend>1. La fusión de helio (triple-α) requiere temperaturas del orden de:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">10⁴ K</label>
-    <label class="opt"><input type="radio" name="q1" value="b">10⁶ K</label>
-    <label class="opt"><input type="radio" name="q1" value="c">10⁷ K</label>
-    <label class="opt"><input type="radio" name="q1" value="d">~10⁸ K (~100 MK)</label>
-    <p class="fb" hidden>He necesita ~10⁸ K.</p>
+
+<form id="quiz" data-answers="d,b,c">
+  <fieldset data-q="1"><legend>1. En la materia degenerada, la presión del gas de electrones queda determinada principalmente por:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La temperatura, como en cualquier gas</label>
+    <label class="opt"><input type="radio" name="q1" value="b">El campo magnético de la estrella</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La composición química</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La densidad: no hay estados de baja energía libres y los electrones ocupan estados de mayor energía a la fuerza</label>
+    <p class="fb" hidden>Esa es la ruptura con la ley de gases ideales: la presión deja de depender de la temperatura y pasa a depender de la densidad.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El proceso triple-α produce principalmente:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Hidrógeno</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Oxígeno</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Carbono</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Hierro</label>
-    <p class="fb" hidden>3He → ¹²C.</p>
+  <fieldset data-q="2"><legend>2. ¿Qué principio de la mecánica cuántica está detrás de la presión degenerada de electrones?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El principio de incertidumbre de Heisenberg</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El principio de exclusión de Pauli: dos electrones no pueden ocupar el mismo estado cuántico en el mismo lugar</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La dualidad onda-partícula</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El efecto túnel</label>
+    <p class="fb" hidden>La analogía de la clase: el estacionamiento del mall un 23 de diciembre — todos los espacios ocupados, dos autos no caben en el mismo lugar.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El flash de helio ocurre porque en el núcleo comprimido:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Hay demasiado H</label>
-    <label class="opt"><input type="radio" name="q3" value="b">La presión degenerada de electrones desacopla P de T</label>
-    <label class="opt"><input type="radio" name="q3" value="c">No hay gravedad</label>
-    <label class="opt"><input type="radio" name="q3" value="d">La estrella es totalmente radiativa</label>
-    <p class="fb" hidden>Materia degenerada: subir T no expande el núcleo.</p>
+  <fieldset data-q="3"><legend>3. El flash de helio ocurre porque, al estar el núcleo degenerado:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">La temperatura no puede subir y la fusión se apaga</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El núcleo se expande violentamente y se enfría</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Al subir la temperatura la presión no responde: el núcleo no se expande ni se enfría, y la tasa de fusión se dispara encendiendo todo el helio a la vez</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Los electrones se fusionan con los protones formando neutrones</label>
+    <p class="fb" hidden>Es una «olla a presión» sin válvula: sin el termostato natural presión-expansión-enfriamiento, la fusión entra en runaway.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica la analogía del estacionamiento del mall y el principio de exclusión de Pauli.</p>
+  <p class="q">4. Desarrolla la analogía del estacionamiento usada en clase para explicar la degeneración de electrones: ¿qué representa cada elemento (autos, espacios, fecha tranquila vs. 23 de diciembre) y dónde se rompe la correspondencia con la ley de gases ideales?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Baja densidad: electrones se acomodan libremente. Alta densidad: no hay estados bajos disponibles ⇒ <strong>presión degenerada</strong> independiente de T.</div>
+    <div class="answer">Los <strong>autos</strong> son los electrones y los <strong>espacios de estacionamiento</strong> son los estados cuánticos disponibles (los de «baja energía» son los espacios más convenientes). En una fecha tranquila (baja densidad), cada auto se estaciona donde quiere sin competir: los electrones ocupan los estados de baja energía y la presión del gas proviene del movimiento térmico — vale la ley de gases ideales, P depende de T. El <strong>23 de diciembre</strong> (altísima densidad, como el núcleo de una gigante roja o una enana blanca), todos los espacios están ocupados: como dos autos no pueden ocupar el mismo lugar (principio de exclusión de Pauli), los que llegan deben «subir» a estados de mayor energía <em>aunque no estén más calientes</em>. Esa ocupación forzada de estados energéticos genera una presión que depende de la <strong>densidad</strong> y no de la temperatura: ahí se rompe la ley de gases ideales, y con ella el termostato natural de la estrella.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué el flash de helio enciende casi todo el núcleo de He de golpe?</p>
+  <p class="q">5. Describe qué pasa con la estrella inmediatamente después del flash de helio y cómo se refleja en el diagrama H-R (el tramo (b)→(c) de la diapositiva). ¿Por qué no podemos observar el flash directamente?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Fusión sube T pero la <strong>degeneración</strong> impide expansión/enfriamiento ⇒ tasa de fusión se dispara.</div>
+    <div class="answer">Tras el flash, todo el núcleo de helio queda <strong>encendido y fusionando He→C de forma estable</strong>. Con el «motor central» funcionando de nuevo, la estructura interna se reacomoda: las capas infladas se recogen, el <strong>área emisora disminuye</strong> (baja la luminosidad) y la <strong>temperatura superficial sube</strong>. La estrella encuentra un nuevo equilibrio hidrostático y radiativo y queda estable por un tiempo — en el diagrama H-R baja desde la punta de la rama de las gigantes (b) hacia una posición más caliente y menos luminosa (c). No podemos observar el flash directamente porque es un evento <strong>interno</strong> (ocurre en el núcleo, oculto bajo toda la envoltura) y <strong>extremadamente breve</strong>: la probabilidad de pillar una estrella justo en ese instante es prácticamente nula. Es física teórica, pero consistente con todo lo que sí observamos de las poblaciones estelares.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

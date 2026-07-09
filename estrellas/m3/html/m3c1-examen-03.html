@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c1 · Transporte y tipos espectrales</title>
+<title>Examen 03 — m3c1 · Tiempo de vida de las estrellas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 03 — Transporte y tipos espectrales</h1>
+<h1>Examen 03 — Tiempo de vida de las estrellas</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="a,b,a">
-  <fieldset data-q="1"><legend>1. Una estrella O en secuencia principal vive del orden de:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">~1 Myr</label>
-    <label class="opt"><input type="radio" name="q1" value="b">~10 Gyr</label>
-    <label class="opt"><input type="radio" name="q1" value="c">~1 Gyr</label>
-    <label class="opt"><input type="radio" name="q1" value="d">~100 Gyr</label>
-    <p class="fb" hidden>Las O son las más masivas: mueren muy jóvenas.</p>
+
+<form id="quiz" data-answers="c,a,d">
+  <fieldset data-q="1"><legend>1. El «tiempo de vida» calculado en clase corresponde específicamente al tiempo que la estrella pasa:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Desde su formación hasta convertirse en enana blanca</label>
+    <label class="opt"><input type="radio" name="q1" value="b">En la fase de gigante roja</label>
+    <label class="opt"><input type="radio" name="q1" value="c">En la secuencia principal, fusionando H en el núcleo</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Enfriándose como enana blanca</label>
+    <p class="fb" hidden>Se calcula cuánto dura la fusión de H en el núcleo. Es buena aproximación de la vida total: la secuencia principal es ~90% de ella.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La estructura del Sol (simplificada) incluye:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Núcleo radiativo + envolvente convectiva externa</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Todo convectivo de centro a superficie</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Todo radiativo</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Núcleo convectivo + corona radiativa</label>
-    <p class="fb" hidden>≈ interior radiativo hasta ~70% del radio; convección hacia afuera.</p>
+  <fieldset data-q="2"><legend>2. Una estrella de 10 M☉ (como Spica) tiene L ≈ 10⁴ L☉. Su vida en secuencia principal resulta ser de aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">10⁷ años (10 millones)</label>
+    <label class="opt"><input type="radio" name="q2" value="b">10¹⁰ años (10.000 millones)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">10¹¹ años (100.000 millones)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">10⁴ años</label>
+    <p class="fb" hidden>t ≈ 10¹⁰ × (10 / 10⁴) = 10⁷ años. Tiene 10 veces más combustible pero lo quema 10.000 veces más rápido.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Las enanas rojas de baja masa son, en general:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Totalmente convectivas</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Totalmente radiativas</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Sin fusión en el núcleo</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Siempre binarias</label>
-    <p class="fb" hidden>La convección va del núcleo a la superficie.</p>
+  <fieldset data-q="3"><legend>3. ¿Por qué una enana roja de 0.1 M☉ vive ~10¹¹ años, más que la edad actual del universo?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Porque su hidrógeno no se fusiona nunca</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Porque recibe combustible del medio interestelar</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Porque su núcleo es de helio desde el inicio</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Porque su luminosidad es bajísima (~10⁻² L☉): consume su combustible muy lentamente</label>
+    <p class="fb" hidden>Tiene 10 veces menos combustible que el Sol pero lo consume 100 veces más lento. Además es completamente convectiva, lo que le da acceso a más hidrógeno.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué es poco plausible la evolución de vida compleja alrededor de una estrella O de 1 Myr en MS?</p>
+  <p class="q">4. En el cálculo del tiempo de vida del Sol se usa el hidrógeno «disponible para fusionar», que no es el 98% de hidrógeno de toda la estrella. Explica esta distinción y por qué es distinta para una enana roja completamente convectiva.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">En la Tierra pasaron <strong>miles de millones de años</strong> desde microbios hasta civilización. Una O solo está en MS ~10⁶ yr: no hay tiempo para evolución biológica compleja.</div>
+    <div class="answer">Las reacciones termonucleares ocurren <strong>solo en el núcleo</strong>, donde hay temperatura suficiente. Por eso el combustible relevante es el hidrógeno <strong>del núcleo</strong>, no el de toda la estrella. En el Sol, el interior es radiativo y solo las capas externas (desde ~70% del radio) son convectivas: el hidrógeno de esas capas externas <strong>nunca baja al núcleo</strong>, así que no se quema jamás. En una <strong>enana roja completamente convectiva</strong>, en cambio, todo el material se mezcla continuamente desde la superficie hasta el centro: el hidrógeno de arriba eventualmente llega al núcleo. Eso le da acceso a una fracción mucho mayor de su combustible total y, junto con su bajísima luminosidad, la hace extraordinariamente eficiente y longeva (la analogía de la clase: la camioneta F-150 tragadora versus el Suzuki Celerio económico).</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Define el <strong>turn-off point</strong> en el diagrama HR de un cúmulo y qué indica.</p>
+  <p class="q">5. Combina t ∝ M/L con L ∝ M⁴ para deducir cómo escala el tiempo de vida con la masa, y úsalo para explicar el argumento de la clase sobre por qué es improbable encontrar vida compleja alrededor de estrellas muy masivas.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">«Codito» donde las estrellas <strong>más masivas</strong> abandonan la MS. Su posición codifica la <strong>edad</strong> del cúmulo.</div>
+    <div class="answer">Sustituyendo: t ∝ M/L = M/M⁴ = <strong>M⁻³</strong>. El tiempo de vida cae con el <em>cubo</em> de la masa: una estrella 10 veces más masiva vive 1.000 veces menos. Una O5 de 40 M☉ vive ~1 millón de años. El argumento biológico: en la Tierra, la primera vida microbiana apareció ~700 millones de años después de formado el planeta (hace ~3.800 millones de años), y necesitó otros ~3.800 millones de años de evolución para llegar a organismos complejos y a una civilización. Un millón de años de estabilidad no alcanza ni remotamente para ese proceso, al menos para vida «como la que conocemos». La clase mencionó que instituciones como el Instituto SETI exploran bioquímicas alternativas (por ejemplo basadas en silicio), pero buscamos principalmente lo que sabríamos reconocer.</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

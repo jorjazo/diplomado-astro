@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Núcleos activos, Sgr A* y las semillas de los monstruos — Astrofísica de Galaxias, Módulo III · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 3</span>
+  <h1>Núcleos activos, Sgr A* y las semillas de <em>los monstruos</em></h1>
+  <p class="sub">Anatomía completa de un AGN (disco, corona, jet), el agujero negro dormido en el corazón de la Vía Láctea revelado por la órbita de la estrella S2, las primeras "fotos" de un horizonte de eventos con el Event Horizon Telescope, y la gran pregunta abierta: ¿de qué semilla creció un agujero negro de miles de millones de masas solares en menos de mil millones de años?</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> III · Clase 3</span>
+    <span><b>Tema:</b> AGN, Sgr A*, EHT y semillas de SMBH</span>
+    <span><b>Fuentes:</b> transcripción <code>ff/</code> + diapositivas</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase anterior terminó presentando al AGN: un agujero negro supermasivo comiendo, tan luminoso como diez galaxias, del tamaño de un sistema planetario. Esta clase lo diseca pieza por pieza y luego responde dos preguntas complementarias: ¿cómo estudiamos un agujero negro supermasivo que <em>no</em> está comiendo? (respuesta: dinámica de precisión — el caso Sgr A*), y ¿cómo se ve un horizonte de eventos? (respuesta: interferometría planetaria — el EHT). El hilo técnico que une todo es uno solo, y muy de ingeniería: <strong>resolución angular</strong>, la capacidad de discernir detalles pequeños, gobernada por la fórmula θ ≈ 1.22 λ/D.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Anatomía de un AGN</a></li>
+    <li><a href="#s2">Jets: sutiles en energía, colosales en tamaño</a></li>
+    <li><a href="#s3">El 90% sin jet: espectros y variabilidad</a></li>
+    <li><a href="#s4">Sgr A*: el corazón de la Vía Láctea</a></li>
+    <li><a href="#s5">La órbita de S2 y GRAVITY</a></li>
+    <li><a href="#s6">Resolución espacial e interferometría</a></li>
+    <li><a href="#s7">La "sombra": M87* y Sgr A* con el EHT</a></li>
+    <li><a href="#s8">Un AGN es un agujero negro engordando</a></li>
+    <li><a href="#s9">Masas intermedias y el problema de las semillas</a></li>
+    <li><a href="#s10">Los AGN más lejanos</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Anatomía de un AGN</h2>
+    <p>Tres componentes con tres mecanismos de emisión distintos.</p>
+  </div></div>
+
+  <p>Cuando cae materia a un agujero negro supermasivo, el sistema se vuelve extremadamente luminoso: un <span class="hl">núcleo galáctico activo (AGN)</span>. Sus piezas:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Componente</th><th>Emisión</th><th>Mecanismo</th><th>Peso en el total</th></tr></thead>
+    <tbody>
+      <tr><td><b>Disco de acreción</b></td><td>Óptico y ultravioleta</td><td><strong>Termal</strong> (cuerpo negro): el gas se calienta por fricción al caer, hasta decenas de miles de K</td><td><strong>Domina</strong> la radiación total</td></tr>
+      <tr><td><b>Corona</b></td><td>Rayos X</td><td><strong>No termal</strong> (Compton inverso): electrones relativistas muy cercanos al agujero</td><td>~10% de la emisión</td></tr>
+      <tr><td><b>Jet</b></td><td>Todo el espectro; se observa mejor en radio</td><td><strong>No termal</strong> (sincrotrón, por campos magnéticos): material ultrarrelativista</td><td>Fracción pequeñísima; presente solo en ~10% de los AGN</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m3c3/assets/slide-04.jpg" alt="Diapositiva con la anatomía de un AGN: disco de acreción, corona y jet">
+    <figcaption><span class="cap">Diapositiva · Un AGN</span>El disco es "la hoguera" del AGN: ahí la energía gravitacional se convierte en radiación. Curioso: sus temperaturas (hasta decenas de miles de K) no son tan distintas de las estelares — emite en los mismos rangos UV/óptico —, pero la <em>luminosidad</em> equivale a billones de estrellas concentradas en un sistema planetario.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Preguntas de la clase</span>
+    <p><strong>¿Material "ultrarrelativista" = a la velocidad de la luz?</strong> No: significa muy cercano a c (99 y algo por ciento). Nada con masa alcanza c; por lo mismo el jet no puede transportar cantidades enormes de masa — se necesitaría energía infinita para acelerarla así.</p>
+    <p><strong>¿"AGN" es una categoría del universo?</strong> Es un nombre <em>nuestro</em>, un modelo que explica la fenomenología observada en los centros de muchas galaxias. Funciona muy bien hoy; en 50 años quizás haya que refinarlo. Así opera la ciencia.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Jets: sutiles en energía, colosales en tamaño</h2>
+    <p>Desde una región del tamaño de un sistema planetario hasta más allá de la galaxia entera.</p>
+  </div></div>
+
+  <p>Aunque energéticamente aportan poco, los jets alcanzan distancias absurdas. En <strong>Cygnus A</strong> (imagen en radio), los chorros parten del punto central — el AGN, cuya maquinaria cabe en un sistema planetario — y llegan a <strong>225.000 años luz</strong>, cuando la Vía Láctea entera mide ~100.000 de lado a lado. Al final de cada jet, donde el material choca con el medio intergaláctico, se forman los <strong>lóbulos</strong>.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-07.jpg" alt="Diapositiva de la galaxia Hércules A combinando imagen óptica del Hubble y radio del VLA">
+    <figcaption><span class="cap">Diapositiva · Hércules A (HST + VLA)</span>En blanco/amarillo: la imagen óptica del Hubble (estrellas, galaxias). En rosa: la emisión en radio captada por el VLA — jets colimados de material ultrarrelativista lanzados desde el núcleo, mucho más grandes que la galaxia anfitriona. <small>Crédito: NASA.</small></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué el radio es el rango ideal para jets</span>
+    <p>(1) Pocas fuentes astronómicas "ensucian" el cielo en radio: la foto sale limpia, casi solo el jet. (2) La radioastronomía interferométrica logra las <strong>mejores resoluciones espaciales</strong>. La colimación de los jets — mantenerse delgados por cientos de miles de años luz — sigue siendo un problema abierto; se relaciona con conservación del momento angular y campos magnéticos.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El 90% sin jet: espectros y variabilidad</h2>
+    <p>Cómo se reconoce un AGN cuando no hay chorro de radio que lo delate.</p>
+  </div></div>
+
+  <p>Los primeros AGN descubiertos fueron los <em>quásares</em> radio-emisores — pero son la minoría (~10%). El 90% restante se reconoce por las otras firmas:</p>
+  <ul>
+    <li><strong>Espectro anómalo:</strong> líneas de emisión <em>anchísimas</em> (comparadas con las líneas delgadas de una región H II) y un continuo muy azul que sube hasta el ultravioleta — la firma del disco de acreción, más caliente que cualquier estrella pero con luminosidad de billones de ellas.</li>
+    <li><strong>Variabilidad:</strong> cambios grandes y rápidos de brillo (el argumento c·Δτ de la clase pasada). Ninguna galaxia normal varía así.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Conexión con la investigación actual</span>
+    <p>La variabilidad de los AGN es el tema de investigación de la profesora. El <strong>Observatorio Vera Rubin</strong>, recién inaugurado, tiene como misión central mapear el <em>universo variable</em>: multiplicará por mucho el número de AGN conocidos (de cientos a millones en algunos regímenes).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Sgr A*: el corazón de la Vía Láctea</h2>
+    <p>Un agujero negro supermasivo tranquilo, a 27.000 años luz, escondido detrás del polvo.</p>
+  </div></div>
+
+  <p>¿Y si el agujero negro <em>no</em> está activo? Se puede estudiar igual, midiendo cómo se mueve lo que lo rodea. El ejemplo más cercano: <span class="hl">Sagitario A*</span> (Sgr A*), el agujero negro supermasivo de <strong>~4 millones de masas solares</strong> en el núcleo de nuestra galaxia, a ~27.000 años luz, en la constelación de Sagitario (la de "la tetera").</p>
+
+  <p>El centro galáctico está en la parte <em>más oscura</em> del cielo óptico — no porque no haya nada, sino por el <strong>polvo</strong> del disco. La solución es observar en el <strong>infrarrojo</strong>, que penetra el polvo (recordar la curva de extinción: cuanto más al rojo, menos luz se pierde). Ahí aparece lo que el óptico oculta: el <span class="hl">cúmulo estelar nuclear</span>, de ~35 millones de masas solares — la región más densa en estrellas de toda la galaxia, al lado del cual los cúmulos globulares son pequeños.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-11.jpg" alt="Diapositiva del centro de la Vía Láctea observado en el infrarrojo con el cúmulo estelar nuclear">
+    <figcaption><span class="cap">Diapositiva · El centro galáctico en infrarrojo</span>El viaje de la clase (video con datos reales de ESO): desde el campo óptico amplio, cambiando a longitudes de onda cada vez más rojas, hasta sumergirse en el cúmulo nuclear y ver las estrellas <em>moverse</em> alrededor de un punto invisible. <small>Crédito: ESO / R. Schoedel.</small></figcaption>
+  </figure>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La órbita de S2 y GRAVITY</h2>
+    <p>Treinta años siguiendo una estrella para pesar un agujero negro — y validar a Einstein de paso.</p>
+  </div></div>
+
+  <p>Desde 1992 se han seguido las estrellas más brillantes del cúmulo nuclear con instrumentos sucesivos: <strong>SHARP → NACO → GRAVITY</strong> (se nota en los datos: cada generación produce puntos con barras de error más chicas y mejor alineados al modelo). La estrella estrella es <span class="hl">S2</span>, que ya completó más de una órbita entera alrededor de Sgr A* (pericentros en 2002 y en mayo de 2018).</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-13.jpg" alt="Diapositiva del paper de GRAVITY con la órbita de S2 en torno a Sgr A* entre 1992 y 2018">
+    <figcaption><span class="cap">Diapositiva · S2 en torno a Sgr A* (1992–2018)</span>Figura del paper de la GRAVITY Collaboration (2018): la órbita proyectada, los datos de cada instrumento y el zoom al pericentro. La escala angular es diminuta (décimas de segundo de arco) pero corresponde a cientos de unidades astronómicas en el centro galáctico.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué esta órbita "comprueba" la relatividad general</span>
+    <p>Con física newtoniana pura <strong>no se puede ajustar</strong> la órbita observada de S2; solo al incorporar relatividad general (incluido el redshift gravitacional detectado en el pericentro, que la prensa tradujo como "la estrella se puso roja") el modelo describe los datos. Dos conclusiones en una: hay un objeto de ~4 millones de M☉ concentrado en un punto, y Einstein vuelve a pasar el test — esta vez en el régimen de campo fuerte.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Detalles de la clase</span>
+    <p><strong>Régimen kepleriano:</strong> tan cerca del agujero, la dinámica la dicta el cuerpo central (como los planetas respecto al Sol); las demás estrellas casi no influyen. Pero ojo: el dominio de Sgr A* es local — <em>no</em> es cierto que "toda la galaxia gira en torno al agujero negro"; un poco más lejos ya nadie lo siente. Las órbitas del cúmulo van "unas así, otras asá: caos total", desacopladas del disco galáctico a gran escala — como muñecas rusas dinámicamente independientes.</p>
+    <p><strong>Dos equipos compitiendo:</strong> el grupo europeo (ESO/VLT, lo mostrado en clase) y el grupo de la Universidad de California con el Observatorio Keck en Hawái. Resultados independientes y coincidentes: la mejor garantía. El trabajo valió el Premio Nobel de Física 2020 (la jefa del grupo estadounidense es Andrea Ghez; el del europeo, Reinhard Genzel).</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Resolución espacial e interferometría</h2>
+    <p>La física que gobierna qué detalles podemos ver — y el truco para saltarse el tamaño del espejo.</p>
+  </div></div>
+
+  <p>La <span class="hl">resolución espacial</span> es el tamaño angular más pequeño que un sistema óptico puede discernir (angular, porque un objeto chico y cercano puede ocupar el mismo ángulo que uno enorme y lejano — como la Luna y el Sol, cuya coincidencia de tamaño aparente nos regala los eclipses). La dicta la física de la difracción:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\theta \;=\; 1.22\,\frac{\lambda}{D}\ \text{(radianes)}\;=\;251643\,\frac{\lambda}{D}\ \text{(arcsec)}"></span>
+    <small>Dos perillas: la <strong>longitud de onda</strong> λ (más corta = más detalle) y el <strong>tamaño D</strong> del espejo o antena. El truco de la <span class="hl">interferometría</span>: si combino la luz de dos telescopios separados, <strong>D pasa a ser la distancia entre ellos</strong> — gano resolución (no área colectora) como si tuviera un telescopio de ese tamaño.</small>
+  </div>
+
+  <p><strong>GRAVITY</strong> es exactamente eso: los cuatro telescopios de 8 m del VLT observando la misma fuente a λ ~ 2 μm, con la luz llevada a un laboratorio común e interferida <em>en tiempo real</em>. Con D ~ 100 m: resolución de ~5 miliarcosegundos. Por eso puede medir la posición de S2 con esa precisión de relojería.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La interferometría es <strong>apertura sintética</strong>: en vez de un sensor gigante, muchos sensores chicos + correlación de señales con timestamps ultraprecisos. El área colectora (throughput de fotones) no mejora, pero la resolución (frecuencia espacial máxima muestreada) sí — el clásico trade-off entre sensibilidad y detalle.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>La "sombra": M87* y Sgr A* con el EHT</h2>
+    <p>Fotografiar la ausencia: la región que no emite dentro del anillo de luz.</p>
+  </div></div>
+
+  <h3>Qué estamos viendo (y por qué la "aureola")</h3>
+  <p>La imagen del agujero negro de <em>Interestelar</em> — la única parte de la película con respaldo científico riguroso, según la clase — es en el fondo "Saturno con anillos": un disco de gas en un plano. La diferencia es la <strong>aureola</strong> vertical: como el espacio está tan curvado, la luz de la <em>parte trasera</em> del disco (que no deberíamos ver) da la vuelta por arriba y por abajo del agujero y nos llega igual.</p>
+
+  <p>La clase lo ilustra con una visualización extrema: la Tierra orbitando un agujero negro de 2000 M☉ (horizonte de eventos ≈ radio terrestre, órbita a 3 R<sub>s</sub>, velocidad 0.7c, período 0.2 s, observada desde 5 R<sub>s</sub>). La Tierra nunca queda oculta detrás del agujero: justo cuando debería estar tapada, la vemos como un <span class="hl">anillo de Einstein</span> completo; y se enrojece al hundirse en el pozo de potencial (redshift gravitacional). Aviso: a esa distancia las mareas ya la habrían despedazado — es solo visualización.</p>
+
+  <h3>M87* (2019) y Sgr A* (2022)</h3>
+  <p>La primera imagen del <strong>Event Horizon Telescope</strong> fue del agujero negro de <strong>Messier 87</strong>, a ~55 millones de años luz: uno de los más masivos conocidos (~3–6 miles de millones de M☉; el análisis del EHT lo fijó en torno a 6.500 millones — dato externo). Lejano, pero tan masivo que su horizonte subtiende un ángulo alcanzable. En 2022 llegó la imagen de <strong>Sgr A*</strong>: mil veces menos masivo pero mil veces más cercano — por eso ambos tienen <em>casi el mismo tamaño angular</em> (¡otra coincidencia tipo Sol/Luna!). La de Sgr A* fue más difícil: el plano galáctico interpone campos magnéticos y la fuente varía rápido.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-19.jpg" alt="Diapositiva comparando las imágenes EHT de M87* y Sgr A* y sus escalas físicas">
+    <figcaption><span class="cap">Diapositiva · Las dos sombras</span>Arriba: M87* y Sgr A* vistos por el EHT. Abajo, las escalas: el anillo de M87* es mayor que la órbita de Plutón (se compara con el recorrido de la Voyager 1); el de Sgr A* es algo menor que la órbita de Mercurio. <small>Crédito: Event Horizon Telescope.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matices de la clase</span>
+    <p><strong>"Sombra" es un nombre discutible:</strong> no hay fuente detrás proyectando nada; es la zona central que <em>no emite</em>, coincidente con el horizonte de eventos. <strong>Y hace falta un poco de gas:</strong> estos agujeros no son AGN potentes — si tuvieran un disco de acreción luminoso, el brillo taparía la región oscura. Pero tampoco pueden estar 100% aislados: sin nada de gas brillando alrededor, no habría contraste que fotografiar.</p>
+  </div>
+
+  <h3>La ingeniería del EHT</h3>
+  <p>Para resolver microsegundos de arco no basta el VLT: se necesita <strong>D ≈ el radio de la Tierra</strong>. El EHT correlaciona radiotelescopios de todo el planeta (incluidos <strong>ALMA y APEX en Chile</strong>) observando simultáneamente a λ ~ 1.3–0.8 mm: resolución de ~50 a 30 <em>micro</em>arcosegundos. A diferencia del infrarrojo (interferencia en tiempo real, porque la onda no se puede "grabar"), en milimétrico la señal <strong>se graba con relojes atómicos de altísima precisión</strong> — lo más caro del proyecto — y se hace interferir <em>a posteriori</em> en un computador; los discos viajan en avión o barco hasta el correlacionador.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-21.jpg" alt="Diapositiva de la red global de radiotelescopios del Event Horizon Telescope">
+    <figcaption><span class="cap">Diapositiva · La red del EHT</span>Un "telescopio" del tamaño de la Tierra: ALMA y APEX (Chile), Hawái, México, Arizona, España, Polo Sur y Groenlandia. <small>Crédito: EHT / NRAO.</small></figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c3/assets/slide-20.jpg" alt="Diapositiva humorística: Homero Simpson comiéndose la imagen del agujero negro como si fuera una dona">
+    <figcaption><span class="cap">Diapositiva · Rigor científico</span>"No solamente es la sombra del agujero negro, sino que es la sombra de Homero comiéndose al agujero negro." La profesora insiste: esto había que mostrarlo.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Un AGN es un agujero negro engordando</h2>
+    <p>La actividad de los agujeros negros sigue la historia de formación estelar del universo.</p>
+  </div></div>
+
+  <p>Cuando vemos un AGN, vemos un agujero negro supermasivo <strong>incrementando su masa</strong>: el material del disco que cruza el horizonte se queda. La acreción es, de hecho, la manera más eficiente de hacer crecer un agujero negro (las fusiones, a lo más, lo duplican).</p>
+
+  <p>A escala cosmológica, la historia de la actividad AGN <strong>va de la mano con la formación estelar</strong>: ambas curvas (en gráficos logarítmicos tipo <em>plot de Madau</em>) suben hacia el pasado, alcanzan su máximo <em>antes</em> de que el universo tuviera la mitad de su edad — el <span class="hl">Cosmic Noon</span>, el "mediodía cósmico" — y luego caen dramáticamente. El universo joven formaba estrellas y alimentaba agujeros negros "como loco"; el actual es un universo tranquilo, conservador: "la fiesta se acabó".</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-24.jpg" alt="Diapositiva de la evolución cósmica de la actividad de agujeros negros comparada con la formación estelar">
+    <figcaption><span class="cap">Diapositiva · Evolución cósmica</span>Actividad AGN (línea punteada) y formación estelar en función del redshift: mismo patrón, máximo en el Cosmic Noon (z ~ 2). Recordar que redshift y tiempo cronológico no son lineales: de z~1 hacia atrás se comprime la mitad de la historia del universo. <small>Crédito: Andrea Merloni.</small></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dónde crece mejor un agujero negro</span>
+    <p>En el <strong>centro de una galaxia</strong>: la región más densa, llena de gas y estrellas. Basta una perturbación para que el material se precipite — ya sea un TDE ocasional o períodos de acreción sostenida de miles a millones de años. Así se llega a monstruos como M87*.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Masas intermedias y el problema de las semillas</h2>
+    <p>Entre 100 y 100.000 masas solares hay un desierto — y ahí se esconde el origen de los supermasivos.</p>
+  </div></div>
+
+  <p>El censo actual tiene dos poblaciones firmes con cotas empíricas:</p>
+  <ul>
+    <li><strong>Estelares:</strong> desde unas pocas M☉ (remanentes de supernova) hasta ~decenas–100 M☉ (vía ondas gravitacionales).</li>
+    <li><strong>Supermasivos:</strong> por convención, desde 10<sup>6</sup> M☉ ("por abajo del millón, el <em>súper</em> te lo sacan") hasta ~10<sup>10</sup> M☉. Sgr A*, con 4×10<sup>6</sup>, es "bien piñufla": cerca del límite inferior.</li>
+  </ul>
+  <p>En el medio están los hipotéticos <span class="hl">agujeros negros de masa intermedia</span>: los más pequeños encontrados como AGN rondan las 10<sup>5</sup> M☉ (el primer artículo del doctorado de la profesora fue sobre uno de esa masa), pero de ahí hacia abajo el territorio es casi desconocido. El Observatorio Rubin debería multiplicar los candidatos.</p>
+
+  <h3>¿De dónde salieron los supermasivos?</h3>
+  <p>El problema aritmético: pasar de una semilla estelar de ~10 M☉ a 10<sup>9-10</sup> M☉ exige crecer <strong>8 o 9 órdenes de magnitud</strong> en un tiempo finito — y encontramos cuásares ya monstruosos cuando el universo era jovencísimo. ¿Alcanza el tiempo? No se sabe. Los teóricos ("les entregas el problema y te inventan todo tipo de agujero negro posible") proponen un menú de <span class="hl">semillas</span>:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Mecanismo</th><th>Masa de la semilla</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td><b>Muerte de las primeras estrellas</b></td><td>10–100 M☉</td><td>Físicamente el más conservador y vigente</td></tr>
+      <tr><td><b>Colapso de un cúmulo estelar joven</b></td><td>~1.000 M☉</td><td>Viable; nunca observado</td></tr>
+      <tr><td><b>Estrellas oscuras (materia oscura)</b></td><td>~10.000 M☉</td><td>Especulativo</td></tr>
+      <tr><td><b>Colapso directo del centro de una galaxia</b></td><td>10⁵–10⁶ M☉</td><td>Con problemas astrofísicos varios</td></tr>
+      <tr><td><b>Colapso durante el Big Bang (primordiales)</b></td><td>variable</td><td>Sin ninguna evidencia hasta ahora</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m3c3/assets/slide-26.jpg" alt="Diapositiva con los mecanismos propuestos para las semillas de los agujeros negros supermasivos">
+    <figcaption><span class="cap">Diapositiva · Las semillas de los SMBH</span>El crecimiento posterior es por acreción (sobre todo) y fusiones. Puede que operen <em>varios</em> mecanismos a la vez, cada uno sembrando un rango de masas distinto. <small>Crédito: NewScientist.</small></figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Los AGN más lejanos</h2>
+    <p>Buscar monstruos tempranos para acorralar a las semillas.</p>
+  </div></div>
+
+  <p>Estrategia: si encuentro un agujero negro ya muy masivo a redshift altísimo, restrinjo qué semillas son posibles ("¿cómo creció tanto en tan poco tiempo?"). Dos récords:</p>
+
+  <h3>J0313−1806: el más lejano con espectro (z ≈ 7.6)</h3>
+  <p>Un cuásar cuya luz salió cuando el universo era una fracción mínima de su edad actual. A ese redshift <strong>todo el espectro ultravioleta emitido se corre al infrarrojo observado</strong> (λ<sub>obs</sub> = λ<sub>emit</sub>·(1+z)): en el óptico el objeto simplemente <em>no aparece</em>, y "enciende" recién en los filtros infrarrojos. Así se los busca: fuentes brillantes en el infrarrojo y ausentes en el óptico — mientras más corrido el encendido, más lejos el objeto. El espectro confirmó líneas anchas de AGN: identificación 100% segura.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-28.jpg" alt="Diapositiva del espectro del cuásar J0313-1806 corrido completamente al infrarrojo">
+    <figcaption><span class="cap">Diapositiva · El espectro de J0313−1806</span>En negro, el espectro observado (empieza recién en ~1.1 μm); en azul, la plantilla de un AGN conocido puesta encima. Todo el ultravioleta emitido aparece en el infrarrojo. <small>Crédito: Wang et al. 2021.</small></figcaption>
+  </figure>
+
+  <h3>UHZ1: el récord fotométrico (z ≈ 10.3)</h3>
+  <p>Detectado con el <strong>James Webb</strong> detrás de un cúmulo de galaxias que actúa como <strong>lente gravitacional</strong> (distorsiona <em>y amplifica</em>: permite estudiar fuentes que serían demasiado débiles). Sin espectro, su redshift ~10.3 es una estimación fotométrica: invisible hasta ~1.5 μm y claro en los filtros más rojos. La objeción — "una estrella ultrafría podría imitar esos colores" — se descarta porque UHZ1 <strong>emite en rayos X</strong> (detección de Chandra): la firma de la corona de un AGN, imposible para una enana fría. Si se confirma, es un AGN a solo ~500 millones de años del Big Bang.</p>
+
+  <div class="box prof">
+    <span class="tag">Cautela de la clase</span>
+    <p>Los primeros objetos que uno encuentra al estrenar una técnica son <strong>los más luminosos y raros</strong> — la excepción, no la norma. Que existan monstruos tempranos "complica la cosa" pero no cierra el debate: quizás partieron de semillas particularmente masivas o crecieron en regiones excepcionalmente densas. La otra vía complementaria: estudiar agujeros de masa intermedia en galaxias <em>cercanas</em> y usar sus masas típicas para inferir cómo fueron las semillas. Próxima parada del curso: <strong>cosmología</strong> (dos clases seguidas).</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">✦</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Dos calculadoras: qué tan fino puede ver un telescopio, y cuánto demora en crecer una semilla.</p>
+  </div></div>
+
+  <div class="widget" id="w-res">
+    <h4>Widget 1 · Resolución angular: θ = 1.22 λ/D</h4>
+    <div class="wgrid">
+      <div><label>Longitud de onda λ (metros)</label><input type="number" id="rs-lam" value="0.000002" step="any" min="1e-12"></div>
+      <div><label>Tamaño D del sistema óptico (metros)</label><input type="number" id="rs-d" value="100" step="any" min="0.0001"></div>
+    </div>
+    <div class="presets">
+      <button type="button" data-lam="5e-7" data-d="0.005">Ojo humano (500 nm, pupila 5 mm)</button>
+      <button type="button" data-lam="5e-7" data-d="8">Telescopio de 8 m (óptico)</button>
+      <button type="button" data-lam="2e-6" data-d="100">GRAVITY / VLTI (2 μm, 100 m)</button>
+      <button type="button" data-lam="1.3e-3" data-d="6371000">EHT (1.3 mm, radio de la Tierra)</button>
+      <button type="button" data-lam="0.01" data-d="6371000">EHT (1 cm)</button>
+    </div>
+    <div class="wout" id="rs-out"></div>
+  </div>
+
+  <div class="widget" id="w-seed">
+    <h4>Widget 2 · ¿Alcanza el tiempo? Crecimiento de una semilla por acreción</h4>
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 6px">Acretando al límite de Eddington, la masa crece exponencialmente con tiempo de duplicación efectivo ~e-folding de ≈ 45 millones de años (tiempo de Salpeter; material externo consistente con la discusión de la clase).</p>
+    <div class="wgrid">
+      <div><label>Masa de la semilla (M☉)</label><input type="number" id="sd-m0" value="10" step="any" min="0.1"></div>
+      <div><label>Masa final deseada (M☉)</label><input type="number" id="sd-m1" value="1000000000" step="any" min="1"></div>
+    </div>
+    <div class="presets">
+      <button type="button" data-m0="10" data-m1="1e9">Primera estrella → cuásar temprano</button>
+      <button type="button" data-m0="1000" data-m1="1e9">Colapso de cúmulo → cuásar</button>
+      <button type="button" data-m0="100000" data-m1="1e9">Colapso directo → cuásar</button>
+      <button type="button" data-m0="10" data-m1="4e6">Semilla estelar → Sgr A*</button>
+    </div>
+    <div class="wout" id="sd-out"></div>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">✎</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Idea esencial</th></tr></thead>
+    <tbody>
+      <tr><td><b>Disco de acreción</b></td><td>Componente dominante del AGN; emisión termal (UV/óptico) por fricción del gas; hasta decenas de miles de K.</td></tr>
+      <tr><td><b>Corona</b></td><td>Electrones relativistas junto al agujero; ~10% de la emisión, en rayos X, no termal (Compton inverso).</td></tr>
+      <tr><td><b>Jet</b></td><td>Material ultrarrelativista colimado; solo en ~10% de los AGN; emisión sincrotrón, mejor observado en radio; alcanza cientos de miles de años luz (Cygnus A: 225.000).</td></tr>
+      <tr><td><b>Sgr A*</b></td><td>SMBH de ~4×10⁶ M☉ en el centro de la Vía Láctea (27.000 al), rodeado del cúmulo nuclear (~3.5×10⁷ M☉); se estudia en infrarrojo por el polvo.</td></tr>
+      <tr><td><b>S2 / GRAVITY</b></td><td>30 años de astrometría (SHARP→NACO→GRAVITY); la órbita solo se ajusta con relatividad general; Nobel 2020.</td></tr>
+      <tr><td><b>Resolución angular</b></td><td>θ = 1.22 λ/D; con interferometría, D = distancia entre telescopios (ganas resolución, no área colectora).</td></tr>
+      <tr><td><b>Anillo de Einstein</b></td><td>Fuente justo detrás de la masa → su imagen se ve como anillo completo; la "aureola" de la sombra es la parte trasera del disco.</td></tr>
+      <tr><td><b>EHT / la "sombra"</b></td><td>Red global de radiotelescopios (mm); M87* en 2019 y Sgr A* en 2022; la señal se graba con relojes atómicos y se interfiere a posteriori.</td></tr>
+      <tr><td><b>M87* vs. Sgr A*</b></td><td>Masas ~10⁹ vs. 4×10⁶ M☉, pero casi igual tamaño angular (masa/distancia compensadas, como Sol/Luna).</td></tr>
+      <tr><td><b>Cosmic Noon</b></td><td>Máximo de actividad AGN y de formación estelar, antes de la mitad de la edad del universo; después, "la fiesta se acabó".</td></tr>
+      <tr><td><b>Masa intermedia</b></td><td>Rango ~10²–10⁶ M☉ casi vacío de detecciones; frontera activa (Rubin traerá millones de candidatos).</td></tr>
+      <tr><td><b>Semillas de SMBH</b></td><td>Primeras estrellas (10–100), colapso de cúmulo (10³), estrellas oscuras (10⁴), colapso directo (10⁵–10⁶), primordiales; crecimiento posterior por acreción.</td></tr>
+      <tr><td><b>J0313−1806</b></td><td>AGN más lejano con espectro (z≈7.6): todo su UV se observa en el infrarrojo; se busca por "ausencia en el óptico".</td></tr>
+      <tr><td><b>UHZ1</b></td><td>Candidato a z≈10.3 (fotométrico), amplificado por un cúmulo-lente; los rayos X descartan que sea una estrella fría.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas: 3 de alternativas autocorregibles + 2 de respuesta escrita con solución propuesta.</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c3-examen-01.html">Examen 01<small>Anatomía de un AGN</small></a></li>
+    <li><a href="m3c3-examen-02.html">Examen 02<small>Jets y lóbulos</small></a></li>
+    <li><a href="m3c3-examen-03.html">Examen 03<small>Firmas de un AGN</small></a></li>
+    <li><a href="m3c3-examen-04.html">Examen 04<small>El centro galáctico</small></a></li>
+    <li><a href="m3c3-examen-05.html">Examen 05<small>S2 y GRAVITY</small></a></li>
+    <li><a href="m3c3-examen-06.html">Examen 06<small>Resolución e interferometría</small></a></li>
+    <li><a href="m3c3-examen-07.html">Examen 07<small>La sombra y el EHT</small></a></li>
+    <li><a href="m3c3-examen-08.html">Examen 08<small>Evolución cósmica</small></a></li>
+    <li><a href="m3c3-examen-09.html">Examen 09<small>Semillas y AGN lejanos</small></a></li>
+    <li><a href="m3c3-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo III del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción del audio (<code>galaxias/m3/ff/galaxias-m3c3.md</code>) y las diapositivas <code>Modulo_III_Clase_3_for_pdf-1.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática que puede contener errores graves de reconocimiento de voz. Correcciones aplicadas contrastando con diapositivas y fuentes: "Sagitario A Estrella / Azteca / a estrella" es <b>Sgr A*</b>; la estrella "DES / EC / s" es <b>S2</b>; "la galaxia M / 1087 / DM / n" es <b>Messier 87 (M87)</b>; "Telescopio del Horizonte de Lexos / de Luis Ante Bento" es el <b>Event Horizon Telescope (EHT)</b>; "massive" corresponde a <b>masa</b>; "el KEK" es el Observatorio <b>Keck</b>; "el DLA" es el <b>VLA</b>; "disco de agresión / ampliación / acción" es <b>disco de acreción</b>; "ciprotron" es <b>sincrotrón</b>; "Quasar J" es <b>J0313−1806</b> (Wang et al. 2021, z=7.64); "rache / ratchet / rechazar / rranch" es <b>redshift</b>; "medio billón de años" corresponde a ~<b>500 millones de años</b> (0.5 <em>billion</em>). La masa de M87*: la lámina dice 3–6×10⁹ M☉ y el análisis EHT la fijó en ≈6.5×10⁹ (material externo). Los nombres de los líderes de los grupos del Nobel 2020 (Ghez, Genzel) y el tiempo de Salpeter del widget 2 son material externo complementario. Ante dudas, priman las diapositivas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: resolución =====
+  var rsLam=document.getElementById('rs-lam'), rsD=document.getElementById('rs-d'), rsOut=document.getElementById('rs-out');
+  function angTxt(arcsec){
+    if(arcsec>=1) return arcsec.toFixed(1)+' segundos de arco';
+    if(arcsec>=1e-3) return (arcsec*1e3).toFixed(1)+' miliarcosegundos';
+    return (arcsec*1e6).toFixed(1)+' microarcosegundos';
+  }
+  function rsUpdate(){
+    var lam=+rsLam.value, d=+rsD.value;
+    if(!(lam>0)||!(d>0)){ rsOut.textContent='Ingresa valores positivos.'; return; }
+    var arcsec=251643*lam/d;
+    var comp;
+    if(arcsec<1e-4) comp='Régimen EHT: suficiente para la sombra de M87* (~40 μas).';
+    else if(arcsec<0.02) comp='Régimen GRAVITY: se puede seguir la órbita de S2.';
+    else if(arcsec<2) comp='Buen telescopio profesional (limitado por la atmósfera sin óptica adaptativa).';
+    else comp='Como el ojo humano (~20–60 arcsec) o peor.';
+    rsOut.innerHTML='<span class="k">Resolución:</span> θ = 1.22·λ/D = <b>'+angTxt(arcsec)+'</b><br>'+comp+
+      '<br><small style="color:var(--muted)">Recuerda: λ más corta o D más grande ⇒ más detalle. Con interferometría, D es la separación entre telescopios.</small>';
+  }
+  rsLam.addEventListener('input',rsUpdate); rsD.addEventListener('input',rsUpdate);
+  document.querySelectorAll('#w-res .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ rsLam.value=b.dataset.lam; rsD.value=b.dataset.d; rsUpdate(); });
+  });
+  rsUpdate();
+
+  // ===== Widget 2: crecimiento de semillas =====
+  var sdM0=document.getElementById('sd-m0'), sdM1=document.getElementById('sd-m1'), sdOut=document.getElementById('sd-out');
+  var TSAL=45; // Myr, e-folding Eddington (Salpeter)
+  function sdUpdate(){
+    var m0=+sdM0.value, m1=+sdM1.value;
+    if(!(m0>0)||!(m1>m0)){ sdOut.textContent='La masa final debe ser mayor que la semilla.'; return; }
+    var ordenes=Math.log10(m1/m0);
+    var t=Math.log(m1/m0)*TSAL; // Myr
+    var veredicto;
+    if(t<500) veredicto='Cabe incluso antes de z~10 (universo de ~500 millones de años): semilla viable para los cuásares tempranos.';
+    else if(t<1000) veredicto='Justo al límite para los cuásares más tempranos (z~7–10): exige acreción al máximo, sin pausas.';
+    else if(t<13800) veredicto='Posible dentro de la edad del universo (~13.800 millones de años), pero NO explica los monstruos tempranos.';
+    else veredicto='¡No alcanza ni la edad del universo! Hace falta una semilla más masiva u otro mecanismo.';
+    sdOut.innerHTML='<span class="k">Crecimiento requerido:</span> <b>'+ordenes.toFixed(1)+' órdenes de magnitud</b><br>'+
+      '<span class="k">Tiempo mínimo (acreción de Eddington sostenida):</span> <b>'+
+      (t>=1000? (t/1000).toFixed(2)+' mil millones de años' : Math.round(t)+' millones de años')+'</b><br>'+veredicto;
+  }
+  sdM0.addEventListener('input',sdUpdate); sdM1.addEventListener('input',sdUpdate);
+  document.querySelectorAll('#w-seed .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ sdM0.value=b.dataset.m0; sdM1.value=b.dataset.m1; sdUpdate(); });
+  });
+  sdUpdate();
+});
+</script>
+</body>
+</html>

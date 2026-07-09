@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 07 — m3c2 · Pico del hierro</title>
+<title>Examen 07 — m3c2 · Energética de la supernova</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,50 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-<h1>m3c2 · Pico del hierro</h1>
+<h1>Examen 07 — Energética y escalas de tiempo de la supernova</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="a,c,b">
-  <fieldset data-q="1"><legend>1. El máximo de energía de enlace por nucleón ocurre en:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Hierro (Fe)</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Hidrógeno</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Uranio</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Helio solamente</label>
-    <p class="fb" hidden>El Fe es el núcleo más estable: máximo B/A.</p>
+
+<form id="quiz" data-answers="d,b,c">
+  <fieldset data-q="1"><legend>1. La energía liberada en una explosión de supernova (~10⁴⁶ J) equivale aproximadamente a:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La energía que el Sol emite en un año</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La mitad de la energía que el Sol emitirá en su vida</label>
+    <label class="opt"><input type="radio" name="q1" value="c">10 veces la energía del Sol en un día</label>
+    <label class="opt"><input type="radio" name="q1" value="d">~100 veces toda la energía que el Sol liberará en su vida completa</label>
+    <p class="fb" hidden>La cuenta de clase: L☉ ≈ 3,9×10²⁶ W integrada sobre la vida del Sol y multiplicada por ~100 recién llega a los ~10⁴⁶ J de una supernova.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Intentar fusionar hierro en elementos más pesados en el interior estelar:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Libera mucha energía como H → He</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Solo ocurre en el Big Bang</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Requiere aportar energía</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Ocurre espontáneamente en el Sol</label>
-    <p class="fb" hidden>Más allá del Fe, fusionar consume energía.</p>
+  <fieldset data-q="2"><legend>2. La fuente de energía de una supernova de colapso de núcleo es:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Las reacciones termonucleares del núcleo de hierro</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La energía gravitacional liberada por el colapso y la caída libre de las capas</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La aniquilación de materia y antimateria</label>
+    <label class="opt"><input type="radio" name="q2" value="d">La rotación de la estrella</label>
+    <p class="fb" hidden>No son reacciones termonucleares (eso alimenta a la estrella en vida): es energía potencial gravitacional convertida en cinética al caerse el piso de las capas.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. En reactores nucleares terrestres, la fisión de uranio libera energía porque:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Los productos son más pesados que U</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Los fragmentos son núcleos más ligeros, más cercanos al máximo de B/A</label>
-    <label class="opt"><input type="radio" name="q3" value="c">No hay conversión de masa</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Es idéntico al ciclo CNO</label>
-    <p class="fb" hidden>Fisión de núcleos muy pesados hacia fragmentos más ligeros libera energía.</p>
+  <fieldset data-q="3"><legend>3. ¿Cuánto tarda la onda de choque en atravesar la estrella completa (una supergigante de ~5 UA)?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Una fracción de segundo</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Varios años</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Del orden de horas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Varios meses</label>
+    <p class="fb" hidden>Contracción del núcleo: ~0,1 s; colapso: ~1 s; transporte del choque por la estrella: ~horas. Una estrella que vivió un millón de años se desarma en una hora.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica la energía de enlace por nucleón usando el ejemplo H → He.</p>
+  <p class="q">4. Dibuja (o describe) la curva de luz de una supernova tal como la explicó la profesora, y explica por qué la subida y la bajada tienen escalas de tiempo tan distintas.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Cuatro protones tienen <strong>masa mayor</strong> que <sup>4</sup>He; Δm → energía (E=Δmc²). B/A mide estabilidad por nucleón.</div>
+    <div class="answer">En un gráfico de luminosidad versus tiempo (en <strong>escala logarítmica</strong>), la supernova aparece como un <strong>salto casi vertical</strong> de brillo — la estrella “se pega el salto” en un instante, porque el colapso y rebote ocurren en segundos a horas. La <strong>bajada, en cambio, dura meses</strong>: la enorme energía liberada tarda en radiarse, enfriarse y mezclarse con el medio interestelar, así que el brillo decae lentamente (caída aproximadamente exponencial). La supernova se mantiene brillante ~semanas, lo que da tiempo para tomarle espectros y hacer otros estudios. Capturar la <em>subida</em> es difícil porque no estamos monitoreando todas las galaxias continuamente; la <em>bajada</em> larga es la que suele observarse.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué el hierro marca el fin de la fusión como fuente de energía en estrellas masivas?</p>
+  <p class="q">5. ¿Por qué las supernovas sirven como “faros” para estudiar el universo lejano? ¿Qué aplicación famosa de esto se mencionó en clase?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">El Fe está en el <strong>pico</strong> de B/A: sin exotermia nuclear, el núcleo no mantiene presión → colapso.</div>
+    <div class="answer">Porque por un instante son <strong>increíblemente brillantes</strong>: liberan ~100 veces la energía de toda la vida del Sol casi de golpe, con un cambio de brillo gigantesco respecto al objeto original. Eso permite detectarlas a <strong>redshifts altísimos</strong> — distancias donde una estrella normal sería invisible — y como permanecen brillantes por semanas, se les pueden tomar espectros y medir propiedades. Las búsquedas sistemáticas modernas las encuentran por todo el universo comparando imágenes de galaxias “antes/después”. La aplicación famosa: se usaron para medir la <strong>expansión acelerada del universo</strong>, trabajo reconocido con el <strong>Premio Nobel</strong> (Física 2011).</div>
   </details>
 </div>
 
-<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Estrellas). Fuentes: <code>estrellas/m3/ff/estrellas-m3c2.md</code>, <code>Modulo_III_Clase_2_LPerez.pdf</code>. <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
-
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Estrellas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){

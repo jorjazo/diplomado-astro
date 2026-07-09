@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evolución de Alta Masa — Astrofísica de Estrellas, Módulo III · Clase 2</title>
+<title>Estrellas Masivas y Supernovas — Astrofísica de Estrellas, Módulo III · Clase 2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -13,7 +13,6 @@
   --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
   --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
   --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
-  --ok:#7ee07e; --bad:#f06a5e;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -36,8 +35,11 @@ body{
 h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
 a{color:var(--red-soft);text-decoration:none}
 a:hover{text-decoration:underline}
+
 nav.top{padding:18px 0 0;font-size:.9rem}
 nav.top a{color:var(--muted)}
+
+/* HERO */
 .hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--red-soft);font-weight:600}
@@ -50,9 +52,13 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
   border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
 .meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
 .lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
 .lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
   padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
 .idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
 .idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
@@ -62,6 +68,8 @@ h1 em{font-style:italic;color:var(--red-soft)}
 .idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
 .idx a:hover{color:var(--red-soft);text-decoration:none}
 @media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
 section{margin:52px 0;scroll-margin-top:20px}
 .shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
 .num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
@@ -77,6 +85,11 @@ strong{color:#fff;font-weight:600}
 ul{margin:.6em 0;padding-left:1.2em}
 li{margin:.34em 0}
 li::marker{color:var(--red)}
+ol.steps{margin:.6em 0;padding-left:1.4em}
+ol.steps li{margin:.4em 0}
+ol.steps li::marker{color:var(--red);font-weight:600}
+
+/* FIGURE */
 figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
   box-shadow:0 24px 60px -34px #000}
 figure img{display:block;width:100%;height:auto}
@@ -84,6 +97,8 @@ figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1
   border-top:1px solid var(--line)}
 figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
   text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
 .box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
   background:linear-gradient(180deg,#0e1626,#0b1120)}
 .box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
@@ -95,11 +110,16 @@ figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-sp
 .box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
 .box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
 .box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
 .formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
   padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
   box-shadow:inset 0 0 40px -28px var(--cyan)}
 .formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
   letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
 .tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:.97rem}
 th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
@@ -108,6 +128,8 @@ thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);f
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#0d1422}
 td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
 .widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
   padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
 .widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
@@ -126,19 +148,19 @@ td b{color:var(--gold);font-weight:600}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
 .tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+/* EXAM LIST */
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
   background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
 .examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
 .examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
 footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
 footer b{color:var(--ink)}
 .disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
 .katex{font-size:1.04em}
-.bar-wrap{display:flex;align-items:flex-end;gap:4px;height:140px;margin:12px 0 8px;padding:8px 4px;background:#070d18;border-radius:10px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
-.bar-fill{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:.2s}
-.bar-lbl{font-size:.62rem;color:var(--muted);margin-top:4px;text-align:center;line-height:1.2}
 </style>
 </head>
 <body>
@@ -147,354 +169,402 @@ footer b{color:var(--ink)}
 
 <div class="hero">
   <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 2</span>
-  <h1>Evolución de <em>Alta Masa</em></h1>
-  <p class="sub">De la secuencia principal breve al ciclo CNO, la fusión por capas hasta el hierro, el colapso del núcleo y la explosión de supernova que enriquece el universo con elementos pesados.</p>
+  <h1>Estrellas Masivas y <em>Supernovas</em></h1>
+  <p class="sub">Evolución Estelar II: cómo viven y mueren las estrellas de alta masa. El ciclo CNO, la fusión por capas hasta el hierro, la energía de enlace nuclear como punto de quiebre, el colapso del núcleo y la explosión de supernova que fabrica —y reparte— los elementos de la tabla periódica.</p>
   <div class="meta">
-    <span><b>Docente:</b> Laura Pérez</span>
+    <span><b>Docente:</b> Laura Pérez (clase de reemplazo)</span>
     <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
     <span><b>Fecha:</b> 6 jul 2026</span>
-    <span><b>Tema:</b> Evolución estelar II</span>
+    <span><b>Tema:</b> Evolución Estelar II</span>
   </div>
 </div>
 
-<p class="lead"><span class="drop">L</span>a clase pasada cerró el capítulo de las estrellas de <span class="hl">baja masa</span>: agotan el hidrógeno, pasan por gigante roja, expulsan capas externas y dejan una <em>enana blanca</em> de carbono y oxígeno. Hoy abrimos el otro extremo: estrellas que viven poco, queman combustible a tasas enormes, alcanzan temperaturas de cientos de millones de kelvin y terminan en <strong>supernovas</strong>. El hilo conductor es la misma física de equilibrio hidrostático, pero el desenlace es radicalmente distinto.</p>
+<p class="lead"><span class="drop">U</span>na estrella de alta masa (<span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span>) vive rápido y muere de forma espectacular. Quema su hidrógeno mediante una vía de fusión distinta y mucho más eficiente que la del Sol —el <span class="hl">ciclo CNO</span>—, avanza fusionando elementos cada vez más pesados por capas, y se detiene en seco al llegar al <span class="hl">hierro</span>, el núcleo atómico más estable de la naturaleza. Sin combustible, el núcleo estelar colapsa en una fracción de segundo, el material que cae <em>rebota</em> contra un remanente con densidad de núcleo atómico, y la onda de choque desarma la estrella: una <span class="hl">supernova</span>. En esa explosión se liberan ~10⁴⁶ joules y se forjan los elementos más pesados que el hierro. Todo lo que hay en la tabla periódica más allá del hidrógeno y el helio salió de ahí: somos, literalmente, polvo de estrellas.</p>
 
 <nav class="idx">
   <span class="tag">Contenido de la clase</span>
   <ol>
-    <li><a href="#s1">Recapitulación: baja masa</a></li>
-    <li><a href="#s2">Umbral de masa y vidas cortas</a></li>
-    <li><a href="#s3">Supergigantes y pérdida de masa</a></li>
-    <li><a href="#s4">Ciclo CNO vs cadena protón–protón</a></li>
-    <li><a href="#s5">Fusión por capas hasta el hierro</a></li>
-    <li><a href="#s6">Pico del hierro y energía de enlace</a></li>
-    <li><a href="#s7">Colapso y supernova Tipo II</a></li>
-    <li><a href="#s8">Tiempos y energía liberada</a></li>
-    <li><a href="#s9">Nucleosíntesis y evidencia</a></li>
-    <li><a href="#interactivo">Widgets interactivos</a></li>
+    <li><a href="#s1">Repaso: estrellas de baja masa</a></li>
+    <li><a href="#s2">Alta masa: vivir rápido, morir joven</a></li>
+    <li><a href="#s3">El ciclo CNO</a></li>
+    <li><a href="#s4">Supergigantes rojas: fusión por capas</a></li>
+    <li><a href="#s5">Energía de enlace: el muro del hierro</a></li>
+    <li><a href="#s6">Colapso y rebote: la supernova</a></li>
+    <li><a href="#s7">Energética y escalas de tiempo</a></li>
+    <li><a href="#s8">La fábrica de los elementos</a></li>
+    <li><a href="#s9">Evidencia observacional</a></li>
     <li><a href="#conceptos">Conceptos clave</a></li>
     <li><a href="#examenes">Exámenes de práctica</a></li>
   </ol>
 </nav>
 
-<!-- S1 -->
+<!-- ============ S1 ============ -->
 <section id="s1">
   <div class="shead"><span class="num">1</span><div>
-    <h2>Recapitulación: estrellas de baja masa</h2>
-    <p>El punto de partida de la clase de hoy.</p>
+    <h2>Repaso: la vida y muerte de las estrellas de baja masa</h2>
+    <p>Dónde quedamos la clase pasada, y el mapa donde ocurre todo: el diagrama HR.</p>
   </div></div>
 
-  <p>En la secuencia principal, una estrella como el Sol fusiona <strong>hidrógeno → helio</strong> en el núcleo. Cuando el H se agota, el núcleo de helio se contrae, sube la temperatura y la estrella se expande a <span class="hl">gigante roja</span>. La fusión continúa por <em>capas</em>: una cáscara de H fusionando alrededor de un núcleo inerte de He.</p>
-
-  <p>En baja masa el camino se detiene en el <strong>carbono</strong>: no hay temperatura ni densidad suficientes para fusionar C en el núcleo. Las capas externas se expulsan → <em>nebulosa planetaria</em> → queda un núcleo compacto de C/O: la <strong>enana blanca</strong>, sostenida por presión degenerada de electrones (tema del «cementerio estelar», clases siguientes).</p>
-
-  <figure>
-    <img src="m3c2/assets/slide-02.jpg" alt="Recapitulación evolución de baja masa">
-    <figcaption><span class="cap">Diapositiva 2</span>Resumen de la clase anterior: vida en secuencia principal (fusión de H), fase gigante roja con fusión por capas, núcleo inerte de C y muerte como nebulosa planetaria + enana blanca.</figcaption>
-  </figure>
-
-  <figure>
-    <img src="m3c2/assets/slide-03.jpg" alt="Diagrama de Hertzsprung-Russell">
-    <figcaption><span class="cap">Diapositiva 3</span>El diagrama HR ordena estrellas por temperatura (tipo espectral) y luminosidad. La secuencia principal es la diagonal donde fusionan H → He; gigantes, supergigantes y enanas blancas son etapas evolutivas posteriores.</figcaption>
-  </figure>
-
-  <div class="box cs">
-    <span class="tag">Analogía de ingeniería</span>
-    <p>Laura comparó la vida estelar con un presupuesto: si tienes poca «plata» (masa), la gastas despacio; si tienes mucha, la quemas en poco tiempo. Con la relación de clase 1 (<span class="katex-inline" data-tex="L \propto M^{4}"></span> en MS), el tiempo de vida escala como <span class="katex-inline" data-tex="t_{\rm MS}\propto M^{-3}"></span>: duplicar la masa reduce la vida en un factor ~8.</p>
-  </div>
-</section>
-
-<!-- S2 -->
-<section id="s2">
-  <div class="shead"><span class="num">2</span><div>
-    <h2>Umbral de masa ≈ 4 M<sub>☉</sub></h2>
-    <p>No es un corte afilado, sino un gradiente.</p>
-  </div></div>
-
-  <p>La separación entre evolución «solar» y «masiva» no ocurre exactamente en 4 masas solares, pero ese valor es un <strong>umbral útil</strong> (<span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span>): por encima, la estrella alcanza temperaturas y densidades que permiten fusionar elementos cada vez más pesados y seguir generando energía mucho después del agotamiento del hidrógeno.</p>
-
+  <p>La clase anterior cubrió la evolución de estrellas <strong>como el Sol</strong> (baja masa). El resumen que hizo la profesora:</p>
   <ul>
-    <li><strong>&lt; ~4 M<sub>☉</sub>:</strong> núcleo final de C/O; enana blanca; nebulosa planetaria.</li>
-    <li><strong>&gt; ~4 M<sub>☉</sub>:</strong> puede avanzar hasta O, Si, Fe; supergigante; muerte en supernova Tipo II.</li>
+    <li>Durante su vida en <span class="hl">secuencia principal</span>, la estrella genera energía fusionando <strong>hidrógeno en helio</strong> en su núcleo.</li>
+    <li>Cuando el hidrógeno del núcleo se agota, entra a la fase de <span class="hl">gigante roja</span>, con <strong>fusión por capas</strong>: distintas cáscaras fusionando distintos elementos.</li>
+    <li>El elemento de mayor número atómico que alcanza a producir una estrella de baja masa es el <strong>carbono</strong>. Su núcleo de carbono queda <em>inerte</em>: en principio fusionar carbono liberaría energía, pero una estrella de baja masa <strong>nunca alcanza la temperatura y densidad</strong> necesarias para hacerlo.</li>
+    <li>Sin combustible, las capas externas son expulsadas (las hermosas <strong>nebulosas planetarias</strong>) y queda el núcleo desnudo: una <span class="hl">enana blanca</span>. Los remanentes —el “cementerio estelar”— se ven más adelante en el curso.</li>
   </ul>
 
   <figure>
-    <img src="m3c2/assets/slide-04.jpg" alt="Tabla masa y tiempo de vida estelar">
-    <figcaption><span class="cap">Diapositiva 4</span>Cuánto vive una estrella depende casi solo de su masa. Una O5 de 40 M<sub>☉</sub> vive ~1 millón de años en secuencia principal; una M0 de 0,4 M<sub>☉</sub>, ~200.000 millones. El Sol (G0, ~1,1 M<sub>☉</sub>): ~9.000 millones de años.</figcaption>
+    <img src="m3c2/assets/slide-03.jpg" alt="Diagrama de Hertzsprung-Russell con secuencia principal, gigantes rojas, supergigantes y enanas blancas">
+    <figcaption><span class="cap">Diapositiva · Diagrama de Hertzsprung–Russell</span>El diagrama HR relaciona luminosidad con temperatura superficial (tipo espectral). La diagonal central es la <strong>secuencia principal</strong>: estrellas fusionando H → He en su núcleo. Las “estrellas raras” arriba (gigantes, supergigantes) y abajo (enanas blancas) son etapas de la evolución que estamos estudiando.</figcaption>
   </figure>
 
   <figure>
-    <img src="m3c2/assets/slide-05.jpg" alt="Introducción evolución alta masa">
-    <figcaption><span class="cap">Diapositiva 5</span>Las etapas iniciales de una estrella masiva son similares a las de baja masa, pero aceleradas: H → He en el núcleo, luego cáscara de H alrededor de un núcleo de He, y fusión gradual de He → C (sin el flash de helio abrupto de la baja masa).</figcaption>
+    <img src="m3c2/assets/slide-04.jpg" alt="Tabla de masa, temperatura superficial y vida en secuencia principal por tipo espectral">
+    <figcaption><span class="cap">Diapositiva · Masa y tiempo de vida</span>Cuánto vive una estrella depende <strong>solo de su masa</strong>: una O5 de 40 M<sub>☉</sub> vive ≈ 1 millón de años; una M0 de 0,4 M<sub>☉</sub>, ≈ 200.000 millones de años. “Vida” = mientras la fusión de H → He en el núcleo genere energía. Nótese la pregunta de la esquina: ¿podrán seres vivos evolucionar alrededor de estrellas masivas?</figcaption>
   </figure>
-
-  <div class="box dato">
-    <span class="tag">Órdenes de magnitud</span>
-    <p>Una estrella de 10 M<sub>☉</sub> vive ~10 millones de años en secuencia principal; una de 30 M<sub>☉</sub>, ~2 millones. El Sol: ~10<sup>10</sup> años. La diferencia son varios órdenes de magnitud — pensar en escalas logarítmicas ayuda a no perderse.</p>
-  </div>
-</section>
-
-<!-- S3 -->
-<section id="s3">
-  <div class="shead"><span class="num">3</span><div>
-    <h2>Supergigantes y pérdida dramática de masa</h2>
-    <p>No son «gigantes»: son otro régimen de tamaño.</p>
-  </div></div>
-
-  <p>Las estrellas masivas salen rápido de la secuencia principal y entran en la fase de <span class="hl">supergigante roja</span> (no solo «gigante»). La expansión puede llevar el radio hasta ~5 UA — del orden de la órbita de Júpiter. En esta fase dominan <strong>vientos estelares intensos</strong> y episodios de eyección masiva de material (<em>outbursts</em>).</p>
-
-  <figure>
-    <img src="m3c2/assets/slide-06.jpg" alt="Eta Carinae y nebulosa expulsada">
-    <figcaption><span class="cap">Diapositiva 6</span><strong>Eta Carinae</strong> (~100 M<sub>☉</sub>): la estrella (pequeña en el centro) está envuelta en material expulsado durante su evolución — una escala comparable a varias UA, mucho mayor que el Sistema Solar. La nebulosa circunestelar delata la magnitud de la pérdida de masa.</figcaption>
-  </figure>
-
-  <p>El equilibrio hidrostático se mantiene mientras haya fusión que aporte temperatura y presión de radiación. El problema llega cuando el combustible del núcleo se agota en la etapa más pesada posible: el hierro.</p>
-</section>
-
-<!-- S4 -->
-<section id="s4">
-  <div class="shead"><span class="num">4</span><div>
-    <h2>Ciclo CNO vs cadena protón–protón</h2>
-    <p>Dos vías para H → He; dominan en distinto régimen.</p>
-  </div></div>
-
-  <p>En baja masa domina la <strong>cadena protón–protón (pp)</strong>: dos protones se fusionan paso a paso hasta formar <sup>4</sup>He, sin necesitar núcleos pesados como catalizadores. En alta masa domina el <strong>ciclo CNO</strong> (carbono–nitrógeno–oxígeno): C, N y O actúan como <em>catalizadores</em> — participan en las reacciones pero se regeneran al cerrar el ciclo.</p>
-
-  <figure>
-    <img src="m3c2/assets/slide-07.jpg" alt="Diagrama del ciclo CNO">
-    <figcaption><span class="cap">Diapositiva 7</span>El ciclo CNO: cuatro protones entran, un núcleo de helio sale, y el carbono «vuelve» al inicio. Se liberan fotones γ y neutrinos en pasos intermedios. Ambas cadenas coexisten; lo que cambia es cuál domina la luminosidad.</figcaption>
-  </figure>
-
-  <div class="formula">
-    <span class="katex-block" data-tex="{}^{12}\mathrm{C} + {}^{1}\mathrm{H} \rightarrow {}^{13}\mathrm{N} + \gamma \;\rightarrow\; {}^{13}\mathrm{C} + e^+ + \nu_e \;\rightarrow\; \cdots \;\rightarrow\; {}^{12}\mathrm{C} + {}^{4}\mathrm{He}"></span>
-    <small>Esquema simplificado: el carbono inicial se conserva; el «costo» neto son 4 protones convertidos en un α (helio).</small>
-  </div>
-
-  <figure>
-    <img src="m3c2/assets/slide-08.jpg" alt="Ciclo CNO y vida en secuencia principal masiva">
-    <figcaption><span class="cap">Diapositiva 8</span>En estrellas <span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span> el ciclo CNO procede a mayor tasa que la cadena pp, consumiendo el H disponible en mucho menos tiempo. Vida en secuencia principal: millones de años (masivas) frente a miles de millones (tipo Sol).</figcaption>
-  </figure>
-
-  <h3>¿Por qué CNO es más eficiente en alta masa?</h3>
-  <p>A altísima temperatura y densidad, la tasa de reacciones del ciclo CNO supera por órdenes de magnitud a la pp. En el Sol, por cada millón de fotones vía pp hay solo unos pocos vía CNO; en una estrella de 20 M<sub>☉</sub> la proporción se invierte. Ambas cadenas <em>existen</em> en ambos tipos de estrella; lo que cambia es cuál <strong>domina la luminosidad</strong> — tanto por tasa de fusión como por energía liberada por reacción.</p>
-
-  <div class="box physics">
-    <span class="tag">Dependencia física</span>
-    <p>La fusión requiere que los núcleos superen la barrera de Coulomb. A mayor temperatura, mayor velocidad térmica de los protones ⇒ mayor probabilidad de túnel cuántico hacia núcleos de C. Por eso CNO «enciende» solo donde T y ρ son altos. La cadena pp escala aproximadamente como <span class="katex-inline" data-tex="\varepsilon_{\rm pp}\propto \rho^2 T^4"></span>; el CNO, mucho más sensible a T (~<span class="katex-inline" data-tex="T^{17}"></span> en el régimen relevante).</p>
-  </div>
-
-  <h3>¿De dónde sale el carbono? Población III</h3>
-  <p>El carbono catalizador <strong>no</strong> estaba en el Big Bang (solo H, He y trazas de Li). Proviene de <strong>generaciones estelares anteriores</strong>. Las primeras estrellas del universo — <span class="hl">Población III</span> — carecían de metales; probablemente usaron solo la cadena pp, con luminosidades que aún generan debate entre cosmólogos. En el universo actual, las trazas de C/N/O (~2% de la masa) bastan para alimentar el CNO.</p>
 
   <div class="box prof">
-    <span class="tag">De la clase</span>
-    <p>«Somos polvo de estrellas»: el C y el N que permiten el ciclo CNO hoy fueron creados en generaciones previas. Sin nucleosíntesis estelar previa, las estrellas masivas actuales no podrían brillar como lo hacen.</p>
+    <span class="tag">La analogía de la profesora: plata en el banco</span>
+    <p>La masa es la plata en la cuenta: si tienes poca, la gastas despacito y te dura todo el mes; si tienes mucha… la quemas en una semana. Las estrellas masivas fusionan su enorme masa a tasas tan altas que su vida en secuencia principal es <strong>órdenes de magnitud más corta</strong> que la de una estrella de baja masa. Más combustible, pero muchísima más potencia: el estanque se vacía antes.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Preguntas abiertas mencionadas en clase</span>
+    <p>Con vidas de ~1 millón de años, ¿alcanza a evolucionar vida alrededor de una estrella masiva? La vida parece requerir estabilidad por escalas largas. Y un segundo problema, tema de investigación actual: si es que alcanzan siquiera a <strong>formar planetas</strong>. Ambas son preguntas abiertas, no contenido resuelto.</p>
+  </div>
+
+  <div class="widget" id="w-vida">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Vida en secuencia principal según la masa</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la masa y mira cuánto dura el combustible. Usa la escala aproximada <span class="katex-inline" data-tex="t \approx 10^{10}\,(M/M_\odot)^{-2.5}"></span> años: más masa ⇒ mucha más luminosidad ⇒ vida muchísimo más corta (¡el exponente es negativo!).</p>
+    <div class="presets" id="vida-presets">
+      <button data-m="0.4">M0 · 0,4 M☉</button>
+      <button data-m="1">Sol · 1 M☉</button>
+      <button data-m="4">Frontera · 4 M☉</button>
+      <button data-m="16">B0 · 16 M☉</button>
+      <button data-m="40">O5 · 40 M☉</button>
+    </div>
+    <label for="vida-m">Masa de la estrella (M☉): <span id="vida-mlab"></span></label>
+    <input type="range" id="vida-m" min="-4" max="16" step="1" value="0">
+    <output id="vida-out"></output>
   </div>
 </section>
 
-<!-- S5 -->
-<section id="s5">
-  <div class="shead"><span class="num">5</span><div>
-    <h2>Fusión por capas en estrellas masivas</h2>
-    <p>Un núcleo del tamaño de una estrella normal dentro de un monstruo.</p>
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Estrellas de alta masa: vivir rápido, morir joven</h2>
+    <p>La frontera difusa de las ~4 masas solares, y una evolución acelerada y dramática.</p>
   </div></div>
 
-  <p>Tras agotar el H en el núcleo, la estrella masiva puede encender sucesivamente: <strong>He → C → O → Si → Fe</strong>, cada etapa en el núcleo con capas externas fusionando el elemento anterior. Las temperaturas centrales alcanzan ~600 millones K (frente a ~15 millones K para H en el Sol).</p>
+  <p>La separación entre “baja” y “alta” masa se pone, como referencia, en <span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span>. Ojo con la advertencia de la profesora: <strong>es un gradiente</strong>, no un interruptor. No es que “exactamente en 4 pasa esto y en 3,9 no”; es la zona donde el comportamiento cambia de régimen.</p>
+
+  <p>Las etapas iniciales son <em>similares</em> a las de una estrella de baja masa, pero comprimidas en el tiempo:</p>
+  <ul>
+    <li>Una <strong>corta vida en secuencia principal</strong> fusionando H → He en el núcleo (millones de años para decenas de M<sub>☉</sub>, versus ~10¹⁰ años para baja masa).</li>
+    <li>Al agotarse el H central: fusión de H → He en una <strong>cáscara</strong> alrededor de un núcleo inerte de helio.</li>
+    <li>Como la estrella tiene mucha más masa, puede <strong>comprimir mucho más ese núcleo</strong> de helio, que enciende la fusión He → C de forma <strong>gradual</strong> — sin el <em>flash de helio</em> de las estrellas de baja masa.</li>
+    <li>Evoluciona hasta tener un núcleo de C y O (como el Sol lo hará), pero <strong>mucho más rápido</strong>, y no se detiene ahí.</li>
+  </ul>
 
   <figure>
-    <img src="m3c2/assets/slide-09.jpg" alt="Estructura en capas del núcleo de supergigante">
-    <figcaption><span class="cap">Diapositiva 9</span>Estructura esquemática del <em>núcleo</em> de una supergigante roja (no de toda la estrella): de afuera hacia adentro, capas de H→He, He→C, C→O, O→Si, Si→Fe, y un núcleo de hierro inerte. La estrella completa puede tener radio ~5 UA.</figcaption>
-  </figure>
-
-  <p>A diferencia de la baja masa, el <strong>flash de helio</strong> no es abrupto: la mayor masa permite comprimir el núcleo de He gradualmente hasta encender la fusión triple-α sin inestabilidad violenta.</p>
-
-  <figure>
-    <img src="m3c2/assets/slide-10.jpg" alt="Núcleo de hierro inerte">
-    <figcaption><span class="cap">Diapositiva 10</span>Cuando se forma un núcleo de Fe inerte, la fusión de hierro hacia elementos más pesados <em>no libera energía</em> — es el «punto de quiebre» que desencadena el colapso.</figcaption>
-  </figure>
-</section>
-
-<!-- S6 -->
-<section id="s6">
-  <div class="shead"><span class="num">6</span><div>
-    <h2>Pico del hierro y energía de enlace</h2>
-    <p>El «máximo» de estabilidad nuclear.</p>
-  </div></div>
-
-  <p>Cada fusión de elementos ligeros a más pesados libera energía porque el producto tiene <em>menos masa</em> que los reactantes (defecto de masa → <span class="katex-inline" data-tex="E=\Delta m c^2"></span>). La <strong>energía de enlace por nucleón</strong> B/A es la energía necesaria para descomponer un núcleo en nucleones libres; crece con el número atómico hasta un máximo en el <span class="hl">hierro (Fe)</span> y luego decrece.</p>
-
-  <figure>
-    <img src="m3c2/assets/slide-12.jpg" alt="Curva de energía de enlace por nucleón">
-    <figcaption><span class="cap">Diapositiva 12</span>Curva de B/A vs número de masa A. El máximo en <sup>56</sup>Fe (~8,8 MeV/nucleón) implica que fusionar hacia elementos más pesados que Fe <em>consume</em> energía; fisión de núcleos muy pesados hacia Fe libera energía (reactores nucleares terrestres).</figcaption>
-  </figure>
-
-  <figure>
-    <img src="m3c2/assets/slide-13.jpg" alt="Fusión exotérmica y endoérgica respecto al hierro">
-    <figcaption><span class="cap">Diapositiva 13</span>Fusión de núcleos con A ≪ Fe (y fisión de núcleos con A ≫ Fe) son <strong>exotérmicas</strong>. Fusionar Fe hacia elementos más pesados requiere aportar energía — imposible en el interior estelar en equilibrio.</figcaption>
+    <img src="m3c2/assets/slide-06.jpg" alt="Eta Carinae: nube bipolar de material expulsado alrededor de una estrella muy masiva">
+    <figcaption><span class="cap">Diapositiva · Eta Carinae (~100 M<sub>☉</sub>)</span>Cuando las estrellas masivas se convierten en gigantes rojas son tan brillantes y grandes que las llamamos <strong>supergigantes rojas</strong>: pueden expandirse a tamaños comparables a la <strong>órbita de Júpiter</strong> (~5 UA de radio). Pierden masa rápidamente por <strong>vientos estelares</strong> y <em>outbursts</em> a medida que envejecen. Todo el material de la imagen fue expulsado por la estrella —que está adentro, diminuta a esta escala— y la estructura es mucho más grande que el Sistema Solar.</figcaption>
   </figure>
 
   <div class="box physics">
-    <span class="tag">Intuición nuclear</span>
-    <p>En núcleos pequeños, la fuerza fuerte «gana» a la repulsión entre protones al agregar nucleones. En núcleos muy grandes, la repulsión electromagnética entre protones en la superficie empieza a competir. El hierro es el punto de balance óptimo: el núcleo más estable del período.</p>
+    <span class="tag">¿Y el equilibrio hidrostático? (pregunta de un estudiante)</span>
+    <p>El balance entre gravedad y presión <strong>se mantiene siempre</strong> mientras haya temperatura suficiente, y la temperatura proviene de la fusión. Lo que se rompe al final no es el balance “per se”: se acaba el combustible, <strong>se pierde temperatura y por lo tanto presión</strong>, y ahí empiezan los problemas. Mientras la estrella tenga qué fusionar, todo se mantiene “parejito”.</p>
   </div>
 
-  <p>Cuando el núcleo es de hierro, ya no hay fusión que libere energía. Sin fuente térmica, la presión de radiación cae y la gravedad gana → comienza el colapso.</p>
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Piensa en la estrella como un sistema de control con lazo de realimentación negativa: si el núcleo se comprime, sube la temperatura, sube la tasa de fusión, sube la presión y el sistema se re-expande. El “setpoint” lo fija el balance energético. La muerte estelar es la pérdida del <strong>actuador</strong> (la fuente de energía), no del lazo: sin potencia disponible, ningún controlador sostiene la planta.</p>
+  </div>
 </section>
 
-<!-- S7 -->
-<section id="s7">
-  <div class="shead"><span class="num">7</span><div>
-    <h2>Colapso del núcleo y supernova Tipo II</h2>
-    <p>Rebote por degeneración de neutrones.</p>
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El ciclo CNO: fusionar hidrógeno con catalizadores</h2>
+    <p>La misma reacción neta que la cadena protón–protón, por una vía mucho más rápida.</p>
   </div></div>
 
-  <ol>
-    <li>El núcleo de Fe deja de generar energía → pierde soporte térmico.</li>
-    <li>El núcleo colapsa en fracciones de segundo hasta densidades de núcleo atómico (~4×10<sup>17</sup> g/cm<sup>3</sup>).</li>
-    <li>La <strong>presión degenerada de neutrones</strong> frena el colapso (análogo a electrones en enana blanca, pero con partículas más masivas).</li>
-    <li>El material exterior en caída libre <em>rebota</em> contra el núcleo compacto → onda de choque.</li>
-    <li>La onda atraviesa la estrella, expulsa las capas → <strong>supernova Tipo II</strong> (colapso de núcleo de estrella masiva).</li>
+  <p>En el primer módulo se estudió la <span class="hl">cadena protón–protón</span> (p–p): los protones se van juntando <em>de a pares</em>, formando isótopos intermedios, hasta armar un núcleo de helio (no chocan 4 protones a la vez: la probabilidad de eso es ínfima incluso a esas densidades). En estrellas de alta masa la cadena p–p también existe y genera energía, pero <strong>la que domina es otra</strong>: el <span class="hl">ciclo CNO</span>.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-07.jpg" alt="Diagrama circular del ciclo CNO con protones, neutrones, positrones, rayos gamma y neutrinos">
+    <figcaption><span class="cap">Diapositiva · El ciclo CNO</span>Como las estrellas masivas tienen mayor temperatura en su núcleo, pueden fusionar H con carbono, nitrógeno y oxígeno, en un <strong>ciclo cerrado</strong>: el C, N y O actúan como <strong>catalizadores</strong> (no se consumen). En cada vuelta entran 4 protones y sale un núcleo de ⁴He, fotones gamma, positrones y neutrinos — y el ¹²C con el que partimos, listo para otra vuelta.</figcaption>
+  </figure>
+
+  <h3>La vuelta completa del ciclo</h3>
+  <p>Partiendo de un núcleo de carbono-12 (basta una <em>traza</em>, porque se recupera al final):</p>
+  <ol class="steps">
+    <li><span class="katex-inline" data-tex="{}^{12}\mathrm{C} + {}^{1}\mathrm{H} \to {}^{13}\mathrm{N} + \gamma"></span> — fusión con un protón; se libera un fotón gamma.</li>
+    <li><span class="katex-inline" data-tex="{}^{13}\mathrm{N} \to {}^{13}\mathrm{C} + e^{+} + \nu"></span> — el ¹³N es inestable: decae emitiendo un <strong>positrón</strong> y un <strong>neutrino</strong>.</li>
+    <li><span class="katex-inline" data-tex="{}^{13}\mathrm{C} + {}^{1}\mathrm{H} \to {}^{14}\mathrm{N} + \gamma"></span> — otro protón (hidrógeno es lo que sobra).</li>
+    <li><span class="katex-inline" data-tex="{}^{14}\mathrm{N} + {}^{1}\mathrm{H} \to {}^{15}\mathrm{O} + \gamma"></span></li>
+    <li><span class="katex-inline" data-tex="{}^{15}\mathrm{O} \to {}^{15}\mathrm{N} + e^{+} + \nu"></span> — otro decaimiento con positrón y neutrino.</li>
+    <li><span class="katex-inline" data-tex="{}^{15}\mathrm{N} + {}^{1}\mathrm{H} \to {}^{12}\mathrm{C} + {}^{4}\mathrm{He}"></span> — se libera el núcleo de helio <em>y se recupera el carbono inicial</em>.</li>
+  </ol>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="4\,{}^{1}\mathrm{H} \;\xrightarrow{\text{CNO}}\; {}^{4}\mathrm{He} + 2e^{+} + 2\nu + 3\gamma"></div>
+    <small>Balance neto de la vuelta: se consumieron <strong>4 protones</strong>, se produjo <strong>1 núcleo de helio</strong>, energía (fotones gamma y energía cinética) y neutrinos. El C, N y O quedan intactos: son catalizadores. La energía viene, igual que en la cadena p–p, del pequeño defecto de masa: el ⁴He pesa ~0,7% menos que los 4 protones, y ese “pelín menos de masa” se convierte en energía (<span class="katex-inline" data-tex="E=\Delta m\,c^2"></span>).</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué domina el CNO en alta masa?</span>
+    <p>Por <strong>temperatura y densidad</strong>. Para que un protón “se meta” en un núcleo de carbono debe vencer una repulsión eléctrica mayor que entre dos protones, y eso requiere altísimas velocidades — es decir, altísima temperatura. En estrellas de alta masa la tasa del ciclo CNO se dispara y supera con creces a la p–p; en estrellas de baja masa el CNO también opera, pero a una tasa órdenes de magnitud menor (por cada millón de fotones de la cadena p–p, unos pocos del CNO). “Dominar” significa ambas cosas a la vez: más fusiones por segundo <em>y</em> más energía generada.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Por qué importó históricamente</span>
+    <p>Al calcular la generación de energía de una estrella muy masiva solo con la cadena p–p, <strong>el cálculo no da</strong>: no alcanza para explicar su luminosidad. El descubrimiento del ciclo CNO (trabajo conjunto de astrofísicos y físicos nucleares) resolvió el problema: con las trazas medidas de C, N y O, las tasas <em>calzan</em>. <em>Nota de verificación: la transcripción dice “años 60”, pero el ciclo CNO fue propuesto por Hans Bethe y Carl F. von Weizsäcker a fines de los años 1930 (material externo, corregido).</em></p>
+  </div>
+
+  <h3>¿De dónde salió el carbono? Las primeras estrellas</h3>
+  <p>Pregunta de un estudiante que la profesora celebró: si el ciclo necesita carbono, ¿de dónde proviene? La composición típica es ~<strong>70–75% hidrógeno, ~25% helio y trazas</strong> del resto — y esas trazas <em>bastan</em> porque el catalizador no se consume. Pero ese carbono <strong>no estaba en el Big Bang</strong>: proviene de <span class="hl">generaciones estelares anteriores</span>. Las primeras estrellas del universo (<strong>Población III</strong>) no tenían C, N ni O disponibles, así que solo podían usar la cadena p–p, generando energía a otras tasas — un tema abierto de investigación, porque igual tenían luminosidades gigantes.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática: el catalizador como recurso reutilizable</span>
+    <p>El ¹²C funciona como un <em>worker</em> de un pool de recursos: procesa 4 “trabajos” (protones), emite resultados (He, γ, ν) y vuelve al pool intacto para la siguiente iteración. Por eso el throughput no depende de cuánto carbono hay (basta un pool chico) sino de la <strong>tasa de llegada y la energía de los trabajos</strong> — la temperatura. Y el arranque en frío (Población III, pool vacío) obliga a usar el algoritmo lento (p–p).</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">A no confundir: número másico vs número atómico</span>
+    <p>En clase surgió la duda con el ¹²C. El superíndice (12) es el <strong>número másico A</strong>: protones + neutrones (nucleones). El <strong>número atómico Z</strong> es solo el número de protones (6 para el carbono). En fusión conviene contar nucleones, por eso se usa A. ¹²C es estable; ¹³N es un isótopo inestable que decae. Y de paso: los <strong>neutrinos del CNO</strong> son de distinto tipo/energía que los de la cadena p–p — los neutrinos solares fueron evidencia del ciclo p–p en el Sol, y en principio la tasa de neutrinos distingue qué ciclo domina.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Supergigantes rojas: fusión por capas hasta el hierro</h2>
+    <p>Con 600 millones de kelvin se puede seguir subiendo por la tabla periódica… hasta cierto punto.</p>
+  </div></div>
+
+  <p>El Sol alcanza ~15 millones de K en su interior: suficiente para H → He y, más comprimido, para llegar al carbono. Una estrella masiva alcanza <strong>~600 millones de K</strong> en las etapas avanzadas y puede seguir la escalera de fusiones: <span class="katex-inline" data-tex="\mathrm{He} \to \mathrm{C} \to \mathrm{O}\,(+\,\mathrm{Si}) \to \mathrm{S}"></span>, y <span class="katex-inline" data-tex="\mathrm{Si} \to \mathrm{Fe}"></span>. El resultado es una estructura de cebolla:</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-09.jpg" alt="Estructura en capas del núcleo de una supergigante roja, desde hidrógeno inerte hasta núcleo de hierro">
+    <figcaption><span class="cap">Diapositiva · Núcleo por capas de una supergigante roja</span>De afuera hacia adentro: hidrógeno inerte; fusión de H y He; fusión de He; fusión de C, O; fusión de Mg, Ne, O; fusión de Si, S; y al centro el <strong>núcleo de hierro inerte</strong>. Importante: este diagrama es <em>solo el núcleo</em> — la supergigante completa es un “bicho enorme” de hasta ~5 UA de radio, del porte de la órbita de Júpiter.</figcaption>
+  </figure>
+
+  <p>El hierro es el basurero de la secuencia: ahí se “deposita el desecho”, porque <strong>fusionar hierro no genera energía — la requiere</strong>. El núcleo de Fe queda inerte, rodeado de capas que todavía fusionan elementos más livianos. ¿Por qué justo el hierro? Eso necesita la sección siguiente.</p>
+
+  <div class="box dato">
+    <span class="tag">Escalas que marean</span>
+    <p>La supergigante mide ~5 UA de radio; su núcleo activo, apenas del tamaño de una estrella normal. En Eta Carinae no medimos ese radio directamente (la estrella está escondida dentro de su nube de material eyectado), pero en otras supergigantes sí se ha podido.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Energía de enlace nuclear: el muro del hierro</h2>
+    <p>Por qué la fusión libera energía… hasta el ⁵⁶Fe, y después la exige.</p>
+  </div></div>
+
+  <p>La <span class="hl">energía de enlace nuclear</span> es la energía necesaria para descomponer un núcleo atómico en sus protones y neutrones separados. El dato clave es una asimetría de masas: los nucleones <strong>por separado pesan más</strong> que el núcleo <strong>armado</strong>. Esa diferencia de masa <em>es</em> la energía de enlace:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E_{\text{enlace}} = \Delta m \, c^{2} = \Big(\textstyle\sum m_{\text{nucleones}} - m_{\text{núcleo}}\Big)\,c^{2}"></div>
+    <small>Ejemplo clásico: en la fusión de H → He, la masa de 1 núcleo de ⁴He es ~0,7% menor que la de los 4 núcleos de ¹H que lo formaron. Ese diferencial se libera como fotones, neutrinos y energía cinética.</small>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-11.jpg" alt="Esquema: núcleo (menor masa) más energía de enlace igual a nucleones separados (mayor masa)">
+    <figcaption><span class="cap">Diapositiva · Definición</span>Núcleo (menor masa) + energía de enlace (Δmc²) ⇌ nucleones por separado (mayor masa). Armar un núcleo liviano libera energía; desarmarlo la cuesta.</figcaption>
+  </figure>
+
+  <p>Si graficamos la <strong>energía de enlace por nucleón</strong> en función del número de nucleones A, la curva sube, alcanza un <strong>máximo en el hierro (⁵⁶Fe)</strong> y luego baja suavemente:</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-12.jpg" alt="Curva de energía de enlace por nucleón versus número másico, con máximo en el hierro-56">
+    <figcaption><span class="cap">Diapositiva · La curva de estabilidad</span>Para A chico dominan las fuerzas nucleares atractivas ⇒ fusionar hacia arriba <strong>libera</strong> energía. Para A grande la repulsión electrostática entre protones empieza a ganar ⇒ conviene <strong>fisionar</strong> hacia abajo. El máximo — el núcleo más estable de la naturaleza — es el ⁵⁶Fe. <em>(El eje dice “número atómico (A)”; en rigor A es el número másico: protones + neutrones.)</em></figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La intuición física de la curva</span>
+    <p>La <strong>fuerza nuclear fuerte</strong> une nucleones, pero solo a distancias del porte de un núcleo atómico. En núcleos chicos, todos los nucleones se “sienten” y están bien amarrados. A medida que el núcleo crece, los nucleones más externos quedan lejos del resto: la fuerza fuerte se les diluye mientras la <strong>repulsión electromagnética</strong> entre protones (que es de largo alcance) sigue sumando. El punto óptimo de ese compromiso — “donde estás mejor armado” — es el hierro.</p>
+  </div>
+
+  <ul>
+    <li><strong>Fusión con A &lt; 56</strong> (H, He, C, O, Si…): proceso <span class="hl">exotérmico</span>, libera energía. Es lo que alimenta a las estrellas.</li>
+    <li><strong>Fisión con A &gt; 56</strong> (uranio, etc.): también exotérmico — así generamos energía por fisión aquí en la Tierra.</li>
+    <li><strong>Fusionar hierro</strong> (o fisionarlo): proceso que <strong>requiere</strong> energía. Se puede hacer, pero hay que pagarla.</li>
+  </ul>
+
+  <p>Para la estrella esto es una pésima noticia: llega al hierro y <strong>se queda sin combustible</strong> — no hay ninguna reacción disponible en el núcleo que siga liberando energía.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril: un óptimo global</span>
+    <p>La curva de enlace por nucleón es una función objetivo con un máximo global en A≈56. La fusión “sube el gradiente” desde la izquierda; la fisión, desde la derecha. El hierro es el punto donde <strong>ambos gradientes se anulan</strong>: cualquier movimiento desde ahí cuesta energía. Una estrella es un optimizador que se detiene, inevitablemente, en el óptimo.</p>
+  </div>
+
+  <div class="widget" id="w-mc2">
+    <span class="tagband">Widget interactivo</span>
+    <h4>E = Δm·c²: el precio de la masa</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La fusión H → He convierte ~0,7% de la masa en energía. Elige cuánta masa de hidrógeno se fusiona y mira cuánta energía sale (y a cuánto equivale).</p>
+    <div class="presets" id="mc2-presets">
+      <button data-kg="1">1 kg de H</button>
+      <button data-kg="6e11">El Sol en 1 s (~6×10¹¹ kg)</button>
+      <button data-kg="1e30">~media masa solar</button>
+    </div>
+    <label for="mc2-kg">Masa de hidrógeno fusionada (kg)</label>
+    <input type="number" id="mc2-kg" step="any" value="1">
+    <output id="mc2-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Colapso y rebote: la explosión de supernova</h2>
+    <p>Se le cae el piso a la estrella — y el material rebota contra un núcleo con densidad atómica.</p>
+  </div></div>
+
+  <p>El núcleo de hierro no genera energía; se enfría, pierde presión, y el plasma <strong>“no se la puede”</strong> con el peso de todo el material de encima. La secuencia de la catástrofe:</p>
+
+  <ol class="steps">
+    <li><strong>Fusión por capas, núcleo de Fe creciente.</strong> Las cáscaras siguen fusionando (y depositando más hierro), pero el centro está muerto energéticamente.</li>
+    <li><strong>Colapso.</strong> Cuando la gravedad supera la presión, el núcleo colapsa sobre sí mismo. En su parte más interna, la compresión se detiene por la <span class="hl">presión degenerada de neutrones</span>, con densidades tan altas como las de un <strong>núcleo atómico</strong>: es como un “gran átomo” de ~1 masa solar, con un número de nucleones de 10 elevado a un número enorme.</li>
+    <li><strong>Rebote.</strong> A las capas superiores “se les cayó el piso”: caen en caída libre… y se estrellan contra esa superficie incompresible. El material <strong>rebota</strong> y genera una <span class="hl">onda de choque</span> — un frente de presión que se propaga hacia afuera.</li>
+    <li><strong>Explosión.</strong> Ondas de choque y neutrinos propelen el material hacia afuera de manera heterogénea. Las partes externas de la estrella son eyectadas; queda solo un <strong>remanente</strong> central.</li>
   </ol>
 
   <figure>
-    <img src="m3c2/assets/slide-15.jpg" alt="Secuencia colapso y rebote supernova">
-    <figcaption><span class="cap">Diapositiva 15</span>Secuencia conceptual (a–f): núcleo de Fe colapsa, el material infallante rebota contra el núcleo de neutrones increíblemente denso, la onda de choque se propaga hacia afuera y destruye la estrella.</figcaption>
+    <img src="m3c2/assets/slide-15.jpg" alt="Paneles a, b, c del colapso del núcleo de una estrella masiva">
+    <figcaption><span class="cap">Diapositiva · Colapso (paneles a–c)</span>(a) Fusión por capas: se forma el núcleo de Fe. (b) El núcleo colapsa al no generar energía. (c) La parte más interna queda soportada por la presión degenerada de neutrones, con densidad de núcleo atómico: <strong>~4×10¹⁷ kg/m³</strong> — como comprimir la Tierra a un diámetro de 300 m. <em>(La diapositiva escribe g/cm³; la equivalencia con la Tierra corresponde a kg/m³ ≈ 4×10¹⁴ g/cm³.)</em></figcaption>
   </figure>
 
   <figure>
-    <img src="m3c2/assets/slide-16.jpg" alt="Rebote y eyección en supernova">
-    <figcaption><span class="cap">Diapositiva 16</span>Detalle del rebote (d–f): el frente de choque (rojo) y los neutrinos impulsan el material hacia fuera de forma heterogénea. Queda un remanente compacto (estrella de neutrones o agujero negro).</figcaption>
+    <img src="m3c2/assets/slide-16.jpg" alt="Paneles d, e, f del rebote y la onda de choque de la supernova">
+    <figcaption><span class="cap">Diapositiva · Rebote y onda de choque (paneles d–f)</span>(d) El material que colapsa <strong>rebota</strong> en el núcleo increíblemente denso. (e) Se genera un frente de choque/presión que se propaga <strong>hacia afuera</strong> (rojo). (f) Choque y neutrinos expulsan el material; la estrella circundante es destruida, dejando solo un remanente.</figcaption>
   </figure>
 
   <div class="box prof">
-    <span class="tag">Analogía de la sala de clases</span>
-    <p>Laura ilustró la degeneración: una sala con asientos ocupados no acepta más gente en el mismo lugar — hay una «presión» que resiste la compresión. Los neutrones en el remanente central hacen lo mismo a densidades extremas.</p>
+    <span class="tag">La analogía de la sala de clases (presión degenerada)</span>
+    <p>El principio de exclusión: a las partículas no les gusta ocupar el mismo estado que otras. Si la sala está vacía, los estudiantes nuevos se sientan y no pasa nada; si <strong>todos los asientos están ocupados</strong>, nadie acepta que se le sienten encima — el conjunto ejerce una presión contra nuevos ocupantes. Esa es la <strong>presión degenerada</strong> (de electrones en enanas blancas, de neutrones aquí). El núcleo colapsado es la sala llena: tiene un tamaño físico definido, y contra esa “superficie” rebota todo lo que sigue cayendo.</p>
   </div>
 
-  <p>En la onda de choque se inyecta energía suficiente para crear elementos <strong>más pesados que el hierro</strong> (Au, Pt, U, etc.) y dispersar todo el material procesado al medio interestelar.</p>
+  <div class="box physics">
+    <span class="tag">Dónde se forjan los elementos más pesados que el Fe</span>
+    <p>En la onda de choque de la eyección <strong>sí se está entregando energía</strong> al material: ahí puede ocurrir la fusión de elementos más pesados que el hierro (lo que no ocurre al interior de ninguna estrella). Además, la explosión <strong>libera al espacio</strong> todos los elementos que la estrella había fabricado por capas — ya no solo hidrógeno y helio — enriqueciendo el medio interestelar para las siguientes generaciones de estrellas… y planetas.</p>
+  </div>
 </section>
 
-<!-- S8 -->
-<section id="s8">
-  <div class="shead"><span class="num">8</span><div>
-    <h2>Tiempos y energía liberada</h2>
-    <p>Instantáneo frente a millones de años de vida.</p>
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Energética y escalas de tiempo</h2>
+    <p>10⁴⁶ joules en horas: 100 vidas enteras del Sol, liberadas casi instantáneamente.</p>
   </div></div>
 
-  <div class="tbl"><table>
-    <thead><tr><th>Etapa</th><th>Escala de tiempo</th></tr></thead>
-    <tbody>
-      <tr><td><b>Contracción del núcleo de Fe</b></td><td>~0,1 s</td></tr>
-      <tr><td><b>Colapso del material exterior</b></td><td>~1 s</td></tr>
-      <tr><td><b>Propagación de la onda de choque</b></td><td>Horas (atravesar una supergigante de ~5 UA)</td></tr>
-      <tr><td><b>Vida total en secuencia principal (10 M<sub>☉</sub>)</b></td><td>~10<sup>7</sup> años</td></tr>
-    </tbody>
-  </table></div>
+  <h3>Los tiempos: un desarme casi instantáneo</h3>
+  <ul>
+    <li>Contracción del núcleo de Fe hasta densidad nuclear: <strong>~0,1 segundos</strong>.</li>
+    <li>Colapso (caída libre) del resto del núcleo estelar: <strong>~1 segundo</strong>.</li>
+    <li>Transporte de la onda de choque a través de la estrella entera (¡que mide ~5 UA!): <strong>~horas</strong>.</li>
+  </ul>
+  <p>Una estrella que vivió un millón de años <strong>se desarma en una hora</strong>. Comparado con su vida, la supernova es un instante. Y de la estimación al vuelo hecha en clase: recorrer ~5 UA en horas implica velocidades del orden de una fracción apreciable (~1/10–1/20) de la velocidad de la luz.</p>
 
+  <h3>La energía: la gravedad paga la cuenta</h3>
   <figure>
-    <img src="m3c2/assets/slide-17.jpg" alt="Tiempos del colapso y supernova">
-    <figcaption><span class="cap">Diapositiva 17</span>Los tiempos de cada etapa del colapso: contracción del núcleo de Fe en décimas de segundo, colapso estelar en ~1 s, propagación de la onda de choque en horas. La estrella vive millones de años y se desarma en una hora.</figcaption>
+    <img src="m3c2/assets/slide-18.jpg" alt="Diapositiva sobre la energía producida en una explosión de supernova">
+    <figcaption><span class="cap">Diapositiva · Energía de una supernova</span>Se liberan ~<strong>10⁴⁶ joules</strong>: unas <strong>100 veces más</strong> que toda la energía que el Sol liberará en su vida completa. La fuente <em>no</em> son reacciones termonucleares: es la <strong>energía gravitacional</strong> liberada por el colapso del núcleo y la “caída libre” de las capas exteriores. Las ondas de choque resultantes son tan energéticas que fusionan elementos más pesados que el Fe.</figcaption>
   </figure>
 
-  <p>La energía liberada en la supernova es del orden de <strong>10<sup>46</sup> J</strong>. No proviene principalmente de reacciones nucleares en ese instante, sino de la <strong>energía gravitacional</strong> convertida en cinética del rebote. Para comparar: la luminosidad solar es ~3,9×10<sup>26</sup> W; integrada en ~10<sup>10</sup> años da ~10<sup>44</sup> J — la supernova libera ~100 veces la energía total radiada por el Sol en toda su vida, en un instante.</p>
+  <div class="formula">
+    <div class="katex-block" data-tex="E_{\odot,\text{vida}} \approx L_\odot \cdot t_\odot \approx 3{,}9\times10^{26}\,\mathrm{W} \times 10^{10}\,\mathrm{a\tilde{n}os} \approx 1{,}2\times10^{44}\,\mathrm{J} \;\;\Rightarrow\;\; E_{\mathrm{SN}} \approx 10^{46}\,\mathrm{J} \approx 100\,E_{\odot,\text{vida}}"></div>
+    <small>La cuenta hecha en clase: luminosidad solar ≈ 3,9×10²⁶ W, integrada sobre los ~10¹⁰ años de vida del Sol, y todavía hay que multiplicar por ~100 para llegar a la energía de una supernova. <em>(La transcripción dice “10 millones de años” para la vida del Sol; el valor correcto, consistente con el “×100” de la diapositiva, es ~10 mil millones.)</em></small>
+  </div>
 
-  <figure>
-    <img src="m3c2/assets/slide-18.jpg" alt="Energía liberada en supernova">
-    <figcaption><span class="cap">Diapositiva 18</span>La fuente de energía en la supernova es gravitacional, no termonuclear. La onda de choque inyecta energía suficiente para fusionar elementos más pesados que Fe — proceso que no ocurre en el interior estelar en equilibrio.</figcaption>
-  </figure>
+  <h3>La curva de luz</h3>
+  <p>La profesora la dibujó en la pizarra: en un gráfico (logarítmico) de luminosidad versus tiempo, la supernova <strong>se pega un salto</strong> casi instantáneo de brillo, y luego la energía se demora en radiarse, enfriarse y mezclarse con el medio interestelar: la caída es <strong>larga, de meses</strong>. La supernova se mantiene brillante ~semanas, lo que permite ir a sacarle espectros. Como el salto es gigantesco, las supernovas sirven de <span class="hl">faros</span> para ver el universo lejano (a redshift altísimo) — de hecho se usaron para el Nobel de la expansión acelerada del universo. Capturar la <em>subida</em> de la curva es difícil: no estamos monitoreando todas las galaxias todo el tiempo.</p>
+
+  <div class="widget" id="w-sn">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿Cuántas “vidas del Sol” libera una supernova?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Compara la energía de una supernova (~10⁴⁶ J) con la energía total que radia una estrella en toda su vida. Elige luminosidad (en soles) y vida (en años).</p>
+    <div class="wgrid">
+      <div><label for="sn-l">Luminosidad (L☉)</label><input type="number" id="sn-l" step="any" value="1"></div>
+      <div><label for="sn-t">Vida de la estrella (años)</label><input type="number" id="sn-t" step="any" value="1e10"></div>
+    </div>
+    <div class="presets" id="sn-presets">
+      <button data-l="1" data-t="1e10">Sol</button>
+      <button data-l="1e4" data-t="1e7">10 M☉ (≈10⁴ L☉, 10⁷ años)</button>
+      <button data-l="1e5" data-t="1e6">40 M☉ (≈10⁵ L☉, 10⁶ años)</button>
+    </div>
+    <output id="sn-out"></output>
+  </div>
 
   <div class="box cs">
-    <span class="tag">Señales y detección</span>
-    <p>El pico de luminosidad es un evento breve pero enorme en amplitud — como un pulso de gran relación señal/ruido en un detector lejano. La curva de luz muestra un salto abrupto (eje logarítmico) seguido de decaimiento en meses. Por eso las supernovas funcionan como <strong>faros cosmológicos</strong>.</p>
+    <span class="tag">Conexión ingenieril: detección de eventos raros</span>
+    <p>Buscar supernovas es un problema de <em>detección de anomalías en streaming</em>: comparas imágenes “antes/después” de millones de galaxias buscando un punto nuevo con caída exponencial de brillo. Las búsquedas sistemáticas modernas (surveys) automatizan exactamente ese <em>diff</em> — el mismo patrón que un sistema de monitoreo detectando un spike en un dashboard con escala log.</p>
   </div>
 </section>
 
-<!-- S9 -->
-<section id="s9">
-  <div class="shead"><span class="num">9</span><div>
-    <h2>Nucleosíntesis y evidencia observacional</h2>
-    <p>«Somos polvo de estrellas» con datos.</p>
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La fábrica de los elementos vitales</h2>
+    <p>Una tabla periódica que se llena con evolución estelar: somos polvo de estrellas.</p>
   </div></div>
 
-  <figure>
-    <img src="m3c2/assets/slide-20.jpg" alt="Tabla periódica del origen de los elementos">
-    <figcaption><span class="cap">Diapositiva 20</span>Origen de los elementos: Big Bang (H, He, Li); baja masa (He, C, O y proceso s); alta masa hasta Fe; supernovas y otros eventos para Z &gt; Fe; binarias y fusiones de estrellas de neutrones también contribuyen (clases futuras).</figcaption>
-  </figure>
-
-  <h3>Evidencias clave</h3>
-  <ul>
-    <li><strong>Metalicidad:</strong> estrellas viejas (baja masa, formadas al inicio de la Galaxia) tienen pocos metales; las jóvenes, muchos más — el gas se «enriqueció» con cada generación.</li>
-    <li><strong>Abundancia de números pares:</strong> C, O, Si son más abundantes que elementos de número impar vecino, porque la fusión estelar prefiere combinar pares de nucleones (proceso α).</li>
-    <li><strong>SN 1987A:</strong> supernova observada en la Gran Nube de Magallanes (23 feb 1987); remanente seguido décadas (p. ej. JWST). Confirmó la teoría en tiempo real.</li>
-    <li><strong>Supernovas como faros:</strong> detectadas en galaxias a alto redshift; base del Nobel de expansión acelerada del universo (junto con supernovas Ia).</li>
-  </ul>
+  <p>El Big Bang fabricó <strong>hidrógeno, helio y un poco de litio</strong>. Y nada más. Pero la vida —y la Tierra— necesita muchos otros elementos. <strong>Las estrellas han fabricado todo el resto</strong>: por eso la profesora trajo su tabla periódica favorita, la “de astrónomos”, que colorea cada elemento según dónde se creó.</p>
 
   <figure>
-    <img src="m3c2/assets/slide-21.jpg" alt="Abundancia cósmica de elementos">
-    <figcaption><span class="cap">Diapositiva 21</span>Abundancia logarítmica vs número atómico: pico en Fe, predominio de elementos de número par (C, O, Ne, Mg, Si) y menor metalicidad en estrellas viejas — tres firmas de nucleosíntesis estelar.</figcaption>
-  </figure>
-
-  <figure>
-    <img src="m3c2/assets/slide-22.jpg" alt="Remanente SN 1987A JWST">
-    <figcaption><span class="cap">Diapositiva 22</span>Remanente de SN 1987A observado con JWST: anillo ecuatorial, ejecta internos y expansión del material eyectado en el medio interestelar, casi 40 años después del evento. También se observó con telescopios de radio (VLA).</figcaption>
-  </figure>
-
-  <figure>
-    <img src="m3c2/assets/slide-23.jpg" alt="Supernovas en galaxias lejanas">
-    <figcaption><span class="cap">Diapositiva 23</span>Supernovas detectadas en galaxias distintas (antes/después con HST): son tan brillantes que búsquedas sistemáticas las encuentran a distintos redshifts.</figcaption>
+    <img src="m3c2/assets/slide-20.jpg" alt="Tabla periódica coloreada según el origen astrofísico de cada elemento">
+    <figcaption><span class="cap">Diapositiva · Tabla periódica astronómica</span>Azul: Big Bang (H, He, Li). Verde: estrellas de baja masa. Amarillo: estrellas de alta masa (¡incluido gran parte de lo que hay después del hierro!). Morado: fusiones de estrellas de neutrones (<em>merging neutron stars</em>). Gris: enanas blancas que explotan. La tabla periódica <strong>se llena con evolución estelar</strong>.</figcaption>
   </figure>
 
   <div class="box next">
-    <span class="tag">Próximas clases</span>
-    <p>Remanentes: estrellas de neutrones, pulsares, agujeros negros; supernovas Tipo Ia desde enanas blancas en binarias; novas y el «zoológico» de sistemas dobles. La clase de hoy cierra la evolución masiva hasta la explosión.</p>
+    <span class="tag">Spoiler de próximas clases: binarias y supernovas Ia</span>
+    <p>¿Y ese pedacito atribuido a “estrellas de baja masa” en elementos pesados, si solo llegan al carbono? La clave son los <strong>sistemas binarios</strong> (la mayoría de las estrellas no está sola como el Sol). Si una enana blanca orbita otra estrella que se expande, puede <strong>robarle masa</strong>. Existe un límite fundamental impuesto por la presión degenerada de electrones — el <strong>límite de Chandrasekhar</strong> — y si la enana blanca “comilona” lo sobrepasa, colapsa y explota como <strong>otro tipo de supernova</strong> (y una nova es el caso en que solo roba material y quema lo depositado). Todo esto se ve en detalle en la clase del cementerio estelar.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Por eso estamos aquí</span>
+    <p>El carbono de nuestro cuerpo, el nitrógeno del aire, el hierro de la sangre: fueron formados en generaciones estelares anteriores y esparcidos por supernovas al medio interestelar, donde terminaron en la nube que formó al Sol y a la Tierra. “Somos polvo de estrellas” no es poesía: es trazabilidad de materiales.</p>
   </div>
 </section>
 
-<!-- INTERACTIVO -->
-<section id="interactivo">
-  <div class="shead"><span class="num">⚙</span><div>
-    <h2>Explorar conceptos</h2>
-    <p>Widgets para visualizar dominancia CNO/pp y el pico del hierro.</p>
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>¿Qué evidencia tenemos de la nucleosíntesis?</h2>
+    <p>Tres líneas de evidencia: metalicidades, abundancias pares/impares y supernovas observadas.</p>
   </div></div>
 
-  <div class="widget" id="w-fusion">
-    <span class="tagband">Widget 1</span>
-    <h4>Dominancia CNO vs cadena protón–protón</h4>
-    <p style="font-size:.92rem;color:var(--muted);margin:0 0 10px">Ajusta la masa estelar (en secuencia principal) y la temperatura central. El modelo usa tasas relativas simplificadas: CNO ∝ ρX<sub>C</sub>T<sup>17</sup>, pp ∝ ρ²T<sup>4</sup> (escalado pedagógico, no cálculo estelar completo).</p>
-    <label for="fm-m">Masa estelar: <span id="fm-mlab">1,0 M<sub>☉</sub></span></label>
-    <input type="range" id="fm-m" min="0.5" max="40" step="0.1" value="1">
-    <label for="fm-t">Temperatura central (millones K): <span id="fm-tlab">15</span></label>
-    <input type="range" id="fm-t" min="8" max="40" step="0.5" value="15">
-    <div class="presets">
-      <button type="button" data-m="1" data-t="15">Sol (1 M<sub>☉</sub>)</button>
-      <button type="button" data-m="4" data-t="20">Umbral (~4 M<sub>☉</sub>)</button>
-      <button type="button" data-m="10" data-t="28">10 M<sub>☉</sub></button>
-      <button type="button" data-m="25" data-t="35">25 M<sub>☉</sub></button>
-    </div>
-    <div class="wout" id="fm-out"></div>
-    <div style="display:flex;gap:8px;margin-top:10px;height:22px;border-radius:6px;overflow:hidden" id="fm-bar"></div>
-  </div>
+  <h3>1. Estrellas viejas vs estrellas jóvenes</h3>
+  <p>Una estrella <em>vieja</em> hoy es necesariamente de <strong>baja masa</strong> (las masivas de esa época ya murieron). Midiendo por espectroscopía su <span class="hl">metalicidad</span> — la abundancia de elementos más pesados respecto al hidrógeno — se encuentra que las estrellas viejas tienen metalicidades <strong>mucho más bajas</strong> que las jóvenes. Las jóvenes nacieron de material ya <em>procesado</em> por generaciones anteriores; las viejas, de material aún “limpio”. Exactamente lo que predice la nucleosíntesis estelar.</p>
 
-  <div class="widget" id="w-binding">
-    <span class="tagband">Widget 2</span>
-    <h4>Energía de enlace por nucleón — pico del hierro</h4>
-    <p style="font-size:.92rem;color:var(--muted);margin:0 0 10px">Selecciona un elemento. La barra muestra B/A relativo al máximo (<sup>56</sup>Fe). Indica si la fusión hacia ese elemento libera o absorbe energía (respecto al hierro).</p>
-    <label for="be-z">Número atómico Z</label>
-    <input type="range" id="be-z" min="1" max="26" step="1" value="1">
-    <div class="presets">
-      <button type="button" data-z="1">H</button>
-      <button type="button" data-z="2">He</button>
-      <button type="button" data-z="6">C</button>
-      <button type="button" data-z="8">O</button>
-      <button type="button" data-z="14">Si</button>
-      <button type="button" data-z="26">Fe</button>
-    </div>
-    <div class="bar-wrap" id="be-bars"></div>
-    <div class="wout" id="be-out"></div>
+  <h3>2. Pares vs impares</h3>
+  <figure>
+    <img src="m3c2/assets/slide-21.jpg" alt="Gráfico de abundancia de elementos en el universo versus número atómico, con patrón dentado par-impar">
+    <figcaption><span class="cap">Diapositiva · Abundancias en el universo</span>Los elementos con número <strong>par</strong> de partículas en su núcleo son sistemáticamente más abundantes que sus vecinos impares (el patrón “dentado” del gráfico). La razón: la fusión estelar avanza <strong>“de a dos”</strong> (agregando núcleos de helio y pares de protones), así que genera preferentemente núcleos pares. Los impares se pueden formar, pero cuesta más y aparecen a tasas menores. (La excepción de la cima es el H, creado en el Big Bang.)</figcaption>
+  </figure>
+
+  <h3>3. Supernovas observadas: de 1604 al James Webb</h3>
+  <figure>
+    <img src="m3c2/assets/slide-22.jpg" alt="Imagen JWST de SN 1987A con sus anillos, e imagen del remanente de la supernova de Kepler">
+    <figcaption><span class="cap">Diapositiva · SN 1987A y la supernova de Kepler</span>Hemos visto supernovas “en el barrio”: <strong>SN 1987A</strong> en la Nube Grande de Magallanes (aquí observada por el <strong>telescopio espacial James Webb</strong> casi 40 años después, con el remanente aún expandiéndose en el medio interestelar — también se monitorea año a año en ondas de radio) y la <strong>supernova de Kepler (1604)</strong>, cuyo remanente seguimos estudiando, incluido el objeto exótico que queda adentro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-23.jpg" alt="Pares de imágenes antes/después de supernovas en galaxias lejanas observadas por HST">
+    <figcaption><span class="cap">Diapositiva · Supernovas en otras galaxias (HST)</span>Pares “antes/después” del telescopio espacial Hubble: en cada galaxia aparece una estrella que no estaba. Son tan brillantes que las <strong>búsquedas sistemáticas</strong> las encuentran a distintos redshifts por todo el universo. Sus espectros muestran elementos que no se ven en espectros de estrellas normales de secuencia principal.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Nota sobre los neutrinos (conversación de la clase)</span>
+    <p>Detectar neutrinos es dificilísimo: casi no interactúan con la materia — “atraviesan todo”. Los primeros experimentos usaron moléculas (de cloro) que interactúan a una tasa un poco mayor. La tasa medida para el Sol no calzaba con la esperada… hasta que se descubrió que hay <strong>tres tipos de neutrino</strong> (y que tienen una pequeñísima masa, viajando a <em>casi</em> la velocidad de la luz). En una supernova, la fusión de elementos pesados en un instante libera un estallido de neutrinos — a una tasa gigantesca comparada con el goteo de toda una vida estelar. SN 1987A es el caso emblemático de neutrinos detectados.</p>
   </div>
 </section>
 
-<!-- CONCEPTOS -->
+<!-- ============ CONCEPTOS ============ -->
 <section id="conceptos">
   <div class="shead"><span class="num">★</span><div>
     <h2>Conceptos clave</h2>
@@ -503,49 +573,54 @@ footer b{color:var(--ink)}
   <div class="tbl"><table>
     <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
     <tbody>
-      <tr><td><b>Umbral ~4 M<sub>☉</sub></b></td><td>Gradiente, no corte exacto</td><td>Marca dónde puede continuar la fusión más allá del C</td></tr>
-      <tr><td><b>Supergigante</b></td><td>Radios ~ hasta 5 UA; vientos intensos</td><td>Fase post-MS masiva; Eta Carinae como ejemplo</td></tr>
-      <tr><td><b>Ciclo CNO</b></td><td>C,N,O catalizan H→He</td><td>Domina en alta masa; requiere metales de generaciones previas</td></tr>
-      <tr><td><b>Cadena pp</b></td><td>H→He sin catalizador pesado</td><td>Domina en baja masa y en Población III</td></tr>
-      <tr><td><b>Población III</b></td><td>Primeras estrellas, sin metales</td><td>Solo pp disponible; debate sobre luminosidades</td></tr>
-      <tr><td><b>Fusión por capas</b></td><td>H, He, C, O, Si → Fe</td><td>Estructura «cebolla» del núcleo masivo</td></tr>
-      <tr><td><b>Pico del Fe</b></td><td>Máximo B/A (~8,8 MeV/nucleón)</td><td>Fusión más allá de Fe consume energía</td></tr>
-      <tr><td><b>Colapso + rebote</b></td><td>~0,1 s Fe; ~1 s colapso; horas la onda</td><td>Mecanismo de SN II; remanente de neutrones</td></tr>
-      <tr><td><b>Energía SN</b></td><td>~10<sup>46</sup> J (gravitacional)</td><td>~100× energía total radiada por el Sol en su vida</td></tr>
-      <tr><td><b>Nucleosíntesis</b></td><td>BB, estrellas, SN, binarias</td><td>Explica composición del Sol, la Tierra y nosotros</td></tr>
-      <tr><td><b>SN 1987A</b></td><td>SN II en LMC (1987)</td><td>Prueba observacional directa de la teoría</td></tr>
+      <tr><td><b>Alta masa</b></td><td><span class="katex-inline" data-tex="M_\star \gtrsim 4\,M_\odot"></span> (frontera difusa)</td><td>Cambia el régimen: CNO, supergigante, supernova</td></tr>
+      <tr><td><b>Vida en secuencia principal</b></td><td>~10⁶ años (40 M☉) vs ~10¹⁰ años (1 M☉)</td><td>Más masa ⇒ tasas de fusión altísimas ⇒ vida cortísima</td></tr>
+      <tr><td><b>Ciclo CNO</b></td><td>4 ¹H → ⁴He usando C, N, O como catalizadores</td><td>Vía dominante de fusión de H en estrellas masivas</td></tr>
+      <tr><td><b>Catalizador</b></td><td>Participa en la reacción pero no se consume</td><td>Bastan trazas de C, N, O para sostener el ciclo</td></tr>
+      <tr><td><b>Población III</b></td><td>Primeras estrellas, sin metales</td><td>Sin C no hay CNO: solo cadena p–p; tema abierto</td></tr>
+      <tr><td><b>Supergigante roja</b></td><td>Radio de hasta ~5 UA (órbita de Júpiter)</td><td>Fase evolucionada de estrellas masivas; pierde masa por vientos y outbursts</td></tr>
+      <tr><td><b>Fusión por capas</b></td><td>H→He / He→C,O / …Si→Fe, ~600 millones K</td><td>Estructura de cebolla; el Fe se acumula al centro, inerte</td></tr>
+      <tr><td><b>Energía de enlace</b></td><td><span class="katex-inline" data-tex="E=\Delta m\,c^2"></span>; máximo por nucleón en ⁵⁶Fe</td><td>Fusionar Fe requiere energía: fin del combustible</td></tr>
+      <tr><td><b>Presión degenerada de neutrones</b></td><td>Principio de exclusión: “la sala llena”</td><td>Detiene el colapso; da la superficie contra la que rebota el material</td></tr>
+      <tr><td><b>Supernova (colapso de núcleo)</b></td><td>Colapso ~0,1–1 s; choque recorre la estrella en ~horas</td><td>Desarma la estrella; fuente: energía gravitacional, no fusión</td></tr>
+      <tr><td><b>Energía liberada</b></td><td>~10⁴⁶ J ≈ 100 vidas completas del Sol</td><td>Faros para ver el universo lejano (Nobel de la expansión)</td></tr>
+      <tr><td><b>Nucleosíntesis</b></td><td>Elementos &gt; Fe se forjan en la explosión</td><td>Enriquece el medio interestelar: somos polvo de estrellas</td></tr>
+      <tr><td><b>Metalicidad</b></td><td>Abundancia de elementos pesados vs H</td><td>Viejas: baja; jóvenes: alta ⇒ evidencia de nucleosíntesis</td></tr>
+      <tr><td><b>Patrón par/impar</b></td><td>Núcleos pares más abundantes que impares</td><td>La fusión avanza “de a dos”: firma de origen estelar</td></tr>
+      <tr><td><b>SN 1987A / Kepler 1604</b></td><td>Supernovas cercanas con remanente observable</td><td>Evidencia directa; JWST muestra la expansión ~40 años después</td></tr>
     </tbody>
   </table></div>
 </section>
 
-<!-- EXAMENES -->
+<!-- ============ EXAMENES ============ -->
 <section id="examenes">
   <div class="shead"><span class="num">✓</span><div>
     <h2>Exámenes de práctica</h2>
     <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
   </div></div>
   <ol class="examlist">
-    <li><a href="m3c2-examen-01.html">Examen 01<small>Recap y umbral</small></a></li>
-    <li><a href="m3c2-examen-02.html">Examen 02<small>Supergigantes</small></a></li>
-    <li><a href="m3c2-examen-03.html">Examen 03<small>Ciclo CNO</small></a></li>
-    <li><a href="m3c2-examen-04.html">Examen 04<small>CNO vs pp</small></a></li>
-    <li><a href="m3c2-examen-05.html">Examen 05<small>Población III</small></a></li>
-    <li><a href="m3c2-examen-06.html">Examen 06<small>Fusión por capas</small></a></li>
-    <li><a href="m3c2-examen-07.html">Examen 07<small>Pico del hierro</small></a></li>
-    <li><a href="m3c2-examen-08.html">Examen 08<small>Colapso y SN II</small></a></li>
-    <li><a href="m3c2-examen-09.html">Examen 09<small>Tiempos y energía</small></a></li>
+    <li><a href="m3c2-examen-01.html">Examen 01<small>Repaso y contexto</small></a></li>
+    <li><a href="m3c2-examen-02.html">Examen 02<small>El ciclo CNO</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>CNO: tasas y orígenes</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>Supergigantes rojas</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>Energía de enlace</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Colapso y rebote</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>Energética de la SN</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>Fábrica de elementos</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>Evidencia observacional</small></a></li>
     <li><a href="m3c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
   </ol>
 </section>
 
 <footer>
-  <p><b>Fuentes.</b> Clase 2 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Laura Pérez, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c2.md</code>) y las diapositivas <code>Modulo_III_Clase_2_LPerez.pdf</code>.</p>
-  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas (p. ej. ciclo CNO, umbral ~4 M<sub>☉</sub>, energía ~10<sup>46</sup> J, SN 1987A). Algunas digresiones sobre neutrinos, binarias y Población III se resumieron sin alterar el núcleo físico. Ante duda, primar las diapositivas.</p>
+  <p><b>Fuentes.</b> Clase 2 del Módulo III del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Laura Pérez, en reemplazo, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m3/ff/estrellas-m3c2.md</code>) y las diapositivas <code>Modulo_III_Clase_2_LPerez.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y fuentes académicas, corrigiendo entre otros: “Hersprung y Russell” → Hertzsprung–Russell; “núcleo helio bono” → núcleo de carbono; “citrón” → positrón; “de adox” → “de a dos”; el descubrimiento del ciclo CNO data de fines de los años 1930 (Bethe y von Weizsäcker), no de los años 60 como quedó en el audio; la vida del Sol usada en la comparación energética es ~10 mil millones de años (no 10 millones); y la densidad nuclear de la diapositiva (~4×10¹⁷) corresponde a kg/m³ para que calce la analogía de la Tierra comprimida a 300 m. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
 </footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script>
+// ---- KaTeX render ----
 document.addEventListener("DOMContentLoaded", function(){
   function renderAll(){
     document.querySelectorAll('.katex-block').forEach(function(el){
@@ -562,94 +637,103 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 });
 
-// Widget 1: CNO vs pp
+// ---- Constantes ----
+var C = 299792458;            // m/s
+var LSUN = 3.9e26;            // W
+var YR = 3.156e7;             // s
+var ESN = 1e46;               // J
+
+// ---- Widget 1: vida vs masa ----
 (function(){
-  var mSl = document.getElementById('fm-m');
-  var tSl = document.getElementById('fm-t');
-  var mLab = document.getElementById('fm-mlab');
-  var tLab = document.getElementById('fm-tlab');
-  var out = document.getElementById('fm-out');
-  var bar = document.getElementById('fm-bar');
-  function rates(M, T){
-    var rho = Math.pow(M, 3);
-    var Xc = Math.min(0.02 + 0.001 * Math.max(M - 1, 0), 0.04);
-    var pp = rho * rho * Math.pow(T, 4);
-    var cno = rho * Xc * Math.pow(T, 17);
-    return {pp: pp, cno: cno};
-  }
-  function fmtLife(M){
-    if(M <= 0.8) return '~2×10<sup>10</sup> años';
-    if(M < 1.5) return '~10<sup>10</sup> años';
-    if(M < 4) return '~10<sup>9</sup>–10<sup>10</sup> años';
-    var yrs = 10 * Math.pow(10 / M, 3);
-    if(yrs >= 1) return '~' + Math.round(yrs) + ' millones de años';
-    return '~' + Math.round(yrs * 1000) + ' mil años';
+  var sl = document.getElementById('vida-m');
+  var lab = document.getElementById('vida-mlab');
+  var out = document.getElementById('vida-out');
+  // el slider trabaja en log2 aproximado: valor v -> masa 2^(v/2) para rango 0.25..256; usamos tabla de pasos
+  var masas = [0.25,0.3,0.4,0.5,0.7,1,1.4,2,2.8,4,5.7,8,11,16,23,32,40,57,80,100,128];
+  function fmtYears(t){
+    if(t >= 1e9) return (t/1e9).toFixed(1)+" mil millones de años";
+    if(t >= 1e6) return (t/1e6).toFixed(1)+" millones de años";
+    return Math.round(t).toLocaleString('es-CL')+" años";
   }
   function calc(){
-    var M = parseFloat(mSl.value);
-    var T = parseFloat(tSl.value);
-    mLab.innerHTML = M.toFixed(1) + ' M<sub>☉</sub>';
-    tLab.textContent = T;
-    var r = rates(M, T);
-    var tot = r.pp + r.cno;
-    var fp = (100 * r.pp / tot).toFixed(1);
-    var fc = (100 * r.cno / tot).toFixed(1);
-    var dom = r.cno > r.pp ? '<b style="color:var(--cyan)">Ciclo CNO</b>' : '<b style="color:var(--gold)">Cadena protón–protón</b>';
-    out.innerHTML = 'Fracción de potencia (modelo): <span class="k">pp</span> <b>'+fp+'%</b> · <span class="k">CNO</span> <b>'+fc+'%</b><br>Domina: '+dom+'<br>Vida aprox. en MS: '+fmtLife(M);
-    bar.innerHTML = '<div style="width:'+fp+'%;background:var(--gold);height:100%" title="pp"></div><div style="width:'+fc+'%;background:var(--cyan);height:100%" title="CNO"></div>';
+    var idx = parseInt(sl.value,10)+4; // -4..16 -> 0..20
+    var m = masas[idx];
+    lab.textContent = m+" M☉";
+    var t = 1e10*Math.pow(m,-2.5);
+    var tSol = 1e10;
+    var ratio = tSol/t;
+    var regimen = m >= 4
+      ? "→ <b>Alta masa</b>: dominará el <span class='k'>ciclo CNO</span> y terminará en supernova."
+      : "→ <b>Baja masa</b>: domina la cadena p–p; terminará como enana blanca.";
+    out.innerHTML = "Vida en secuencia principal ≈ <b>"+fmtYears(t)+"</b><br>"+
+      (ratio>1 ? "El Sol vive ≈ <b>"+(ratio>=100?Math.round(ratio):ratio.toFixed(1))+"×</b> más que esta estrella.<br>"
+               : "Esta estrella vive ≈ <b>"+((1/ratio).toFixed(1))+"×</b> más que el Sol.<br>")+
+      regimen;
   }
-  mSl.addEventListener('input', calc);
-  tSl.addEventListener('input', calc);
-  document.querySelectorAll('#w-fusion .presets button').forEach(function(btn){
+  sl.addEventListener('input', calc);
+  document.querySelectorAll('#vida-presets button').forEach(function(btn){
     btn.addEventListener('click', function(){
-      mSl.value = btn.dataset.m;
-      tSl.value = btn.dataset.t;
-      calc();
+      var m = parseFloat(btn.dataset.m);
+      // buscar índice más cercano
+      var best=0,bd=1e9;
+      masas.forEach(function(x,i){ var d=Math.abs(Math.log(x/m)); if(d<bd){bd=d;best=i;} });
+      sl.value = best-4; calc();
     });
   });
   calc();
 })();
 
-// Widget 2: binding energy curve (pedagogical values, MeV/nucleon)
+// ---- Widget 2: E = Δm c² ----
 (function(){
-  var names = ['H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca','Sc','Ti','V','Cr','Mn','Fe'];
-  var ba = [0,7.07,5.6,6.46,6.93,7.68,7.48,7.77,7.78,8.03,8.11,8.26,8.33,8.48,8.48,8.49,8.52,8.77,8.67,8.79,8.86,8.93,9.05,9.04,8.85,8.79];
-  var maxB = 8.79;
-  var zSl = document.getElementById('be-z');
-  var out = document.getElementById('be-out');
-  var bars = document.getElementById('be-bars');
-  function renderBars(hiZ){
-    bars.innerHTML = '';
-    [1,2,6,8,14,26].forEach(function(z){
-      var col = document.createElement('div');
-      col.className = 'bar-col';
-      var h = Math.max(4, (ba[z-1]/maxB)*120);
-      var fill = document.createElement('div');
-      fill.className = 'bar-fill';
-      fill.style.height = h+'px';
-      fill.style.background = z===26 ? 'var(--red)' : (z===hiZ ? 'var(--cyan)' : '#3a4a6a');
-      var lbl = document.createElement('div');
-      lbl.className = 'bar-lbl';
-      lbl.textContent = names[z-1];
-      col.appendChild(fill);
-      col.appendChild(lbl);
-      bars.appendChild(col);
-    });
-  }
+  var inp = document.getElementById('mc2-kg');
+  var out = document.getElementById('mc2-out');
+  var EFF = 0.007;              // 0,7% de la masa se convierte en energía (H -> He)
+  var EVIDA = LSUN*1e10*YR;     // energía del Sol en toda su vida (~1.2e44 J)
+  var MEGATON = 4.184e15;       // J
   function calc(){
-    var z = parseInt(zSl.value, 10);
-    var b = ba[z-1];
-    var rel = (100*b/maxB).toFixed(1);
-    var proc;
-    if(z < 26){ proc = 'Fusión hacia <b>'+names[z-1]+'</b> (desde elementos más ligeros) <b style="color:var(--ok)">libera energía</b>.'; }
-    else if(z === 26){ proc = '<b>Fe</b> está en el <b>máximo</b> de B/A: el núcleo más estable. Ni fusión ni fisión de Fe libera energía netamente en condiciones estelares.'; }
-    else { proc = 'Fusión hacia elementos más pesados que Fe <b style="color:var(--bad)">requiere energía</b>.'; }
-    out.innerHTML = 'Elemento: <b>'+names[z-1]+'</b> (Z='+z+') · B/A ≈ <b>'+b.toFixed(2)+'</b> MeV/nucleón ('+rel+'% del máximo)<br>'+proc;
-    renderBars(z);
+    var m = parseFloat(inp.value);
+    if(!(m>0)){ out.innerHTML = "Ingresa una masa positiva."; return; }
+    var dm = m*EFF;
+    var E = dm*C*C;
+    var seg = E/LSUN;
+    var comp;
+    if(E < 1e30){
+      comp = "≈ <b>"+(E/MEGATON).toExponential(2)+"</b> megatones (bombas de hidrógeno de 1 Mt)";
+    } else if(E < EVIDA){
+      comp = "≈ lo que el Sol radia en <b>"+(seg/YR).toExponential(2)+"</b> años";
+    } else {
+      comp = "≈ <b>"+(E/EVIDA).toFixed(1)+"×</b> la energía del Sol en toda su vida";
+    }
+    out.innerHTML = "Masa convertida en energía (0,7%): <b>"+dm.toExponential(3)+"</b> kg<br>"+
+      "<span class='k'>E</span> = Δm·c² = <b>"+E.toExponential(3)+"</b> J<br>"+comp;
   }
-  zSl.addEventListener('input', calc);
-  document.querySelectorAll('#w-binding .presets button').forEach(function(btn){
-    btn.addEventListener('click', function(){ zSl.value = btn.dataset.z; calc(); });
+  inp.addEventListener('input', calc);
+  document.querySelectorAll('#mc2-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ inp.value = btn.dataset.kg; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: energía de supernova vs vida estelar ----
+(function(){
+  var l = document.getElementById('sn-l');
+  var t = document.getElementById('sn-t');
+  var out = document.getElementById('sn-out');
+  function calc(){
+    var L = parseFloat(l.value), T = parseFloat(t.value);
+    if(!(L>0&&T>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var E = L*LSUN*T*YR;
+    var ratio = ESN/E;
+    out.innerHTML = "Energía radiada por la estrella en su vida: <b>"+E.toExponential(2)+"</b> J<br>"+
+      "Energía de una supernova (~10⁴⁶ J) equivale a <b>"+
+      (ratio>=1 ? ratio.toExponential(2)+"</b> vidas completas de esta estrella"
+                : "una fracción "+ratio.toExponential(2)+"</b> de la vida de esta estrella")+
+      "<br>→ Y se libera en <b>segundos a horas</b>, no en millones de años: por eso el salto en la curva de luz.";
+  }
+  l.addEventListener('input', calc);
+  t.addEventListener('input', calc);
+  document.querySelectorAll('#sn-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ l.value = btn.dataset.l; t.value = btn.dataset.t; calc(); });
   });
   calc();
 })();

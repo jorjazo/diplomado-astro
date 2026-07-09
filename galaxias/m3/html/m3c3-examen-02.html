@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 02 — m3c3 · Sgr A*: el corazón de la Vía Láctea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 3</span>
+<h1>Examen 02 — Sgr A*: el corazón de la Vía Láctea</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. La masa de Sgr A*, el agujero negro central de la Vía Láctea, es de aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">100 M☉</label>
+    <label class="opt"><input type="radio" name="q1" value="b">4 millones de M☉</label>
+    <label class="opt"><input type="radio" name="q1" value="c">6.500 millones de M☉</label>
+    <label class="opt"><input type="radio" name="q1" value="d">1 M☉</label>
+    <p class="fb" hidden>~4×10⁶ M☉, medida con la dinámica de estrellas individuales orbitando el centro galáctico. (6.5×10⁹ es M87*.)</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La evidencia decisiva de que hay un agujero negro en el centro galáctico vino de:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Su brillo en el óptico</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Décadas de seguimiento infrarrojo de órbitas estelares completas (p. ej. la estrella S2) alrededor de un punto oscuro</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Una supernova cercana</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El color del polvo central</label>
+    <p class="fb" hidden>Genzel y Ghez (Nobel 2020) siguieron las órbitas en infrarrojo — el óptico está bloqueado por polvo. S2 completa una órbita en ~16 años y pasa a ~120 UA del centro: solo un agujero negro concentra 4×10⁶ M☉ en tan poco espacio.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Por qué las observaciones del centro galáctico se hacen en infrarrojo y no en luz visible?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Las estrellas centrales solo emiten en infrarrojo</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El polvo del disco galáctico bloquea el óptico, pero es más transparente al infrarrojo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Los telescopios ópticos son muy pequeños</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El infrarrojo viaja más rápido</label>
+    <p class="fb" hidden>Hacia el centro galáctico hay enormes columnas de polvo; la extinción disminuye a longitudes de onda más largas.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica cómo las órbitas estelares permiten "pesar" a Sgr A*. ¿Qué ley física se usa y qué hace a esta medición tan robusta?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Es la <strong>tercera ley de Kepler</strong> generalizada — la misma física con que se pesa el Sol usando los planetas. Si una estrella describe una elipse alrededor de un punto, el período P y el semieje mayor a de su órbita determinan la masa central: M ∝ a³/P². Tras décadas de astrometría infrarroja de precisión, se han trazado <strong>órbitas completas</strong> de estrellas como S2 (P ≈ 16 años, pasando a ~120 UA del foco). El resultado: ~4×10⁶ M☉ dentro de un volumen menor que nuestro sistema solar, donde no se ve <em>nada</em>. La robustez viene de que es una medición <strong>puramente dinámica</strong>: no depende de modelos de emisión, de la física del gas ni de calibraciones de distancia indirectas — solo de gravitación, verificada además con muchas estrellas independientes que cuentan la misma historia. Cualquier alternativa al agujero negro (cúmulo oscuro ultradenso, etc.) queda descartada por estabilidad: colapsaría.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Sgr A* está esencialmente inactivo hoy. ¿Cómo sabemos entonces que está ahí, y qué nos dice esto sobre la población de agujeros supermasivos en galaxias normales?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Precisamente porque la detección fue <strong>dinámica y no por acreción</strong>: no necesitamos que el agujero "coma" para verlo — basta con que su gravedad gobierne las órbitas de las estrellas vecinas. Sgr A* apenas acreta (destellos débiles ocasionales en rayos X e infrarrojo), y sin las órbitas estelares habría pasado inadvertido. La lección generaliza: los AGN brillantes son solo la fracción de agujeros supermasivos que <em>están comiendo ahora</em>; la evidencia dinámica en la Vía Láctea y en otras galaxias cercanas (más relaciones como M–σ entre masa del agujero y el bulbo) indica que <strong>prácticamente toda galaxia masiva alberga un agujero supermasivo</strong>, casi siempre dormido. La actividad es una <em>fase</em>, no una propiedad permanente: nuestro propio centro pudo ser un AGN en el pasado y podría reactivarse si le llega gas.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 3, Módulo III (Astrofísica de Galaxias). <a href="m3c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

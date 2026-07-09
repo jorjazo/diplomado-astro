@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 07 — m3c1 · Stefan–Boltzmann y RGB</title>
+<title>Examen 07 — m3c1 · Fusión de helio y proceso triple-alfa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,47 +40,49 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 1</span>
-<h1>Examen 07 — Stefan–Boltzmann y RGB</h1>
+<h1>Examen 07 — Fusión de helio y proceso triple-alfa</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
-<form id="quiz" data-answers="b,c,b">
-  <fieldset data-q="1"><legend>1. La luminosidad según Stefan–Boltzmann es L =</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">4πRσT²</label>
-    <label class="opt"><input type="radio" name="q1" value="b">4πR²σT⁴</label>
-    <label class="opt"><input type="radio" name="q1" value="c">πR²T⁴</label>
-    <label class="opt"><input type="radio" name="q1" value="d">σT⁴ solamente</label>
-    <p class="fb" hidden>Depende del área (R²) y de T⁴.</p>
+
+<form id="quiz" data-answers="b,c,a">
+  <fieldset data-q="1"><legend>1. ¿Qué temperatura se necesita para iniciar la fusión de helio, y cómo se compara con la del hidrógeno?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">~15 millones de K, igual que el hidrógeno</label>
+    <label class="opt"><input type="radio" name="q1" value="b">~100 millones de K, mucho más que los ~15 millones del hidrógeno</label>
+    <label class="opt"><input type="radio" name="q1" value="c">~1 millón de K, menos que el hidrógeno</label>
+    <label class="opt"><input type="radio" name="q1" value="d">~160.000 millones de K</label>
+    <p class="fb" hidden>El centro del Sol está a ~15 millones de K (suficiente para H). El He necesita ~100 millones de K por su mayor repulsión eléctrica.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Como gigante roja, el Sol podría expandirse hasta aproximadamente:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">La órbita de Mercurio</label>
-    <label class="opt"><input type="radio" name="q2" value="b">La órbita de la Tierra</label>
-    <label class="opt"><input type="radio" name="q2" value="c">La órbita de Marte</label>
-    <label class="opt"><input type="radio" name="q2" value="d">La órbita de Plutón</label>
-    <p class="fb" hidden>Modelos: radio ~ hasta Marte; la Tierra sería engullida.</p>
+  <fieldset data-q="2"><legend>2. ¿Por qué la fusión de helio exige temperaturas tan superiores a las de la fusión de hidrógeno?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque el helio es un gas noble y no reacciona</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque el helio pesa menos y escapa del núcleo</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque el núcleo de He tiene el doble de carga: la repulsión electrostática a vencer es mucho mayor</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque el helio primero debe convertirse en hidrógeno</label>
+    <p class="fb" hidden>Con 2 protones por núcleo, la barrera coulombiana entre dos partículas alfa es mucho más alta que entre dos protones.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. En la gigante roja, la temperatura superficial típicamente:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Sube mucho</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Baja (capas externas lejanas del calor)</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Se mantiene igual que en MS</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Es cero</label>
-    <p class="fb" hidden>El núcleo está muy caliente; la superficie se enfría al expandirse.</p>
+  <fieldset data-q="3"><legend>3. En el proceso triple-alfa, el paso intermedio entre el helio y el carbono es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El berilio-8, un núcleo inestable que debe capturar otro helio antes de decaer</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El litio-6, un núcleo estable</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El oxígeno-16</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El deuterio</label>
+    <p class="fb" hidden>⁴He + ⁴He → ⁸Be (inestable); ⁸Be + ⁴He → ¹²C + γ. Tres partículas alfa, un carbono.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Da dos razones por las que una gigante roja es mucho más luminosa que en MS.</p>
+  <p class="q">4. ¿Qué es una «partícula alfa» y por qué en el interior estelar hablamos de núcleos desnudos chocando, en vez de átomos completos? Relaciona tu respuesta con el estado de la materia en las estrellas.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">1) <strong>Fusión en capa</strong> con alta tasa. 2) <strong>Mayor R</strong>: L ∝ R²T⁴.</div>
+    <div class="answer">Una <strong>partícula alfa</strong> es simplemente el <strong>núcleo del átomo de helio-4</strong>: 2 protones + 2 neutrones, sin electrones (es la misma partícula de los experimentos históricos de dispersión con láminas de oro, como el de Rutherford). Las estrellas están en estado de <strong>plasma</strong>: gas tan caliente que los átomos están ionizados — los electrones andan libres, separados de los núcleos. Por eso, cuando describimos la fusión (cadena protón-protón o proceso triple-alfa) hablamos de <strong>núcleos desnudos</strong> que deben acercarse lo suficiente para fusionarse venciendo su repulsión electrostática mutua; los electrones libres forman parte del plasma pero no participan de la reacción nuclear en sí.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Si una estrella duplica su radio pero mantiene T<sub>eff</sub>, ¿cómo cambia L?</p>
+  <p class="q">5. Mientras el núcleo fusiona He→C, la capa de fusión de hidrógeno sigue activa encima. Explica el rol de esa capa en esta etapa y cómo, además del carbono, se empieza a formar oxígeno en el núcleo.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">L ∝ R² ⇒ si R→2R, L→<strong>4 L</strong>.</div>
+    <div class="answer">La <strong>capa de fusión de H→He</strong> sigue produciendo helio fresco justo encima del núcleo. Ese helio «cae» y <strong>alimenta el núcleo</strong>, aportando combustible y masa que ayudan a mantener la presión y temperatura necesarias para sostener la fusión de He→C: la estrella funciona como una fábrica de dos etapas encadenadas. Además, parte de los núcleos de <strong>carbono recién formados</strong> pueden capturar otro núcleo de helio (otra partícula alfa) y fusionarse en <strong>oxígeno-16</strong>. Así, el núcleo termina compuesto de carbono con una fracción de oxígeno — exactamente la mezcla C-O que quedará como núcleo inerte cuando el helio central se agote, y que constituirá la futura enana blanca. Es el origen estelar de dos de los elementos esenciales para la vida: «somos polvo de estrellas».</div>
   </details>
 </div>
+
 <footer>Examen de práctica · generado a partir de la Clase 1, Módulo III (Astrofísica de Estrellas). <a href="m3c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>

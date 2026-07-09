@@ -3,27 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 02 — m3c2 · Compacidad</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Examen 02 — m3c2 · El horizonte de eventos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
-  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
 .wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
-nav{font-size:.9rem;margin-bottom:18px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
 .kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
-h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
 .intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
 fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
 legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
 .qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
 .qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
-label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
 label.opt:hover{background:#10203a}
 label.opt input{accent-color:var(--red);margin-right:10px}
-.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;cursor:pointer;margin-top:8px}
-.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
 .fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
 fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
 details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
@@ -37,49 +40,50 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 2</span>
-<h1>Examen 02 — Compacidad</h1>
-<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
+<h1>Examen 02 — El horizonte de eventos</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="a,c,b">
-  <fieldset data-q="1"><legend>1. Tres objetos de 1 M☉ (Sol, enana blanca, agujero negro) producen la misma curvatura lejos, pero cerca:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">El agujero negro permite «caer» mucho más profundo en el pozo gravitacional</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Son idénticos en todos los radios</label>
-    <label class="opt"><input type="radio" name="q1" value="c">El Sol curva más cerca</label>
-    <label class="opt"><input type="radio" name="q1" value="d">La enana blanca no curva el espacio</label>
-    <p class="fb" hidden>Misma masa ⇒ mismo potencial a gran distancia; distinta compacidad ⇒ distinto campo a radios pequeños.</p>
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. La fórmula del horizonte de eventos de un agujero negro sin rotación es R = 2GM/c². ¿De qué depende el tamaño del horizonte?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">De la masa y la temperatura</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Solo de la masa, en forma lineal</label>
+    <label class="opt"><input type="radio" name="q1" value="c">De la densidad del gas circundante</label>
+    <label class="opt"><input type="radio" name="q1" value="d">De la velocidad de rotación de la galaxia</label>
+    <p class="fb" hidden>G y c son constantes: solo entra la masa, y linealmente — el doble de masa, el doble de radio. Un agujero de 100 M☉ tiene horizonte de 300 km.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Una estrella de neutrones de ~1,4 M☉ tiene un radio típico de unos pocos km, comparable a:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">El radio del Sol</label>
-    <label class="opt"><input type="radio" name="q2" value="b">El horizonte de un agujero negro de masa similar</label>
-    <label class="opt"><input type="radio" name="q2" value="c">La órbita de la Tierra</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Un átomo</label>
-    <p class="fb" hidden>Por eso acreción y campos intensos se parecen, salvo que la estrella de neutrones tiene superficie.</p>
+  <fieldset data-q="2"><legend>2. Si el Sol se comprimiera hasta ser un agujero negro, su horizonte de eventos mediría:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">700.000 km (su radio actual)</label>
+    <label class="opt"><input type="radio" name="q2" value="b">3 km</label>
+    <label class="opt"><input type="radio" name="q2" value="c">1 cm</label>
+    <label class="opt"><input type="radio" name="q2" value="d">1 unidad astronómica</label>
+    <p class="fb" hidden>Con la masa solar en la fórmula: ~3 km. Con la masa de la Tierra: ~1 cm. La compacidad requerida es descomunal.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La densidad ρ = M/V explica por qué un agujero negro es extremo:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Porque tiene poca masa</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Porque concentra toda la masa en un volumen mínimo (horizonte pequeño)</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Porque no tiene gravedad</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Porque es hueco</label>
-    <p class="fb" hidden>No es la masa total sino M concentrada en poco radio lo que dispara g y efectos de marea.</p>
+  <fieldset data-q="3"><legend>3. ¿Qué se siente al cruzar el horizonte de eventos?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Un fogonazo de radiación</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Nada especial: es solo el punto a partir del cual escapar se vuelve dinámicamente imposible</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Un umbral sólido, como en las películas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Una descarga eléctrica</label>
+    <p class="fb" hidden>No es una superficie ni una membrana: no "pasa nada" al cruzarlo. Simplemente, desde ahí hacia adentro no existe trayectoria de escape por mucha energía que gastes.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Compara qué le ocurre a un cuerpo que cae hacia una estrella de neutrones vs. un agujero negro de la misma masa.</p>
+  <p class="q">4. El horizonte de eventos de un agujero negro de 1 M☉ mide 3 km. Usando la linealidad de la fórmula, calcula el horizonte para agujeros de 10, 100 y 4 millones de masas solares, y comenta qué implica esa escala para los agujeros supermasivos.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">En ambos casos atraviesa un campo gravitatorio intenso. En la estrella de neutrones <strong>choca con superficie sólida</strong> y puede liberar energía (p. ej. rayos X). En el agujero negro cruza el horizonte y no hay retorno; la información que emitía deja de llegarnos.</div>
-  </details>
-</div>
-<div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué el Sol «convertido» en agujero negro de 1 M☉ seguiría manteniendo las órbitas planetarias a primera orden?</p>
-  <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">A distancias ≫ r_s, el campo gravitacional de una masa esférica depende solo de M total (teorema de la cáscara/newtoniano). Cambia la compacidad interna, no la masa exterior medida desde lejos. Solo cerca del horizonte los efectos relativistas fuertes importan.</div>
+    <div class="answer">Como R escala linealmente con M: <strong>10 M☉ → 30 km</strong> (una ciudad); <strong>100 M☉ → 300 km</strong> ("de aquí a Los Vilos, o más allá" — la distancia entre dos ciudades); <strong>4×10⁶ M☉ (Sgr A*) → 12 millones de km</strong>, unas 17 veces el radio del Sol y algo menor que la órbita de Mercurio. La implicación: los agujeros supermasivos tienen horizontes de escala <em>de sistema planetario</em> — el de M87*, con miles de millones de masas solares, supera la órbita de Plutón. "Agujero negro" no significa necesariamente "pequeño": significa compacto <em>en relación a su masa</em>. Y nótese la paradoja de densidades: como R crece linealmente con M pero el volumen crece como R³, la densidad media dentro del horizonte <em>disminuye</em> para agujeros más masivos.</div>
   </details>
 </div>
 
-<footer>Examen de práctica · <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a></footer>
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Además del horizonte, la clase mencionó la ISCO. ¿Qué es y por qué se dice que "tu suerte ya está sellada" antes de llegar al horizonte?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La <strong>ISCO</strong> (innermost stable circular orbit, última órbita circular estable) está a unas <strong>3 veces el radio del horizonte</strong> para un agujero sin rotación. Fuera de la ISCO, un cuerpo puede orbitar establemente — igual que una nave puede acercarse al Sol, orbitar y volver. Dentro de la ISCO, <strong>toda órbita es inestable</strong>: cualquier perturbación te manda en espiral hacia adentro; ya no existe una trayectoria orbital que te salve, aunque técnicamente aún podrías escapar gastando energía de manera propulsiva. En el <strong>horizonte</strong> la condición es más fuerte: escapar exigiría energía infinita — es físicamente imposible. Por eso la ISCO marca además el borde interno de los discos de acreción: el gas orbita hasta ahí y luego cae directo.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 2, Módulo III (Astrofísica de Galaxias). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
 </main>
 <script>
 function gradeQuiz(){
