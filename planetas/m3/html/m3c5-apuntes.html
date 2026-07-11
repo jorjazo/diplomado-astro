@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discos de Escombros y el Ensamblaje del Sistema Solar — Astrofísica de Planetas, Módulo III · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo III · Clase 5</span>
+  <h1>Discos de <em>escombros</em> y el ensamblaje del Sistema Solar</h1>
+  <p class="sub">Cuando el gas se acaba, quedan las rocas: cinturones de planetesimales esculpidos por resonancias con planetas gigantes, colisiones que fabrican polvo fresco, embriones que crecen a golpes… y la Luna como recuerdo del último gran impacto.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Simón Casassus</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 6 jul 2026</span>
+    <span><b>Etapa:</b> después del gas — la era de los escombros</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>n disco protoplanetario no dura para siempre: la propia estrella lo <span class="hl">evapora con su radiación ultravioleta</span>. Cuando el gas desaparece, se cierra la fábrica de gigantes gaseosos y comienza otra etapa: el <strong>disco de escombros</strong>, un mar de rocas de milímetros a kilómetros donde los planetas rocosos siguen creciendo a punta de choques. Esta clase recorre esa etapa completa: qué es un disco de escombros y por qué no tiene granos pequeños, cómo los cinturones de asteroides y de Kuiper (y sus versiones «exo») delatan a los planetas que los esculpen, cómo crecen los planetas telúricos por enfocamiento gravitacional e impactos gigantes, y cómo el <em>Grand Tack</em> y el modelo de Niza explican —de paso— el agua de la Tierra y el origen de la Luna. El profesor advirtió que dos clases previas (cinemática de discos y geometrías extremas) quedaron comprimidas: aquí se señala brevemente ese material al final.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El fin del gas: fotoevaporación</a></li>
+    <li><a href="#s2">Qué es un disco de escombros</a></li>
+    <li><a href="#s3">Cinturones del Sistema Solar y resonancias</a></li>
+    <li><a href="#s4">Exo-cinturones de Kuiper con ALMA</a></li>
+    <li><a href="#s5">β Pictoris: el ejemplo famoso</a></li>
+    <li><a href="#s6">HR 8799 y el rompecabezas de la migración</a></li>
+    <li><a href="#s7">Crecimiento de planetas telúricos</a></li>
+    <li><a href="#s8">Impactos gigantes y simulaciones</a></li>
+    <li><a href="#s9">Grand Tack, modelo de Niza y el agua</a></li>
+    <li><a href="#s10">Theia y el origen de la Luna</a></li>
+    <li><a href="#s11">Bonus: un disco circunplanetario de portada</a></li>
+    <li><a href="#s12">Material de diapositivas no cubierto</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El fin del gas: fotoevaporación del disco</h2>
+    <p>La estrella que el disco alimentó termina destruyéndolo.</p>
+  </div></div>
+
+  <p>Recordemos el punto de partida (clases anteriores): la estrella crece por <span class="hl">acreción magnetosférica</span> — el campo magnético trunca el disco interno, el material cae siguiendo las líneas de campo e impacta la superficie estelar. Ese <strong>choque de acreción</strong> calienta el material a ~10.000 K y emite en el <strong>ultravioleta</strong>. Y aquí se cierra un círculo irónico: esa misma radiación UV es capaz de <em>disociar el hidrógeno molecular</em> del disco, e incluso ionizarlo.</p>
+
+  <ol class="steps">
+    <li>La radiación UV estelar <strong>calienta el gas</strong> de la superficie del disco.</li>
+    <li>Cuando la temperatura sube, la velocidad térmica de las partículas puede superar la <span class="hl">velocidad de escape</span> — la misma idea que lanzar una roca lo bastante rápido como para que abandone la Tierra.</li>
+    <li>Los átomos que superan esa velocidad se van del sistema: es el <span class="hl">flujo fotoevaporativo</span>.</li>
+    <li>En paralelo, los granos crecen, <strong>sedimentan al plano medio</strong> y sufren <strong>deriva radial</strong>, lo que hace aún más eficiente la disipación del gas.</li>
+    <li>Cuando queda poco gas, las regiones internas pierden su «escudo»: la radiación estelar ataca incluso las zonas densas cercanas y el disco <strong>se barre por completo</strong>.</li>
+  </ol>
+
+  <figure>
+    <img src="m3c5/assets/escombros-03.jpg" alt="Esquema de evolución de un disco: disco masivo flared, disco asentado, disco fotoevaporándose y disco de escombros">
+    <figcaption><span class="cap">Diapositiva · De disco con gas a disco de escombros</span>Las cuatro etapas: (a) disco masivo y acampanado con acreción y fotones FUV, (b) disco asentado (los granos sedimentan al plano medio), (c) disco fotoevaporándose con flujos de evaporación, (d) disco de escombros: ya sin gas, solo quedan cuerpos grandes.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La barrida final es casi instantánea</span>
+    <p>Según la clase, ese barrido final del gas es <em>rapidísimo</em> comparado con la vida del disco (millones de años). La transcripción dice «del orden de 100 a 1000 años»; el valor exacto es dudoso por posible error de reconocimiento de voz (la literatura suele citar ~10<sup>5</sup> años para el aclarado por fotoevaporación), pero el mensaje central es inequívoco: <strong>comparado con la vida del disco, es un parpadeo</strong>.</p>
+  </div>
+
+  <p>La consecuencia más importante: <strong>sin gas no se forman más gigantes gaseosos</strong>. Se acabó el periodo de formación de gigantes. Lo que sigue —la formación de planetas rocosos— ocurre en la etapa del disco de escombros.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La fotoevaporación es un <strong>proceso con umbral</strong>: mientras el disco es denso, se autoprotege (las capas externas absorben el UV); bajo cierta densidad crítica, la protección falla y el sistema colapsa <em>rápido</em>. Es la dinámica típica de un sistema con retroalimentación positiva pasado un umbral — como una caché que amortigua carga hasta que el hit-rate cae bajo el punto crítico y el backend se desploma en cascada.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Qué es un disco de escombros</h2>
+    <p>Solo sobreviven los grandes: la presión de radiación barre el resto.</p>
+  </div></div>
+
+  <p>Una vez disipado el gas, el disco protoplanetario pasa a ser un <span class="hl">disco de escombros</span> (<em>debris disk</em>): solo quedan <strong>granos de más de ~1 mm, planetesimales y planetas</strong>. ¿Y dónde quedaron los granos de ~1 micrón, los responsables de reflejar la luz visible e infrarroja en los discos jóvenes?</p>
+
+  <h3>La presión de radiación barre los granos pequeños</h3>
+  <p>La luz <strong>lleva momentum</strong>. Cuando un granito absorbe fotones, es como recibir pelotazos: cada absorción lo empuja hacia afuera. Ese empuje —la <span class="hl">presión de radiación</span>— es eficiente para soplar <strong>granos pequeños</strong>, pero no mueve rocas grandes: la fuerza de radiación escala con el <em>área</em> del grano (∝ s²) mientras que la gravedad escala con su <em>masa</em> (∝ s³), así que el cociente crece al achicar el grano.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\beta \equiv \frac{F_{\text{rad}}}{F_{\text{grav}}} = \frac{3\,L_\star}{16\pi\, G\, M_\star\, c\,\rho\, s}"></div>
+    <small><strong>Formalización propia (material externo, no escrito así en clase):</strong> el parámetro β compara presión de radiación y gravedad para un grano esférico de radio <em>s</em> y densidad ρ. Ambas fuerzas caen como 1/r², así que β <strong>no depende de la distancia</strong>: solo del tamaño del grano y de la estrella. Para β ≳ 0.5, un grano liberado desde una órbita circular queda desligado y es expulsado. En clase la idea se explicó cualitativamente: «la luz lleva momentum y empuja los granitos chicos, no las rocas grandes».</small>
+  </div>
+
+  <h3>La cascada colisional: el polvo que vemos es fresco</h3>
+  <p>Entonces, si en un disco de escombros observamos granos pequeños, <strong>no pueden ser primordiales</strong>: la presión de radiación los habría dispersado hace rato. Deben ser <span class="hl">frescos</span>, generados recientemente. ¿Por quién? Por las <strong>colisiones entre planetesimales</strong>: cuando dos rocas grandes chocan, se rompen en montones de pedazos, esos pedazos vuelven a chocar y se rompen más… es la <span class="hl">cascada colisional</span>, que va moliendo cuerpos grandes en granos cada vez menores. Los más chicos no sobreviven mucho: son barridos rápidamente del sistema, y la cascada los repone.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física</span>
+    <p>Un disco de escombros es un <strong>estado estacionario dinámico</strong>: la población de polvo pequeño se mantiene porque la tasa de producción (colisiones) compensa la tasa de eliminación (presión de radiación). Ver polvo fino equivale a ver <em>actividad colisional en curso</em> — igual que ver humo implica fuego reciente.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La cascada colisional genera una <strong>distribución de tamaños en ley de potencia</strong>, como todo proceso de fragmentación recursiva. Y el razonamiento «si veo polvo fino, hubo colisión reciente» es una inferencia por <strong>vida media del dato</strong>: como un TTL en una caché — si la entrada existe, alguien la escribió hace menos de un TTL. El grano pequeño es un dato con TTL corto: su sola presencia acota el tiempo desde el último evento que lo produjo.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Discos de escombros en el Sistema Solar: cinturones y resonancias</h2>
+    <p>Neptuno y Júpiter, escultores de asteroides.</p>
+  </div></div>
+
+  <p>No hay que ir lejos para ver discos de escombros: el <span class="hl">cinturón de asteroides</span> y —sobre todo— el <span class="hl">cinturón de Kuiper</span>, el más grande, son ejemplos locales. (El cinturón de asteroides sería muy difícil de detectar en otro sistema; el de Kuiper sí es comparable a lo que observamos afuera.) La lección central: <strong>la arquitectura de estos cinturones deriva de la interacción gravitacional con los planetas</strong>.</p>
+
+  <ul>
+    <li><strong>Neptuno trunca el borde interno del cinturón de Kuiper:</strong> demasiado cerca de Neptuno, las órbitas de los cuerpos son perturbadas con tanta fuerza que terminan cayendo hacia el Sol.</li>
+    <li><strong>Los surcos de Kirkwood</strong> en el cinturón de asteroides corresponden a <span class="hl">resonancias orbitales con Júpiter</span>.</li>
+  </ul>
+
+  <h3>Resonancias: cuando los períodos calzan</h3>
+  <p>La distribución de asteroides en función de la distancia al Sol <strong>no es aleatoria: es muy estructurada</strong>. A ~2.5 au, el período orbital de un asteroide es exactamente <strong>1/3 del período de Júpiter</strong> (resonancia 3:1) — y ahí hay un vacío. Lo mismo en las resonancias 5:2 y 7:3. El borde externo del cinturón está marcado por la <strong>resonancia 2:1</strong>: asteroides que completan dos órbitas por cada una de Júpiter. Cuando los períodos calzan en razones enteras, los tirones gravitacionales de Júpiter se repiten siempre en la misma configuración y <strong>se amplifican</strong> en vez de promediarse a cero.</p>
+
+  <figure>
+    <img src="m3c5/assets/escombros-05.jpg" alt="Histograma del número de asteroides según semieje mayor mostrando los surcos de Kirkwood en las resonancias 3:1, 5:2, 7:3 y 2:1 con Júpiter">
+    <figcaption><span class="cap">Diapositiva · Surcos de Kirkwood</span>Número de asteroides por semieje mayor (2–3.5 au). Los vacíos calzan exactamente con las resonancias de movimiento medio 3:1, 5:2, 7:3 y 2:1 con Júpiter (Alan Chamberlin, JPL/Caltech). Estas resonancias son <em>destructivas</em>: vacían la zona.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor</span>
+    <p>Las resonancias tienen «dos sabores»: pueden ser <strong>destructivas o constructivas</strong>. En los surcos de Kirkwood son destructivas (ausencia de asteroides). Pero también existen acumulaciones resonantes — como los <strong>troyanos</strong>, que comparten la órbita de Júpiter. Además, el cinturón de asteroides tiene <em>familias</em> (interno, medio, externo, troyanos…) que se distinguen tanto por rango radial como por <strong>inclinación orbital</strong> respecto al plano de la eclíptica.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Una resonancia orbital es <strong>forzamiento periódico en fase</strong>: si la perturbación llega siempre en el mismo punto de la órbita, se integra coherentemente — exactamente como empujar un columpio a su frecuencia natural, o como el <em>aliasing</em>: cuando la frecuencia de muestreo y la señal guardan una razón entera, los efectos no se promedian, se acumulan. Y el histograma de Kirkwood es detección de anomalías pura: los «huecos» en la densidad delatan al perturbador y sus armónicos, igual que los picos de un espectro delatan una interferencia periódica.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Exo-cinturones de Kuiper: observarlos con ALMA</h2>
+    <p>El polvo milimétrico delata colisiones de planetesimales que no vemos.</p>
+  </div></div>
+
+  <p>Lo aprendido en casa se exporta: los <span class="hl">exo-cinturones de Kuiper</span> también son esculpidos por sus sistemas exoplanetarios, y su <strong>forma nos habla de los planetas</strong> que interactúan con ellos, aunque no los veamos directamente.</p>
+
+  <h3>Por qué ALMA los puede estudiar</h3>
+  <p>Regla general de instrumentación: un telescopio que opera a cierta longitud de onda es sensible a cuerpos de <strong>tamaño comparable a esa longitud de onda</strong>. ALMA opera a ~1 mm, así que ve granos de ~1 mm. Pero en un exo-cinturón de Kuiper los cuerpos dominantes son <strong>planetesimales de kilómetros</strong>. La conexión es la sección anterior: el polvo milimétrico que ALMA detecta en el continuo <strong>deriva de la cascada colisional</strong> alimentada por colisiones de planetesimales. ALMA no ve los planetesimales — ve su <em>aserrín</em>.</p>
+
+  <figure>
+    <img src="m3c5/assets/escombros-08.jpg" alt="Galería ALMA de nueve discos de escombros: HD107146, HD92945, Beta Pic, HR8799, AU Mic, q1 Eri, HD181327, eta Corvi y Fomalhaut">
+    <figcaption><span class="cap">Diapositiva · Galería ALMA de discos de escombros (Marino+ 2022)</span>Variedad de arquitecturas: HD 107146 visto de cara con dos anillos y un surco entre ellos; Fomalhaut, un anillo puro con cavidad interna; β Pic y AU Mic vistos de canto (se ven como segmentos); anillos en HR 8799, HD 181327, η Corvi… En clase: el disco de cara con dos anillos, el anillo puro con cavidad (la transcripción dice «POP»; por la galería corresponde con toda probabilidad a <em>Fomalhaut</em>) y los discos de canto.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Observaciones caras</span>
+    <p>Los discos de escombros son <strong>mucho menos brillantes</strong> que los discos protoplanetarios (no tienen gas, y el polvo es escaso). Una imagen de disco con gas cuesta ~8 horas de ALMA; una de disco de escombros, <strong>20–30 horas</strong>, y aun así salen imágenes «gruesas», de menor calidad, porque los objetos son muy débiles.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>«Cada instrumento ve cuerpos del tamaño de su longitud de onda» es un <strong>filtro pasabanda</strong>: la observación muestrea una banda estrecha de la distribución de tamaños, y lo que está fuera de banda (planetesimales de km) se infiere <em>indirectamente</em> por el flujo que inyecta en la banda observable vía la cascada. Es como monitorear un sistema por sus logs: no ves los procesos, ves los eventos que emiten — y reconstruyes el proceso desde ahí.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>β Pictoris: disco doble, planetas y un blob de CO</h2>
+    <p>El primer exoplaneta en imagen directa vive dentro de un disco de escombros.</p>
+  </div></div>
+
+  <p><span class="hl">β Pictoris</span> es el ejemplo famoso de interacción disco–planeta. Allí se detectó <strong>β Pic b, el primer exoplaneta en luz directa</strong> —según la clase, a principios de los 2000—, por <strong>Anne-Marie Lagrange</strong>, astrónoma francesa condecorada con la Legión de Honor por este resultado (el equivalente francés a un título de nobleza británico, bromeó el profesor). Fue la primera detección <em>por imagen</em>, no por velocidad radial.</p>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué se puede ver en luz directa?</span>
+    <p>Porque el planeta está <strong>recién formado y muy caliente</strong>: brilla con luz propia (térmica). Para poder detectarlo hubo que <em>restar el disco de escombros</em> de las imágenes — el planeta está metido dentro. La apuesta futura: con el <strong>ELT</strong> (en construcción en el norte de Chile) se espera detectar la <strong>luz reflejada</strong> de planetas fríos y maduros — literalmente fotografiar un planeta adulto.</p>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/escombros-09.jpg" alt="Beta Pictoris: disco de escombros visto de canto por el Hubble y detección del planeta beta Pic b">
+    <figcaption><span class="cap">Diapositiva · β Pictoris</span>Izquierda: el disco de escombros de canto (Hubble/ACS), con máscara ocultando la estrella; se distinguen el disco primario y un <em>disco secundario</em> inclinado. Derecha: detección de β Pic b (2003). La órbita del planeta se ha monitoreado desde los 2000 hasta 2020.</figcaption>
+  </figure>
+
+  <h3>El disco secundario inclinado</h3>
+  <p>β Pic tiene <strong>dos discos</strong>: el principal y uno <strong>inclinado</strong> respecto a él. La explicación: hay (al menos) dos planetas — <strong>β Pic c</strong>, interior, detectado por velocidades radiales, y <strong>β Pic b</strong>, detectado por imagen directa, cuya órbita está un poco inclinada respecto al plano del disco. La interacción de esos planetas con el mar de planetesimales genera la estructura de doble disco.</p>
+
+  <figure>
+    <img src="m3c5/assets/escombros-11.jpg" alt="Imagen del disco de beta Pic en filtro F435W mostrando el warp del disco secundario, y simulación N-body">
+    <figcaption><span class="cap">Diapositiva · El disco inclinado de β Pic (Lagrange+ 2019, Matrà+ 2019)</span>Arriba: imagen (F435W) donde el disco secundario se aparta del plano principal. Abajo: simulación N-cuerpos que reproduce la estructura por la inclinación de β Pic b relativa al disco y a un β Pic c más interno.</figcaption>
+  </figure>
+
+  <h3>El blob de CO: una colisión captada en la nube de gas</h3>
+  <p>Otra sorpresa (una de las primeras imágenes ALMA de un disco de escombros, en la que el profesor tuvo «un rol menor»): en vez de gas uniforme, se detectó un <span class="hl">blob de CO</span> — una concentración localizada de monóxido de carbono. La interpretación (Dent+ 2014, <em>Science</em>, según la diapositiva): <strong>colisiones de planetesimales en resonancia 3:2 con β Pic c</strong>. Los cálculos muestran que hay dos regiones donde las colisiones son más probables, y el blob calza con una de ellas: una <strong>colisión reciente de planetesimales</strong> que liberó gas ahí.</p>
+
+  <div class="box dato">
+    <span class="tag">Nota sobre la transcripción</span>
+    <p>En el audio esta parte es confusa (se habla de «hotspot», «gas vivo» y «región caliente»). Contrastado con la diapositiva, el resultado publicado es el <strong>blob de CO(2-1)</strong> explicado por colisiones de planetesimales en resonancia 3:2 con β Pic c. El CO es aquí el trazador: al ser destruido rápidamente por la radiación, su presencia concentrada delata liberación <em>reciente</em> — la misma lógica del «polvo fresco» de la cascada colisional.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>HR 8799 y el rompecabezas de la migración</h2>
+    <p>Los anillos de escombros apuntan a los mismos planetas… que no migraron.</p>
+  </div></div>
+
+  <p>El otro sistema famoso: <span class="hl">HR 8799</span>, visto casi de cara, con <strong>cuatro planetas detectados en imagen directa</strong>. El grupo del profesor hizo observaciones ALMA con una predicción que confirmar: el exo-cinturón de Kuiper del sistema muestra <strong>un anillo con borde interno truncado</strong> — truncado por el planeta <strong>HR 8799 b</strong> (Booth+ 2016), tal como Neptuno trunca nuestro cinturón de Kuiper. La imagen no es espectacular («súper difícil de hacer»), pero el anillo es claro.</p>
+
+  <figure>
+    <img src="m3c5/assets/escombros-13.jpg" alt="Observación ALMA del anillo de escombros de HR 8799 con las posiciones de los cuatro planetas b, c, d y e">
+    <figcaption><span class="cap">Diapositiva · El anillo de escombros de HR 8799 (Booth+ 2016)</span>Continuo ALMA del anillo, con recuadro mostrando la posición de los planetas b, c, d, e. El borde interno del anillo está truncado por HR 8799 b — el análogo exacto de Neptuno y el cinturón de Kuiper.</figcaption>
+  </figure>
+
+  <h3>El juego de adivinar planetas por la estructura</h3>
+  <p>Igual que con los discos protoplanetarios («si hay un surco grande, pon un planeta grande»), uno puede jugar a asociar un planeta a cada estructura de un disco de escombros: si veo un anillo con borde interno, ahí adentro tiene que haber un planeta, y la geometría me da su masa. Hay muchas maneras de hacerlo (distintas hipótesis y aproximaciones), y el resultado se resume en un diagrama de <strong>masa del planeta vs. radio orbital</strong>, comparando con el Sistema Solar y con la base de datos de exoplanetas.</p>
+
+  <figure>
+    <img src="m3c5/assets/escombros-14.jpg" alt="Diagrama masa planetaria versus semieje mayor comparando planetas inferidos de discos de escombros y de surcos protoplanetarios">
+    <figcaption><span class="cap">Diapositiva · Pearce+ 2022</span>Masa vs. semieje mayor. Puntos negros: Sistema Solar; nube gris: exoplanetas conocidos; símbolos de colores: planetas <em>inferidos</em> de estructuras en discos de escombros (con distintos métodos); cruces: planetas requeridos para explicar surcos en discos protoplanetarios. Ambas poblaciones caen aproximadamente <strong>en el mismo lugar</strong>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El problema</span>
+    <p>Los planetas necesarios para explicar los discos de escombros están, <em>grosso modo</em>, <strong>en el mismo lugar</strong> del diagrama que los necesarios para explicar los surcos protoplanetarios. Pero son etapas físicamente distintas: el disco rico en gas forma gigantes que —según la teoría de la clase pasada— <strong>migran</strong> al abrir su surco. Si hubo migración, los planetas de la etapa de escombros deberían aparecer <em>desplazados hacia adentro</em>… y no lo están (o muy poco). «¿No les suena raro?» — <strong>no entendemos bien la migración</strong>. Los expertos admiten que «hay cancha para hacerlo mejor»: las cruces protoplanetarias se ven algo corridas a la derecha, y si hay migración sería leve.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Esto es <strong>validación cruzada entre dos datasets independientes</strong>: el modelo (migración) predice un corrimiento sistemático entre la población «antes» (surcos con gas) y «después» (anillos de escombros). El test A/B no muestra el efecto esperado → o el modelo exagera la migración, o los estimadores de masa/posición tienen sesgos. Discrepancias así son oro: señalan exactamente dónde el modelo falla.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Crecimiento de planetas telúricos: enfocamiento, Hill y aislamiento</h2>
+    <p>Los escombros son la materia prima de los planetas rocosos.</p>
+  </div></div>
+
+  <p>Los planetesimales del disco de escombros son el material para formar <span class="hl">planetas telúricos</span> (= terrestres, rocosos; el término viene del francés, aclaró el profesor). Su crecimiento continúa en la etapa de escombros, y la clave es que la gravedad hace trampa a favor del grande.</p>
+
+  <h3>Enfocamiento gravitacional</h3>
+  <p>Si dos masas no tuvieran gravedad, su probabilidad de choque estaría dada solo por su <strong>sección geométrica</strong>: hay que «achuntarle» justo. Pero con gravedad, dos cuerpos que pasarían de largo <strong>se deflectan y se acercan</strong>: la sección eficaz de colisión aumenta. Es el <span class="hl">enfocamiento gravitacional</span>.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{dM}{dt} = \rho_{sw}\,\sigma\,\pi R_s^2 \left(1 + \frac{v_{\text{esc}}^2}{\sigma^2}\right)"></div>
+    <small>Tasa de crecimiento de un cuerpo de radio R<sub>s</sub> inmerso en un «mar» de planetesimales (<em>sw</em> = <em>swarm</em>, enjambre) de densidad ρ<sub>sw</sub> y velocidad relativa σ. El primer término (πR<sub>s</sub>²) es el encuentro casual: el área del disco del planeta. El paréntesis es el enfocamiento gravitacional: v<sub>esc</sub> es la velocidad de escape del cuerpo que crece. Más planetesimales y más velocidad ⇒ más choques; y mientras mayor v<sub>esc</sub>/σ, más magnificado el crecimiento. «No es necesario memorizarla» — pero es simple: área × flujo × factor de enfoque.</small>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/escombros-15.jpg" alt="Fórmula de la tasa de crecimiento con enfocamiento gravitacional y esquema de dos masas que se deflectan">
+    <figcaption><span class="cap">Diapositiva · Enfocamiento gravitacional</span>Dos masas con parámetro de impacto b que pasarían de largo… si no fuera porque la atracción mutua curva sus trayectorias y las enfoca una hacia la otra.</figcaption>
+  </figure>
+
+  <h3>Radio de Hill y masa de aislamiento</h3>
+  <p>El planeta crece devorando planetesimales <strong>hasta agotar los que están a su alcance</strong>. ¿Cuál es su alcance? El <span class="hl">radio de Hill</span>: la distancia dentro de la cual domina la gravedad del planeta (más lejos, manda la estrella, que es mucho más masiva).</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="R_H = R\left(\frac{M_p}{M_\star}\right)^{1/3} \qquad\qquad M_{\text{iso}} \sim R^{3/2}"></div>
+    <small>R = radio orbital del planeta, M<sub>p</sub> su masa, M<sub>★</sub> la de la estrella (así aparece en la diapositiva; la definición estándar incluye un factor 3: R<sub>H</sub> = R(M<sub>p</sub>/3M<sub>★</sub>)<sup>1/3</sup> — <em>nota propia</em>). Cuando el planeta despeja el surco de planetesimales de ancho ~R<sub>H</sub>, alcanza su <strong>masa de aislamiento</strong> M<sub>iso</sub>: ~0.1 M<sub>⊕</sub> a 1 au, creciendo como R<sup>3/2</sup> (~3 M<sub>⊕</sub> a 10 au).</small>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/escombros-16.jpg" alt="Diapositiva con el radio de Hill, la masa de aislamiento y una ilustración de impacto gigante">
+    <figcaption><span class="cap">Diapositiva · Masa de aislamiento</span>Un planeta crece hasta agotar los planetesimales dentro de su radio de Hill. A 1 au, M<sub>iso</sub> ~ 0.1 M<sub>⊕</sub>; a 10 au, ~3 M<sub>⊕</sub>. El crecimiento ulterior, en ~100 Myr, ocurre por impactos gigantes entre cuerpos de masa ~M<sub>iso</sub>.</figcaption>
+  </figure>
+
+  <p>A estos cuerpos de masa de aislamiento los llamamos <span class="hl">embriones planetarios</span>. A 1 au son de ~0.1 masas terrestres: <strong>todavía no alcanza para una Tierra</strong>. La masa de aislamiento aumenta con la distancia — y ese detalle importa: más allá de la línea de nieve los embriones son más masivos, y con ~10 M<sub>⊕</sub> pueden capturar una atmósfera masiva de hidrógeno y volverse gigantes gaseosos (§9).</p>
+
+  <h3>Crecimiento oligárquico</h3>
+  <p>¿Cómo parte todo? Al principio chocan granos por casualidad; pero apenas <strong>uno agarra un poquito más de masa, domina el cuento</strong>: su radio de Hill crece, su enfocamiento gravitacional crece, y se lleva todo lo que hay alrededor. Basta ganar un poquito la carrera para transformarse en el «mandamás». A esa etapa se le llama <span class="hl">crecimiento oligárquico</span>: los planetesimales terminan absorbidos por unos pocos oligarcas.</p>
+
+  <div class="box prof">
+    <span class="tag">Analogía del profesor</span>
+    <p>«Igual que la plata: cuando tienes uno que agarra un buen negocio, le va creciendo, se hace gordo y despeja todo el crecimiento alrededor… igual que el mercado, yo creo.» El que gana un poco al principio se queda con todo — en economía se le llama <em>rich get richer</em>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El crecimiento oligárquico es <strong>preferential attachment</strong>: la probabilidad de capturar masa crece con la masa ya capturada (vía R<sub>H</sub> ∝ M<sup>1/3</sup> y v<sub>esc</sub>²∝ M/R). Es el mismo mecanismo que genera distribuciones de ley de potencia en redes (nodos hub), y la masa de aislamiento es la <strong>condición de término</strong>: el proceso se detiene cuando el oligarca agota su vecindario — un algoritmo greedy que satura su región local.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Impactos gigantes y simulaciones N-cuerpos</h2>
+    <p>La excentricidad es la llave: órbitas circulares no chocan.</p>
+  </div></div>
+
+  <p>Terminado el crecimiento oligárquico quedan puros <strong>embriones planetarios</strong> (~0.01–0.1 M<sub>⊕</sub>, decenas de ellos) y ya no hay planetesimales. ¿Cómo se llega de ahí a una Tierra? Los embriones <strong>se perturban gravitacionalmente unos a otros</strong>: sus órbitas se van deformando, alguno sale disparado, se cruza con otro… y chocan. Son los <span class="hl">impactos gigantes</span>, choques entre embriones que construyen masa durante ~100 millones de años. A 1 au un embrión tiene ~1/3 o menos de la masa terrestre: para hacer una Tierra <strong>hay que chocar varias veces</strong>.</p>
+
+  <div class="box physics">
+    <span class="tag">Por qué la excentricidad es clave</span>
+    <p>Si todos los cuerpos están en <strong>órbitas circulares concéntricas</strong>, nunca se cruzan: es poco probable que choquen. Para chocar —o para salir catapultado— se necesita un <strong>encuentro cercano</strong>, y eso requiere órbitas <strong>elípticas</strong> que crucen las de los vecinos. Por eso las simulaciones muestran primero una etapa de <em>excitación de excentricidades</em>: es la que habilita todo lo demás.</p>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/escombros-18.jpg" alt="Simulación de Chambers 2023: excentricidad versus semieje mayor en seis instantes, de Start a 400 millones de años">
+    <figcaption><span class="cap">Diapositiva · Simulación N-cuerpos (Chambers 2023)</span>Excentricidad vs. semieje mayor (0.5–2.5 au) en seis instantes. Se parte con planetesimales de masas similares en órbitas circulares (e≈0); a los 3–10 Myr las excentricidades ya están excitadas y los cuerpos chocan; entre 10 y 30 Myr quedan pocos; a 100–400 Myr sobreviven unos pocos oligarcas: los planetas terrestres.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c5/assets/escombros-19.jpg" alt="Simulación de Raymond y Morbidelli 2020: cinco paneles desde la dispersión del gas hasta el sistema solar actual">
+    <figcaption><span class="cap">Diapositiva · Raymond &amp; Morbidelli 2020</span>El guión completo: t=0, se dispersa el gas (Júpiter, Saturno y los gigantes de hielo «ya son lo que son» — el panel muestra <em>tres</em> gigantes de hielo); t=10 Myr, se gatilla la inestabilidad; t=20 Myr, Marte ya completó su crecimiento mientras Tierra y Venus siguen creciendo; t=210 Myr, estado final; abajo, el Sistema Solar actual. Sean Raymond y Alessandro Morbidelli —autores ligados al modelo de Niza— trabajan ambos en Francia.</figcaption>
+  </figure>
+
+  <p>Detalle notable de las simulaciones: <strong>Marte termina de crecer antes</strong> que Venus y la Tierra — consistente con su masa pequeña. Y ninguna simulación es perfecta: son <em>guiones plausibles</em>, no certezas.</p>
+
+  <div class="box prof">
+    <span class="tag">Del diálogo en clase</span>
+    <p>A propósito del caos de esta etapa salió el <em>problema de los tres cuerpos</em> («no lo podemos resolver; hay una serie sobre eso, está buena»). También la pregunta por el «planeta faltante» entre Marte y Júpiter (la progresión de las órbitas): en el escenario de la clase, el cinturón de asteroides <strong>no es un planeta que no se formó</strong>, sino una zona donde se acumuló el material barrido por la inestabilidad — y no es casualidad que calce con la línea de nieve, que estaba más o menos en la órbita de Júpiter.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Grand Tack, modelo de Niza y el agua de la Tierra</h2>
+    <p>La migración de Júpiter y Saturno revolvió todo el Sistema Solar.</p>
+  </div></div>
+
+  <h3>La línea de nieve</h3>
+  <p>En el disco con gas hay un radio crítico: la <span class="hl">línea de nieve</span>, donde la temperatura iguala la de <strong>sublimación del agua</strong>. Adentro, los cuerpos están completamente <strong>secos</strong>; afuera, los planetesimales están cubiertos de <strong>mantos de hielo</strong> (agua, y también CO y CO₂). Y el hielo pega: como armar un mono de nieve, juntar pelotas de nieve es fácil. Por eso afuera de la línea de nieve el crecimiento es rápido y eficiente, los embriones llegan a ~10 M<sub>⊕</sub> y capturan atmósferas masivas de hidrógeno: <strong>allá nacen los gigantes gaseosos</strong>.</p>
+
+  <h3>El Grand Tack: Júpiter va y vuelve</h3>
+  <p>Se forman Júpiter y Saturno, cada uno despeja su surco y —como vimos en la clase pasada— <strong>migran hacia adentro</strong>. La hipótesis del <span class="hl">Grand Tack</span> («la gran virada»): cuando Saturno alcanza a Júpiter, la migración <strong>se devuelve</strong> y ambos migran hacia afuera. En todo ese vaivén van perturbando el resto del disco por resonancias: sacan cuerpos de sus órbitas, hacen caer <strong>material rico en volátiles (con agua)</strong> desde afuera hacia las regiones internas secas — <em>mezclan</em> el disco. «Ojo: esto es una hipótesis — pero es la única» que explica varias cosas a la vez.</p>
+
+  <h3>El modelo de Niza: la resonancia 2:1 gatilla la inestabilidad</h3>
+  <p>Al migrar, los períodos orbitales de Júpiter y Saturno van cambiando, y llega un momento en que cruzan <strong>justo la resonancia 2:1</strong> (¿recuerdan? la misma razón de períodos que marca el borde externo del cinturón de asteroides). En ese cruce su efecto gravitacional se amplifica y se genera un <strong>impacto mayúsculo en todo el Sistema Solar</strong>: es la inestabilidad del <span class="hl">modelo de Niza</span>. Resultados plausibles de las simulaciones: la expulsión de un <strong>tercer gigante de hielo</strong> (un hermano de Urano y Neptuno catapultado fuera del Sistema Solar), o que Urano y Neptuno <strong>intercambiaran órbitas</strong>. No son certezas — son desenlaces posibles de las simulaciones.</p>
+
+  <div class="box dato">
+    <span class="tag">Bombardeo tardío y objetos interestelares</span>
+    <p>Esa inestabilidad produjo una lluvia de asteroides desde afuera hacia adentro: el <span class="hl">bombardeo tardío</span> (<em>late heavy bombardment</em>), que dejó los cráteres de la Luna. Y si un gigante puede salir catapultado, con mayor razón las cositas chicas: los <strong>objetos interestelares</strong> como <strong>ʻOumuamua</strong> (alargado: su brillo variaba al rotar) o los cometas interestelares posteriores son <strong>planetesimales eyectados de esta etapa en otros sistemas</strong>. Antes era una gran pregunta si existían cuerpos en órbitas hiperbólicas (todo en el Sistema Solar es elíptico o parabólico); hoy, con el observatorio <strong>Vera C. Rubin</strong> mapeando el cielo, lo lógico es que aparezcan cada vez más — y surge una pregunta nueva: ¿qué rol jugaron los objetos interestelares en la evolución del Sistema Solar y de la Tierra?</p>
+  </div>
+
+  <h3>¿De dónde viene el agua de la Tierra?</h3>
+  <p>La Tierra está <strong>dentro de la línea de nieve: debería estar seca</strong>. Tres teorías compiten:</p>
+  <ul>
+    <li><strong>Bombardeo de asteroides/cometas</strong> (la favorita de los astrónomos): la masa de agua que trajeron los cuerpos del bombardeo tardío calza con la de los océanos.</li>
+    <li><strong>Procesos geológicos</strong>: los geólogos buscan mecanismos químicos internos; les cuesta aceptar que la evolución de la Tierra dependa del espacio exterior «a ese nivel».</li>
+    <li><strong>Atmósfera primordial de hidrógeno</strong> (paradigma reciente, «una idea muy chévere»): la prototierra habría tenido una atmósfera de H₂ que reaccionó con los silicatos de la corteza (que contienen oxígeno) formando agua. De paso, es un mecanismo para formar <em>waterworlds</em>, exoplanetas de pura agua.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">La apuesta del profesor</span>
+    <p>«Como todo en la naturaleza, cuando pueden ser tres cosas, lo más probable es que sean las tres juntas.» Y un ingrediente más: para la vida no basta el agua — se necesita el <strong>material prebiótico</strong>, moléculas orgánicas complejas y delicadas que no se forman en el interior de la Tierra. Esa materia orgánica compleja viene de afuera, y llega justamente durante esta etapa de inestabilidades.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Nota sobre la escala temporal</span>
+    <p>La transcripción menciona para el bombardeo tardío «alrededor de 100 millones de años… 200 millones de años» (posiblemente refiriéndose a su duración o inicio tras la formación). El pasaje de audio es ambiguo; la literatura suele ubicar el episodio varios cientos de Myr después de la formación del Sistema Solar. Se deja constancia de la ambigüedad en lugar de inventar precisión.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Theia y el origen de la Luna</h2>
+    <p>El último impacto gigante de la Tierra tiene nombre propio.</p>
+  </div></div>
+
+  <p>La prueba más evidente de los impactos gigantes la tenemos sobre nuestras cabezas: <strong>la Luna es el resultado del último impacto gigante de la Tierra</strong>, el choque con un cuerpo del tamaño de Marte llamado <span class="hl">Theia</span>.</p>
+
+  <h3>La pista isotópica</h3>
+  <p>Cuando las misiones Apolo trajeron rocas lunares, se descubrió que tienen <strong>la misma composición isotópica que la Tierra</strong>. Eso es raro: en el Sistema Solar la composición isotópica varía con la distancia al Sol (Venus no es isotópicamente igual a la Tierra). Los conspiracionistas lo usan como «prueba» de que nunca fuimos a la Luna; la explicación científica es más bonita:</p>
+
+  <ol class="steps">
+    <li>En los <span class="hl">puntos de Lagrange</span> L4/L5 de la órbita terrestre (los mismos donde se acumulan los troyanos de Júpiter) pudo acumularse <strong>otro embrión planetario</strong>: una «hermana» de la Tierra que compitió por los mismos planetesimales, <em>al mismo radio orbital</em> — por eso, misma composición isotópica.</li>
+    <li>Esos puntos son <strong>inestables</strong> a largo plazo: Theia terminó cayendo sobre la Tierra.</li>
+    <li>El impacto pulverizó (según este guión) ambos cuerpos — el desenlace depende de las propiedades mecánicas de los cuerpos; es geofísica mezclada con astrofísica, toda un área de investigación.</li>
+    <li>Se formó un pequeño <strong>disco de escombros alrededor de la Tierra</strong>, que se recondensó en la Luna.</li>
+  </ol>
+
+  <figure>
+    <img src="m3c5/assets/escombros-21.jpg" alt="Puntos de Lagrange del sistema Sol-Tierra y secuencia ilustrada del impacto de Theia que formó la Luna">
+    <figcaption><span class="cap">Diapositiva · El impacto de Theia</span>Izquierda: puntos de Lagrange L1–L5 del sistema Sol–Tierra; en L4/L5 pudo crecer Theia. Derecha: secuencia del impacto — Theia choca con la prototierra, se forma un disco de escombros circumterrestre, y de él condensa la Luna.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Genealogía lunar</span>
+    <p>«Desde ese punto de vista genealógico, la Luna sería una <strong>hija de la Tierra</strong>.» Y sigue siendo tema de investigación activa: salen papers cada pocos meses sobre Theia y las condiciones del impacto.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Síntesis: la escalera completa de la formación planetaria</span>
+    <p>La clase cerró con el resumen del crecimiento, desde 10⁴ hasta 10⁸ años: <strong>polvo submicrométrico</strong> interestelar → <strong>coagulación</strong> hasta rocas de ~cm (máximo) → <strong>inestabilidad de corriente</strong> (streaming instability: los «pelotones de ciclistas» que colapsan bajo su propia gravedad) → <strong>planetesimales</strong> → crecimiento con enfocamiento gravitacional → <strong>embriones</strong> (masa de aislamiento). Fuera de la línea de nieve: embriones de ~10 M<sub>⊕</sub> que capturan hidrógeno → <strong>gigantes gaseosos</strong>. Dentro: embriones de ~0.1 M<sub>⊕</sub> que crecen a golpes → <strong>impactos gigantes</strong> → planetas terrestres, con la Luna como último golpe.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Bonus: un disco circunplanetario de portada</h2>
+    <p>El resultado que el profesor mostró «porque estoy chocho».</p>
+  </div></div>
+
+  <p>Antes de entrar en materia, el profesor compartió un resultado reciente de su grupo, publicado con su estudiante de magíster como autora y <strong>elegido para la portada de una revista de astronomía</strong> («la figura la preparé yo»). El contexto conecta con clases anteriores:</p>
+
+  <ul>
+    <li>Un protoplaneta gigante (~masa de Júpiter) dentro de un disco circunestelar <strong>despeja un surco</strong> y se espera que esté rodeado por un <span class="hl">disco circunplanetario</span>: un disco chiquitito en torno al planeta, no a la estrella.</li>
+    <li>Ese disco se postula para explicar los <strong>satélites regulares</strong> del Sistema Solar (galileanos de Júpiter, saturnianos): órbitas circulares súper regulares que indican que <em>nacieron ahí</em>, no fueron capturados.</li>
+    <li>El problema: las simulaciones solo producen una estructura <strong>achatada y compacta</strong> (tipo platillo) en el caso <em>isotermal</em> idealizado (enfriamiento perfecto); en los casos realistas sale algo <strong>gordo, una envoltura</strong> — y con eso no se explican los satélites regulares.</li>
+  </ul>
+
+  <h3>La observación</h3>
+  <p>Con ALMA detectaron el protoplaneta a <strong>baja frecuencia pero no a alta</strong> (tres frecuencias observadas). Para explicar ese comportamiento espectral necesitaron una interpretación física: no calza con emisión de polvo — solo calza con una <span class="hl">capa delgada de material ionizado</span> en la superficie del disco circunplanetario, donde el material que cae <strong>choca fuerte contra una superficie firme</strong> y se ioniza. Coincidencia afortunada: un modelo teórico de 2018 (propuesto para explicar la emisión de hidrógeno de protoplanetas — en la transcripción el nombre del autor es ininteligible; «Gallo» podría corresponder a <em>Aoyama et al. 2018</em>, referencia dudosa) ya postulaba exactamente eso: el disco actúa como <strong>platillo colector</strong>, el material impacta su superficie, se ioniza y emite.</p>
+
+  <div class="box dato">
+    <span class="tag">Por qué merece portada</span>
+    <p>Es la <strong>primera confirmación de que existe esa estructura aplanada y firme</strong> — el tipo de disco circunplanetario que da origen a los satélites regulares. Indicios de «cachureo» en torno a protoplanetas ya había; la pregunta era su <em>forma</em>. La teoría decía «envoltura gorda»; la observación exige una <strong>superficie dura donde se produce el choque</strong> que emite la señal. «Para que sepan que hacemos cosas choras acá.»</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El argumento es <strong>discriminación de modelos por firma espectral</strong>: dos hipótesis (polvo vs. capa ionizada) predicen distinta dependencia del flujo con la frecuencia; el dato (detección en baja, no-detección en alta) rechaza una y selecciona la otra. La no-detección es tan informativa como la detección — igual que en debugging, donde el test que <em>no</em> falla descarta hipótesis.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Material de diapositivas no cubierto en audio</h2>
+    <p>Las dos clases que el profesor decidió saltarse.</p>
+  </div></div>
+
+  <p>El profesor tenía preparadas dos clases más —<strong>cinemática de discos</strong> y <strong>discos con geometrías extremas</strong>— que decidió comprimir: «son cosas bonitas, pero son más preguntas que respuestas; creo que es más importante hablarles de los discos de escombros y la formación del Sistema Solar». Este material <strong>existe en las diapositivas pero no fue discutido en el audio</strong>; se resume aquí solo como referencia, marcado como tal.</p>
+
+  <h3>Cinemática de discos (diapositivas Clase 3b — no discutido en audio)</h3>
+  <p>La pregunta guía: ¿se puede detectar el <strong>cambio abrupto de velocidad</strong> del gas en la vecindad de un protoplaneta? Las diapositivas muestran el <span class="hl">«Doppler flip»</span> en HD 100546 (Casassus+ 2022), que calza con las predicciones para un planeta de 10 M<sub>Jup</sub> — pero coincide con un <em>anillo</em>, no con un surco («¡falta un ingrediente… quizás vientos de protoplanetas?»). Y un dato duro: un <em>large program</em> de ALMA concluido en 2025 <strong>no detectó ningún protoplaneta con la técnica cinemática</strong>; queda abierta una posibilidad vía el calentamiento de CO cerca de un gigante en formación (Chrenko, Casassus+ 2025).</p>
+
+  <figure>
+    <img src="m3c5/assets/cine-07.jpg" alt="Doppler flip en HD100546: mapa de residuos de velocidad con contornos rojos y azules a lados opuestos">
+    <figcaption><span class="cap">Diapositiva (no discutida en audio) · Doppler flip en HD 100546</span>Residuos de velocidad del gas respecto a la rotación kepleriana: una inversión rojo/azul localizada — candidata a la perturbación de un protoplaneta de ~10 M<sub>Jup</sub> (Casassus+ 2022).</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática (sobre la técnica cinemática)</span>
+    <p>El disco rota de forma kepleriana: v ∝ r<sup>−1/2</sup>. Por <strong>efecto Doppler</strong>, cada línea espectral (p. ej. CO) mapea la <strong>velocidad proyectada</strong> — de un cubo espectral (x, y, frecuencia) se extraen <em>mapas de momentos</em> (intensidad integrada, velocidad media…), puro procesamiento de señal. Buscar planetas cinemáticamente es <strong>detección de anomalías</strong>: se ajusta el modelo kepleriano suave y se buscan residuos localizados — el «Doppler flip» es un residuo con estructura dipolar. El widget 1 de abajo deja jugar con el campo de velocidad proyectado.</p>
+  </div>
+
+  <h3>Geometrías extremas (diapositivas Clase 4 — no discutido en audio)</h3>
+  <p>Discos que se apartan del disco plano ideal: <span class="hl">warps</span> (alabeos) en HD 100453 (Benisty+, Min+ 2017), DoAr 44 (Casassus+ 2019), HD 143006 (Benisty+ 2018); discos con anillos internos <em>desalineados</em> como GW Ori (Kraus+ 2020); posibles warps primordiales en objetos Clase 0 (Sakai+ 2019; Bate 2018) — con el problema de que un warp <strong>se aplana si no hay un cuerpo masivo que lo mantenga</strong>. Y los <span class="hl">fly-bys</span>: encuentros entre protoestrellas que se observan como discos binarios (AS 205, SR 24, FU Ori), sin poder distinguir hoy si son sistemas ligados o desligados.</p>
+
+  <figure>
+    <img src="m3c5/assets/geom-05.jpg" alt="Warp en HD100453: imagen de luz polarizada y modelo con anillos interno y externo desalineados">
+    <figcaption><span class="cap">Diapositiva (no discutida en audio) · Warp en HD 100453</span>Luz polarizada (izquierda) y modelo (Min+ 2017): el disco interno está inclinado respecto al externo — las sombras que proyecta sobre el anillo externo delatan el desalineamiento.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-doppler">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Mapa de velocidad proyectada de un disco kepleriano inclinado</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Así «ve» ALMA la rotación de un disco: cada pixel muestra la velocidad a lo largo de la línea de visión (rojo = se aleja, azul = se acerca), v<sub>obs</sub> = v<sub>kep</sub>(r)·sin i·cos θ. El patrón de «mariposa» es la firma kepleriana; los planetas se buscan como anomalías sobre este fondo. (Tema de la clase de cinemática comprimida.)</p>
+    <div class="formula" style="margin:10px 0">
+      <div class="katex-block" data-tex="v_{\text{kep}}(r)=\sqrt{\frac{G M_\star}{r}} \qquad v_{\text{obs}}=v_{\text{kep}}(r)\,\sin i\,\cos\theta"></div>
+    </div>
+    <div class="wgrid">
+      <div>
+        <label for="dop-i">Inclinación del disco: <span id="dop-ilab"></span></label>
+        <input type="range" id="dop-i" min="0" max="85" step="1" value="45">
+      </div>
+      <div>
+        <label for="dop-m">Masa de la estrella: <span id="dop-mlab"></span></label>
+        <input type="range" id="dop-m" min="0.3" max="3" step="0.1" value="1">
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:12px">
+      <canvas id="dop-canvas" width="360" height="360" style="max-width:100%;border:1px solid var(--line);border-radius:10px;background:#05070d"></canvas>
+    </div>
+    <output id="dop-out"></output>
+  </div>
+
+  <div class="widget" id="w-beta">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Presión de radiación vs. gravedad: ¿qué granos sobreviven?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">El parámetro β = F<sub>rad</sub>/F<sub>grav</sub> ∝ 1/s: mientras más chico el grano, más lo empuja la luz. Si β &gt; 0.5, un grano liberado en órbita circular queda desligado y es barrido del sistema. Por eso en los discos de escombros solo quedan granos grandes — y el polvo fino que vemos debe ser fresco.</p>
+    <div class="presets" id="beta-presets">
+      <button data-l="1" data-ms="1">Sol (1 L☉, 1 M☉)</button>
+      <button data-l="8.7" data-ms="1.75">β Pic (A6V)</button>
+      <button data-l="0.05" data-ms="0.4">Enana M</button>
+    </div>
+    <div class="wgrid">
+      <div>
+        <label for="beta-s">Tamaño del grano: <span id="beta-slab"></span></label>
+        <input type="range" id="beta-s" min="-2" max="4" step="0.02" value="0">
+      </div>
+      <div>
+        <label for="beta-l">Luminosidad estelar (L☉): <span id="beta-llab"></span></label>
+        <input type="range" id="beta-l" min="0.05" max="20" step="0.05" value="1">
+      </div>
+    </div>
+    <label for="beta-ms" style="margin-top:4px">Masa estelar (M☉): <span id="beta-mslab"></span></label>
+    <input type="range" id="beta-ms" min="0.3" max="3" step="0.05" value="1">
+    <output id="beta-out"></output>
+  </div>
+
+  <div class="widget" id="w-focus">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Enfocamiento gravitacional, radio de Hill y masa de aislamiento</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">El factor (1 + v²<sub>esc</sub>/σ²) magnifica el crecimiento: mientras más masivo el embrión (o más frío el enjambre), más «aspiradora» se vuelve. También se calculan el radio de Hill y la masa de aislamiento M<sub>iso</sub> ≈ 0.1 (R/1 au)<sup>3/2</sup> M<sub>⊕</sub> según la escala de la diapositiva.</p>
+    <div class="wgrid">
+      <div>
+        <label for="foc-m">Masa del embrión (M⊕): <span id="foc-mlab"></span></label>
+        <input type="range" id="foc-m" min="-3" max="1" step="0.05" value="-1">
+      </div>
+      <div>
+        <label for="foc-s">Velocidad relativa del enjambre σ (km/s): <span id="foc-slab"></span></label>
+        <input type="range" id="foc-s" min="0.1" max="10" step="0.1" value="1">
+      </div>
+    </div>
+    <label for="foc-r">Radio orbital (au): <span id="foc-rlab"></span></label>
+    <input type="range" id="foc-r" min="0.3" max="30" step="0.1" value="1">
+    <output id="foc-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Fotoevaporación</b></td><td>La radiación UV estelar calienta el gas sobre la velocidad de escape</td><td>Disipa el disco; la barrida final es casi instantánea vs. la vida del disco</td></tr>
+      <tr><td><b>Disco de escombros</b></td><td>Disco sin gas: solo granos &gt;1 mm, planetesimales y planetas</td><td>La etapa donde se terminan de formar los planetas rocosos</td></tr>
+      <tr><td><b>Presión de radiación</b></td><td>Los fotones llevan momentum y empujan los granos pequeños</td><td>Barre el polvo fino: el que se observa debe ser fresco</td></tr>
+      <tr><td><b>Cascada colisional</b></td><td>Colisiones de planetesimales que muelen rocas en granos</td><td>Produce el polvo mm que ALMA detecta en exo-cinturones</td></tr>
+      <tr><td><b>Surcos de Kirkwood</b></td><td>Vacíos del cinturón de asteroides en resonancias con Júpiter (3:1, 5:2, 7:3, 2:1)</td><td>La arquitectura de un cinturón delata a sus planetas</td></tr>
+      <tr><td><b>Exo-cinturones de Kuiper</b></td><td>Discos de escombros en otros sistemas (β Pic, HR 8799, Fomalhaut…)</td><td>Su forma (bordes, anillos) permite inferir exoplanetas no vistos</td></tr>
+      <tr><td><b>β Pictoris</b></td><td>Primer exoplaneta en imagen directa (Lagrange); disco doble; blob de CO</td><td>Laboratorio de interacción disco–planeta</td></tr>
+      <tr><td><b>Puzzle de migración</b></td><td>Planetas inferidos de escombros ≈ mismo lugar que los de surcos con gas (Pearce+ 2022)</td><td>La migración esperada no se ve: no la entendemos bien</td></tr>
+      <tr><td><b>Enfocamiento gravitacional</b></td><td>Factor (1 + v²<sub>esc</sub>/σ²) en la tasa de crecimiento</td><td>Acelera la acreción de planetesimales: el grande crece más rápido</td></tr>
+      <tr><td><b>Radio de Hill</b></td><td>R<sub>H</sub> = R(M<sub>p</sub>/M<sub>★</sub>)<sup>1/3</sup>: donde domina la gravedad del planeta</td><td>Define el «alcance» del embrión y su surco de alimentación</td></tr>
+      <tr><td><b>Masa de aislamiento</b></td><td>~0.1 M<sub>⊕</sub> a 1 au; crece como R<sup>3/2</sup> (~3 M<sub>⊕</sub> a 10 au)</td><td>Tope del crecimiento oligárquico: nacen los embriones planetarios</td></tr>
+      <tr><td><b>Crecimiento oligárquico</b></td><td>El que gana un poco de masa domina y absorbe su vecindario</td><td>De un mar de planetesimales a unas decenas de embriones</td></tr>
+      <tr><td><b>Impactos gigantes</b></td><td>Choques entre embriones durante ~100 Myr; requieren excentricidad</td><td>Construyen los planetas terrestres; el último formó la Luna</td></tr>
+      <tr><td><b>Línea de nieve</b></td><td>Radio donde T = sublimación del agua; adentro seco, afuera hielos</td><td>Divide gigantes (afuera) de telúricos (adentro); ~órbita de Júpiter</td></tr>
+      <tr><td><b>Grand Tack</b></td><td>Júpiter migra hacia adentro y «vira» hacia afuera al llegar Saturno</td><td>Mezcla el disco: lleva volátiles (agua) a las regiones secas</td></tr>
+      <tr><td><b>Modelo de Niza</b></td><td>Inestabilidad cuando Júpiter y Saturno cruzan la resonancia 2:1</td><td>Bombardeo tardío, posible tercer gigante de hielo eyectado</td></tr>
+      <tr><td><b>Theia</b></td><td>Embrión tamaño Marte formado en L4/L5 de la órbita terrestre</td><td>Su impacto formó la Luna; explica la composición isotópica idéntica</td></tr>
+      <tr><td><b>Disco circunplanetario</b></td><td>Disco chico en torno a un protoplaneta; postulado para los satélites regulares</td><td>Resultado del grupo: primera evidencia de superficie firme (capa ionizada por choque)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c5-examen-01.html">Examen 01<small>Fotoevaporación y fin del gas</small></a></li>
+    <li><a href="m3c5-examen-02.html">Examen 02<small>Presión de radiación y cascada</small></a></li>
+    <li><a href="m3c5-examen-03.html">Examen 03<small>Cinturones y resonancias</small></a></li>
+    <li><a href="m3c5-examen-04.html">Examen 04<small>Exo-cinturones y ALMA</small></a></li>
+    <li><a href="m3c5-examen-05.html">Examen 05<small>β Pictoris</small></a></li>
+    <li><a href="m3c5-examen-06.html">Examen 06<small>HR 8799 y migración</small></a></li>
+    <li><a href="m3c5-examen-07.html">Examen 07<small>Crecimiento telúrico</small></a></li>
+    <li><a href="m3c5-examen-08.html">Examen 08<small>Impactos gigantes</small></a></li>
+    <li><a href="m3c5-examen-09.html">Examen 09<small>Grand Tack, Niza y el agua</small></a></li>
+    <li><a href="m3c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo III del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Simón Casassus, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m3/ff/planetas-m3c5.md</code>) y las diapositivas <code>Modulo_III_-Clase_5__discos_de_escombros.pdf</code> (fuente principal), <code>Modulo_III_-Clase_3b__cinematica_de_discos.pdf</code> y <code>Modulo_III_-Clase_4__discos_con_geometrias_extremas.pdf</code> (material comprimido, §12).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía: «surcos de K» → surcos de <em>Kirkwood</em>; «modelo ENISA» → modelo de <em>Niza</em> (Nice model); «el gran touch» → <em>Grand Tack</em>; «rocking» → rocas; «giant gaseous» → gigantes gaseosos; «flujo fotovapulativo» → flujo fotoevaporativo; «resonancia dos agua» → resonancia 2:1; «Mobidelli» → Morbidelli; «Tella» → Theia; «masa carete» → masa terrestre; «10º de la masa de la Tierra» → 0.1 M⊕ (según diapositiva); «inestabilidad de corriente» → streaming instability; «Betapix/Betati/betap» → β Pic; «cinturón de Coy/Käufer» → Kuiper; «NHL 87 / HR» → HR 8799; «POP» → probablemente Fomalhaut (dudoso); «Gallo 2018» → posiblemente Aoyama et al. 2018 (dudoso); «la Ruby en ese Steam» → Observatorio Vera C. Rubin (LSST); «elT» → ELT; «epidemiología en luz directa» → imagen directa. El tramo final del audio (desde ~01:17) es conversación privada ajena a la clase y fue ignorado. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: mapa de velocidad proyectada ----
+(function(){
+  var iSl = document.getElementById('dop-i');
+  var mSl = document.getElementById('dop-m');
+  var iLab = document.getElementById('dop-ilab');
+  var mLab = document.getElementById('dop-mlab');
+  var out = document.getElementById('dop-out');
+  var cv = document.getElementById('dop-canvas');
+  var ctx = cv.getContext('2d');
+  var W = cv.width, H = cv.height;
+
+  function color(v, vmax){
+    // v en [-vmax, vmax] -> azul (acerca) a rojo (aleja)
+    var t = Math.max(-1, Math.min(1, v/vmax));
+    var r,g,b;
+    if(t < 0){ r = Math.round(40 + 60*(1+t)); g = Math.round(90 + 120*(1+t)); b = 255; }
+    else { r = 255; g = Math.round(90 + 120*(1-t)); b = Math.round(40 + 60*(1-t)); }
+    return [r,g,b];
+  }
+
+  function draw(){
+    var inc = parseFloat(iSl.value) * Math.PI/180;
+    var M = parseFloat(mSl.value);
+    iLab.textContent = iSl.value + "°";
+    mLab.textContent = M.toFixed(1) + " M☉";
+
+    var rIn = 0.06, rOut = 0.95;           // radios en unidades de media imagen
+    var vkepIn = Math.sqrt(M / rIn);       // unidades arbitrarias
+    var vmax = vkepIn * Math.sin(inc) || 1;
+    var img = ctx.createImageData(W, H);
+    var cosi = Math.cos(inc);
+    for(var py=0; py<H; py++){
+      for(var px=0; px<W; px++){
+        var x = (px - W/2) / (W/2);        // eje mayor aparente
+        var yp = (py - H/2) / (H/2);       // eje menor aparente (comprimido)
+        var idx = (py*W + px)*4;
+        var bg = 7;
+        if(cosi < 0.02){ // casi de canto: evitar división por ~0
+          img.data[idx]=bg; img.data[idx+1]=bg+2; img.data[idx+2]=13; img.data[idx+3]=255; continue;
+        }
+        var y = yp / cosi;                 // desproyectar al plano del disco
+        var r = Math.sqrt(x*x + y*y);
+        if(r < rIn || r > rOut){
+          img.data[idx]=bg; img.data[idx+1]=bg+2; img.data[idx+2]=13; img.data[idx+3]=255; continue;
+        }
+        var vkep = Math.sqrt(M / r);
+        var cosT = x / r;                  // ángulo azimutal medido desde el eje mayor
+        var v = vkep * Math.sin(inc) * cosT;
+        var c = color(v, vmax);
+        img.data[idx]=c[0]; img.data[idx+1]=c[1]; img.data[idx+2]=c[2]; img.data[idx+3]=255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    // estrella central
+    ctx.fillStyle = "#fff";
+    ctx.beginPath(); ctx.arc(W/2, H/2, 3.5, 0, 2*Math.PI); ctx.fill();
+
+    // referencia física: v_kep a 100 au
+    var v100 = 29.78 * Math.sqrt(M / 100); // km/s (29.78 = v de la Tierra a 1 au)
+    var vobs100 = v100 * Math.sin(inc);
+    var msg;
+    if(parseFloat(iSl.value) === 0) msg = "Disco de cara (i = 0°): la rotación es perpendicular a la línea de visión y el mapa Doppler queda plano — no vemos rotación.";
+    else if(parseFloat(iSl.value) > 75) msg = "Disco casi de canto: máxima señal Doppler, pero la geometría se vuelve difícil de interpretar (como β Pic o AU Mic).";
+    else msg = "El patrón de «mariposa» rojo/azul es la firma de rotación kepleriana. Un protoplaneta aparecería como una anomalía localizada sobre este patrón suave.";
+    out.innerHTML = "<span class='k'>v<sub>kep</sub> a 100 au</span> = <b>"+v100.toFixed(2)+" km/s</b> · "+
+      "<span class='k'>proyectada (·sin i)</span> = <b>"+vobs100.toFixed(2)+" km/s</b><br>"+msg;
+  }
+  iSl.addEventListener('input', draw);
+  mSl.addEventListener('input', draw);
+  draw();
+})();
+
+// ---- Widget 2: presión de radiación (beta) ----
+(function(){
+  var sSl = document.getElementById('beta-s');
+  var lSl = document.getElementById('beta-l');
+  var mSl = document.getElementById('beta-ms');
+  var sLab = document.getElementById('beta-slab');
+  var lLab = document.getElementById('beta-llab');
+  var mLab = document.getElementById('beta-mslab');
+  var out = document.getElementById('beta-out');
+  var RHO = 3000; // kg/m3, densidad del grano
+
+  function fmtSize(um){
+    if(um >= 1000) return (um/1000).toLocaleString('es-CL',{maximumFractionDigits:2})+" mm";
+    if(um >= 1) return um.toLocaleString('es-CL',{maximumFractionDigits:2})+" µm";
+    return (um*1000).toLocaleString('es-CL',{maximumFractionDigits:0})+" nm";
+  }
+  function calc(){
+    var s_um = Math.pow(10, parseFloat(sSl.value)); // micrones
+    var L = parseFloat(lSl.value);
+    var M = parseFloat(mSl.value);
+    sLab.textContent = fmtSize(s_um);
+    lLab.textContent = L.toFixed(2)+" L☉";
+    mLab.textContent = M.toFixed(2)+" M☉";
+    // beta = 3L/(16 pi G M c rho s)  ->  ~0.191 (L/Lsun)/(M/Msun) / (rho/3000) / s_um
+    var beta = 0.191 * (L/M) * (3000/RHO) / s_um;
+    var sBlow = 0.191 * (L/M) * (3000/RHO) / 0.5; // tamaño con beta = 0.5, en µm
+    var estado, colorTxt;
+    if(beta > 0.5){ estado = "EXPULSADO: la presión de radiación gana — este grano es barrido del sistema."; colorTxt = "var(--red-soft)"; }
+    else if(beta > 0.1){ estado = "Sobrevive ligado, pero la radiación perturba notablemente su órbita."; colorTxt = "var(--gold)"; }
+    else { estado = "Sobrevive: la gravedad domina con holgura. Los cuerpos grandes ni se enteran de la luz."; colorTxt = "#5fd07e"; }
+    out.innerHTML = "<span class='k'>β = F<sub>rad</sub>/F<sub>grav</sub></span> ≈ <b>"+(beta>=0.01? beta.toLocaleString('es-CL',{maximumFractionDigits:2}) : beta.toExponential(1))+"</b> "+
+      "(umbral de expulsión: β &gt; 0.5)<br>"+
+      "<span class='k'>Tamaño de barrido</span> (β = 0.5): granos menores que <b>"+fmtSize(sBlow)+"</b> no sobreviven alrededor de esta estrella.<br>"+
+      "<b style='color:"+colorTxt+"'>"+estado+"</b>";
+  }
+  sSl.addEventListener('input', calc);
+  lSl.addEventListener('input', calc);
+  mSl.addEventListener('input', calc);
+  document.querySelectorAll('#beta-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      lSl.value = btn.dataset.l; mSl.value = btn.dataset.ms; calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 3: enfocamiento gravitacional + Hill ----
+(function(){
+  var mSl = document.getElementById('foc-m');
+  var sSl = document.getElementById('foc-s');
+  var rSl = document.getElementById('foc-r');
+  var mLab = document.getElementById('foc-mlab');
+  var sLab = document.getElementById('foc-slab');
+  var rLab = document.getElementById('foc-rlab');
+  var out = document.getElementById('foc-out');
+
+  function calc(){
+    var M = Math.pow(10, parseFloat(mSl.value)); // masas terrestres
+    var sig = parseFloat(sSl.value);             // km/s
+    var R = parseFloat(rSl.value);               // au
+    mLab.textContent = (M>=0.01? M.toLocaleString('es-CL',{maximumFractionDigits:2}) : M.toExponential(1))+" M⊕";
+    sLab.textContent = sig.toFixed(1)+" km/s";
+    rLab.textContent = R.toFixed(1)+" au";
+    // v_esc = 11.19 km/s * (M/M_earth)^(1/3) para densidad terrestre constante
+    var vesc = 11.19 * Math.pow(M, 1/3);
+    var focus = 1 + (vesc*vesc)/(sig*sig);
+    // Radio de Hill (fórmula de la diapositiva, M* = 1 Msun): R_H = R (Mp/M*)^(1/3); 1 M_earth = 3e-6 Msun
+    var rh_au = R * Math.pow(M*3.003e-6, 1/3);
+    var miso = 0.1 * Math.pow(R, 1.5); // M_earth, escala de la diapositiva
+    var nota = (M >= miso)
+      ? "Este embrión ya alcanzó (o superó) la masa de aislamiento a este radio: despejó su surco de planetesimales y solo puede seguir creciendo por <b>impactos gigantes</b>."
+      : "Todavía por debajo de la masa de aislamiento local: puede seguir devorando planetesimales dentro de su radio de Hill.";
+    out.innerHTML = "<span class='k'>v<sub>esc</sub> del embrión</span> ≈ <b>"+vesc.toFixed(2)+" km/s</b> · "+
+      "<span class='k'>factor de enfocamiento</span> (1 + v²<sub>esc</sub>/σ²) = <b>×"+focus.toLocaleString('es-CL',{maximumFractionDigits:1})+"</b><br>"+
+      "<span class='k'>Radio de Hill</span> ≈ <b>"+(rh_au<0.01? (rh_au*1.496e8).toLocaleString('es-CL',{maximumFractionDigits:0})+" mil km" : rh_au.toFixed(3)+" au")+"</b> (M★ = 1 M☉) · "+
+      "<span class='k'>M<sub>iso</sub> a "+R.toFixed(1)+" au</span> ≈ <b>"+miso.toLocaleString('es-CL',{maximumFractionDigits:2})+" M⊕</b><br>"+nota;
+  }
+  mSl.addEventListener('input', calc);
+  sSl.addEventListener('input', calc);
+  rSl.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

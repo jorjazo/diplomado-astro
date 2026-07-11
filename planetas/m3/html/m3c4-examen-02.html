@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 02 — m3c4 · Deriva radial catastrófica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo III · Clase 4</span>
+<h1>Examen 02 — Deriva radial catastrófica</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,d,b">
+  <fieldset data-q="1"><legend>1. ¿Qué tamaños de sólidos sufren la deriva radial más rápida hacia la estrella?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Los granos de menos de un micrón</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Los asteroides de varios kilómetros</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Las rocas de entre ~1 centímetro y ~1 metro</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Todos los tamaños derivan igual de rápido</label>
+    <p class="fb" hidden>El rango cm–m es el peor: demasiado grandes para acoplarse al gas, demasiado chicos para el límite balístico. Caen en solo ~100 años.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Cuál es la cadena causal correcta de la deriva radial de una roca?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">La roca se calienta por el roce → se evapora → su masa disminuye → cae</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El gas empuja la roca hacia adentro por presión → la roca se acelera → sube de órbita</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La roca es atraída por otras rocas → colisiona → pierde energía → cae</label>
+    <label class="opt"><input type="radio" name="q2" value="d">La roca va más rápido que el gas → siente viento de cara que la frena → pierde momento angular → cae en espiral</label>
+    <p class="fb" hidden>El gas sub-kepleriano es un viento de cara para la roca kepleriana; el roce la frena, pierde momento angular y decae orbitalmente en espiral.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Por qué a un asteroide grande el roce con el gas «no le importa tanto», según la clase?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Porque su superficie es tan lisa que el gas no lo frena</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Porque aunque recoge más roce por su tamaño, su masa (inercia) crece aún más, y la desaceleración resultante es despreciable</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Porque orbita fuera del disco de gas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Porque su gravedad atrae el gas y anula el viento</label>
+    <p class="fb" hidden>El área (roce) crece como el tamaño al cuadrado, pero la masa como el cubo: para cuerpos grandes domina la inercia y quedan en el límite balístico.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica por qué el resultado de Weidenschilling (años 70) sobre la deriva radial se considera un problema «catastrófico» para la teoría de formación de planetas telúricos, y qué papel juega la escala de tiempo de ~100 años en ese diagnóstico.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Para formar un planeta rocoso hay que crecer desde polvo micrométrico hasta cuerpos de kilómetros, pasando obligatoriamente por tamaños intermedios de centímetros a metros. El cálculo de Weidenschilling muestra que precisamente en ese rango el roce con el gas sub-kepleriano produce la deriva más rápida: esas rocas caen en espiral sobre la estrella en <strong>~100 años</strong>, una escala ridículamente corta comparada con el millón de años que vive el disco y con los tiempos de crecimiento por coagulación. La consecuencia lógica sería que todo el material sólido intermedio se pierde en la estrella antes de poder crecer: no quedarían ladrillos para construir planetesimales ni planetas telúricos. De ahí lo de «catastrófica»: sin un mecanismo adicional que detenga la deriva (las trampas de polvo), la teoría predice que los planetas rocosos no deberían existir — en contradicción con la evidencia obvia de que existimos.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Compara el comportamiento frente al gas de: (a) un grano de 1 micrón, (b) una roca de ~30 cm, (c) un cuerpo de 1 km. Para cada caso indica el grado de acoplamiento con el gas y la consecuencia para su deriva radial.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">(a) <strong>Grano de 1 μm</strong>: perfectamente acoplado al gas. Se mueve con él (comparte su rotación sub-kepleriana), casi no siente viento relativo y su deriva radial propia es mínima — aunque acompaña al gas en sus movimientos. (b) <strong>Roca de ~30 cm</strong> (rango cm–m): acoplamiento marginal. Se mueve casi keplerianamente (más rápido que el gas) pero no tiene inercia suficiente para ignorar el roce: siente el máximo viento de cara efectivo, pierde momento angular eficientemente y cae en espiral en ~100 años — el régimen de deriva máxima. (c) <strong>Cuerpo de 1 km</strong>: límite balístico. Recoge más roce en términos absolutos por su mayor sección, pero su masa es tan grande que la desaceleración es despreciable: orbita como un planetita, casi inmune a la deriva. La deriva en función del tamaño tiene entonces forma de campana con el máximo en tamaños intermedios, y por eso el problema se concentra en la ventana cm–m.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 4, Módulo III (Astrofísica de Planetas). <a href="m3c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

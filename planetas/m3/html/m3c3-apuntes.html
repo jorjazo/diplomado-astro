@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El disco protoplanetario en acción: clases YSO, surcos y protoplanetas — Astrofísica de Planetas, Módulo III · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.stagebar{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+.stagebar button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;font-family:"Fraunces",serif;flex:1 1 auto;min-width:104px}
+.stagebar button.active{border-color:var(--red);background:#26141a;color:var(--red-soft)}
+.sedcanvas{display:block;width:100%;max-width:640px;margin:12px auto 0;background:#060b15;border:1px solid var(--line);border-radius:10px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo III · Clase 3</span>
+  <h1>El disco protoplanetario en acción: clases YSO, surcos y <em>protoplanetas</em></h1>
+  <p class="sub">Cierre de la formación del disco protoplanetario: la anatomía en capas de los discos circunestelares, las clases de objetos estelares jóvenes según su SED, los dos caminos para fabricar un Júpiter, los surcos que abren los planetas gigantes (HL Tau) y la caza —casi siempre frustrada— de protoplanetas reales.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Simón Casassus</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 6 jul 2026 (primera de dos clases seguidas)</span>
+    <span><b>Instrumento estrella:</b> ALMA</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as estrellas crecen a través de <span class="hl">discos de acreción circunestelares</span>, y esos mismos discos son el único lugar del universo donde se pueden formar planetas. Esta clase termina el capítulo de la formación del disco protoplanetario mirándolo por dentro: qué estructura vertical tiene, qué ve cada telescopio en cada capa, cómo se clasifica la juventud de una estrella por la forma de su espectro (las <strong>clases 0, I, II y III</strong>), y las dos teorías rivales para formar un gigante gaseoso. El clímax es observacional: los <span class="hl">surcos</span> que los planetas gigantes abren en los discos —la predicción de los años 80 que motivó la construcción de ALMA— y los poquísimos <strong>protoplanetas</strong> que hemos logrado pillar con las manos en la masa.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El vivero: discos circunestelares observados</a></li>
+    <li><a href="#s2">Estructura vertical: gravedad vs presión</a></li>
+    <li><a href="#s3">Temperatura y disco acampanado</a></li>
+    <li><a href="#s4">Anatomía por capas y vida del polvo</a></li>
+    <li><a href="#s5">Clases YSO: la SED como firma</a></li>
+    <li><a href="#s6">Camino 1: aglomeración de núcleo</a></li>
+    <li><a href="#s7">Camino 2: gravito-fragmentación</a></li>
+    <li><a href="#s8">Un Júpiter en el disco: el surco</a></li>
+    <li><a href="#s9">HL Tau y los sondeos ALMA</a></li>
+    <li><a href="#s10">Del ancho del surco a la masa</a></li>
+    <li><a href="#s11">Cazando protoplanetas</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El vivero: discos circunestelares observados</h2>
+    <p>Regiones de formación estelar llenas de discos, y un mismo disco visto con tres ojos distintos.</p>
+  </div></div>
+
+  <p>Punto de partida (repaso del final de la clase anterior): las estrellas jóvenes no tragan material directamente — la <strong>conservación del momentum angular</strong> lo impide. El material cae primero a un <span class="hl">disco de acreción circunestelar</span> que regula el crecimiento de la protoestrella, y los <strong>vientos y flujos bipolares</strong> ayudan a evacuar momentum angular. El profesor mostró una galería de estrellas jóvenes naciendo en un gran cúmulo: una estructura tipo «medusa» que es un flujo bipolar visto con cierta orientación, otro flujo bipolar, una región ionizada creada por la estrella más caliente, y en la interfaz una <span class="hl">región de fotodisociación (PDR)</span>, donde el hidrógeno molecular se disocia en hidrógeno atómico.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-22.jpg" alt="Región de formación estelar de Ofiuco con recuadros de discos observados por ALMA (ODISEA y DSHARP)">
+    <figcaption><span class="cap">Diapositiva · Galería de discos en Ofiuco</span>Sobre la imagen de la región de formación estelar, recuadros con discos individuales observados por ALMA (programas ODISEA y DSHARP). El continuo a ~230 GHz (~1 mm) es <strong>emisión térmica de polvo</strong>: «roquitas» de tamaño milimétrico. Hay enorme variedad de estructuras: anillos, cavidades, discos lisos.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Regla del tamaño de grano</span>
+    <p>En el continuo (sub)milimétrico observamos granos de tamaño <strong>comparable a la longitud de onda</strong>: a λ ≈ 1 mm vemos «roquitas» de ~1 mm; si observáramos a 1 cm veríamos rocas de ~1 cm. Y a 1 μm en el infrarrojo (luz reflejada) vemos granitos de ~1 μm. Cada longitud de onda es un filtro pasa-banda en tamaño de partícula.</p>
+  </div>
+
+  <h3>IM Lupi: el mismo disco, tres imágenes distintas</h3>
+  <p><strong>IM Lupi</strong> es una estrella de masa parecida al Sol, temprana en su evolución: una <strong>clase II</strong> (ya sin envoltura, solo el disco). La clase la comparó en tres técnicas:</p>
+  <ul>
+    <li><strong>Luz reflejada (scattered light), VLT/SPHERE, ~1 μm:</strong> luz de la estrella dispersada por granos de ~1 μm en la <em>superficie</em> del disco. El disco se ve <strong>«gordito»</strong>, verticalmente grueso, como una dona o doble embudo, con una zanja oscura que es la sombra del plano medio denso separando cara superior e inferior. Es <strong>luz polarizada</strong>: la estrella, cuya luz directa no está polarizada, desaparece de la imagen.</li>
+    <li><strong>Continuo ALMA, banda 6 (~230 GHz, ~1 mm):</strong> granos de ~1 mm, mil veces más grandes. El disco se ve <strong>delgadito</strong>, sin indicio de grosor — el primer indicio de la <em>sedimentación</em> del polvo grande hacia el plano medio.</li>
+    <li><strong>Línea de CO (intensidad de pico), ALMA:</strong> para cada línea de visión se registra el máximo de la línea espectral. El gas también se ve <strong>grueso</strong>. Ojo: los «artefactos radiales» de la imagen no son estructura real del disco, sino un efecto del <strong>ancho del canal espectral</strong> (Δν) sobre el que se promedia la radiación.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-23.jpg" alt="IM Lupi en luz reflejada, continuo ALMA y CO, con esquema de la estructura del disco">
+    <figcaption><span class="cap">Diapositiva · Estructura del disco circunestelar</span>(a) luz reflejada 1.6 μm: disco grueso; (b) emisión térmica 1.25 mm: disco delgado; (c) intensidad pico de CO: gas grueso. Abajo, el esquema síntesis: los granos pequeños están bien mezclados con el gas y definen la «fotósfera» del disco que refleja la luz estelar; los granos grandes sedimentan al plano medio y dominan la emisión milimétrica; la emisión molecular viene de una capa intermedia tibia.</figcaption>
+  </figure>
+
+  <p>La intuición geométrica del profesor: en luz óptica/infrarroja <em>iluminamos la superficie del disco como quien ilumina la entrada de una caverna sin ver el interior de la montaña</em>; en cambio el continuo ALMA <strong>atraviesa y muestra el plano medio</strong>, donde viven los granos grandes.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Los «rayos» radiales del mapa de CO son un artefacto de <strong>discretización</strong>: la señal continua (la línea espectral) se muestrea en canales de ancho Δν y se toma el máximo por canal — el mismo tipo de artefacto que el aliasing o el <em>banding</em> al cuantizar una señal. Moraleja de ingeniería: antes de interpretar estructura en una imagen, pregúntate qué parte es del objeto y qué parte es del <em>pipeline</em> de adquisición.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Estructura vertical: gravedad vs presión</h2>
+    <p>Por qué el disco no se aplasta en un plano infinitamente delgado.</p>
+  </div></div>
+
+  <p>Consideremos un pedacito de gas a distancia <span class="katex-inline" data-tex="r"></span> de la estrella y altura <span class="katex-inline" data-tex="z"></span> sobre el plano medio. La atracción gravitacional de la estrella se descompone en una parte radial <span class="katex-inline" data-tex="g_r"></span> y una vertical <span class="katex-inline" data-tex="g_z"></span>:</p>
+  <ul>
+    <li>La componente <strong>radial</strong> se compensa con la aceleración centrífuga <span class="katex-inline" data-tex="v^2/r"></span> de la órbita: el gas no cae hacia la estrella.</li>
+    <li>La componente <strong>vertical</strong> no tiene con qué compensarse orbitalmente: tiende a llevar todo al plano medio. Lo que la frena es el <span class="hl">gradiente de presión</span> del gas.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho\, g_z = -\frac{dP}{dz}, \qquad P = \frac{\rho\, k_B T}{m_{\mathrm{H_2}}}"></div>
+    <small><strong>Equilibrio hidrostático vertical:</strong> la fuerza de gravedad vertical iguala al cambio de presión con la altura (suma de fuerzas cero: el pedacito de gas no se mueve). La presión es la de un gas ideal, con ρ la densidad de masa, m<sub>H₂</sub> la masa del hidrógeno molecular, k<sub>B</sub> la constante de Boltzmann y T la temperatura. La componente vertical sale de la geometría: g<sub>z</sub> ≈ g·tan θ ≈ (GM<sub>★</sub>/r³)·z para z ≪ r.</small>
+  </div>
+
+  <p>Si la temperatura es constante con la altura, presión y densidad quedan directamente relacionadas y la ecuación se resuelve fácil. La solución es una <strong>gaussiana</strong> — una campana de distribución normal:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho(z) = \rho(0)\, \exp\!\left(-\tfrac{1}{2}\, \frac{z^2}{h^2}\right), \qquad h = \frac{c_s}{\Omega}"></div>
+    <small>Densidad máxima en el plano medio, decayendo fuerte sobre la <strong>escala de altura h</strong>. El ancho total a media altura de la campana es FWHM = 2√(2 ln 2) · h ≈ 2.35 h. Con c<sub>s</sub> la velocidad del sonido y Ω la velocidad angular kepleriana.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="c_s = \sqrt{\frac{k_B T}{m_{\mathrm{H_2}}}}, \qquad \Omega = \sqrt{\frac{G M_\star}{r^3}}"></div>
+    <small>Advertencia del profesor: el sonido <em>no juega ningún rol físico aquí</em>. En la escala de altura aparece √T, y a los astrónomos les gusta reemplazar √T por c<sub>s</sub> porque es la expresión típica de la velocidad del sonido. Es solo notación compacta.</small>
+  </div>
+
+  <figure>
+    <img src="m3c3/assets/slide-24.jpg" alt="Diapositiva con la estructura vertical del disco: gaussiana, escala de altura y geometría de la gravedad vertical">
+    <figcaption><span class="cap">Diapositiva · Estructura vertical del disco</span>El resumen de la pizarra: ρ(z) = ρ(0) exp(−½ z²/h²), h = c<sub>s</sub>/Ω con c<sub>s</sub> = √(kT/m), y como T~1/√R y Ω~1/R<sup>3/2</sup>, resulta h~R<sup>5/4</sup>, es decir h/R~R<sup>0.25</sup>. Abajo, la geometría: la estrella M<sub>★</sub>, el punto a distancia d y altura z, y la componente vertical g<sub>z</sub>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El perfil vertical del disco es formalmente idéntico a una <strong>atmósfera isoterma en un potencial armónico</strong>: la «rigidez» del pozo la fija Ω² y la «agitación» la fija T. Si has visto la distribución de Boltzmann e<sup>−E/kT</sup>, esto es exactamente eso con E = ½ m Ω² z². Sistemas distintos, mismo patrón matemático — como reconocer que dos problemas se resuelven con la misma estructura de datos.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Temperatura del disco y forma acampanada</h2>
+    <p>El equilibrio radiativo fija T(r), y con ello el grosor relativo del disco.</p>
+  </div></div>
+
+  <p>¿De qué depende la temperatura a cada radio? En el disco (como en el sistema solar) los cuerpos están en <span class="hl">equilibrio radiativo</span> con la estrella: <em>todo lo que reciben es igual a todo lo que emiten</em>. Para un cuerpo de radio <span class="katex-inline" data-tex="a"></span> a distancia <span class="katex-inline" data-tex="r"></span>, que absorbe como una «pastillita» de sección π a² y emite como cuerpo negro por toda su superficie:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{L_\star}{4\pi r^2}\,\pi a^2 \;=\; 4\pi a^2\,\sigma T^4 \qquad\Rightarrow\qquad T \propto \frac{1}{\sqrt{r}}"></div>
+    <small>σ = 5.67×10⁻⁸ W m⁻² K⁻⁴ es la constante de Stefan-Boltzmann (el profesor la fue a buscar a un libro en plena clase). Lo notable: <strong>el tamaño a se cancela</strong> — la temperatura de equilibrio no depende de si el cuerpo es una arena o un planeta, solo de la distancia. La temperatura decrece como la raíz del radio.</small>
+  </div>
+
+  <p>Ahora combinamos las tres dependencias radiales para obtener el resultado estrella de la sección:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="T \propto r^{-1/2} \;\Rightarrow\; c_s \propto r^{-1/4}; \quad \Omega \propto r^{-3/2} \;\Rightarrow\; h = \frac{c_s}{\Omega} \propto r^{5/4} \;\Rightarrow\; \frac{h}{r} \propto r^{1/4}"></div>
+    <small>La <strong>razón de aspecto h/r</strong> (la tangente del ángulo de apertura del disco) <em>no es constante</em>: crece con el radio.</small>
+  </div>
+
+  <p>Predicción geométrica: los discos protoplanetarios no son triángulos de lados rectos ni una «humita» plana — son <span class="hl">acampanados</span> (<em>flared</em> en inglés): su grosor relativo aumenta hacia afuera. Y mientras más caliente el disco, más «gordito». Esto es exactamente lo que muestran las imágenes de luz reflejada como la de IM Lupi: una superficie que se va abriendo con el radio.</p>
+
+  <div class="box prof">
+    <span class="tag">Momento pizarra (con drama técnico)</span>
+    <p>Esta parte fue derivada en pizarra, con la cámara desenfocada apuntando al lado equivocado y un plumón que no se veía — el profesor terminó dibujando la gaussiana ρ(z) y la escala de altura del lado que la cámara sí registraba. El mensaje que pidió retener: <strong>(1)</strong> el corte vertical de densidad es una gaussiana de ancho h, <strong>(2)</strong> h crece con la temperatura, y <strong>(3)</strong> h/r aumenta con el radio: el disco es acampanado.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Anatomía por capas y la vida de un grano de polvo</h2>
+    <p>Cada instrumento ve una capa; cada grano vive una vida agitada.</p>
+  </div></div>
+
+  <p>El disco es un sándwich, y las técnicas observacionales se reparten las capas:</p>
+  <ul>
+    <li><strong>Superficie:</strong> luz reflejada (scattered light) sobre granos de ~μm — cámaras infrarrojas como SPHERE, y el infrarrojo medio con el telescopio <strong>Webb (cámara MIRI)</strong>.</li>
+    <li><strong>Capa intermedia:</strong> gas caliente a <strong>300–1000 K</strong> que emite en el infrarrojo <em>por su propio calor</em> (no por reflexión), y la emisión molecular (líneas como CO).</li>
+    <li><strong>Plano medio:</strong> los granos grandes (~mm) sedimentados, visibles con <strong>ALMA</strong> en el continuo.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-25.jpg" alt="Esquema del disco con las técnicas observacionales por capa y los mecanismos de dinámica del polvo">
+    <figcaption><span class="cap">Diapositiva · Técnicas por capa y dinámica del polvo</span>A la derecha, las capas y sus trazadores: infrarrojo medio (MIR), luz reflejada, (sub)mm con ALMA. A la izquierda, los mecanismos que rigen la vida de los granos: <strong>(1)</strong> mezcla turbulenta (radial y vertical), <strong>(2)</strong> sedimentación vertical, <strong>(3)</strong> deriva radial, <strong>(4)</strong> colisiones: adherencia (crecimiento), rebote, fragmentación o acreción parcial.</figcaption>
+  </figure>
+
+  <h3>Los cuatro destinos de un granito de polvo</h3>
+  <ol class="steps">
+    <li><strong>Ser levantado:</strong> la turbulencia del gas arrastra granos pequeños a gran altura.</li>
+    <li><strong>Sedimentar:</strong> bajo la gravedad vertical de la estrella, los granos caen hacia el plano medio.</li>
+    <li><strong>Derivar hacia adentro:</strong> los granos de <em>tamaño intermedio</em> (ni muy grandes ni muy chicos) sienten el roce del gas, que los frena; al perder momentum angular, <strong>caen en espiral hacia la estrella</strong>.</li>
+    <li><strong>Chocar:</strong> los movimientos relativos producen colisiones que pueden terminar en crecimiento (se pegan), rebote (no pasa nada), fragmentación (se pulverizan) o acreción parcial.</li>
+  </ol>
+
+  <div class="box next">
+    <span class="tag">Puente a la próxima clase (trampas de polvo)</span>
+    <p>La deriva radial del punto 3 es un problema teórico serio: las rocas «adecuadas» caen sobre la estrella rapidísimo. La solución —máximos de presión que atrapan el polvo, las <strong>trampas de polvo</strong>— es el tema de la clase siguiente (segunda parte de esta misma sesión doble).</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Clases de objetos estelares jóvenes: la SED como firma</h2>
+    <p>Clase 0, I, II y III — cuatro etapas del nacimiento estelar, leídas en el espectro.</p>
+  </div></div>
+
+  <p>Para ordenar el nacimiento estelar —un fenómeno continuo y complejo— la astronomía inventó cuatro <span class="hl">clases de objetos estelares jóvenes</span> (YSOs, <em>Young Stellar Objects</em>), que se distinguen por la forma de su <span class="hl">distribución espectral de energía (SED)</span>: cuánta energía emite el objeto en función de la frecuencia. El profesor insistió en que hay que saber leerlas:</p>
+
+  <ul>
+    <li><strong>Clase 0:</strong> el <strong>grueso de la masa aún está en la envoltura</strong> gaseosa que cae. Un corazón molecular de masa comparable a la de la estrella colapsa en caída libre; el colapso se frena cuando la protoestrella (de ~1 UA de tamaño, ionizada) se forma. Mientras nace la protoestrella, nace también el disco. La SED es la de un cuerpo frío: solo un bulto en el infrarrojo lejano/submilimétrico.</li>
+    <li><strong>Clase I:</strong> al revés: el <strong>grueso de la masa ya está en la estrella</strong>; ya hay un disco («platillo»), pero queda un resto de envoltura. Fuerte exceso infrarrojo.</li>
+    <li><strong>Clase II:</strong> se disipó la envoltura: queda <strong>el puro disco</strong> alrededor de la estrella. La SED muestra la fotósfera estelar más el exceso infrarrojo del disco.</li>
+    <li><strong>Clase III:</strong> se acabó también el gas del disco: quedan <strong>las puras rocas</strong> (disco de escombros o <em>debris</em>). SED casi puramente estelar.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-12.jpg" alt="Las cuatro clases de objetos estelares jóvenes con sus SEDs y esquemas de envoltura, disco y estrella">
+    <figcaption><span class="cap">Diapositiva · Clases 0–III y sus SEDs</span>Izquierda: log νF<sub>ν</sub> vs log ν para cada clase. Derecha: el esquema físico correspondiente — envoltura con flujos bipolares (0), disco activo + envoltura residual (I), disco pasivo (II), disco remanente de escombros (III). Nótese cómo el «bulto» infrarrojo se corre y encoge a medida que la envoltura y el disco desaparecen.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Palabras del profesor</span>
+    <p>«En astronomía inventamos clases para poder orientarnos en un fenómeno complicado. Para poder tener un poquito de orden en este caos inventamos las clases. <strong>No es que estén escritas en mármol en la naturaleza.</strong>» De hecho, más adelante mostró que AB Aurigae está clasificada como clase II pero tiene tanto material cayendo que se parece más a una clase I: las fronteras son difusas.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Clasificar YSOs por su SED es clasificación por <strong>firma espectral</strong>: el «feature» discriminante es la pendiente de la SED en el infrarrojo (α<sub>IR</sub> = d log νF<sub>ν</sub>/d log λ): pendiente positiva → clase I; plana/negativa con exceso → clase II; sin exceso → clase III. Es el mismo patrón que clasificar señales por su contenido espectral (huellas de audio, análisis de vibraciones): no necesitas «ver» el objeto, basta la forma de su espectro de potencia.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Camino 1: aglomeración de núcleo (core accretion)</h2>
+    <p>Quince órdenes de magnitud en tamaño: del grano de polvo al gigante gaseoso.</p>
+  </div></div>
+
+  <p>¿Cómo formar un Júpiter dentro de ese material rico en polvo? Los <strong>planetas gigantes</strong> importan especialmente: son «los mandamases» que controlan la arquitectura de los sistemas planetarios, y son los únicos que tenemos posibilidad de observar en formación. Hay <strong>dos ideas rivales</strong>. La primera y más popular es la <span class="hl">aglomeración de núcleo</span> (core accretion), una escalera de ~15 órdenes de magnitud en tamaño:</p>
+
+  <ol class="steps">
+    <li><strong>Granos de polvo</strong> (0.1–1 μm) — los mismos que reflejan la luz estelar en la superficie del disco — chocan de a pares y crecen…</li>
+    <li>…hasta <strong>guijarros</strong> (<em>pebbles</em>) de mm–cm: 3–4 órdenes de magnitud.</li>
+    <li>De alguna manera esos guijarros se transforman en <strong>planetesimales</strong> de ~1 a 100 km (10³–10⁵ m): otro salto de 5–6 órdenes.</li>
+    <li>Los planetesimales chocan entre sí y forman un <strong>núcleo planetario</strong> («corazón telúrico») de ~1.000–6.000 km, como la Tierra.</li>
+    <li>Si ese núcleo supera <strong>~10 masas terrestres</strong>, es capaz de retener hidrógeno: acumula una envoltura gaseosa que forma el grueso del <strong>gigante gaseoso</strong> — Júpiter es básicamente hidrógeno y helio, como el Sol.</li>
+  </ol>
+
+  <figure>
+    <img src="m3c3/assets/slide-26.jpg" alt="Esquema de core accretion: granos, guijarros, planetesimales, núcleos, gigantes gaseosos; y la alternativa de gravito-fragmentación">
+    <figcaption><span class="cap">Diapositiva · Los dos caminos</span>Marco verde (core accretion): granos (0.1–1 μm) → guijarros (mm–cm) → planetesimales (0.1–100 km) → núcleos planetarios → gigantes gaseosos. Cada «?» rojo es un salto teóricamente problemático. Marco azul (gravito-fragmentación): del disco protoplanetario directo al gigante gaseoso por colapso gravitacional.</figcaption>
+  </figure>
+
+  <h3>Los dos problemas del camino 1</h3>
+  <ul>
+    <li><strong>La barrera del centímetro:</strong> los cálculos predicen una barrera de crecimiento en torno al cm (depende de dónde en el disco): los choques fuertes <strong>fragmentan</strong> los granos, y la <strong>deriva radial</strong> los hace caer sobre la estrella antes de crecer más. No sabemos bien cómo se cruza. En ese primer tramo la gravedad no juega ningún papel — son encuentros fortuitos de trayectorias desordenadas. Para el salto a planetesimales hay una teoría reciente que sí invoca gravedad (la inestabilidad de corriente, próxima clase), y para crecer de planetesimal a núcleo ayuda el <strong>enfocamiento gravitacional</strong>.</li>
+    <li><strong>El problema del tiempo:</strong> los cálculos clásicos necesitan <strong>~20 millones de años</strong> para armar el núcleo… pero el disco vive <strong>~2 millones de años</strong>. No cuadra. Es una teoría en desarrollo.</li>
+  </ul>
+
+  <h3>El guion que explica los tres tipos de planeta</h3>
+  <figure>
+    <img src="m3c3/assets/slide-27.jpg" alt="Tres resultados de core accretion: gigante gaseoso, gigante de hielo y planeta terrestre">
+    <figcaption><span class="cap">Diapositiva · Gigante gaseoso, gigante de hielo, planeta rocoso</span>Si el núcleo crece temprano y supera la masa crítica → acreción de gas desbocada → <strong>gigante gaseoso</strong> (Júpiter, Saturno). Si el núcleo llega tarde y acreta poco gas → <strong>gigante de hielo</strong> (Urano, Neptuno). Si llega muy tarde o nunca es suficientemente masivo, ya no queda gas → <strong>planeta rocoso</strong> (Tierra). El profesor adelantó: los gigantes gaseosos serían los <em>primeros</em> en formarse; los rocosos, los más lentos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Piensa en la barrera del centímetro como un problema de <strong>tasa de fallos vs tasa de éxito</strong> en un proceso estocástico: cada colisión es un «commit» que puede agregar masa (merge), no hacer nada (no-op) o destruir el objeto (rollback catastrófico). Si la probabilidad de fragmentación supera a la de adherencia justo en cierto rango de tamaños, la población se estanca ahí — un cuello de botella en el pipeline de crecimiento, agravado por un «timeout» global: la vida del disco.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Camino 2: gravito-fragmentación del disco</h2>
+    <p>¿Y si Júpiter fuera una estrella fallida?</p>
+  </div></div>
+
+  <p>La idea alternativa: si el disco circunestelar es suficientemente masivo, un pedazo de él puede <strong>caerse bajo su propio peso</strong> — igual que la nube molecular colapsó para formar la estrella, pero dentro del disco. El gigante gaseoso se formaría <em>casi igual que una estrella</em>, solo que orbitando otra estrella: una <span class="hl">estrella fallida</span>. De hecho, si el colapso junta más de ~80 masas de Júpiter tenemos una estrella; entre <strong>13 y 80 M<sub>Jup</sub></strong>, una <strong>enana café</strong>. No sabemos si Júpiter es un planeta gigante o una estrella fallida.</p>
+
+  <div class="box dato">
+    <span class="tag">La misión Juno</span>
+    <p>La misión <strong>Juno</strong> (recién concluida) midió con gran precisión el campo gravitacional de Júpiter para reconstruir su perfil de masa y ver si tiene un corazón rocoso en el centro. Según lo dicho en clase, los límites obtenidos <strong>favorecen la fragmentación gravitacional</strong> (es decir, no un núcleo rocoso compacto como el que predice el core accretion clásico). <em>Nota al margen (inferencia propia): este punto es debatido en la literatura — Juno encontró indicios de un núcleo «diluido», cuya interpretación sigue abierta.</em></p>
+  </div>
+
+  <h3>Los dos problemas del camino 2</h3>
+  <figure>
+    <img src="m3c3/assets/slide-29.jpg" alt="Simulación de disco gravitacionalmente inestable con condensaciones a decenas de UA">
+    <figcaption><span class="cap">Diapositiva · Simulación de fragmentación gravitacional</span>Densidad superficial de un disco inestable a su propia gravedad (escala: 10 UA). Las condensaciones ocurren a <strong>20–30 UA</strong> de la estrella; las regiones internas son estables y suaves. En el video mostrado en clase: primero se forman <strong>espirales múltiples y delgadas</strong>, y dentro de ellas condensan los planetas — muchos.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Problema 1 — dónde:</strong> las condensaciones aparecen a 20–30 UA. Júpiter está a <strong>5 UA</strong>, y las regiones internas de la simulación son estables: ahí no se formaría nada. No explica el sistema solar.</li>
+    <li><strong>Problema 2 — cuántos:</strong> cuando el disco se fragmenta, se fragmenta <em>en mil pedazos</em>: queda lleno de condensaciones y de espirales enrolladas. Nada que ver con un sistema de un solo Júpiter.</li>
+  </ul>
+
+  <h3>Las dos observaciones que podrían avalarla</h3>
+  <figure>
+    <img src="m3c3/assets/slide-30.jpg" alt="Disco de Elias 2-27 con brazos espirales en continuo de 240 GHz">
+    <figcaption><span class="cap">Diapositiva · Elias 2-27 (Pérez+ 2016)</span>Trabajo de <strong>Laura Pérez</strong> (colega del profesor en el Calán): continuo a 240 GHz con dos brazos espirales, citado como posible indicio de un disco inestable a su propia gravedad. El profesor: «yo lo veo muy distinto a las simulaciones… pero son espirales».</figcaption>
+  </figure>
+  <figure>
+    <img src="m3c3/assets/slide-31.jpg" alt="V960 Mon observado con ALMA y SPHERE mostrando espirales con grumos">
+    <figcaption><span class="cap">Diapositiva · V960 Mon (Weber+ 2023)</span>Trabajo de un grupo de la USACH. Izquierda: ALMA (1.3 mm) muestra espirales con <strong>grumos</strong> (flechas) a escalas de ~500 UA; derecha: SPHERE (1.6 μm), la luz reflejada del mismo sistema. Es una estrella <strong>FU Orionis</strong> (eruptiva): pensamos que las estrellas crecen «a golpes» de acreción, y en pleno estallido se ven sistemas complejos como este. Los autores proponen que los grumos son gigantes gaseosos en condensación — interpretación muy debatida.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Postura del profesor</span>
+    <p>«Hay gente que dedica la vida a una teoría y gente que dedica la vida a la otra. Yo no soy teórico, me da lo mismo: soy agnóstico — creo lo que me dice la naturaleza.» Las dos observaciones anteriores son, por ahora, todo el respaldo observacional de la gravito-fragmentación.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Un Júpiter en el disco: el surco</h2>
+    <p>No sabemos formarlo — pero pongamos uno y veamos qué hace.</p>
+  </div></div>
+
+  <p>Cambio de estrategia: supongamos que el planeta <em>ya nació</em> y estudiemos numéricamente su interacción con el disco. Este planteamiento es una <strong>predicción fuerte</strong>: es una solución de las ecuaciones de Newton (hidrodinámica + gravitación), independiente de cómo se formó el planeta. El resultado, para un planeta de 1 M<sub>Jup</sub>:</p>
+  <ul>
+    <li>El planeta <strong>despeja una cavidad anular</strong>: el <span class="hl">surco</span> o <em>gap</em>.</li>
+    <li>Queda conectado al resto del disco por <strong>brazos espirales</strong> pequeños (uno interno, uno externo) — muy distintos de las espirales múltiples de la gravito-fragmentación.</li>
+    <li>En la propia órbita aparecen dos máximos de densidad: los <strong>puntos de Lagrange</strong>, donde se acumularían los <strong>troyanos</strong> (como los asteroides troyanos de Júpiter).</li>
+    <li>Alrededor del planeta se forma un <strong>disco circunplanetario</strong> — un platillito donde pensamos que se forman las <strong>lunas</strong> de los gigantes.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c3/assets/slide-34.jpg" alt="Simulación 3D de un protoJúpiter con su disco circunplanetario dentro del disco circunestelar">
+    <figcaption><span class="cap">Diapositiva · Simulación de Judit Szulágyi (~2018)</span>Zoom a un proto-Júpiter con su disco circunplanetario magnificado, conectado al disco circunestelar. En clase se mostró antes el video pionero «Proto-Jupiter Flyby» de <strong>Frédéric Masset</strong> (investigador francés establecido en México, ~2010): la primera simulación 3D de este tipo, con el surco, los brazos espirales y los troyanos claramente visibles.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La predicción que construyó ALMA</span>
+    <p>La predicción del surco viene de <strong>los años 80</strong>, cuando la formación planetaria era un tema teórico de nicho: sin observaciones posibles, «cuando un tema de la física no se puede corroborar experimentalmente, deja de ser interesante». La motivación científica <em>original</em> del interferómetro milimétrico que después se llamó <strong>ALMA</strong> fue precisamente poder tomar imágenes de discos y confirmar estos surcos (aunque ALMA sirva hoy también para cosmología, galaxias y mucho más).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Los «ingredientes» de estas simulaciones son mínimos: la <strong>segunda ley de Newton aplicada a un fluido</strong> (eso es la hidrodinámica), la gravitación de la estrella y el planeta, y el <strong>acoplamiento aerodinámico</strong> polvo-gas (fuerza de roce). El campo magnético importaría más en las regiones internas del disco; más afuera basta la aproximación hidrodinámica. Es un ejemplo de libro de modelamiento por simulación: pocas ecuaciones, integradas numéricamente, generan predicciones morfológicas ricas y falsables.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>HL Tau y los sondeos ALMA</h2>
+    <p>La imagen que cambió el campo — y la sorpresa de los que no muestran nada.</p>
+  </div></div>
+
+  <figure>
+    <img src="m3c3/assets/slide-35.jpg" alt="Imagen ALMA de HL Tau con su sistema de anillos y surcos concéntricos">
+    <figcaption><span class="cap">Diapositiva · HL Tau (ALMA, 2014)</span>La primera imagen de ALMA en configuración extendida: un sistema de <strong>anillos y surcos concéntricos</strong>. Si un planeta abre un surco, ¿cuántos planetas hay aquí? Contexto personal del profesor: él tuvo la suerte de publicar la primera imagen ALMA de un disco protoplanetario en 2013; al año siguiente, con muchas más antenas, salió esta imagen icónica.</figcaption>
+  </figure>
+
+  <p>Lo impactante es que <strong>HL Tau es una clase I</strong> — relativamente joven en el esquema del nacimiento estelar. Si cada surco lo abre un planeta, la formación planetaria tiene que ser <strong>rápida</strong>: del orden de <strong>500 mil años</strong>, no los ~20 millones de años del core accretion clásico. Y visualmente, este sistema ordenado y «tranquilito» <em>en nada</em> se parece al caos de espirales y condensaciones de la fragmentación gravitacional.</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-36.jpg" alt="GY 91, HL Tau e ISO-Oph 54: tres discos clase I con anillos concéntricos">
+    <figcaption><span class="cap">Diapositiva · Anillos ya en clase I</span>Poco después de HL Tau se observaron otras dos clase I con anillos concéntricos: <strong>GY 91</strong> e <strong>ISO-Oph 54</strong> (esta última apenas se adivina entre el ruido). ¿Formación planetaria temprana?</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c3/assets/slide-37.jpg" alt="Mosaico de 19 discos clase 0 y I sin surcos">
+    <figcaption><span class="cap">Diapositiva · La sorpresa del sondeo</span>Con la idea de la formación temprana, se montó un programa ambicioso (~500 horas de ALMA, liderado desde Japón) para observar los discos jóvenes clase 0 y I. Resultado: <strong>19 discos más, y ninguno mostró anillos</strong> — todos suavecitos, sin indicios de formación planetaria. Los tres de la diapositiva anterior eran lo único. «La naturaleza nos sorprende, como siempre.»</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c3/assets/slide-38.jpg" alt="Cuatro discos con anillos en el cúmulo Sigma Orionis">
+    <figcaption><span class="cap">Diapositiva · σ Orionis (Huang+ 2024)</span>Comunicado de prensa ALMA 2024: discos <strong>clase II</strong> en el cúmulo de σ Orionis, llenos de anillos. La conclusión de la clase: <strong>el grueso de la formación planetaria es observable en la etapa clase II</strong>, aunque en casos excepcionales (HL Tau) empiece antes.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El sondeo de los 19 discos es una lección de <strong>sesgo de selección</strong>: los tres primeros casos (HL Tau, GY 91, ISO-Oph 54) eran los llamativos, los que motivaron la hipótesis — el equivalente a diseñar un sistema mirando solo los logs de los incidentes espectaculares. Solo el sondeo sistemático (la «muestra completa») reveló que eran la excepción, no la regla.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Del ancho del surco a la masa del planeta</h2>
+    <p>El radio de Hill como regla de medir — y el problema de los sesgos observacionales.</p>
+  </div></div>
+
+  <p>Si cada surco lo esculpe un planeta, el <strong>ancho del surco</strong> debería decirnos su masa: a planeta más masivo, surco más ancho. Giuseppe Lodato (Milán) llevó la idea al extremo: recogió los anchos Δ de todos los surcos observados y los comparó con la estimación teórica:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\Delta \;\approx\; 5.5\, R_H \;=\; 5.5\, R \left(\frac{M_p}{M_\star}\right)^{1/3}"></div>
+    <small>(Lodato+ 2019, tal como aparece en la diapositiva.) <strong>R<sub>H</sub> es el radio de Hill</strong>: el radio de influencia gravitacional del planeta — dentro de él domina la gravedad del planeta por sobre la de la estrella. R es el radio orbital, M<sub>p</sub> la masa del planeta y M<sub>★</sub> la de la estrella. <em>Nota (inferencia propia): la definición rigurosa es R<sub>H</sub> = R(M<sub>p</sub>/3M<sub>★</sub>)<sup>1/3</sup>; la diapositiva absorbe la constante en el factor ~5.5.</em></small>
+  </div>
+
+  <p>Con esa formulita, cada surco se convierte en un planeta de masa estimada, y esos planetas se pueden poner en el diagrama <strong>masa planetaria vs radio orbital</strong> — el mismo del módulo 2 sobre sistemas planetarios, poblado con los miles de exoplanetas de la base de datos <em>exoplanet.eu</em> (masas y radios de velocidad radial y tránsitos):</p>
+
+  <figure>
+    <img src="m3c3/assets/slide-39.jpg" alt="Diagrama de masa planetaria versus radio orbital con los planetas inferidos de surcos como puntos de colores">
+    <figcaption><span class="cap">Diapositiva · Masa vs radio orbital (Lodato+ 2019)</span>Puntos negros: exoplanetas conocidos (nótese el grumo de gigantes muy cercanos a su estrella). Puntos de colores con barras de error: los planetas <em>inferidos de los surcos</em>. <strong>No calzan para nada</strong>: caen a decenas de UA, donde las técnicas de detección de exoplanetas no son sensibles. El radio orbital de estos planetas es preciso (es el radio del surco); la masa no — de ahí las barras de error verticales.</figcaption>
+  </figure>
+
+  <h3>El diagrama lleva la huella de los sesgos</h3>
+  <ul>
+    <li><strong>Tránsitos y velocidad radial</strong> son más sensibles a planetas <em>cercanos</em> a su estrella (perturbación gravitacional más fuerte, tránsitos más frecuentes). Que no veamos nada a grandes radios orbitales no significa que no haya.</li>
+    <li>Los exoplanetas se detectan en estrellas vecinas (a unos pocos parsec); los discos se observan en regiones de formación estelar, las más cercanas en el <strong>cinturón de Gould, a ~100 pc</strong>. A esa distancia, incluso ALMA tiene dificultad para resolver las regiones internas de 1–10 UA — otro sesgo, ahora contra los surcos internos.</li>
+    <li>¿Es raro el sistema solar, con su Júpiter a 5 UA, frente al grumo de gigantes pegados a su estrella? Al corregir por sesgos, la conclusión es que <strong>el sistema solar sí es un sistema planetario típico</strong>. Pero queda la pregunta: ¿cómo llegaron esos gigantes tan cerca? Respuesta adelantada: <strong>migración</strong> — los planetas no se quedan donde nacen (tema de la próxima clase).</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>Este es un caso clásico de <strong>censored data</strong>: cada técnica de detección define una región de sensibilidad en el espacio de parámetros, y el dataset resultante confunde «no hay» con «no puedo ver». Antes de concluir del diagrama masa–radio orbital, hay que modelar la función de selección — como corregir métricas de un sistema cuyos sensores solo reportan sobre cierto umbral.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Cazando protoplanetas: TW Hya, AB Aur y PDS 70</h2>
+    <p>Treinta o cuarenta anuncios; tres o cuatro sobrevivientes.</p>
+  </div></div>
+
+  <p>Los surcos son indicios <em>indirectos</em>. ¿Dónde están los protoplanetas mismos? Los observadores sueñan con detectarlos, y la historia está llena de descubrimientos anunciados que después no eran: de unos 30–40 anuncios «a lo grande», han sobrevivido <strong>tres o cuatro con suerte</strong>. Estos son los casos que sí tienen algún sustento:</p>
+
+  <h3>TW Hya: la envoltura hidrostática de una súper-tierra</h3>
+  <figure>
+    <img src="m3c3/assets/slide-40.jpg" alt="Disco de TW Hya a 233 GHz con el grumo magnificado y esquema de la envoltura">
+    <figcaption><span class="cap">Diapositiva · TW Hya (233 GHz)</span>(a) el disco de TW Hya, de cara, con anillos concéntricos nítidos — no es simulación, es la observación (rango dinámico profundo, saturada al centro). (b) zoom al <strong>grumito</strong>, levemente alargado en dirección radial (la elipse es la resolución del telescopio). Abajo: el esquema de la interpretación — una envoltura que abulta la superficie de emisión del disco.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>TW Hya</strong> es el disco protoplanetario más cercano (~50 pc), visto casi de cara. Es un bicho raro: con ~20–30 millones de años, ya debería haber perdido su disco, pero este sobrevivió; la estrella emigró de su región de formación y vive en una asociación suelta.</li>
+    <li>La observación (~2017, grupo japonés) reveló un grumo; la interpretación llegó años después, de otro grupo (el teórico que la propuso —de origen chino, radicado en EE.UU.— integró el comité de tesis de la estudiante del profesor <em>ese mismo día</em>): el grumo es la <span class="hl">envoltura hidrostática de una súper-tierra</span> de ~10 masas terrestres.</li>
+    <li>El núcleo es suficientemente masivo para acumular hidrógeno, pero la envoltura <strong>aún no colapsa</strong>: está en equilibrio, extendida hasta un tamaño comparable al <strong>radio de Hill</strong> (~1 UA) — por eso alcanza a resolverse. En opinión del profesor, este es <em>el</em> protoplaneta más espectacular: un planeta atrapado creciendo.</li>
+    <li>La etapa siguiente: cuando la envoltura supere ~1 masa de Júpiter, <strong>se cae con todo hacia adentro</strong> (<em>runaway core accretion</em>), en solo cientos a mil años, liberando su energía gravitacional. Por eso los planetas recién formados son muy calientes (la «entropía inicial»): es lo que permite detectarlos en luz directa cuando jóvenes. El presupuesto de masa lo fija la metalicidad cósmica (~1% en masa de elementos más pesados que el helio): el corazón telúrico es una cosita de 2–3 tamaños terrestres; el resto, puro gas.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Síntesis de imágenes: la magia de ALMA</span>
+    <p>Estas proezas dependen de la <strong>síntesis de imágenes</strong> (o síntesis de apertura), la especialidad del profesor: el teorema de <strong>van Cittert–Zernike</strong> permite, correlacionando (multiplicando) los campos eléctricos medidos por cada <em>par</em> de antenas, reconstruir una imagen. Las ~40–60 antenas de ALMA operan de a pares y actúan como <strong>un solo gran telescopio</strong>. «Es medio mágico; una vez que uno comprende la matemática, no es tan mágico.»</p>
+  </div>
+
+  <h3>AB Aurigae: candidatos por montones</h3>
+  <figure>
+    <img src="m3c3/assets/slide-41.jpg" alt="AB Aurigae en CO con ALMA y en infrarrojo, con sitios candidatos a formación planetaria S1 a S7">
+    <figcaption><span class="cap">Diapositiva · AB Aur (Speedie+ 2024)</span>Izquierda: ALMA ¹³CO — una imagen gigante (~600 UA) de material espiral cayendo «en sifón» sobre el disco. Derecha: la imagen infrarroja con los sitios candidatos S1–S7 marcados. Clasificada clase II, pero con tanto material cayendo que se parece más a una clase I.</figcaption>
+  </figure>
+  <p>AB Aur ilustra la sed de protoplanetas: cada sobredensidad se publica como candidato («aquí tengo otro grumito → publiquemos un paper»). De todos los puntos verdes, <strong>solo uno ha sostenido la ruta</strong> como candidato. Hay claramente estructura compleja y lugares calientes, pero nada con la estructura regular y el tamaño adecuado del caso TW Hya — y son imágenes ópticas/IR, muy limitadas en estas regiones.</p>
+
+  <h3>PDS 70: dos protoplanetas ya nacidos — y su firma radio</h3>
+  <figure>
+    <img src="m3c3/assets/slide-42.jpg" alt="PDS 70: disco con anillo y dos protoplanetas, en infrarrojo y en radio con ALMA">
+    <figcaption><span class="cap">Diapositiva · PDS 70: un disco con 2 protoplanetas</span>En esta estrella hay un anillo dentro del cual el óptico/IR detecta dos grumos: los protoplanetas <strong>PDS 70 b y c</strong> — esta vez planetas <em>ya nacidos</em> que siguen interactuando con el disco. A la derecha, la observación radio del profesor, que recupera el segundo protoplaneta (el primero no se detectó).</figcaption>
+  </figure>
+  <figure>
+    <img src="m3c3/assets/slide-43.jpg" alt="Espectro ALMA multifrecuencia del protoplaneta de PDS 70: detección a 97.5 y 145 GHz, nada a 343.5 y 671 GHz">
+    <figcaption><span class="cap">Diapositiva · Primer espectro ALMA de un protoplaneta (Domínguez, Casassus+ 2025)</span>El resultado clave: el protoplaneta se <strong>detecta a baja frecuencia</strong> (97.5 y 145 GHz — la primera tentativa y ruidosa) y <strong>desaparece al subir</strong> (343.5 y 671 GHz). Tesis de Oriana Domínguez (defendida el mismo día de esta clase), con comunicado de prensa de ALMA. Es el único protoplaneta dentro de un disco protoplanetario con contraparte radio.</figcaption>
+  </figure>
+  <ul>
+    <li>La interpretación: el planeta (~10 M<sub>Jup</sub>, casi enana café) tiene su <strong>disco circunplanetario</strong>, que actúa como colector de masa. Material del disco circunestelar cae sobre ese platillo y el impacto produce un <strong>choque en su superficie</strong>: una región de hidrógeno ionizado (región H II) que es lo que brilla en ondas radio. Sobre el planeta mismo habría acreción magnetosférica, como en una estrella.</li>
+    <li>Que la señal desaparezca a alta frecuencia descarta que sea polvo (el polvo brilla <em>más</em> a frecuencias altas): es la firma del gas ionizado del choque de acreción.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Por qué son tan elusivos</span>
+    <p>Con un colaborador teórico (Chrenko, Casassus+ 2025), el profesor mostró que las simulaciones «bonitas» tipo Masset son engañosamente brillantes: una simulación con observación <em>realista</em> del continuo radio del polvo alrededor de un protoplaneta de 2 M<sub>Jup</sub> requeriría <strong>~80 días de observación con ALMA</strong> para detectarlo. Los protoplanetas existen, pero están en el límite de lo instrumentalmente posible.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-yso">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Explorador de clases YSO: la SED como firma espectral</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Recorre las clases 0 → III y observa cómo cambia la distribución espectral de energía (esquemática, no a escala) a medida que la envoltura y el disco desaparecen.</p>
+    <div class="stagebar" id="yso-bar"></div>
+    <canvas class="sedcanvas" id="yso-canvas" width="640" height="300"></canvas>
+    <output id="yso-out"></output>
+  </div>
+
+  <div class="widget" id="w-res">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Escalas de disco vs resolución angular: ¿ALMA lo puede resolver?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Regla de oro: 1 UA vista desde 1 pc subtiende 1 segundo de arco (θ["] = tamaño[UA] / distancia[pc]). La resolución de un interferómetro es θ ≈ 1.22 λ/B.</p>
+    <div class="presets" id="res-presets">
+      <button data-d="50" data-s="1">TW Hya: R Hill 1 UA a 50 pc</button>
+      <button data-d="140" data-s="5">Surco de 5 UA a 140 pc (HL Tau)</button>
+      <button data-d="100" data-s="1">Región interna 1 UA a 100 pc (Gould)</button>
+      <button data-d="400" data-s="30">Anillo de 30 UA en σ Orionis (~400 pc)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="res-d">Distancia a la estrella (pc)</label><input type="number" id="res-d" value="140" min="1" step="1"></div>
+      <div><label for="res-s">Tamaño de la estructura (UA)</label><input type="number" id="res-s" value="5" min="0.01" step="0.5"></div>
+      <div><label for="res-l">Longitud de onda ALMA (mm)</label><input type="number" id="res-l" value="1.3" min="0.3" max="3.6" step="0.1"></div>
+      <div><label for="res-b">Línea de base máxima (km)</label><input type="number" id="res-b" value="16" min="0.15" max="16" step="0.5"></div>
+    </div>
+    <output id="res-out"></output>
+  </div>
+
+  <div class="widget" id="w-gap">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Del surco a la masa: Δ ≈ 5.5 R (M<sub>p</sub>/M<sub>★</sub>)<sup>1/3</sup></h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">El ejercicio de Lodato+ 2019 al revés: mide el radio y el ancho de un surco, y estima la masa del planeta que lo esculpe (radio de Hill mediante).</p>
+    <div class="presets" id="gap-presets">
+      <button data-r="5.2" data-w="1.8" data-m="1">«Júpiter» a 5.2 UA</button>
+      <button data-r="30" data-w="6" data-m="1">Surco angosto a 30 UA</button>
+      <button data-r="70" data-w="35" data-m="1">Surco ancho a 70 UA</button>
+      <button data-r="22" data-w="10" data-m="0.85">PDS 70 c (~22 UA)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="gap-r">Radio orbital del surco R (UA)</label><input type="number" id="gap-r" value="30" min="0.5" step="1"></div>
+      <div><label for="gap-w">Ancho del surco Δ (UA)</label><input type="number" id="gap-w" value="6" min="0.1" step="0.5"></div>
+      <div><label for="gap-m">Masa de la estrella (M☉)</label><input type="number" id="gap-m" value="1" min="0.1" step="0.1"></div>
+    </div>
+    <output id="gap-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Disco circunestelar</b></td><td>Disco de acreción que regula el crecimiento protoestelar</td><td>Único lugar donde se forman planetas</td></tr>
+      <tr><td><b>Regla del grano</b></td><td>A longitud de onda λ se ven granos de tamaño ~λ</td><td>1 μm (IR reflejado) vs ~1 mm (continuo ALMA)</td></tr>
+      <tr><td><b>Estructura vertical</b></td><td>ρ(z) = ρ₀ e<sup>−z²/2h²</sup>, gaussiana (g<sub>z</sub> vs dP/dz)</td><td>El disco es grueso en gas/granos chicos, delgado en granos mm (sedimentación)</td></tr>
+      <tr><td><b>Escala de altura</b></td><td>h = c<sub>s</sub>/Ω; c<sub>s</sub> = √(kT/m), Ω kepleriana</td><td>Más caliente ⇒ más «gordito» el disco</td></tr>
+      <tr><td><b>Equilibrio radiativo</b></td><td>Recibe = emite ⇒ T ∝ r<sup>−1/2</sup> (el tamaño se cancela)</td><td>Fija la temperatura de todo cuerpo del disco/sistema solar</td></tr>
+      <tr><td><b>Disco acampanado</b></td><td>h ∝ r<sup>5/4</sup> ⇒ h/r ∝ r<sup>0.25</sup></td><td>El grosor relativo crece con el radio (flaring)</td></tr>
+      <tr><td><b>Clases YSO 0–III</b></td><td>0: envoltura domina · I: estrella + disco + resto de envoltura · II: solo disco · III: solo rocas</td><td>Se leen en la SED; el grueso de la formación planetaria es observable en clase II</td></tr>
+      <tr><td><b>Core accretion</b></td><td>Granos → guijarros → planetesimales → núcleo (≳10 M⊕) → gigante</td><td>~15 órdenes de magnitud; barreras: fragmentación/deriva (~cm) y tiempo (20 vs 2 Myr)</td></tr>
+      <tr><td><b>Gravito-fragmentación</b></td><td>Colapso de un pedazo del disco («estrella fallida»)</td><td>Predice condensaciones a 20–30 UA y en masa — no un Júpiter a 5 UA</td></tr>
+      <tr><td><b>Enana café</b></td><td>Objeto de 13–80 M<sub>Jup</sub></td><td>Frontera difusa planeta gigante / estrella fallida</td></tr>
+      <tr><td><b>Surco (gap)</b></td><td>Cavidad anular abierta por un planeta masivo</td><td>Predicción de los años 80; motivación científica original de ALMA</td></tr>
+      <tr><td><b>Disco circunplanetario</b></td><td>Platillo alrededor del planeta, conectado por brazos espirales</td><td>Cuna de las lunas; colector de masa del planeta</td></tr>
+      <tr><td><b>HL Tau</b></td><td>Clase I con anillos concéntricos (ALMA 2014)</td><td>Formación planetaria rápida (~5×10⁵ yr); pero 19 discos 0/I del sondeo no muestran nada</td></tr>
+      <tr><td><b>Radio de Hill</b></td><td>R<sub>H</sub> = R(M<sub>p</sub>/M<sub>★</sub>)<sup>1/3</sup> (según la diapositiva); Δ ≈ 5.5 R<sub>H</sub></td><td>Convierte anchos de surcos en masas de planetas (Lodato+ 2019)</td></tr>
+      <tr><td><b>Sesgos observacionales</b></td><td>Tránsitos/VR favorecen planetas cercanos a la estrella</td><td>Corrigiendo sesgos, el sistema solar resulta típico; los «planetas de surcos» viven donde no vemos</td></tr>
+      <tr><td><b>TW Hya</b></td><td>Envoltura hidrostática de súper-tierra (~10 M⊕, tamaño ~R<sub>H</sub>)</td><td>El mejor protoplaneta según el profesor: un planeta creciendo, congelado antes del runaway</td></tr>
+      <tr><td><b>Runaway core accretion</b></td><td>Colapso de la envoltura al superar ~1 M<sub>Jup</sub>, en ~10²–10³ yr</td><td>Explica la «entropía inicial» (calor de formación) de los planetas jóvenes</td></tr>
+      <tr><td><b>PDS 70 c en radio</b></td><td>Detección a 97.5/145 GHz que desaparece a 343.5/671 GHz</td><td>Firma del choque de acreción (H ionizado), no polvo; primer espectro ALMA de un protoplaneta</td></tr>
+      <tr><td><b>Síntesis de imágenes</b></td><td>Teorema de van Cittert–Zernike: correlación de pares de antenas</td><td>ALMA (40–60 antenas) actúa como un solo gran telescopio</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c3-examen-01.html">Examen 01<small>El disco observado</small></a></li>
+    <li><a href="m3c3-examen-02.html">Examen 02<small>Estructura vertical</small></a></li>
+    <li><a href="m3c3-examen-03.html">Examen 03<small>Equilibrio radiativo</small></a></li>
+    <li><a href="m3c3-examen-04.html">Examen 04<small>Clases YSO y SEDs</small></a></li>
+    <li><a href="m3c3-examen-05.html">Examen 05<small>Core accretion</small></a></li>
+    <li><a href="m3c3-examen-06.html">Examen 06<small>Gravito-fragmentación</small></a></li>
+    <li><a href="m3c3-examen-07.html">Examen 07<small>Un planeta en el disco</small></a></li>
+    <li><a href="m3c3-examen-08.html">Examen 08<small>HL Tau y sondeos</small></a></li>
+    <li><a href="m3c3-examen-09.html">Examen 09<small>Surcos, masas y sesgos</small></a></li>
+    <li><a href="m3c3-examen-10.html">Examen 10<small>Protoplanetas (integrador)</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo III del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Simón Casassus, 6 jul 2026; primera mitad de una sesión doble). Elaborado a partir de la transcripción del audio (<code>planetas/m3/ff/planetas-m3c3.md</code>) y la segunda parte de las diapositivas <code>Modulo_III_-_Clase_1_formacion_del_disco_protoplanetario.pptx.pdf</code> (la correspondencia entre PDFs y clases no es estricta; se verificó además que el contenido de <code>Modulo_III_-Clase_2__trampas_de_polvo.pdf</code> corresponde a la clase siguiente).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastó con las diapositivas y se corrigieron, entre otros: «discos de afición» → discos de <em>acreción</em>; «discos circunstalares / circuestalares» → circunestelares; «planes decimales» → <em>planetesimales</em>; «gigantes graciosos» → gigantes gaseosos; «cavidad angular» → cavidad <em>anular</em>; «RAW/grado espectral de CO» → raya (línea) espectral de CO; «Elías 224-27» → Elias 2-27; «unidades chonódicas» → unidades astronómicas; «Frédéric Marc» → Frédéric <em>Masset</em>; «Judith Zuliagi» → Judit <em>Szulágyi</em>; «teorema de Wans y tercernick» → teorema de <em>van Cittert–Zernike</em>; «estrella Twentieth TW» → TW Hya; «140 GB / 200 GB» → 145 GHz / ~230 GHz (banda 6); «región H» → región H II; «clase 12» → clase II; «5 veces el radio de Hill» → 5.5 R<sub>H</sub> (diapositiva); «19 8 discos» → 19 discos clase 0 y I (diapositiva); en varios pasajes «disco circunplanetario» dicho por el profesor se refería, por contexto, al disco <em>circunestelar/protoplanetario</em> (p. ej. la «primera imagen de 2013» y los «surcos en discos»). Frases irrecuperables (p. ej. «la radiación de clavoja», «sesgo de Kitbayá», «cada cheneta») se omitieron en vez de inventarles significado. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: explorador de clases YSO ----
+(function(){
+  var clases = [
+    {n:"Clase 0",
+     desc:"El <b>grueso de la masa está en la envoltura</b> que cae en caída libre. La protoestrella (~1 UA, ionizada) y el disco recién nacen. La SED es un solo bulto frío en el infrarrojo lejano / submilimétrico: la envoltura opaca re-emite toda la luz a bajas frecuencias.",
+     comps:"Envoltura ✔✔ · Disco naciente · Estrella naciente",
+     curva:function(x){ return g(x, 12.0, 0.55, 1.0); }},
+    {n:"Clase I",
+     desc:"Al revés: el <b>grueso de la masa ya está en la estrella</b>. Hay disco («platillo») y queda un resto de envoltura. Fuerte exceso infrarrojo con pendiente ascendente hacia el IR medio. <b>HL Tau es clase I</b>: sus anillos implican formación planetaria rápida.",
+     comps:"Envoltura ✔ (resto) · Disco ✔ · Estrella ✔",
+     curva:function(x){ return Math.max(g(x, 12.9, 0.75, 0.95), g(x, 14.2, 0.35, 0.35)); }},
+    {n:"Clase II",
+     desc:"La envoltura se disipó: queda <b>el puro disco</b>. La SED muestra la fotósfera estelar más el exceso infrarrojo del disco. <b>Aquí es observable el grueso de la formación planetaria</b> (σ Orionis, IM Lupi, TW Hya, PDS 70…).",
+     comps:"Envoltura ✘ · Disco ✔ · Estrella ✔",
+     curva:function(x){ return Math.max(g(x, 12.8, 0.7, 0.55), g(x, 14.5, 0.42, 1.0)); }},
+    {n:"Clase III",
+     desc:"Se acabó también el gas del disco: quedan <b>las puras rocas</b> (disco remanente o de escombros). SED casi puramente estelar, con apenas un residuo de exceso infrarrojo.",
+     comps:"Envoltura ✘ · Disco ✘ (solo escombros) · Estrella ✔",
+     curva:function(x){ return Math.max(g(x, 12.9, 0.5, 0.10), g(x, 14.5, 0.42, 1.0)); }}
+  ];
+  function g(x, mu, s, a){ return a*Math.exp(-0.5*Math.pow((x-mu)/s,2)); }
+  var bar = document.getElementById('yso-bar');
+  var out = document.getElementById('yso-out');
+  var cv = document.getElementById('yso-canvas');
+  var ctx = cv.getContext('2d');
+  var X0=11, X1=15.4;
+  function draw(i){
+    var W=cv.width, H=cv.height, padL=52, padB=38, padT=16, padR=14;
+    ctx.clearRect(0,0,W,H);
+    // ejes
+    ctx.strokeStyle="#26324a"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(padL,padT); ctx.lineTo(padL,H-padB); ctx.lineTo(W-padR,H-padB); ctx.stroke();
+    ctx.fillStyle="#9aa6bb"; ctx.font="12px Spectral, serif";
+    ctx.fillText("log \u03BD (Hz)", W/2-30, H-10);
+    ctx.save(); ctx.translate(14, H/2+40); ctx.rotate(-Math.PI/2); ctx.fillText("log \u03BDF\u03BD (esquem\u00E1tico)", 0, 0); ctx.restore();
+    for(var t=11;t<=15;t++){
+      var xt = padL + (t-X0)/(X1-X0)*(W-padL-padR);
+      ctx.fillText(String(t), xt-6, H-padB+16);
+      ctx.strokeStyle="#1a2438"; ctx.beginPath(); ctx.moveTo(xt,padT); ctx.lineTo(xt,H-padB); ctx.stroke();
+    }
+    // bandas: submm / IR / óptico
+    ctx.fillStyle="rgba(111,199,214,.07)"; ctx.fillRect(padL, padT, (12.2-X0)/(X1-X0)*(W-padL-padR), H-padB-padT);
+    ctx.fillStyle="rgba(224,56,46,.06)"; var xir=padL+(12.2-X0)/(X1-X0)*(W-padL-padR); ctx.fillRect(xir, padT, (14.2-12.2)/(X1-X0)*(W-padL-padR), H-padB-padT);
+    ctx.fillStyle="#6b768c"; ctx.font="11px Fraunces, serif";
+    ctx.fillText("submm (ALMA)", padL+6, padT+14);
+    ctx.fillText("infrarrojo", xir+8, padT+14);
+    ctx.fillText("\u00F3ptico", padL+(14.4-X0)/(X1-X0)*(W-padL-padR), padT+14);
+    // curvas de otras clases (tenues)
+    clases.forEach(function(c,j){
+      if(j===i) return;
+      plot(c.curva, "rgba(154,166,187,.22)", 1.2);
+    });
+    plot(clases[i].curva, "#f06a5e", 2.6);
+    function plot(f, color, lw){
+      ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.beginPath();
+      for(var px=0; px<=300; px++){
+        var x = X0 + px/300*(X1-X0);
+        var y = f(x);
+        var cx = padL + (x-X0)/(X1-X0)*(W-padL-padR);
+        var cy = (H-padB) - y*(H-padB-padT-26);
+        if(px===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
+      }
+      ctx.stroke();
+    }
+  }
+  clases.forEach(function(c,i){
+    var b=document.createElement('button');
+    b.type="button"; b.textContent=c.n;
+    b.addEventListener('click', function(){ show(i); });
+    bar.appendChild(b);
+  });
+  function show(i){
+    bar.querySelectorAll('button').forEach(function(b,j){ b.classList.toggle('active', j===i); });
+    draw(i);
+    out.innerHTML = "<b>"+clases[i].n+"</b> · <span class='k'>"+clases[i].comps+"</span><br>"+clases[i].desc;
+  }
+  show(1);
+})();
+
+// ---- Widget 2: resolución angular ----
+(function(){
+  var d=document.getElementById('res-d'), s=document.getElementById('res-s'),
+      l=document.getElementById('res-l'), b=document.getElementById('res-b'),
+      out=document.getElementById('res-out');
+  function calc(){
+    var dpc=parseFloat(d.value), sau=parseFloat(s.value), lmm=parseFloat(l.value), bkm=parseFloat(b.value);
+    if(!(dpc>0&&sau>0&&lmm>0&&bkm>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var thObj = sau/dpc; // arcsec
+    var thTel = 1.22*(lmm*1e-3)/(bkm*1e3)*206265; // arcsec
+    var ratio = thObj/thTel;
+    var veredicto;
+    if(ratio>=3) veredicto="→ <b style='color:#5fd07e'>Bien resuelto</b>: la estructura abarca varios elementos de resolución.";
+    else if(ratio>=1) veredicto="→ <b style='color:var(--gold)'>Apenas resuelto</b>: del tamaño del haz — como el grumito de TW Hya, «un cachito alargado» del porte de la resolución.";
+    else veredicto="→ <b style='color:var(--red-soft)'>No resuelto</b>: más chico que el haz del telescopio. Este es el sesgo contra las regiones internas (1–10 UA) de discos a ~100 pc.";
+    out.innerHTML =
+      "<span class='k'>Tamaño angular de la estructura</span> = "+sau+" UA / "+dpc+" pc = <b>"+fmtAng(thObj)+"</b><br>"+
+      "<span class='k'>Resolución (1.22 λ/B)</span> a λ="+lmm+" mm con B="+bkm+" km = <b>"+fmtAng(thTel)+"</b><br>"+veredicto;
+  }
+  function fmtAng(a){
+    if(a<0.001) return (a*1e6).toFixed(0)+" µas";
+    if(a<1) return (a*1000).toFixed(1)+" mas";
+    return a.toFixed(2)+"\u2033";
+  }
+  [d,s,l,b].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#res-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ d.value=btn.dataset.d; s.value=btn.dataset.s; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: gap -> masa ----
+(function(){
+  var r=document.getElementById('gap-r'), w=document.getElementById('gap-w'),
+      m=document.getElementById('gap-m'), out=document.getElementById('gap-out');
+  function calc(){
+    var R=parseFloat(r.value), D=parseFloat(w.value), Ms=parseFloat(m.value);
+    if(!(R>0&&D>0&&Ms>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var q = Math.pow(D/(5.5*R), 3);           // Mp/Mstar
+    var mjup = q*Ms*1047.6;                   // Msun -> Mjup
+    var mearth = q*Ms*332946;                 // Msun -> Mearth
+    var rh = D/5.5;
+    var nota;
+    if(mjup>=13) nota="→ Más de 13 M<sub>Jup</sub>: territorio de <b>enana café</b> (13–80 M<sub>Jup</sub>), casi una estrella fallida.";
+    else if(mjup>=0.3) nota="→ Un <b>gigante gaseoso</b>: de los «mandamases» que controlan la arquitectura del sistema.";
+    else if(mearth>=5) nota="→ Escala de <b>súper-tierra / núcleo</b>: como el caso de TW Hya (~10 M⊕).";
+    else nota="→ Planeta de baja masa: un surco así sería dificilísimo de resolver.";
+    out.innerHTML =
+      "<span class='k'>Radio de Hill implícito</span> R<sub>H</sub> = Δ/5.5 ≈ <b>"+rh.toFixed(2)+" UA</b><br>"+
+      "<span class='k'>Razón de masas</span> M<sub>p</sub>/M<sub>★</sub> = (Δ / 5.5R)³ ≈ <b>"+q.toExponential(2)+"</b><br>"+
+      "<span class='k'>Masa del planeta</span> ≈ <b>"+(mjup>=0.1? mjup.toFixed(2)+" M<sub>Jup</sub>" : mearth.toFixed(1)+" M<sub>⊕</sub>")+"</b> "+
+      (mjup>=0.1? "("+mearth.toFixed(0)+" M<sub>⊕</sub>)" : "")+"<br>"+nota+
+      "<br><small style='color:var(--muted);font-family:Spectral,serif'>Recordar: el radio orbital es preciso (se ve el surco), la masa no — la relación Δ(M<sub>p</sub>) es una estimación teórica (Lodato+ 2019).</small>";
+  }
+  [r,w,m].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#gap-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ r.value=btn.dataset.r; w.value=btn.dataset.w; m.value=btn.dataset.m; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

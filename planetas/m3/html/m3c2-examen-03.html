@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 03 — m3c2 · Transparencia, ionización y protoestrella</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo III · Clase 2</span>
+<h1>Examen 03 — Transparencia, ionización y protoestrella</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. ¿Por qué la nube molecular NO se calienta mientras colapsa, a pesar de perder mucha energía gravitacional?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Porque la energía gravitacional se convierte íntegramente en rotación</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Porque la nube está en el vacío y no hay fricción que genere calor</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Porque es ópticamente delgada: el calor lo radían los granos de polvo y esa radiación escapa libremente</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Porque el hidrógeno molecular absorbe el calor en su energía de rotación interna</label>
+    <p class="fb" hidden>El calor de la contracción calienta apenas los granitos de polvo, que al brillar un poco más disipan esa energía en fotones que escapan de la nube transparente. Enfriamiento eficientísimo: T constante.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Cuál es la diferencia esencial entre un gas de sistemas ligados (átomos, moléculas) y un plasma en su interacción con la radiación?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El plasma no interactúa con la luz; los átomos sí</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Los sistemas ligados solo interactúan a través de transiciones discretas (casi transparentes); el plasma interactúa continuamente con los fotones (opaco)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Ambos son igual de opacos, pero el plasma está más caliente</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Los átomos absorben solo rayos X; el plasma solo ondas de radio</label>
+    <p class="fb" hidden>Átomos y moléculas solo «conversan» con la radiación en líneas espectrales. Electrones y protones sueltos interactúan con los fotones fácilmente y a todas las frecuencias. Sobre esta diferencia pivota todo el guión del colapso.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Cuando el fragmento colapsante finalmente se ioniza, su temperatura salta de ~20 K a ~10⁴ K. ¿De dónde proviene esa energía?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">De la fusión nuclear que se enciende en el centro</label>
+    <label class="opt"><input type="radio" name="q3" value="b">De la radiación de las estrellas vecinas del cúmulo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Del decaimiento radiactivo de los elementos pesados de la nube</label>
+    <label class="opt"><input type="radio" name="q3" value="d">De la energía potencial gravitacional que, al volverse opaca la pelota, ya no puede disiparse</label>
+    <p class="fb" hidden>Mientras fue transparente, toda la energía gravitacional liberada se escapaba en radiación. Al ionizarse y volverse opaca, esa energía queda atrapada y se almacena como calor. La fusión viene mucho después (a 10⁶–10⁷ K en el centro).</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Escribe y explica el balance energético que determina cuándo se frena el colapso: ¿en qué se gasta la energía gravitacional del fragmento, y a qué masa y radio final conduce según la clase?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El colapso se frena cuando la energía gravitacional liberada, E<sub>G</sub> ≈ GM²/R<sub>inicial</sub>, alcanza para transformar todo el gas en plasma. Esa energía se gasta en dos pasos: primero <strong>disociar</strong> cada molécula de hidrógeno — el término (M/m<sub>H₂</sub>)·E<sub>disociación</sub>, con M/m<sub>H₂</sub> el número de moléculas — y luego <strong>ionizar</strong> cada átomo resultante — el término (M/m<sub>H</sub>)·E<sub>ionización</sub>. Igualando GM²/R ≈ suma de ambos términos, resulta que esto ocurre para fragmentos de aproximadamente <strong>0.1 a 1 M☉</strong>, con un radio final de <strong>~1 au ≈ 100 R☉</strong>. En ese punto la pelota, ya ionizada y opaca, no puede disipar su energía gravitacional: la guarda como calor (T ~ 10⁴ K), la presión térmica la sostiene, y queda una <strong>protoestrella en equilibrio hidrostático</strong> del tamaño de la órbita terrestre.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. El profesor comparó el freno del colapso con la radiación fósil del Big Bang. Desarrolla la analogía: ¿qué transición ocurre en cada caso, en qué se parecen y en qué van en sentido opuesto?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">En ambos casos la clave es la misma física: <strong>materia ionizada = opaca; materia ligada (átomos/moléculas) = transparente</strong>. En el universo temprano todo estaba ionizado: una «bola de fuego» opaca donde los fotones no podían viajar libremente. Al expandirse y enfriarse, en corrimiento al rojo z ≈ 1000 (cuando el universo tenía ~300.000 años) los electrones se <em>recombinaron</em> con los protones formando los primeros átomos: el universo se hizo <strong>transparente</strong> y la luz liberada es la radiación fósil (fondo cósmico de microondas). Por eso, mirando lejos (y por tanto al pasado), topamos con ese «muro» incandescente más allá del cual no se puede ver. En la nube colapsante la transición va <strong>en sentido opuesto</strong>: parte molecular y transparente (por eso puede enfriarse y caer libremente) y al comprimirse se disocia e <em>ioniza</em>, volviéndose opaca — y es justamente esa opacidad la que atrapa el calor y frena el colapso. Misma física, flecha invertida: recombinación → transparencia en el cosmos; ionización → opacidad en la protoestrella.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Planetas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

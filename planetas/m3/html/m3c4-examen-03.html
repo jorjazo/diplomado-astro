@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 03 — m3c4 · Trampas de polvo radiales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo III · Clase 4</span>
+<h1>Examen 03 — Trampas de polvo radiales</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="d,a,c">
+  <fieldset data-q="1"><legend>1. ¿Qué es, en esencia, una trampa de polvo radial?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Una región donde el gas está tan frío que el polvo se congela y se detiene</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Un mínimo de densidad donde el polvo cae por gravedad</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Una zona magnetizada que retiene los granos cargados</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un máximo local de presión hacia el cual converge la deriva del polvo desde ambos lados</label>
+    <p class="fb" hidden>En el lado externo del máximo la deriva es hacia adentro; en el lado interno, hacia afuera: el máximo de presión actúa como atractor de rocas y arenas.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. En el sistema V4046 Sgr (Weber, Casassus et al. 2022), ¿cómo se explicó el anillo de polvo milimétrico extremadamente delgado visto por ALMA?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Dos planetas (3.7 y 0.9 masas de Júpiter) abren dos surcos, y entre ambos queda un máximo local de presión que atrapa el polvo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La binaria central expulsa el polvo hacia un único radio de equilibrio</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Una colisión reciente de dos planetesimales generó el anillo de escombros</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El viento estelar comprime el polvo en un anillo</label>
+    <p class="fb" hidden>La simulación hidrodinámica con dos planetas (a 9 y 20 au) reproduce las observaciones de SPHERE y ALMA de forma notable: entre los dos surcos queda la trampa.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Qué lección dejó el caso HD 169142 (Pérez, Casassus et al. 2019) sobre las trampas de polvo?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Solo planetas más masivos que Júpiter pueden crear trampas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Las trampas de polvo solo existen en sistemas binarios</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Incluso planetas pequeños (un mini-Neptuno) generan modulaciones de presión suficientes para atrapar polvo</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Las trampas de polvo no sobreviven más de 100 años</label>
+    <p class="fb" hidden>Un mini-Neptuno (decenas de masas terrestres) migrando basta: pequeñas modulaciones radiales de P(r) actúan como atractores de polvo.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. En V4046 Sgr, las imágenes de SPHERE (infrarrojo, luz polarizada a 1.6 μm) muestran estructuras anchas, mientras que ALMA (milimétrico) muestra un anillo delgadísimo (~1 au). Explica por qué el mismo disco se ve tan distinto según el instrumento, en términos de los tamaños de grano que traza cada observación.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Cada instrumento es sensible a granos de tamaño comparable a su longitud de onda. <strong>SPHERE en infrarrojo</strong> ve luz estelar dispersada por granos de ~micrones; esos granos están <strong>perfectamente acoplados al gas</strong>, así que siguen la distribución del gas: extendida y ancha. <strong>ALMA en milimétrico</strong> ve la emisión térmica de granos de ~mm; esos granos están parcialmente desacoplados, sufren deriva radial y son eficientemente capturados por la trampa de presión, concentrándose en un anillo angostísimo. La diferencia de morfología no es un artefacto: es la física del acoplamiento grano-gas en acción, y de hecho constituye evidencia observacional directa de que la trampa de polvo filtra por tamaño de grano.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La clase planteó una paradoja tipo «huevo o gallina» respecto de las trampas de polvo y los planetas. Enúnciala y comenta por qué es una tensión real para la teoría de formación planetaria.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La paradoja: los máximos de presión que salvan al polvo de la deriva catastrófica —y que permiten concentrarlo para formar planetesimales y luego planetas— parecen ser generados, en los ejemplos observados (V4046 Sgr, HD 169142), por <strong>planetas ya formados</strong> que abren surcos. Es decir: <em>se necesitaría un planeta para poder formar planetas</em>. Es una tensión real porque deja sin explicar el primer eslabón: ¿cómo se formó el primer planeta de un disco, cuando aún no había trampas de origen planetario? Posibles salidas (discutidas en la clase o implícitas): existen trampas de origen no planetario (bordes de zonas muertas, líneas de nieve, vórtices en discontinuidades), y los planetas chicos también generan trampas, lo que permite un arranque más gradual. Pero el problema del arranque inicial sigue siendo un área activa de investigación.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 4, Módulo III (Astrofísica de Planetas). <a href="m3c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

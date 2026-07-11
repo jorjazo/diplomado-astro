@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trampas de Polvo, Viscosidad y el Grand Tack — Astrofísica de Planetas, Módulo III · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.widget canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:#060b15;margin-top:10px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo III · Clase 4</span>
+  <h1>Trampas de polvo, viscosidad y el <em>Grand Tack</em></h1>
+  <p class="sub">Por qué las rocas de un centímetro deberían caer sobre la estrella en 100 años —y por qué no lo hacen. Los máximos de presión como atractores de polvo, el roce interno que desparrama el disco, y la migración de Júpiter que rebotó y salvó al sistema solar interior.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Simón Casassus</span>
+    <span><b>Curso:</b> Astrofísica de Planetas · U. de Chile</span>
+    <span><b>Fecha:</b> julio 2026</span>
+    <span><b>Tema:</b> del grano de polvo al planeta migrante</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>n disco protoplanetario no es un carrusel pasivo de material: es una máquina con <span class="hl">fricción</span>. El gas, sostenido en parte por su propia presión, rota un poco más lento que las rocas; las rocas sienten un viento de cara que las frena y las hace caer en espiral hacia la estrella —tan rápido que, en teoría, no debería quedar material para formar planetas. Esta clase resuelve esa paradoja con las <strong>trampas de polvo</strong>: máximos locales de presión que actúan como atractores. Luego baja al mecanismo que gobierna la evolución global del disco —la <strong>viscosidad</strong>— y cierra con su consecuencia más espectacular: la <strong>migración planetaria</strong> y la hipótesis del <em>Grand Tack</em>, el zigzag de Júpiter que explica la arquitectura del sistema solar interior.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El gas rota más lento: sustento de presión</a></li>
+    <li><a href="#s2">La deriva radial catastrófica</a></li>
+    <li><a href="#s3">Trampas de polvo radiales</a></li>
+    <li><a href="#s4">Sedimentación vertical y crecimiento</a></li>
+    <li><a href="#s5">Inestabilidad de corriente: planetesimales</a></li>
+    <li><a href="#s6">Trampas azimutales: vórtices anticiclónicos</a></li>
+    <li><a href="#s7">Viscosidad: el roce interno del gas</a></li>
+    <li><a href="#s8">¿De dónde viene la viscosidad? Discos α y MRI</a></li>
+    <li><a href="#s9">Calentamiento viscoso y línea de nieve</a></li>
+    <li><a href="#s10">Migración tipo I y trampas de planetas</a></li>
+    <li><a href="#s11">Surcos, migración tipo II y el Grand Tack</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El gas rota más lento: sustento de presión</h2>
+    <p>La colchoneta de presión que hace al gas sub-kepleriano.</p>
+  </div></div>
+
+  <p>Para un cuerpo balístico —un satélite alrededor de la Tierra, la Tierra alrededor del Sol, una roca en el disco— la aceleración centrífuga se equilibra exactamente con la gravedad: eso define la <span class="hl">velocidad kepleriana</span> <span class="katex-inline" data-tex="v_K"></span>. Pero el gas del disco es distinto: además de la gravedad, siente su <strong>propia presión</strong>. El profesor lo describió como una <em>colchoneta</em>: igual que una bola de gas no se derrumba bajo su propio peso gracias al sustento hidrostático, el gas del disco está parcialmente sostenido por el gradiente de presión. El balance radial de fuerzas queda:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{v_{\phi,\text{gas}}^{2}}{r} \;=\; \frac{G M_\star}{r^{2}} \;+\; \frac{1}{\rho}\frac{\mathrm{d}P}{\mathrm{d}r}"></div>
+    <small>Aceleración centrífuga = gravedad + corrección por presión. Para un cuerpo balístico solo sobreviven los dos primeros términos (no tiene presión). Para el gas, el término de presión —normalmente negativo, porque P disminuye hacia afuera— <em>resta</em> gravedad efectiva.</small>
+  </div>
+
+  <p>Típicamente la presión decrece con el radio como una ley de potencia de índice <em>n</em>: las regiones internas son más densas y calientes (recordando que <span class="katex-inline" data-tex="P = n_{\text{part}}\,k_B T \approx \tfrac{\rho}{\mu m_{H_2}} k_B T"></span>, la ley de gases ideales con la constante de Boltzmann). Al sustituir esa ley de potencia y resolver para la velocidad azimutal:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P = P_0\left(\frac{r}{r_0}\right)^{-n} \qquad\Longrightarrow\qquad v_{\phi,\text{gas}} = v_K\left(1 - n\,\frac{c_s^{2}}{v_K^{2}}\right)^{1/2}"></div>
+    <small>Con <span class="katex-inline" data-tex="c_s"></span> la velocidad del sonido. Como <span class="katex-inline" data-tex="c_s \ll v_K"></span>, la corrección es pequeña: si n &gt; 0 (presión decreciente hacia afuera), el gas rota <strong>más lento</strong> que lo kepleriano.</small>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/trampas-03.jpg" alt="Ecuaciones de la rotación sub-kepleriana: balance centrífugo con gradiente de presión, ley de potencia para P, velocidad azimutal corregida">
+    <figcaption><span class="cap">Diapositiva · Rotación sub-kepleriana</span>Las tres ecuaciones clave: el balance radial con el término de presión, la ley de potencia <span class="katex-inline" data-tex="P \propto r^{-n}"></span>, y la velocidad del gas corregida. Debido al sustento hidrostático, el gas del disco rota <strong>sub-keplerianamente</strong>.</figcaption>
+  </figure>
+
+  <p>¿Cuán grande es el efecto? Según la diapositiva, para valores típicos el gas rota <strong>~0.5% más lento</strong> que las órbitas keplerianas (en la clase se mencionó «del orden de 1%»). Parece poco, pero esa pequeña diferencia de velocidad es el motor de todo lo que sigue.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El término <span class="katex-inline" data-tex="\tfrac{1}{\rho}\nabla P"></span> es el mismo que aparece en las ecuaciones de Euler/Navier-Stokes de cualquier curso de fluidos. La rotación sub-kepleriana es el análogo astrofísico del <strong>viento gradiente</strong> en meteorología: la velocidad de equilibrio de una parcela no depende solo del campo de fuerzas central, sino del gradiente de presión local. Un cambio de signo en ese gradiente invierte el sentido de la corrección — detalle que será la clave de las trampas de polvo.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>La deriva radial catastrófica</h2>
+    <p>Viento de cara, pérdida de momento angular, y un disco que se vacía en 100 años.</p>
+  </div></div>
+
+  <p>En el disco conviven el gas (sub-kepleriano) y sólidos de todos los tamaños —desde granos de un micrón hasta rocas de metros—. Los sólidos no tienen presión: se mueven <strong>balísticamente</strong>, como planetitas, a velocidad kepleriana. Resultado: desde el punto de vista de una roca, el gas que la rodea se mueve más lento. La roca siente un <span class="hl">viento de cara</span> permanente que la frena.</p>
+
+  <ol class="steps">
+    <li>El roce con el gas <strong>frena</strong> la roca.</li>
+    <li>Al frenarse, la roca <strong>pierde momento angular</strong>.</li>
+    <li>Con menos momento angular, cae a una órbita más interna… donde el proceso se repite: <strong>caída en espiral</strong> hacia la estrella.</li>
+  </ol>
+
+  <p>El tamaño importa muchísimo, y de forma no monótona:</p>
+  <ul>
+    <li><strong>Granos muy pequeños</strong> (micrones): están <em>perfectamente acoplados</em> al gas — se mueven con él, casi no sienten viento relativo, no derivan.</li>
+    <li><strong>Cuerpos muy grandes</strong> (asteroides, kilómetros): recogen más roce por su mayor sección, pero su masa (inercia) crece aún más rápido — el roce les es casi irrelevante: <em>límite balístico</em>.</li>
+    <li><strong>Rocas de ~1 cm a ~1 m</strong>: el peor de los mundos. No están acopladas al gas (van más rápido que él) y no son suficientemente masivas para ignorar el roce. Son las que derivan más rápido: caen sobre la estrella en <strong>~100 años</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c4/assets/trampas-04.jpg" alt="Diapositiva: el gas rota 0.5% más lento; el roce frena arenas y rocas; las rocas de 1cm a 1m caen en solo 100 años">
+    <figcaption><span class="cap">Diapositiva · Los números de la deriva</span>Gas ~0.5% más lento que lo kepleriano; el roce genera pérdida de momento angular y decaimiento orbital; las rocas de entre 1 cm y 1 m caen sobre la estrella en solo ~100 años.</figcaption>
+  </figure>
+
+  <p>Esto fue descubierto en los años 70 por <span class="hl">Weidenschilling</span> en un paper clásico (en la transcripción aparece como «Biden Schilling»): es la <span class="hl">deriva radial catastrófica</span>. Y es catastrófica en sentido literal para la teoría: si todas las rocas de tamaño centímetro–metro caen a la estrella en un siglo, <strong>no queda material sólido intermedio para construir planetas telúricos</strong>. La formación planetaria quedaría abortada en su primer paso.</p>
+
+  <div class="box dato">
+    <span class="tag">El problema en una frase</span>
+    <p>El crecimiento de polvo debe pasar sí o sí por la ventana de tamaños centímetro–metro… que es exactamente la ventana donde la deriva destruye todo en ~100 años. Se necesita un mecanismo que detenga o revierta la deriva. Ese mecanismo son las trampas de polvo (sección 3).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El acoplamiento grano-gas se cuantifica con el <strong>número de Stokes</strong> (aparece en la sección 5): la razón entre el tiempo de frenado por roce y el tiempo dinámico orbital. Es el mismo adimensional que gobierna aerosoles en un ducto o partículas en un separador ciclónico: St ≪ 1 sigue al fluido, St ≫ 1 lo ignora, y <strong>St ~ 1 es el régimen de máxima transferencia de momentum</strong> — aquí, el de la deriva máxima.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Trampas de polvo radiales: máximos de presión</h2>
+    <p>Si el gradiente de presión cambia de signo, la deriva cambia de dirección.</p>
+  </div></div>
+
+  <p>La solución a la deriva catastrófica está escondida en la fórmula de la sección 1. La dirección de la deriva depende del <strong>signo del gradiente de presión</strong>:</p>
+  <ul>
+    <li>Donde <span class="katex-inline" data-tex="\mathrm{d}P/\mathrm{d}r < 0"></span> (lo normal): gas sub-kepleriano → viento de cara → las rocas derivan <strong>hacia adentro</strong>.</li>
+    <li>Donde <span class="katex-inline" data-tex="\mathrm{d}P/\mathrm{d}r > 0"></span> (lado interno de un máximo local): el exponente cambia de signo, el gas rota <em>más rápido</em> que lo kepleriano (súper-kepleriano) → viento de cola → las rocas son aceleradas, ganan momento angular y derivan <strong>hacia afuera</strong>.</li>
+  </ul>
+
+  <p>Entonces, si el perfil de presión tiene un <span class="hl">máximo local</span>, el polvo que está afuera del máximo deriva hacia adentro, y el que está adentro (pasado el mínimo) deriva hacia afuera: <strong>todo converge al máximo de presión</strong>. El máximo actúa como un atractor de rocas y arenas. Eso es una <span class="hl">trampa de polvo</span>.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-05.jpg" alt="Diagrama log P vs log r con un máximo local de presión y flechas verdes indicando la deriva del polvo convergiendo hacia el máximo">
+    <figcaption><span class="cap">Diapositiva · La trampa de polvo</span>Perfil de presión con un máximo local: las flechas verdes muestran la dirección de deriva del polvo a cada lado. La deriva converge al máximo (línea roja punteada). Solución a la deriva catastrófica: las arenas se acumulan en máximos locales de presión, que podrían ser generados por formación planetaria.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El máximo de presión es un <strong>punto fijo estable</strong> del sistema dinámico de la deriva: el campo de velocidades radiales apunta hacia él desde ambos lados. Visto de otro modo, los granos ejecutan un <em>gradient ascent</em> sobre P(r): cada partícula sube por el gradiente local hasta el óptimo. Y como en optimización, un máximo <em>local</em> basta para capturar — no hace falta que sea global.</p>
+  </div>
+
+  <h3>Ejemplo 1: V4046 Sgr — anillos ultrafinos</h3>
+  <p>Trabajo del grupo del profesor (Weber, Casassus et al. 2022). El sistema es una <strong>binaria cercana</strong>: dos estrellas de ~0.5 masas solares tan juntas que, dinámicamente, equivalen a una estrella de 1 masa solar — un análogo del sistema solar temprano. Las observaciones con <strong>SPHERE en el VLT</strong> (luz polarizada a 1.6 μm, que traza granos de micrones) muestran dos arcos; las de <strong>ALMA</strong> (continuo milimétrico, granos ~mm) muestran un anillo central <em>extremadamente delgado</em>, del orden de 1 unidad astronómica o menos.</p>
+  <p>La explicación, vía simulación hidrodinámica: <strong>dos planetas</strong> (3.7 M<sub>Júp</sub> a 9 au y 0.9 M<sub>Júp</sub> a 20 au) abren dos surcos en el gas; <strong>entre los dos surcos queda un máximo local de presión</strong> que atrapa el polvo grande y forma el anillito delgado. El polvo fino (micrones), acoplado al gas, queda más repartido — por eso el disco se ve «gordito» en infrarrojo y «delgadito» en milimétrico.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-06.jpg" alt="V4046 Sgr: observación SPHERE y ALMA arriba, imágenes sintéticas de la simulación hidrodinámica abajo; el parecido es notable">
+    <figcaption><span class="cap">Diapositiva · V4046 Sgr, datos vs. hidrodinámica</span>Izquierda: luz polarizada (SPHERE/IRDIS, observación arriba, simulación abajo). Derecha: continuo ALMA Banda 6. La predicción con dos planetas (3.7 M<sub>Júp</sub> a 9 au, 0.9 M<sub>Júp</sub> a 20 au) reproduce el anillo delgado. El profesor advirtió: aquí «teoría» significa <em>física computacional</em> — cálculo numérico, no papel y lápiz.</figcaption>
+  </figure>
+
+  <h3>Ejemplo 2: HD 169142 — trampas por planetas pequeños</h3>
+  <p>Segundo ejemplo del grupo (Pérez, Casassus et al. 2019): un anillo muy angosto explicado con un <strong>mini-Neptuno</strong> migrando hacia la estrella. La influencia gravitacional del planeta, al evacuar su surco, genera <em>pequeñas modulaciones radiales de presión</em> que bastan como trampas: <strong>incluso planetas chicos pueden crear trampas de polvo</strong>.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-07.jpg" alt="HD 169142: observación ALMA con anillo triple angosto y modelo hidrodinámico con un mini-Neptuno">
+    <figcaption><span class="cap">Diapositiva · HD 169142</span>Observación (izquierda) vs. modelo hidrodinámico (derecha) con un mini-Neptuno. Pequeñas modulaciones de P(r) alcanzan para atrapar polvo y partir un anillo en tres.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El huevo o la gallina</span>
+    <p>Si los máximos de presión que salvan al polvo son producidos por <em>planetas ya formados</em>… «es como que necesitamos un planeta para poder hacer otros: ¿el huevo o la gallina?». La clase dejó planteada esta tensión: los anillos que ALMA ve por todas partes son trampas de polvo, y al menos algunos parecen requerir planetas preexistentes.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Sedimentación vertical y crecimiento por coagulación</h2>
+    <p>El polvo también cae hacia el plano medio — y crece en el camino.</p>
+  </div></div>
+
+  <p>Además de la concentración radial, hay un segundo mecanismo: la <span class="hl">sedimentación</span>. Consideremos un grano de polvo a cierta altura <em>z</em> sobre el plano medio del disco. La atracción gravitacional apunta hacia la estrella; su componente <em>radial</em> está compensada por la rotación (aceleración centrífuga), pero la componente <em>vertical</em> <span class="katex-inline" data-tex="g_z"></span> <strong>no está compensada por nada</strong>. El gas no cae porque tiene sustento de presión; el grano de polvo, sin presión, <strong>sí cae</strong> hacia el plano medio, frenado por el roce con el gas.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-08.jpg" alt="Geometría de la sedimentación: estrella, radio r, altura z, y la componente vertical de la gravedad gz sobre un grano">
+    <figcaption><span class="cap">Diapositiva · La componente vertical g<sub>z</sub></span>La rotación compensa la gravedad radial, pero nada compensa la componente vertical: el polvo sedimenta hacia el plano medio, frenado por el roce con el gas.</figcaption>
+  </figure>
+
+  <h3>Un modelo de juguete: la columna que se barre</h3>
+  <p>La clase presentó un cálculo idealizado: un grano de 1 μm parte a <strong>5 escalas de altura</strong> del disco. En su caída vertical va barriendo un «tubito» largo y delgado; se supone que <em>todo</em> grano que encuentra en esa columna se le pega (coagulación perfecta). Con esa hipótesis, al llegar al plano medio el grano ha crecido de 1 μm a <strong>~1 cm</strong> (10⁴ μm) — y al crecer cae cada vez más rápido, en un proceso que toma del orden de mil años según la figura de la diapositiva. El profesor advirtió que es una <strong>idealización optimista</strong>: en la realidad muchos choques terminan en rebote, no en adhesión; es la masa <em>disponible</em>, cota superior del crecimiento.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-09.jpg" alt="Curvas de sedimentación: altura z/h decayendo en el tiempo y tamaño de grano creciendo de menos de 1 micrón a 10^4 micrones en unos 1000 años">
+    <figcaption><span class="cap">Diapositiva · Sedimentación + coagulación</span>Arriba: altura (en escalas de altura z/h) vs. tiempo para tres tamaños iniciales de grano. Abajo: el tamaño crece de ~0.01–1 μm hasta ~10⁴ μm (1 cm) al llegar al plano medio, en ~10³ años.</figcaption>
+  </figure>
+
+  <p>Este cuadro calza con las observaciones ya discutidas en clases anteriores: en imágenes <strong>ALMA</strong> (granos ~mm, sedimentados) los discos se ven <em>delgados</em>; en <strong>infrarrojo</strong> (granos ~μm, acoplados al gas) se ven <em>gruesos</em>. El polvo nace micrométrico en todo el volumen, pero sedimenta y crece: el plano medio se puebla de granos grandes.</p>
+
+  <div class="box physics">
+    <span class="tag">Balance de la sección</span>
+    <p>Ya tenemos <strong>dos ejes de concentración</strong>: radial (trampas en máximos de presión) y vertical (sedimentación al plano medio). Ambos suben fuertemente la densidad de sólidos en regiones específicas. La pregunta siguiente: con esas densidades altas, ¿cómo se da el salto de «montón de arena» a planetesimal de kilómetros?</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Inestabilidad de corriente: nacen los planetesimales</h2>
+    <p>El pelotón de ciclistas que colapsa bajo su propio peso.</p>
+  </div></div>
+
+  <p>La teoría actual para formar planetesimales a partir de polvo concentrado se llama <span class="hl">inestabilidad de corriente</span> (<em>streaming instability</em>). Una honestidad notable de la clase: es un efecto que <strong>se observa en las simulaciones numéricas</strong> pero del cual «nadie tiene conocimiento analítico» completo — es difícil de describir en términos intuitivos.</p>
+
+  <div class="box prof">
+    <span class="tag">La analogía de los ciclistas</span>
+    <p>La mejor imagen disponible: en una carrera de ciclismo, los corredores se acomodan en hileras (el pelotón) para minimizar el roce con el aire. Los <em>filamentos</em> de polvo del disco hacen lo mismo: para evitar el roce con el gas se van ordenando en hileras, como configuración de menor disipación. ¿Y qué pasa cuando los ciclistas van demasiado apretados? Se caen unos sobre otros. Los filamentos de polvo, demasiado densos, <strong>colapsan bajo su propia gravedad</strong> — y forman planetesimales.</p>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/trampas-11.jpg" alt="Pelotón de ciclistas en carretera, analogía de los filamentos de polvo que se ordenan para minimizar el roce">
+    <figcaption><span class="cap">Diapositiva · El pelotón</span>Con altas concentraciones de polvo se gatilla la «inestabilidad de corriente». Los granos, como ciclistas, se ordenan en hileras para minimizar el roce con el gas… hasta que la aglomeración colapsa.</figcaption>
+  </figure>
+
+  <p>En las simulaciones (ejemplos citados: Liu &amp; Ji 2020, Li+ 2019) se ve un pedazo de disco con intensos movimientos verticales de momentum cerca del plano medio; en una lámina delgadísima —del orden de un 1% de unidad astronómica— se arman <strong>hileras (filamentos) de polvo</strong> que luego, vistos en densidad superficial, se fragmentan en <strong>grumitos que colapsaron gravitacionalmente</strong>: planetesimales.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-13.jpg" alt="Simulación shearing-box: cubo de turbulencia del gas y láminas donde se forman filamentos de polvo que colapsan en planetesimales">
+    <figcaption><span class="cap">Diapositiva · La simulación</span>Izquierda: el gas se vuelve turbulento cerca del plano medio por interacción con las partículas (rojo/azul: momentum vertical). Derecha: (a) los filamentos de polvo se forman vía inestabilidad de corriente; (b) los filamentos colapsan en planetesimales bajo su propia gravedad.</figcaption>
+  </figure>
+
+  <h3>¿Cuándo se gatilla? Metalicidad y número de Stokes</h3>
+  <p>El criterio se expresa en un plano de dos parámetros:</p>
+  <ul>
+    <li><span class="hl">Metalicidad Z</span>: aquí, la razón de masa polvo/gas (la gran mayoría de los metales está en fase sólida). El valor solar de referencia es <strong>~1%</strong>; en una trampa de polvo puede llegar a <strong>~10%</strong> — un enriquecimiento de 10× justamente porque la trampa concentra las roquitas.</li>
+    <li><span class="hl">Número de Stokes St</span>: proporcional al tamaño del grano (en la transcripción aparece como «número de Stoops»). St ~ 0.1 corresponde a granos de ~centímetros en ese contexto.</li>
+  </ul>
+  <p>Si (Z, St) caen sobre el umbral (Li &amp; Youdin 2021), hay <em>clumping</em> y se forman planetesimales. La diapositiva compara dos anillos de un mismo disco — uno a <strong>100 au</strong> y otro a <strong>67 au</strong> — donde metalicidad y tamaño de grano se midieron con dos técnicas independientes: el anillo de 100 au <strong>sí</strong> cae en la zona de clumping; el de 67 au, <strong>no</strong>. Y a simple vista los dos anillos son indistinguibles: los planetesimales no son observables directamente, solo sabemos por teoría que uno debería estar formándolos.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-14.jpg" alt="Diagrama de metalicidad Z versus número de Stokes con el umbral de clumping: el anillo de 100 au cae en zona de clumping, el de 67 au no">
+    <figcaption><span class="cap">Diapositiva · El criterio de clumping</span>Plano Z (razón polvo/gas) vs. número de Stokes, con el umbral de Li &amp; Youdin (2021). El anillo de 100 au está en zona de <em>clumping</em>; el de 67 au queda fuera. <em>Nota (inferencia propia): la diapositiva no nombra el sistema; anillos a 67 y 100 au corresponden a los del disco de HD 163296 (las mediciones de Σ<sub>gas</sub> citan a Booth et al. 2019).</em></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La inestabilidad de corriente es <strong>conocimiento generado por simulación</strong>: emerge de integrar numéricamente gas + partículas acopladas por roce, sin que exista (aún) una derivación analítica cerrada. Es el mismo estatus epistemológico que los comportamientos emergentes en modelos de agentes (flocking/boids): reglas locales simples —roce, gravedad— producen estructuras colectivas (filamentos) que solo aparecen al correr el sistema. Por eso el profesor insistió: aquí «teoría» = física computacional.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Trampas azimutales: vórtices anticiclónicos</h2>
+    <p>El tercer eje de concentración: máximos de presión que no son anillos, sino remolinos.</p>
+  </div></div>
+
+  <p>Radial y vertical no agotan las formas de juntar polvo: también se puede concentrar <strong>azimutalmente</strong> (a lo largo de la órbita), con un mecanismo pariente del anterior. En un fluido en rotación, un <span class="hl">vórtice anticiclónico</span> es, en su centro, un <strong>máximo de presión</strong> (a diferencia del ciclónico, que es un mínimo — piense en los mapas del tiempo: la «A» de alta presión). Y ya sabemos qué hace un máximo de presión: <strong>atrapa polvo</strong>.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-16.jpg" alt="Vórtice anticiclónico en la atmósfera terrestre y la Gran Mancha Roja de Júpiter como ejemplos de la geometría">
+    <figcaption><span class="cap">Diapositiva · Anticiclones conocidos</span>La idea de acumulación en máximos de P se extiende al caso de un vórtice anticiclónico. Ejemplos en geometría 2D «de superficie»: un anticiclón terrestre y la Gran Mancha Roja de Júpiter. En un disco protoplanetario la geometría es distinta: el vórtice queda «estirado» a lo largo del anillo, como un creciente.</figcaption>
+  </figure>
+
+  <p>¿De dónde salen los vórtices en un disco? De cualquier <strong>discontinuidad radial brusca</strong> (por ejemplo, el borde de un surco o de una cavidad). Allí se desarrolla una inestabilidad —el profesor la comparó con la de dos fluidos de densidades distintas— que fragmenta la discontinuidad en muchos vórtices chicos que luego se fusionan en <strong>un solo vórtice gigante</strong> (simulaciones de Regály+ 2012). <em>Nota (inferencia propia): la inestabilidad aludida, cuyo nombre quedó cortado en la transcripción, es la inestabilidad de ondas de Rossby (Rossby Wave Instability); la comparación es con la inestabilidad de Kelvin-Helmholtz / Rayleigh-Taylor.</em></p>
+
+  <p>Las simulaciones hidrodinámicas (Baruteau &amp; Zhu 2015) predicen la acumulación de rocas en el máximo de presión del vórtice, con un sello claro: <strong>las rocas más grandes se concentran más</strong> (los granos chicos, acoplados al gas, quedan repartidos; los grandes se apilan en el centro del vórtice).</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-18.jpg" alt="Simulación de Baruteau y Zhu 2015: profundidad óptica con un grumo compacto en el vórtice y densidad superficial con las rocas concentradas en el máximo de presión">
+    <figcaption><span class="cap">Diapositiva · Rocas cayendo al vórtice</span>Simulación (Baruteau &amp; Zhu 2015): las partículas espiralan hacia el máximo de presión azimutal. En densidad superficial, el gas muestra una leve sobredensidad azimutal, pero las rocas (p. ej. de ~4 cm) se concentran fuertemente en el máximo.</figcaption>
+  </figure>
+
+  <h3>El caso MWC 758: dos vórtices y un test que funcionó</h3>
+  <p>Trabajo del profesor (Casassus+ 2019): un disco con dos crecientes (arcos) en imágenes milimétricas. Al observarlo con el <strong>VLA</strong> en radio a ~1 cm —sensible al polvo centimétrico— «la estrella y el resto del disco desaparecieron»: quedó <strong>un solo grumo denso</strong>. Es exactamente la predicción de la trampa azimutal: el polvo centimétrico está <em>más concentrado</em> que el milimétrico. Una imagen ALMA posterior de mayor resolución mostró los dos crecientes; el sistema se modeló después con <strong>dos planetas</strong> (uno interno a la cavidad y otro externo) que generan los dos vórtices — y las predicciones para ALMA y VLA se parecen bastante a las observaciones. El vórtice más débil se interpretó como un vórtice en decaimiento, en etapa más avanzada.</p>
+
+  <figure>
+    <img src="m3c4/assets/trampas-20.jpg" alt="MWC 758 observado a 342 GHz mostrando dos clumps y en banda centimétrica del VLA mostrando un solo grumo compacto">
+    <figcaption><span class="cap">Diapositiva · Dos vórtices en MWC 758</span>Izquierda: imagen a 342 GHz (ALMA) con dos grumos (Clump 1 y 2). Derecha: en el VLA (polvo ~cm) domina un único grumo compacto — el polvo más grande está más concentrado, corroborando la trampa de polvo azimutal.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Vórtices como fábricas de planetesimales</span>
+    <p>Dentro de un vórtice se suman <strong>los tres efectos de concentración</strong>: radial, vertical y azimutal. La densidad puede subir tanto que los cúmulos de rocas colapsen gravitacionalmente <em>sin necesidad de inestabilidad de corriente</em> (simulaciones de Lyra+ 2024 — en la transcripción, «Vladimir Laira» corresponde a Wladimir Lyra). Es una vía alternativa (o complementaria) a la streaming instability para fabricar planetesimales.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Viscosidad: el roce interno del gas</h2>
+    <p>De dos placas de laboratorio a un disco que se desparrama.</p>
+  </div></div>
+
+  <p>Cambio de tema («más árido», advirtió el profesor, pero fundamental): para hacer hidrodinámica de discos falta un ingrediente, la <span class="hl">viscosidad</span> — el roce que siente el gas <em>consigo mismo</em>. Su definición experimental es la clásica de dos placas: una fija y una móvil que encierran un fluido. Para <strong>mantener</strong> la placa superior moviéndose a velocidad V (si no se aplica fuerza, el roce la detiene) se necesita una fuerza:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F = \frac{A\,\mu\,V}{y} \qquad\qquad \nu = \frac{\mu}{\rho}"></div>
+    <small>F crece con el área A de la placa y con la velocidad V, y disminuye con la separación y entre placas. La constante de proporcionalidad μ es la <strong>viscosidad dinámica</strong>; dividida por la densidad da la <strong>viscosidad cinemática</strong> ν — «la viscosidad» de aquí en adelante.</small>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/hidro-03.jpg" alt="Definición experimental de viscosidad con placa fija y placa móvil, y fórmula del torque G en un anillo del disco">
+    <figcaption><span class="cap">Diapositiva · Definición y torque</span>El experimento de las dos placas (F = AμV/y, ν = μ/ρ) y el torque sobre un anillo del disco: <span class="katex-inline" data-tex="G = 2\pi r \cdot \nu \Sigma\, r\,\tfrac{\mathrm{d}\Omega}{\mathrm{d}r} \cdot r"></span> — el largo del anillo, por la viscosidad (con Σ la densidad superficial), por el gradiente de velocidad de rotación, por la palanca r.</figcaption>
+  </figure>
+
+  <h3>Kepler shear: anillos que se frotan</h3>
+  <p>En el disco, cada anillo rota a su velocidad kepleriana, que <strong>decrece con el radio</strong>: el lado interno de un anillo va más rápido que el externo. Ese <em>cizalle kepleriano</em> (<span class="hl">Kepler shear</span>) significa que anillos adyacentes están permanentemente «frotándose»: el anillo siente roce en su cara interna (con gas más rápido) y en su cara externa (con gas más lento). La diferencia entre ambos es el <strong>torque neto</strong>, que depende de la viscosidad del disco.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="G(r) = 2\pi r \cdot \nu \Sigma \cdot r\,\frac{\mathrm{d}\Omega}{\mathrm{d}r}\cdot r"></div>
+    <small>Como Ω decrece con r (dΩ/dr &lt; 0), el efecto del torque entre dos anillos adyacentes es <strong>frenar el interno y acelerar el externo</strong>: transporte de momento angular hacia afuera.</small>
+  </div>
+
+  <h3>La consecuencia: el disco se desparrama</h3>
+  <p>¿Qué le hace esto a un continuo de anillos? Un cálculo <strong>analítico</strong> clásico (no requiere simulación): se parte con toda la masa en un anillo angosto y se deja actuar la viscosidad. Las partes frenadas caen a radios menores; las aceleradas suben a radios mayores. El anillo <strong>se desparrama</strong> en ambas direcciones:</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-04.jpg" alt="Evolución viscosa de un anillo: la densidad superficial parte concentrada en r0 y se desparrama en radio a medida que pasa el tiempo">
+    <figcaption><span class="cap">Diapositiva · El anillo que se desparrama</span>Densidad superficial Σ vs. r/r₀ en tiempos sucesivos: el anillo inicial en r₀ se ensancha y su masa fluye tanto hacia adentro como hacia afuera. La clave: <strong>parte del anillo pierde momento angular y llega hasta cerca de la estrella, a costa de que otra parte se vaya a radios grandes</strong> llevándose el momento angular.</figcaption>
+  </figure>
+
+  <p>Esto responde una pregunta central de la acreción: para que el gas caiga sobre la estrella debe <em>deshacerse</em> de su momento angular, y la evolución viscosa lo logra exportándolo hacia afuera. También existe una <span class="hl">solución autosimilar</span> (ley de potencia <span class="katex-inline" data-tex="\nu \propto r^{\gamma}"></span>, disco truncado con decaimiento exponencial) cuyo perfil se va desparramando a radios cada vez mayores con el tiempo. Y en <strong>estado estacionario</strong> —cuando el perfil de masa ya casi no cambia— se llega a una expresión muy simple:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\nu\,\Sigma \;\propto\; \dot{M}_\star"></div>
+    <small>La viscosidad por la densidad superficial es proporcional a la <strong>tasa de acreción</strong> sobre la estrella (cuánto crece la masa estelar por unidad de tiempo). <em>Nota (material externo): el coeficiente estándar, lejos del borde interno, es νΣ = Ṁ/3π.</em></small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La evolución viscosa de Σ(r,t) es matemáticamente una <strong>ecuación de difusión</strong> — la misma familia que la ecuación del calor. Por eso el anillo se «desparrama» exactamente como un pulso de temperatura en una barra metálica, o como un blur gaussiano aplicado iterativamente a una imagen 1D. El widget 3 de esta página integra esa difusión con un esquema explícito de diferencias finitas, con la estabilidad limitada por la condición CFL (Δt ≲ Δr²/2D) — el mismo trade-off paso temporal/resolución de cualquier solver numérico.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>¿De dónde viene la viscosidad? Discos α y MRI</h2>
+    <p>La viscosidad molecular no alcanza ni de lejos: hay que invocar turbulencia.</p>
+  </div></div>
+
+  <p>En la Tierra, la viscosidad de un gas viene de los <strong>choques entre moléculas</strong>. Dimensionalmente, el coeficiente se arma con la velocidad de agitación térmica (~velocidad del sonido, <span class="katex-inline" data-tex="c_s"></span>) y el <strong>libre camino medio</strong> λ (cuánto recorre una molécula antes de chocar con otra):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\nu_{\text{mol}} \sim \lambda\, c_s \qquad\qquad \tau_\nu \sim \frac{r^{2}}{\nu}"></div>
+    <small>En una pieza: λ ~ 0.1 μm y c<sub>s</sub> ~ 300 m/s. La escala de tiempo de evolución viscosa τ<sub>ν</sub> va como el tamaño al cuadrado dividido por la viscosidad — firma inconfundible de un proceso difusivo.</small>
+  </div>
+
+  <p>Ahora el chequeo de órdenes de magnitud, al estilo ingeniería: con las densidades de un disco protoplanetario, el libre camino medio de las moléculas de H₂ es de <strong>kilómetros</strong>. Metiendo eso en τ<sub>ν</sub> ~ r²/ν sale una escala de evolución de <strong>~1000 Gyr</strong> — miles de millones de años, unas <em>cien veces la edad del universo</em>. Pero los discos evolucionan y se disipan en ~1 millón de años. Conclusión: <strong>la viscosidad molecular es despreciable</strong>; tiene que haber otra fuente de roce.</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-06.jpg" alt="La viscosidad molecular por choques de moléculas de H2 es despreciable: la escala de tiempo viscosa daría 1000 Gyr">
+    <figcaption><span class="cap">Diapositiva · El fracaso molecular</span>ν ~ λc<sub>s</sub> con choques de H₂ da τ ~ r²/ν ~ 1000 Gyr: absurdo. La fuente de viscosidad del disco no puede ser molecular.</figcaption>
+  </figure>
+
+  <h3>La viscosidad α: turbulencia como roce efectivo</h3>
+  <p>La idea (que viene de los años 70, del estudio de discos en torno a <strong>agujeros negros</strong> — el profesor destacó lo curioso de que la física de formación planetaria y la de acreción sobre agujeros negros sean la misma): en vez de moléculas que chocan, pensar en <strong>pedazos de gas turbulento</strong> que se chocan entre sí. Se reemplaza el libre camino medio por la escala de longitud natural del disco —la escala de altura <em>h</em> (la de la estructura vertical gaussiana vista antes)— con una constante de proporcionalidad adimensional:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\nu = \alpha\, c_s\, h"></div>
+    <small>La prescripción del <strong>disco α</strong> (Shakura &amp; Sunyaev 1973). Haciendo calzar τ ~ r²/ν con el ~1 Myr observado (con h ~ fracción de r, y r ~ 1–10 au), se obtiene <strong>α ~ 0.01</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/hidro-07.jpg" alt="Prescripción alfa: nu igual a alfa por cs por h, calibrada para dar tiempos de evolución de 1 Myr con alfa 0.01; figura de simulación de Gressel 2020">
+    <figcaption><span class="cap">Diapositiva · El disco α</span>De ν ~ λc<sub>s</sub> a ν = αc<sub>s</sub>h: turbulencia gatillada por la inestabilidad magneto-rotacional. Ajustando la escala de tiempo a 1 Myr: α ~ 0.01. Figura: simulación magnetohidrodinámica (Gressel+ 2020).</figcaption>
+  </figure>
+
+  <h3>¿Y quién genera la turbulencia? La MRI</h3>
+  <p>La fuente favorita (y aún <strong>pregunta abierta</strong>) es la <span class="hl">inestabilidad magneto-rotacional</span> (MRI). El mecanismo cualitativo que dio la clase: el disco está enhebrado por un campo magnético con componente vertical. Si una parcela de gas se corre un poco hacia adentro, <em>estira</em> la línea de campo, que actúa como un resorte tratando de devolverla; pero ese tirón la <strong>frena</strong>, y al frenarse pierde momento angular… y cae más. La perturbación se amplifica: inestabilidad. El resultado es turbulencia magnetohidrodinámica que provee el roce efectivo.</p>
+
+  <div class="box dato">
+    <span class="tag">Atribución (material externo)</span>
+    <p>La diapositiva cita «MRI, Shakura &amp; Sunyaev 1973». Para precisión bibliográfica: Shakura &amp; Sunyaev (1973) introdujeron la <em>prescripción α</em>; la MRI como mecanismo concreto de turbulencia en discos fue establecida por Balbus &amp; Hawley (1991), reflotando un resultado de Velikhov/Chandrasekhar. Ambas cosas se suelen citar juntas, como en la clase.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>α es un <strong>parámetro efectivo de subgrilla</strong>: comprime toda la física turbulenta no resuelta (MRI, magnetohidrodinámica 3D) en un solo número calibrado contra un observable (τ ~ 1 Myr ⇒ α ~ 0.01). Es la misma jugada que los modelos de turbulencia en CFD (k-ε, Smagorinsky) o que un hiperparámetro ajustado por validación: no se deriva de primeros principios, se calibra — y funciona sorprendentemente bien mientras no se pida demasiado detalle.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El disco se calienta por roce: la línea de nieve que se mueve</h2>
+    <p>Disipación viscosa vs. irradiación estelar — y un huevo frito en Orión.</p>
+  </div></div>
+
+  <p>El roce viscoso no solo transporta momento angular: <strong>disipa energía</strong>. Parte del disco pierde energía gravitacional al caer, y esa energía calienta el gas. El perfil radial de temperatura que resulta del calentamiento viscoso es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="T_{\text{disk}}^{4} = \frac{3\,G M_\star \dot{M}}{8\pi \sigma r^{3}} \qquad\Longrightarrow\qquad T_{\text{visc}} \propto r^{-3/4}"></div>
+    <small>Aumenta con la tasa de acreción Ṁ y con la masa estelar. Es un perfil <strong>más empinado</strong> que el del equilibrio radiativo con la estrella, que da <span class="katex-inline" data-tex="T_{\text{rad}} \propto r^{-1/2}"></span>.</small>
+  </div>
+
+  <p>Como r<sup>−3/4</sup> cae más rápido que r<sup>−1/2</sup>, las dos curvas se cruzan: <strong>cerca de la estrella domina el calentamiento viscoso; lejos, el radiativo</strong> (el disco simplemente calentado por la luz de la estrella).</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-09.jpg" alt="El roce viscoso calienta el disco con perfil T proporcional a r elevado a menos tres cuartos">
+    <figcaption><span class="cap">Diapositiva · Calentamiento viscoso</span>T⁴ = 3GM<sub>★</sub>Ṁ/(8πσr³): el roce calienta el disco con T ∝ r<sup>−3/4</sup>, perfil más empinado que el radiativo (r<sup>−1/2</sup>). El roce domina a radios chicos.</figcaption>
+  </figure>
+
+  <h3>V883 Ori: el huevo frito que confirmó el efecto</h3>
+  <p>¿Se puede observar ese calentamiento? Sí. En <strong>V883 Ori</strong>, una protoestrella creciendo por acreción, la <span class="hl">línea de nieve</span> del agua (el radio donde el agua pasa de vapor a hielo) estaría normalmente a ~5 au — cerca de la órbita de Júpiter. Pero si la estrella sufre un <strong>brote de acreción</strong> (<em>accretion burst</em>: Ṁ se dispara), el disco se abrillanta y el calentamiento viscoso empuja la línea de nieve hasta <strong>50–100 au</strong>: un corrimiento de un orden de magnitud, observable.</p>
+  <p>Eso es lo que el grupo vio con ALMA: el disco tiene aspecto de <strong>huevo frito</strong>, y la «yema» brillante interior está a temperaturas sobre la de sublimación del agua — las regiones internas tienen sus hielos <strong>vaporizados</strong> por el brote de acreción. Fue un paper en <em>Nature</em> en 2016 (Cieza, Casassus et al.), del que el profesor se declaró muy contento.</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-11.jpg" alt="V883 Ori observado con ALMA con aspecto de huevo frito, y esquema de la línea de nieve quiescente a 5 au versus la línea de nieve corrida durante el brote de acreción">
+    <figcaption><span class="cap">Diapositiva · Línea de nieve en V883 Ori</span>Izquierda: la imagen ALMA («huevo frito»: yema brillante interior a la línea de nieve). Derecha: esquema — línea de nieve quiescente (a) vs. durante el brote de acreción (b), corrida a decenas de au. Cieza, Casassus et al., Nature 2016.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué importa la línea de nieve</span>
+    <p>La línea de nieve separa la zona donde los sólidos son solo roca (adentro) de la zona donde además hay hielos (afuera), duplicando o más la masa sólida disponible. Su posición —y el hecho de que pueda <em>moverse</em> con la historia de acreción— condiciona qué se puede formar y dónde. La conexión con el calentamiento viscoso convierte un resultado abstracto (T ∝ r<sup>−3/4</sup>) en un observable concreto.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Migración tipo I y trampas de planetas</h2>
+    <p>Las espirales que un planeta levanta en el disco… lo frenan a él mismo.</p>
+  </div></div>
+
+  <p>Último bloque: ¿qué le hace el disco a un planeta ya formado? Una simulación con una <strong>súper-Tierra de ~10 masas terrestres</strong> dentro de un disco muestra de inmediato la formación de <span class="hl">espirales</span>: desde el punto de vista del planeta, las órbitas internas (más rápidas) se le acercan por un lado y las externas (más lentas) se alejan por el otro, y la perturbación gravitacional del planeta se propaga como dos brazos espirales — uno interno y uno externo — que recorren todo el disco. (No hay expresión analítica cerrada para estas espirales; se ven en el cálculo numérico. El porqué de su forma quedó para la clase siguiente.)</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-12.jpg" alt="Migración tipo I: simulación de un planeta de 10 masas terrestres generando espirales, y esquema de órbitas de herradura en la región de corotación">
+    <figcaption><span class="cap">Diapositiva · Migración tipo I (~10 M<sub>⊕</sub>)</span>Izquierda: simulación — el planeta levanta una onda espiral interna y otra externa. Derecha: la estructura de flujos vista desde el planeta (órbitas circulantes y de herradura en la región de corotación).</figcaption>
+  </figure>
+
+  <h3>El argumento del torque: por qué el planeta cae</h3>
+  <p>Partamos de un disco perfectamente homogéneo: por simetría, la fuerza neta del disco sobre el planeta es cero. Pero el planeta <em>rompe</em> esa simetría creando las dos sobredensidades espirales. Ahora sumemos la gravedad de cada espiral sobre el planeta:</p>
+  <ol class="steps">
+    <li>Si la densidad superficial de masa decae con el radio — <span class="katex-inline" data-tex="\Sigma(R) \propto R^{-q}"></span> con q &gt; 0, por ejemplo q = 1 — la <strong>espiral externa resulta más masiva</strong> que la interna.</li>
+    <li>La espiral externa está a radio mayor: <strong>rota más lento</strong> que el planeta.</li>
+    <li>Más masiva + más lenta ⇒ su tirón gravitacional neto <strong>frena</strong> al planeta.</li>
+    <li>Un planeta frenado pierde momento angular ⇒ <strong>migra hacia adentro</strong>, hacia la estrella. Eso es la <span class="hl">migración tipo I</span>.</li>
+  </ol>
+  <p>Y el reverso: si localmente <span class="katex-inline" data-tex="\Sigma(R)"></span> <em>aumenta</em> con R, gana la espiral interna (que rota más rápido), <strong>acelera</strong> al planeta, y este migra <strong>hacia afuera</strong>.</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-14.jpg" alt="La dirección de la migración depende del balance de torques entre espiral interna y externa; un máximo de densidad superficial actúa como trampa de planetas">
+    <figcaption><span class="cap">Diapositiva · El balance de torques</span>Si Σ(R) disminuye con R gana la espiral externa y el planeta cae; si aumenta, la migración es externa. Entonces <strong>un máximo de Σ(R) actúa como trampa de planetas</strong> en migración tipo I.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Trampas de polvo y trampas de planetas</span>
+    <p>Mismo patrón que en la sección 3, un nivel más arriba: alrededor de un máximo de Σ(R), el planeta que está afuera migra hacia adentro y el que está adentro migra hacia afuera — <strong>los máximos de densidad superficial son trampas de planetas</strong>, además de trampas de polvo (la presión sigue a la densidad de masa). El disco tiene atractores para sus dos poblaciones: granos y planetas.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Surcos, migración tipo II y el Grand Tack</h2>
+    <p>Júpiter migró hacia el Sol, rebotó, y de paso armó el sistema solar interior.</p>
+  </div></div>
+
+  <h3>Cómo un gigante abre su surco</h3>
+  <p>Cuando la masa del planeta supera aproximadamente <strong>1 masa de Júpiter</strong>, sus torques le ganan a la viscosidad y el planeta excava un <span class="hl">surco</span> (<em>gap</em>) en el gas. El mecanismo no es «apartar material como una lancha»: es gravitacional, y es el mismo argumento de los torques al revés:</p>
+  <ul>
+    <li>El material <em>interior</em> a la órbita va más rápido que el planeta; la gravedad del planeta lo <strong>frena</strong> → pierde momento angular → cae hacia adentro, alejándose de la órbita.</li>
+    <li>El material <em>exterior</em> va más lento; el planeta lo <strong>acelera</strong> → gana momento angular → es lanzado a radios mayores.</li>
+    <li>Mientras tanto, la <strong>viscosidad</strong> del disco intenta desparramar el gas y rellenar el hueco. El ancho del surco queda fijado por el <strong>equilibrio entre torque planetario y viscosidad</strong>. (La diapositiva agrega el criterio de masa mínima: que la esfera de influencia gravitacional del planeta sea comparable al espesor del disco.)</li>
+  </ul>
+
+  <p>Un gigante con surco sigue migrando —es la <span class="hl">migración tipo II</span>— y, según lo dicho en clase, esta migración es <strong>más rápida</strong> que la tipo I: «Júpiter cae más rápido sobre la estrella que una Tierra». <em>Nota de cautela (material externo): en gran parte de la literatura la migración tipo II se describe como acoplada al tiempo viscoso y no necesariamente más rápida que la tipo I; lo robusto para esta clase es que los gigantes con surco migran rápido — en el escenario del Grand Tack, Júpiter migra en ~100.000 años.</em></p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-16.jpg" alt="Migración tipo II: simulaciones de Armitage y Rice 2005 mostrando un planeta de masa joviana abriendo un surco en el disco">
+    <figcaption><span class="cap">Diapositiva · Migración tipo II (~1 M<sub>Júp</sub>)</span>Simulaciones (Armitage &amp; Rice 2005): el gigante genera las mismas espirales del caso tipo I, pero además excava un surco profundo. Los recuadros muestran el perfil de densidad con el gap.</figcaption>
+  </figure>
+
+  <h3>El Grand Tack: el rebote que salvó a Júpiter (y nos salvó a nosotros)</h3>
+  <p>La hipótesis del <span class="hl">Grand Tack</span> (en la transcripción: «gran TAC», «decanta») arma la película completa:</p>
+  <ol class="steps">
+    <li>Lo primero que se forma en el sistema solar son los gigantes: <strong>Júpiter y Saturno</strong>.</li>
+    <li>Ambos migran <strong>hacia el Sol</strong>, rápido: ~100.000 años.</li>
+    <li>Cada uno lleva su propio surco. Al acercarse entre sí, <strong>el surco de Saturno se superpone con el de Júpiter</strong>.</li>
+    <li>Con los surcos superpuestos cambia el perfil de Σ(R) alrededor de Júpiter — y con él, el balance de torques: <strong>Júpiter deja de migrar hacia adentro y se devuelve</strong>. Se salvó de caer sobre el Sol.</li>
+    <li>Ese cambio de rumbo es el <em>tack</em> — término de navegación a vela: virar contra el viento.</li>
+  </ol>
+  <p>Las consecuencias para la arquitectura del sistema solar interior: al migrar hacia adentro y devolverse, los gigantes <strong>arrastraron y concentraron los sólidos</strong> de la región interna — el material que formó los <strong>planetas rocosos</strong> — y al devolverse <strong>empujaron</strong> a los gigantes de hielo hacia afuera. Es una de las piezas importantes para explicar la arquitectura del sistema solar, incluyendo por qué la región interior quedó tan compacta y con poca masa.</p>
+
+  <figure>
+    <img src="m3c4/assets/hidro-17.jpg" alt="Esquema del Grand Tack en cuatro paneles: Júpiter se forma, migra hacia adentro con Saturno en 100.000 años, rebota a los 300.000 años y a los 600.000 años el sistema queda con los gigantes afuera y los sólidos concentrados adentro">
+    <figcaption><span class="cap">Diapositiva · El Grand Tack, paso a paso</span>1: Júpiter se forma. 2 (+100.000 años): Júpiter y Saturno migran hacia adentro. 3 (+300.000 años): los surcos se superponen y ocurre el <em>tack</em> — migración invertida, concentrando planetesimales en la región interna. 4 (+600.000 años): los gigantes quedan afuera; el material interior concentrado formará los planetas rocosos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c4/assets/hidro-18.jpg" alt="Esquema con flechas del zigzag de Júpiter y Saturno entre 0 y 14 unidades astronómicas y el empuje de los gigantes de hielo hacia afuera">
+    <figcaption><span class="cap">Diapositiva · El zigzag en unidades astronómicas</span>Otra presentación de lo mismo: Júpiter (flecha roja) migra hacia adentro hasta ~1.5–2 au y rebota hacia afuera; Saturno (naranja) lo sigue; los gigantes de hielo (celeste) son empujados a radios mayores. Los puntos de la izquierda: los sólidos concentrados que formarán los telúricos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>El <em>tack</em> es un cambio de signo en la «función objetivo» del sistema: la dirección de migración es el signo de un torque neto que depende del estado global (el perfil Σ(R), que los propios planetas modifican al superponer surcos). Es un sistema con <strong>retroalimentación entre agentes y ambiente</strong>: los planetas alteran el disco, el disco decide hacia dónde migran los planetas. Predecir el resultado exige simulación acoplada — otro ejemplo de por qué esta «teoría» es física computacional.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>Quedó pendiente el <strong>porqué de la forma espiral</strong> de las ondas que levanta un planeta («vamos a ver un ratito el próximo viernes por qué estos planetas generan ondas espirales»). El Grand Tack quedó presentado hasta el rebote; el módulo sigue con más dinámica de discos.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-trampa">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Simulador de trampa de polvo: perfil de presión y deriva radial</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La curva es el perfil de presión P(r) (escala log-log). Los puntos dorados son granos de polvo que derivan según el signo local de dP/dr. Sube la amplitud del máximo local y mira cómo se convierte en atractor. El tamaño de grano controla cuán rápido derivan (máximo en St ≈ 1).</p>
+    <div class="wgrid">
+      <div>
+        <label for="tr-bump">Amplitud del máximo de presión: <span id="tr-bumplab"></span></label>
+        <input type="range" id="tr-bump" min="0" max="1.2" step="0.01" value="0">
+      </div>
+      <div>
+        <label for="tr-st">Tamaño de grano (número de Stokes): <span id="tr-stlab"></span></label>
+        <input type="range" id="tr-st" min="-3" max="3" step="0.05" value="0">
+      </div>
+    </div>
+    <div class="presets">
+      <button id="tr-reset">Reiniciar granos</button>
+      <button id="tr-liso">Disco liso (sin trampa)</button>
+      <button id="tr-trampa">Con trampa de polvo</button>
+    </div>
+    <canvas id="tr-canvas" width="900" height="380"></canvas>
+    <output id="tr-out"></output>
+  </div>
+
+  <div class="widget" id="w-deriva">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>¿Cuán rápido cae un grano? Deriva según tamaño</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve el tamaño del sólido y mira el régimen de acoplamiento y una escala de tiempo de deriva cualitativa, normalizada al mínimo de ~100 años para tamaños cm–m (según la clase). El modelo usa τ ∝ (St + 1/St): micrones acoplados y kilómetros balísticos sobreviven; el rango intermedio cae.</p>
+    <div class="presets" id="dv-presets">
+      <button data-s="-6">Grano de 1 μm</button>
+      <button data-s="-3">Arena de 1 mm</button>
+      <button data-s="-2">Roca de 1 cm</button>
+      <button data-s="0">Roca de 1 m</button>
+      <button data-s="3">Cuerpo de 1 km</button>
+    </div>
+    <label for="dv-s">Tamaño (log₁₀ metros): <span id="dv-slab"></span></label>
+    <input type="range" id="dv-s" min="-6.5" max="4" step="0.05" value="-2">
+    <output id="dv-out"></output>
+  </div>
+
+  <div class="widget" id="w-visc">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Evolución viscosa: el anillo que se desparrama (ecuación de difusión)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Integra en vivo la difusión de la densidad superficial Σ(r): un anillo angosto se desparrama por el roce viscoso, tal como en la diapositiva. El parámetro α controla la viscosidad (ν = αc<sub>s</sub>h) y por lo tanto la velocidad de la evolución: τ ~ r²/ν.</p>
+    <label for="vs-alpha">Parámetro α (log₁₀): <span id="vs-alphalab"></span></label>
+    <input type="range" id="vs-alpha" min="-4" max="-1" step="0.05" value="-2">
+    <div class="presets">
+      <button id="vs-reset">Reiniciar anillo</button>
+      <button id="vs-pause">Pausa / continuar</button>
+    </div>
+    <canvas id="vs-canvas" width="900" height="320"></canvas>
+    <output id="vs-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Rotación sub-kepleriana</b></td><td>El gas rota ~0.5% más lento que v<sub>K</sub> por su sustento de presión</td><td>Origina el viento de cara que frena a los sólidos</td></tr>
+      <tr><td><b>Deriva radial catastrófica</b></td><td>Rocas de 1 cm–1 m caen a la estrella en ~100 años (Weidenschilling, años 70)</td><td>Problema grave: sin solución, no hay material para planetas telúricos</td></tr>
+      <tr><td><b>Trampa de polvo radial</b></td><td>Máximo local de P(r): la deriva converge hacia él desde ambos lados</td><td>Solución a la deriva; los anillos de ALMA son trampas de polvo</td></tr>
+      <tr><td><b>Sedimentación</b></td><td>g<sub>z</sub> no compensada: el polvo cae al plano medio y crece (1 μm → ~1 cm)</td><td>Concentración vertical; explica discos delgados en mm y gruesos en IR</td></tr>
+      <tr><td><b>Inestabilidad de corriente</b></td><td>Filamentos de polvo (como pelotón de ciclistas) que colapsan por autogravedad</td><td>Mecanismo estándar de formación de planetesimales; solo se conoce por simulaciones</td></tr>
+      <tr><td><b>Criterio de clumping</b></td><td>Plano metalicidad Z vs. número de Stokes; Z<sub>☉</sub> ~ 1%, en trampas ~10%</td><td>Decide qué anillos pueden formar planetesimales (100 au sí, 67 au no)</td></tr>
+      <tr><td><b>Vórtice anticiclónico</b></td><td>Máximo de presión azimutal; nace de discontinuidades radiales</td><td>Trampa azimutal; las rocas grandes se concentran más (MWC 758 con VLA)</td></tr>
+      <tr><td><b>Viscosidad</b></td><td>F = AμV/y; ν = μ/ρ; torque por Kepler shear entre anillos</td><td>Frena el anillo interno, acelera el externo: exporta momento angular</td></tr>
+      <tr><td><b>Evolución viscosa</b></td><td>El disco se desparrama (difusión); estacionario: νΣ ∝ Ṁ</td><td>Explica cómo el gas pierde momento angular y acreta sobre la estrella</td></tr>
+      <tr><td><b>Disco α</b></td><td>ν = αc<sub>s</sub>h con α ~ 0.01 (Shakura &amp; Sunyaev 1973)</td><td>La viscosidad molecular daría τ ~ 1000 Gyr; la turbulencia (MRI) la reemplaza</td></tr>
+      <tr><td><b>Calentamiento viscoso</b></td><td>T ∝ r<sup>−3/4</sup> (vs. r<sup>−1/2</sup> radiativo); domina a radios chicos</td><td>Brotes de acreción corren la línea de nieve: V883 Ori, de ~5 a 50–100 au</td></tr>
+      <tr><td><b>Migración tipo I</b></td><td>~10 M<sub>⊕</sub>: la espiral externa (más masiva si Σ decae) frena al planeta</td><td>El planeta cae hacia la estrella; máximos de Σ(R) son trampas de planetas</td></tr>
+      <tr><td><b>Migración tipo II</b></td><td>≥ ~1 M<sub>Júp</sub>: el planeta abre surco (torque vs. viscosidad) y migra con él</td><td>Los gigantes migran rápido (~100.000 años en el Grand Tack)</td></tr>
+      <tr><td><b>Grand Tack</b></td><td>Júpiter y Saturno migran hacia adentro; los surcos se superponen y Júpiter rebota</td><td>Explica la arquitectura del sistema solar interior y concentró los sólidos de los rocosos</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c4-examen-01.html">Examen 01<small>Rotación sub-kepleriana</small></a></li>
+    <li><a href="m3c4-examen-02.html">Examen 02<small>Deriva catastrófica</small></a></li>
+    <li><a href="m3c4-examen-03.html">Examen 03<small>Trampas de polvo radiales</small></a></li>
+    <li><a href="m3c4-examen-04.html">Examen 04<small>Sedimentación y crecimiento</small></a></li>
+    <li><a href="m3c4-examen-05.html">Examen 05<small>Inestabilidad de corriente</small></a></li>
+    <li><a href="m3c4-examen-06.html">Examen 06<small>Vórtices anticiclónicos</small></a></li>
+    <li><a href="m3c4-examen-07.html">Examen 07<small>Viscosidad y torques</small></a></li>
+    <li><a href="m3c4-examen-08.html">Examen 08<small>Discos α y MRI</small></a></li>
+    <li><a href="m3c4-examen-09.html">Examen 09<small>Calentamiento y línea de nieve</small></a></li>
+    <li><a href="m3c4-examen-10.html">Examen 10<small>Migración y Grand Tack</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo III del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Simón Casassus, julio 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m3/ff/planetas-m3c4.md</code>) y las diapositivas <code>Modulo_III_-Clase_2__trampas_de_polvo.pdf</code> y <code>Modulo_III_-Clase_3a__hidrodinamica_de_discos.pdf</code> (la numeración de los PDF no coincide con la de las clases).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «chapa/champa de polvo» → trampa de polvo; «Biden Schilling» → Weidenschilling; «constante de Poisson» → constante de Boltzmann; «número de Stoops» → número de Stokes; «inestabilidad de corriente/interioridad de corriente» → inestabilidad de corriente (streaming instability); «la Sphere en el vértigo» → SPHERE en el VLT; «B. Sagitario» → V4046 Sgr; «el BA / el BDA» → el VLA; «Bhorita normal» → V883 Ori; «patatú/brote de a presión, nutrition burst» → brote de acreción (accretion burst); «temperatura de circulación del agua» → temperatura de sublimación del agua; «huevo filtro/fito» → huevo frito; «Shakura en el señor 73» → Shakura &amp; Sunyaev 1973; «inestabilidad más que todo correlacional» → inestabilidad magneto-rotacional (MRI); «momento molecular» → momento angular; «Vladimir Laira» → Wladimir Lyra; «planetas humanos / planes decimales / grandes decimales» → planetesimales; «másterrestres» → masas terrestres; «masa termal» → masa térmica; «1000 G» → 1000 Gyr; «gran TAC / decanta» → (Grand) Tack. La frase inicial «Fundación Trinitaria» parece un error de reconocimiento en conversación logística sin contenido de la clase y se omitió. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: trampa de polvo ----
+(function(){
+  var canvas = document.getElementById('tr-canvas'), ctx = canvas.getContext('2d');
+  var bumpS = document.getElementById('tr-bump'), stS = document.getElementById('tr-st');
+  var bumpLab = document.getElementById('tr-bumplab'), stLab = document.getElementById('tr-stlab');
+  var out = document.getElementById('tr-out');
+  var W = canvas.width, H = canvas.height;
+  var X0 = 0, X1 = 1;              // coordenada logarítmica del radio
+  var RB = 0.55, SB = 0.06;        // posición y ancho del bump
+  var N = 46, grains = [];
+
+  function logP(x){ // ln P vs x (x = log r): ley de potencia + bump gaussiano
+    var n = 2.5;
+    return -n*x*2.0 + parseFloat(bumpS.value)*Math.exp(-Math.pow((x-RB)/SB,2)/2);
+  }
+  function dlogP(x){ var h=1e-4; return (logP(x+h)-logP(x-h))/(2*h); }
+
+  function resetGrains(){
+    grains = [];
+    for(var i=0;i<N;i++) grains.push({x: X0+0.03+(X1-X0-0.06)*i/(N-1), dead:false});
+  }
+  function px(x){ return 30 + (x-X0)/(X1-X0)*(W-50); }
+  function py(v, vmin, vmax){ return H-38 - (v-vmin)/(vmax-vmin)*(H-80); }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // ejes
+    ctx.strokeStyle="#26324a"; ctx.lineWidth=1;
+    ctx.strokeRect(30, 12, W-50, H-50);
+    ctx.fillStyle="#9aa6bb"; ctx.font="13px Spectral, serif";
+    ctx.fillText("log r →", W-90, H-14);
+    ctx.save(); ctx.translate(16, H/2); ctx.rotate(-Math.PI/2); ctx.fillText("log P →", -24, 0); ctx.restore();
+    // curva P
+    var vals=[], vmin=1e9, vmax=-1e9;
+    for(var i=0;i<=200;i++){ var x=X0+(X1-X0)*i/200, v=logP(x); vals.push([x,v]); if(v<vmin)vmin=v; if(v>vmax)vmax=v; }
+    vmin-=0.3; vmax+=0.3;
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=2; ctx.beginPath();
+    vals.forEach(function(p,i){ var X=px(p[0]), Y=py(p[1],vmin,vmax); if(i===0)ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+    ctx.stroke();
+    // marca del máximo local si hay bump
+    if(parseFloat(bumpS.value)>0.12){
+      ctx.strokeStyle="#e0382e"; ctx.setLineDash([5,5]); ctx.beginPath();
+      ctx.moveTo(px(RB),12); ctx.lineTo(px(RB),H-38); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle="#f06a5e"; ctx.fillText("máx. local de P", px(RB)-42, 26);
+    }
+    // estrella
+    ctx.fillStyle="#ffd34d"; ctx.beginPath(); ctx.arc(30, H-38, 6, 0, 7); ctx.fill();
+    ctx.fillStyle="#9aa6bb"; ctx.fillText("★ estrella", 36, H-42);
+    // granos
+    grains.forEach(function(g){
+      if(g.dead) return;
+      var Y = py(logP(g.x),vmin,vmax);
+      ctx.fillStyle="#d9a74a"; ctx.beginPath(); ctx.arc(px(g.x), Y-8, 3.4, 0, 7); ctx.fill();
+    });
+  }
+  function step(){
+    var st = Math.pow(10, parseFloat(stS.value));
+    var eff = st/(1+st*st);   // acoplamiento: máximo en St=1
+    var alive = 0, trapped = 0, lost = 0;
+    grains.forEach(function(g){
+      if(g.dead){ lost++; return; }
+      g.x += 0.0016 * dlogP(g.x) * (eff/0.5);
+      if(g.x <= X0){ g.dead = true; lost++; return; }
+      if(g.x > X1) g.x = X1;
+      alive++;
+      if(Math.abs(g.x-RB) < 0.02 && parseFloat(bumpS.value)>0.12) trapped++;
+    });
+    out.innerHTML = "<span class='k'>Granos vivos</span>: <b>"+alive+"</b> · atrapados cerca del máximo: <b>"+trapped+"</b> · caídos en la estrella: <b style='color:var(--red-soft)'>"+lost+"</b><br>"+
+      (parseFloat(bumpS.value)>0.12
+        ? "Con trampa: el polvo converge al máximo de presión desde ambos lados — es un atractor."
+        : "Disco liso: dP/dr &lt; 0 en todas partes ⇒ deriva monótona hacia la estrella (la <b>deriva radial catastrófica</b>).");
+    draw();
+  }
+  function labels(){
+    bumpLab.textContent = parseFloat(bumpS.value).toFixed(2)+(parseFloat(bumpS.value)>0.12?" (trampa activa)":" (sin trampa)");
+    var st = Math.pow(10, parseFloat(stS.value));
+    stLab.textContent = "St ≈ "+(st>=1? st.toFixed(1) : st.toPrecision(2))+(Math.abs(parseFloat(stS.value))<0.3?" — deriva máxima":"");
+  }
+  bumpS.addEventListener('input', labels);
+  stS.addEventListener('input', labels);
+  document.getElementById('tr-reset').addEventListener('click', resetGrains);
+  document.getElementById('tr-liso').addEventListener('click', function(){ bumpS.value=0; labels(); resetGrains(); });
+  document.getElementById('tr-trampa').addEventListener('click', function(){ bumpS.value=0.9; labels(); resetGrains(); });
+  resetGrains(); labels();
+  setInterval(step, 40);
+})();
+
+// ---- Widget 2: deriva según tamaño ----
+(function(){
+  var s = document.getElementById('dv-s'), lab = document.getElementById('dv-slab'), out = document.getElementById('dv-out');
+  function fmtSize(m){
+    if(m < 1e-3) return (m*1e6).toPrecision(2)+" μm";
+    if(m < 1) return (m*100).toPrecision(2)+" cm";
+    if(m < 1000) return m.toPrecision(2)+" m";
+    return (m/1000).toPrecision(2)+" km";
+  }
+  function fmtYears(y){
+    if(y >= 1e9) return (y/1e9).toLocaleString('es-CL',{maximumFractionDigits:1})+" mil millones de años";
+    if(y >= 1e6) return (y/1e6).toLocaleString('es-CL',{maximumFractionDigits:1})+" millones de años";
+    if(y >= 1e3) return Math.round(y).toLocaleString('es-CL')+" años";
+    return Math.round(y)+" años";
+  }
+  function calc(){
+    var size = Math.pow(10, parseFloat(s.value)); // metros
+    lab.textContent = fmtSize(size);
+    var st = size / 0.3;             // St ~ 1 en ~30 cm (calibración cualitativa)
+    var tau = 100 * 0.5*(st + 1/st); // mínimo ~100 yr en St=1
+    var regimen, nota;
+    if(st < 0.01){ regimen = "acoplado al gas";
+      nota = "El grano se mueve <b>con</b> el gas: casi no siente viento relativo y su deriva propia es lentísima (aunque sigue al gas donde éste vaya)."; }
+    else if(st > 100){ regimen = "límite balístico";
+      nota = "El cuerpo recoge más roce por su tamaño, pero su masa crece aún más rápido: el viento le es irrelevante y orbita como un planetita."; }
+    else { regimen = "acoplamiento marginal (St ~ 1): régimen crítico";
+      nota = "El peor rango: demasiado grande para seguir al gas, demasiado chico para ignorarlo. Es la ventana de la <b>deriva radial catastrófica</b> — y también la que más se beneficia de una trampa de polvo."; }
+    out.innerHTML = "<span class='k'>Tamaño</span>: <b>"+fmtSize(size)+"</b> · <span class='k'>St</span> ≈ <b>"+(st<0.01? st.toExponential(1) : st>=100 ? st.toExponential(1) : st.toPrecision(2))+"</b><br>"+
+      "<span class='k'>Régimen</span>: <b>"+regimen+"</b><br>"+
+      "<span class='k'>Escala de deriva (cualitativa)</span>: ~<b>"+fmtYears(tau)+"</b><br>→ "+nota+
+      "<br><small style='color:var(--muted)'>Modelo pedagógico: τ ∝ (St + 1/St), normalizado a ~100 años para cm–m según la clase. La relación St↔tamaño depende de la densidad del gas y del radio en el disco.</small>";
+  }
+  s.addEventListener('input', calc);
+  document.querySelectorAll('#dv-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ s.value = btn.dataset.s; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: difusión viscosa ----
+(function(){
+  var canvas = document.getElementById('vs-canvas'), ctx = canvas.getContext('2d');
+  var aS = document.getElementById('vs-alpha'), aLab = document.getElementById('vs-alphalab');
+  var out = document.getElementById('vs-out');
+  var W = canvas.width, H = canvas.height;
+  var M = 240, sigma = new Array(M), time = 0, paused = false;
+
+  function reset(){
+    time = 0;
+    for(var i=0;i<M;i++){
+      var x = i/(M-1);
+      sigma[i] = Math.exp(-Math.pow((x-0.5)/0.03,2)/2);
+    }
+  }
+  function alpha(){ return Math.pow(10, parseFloat(aS.value)); }
+  function stepDiff(){
+    // difusión explícita; D escala con alpha (paso fijo, sub-iteraciones para estabilidad CFL)
+    var D = alpha()/0.01 * 0.18, dt = 0.2, nsub = Math.max(1, Math.ceil(D*dt/0.4));
+    var ddt = dt/nsub;
+    for(var k=0;k<nsub;k++){
+      var nu = sigma.slice();
+      for(var i=1;i<M-1;i++) nu[i] = sigma[i] + D*ddt*(sigma[i+1]-2*sigma[i]+sigma[i-1]);
+      nu[0]=0; nu[M-1]=nu[M-2]*0.98; // borde interno: cae a la estrella
+      sigma = nu;
+    }
+    time += dt;
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle="#26324a"; ctx.strokeRect(30,12,W-50,H-50);
+    ctx.fillStyle="#9aa6bb"; ctx.font="13px Spectral, serif";
+    ctx.fillText("r / r₀ →", W-90, H-14);
+    ctx.save(); ctx.translate(16,H/2); ctx.rotate(-Math.PI/2); ctx.fillText("Σ →", -12, 0); ctx.restore();
+    ctx.fillStyle="#ffd34d"; ctx.beginPath(); ctx.arc(30,H-38,6,0,7); ctx.fill();
+    ctx.strokeStyle="#d9a74a"; ctx.lineWidth=2; ctx.beginPath();
+    var max = Math.max.apply(null, sigma) || 1;
+    for(var i=0;i<M;i++){
+      var X = 30+(W-50)*i/(M-1), Y = H-38-(H-84)*sigma[i]/Math.max(max,0.15);
+      if(i===0)ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
+    }
+    ctx.stroke();
+    var tauMyr = 0.01/alpha(); // τ ~ 1 Myr para α = 0.01 (calibración de la clase)
+    out.innerHTML = "<span class='k'>α</span> = <b>"+alpha().toExponential(1)+"</b> · <span class='k'>τ ~ r²/ν escalada</span>: <b>"+
+      (tauMyr>=1? tauMyr.toLocaleString('es-CL',{maximumFractionDigits:1})+" Myr" : Math.round(tauMyr*1000).toLocaleString('es-CL')+" mil años")+
+      "</b> (referencia: α = 0.01 ⇒ ~1 Myr)<br>"+
+      "El anillo se desparrama: parte de la masa fluye hacia la estrella (pierde momento angular) y otra parte a radios grandes (se lo lleva). Con viscosidad molecular (α equivalente ~10⁻⁷) esto tomaría ~1000 Gyr.";
+  }
+  function loop(){ if(!paused){ stepDiff(); draw(); } requestAnimationFrame(loop); }
+  function labels(){ aLab.textContent = "α = "+alpha().toExponential(1); }
+  aS.addEventListener('input', function(){ labels(); });
+  document.getElementById('vs-reset').addEventListener('click', reset);
+  document.getElementById('vs-pause').addEventListener('click', function(){ paused = !paused; });
+  reset(); labels(); loop();
+})();
+</script>
+</body>
+</html>

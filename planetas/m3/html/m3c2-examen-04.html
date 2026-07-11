@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 04 — m3c2 · Escalas de tiempo: caída libre y Kelvin-Helmholtz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo III · Clase 2</span>
+<h1>Examen 04 — Escalas de tiempo: caída libre y Kelvin-Helmholtz</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,c,a">
+  <fieldset data-q="1"><legend>1. El tiempo de caída libre τ<sub>ff</sub> = √(3π/32Gρ) depende de:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La masa y el radio de la nube por separado</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Solo la constante de gravitación y la densidad</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La temperatura y la composición química</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La velocidad de rotación de la nube</label>
+    <p class="fb" hidden>Es lo notable de la fórmula: ni M ni R aparecen por separado, solo su combinación en la densidad ρ. Densidades altas ⇒ colapsos rápidos.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Según las diapositivas, una nube de 1 M☉ con la densidad crítica colapsa de 7000 au a 1 au en aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">10 millones de años</label>
+    <label class="opt"><input type="radio" name="q2" value="b">1.000 millones de años</label>
+    <label class="opt"><input type="radio" name="q2" value="c">20.000 años</label>
+    <label class="opt"><input type="radio" name="q2" value="d">30 minutos</label>
+    <p class="fb" hidden>~20.000 años (~10⁴ yr): un suspiro astronómico. Los 10 Myr corresponden a la contracción de Kelvin-Helmholtz posterior; los ~30 minutos serían el τ<sub>ff</sub> para la densidad promedio del Sol.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Durante la etapa de Kelvin-Helmholtz, ¿qué mantiene el brillo de la protoestrella?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">La pérdida de energía potencial gravitacional a medida que se contrae</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La fusión de hidrógeno en su núcleo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El calor residual del colapso en caída libre, que se agota gradualmente</label>
+    <label class="opt"><input type="radio" name="q3" value="d">La acreción de material del medio interestelar circundante</label>
+    <p class="fb" hidden>Punto destacado explícitamente en clase (hubo una pregunta al respecto): el brillo se mantiene gracias a la pérdida de energía gravitacional. La pelota se contrae lentamente y esa contracción alimenta su luminosidad. La fusión aún no se enciende.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica por qué la contracción de Kelvin-Helmholtz (~10⁷ años) es tanto más lenta que el colapso en caída libre de la nube molecular (~10⁴ años), en términos de la capacidad de cada objeto para disipar energía.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La diferencia está en la <strong>opacidad</strong>. La nube molecular es transparente: cada elemento de volumen radia directamente al espacio a través de los granos de polvo, así que la energía gravitacional liberada se disipa de inmediato y nada frena la caída — el colapso ocurre a la velocidad de la gravedad misma, el tiempo de caída libre. La protoestrella ionizada, en cambio, es <strong>opaca a su propia radiación</strong>: un fotón del interior rebota muchísimas veces antes de llegar a la superficie, y la pérdida de energía queda limitada a la luminosidad superficial de cuerpo negro, L = 4πR²σT⁴. La contracción solo puede avanzar al ritmo al que esa superficie logra evacuar energía: τ<sub>KH</sub> ≈ E<sub>G</sub>/L ≈ GM²/(RL) ~ 10⁷ años. En resumen: caída libre = «radiador perfecto», sin freno; Kelvin-Helmholtz = «radiador tapado», drenaje lento por la superficie — tres órdenes de magnitud de diferencia.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. El profesor calculó el tiempo de caída libre usando la densidad promedio del Sol (~1 tonelada/m³) y obtuvo un valor cortísimo, aclarando que el Sol obviamente no está en caída libre. ¿Qué ilustra este ejemplo y por qué el Sol no colapsa en esa escala de tiempo?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El ejemplo ilustra la <strong>sensibilidad de τ<sub>ff</sub> a la densidad</strong>: como τ<sub>ff</sub> ∝ 1/√ρ, la densidad estelar (~10³ kg/m³, parecida a la del agua; es la masa del Sol dividida por su volumen, aunque el centro es mucho más denso) da un tiempo de caída libre de fracciones de hora — comparado con los ~20.000 años del fragmento de nube, cuya densidad es enormemente menor. El Sol no colapsa porque <strong>no está en caída libre</strong>: está en <strong>equilibrio hidrostático</strong>, con el gradiente de presión térmica (sostenida hoy por la fusión nuclear) balanceando exactamente a la gravedad en cada capa. El tiempo de caída libre solo aplicaría si esa presión desapareciera de golpe. La lección: τ<sub>ff</sub> mide qué tan rápido ganaría la gravedad <em>sin oposición</em>; los objetos estables viven en escalas de tiempo mucho más largas fijadas por otros procesos (radiación, combustible nuclear).</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Planetas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

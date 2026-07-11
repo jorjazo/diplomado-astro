@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuestra dirección cósmica: el entorno galáctico del Sol y el criterio de Jeans — Astrofísica de Planetas, Módulo III · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.stagebar{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+.stagebar button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;font-family:"Fraunces",serif;flex:1 1 auto;min-width:104px}
+.stagebar button.active{border-color:var(--red);background:#26141a;color:var(--red-soft)}
+.scaleviz{position:relative;height:70px;margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#070d18}
+.scaleviz .dot{position:absolute;top:18px;width:12px;height:12px;border-radius:50%;background:#33507a;
+  transform:translateX(-50%);cursor:pointer;transition:.15s}
+.scaleviz .dot.active{background:var(--red);box-shadow:0 0 14px -2px var(--red)}
+.scaleviz .axis{position:absolute;left:2%;right:2%;top:23px;height:2px;background:#1a2438;z-index:0}
+.scaleviz .lab{position:absolute;bottom:6px;font-size:.66rem;color:var(--muted);transform:translateX(-50%);font-family:"Fraunces",serif}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo III · Clase 1</span>
+  <h1>Nuestra dirección cósmica: el entorno galáctico del Sol y el <em>criterio de Jeans</em></h1>
+  <p class="sub">Antes de hablar de cómo nacen los planetas hay que saber dónde estamos: del viento solar y la heliopausa a la burbuja local, las nubes oscuras donde nacen las estrellas, y el primer criterio físico de la formación estelar — la masa de Jeans, con el Saco de Carbón como ejemplo con números.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Simón Casassus</span>
+    <span><b>Curso:</b> Astrofísica de Planetas · U. de Chile</span>
+    <span><b>Fecha:</b> julio 2026</span>
+    <span><b>Estructura:</b> «Clase 0» (entorno galáctico) + inicio de la Clase 1 (colapso gravitacional)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a formación planetaria es un área de investigación <span class="hl">viva</span>: no existe todavía «el libro» de la disciplina (a diferencia de la evolución estelar), y floreció con el Observatorio <strong>ALMA</strong> — construido principalmente para eso. En esta primera sesión el profesor decidió partir con una «clase 0»: antes de mostrar regiones de formación estelar, responder la pregunta que todo el mundo se hace primero: <em>¿dónde está todo eso? ¿A qué distancia?</em> El viaje va de adentro hacia afuera — corona solar, viento solar, heliopausa, medio interestelar, burbuja local, nubes oscuras — y termina aterrizando en la física que abre el módulo: ¿cuándo una nube de gas se cae bajo su propio peso?</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Una «clase 0»: por qué partir aquí</a></li>
+    <li><a href="#s2">La corona solar: eclipses y protuberancias</a></li>
+    <li><a href="#s3">El viento solar y la espiral de Arquímedes</a></li>
+    <li><a href="#s4">Cometas: dos colas que delatan al viento</a></li>
+    <li><a href="#s5">La heliosfera: donde termina el sistema solar</a></li>
+    <li><a href="#s6">¿Qué hay afuera? Cartografía del gas local</a></li>
+    <li><a href="#s7">La burbuja local: de bocetos a Gaia</a></li>
+    <li><a href="#s8">Supernovas, escultoras del medio interestelar</a></li>
+    <li><a href="#s9">El Sol viajero: movimiento epicíclico</a></li>
+    <li><a href="#s10">Donde nacen estrellas (y planetas): Ofiuco</a></li>
+    <li><a href="#s11">Clase 1: colapso gravitacional y masa de Jeans</a></li>
+    <li><a href="#s12">El Saco de Carbón: un ejemplo con números</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Una «clase 0»: por qué partir aquí</h2>
+    <p>Formación planetaria = formación estelar, pero primero: ¿dónde ocurre todo esto?</p>
+  </div></div>
+
+  <p>El módulo trata sobre el <strong>origen de los planetas</strong>. Dos advertencias de entrada del profesor:</p>
+  <ul>
+    <li>Es un <span class="hl">tema de investigación activo</span>: «nada está escrito en piedra», hay cabos sueltos y algunas contradicciones. La teoría de estructura y evolución estelar se consolidó en el siglo XX y tiene libros de texto establecidos; la formación planetaria no.</li>
+    <li>El área <strong>floreció con ALMA</strong> (Atacama Large Millimeter/submillimeter Array): fue la principal razón por la cual se construyó ese observatorio, y los resultados cambian todos los años.</li>
+  </ul>
+
+  <p>Los planetas <strong>se forman junto con sus estrellas</strong>, así que un curso de formación planetaria parte inevitablemente por formación estelar. Pero la primera pregunta del público siempre es de <em>ubicación</em>: ¿dónde están esas regiones de formación estelar, a qué distancia? De ahí esta «clase 0» sobre el <span class="hl">entorno galáctico del Sol</span>: construir puntos de referencia, de lo más cercano a lo más lejano.</p>
+
+  <div class="box prof">
+    <span class="tag">Contexto del profesor</span>
+    <p>La primera vez que dictó el curso partió directo con la clase 1, pero las preguntas de los estudiantes lo convencieron de que había que partir por ubicarse. Esta sesión cubre esa clase 0 completa y alcanza a abrir la clase 1 (colapso gravitacional).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática (inferencia propia)</span>
+    <p>La clase 0 es como resolver la <em>jerarquía de memoria</em> de un sistema antes de optimizarlo: no puedes razonar sobre los procesos (formación de planetas) sin saber primero en qué «nivel» ocurre cada cosa y cuántos órdenes de magnitud separan un nivel del siguiente. Aquí los niveles van desde 1 unidad astronómica hasta kiloparsecs — y como en la jerarquía de memoria, cada salto es multiplicativo, no aditivo.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>La corona solar: eclipses, manchas y protuberancias</h2>
+    <p>Los «pétalos» que se ven en un eclipse total son la raíz del viento solar.</p>
+  </div></div>
+
+  <p>La clase partió con imágenes de <strong>eclipses totales de Sol</strong> — La Serena 2019, Putre 1994, Hungría 1999, Rapa Nui 2010 —, porque en un eclipse destaca la <span class="hl">corona solar</span>: esos pétalos gigantes que se extienden mucho más allá del disco solar. La forma de la corona cambia de un eclipse a otro: en el máximo del ciclo solar es grande y estructurada; en un mínimo (como el 2019 en La Serena) es pequeñita, y la totalidad se ve más oscura.</p>
+
+  <h3>De la mancha solar a la protuberancia</h3>
+  <ol class="steps">
+    <li>Las <span class="hl">manchas solares</span> son regiones frías de la fotosfera, producto de fenómenos complejos de <strong>magnetohidrodinámica (MHD)</strong> que aún no se comprenden bien y que siguen el ciclo solar de ~11 años.</li>
+    <li>En su vecindad se forman <strong>arcos de gas ionizado</strong> amarrados por líneas de campo magnético (se observan p. ej. a 171 Å, y en He <small>II</small> a 304 Å — helio ionizado una vez; en notación astronómica He&nbsp;I es neutro y He&nbsp;II ionizado).</li>
+    <li>Esos arcos contienen gas a <strong>~10⁶ K</strong> — mucho más caliente que la fotosfera — bajo presión, confinado magnéticamente. Los arcos se estiran y crecen en horas o días hasta superar el tamaño de la Tierra… y se <strong>rompen</strong>.</li>
+  </ol>
+
+  <div class="box prof">
+    <span class="tag">Analogía del profesor: la manguera</span>
+    <p>Una protuberancia que revienta es como <strong>cortar una manguera a presión</strong>: sale un chorro disparado y la manguera «se vuelve loca». El chorro de gas caliente eyectado desde la mancha solar es el origen de las eyecciones de masa — y de los pétalos que vemos en los eclipses.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El viento solar y la espiral de Arquímedes</h2>
+    <p>El Sol rota mientras eyecta: los chorros se enrollan.</p>
+  </div></div>
+
+  <p>Como el Sol <strong>rota</strong> mientras eyecta material, los chorros no salen en línea recta radial: se van «arrastrando» y forman una <span class="hl">espiral de Arquímedes</span>. La analogía de la clase: si giras sobre tu propio eje con la manguera del jardín abierta, el chorro dibuja una espiral. Los pétalos de la corona son la raíz de ese flujo: el <span class="hl">viento solar</span>.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-01.jpg" alt="Corte meridional del viento solar: velocidad en km/s según latitud solar">
+    <figcaption><span class="cap">Diapositiva · Corte meridional del viento solar</span>Velocidad del viento según latitud, en km/s. En las regiones polares el viento escapa a velocidades del orden de <strong>~700–1000 km/s</strong> (la diapositiva cita mediciones satelitales de v ∼ 700 km/s en la vecindad terrestre). Punto de comparación de la clase: un punto en la superficie de la Tierra se mueve a ~1 km/s por la rotación terrestre — el viento va cientos de veces más rápido.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Idea clave</span>
+    <p>El viento solar <strong>permea todo el sistema solar</strong> y va de la mano con el campo magnético solar: el viento sigue las líneas de campo y al mismo tiempo las transporta. En un máximo solar la estructura se infla; en un mínimo se contrae — respira con el ciclo de 11 años. En ese sentido, la Tierra está <em>dentro de la atmósfera extendida del Sol</em>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril (inferencia propia)</span>
+    <p>La espiral de Arquímedes (r ∝ θ) aparece en cualquier emisor rotante con flujo radial constante — el mismo patrón del aspersor de jardín o de un cabezal de impresión sobre un disco girando. En heliofísica se le llama <em>espiral de Parker</em>: conocer su geometría importa para pronosticar «clima espacial», porque define cuándo una eyección de masa coronal intersecta la órbita terrestre.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cometas: dos colas que delatan al viento solar</h2>
+    <p>Hale-Bopp y McNaught como sondas naturales del sistema solar.</p>
+  </div></div>
+
+  <p>Todo cometa clásico tiene <strong>dos colas</strong>, y cada una revela un mecanismo físico distinto:</p>
+  <ul>
+    <li>La <span class="hl">cola iónica</span>: partículas del viento solar arrastran material del cometa por roce; la cola sigue las líneas del campo magnético solar (que se van enrollando) y <strong>emite en líneas espectrales</strong> — por eso se ve de color distinto (azulada).</li>
+    <li>La <span class="hl">cola de polvo</span>: la <strong>presión de radiación</strong> del Sol empuja los «copitos de nieve» y granos del cometa. Los fotones llevan <em>momentum lineal</em>: al chocar con el polvo, lo arrastran. Esta cola se ve blanca porque simplemente <strong>refleja</strong> la luz solar.</li>
+  </ul>
+  <p>En un punto dado de la órbita, el viento solar apunta en una dirección y la radiación en otra: por eso las dos colas se separan.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-02.jpg" alt="Cometa Hale-Bopp con sus dos colas: iónica azul y de polvo blanca">
+    <figcaption><span class="cap">Diapositiva · Hale-Bopp</span>El cometa Hale-Bopp (descubierto en 1995), con la cola iónica (azul, arrastrada por el viento solar) y la cola de polvo (blanca, empujada por presión de radiación). El profesor lo vio desde Londres: brillaba comparable a la Luna llena y se distinguía en plena ciudad.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Anécdota chilena</span>
+    <p>El cometa <strong>McNaught (2007)</strong> sí se pudo ver desde Chile, al anochecer (el profesor lo vio desde Farellones; hay una foto tomada desde Paranal en las diapositivas). Menos luminoso que Hale-Bopp pero con una cola que cruzaba el cielo completo: <strong>varias unidades astronómicas de largo</strong>. Moraleja: el viento solar arrastra material cometario a escalas que no son un detalle — son estructuras mayores del sistema solar.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La heliosfera: donde termina el sistema solar</h2>
+    <p>Una burbuja magnética que nos protege — y define la frontera.</p>
+  </div></div>
+
+  <p>El viento solar (con su campo magnético a cuestas) actúa como una <span class="hl">barredora</span> (<em>snowplow</em>): despeja el material de la vecindad del Sol y crea una cavidad — la <span class="hl">heliosfera</span>. Sus fronteras:</p>
+  <ul>
+    <li><span class="hl">Termination shock</span> (choque de terminación): la esfera interior, donde el viento solar se frena bruscamente.</li>
+    <li><span class="hl">Heliopausa</span>: donde se acaba la influencia del campo magnético solar. Entre ambas hay una región de transición (<em>heliosheath</em>).</li>
+    <li>Como el Sol <strong>se mueve</strong> relativo al gas de afuera, se forma además una onda de choque de proa (<em>bow shock</em>) — como la de un bote avanzando en el agua.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c1/assets/slide-03.jpg" alt="Esquema de la heliosfera con termination shock, heliopausa, bow shock y las sondas Voyager 1 y 2">
+    <figcaption><span class="cap">Diapositiva · La heliosfera y las Voyager</span>Impresión de artista: el termination shock, la heliopausa y el bow shock, con las trayectorias de <strong>Voyager 1 y 2</strong> — las únicas sondas humanas que han cruzado el choque de terminación y salido del sistema solar en este sentido (hace ~una década).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Idea contraintuitiva</span>
+    <p>El espacio <strong>entre Urano y Neptuno es mucho más vacío</strong> que el exterior de la heliopausa. Afuera de la burbuja ya no hay «vacío del sistema solar»: hay <em>gas interestelar</em>, más denso. La frontera del sistema solar no es el último planeta, sino donde cambian las condiciones físicas (temperatura, densidad, composición).</p>
+  </div>
+
+  <h3>¿Y la nube de Oort?</h3>
+  <p>La <span class="hl">nube de Oort</span> es una <strong>hipótesis</strong> — nadie la ha observado directamente. Representa un conjunto de cometas de muy largo período, ligados gravitacionalmente al Sol pero que <em>viven fuera del sistema solar</em> en el sentido físico: las condiciones donde están (temperatura, densidad, química) son las del medio interestelar. Analogía de la clase: un satélite en órbita terrestre sigue ligado a la Tierra, pero no está <em>en</em> la Tierra — la Tierra se acaba donde termina su atmósfera.</p>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>¿Qué hay justo afuera? Cartografía del gas local</h2>
+    <p>Espectroscopía + efecto Doppler = un mapa del gas entre las estrellas.</p>
+  </div></div>
+
+  <p>Podemos cartografiar el sistema solar planeta por planeta, pero al cruzar la heliopausa la pregunta es: <em>¿cuál es el entorno galáctico del Sol?</em> La herramienta clásica (años 90) es la <span class="hl">espectroscopía de absorción</span>:</p>
+  <ol class="steps">
+    <li>Se observa una estrella cercana (p. ej. <strong>Alfa Centauri</strong>, la más cercana, a ~4,4 años luz) con un espectrógrafo.</li>
+    <li>El gas interestelar entre nosotros y la estrella imprime <strong>rasgos de absorción estrechos</strong> en el espectro.</li>
+    <li>Cada rasgo aparece corrido en longitud de onda según la velocidad radial de la nube que lo produce (<span class="hl">efecto Doppler</span> — igual que Hα a 6563 Å o Hβ a 4861 Å se corren si el gas se mueve).</li>
+    <li>Si hacia Alfa Centauri se ven <strong>dos rasgos a dos velocidades</strong> (del orden de unos pocos km/s de diferencia), se infieren <strong>dos nubes</strong> en esa línea de visión. Se repite hacia Sirio, Proción, Altair… y se triangula.</li>
+  </ol>
+
+  <figure>
+    <img src="m3c1/assets/slide-04.jpg" alt="Mapa a mano alzada de los años 90 de la nube ionizada local vista desde el polo galáctico">
+    <figcaption><span class="cap">Diapositiva · El boceto de los años 90</span>Mapa «a mano alzada» del gas local (plano galáctico visto desde arriba; el centro galáctico hacia la derecha). Con los rasgos de absorción hacia las estrellas vecinas se dibujaron los límites de la <strong>nube ionizada local</strong> (Local Interstellar Cloud). La transcripción atribuye el trabajo a un astrónomo francés «Roger», muy probablemente <em>Roger Ferlet</em> (colaborador de R. Lallement y coautor del descubrimiento del primer planeta en evaporación) — identificación probable, no confirmada en la diapositiva.</figcaption>
+  </figure>
+
+  <h3>El Sol se mueve, la nube casi no</h3>
+  <p>En estos mapas aparece un vector clave: la <strong>velocidad del Sol relativa al baricentro de las estrellas vecinas</strong> (el promedio de velocidades de las estrellas dentro de ~10 parsec, reconstruido con espectroscopía y movimientos propios). El Sol no está quieto: se mueve respecto a ese baricentro, aproximadamente hacia el centro galáctico y algo hacia el sur. Y resulta que la velocidad de la nube ionizada local es <em>parecida</em> a la del baricentro: la nube está relativamente quieta — <strong>es el Sol el que la atraviesa</strong>.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática (inferencia propia)</span>
+    <p>Esto es un <strong>problema inverso</strong> clásico: mediciones integradas a lo largo de líneas de visión (absorción acumulada) de las que hay que reconstruir un campo 3D (densidad). Es exactamente la matemática de la <em>tomografía computarizada</em>: cada espectro es una «proyección» y el mapa se obtiene invirtiendo el conjunto. Con pocas líneas de visión (años 90) la solución se dibuja a mano; con miles (sección siguiente), se optimiza numéricamente.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>La burbuja local: de bocetos a Gaia</h2>
+    <p>El Sol vive en un hueco de baja densidad, rodeado de murallas de gas.</p>
+  </div></div>
+
+  <p>A principios de los 2000, la astrónoma francesa <span class="hl">Rosine Lallement</span> repitió el ejercicio de los 90 pero con <strong>miles de estrellas</strong> y un programa computacional: cada celda de un cubo 3D es un parámetro libre de densidad, y se optimiza el conjunto para reproducir la absorción observada hacia cada estrella (una estrella cercana muestra poca absorción; una lejana tras una nube, mucha). Ya no es un boceto: es una <strong>medición</strong> de la densidad del medio interestelar local.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-05.jpg" alt="Mapa de densidad del medio interestelar local de Lallement 2003, corte en el plano galáctico">
+    <figcaption><span class="cap">Diapositiva · Lallement (~2003)</span>Corte en el plano galáctico (Sol al centro; escala en cientos de parsecs). El Sol está dentro de un <strong>hueco grande de baja densidad</strong>; la nube ionizada local es apenas un detalle. Las regiones densas (oscuras) — Tauro, Perseo, Ofiuco, Escorpión — forman un anillo de radio ~100 pc conocido históricamente como el <strong>Cinturón de Gould</strong>. Más allá de ~200–300 pc el método de la época pierde sensibilidad (todo se ve «naranjo»).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c1/assets/slide-06.jpg" alt="Mapa moderno de densidad con datos de Gaia hasta 1500 parsecs, vista desde el polo galáctico">
+    <figcaption><span class="cap">Diapositiva · Versión moderna con Gaia</span>El mismo método, ~5 años atrás, con datos del satélite <strong>Gaia</strong>: el mapa llega a <strong>1500 pc</strong>. La «burbuja» ya no parece burbuja: es una estructura compleja con indicios de la estructura espiral galáctica. Los «rayos» que parecen apuntar al Sol son un <strong>sesgo observacional</strong> (la reconstrucción es mejor a lo largo de las líneas de visión), no densidad real apuntándonos.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c1/assets/slide-07.jpg" alt="Representación 3D de la burbuja local con Sco-Cen, Aquila Rift, nebulosa de Gum y Orión">
+    <figcaption><span class="cap">Diapositiva · La burbuja local en 3D</span>Render con los vecinos importantes: la asociación <strong>Scorpius-Centaurus</strong>, el <strong>Aquila Rift</strong>, la <strong>nebulosa de Gum</strong> (hacia Vela/Carina, con un remanente de supernova), la asociación de <strong>Orión</strong> con su cascarón, y el brazo (espolón) espiral de Orión. La burbuja local es lo oscuro del centro — y el Sol se mueve a través de todo esto.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Detalle técnico de la clase</span>
+    <p>Los mapas modernos no reportan densidad directamente sino <strong>extinción</strong> (magnitudes por parsec): cuánto oscurece esa nube a una estrella de fondo. Más denso ⇒ más oscurece. Es una medida indirecta de la densidad de polvo+gas.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Por qué importa que los polos estén despejados</span>
+    <p>En las direcciones de los polos galácticos hay poca densidad: la cavidad está «abierta» hacia arriba y abajo. Por suerte — si hubiera nubes densas hacia los polos, no podríamos observar otras galaxias desde nuestra posición.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Supernovas: las escultoras del medio interestelar</h2>
+    <p>La burbuja local no es una burbuja: es una chimenea excavada por explosiones.</p>
+  </div></div>
+
+  <p>¿Qué hace esos huecos en el plano galáctico? Las <span class="hl">supernovas</span>. La envoltura de una estrella que explota sale disparada a cientos de km/s, acarreando momentum e inercia: despeja todo a su paso y excava cavidades esféricas que crecen hasta alcanzar el borde del plano galáctico — y entonces <strong>revientan hacia afuera</strong>, botando el material fuera del plano.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-08.jpg" alt="Esquema de la fuente galáctica: supernovas expulsan gas caliente fuera del plano, que se enfría y recae">
+    <figcaption><span class="cap">Diapositiva · La fuente galáctica</span>Múltiples supernovas inyectan gas coronal caliente (ionizado) que escapa del disco por «chimeneas»; al expandirse se enfría, se <strong>recombina en gas neutro</strong> y vuelve a caer en otra parte de la galaxia como nubes de alta velocidad. Este ciclo — la <span class="hl">fuente galáctica</span> — es la principal fuente de energía que da forma al medio interestelar, y recicla material <strong>enriquecido químicamente</strong> por la explosión.</figcaption>
+  </figure>
+
+  <p>De ahí que convenga hablar de <span class="hl">chimenea local</span> más que de burbuja local: la cavidad donde vive el Sol está abierta hacia los polos, exactamente como las cavidades que dejan las supernovas. Es una de las razones para pensar que <strong>la burbuja local fue excavada por explosiones de supernova</strong>.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-09.jpg" alt="Remanente de supernova con onda de choque esférica y zoom a la estrella de neutrones desplazada">
+    <figcaption><span class="cap">Diapositiva · Un remanente de supernova</span>Onda de choque aproximadamente esférica expandiéndose en el medio interestelar (la transcripción lo llama «remanente IC», probablemente <em>IC 443</em>, la nebulosa de la Medusa — identificación propia, no confirmada). En el recuadro, el <strong>resto estelar</strong>: una estrella de neutrones, visiblemente <em>corrida</em> del centro de expansión.</figcaption>
+  </figure>
+
+  <h3>El efecto patada (kick)</h3>
+  <p>¿Por qué la estrella de neutrones no está en el centro? Una supernova es el <strong>rebote del cuerpo de la estrella sobre su propio núcleo</strong>: los protones se recombinan con los electrones (desaparece el sustento de presión de electrones), el núcleo se vuelve una «sopa de neutrones» densísima, y toda la envoltura cae sobre él. Esa caída nunca es perfectamente simétrica: un lado cae un poco más rápido, y el desbalance de momentum <strong>dispara la estrella de neutrones a miles de km/s</strong> — el <span class="hl">efecto patada</span> (<em>kick effect</em>).</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril (inferencia propia)</span>
+    <p>El kick es conservación de momentum pura: como el retroceso de un arma o el desbalanceo de un rotor. Si un colapso de ~1 M☉ tiene una asimetría de una parte en mil en el momentum eyectado, el remanente compacto se lleva el residuo — y con masas y velocidades estelares, ese «residuo» son miles de km/s. Los errores de cancelación pequeños sobre cantidades enormes dominan el resultado, igual que en aritmética de punto flotante.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El Sol viajero: movimiento epicíclico y clima galáctico</h2>
+    <p>La burbuja local es un detalle transitorio en la vida del Sol.</p>
+  </div></div>
+
+  <figure>
+    <img src="m3c1/assets/slide-10.jpg" alt="Trayectoria oscilante del Sol entrando y saliendo del plano galáctico sobre una galaxia de canto">
+    <figcaption><span class="cap">Diapositiva · El movimiento epicíclico</span>El Sol tarda <strong>~200 millones de años</strong> en dar una vuelta a la galaxia, pero no en círculo perfecto: oscila verticalmente (entra y sale del plano galáctico) y también radialmente. En palabras del profesor: el Sol va <em>«nadando mariposa»</em> por la galaxia.</figcaption>
+  </figure>
+
+  <ul>
+    <li>Las estrellas nacen en el plano galáctico y van adquiriendo <strong>velocidades peculiares</strong> por encuentros gravitacionales con otras estrellas: mientras más vieja una estrella, más dispersa y caótica su trayectoria (las estrellas del halo, las más antiguas, se mueven en todas direcciones).</li>
+    <li>El Sol tiene <strong>~4.500 millones de años</strong>: es una estrella relativamente vieja, y hoy está casualmente en la mitad del plano galáctico — pero no siempre fue así.</li>
+    <li>La <span class="hl">edad cinemática</span> de la burbuja/chimenea local (tamaño ÷ velocidad típica) es de <strong>~1 millón de años</strong> según la clase: el Sol <em>entró hace poco</em> a esta estructura, y en ~1 millón de años más estará en otro entorno — quizás dentro de una nube densa, quizás fuera del plano.</li>
+  </ul>
+
+  <h3>La pista de la metalicidad: el Sol migró</h3>
+  <p>La <span class="hl">metalicidad</span> (fracción de elementos más pesados que el helio, relativa al hidrógeno) del Sol es aproximadamente la misma que la de las estrellas <em>jóvenes</em> que nacen hoy en la vecindad solar. Eso es raro: el enriquecimiento químico es más rápido hacia el centro galáctico (más formación estelar, más supernovas) y más lento afuera. La lectura: <strong>el Sol nació más adentro</strong> — en un anillo molecular donde su metalicidad era la normal — <strong>y migró hacia afuera</strong>, a una zona químicamente más «lenta» que recién ahora alcanza esa metalicidad.</p>
+
+  <div class="box dato">
+    <span class="tag">Clima galáctico</span>
+    <p>Si el Sol entrara en una nube densa, la heliosfera <strong>se achicaría</strong> (por mucho que sople el viento solar, no despeja material tan denso) y podría meterse material interestelar entre el Sol y la Tierra — con posibles efectos sobre el clima terrestre. Es un área de investigación incipiente («clima galáctico»). El problema de reconstruir la trayectoria pasada del Sol es brutal: la galaxia tiene ~100.000 millones de estrellas y el problema de N cuerpos se vuelve caótico — tenemos posición y velocidad instantáneas, pero la «máquina del tiempo» dinámica no llega lejos. (Nota: la transcripción menciona aquí un término inaudible —«la Heracles»— que no pudimos resolver; posiblemente alude a episodios climáticos o a una estructura galáctica.)</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática (inferencia propia)</span>
+    <p>Integrar la órbita del Sol hacia atrás es un problema de <strong>sensibilidad a condiciones iniciales</strong>: como en cualquier sistema caótico, el error crece exponencialmente con el tiempo de integración (piensa en el exponente de Lyapunov como un «interés compuesto» del error numérico). Con 8 planetas el sistema solar ya se pone caótico en escalas largas; con 10¹¹ estrellas cuyas posiciones y masas conocemos con incerteza, la predictibilidad retrospectiva se degrada rápidamente.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Donde nacen estrellas (y planetas): las nubes oscuras y Ofiuco</h2>
+    <p>El puente hacia el resto del módulo: de la Vía Láctea a los discos de ALMA.</p>
+  </div></div>
+
+  <figure>
+    <img src="m3c1/assets/slide-11.jpg" alt="Mapa de todo el cielo de la Vía Láctea por Gaia con las nubes oscuras a lo largo del plano">
+    <figcaption><span class="cap">Diapositiva · La Vía Láctea según Gaia</span>Mapa de todo el cielo (satélite <strong>Gaia</strong>). Las <strong>regiones oscuras</strong> a lo largo del plano son las nubes densas que forman los límites de la burbuja local: Tauro, Perseo, Aquila, <strong>Ofiuco</strong> (la más cercana). Se ven también las Nubes de Magallanes. En otra versión de la imagen se marca la <strong>galaxia enana de Sagitario</strong> — más grande que la Nube Grande de Magallanes, descubierta recientemente, que está impactando el plano galáctico por el otro lado; su onda de choque tardaría ~100 millones de años en alcanzarnos.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Bonus austral de la clase</span>
+    <p>El plano de la eclíptica está <strong>fuertemente inclinado</strong> (casi perpendicular) respecto al plano galáctico. Desde el hemisferio sur miramos hacia el <strong>centro galáctico</strong> (la parte más rica de la Vía Láctea); desde el norte, hacia el anticentro. A los observadores del norte «les tocan menos estrellas» — además de cielos menos oscuros que los chilenos.</p>
+  </div>
+
+  <figure>
+    <img src="m3c1/assets/slide-12.jpg" alt="Región de formación estelar de Ofiuco con recuadros de discos protoplanetarios observados con ALMA">
+    <figcaption><span class="cap">Diapositiva · Zoom a Ofiuco: los discos de ALMA</span>La nube de Ofiuco está llena de <strong>estrellas jóvenes</strong> (los puntitos). Los recuadros muestran algunas observadas con <strong>ALMA</strong>: cada una está rodeada de un <strong>disco</strong> — material denso, «parecido a un cinturón de asteroides pero mucho más denso» — donde <em>están naciendo planetas</em>. De eso trata el resto del módulo.</figcaption>
+  </figure>
+
+  <p><strong>Síntesis de la clase 0:</strong> las estrellas nuevas nacen en las regiones densas y oscuras de los bordes de la burbuja local. La más cercana es Ofiuco. Y alrededor de sus estrellas recién nacidas, ALMA ve discos protoplanetarios: el escenario de la formación planetaria.</p>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Clase 1: colapso gravitacional y la masa de Jeans</h2>
+    <p>«Sea una nube molecular esférica…» — gravedad contra presión térmica.</p>
+  </div></div>
+
+  <p>Con el mapa en mano, empieza la física. Los planetas nacen junto con las estrellas, así que la pregunta inicial es: <em>¿cuándo una nube de gas colapsa para formar estrellas?</em> Al estilo del chiste de la <strong>vaca esférica</strong> de los físicos, modelamos una <strong>nube molecular esférica y homogénea</strong> de masa \(M\), radio \(R\) y temperatura \(T\), compuesta de moléculas de hidrógeno (H₂), y comparamos dos energías:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E_K \sim N\,k_B\,T \qquad\qquad E_G \sim \frac{G M^2}{R}"></div>
+    <small>Energía térmica: número de partículas × constante de Boltzmann × temperatura. Energía gravitacional (en valor absoluto): constante de gravitación × masa² ÷ radio. Son estimaciones de orden de magnitud — sin factores numéricos.</small>
+  </div>
+
+  <p>La <span class="hl">intuición primero</span>: la temperatura significa presión (ley de gas ideal, \(P = n k_B T\)) que sostiene a la nube; la gravedad tira hacia adentro. Si la energía gravitacional le gana a la térmica, la nube <strong>se cae bajo su propio peso</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{G M^2}{R} \gtrsim N\,k_B\,T, \qquad N = \frac{M}{m_{\mathrm{H_2}}}"></div>
+    <small>N se escribe como la masa total dividida por la masa de un constituyente (la molécula de H₂). Sustituyendo y despejando M queda la condición de colapso.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="M \gtrsim M_J \sim \frac{k_B\,T\,R}{G\,m_{\mathrm{H_2}}} \qquad\Longrightarrow\qquad M_J \propto T \times R"></div>
+    <small>La <strong>masa de Jeans</strong>: la masa mínima para que una nube de radio R y temperatura T colapse. Más caliente ⇒ más presión ⇒ se necesita más masa. Más extendida (diluida) ⇒ también más masa.</small>
+  </div>
+
+  <h3>La misma condición como densidad crítica</h3>
+  <p>Escribiendo la masa como densidad por volumen, \(M = \tfrac{4}{3}\pi R^3 \rho\), se despeja \(R \propto (M/\rho)^{1/3}\) y la condición se reescribe como una <strong>densidad mínima</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho \gtrsim \rho_J \sim \frac{3}{4\pi}\left(\frac{k_B T}{G\,m_{\mathrm{H_2}}}\right)^{3} \frac{1}{M^2} \qquad\Longrightarrow\qquad \rho_J \propto \frac{T^3}{M^2}"></div>
+    <small>Para una temperatura dada, colapsar una masa <em>pequeña</em> exige densidades <em>enormes</em> (M entra al cuadrado en el denominador). Este detalle es la clave de la próxima sección.</small>
+  </div>
+
+  <figure>
+    <img src="m3c1/assets/slide-13.jpg" alt="Diapositiva con el criterio de colapso gravitacional y la masa de Jeans">
+    <figcaption><span class="cap">Diapositiva · El criterio de Jeans</span>Resumen de la diapositiva: las nubes moleculares colapsan en cúmulos estelares; el colapso ocurre si E<sub>K</sub> ~ NkT es inferior a E<sub>G</sub> ~ GM²/R; la masa de Jeans es proporcional a T×R; alternativamente, la densidad mínima ρ<sub>J</sub> es proporcional a T³/M².</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril (inferencia propia)</span>
+    <p>El criterio de Jeans es un <strong>análisis dimensional con umbral</strong>, como los números adimensionales de la ingeniería (Reynolds, Rayleigh): se comparan dos términos de energía y el cociente E<sub>G</sub>/E<sub>K</sub> ≈ 1 define la transición de régimen (estable ↔ colapso). No da los detalles de la dinámica, pero predice <em>cuándo</em> cambia el comportamiento — que es lo que uno pide de un criterio de estabilidad.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>El Saco de Carbón: un ejemplo con números</h2>
+    <p>Una nube que ya está colapsando… pero que no puede formar un Sol directamente.</p>
+  </div></div>
+
+  <p>El <span class="hl">Saco de Carbón</span> es la mancha oscura junto a la Cruz del Sur, visible todo el año desde Chile (cerca brillan Alfa Centauri y <strong>Hadar</strong> — Beta Centauri). Su masa se estima con técnicas relativamente sencillas: por <strong>extinción</strong> (cuánto oscurece las estrellas de fondo, el mismo principio de los mapas 3D) o por <strong>líneas espectrales de monóxido de carbono (CO)</strong>, extrapolando a la masa total de H₂ mediante la abundancia relativa de CO — que también entrega la temperatura.</p>
+
+  <figure>
+    <img src="m3c1/assets/slide-14.jpg" alt="El Saco de Carbón junto a la Cruz del Sur, con los datos M~1000 masas solares, T~20K">
+    <figcaption><span class="cap">Diapositiva · El Saco de Carbón</span>M ∼ 10³ M<sub>☉</sub>, T ∼ 20 K. Con esa masa y temperatura, la densidad de Jeans da ρ<sub>J</sub> ∼ 10⁻²² kg/m³, es decir n<sub>H₂</sub> ∼ 10⁵ moléculas por m³ — que es justamente <strong>la densidad observada</strong> en las regiones difusas de la nube.</figcaption>
+  </figure>
+
+  <ol class="steps">
+    <li>Datos observados: <strong>M ∼ 1000 M☉</strong>, <strong>T ∼ 20 K</strong>, densidad ∼ 10⁻²² kg/m³ (~10⁵ partículas/m³ — poquísimo comparado con condiciones terrestres: el aire tiene ~10²⁵ moléculas/m³).</li>
+    <li>Esa densidad <strong>coincide con la densidad de Jeans</strong> para esa masa y temperatura: el Saco de Carbón <em>está empezando a caerse bajo su propio peso</em>.</li>
+    <li>Pero ojo: para colapsar <strong>1 M☉</strong> a la misma temperatura se necesita una densidad <span class="hl">un millón de veces mayor</span> — porque la masa entra al cuadrado en el denominador de ρ<sub>J</sub> (mil veces menos masa ⇒ 1000² = 10⁶ veces más densidad requerida).</li>
+  </ol>
+
+  <div class="box physics">
+    <span class="tag">La paradoja y su salida: fragmentación</span>
+    <p>La nube difusa colapsa como un todo, pero <em>ese</em> colapso no basta para formar un Sol: le falta un factor 10⁶ en densidad. La propuesta: el colapso ocurre <strong>primero a gran escala</strong>, y a medida que la densidad sube, se van haciendo inestables (colapsables) regiones cada vez <strong>más pequeñas</strong> — la nube se <span class="hl">fragmenta</span>, quizás hasta la escala de una masa solar. Este mecanismo jerárquico se desarrolla en la próxima clase.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>Fragmentación de nubes de ~1000 M☉, el colapso como caída libre (con tiempo que depende solo de la densidad), el frenado por ionización, y la formación del <strong>disco protoplanetario</strong> por conservación de momentum angular — el resto de las diapositivas de la Clase 1.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-jeans">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Calculadora de densidad de Jeans: ρ⁠J ∝ T³/M²</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige la masa y temperatura de una nube molecular y calcula la densidad crítica para que colapse bajo su propio peso (usando la estimación de orden de magnitud de la clase, con m = m<sub>H₂</sub>).</p>
+    <div class="presets" id="jeans-presets">
+      <button data-m="1000" data-t="20">Saco de Carbón (10³ M☉, 20 K)</button>
+      <button data-m="1" data-t="20">1 M☉ a 20 K</button>
+      <button data-m="100000" data-t="20">Nube molecular gigante (10⁵ M☉)</button>
+      <button data-m="1000" data-t="100">10³ M☉ pero a 100 K</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="jeans-m">Masa de la nube (M☉)</label><input type="number" id="jeans-m" value="1000" min="0.01" step="any"></div>
+      <div><label for="jeans-t">Temperatura (K)</label><input type="number" id="jeans-t" value="20" min="1" step="any"></div>
+    </div>
+    <output id="jeans-out" class="wout"></output>
+  </div>
+
+  <div class="widget" id="w-escalas">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>La escalera de distancias del entorno galáctico</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Cada punto es un «peldaño» de la clase 0, ubicado en una regla logarítmica (de 1 au a ~10 kpc). Haz clic para ver conversiones y cuántos órdenes de magnitud lo separan del peldaño anterior.</p>
+    <div class="scaleviz" id="esc-viz"><div class="axis"></div></div>
+    <output id="esc-out" class="wout"></output>
+  </div>
+
+  <div class="widget" id="w-cinematica">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Edad cinemática: tamaño ÷ velocidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La «edad cinemática» de una estructura es su tamaño dividido por la velocidad típica de expansión. Con ~100 pc y ~100 km/s, la burbuja local da ~1 millón de años — un parpadeo comparado con los 4.500 millones de años del Sol.</p>
+    <div class="wgrid">
+      <div><label for="cin-l">Tamaño (pc): <span id="cin-llab"></span></label><input type="range" id="cin-l" min="0" max="3.2" step="0.01" value="2"></div>
+      <div><label for="cin-v">Velocidad típica (km/s): <span id="cin-vlab"></span></label><input type="range" id="cin-v" min="0" max="3" step="0.01" value="2"></div>
+    </div>
+    <output id="cin-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Corona solar</b></td><td>Los «pétalos» visibles en eclipses totales; cambia con el ciclo solar (~11 años)</td><td>Es la raíz de las eyecciones de masa y del viento solar</td></tr>
+      <tr><td><b>Protuberancias</b></td><td>Arcos de gas a ~10⁶ K confinados por campo magnético sobre manchas solares</td><td>Al romperse eyectan los chorros que alimentan el viento</td></tr>
+      <tr><td><b>Viento solar</b></td><td>Flujo de plasma; ~700–1000 km/s en regiones polares; espiral de Arquímedes por rotación</td><td>Permea el sistema solar y despeja el material vecino</td></tr>
+      <tr><td><b>Dos colas cometarias</b></td><td>Iónica (viento solar, emite líneas) + polvo (presión de radiación, refleja luz)</td><td>Evidencia visible de la interacción cuerpos ↔ viento solar</td></tr>
+      <tr><td><b>Heliopausa</b></td><td>Frontera donde acaba la influencia del campo magnético solar (tras el termination shock)</td><td>Define el <em>fin físico</em> del sistema solar; las Voyager la cruzaron</td></tr>
+      <tr><td><b>Nube de Oort</b></td><td>Hipótesis: cometas de largo período, ligados al Sol pero en condiciones interestelares</td><td>Ligado gravitacionalmente ≠ estar «dentro» del sistema solar</td></tr>
+      <tr><td><b>Nube ionizada local</b></td><td>Nube tenue que el Sol atraviesa, justo afuera de la heliopausa</td><td>Primer «peldaño» del medio interestelar; mapeada por absorción</td></tr>
+      <tr><td><b>Absorción interestelar + Doppler</b></td><td>Rasgos estrechos en espectros estelares, corridos según velocidad de cada nube</td><td>Método para contar y cartografiar nubes en cada línea de visión</td></tr>
+      <tr><td><b>Burbuja / chimenea local</b></td><td>Cavidad de baja densidad de ~100 pc, abierta hacia los polos galácticos</td><td>Probable cavidad de supernovas; el Sol la ocupa hace ~1 Myr</td></tr>
+      <tr><td><b>Cinturón de Gould</b></td><td>Anillo de regiones densas (~100 pc): Tauro, Perseo, Ofiuco, Escorpión…</td><td>Los «muros» de la burbuja: ahí nacen las estrellas cercanas</td></tr>
+      <tr><td><b>Fuente galáctica</b></td><td>Supernovas expulsan gas del plano; se enfría, recombina y recae</td><td>Fuente de energía que estructura y recicla el medio interestelar</td></tr>
+      <tr><td><b>Efecto patada (kick)</b></td><td>Colapso asimétrico dispara la estrella de neutrones a miles de km/s</td><td>Explica remanentes con el resto estelar descentrado</td></tr>
+      <tr><td><b>Movimiento epicíclico</b></td><td>El Sol oscila vertical y radialmente («nada mariposa»); vuelta galáctica ~200 Myr</td><td>El entorno actual del Sol es transitorio</td></tr>
+      <tr><td><b>Migración solar</b></td><td>Metalicidad solar ≈ la de estrellas jóvenes vecinas ⇒ nació más adentro y migró</td><td>La química delata la historia dinámica del Sol</td></tr>
+      <tr><td><b>Masa de Jeans</b></td><td><span class="katex-inline" data-tex="M_J \propto T\,R"></span> — masa mínima para colapso dado R y T</td><td>El criterio básico de la formación estelar</td></tr>
+      <tr><td><b>Densidad de Jeans</b></td><td><span class="katex-inline" data-tex="\rho_J \propto T^3/M^2"></span> — densidad mínima para colapsar una masa M</td><td>Masas chicas exigen densidades enormes ⇒ fragmentación</td></tr>
+      <tr><td><b>Saco de Carbón</b></td><td>M ∼ 10³ M☉, T ∼ 20 K, n ∼ 10⁵ m⁻³ ≈ ρ<sub>J</sub></td><td>Ejemplo real: colapsa como un todo, pero no puede formar 1 M☉ sin fragmentarse</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c1-examen-01.html">Examen 01<small>Corona y viento solar</small></a></li>
+    <li><a href="m3c1-examen-02.html">Examen 02<small>Cometas y sus colas</small></a></li>
+    <li><a href="m3c1-examen-03.html">Examen 03<small>Heliosfera y fronteras</small></a></li>
+    <li><a href="m3c1-examen-04.html">Examen 04<small>Cartografía del gas local</small></a></li>
+    <li><a href="m3c1-examen-05.html">Examen 05<small>Burbuja local y Gaia</small></a></li>
+    <li><a href="m3c1-examen-06.html">Examen 06<small>Supernovas y el ISM</small></a></li>
+    <li><a href="m3c1-examen-07.html">Examen 07<small>El Sol viajero</small></a></li>
+    <li><a href="m3c1-examen-08.html">Examen 08<small>Donde nacen las estrellas</small></a></li>
+    <li><a href="m3c1-examen-09.html">Examen 09<small>Criterio de Jeans</small></a></li>
+    <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo III del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Simón Casassus, julio 2026). Elaborado a partir de la transcripción del audio en 4 partes (<code>planetas/m3/ff/planetas-m3c1part1.md</code> a <code>planetas-m3c1part4.md</code>; la clase tuvo cortes de audio) y las diapositivas <code>Modulo_III_-_Clase_0__entorno_galactico_del_sol.pdf</code> (usada casi completa) y <code>Modulo_III_-_Clase_1_formacion_del_disco_protoplanetario.pptx.pdf</code> (solo las primeras páginas: criterio de Jeans y Saco de Carbón; el resto quedó para la próxima clase).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía: «Ofiucus/ofiuco» → Ofiuco; «Rogine Lamon» → Rosine Lallement; «Roger sale / este gallo» → probablemente Roger Ferlet (identificación propia); «Kaya» → Gaia; «ondas/sonda Wirejack» → sondas Voyager; «Hale Bob/Hellbob» → Hale-Bopp; «cometa Magno» → McNaught (2007); «6860/6300 H alfa» → Hα 6563 Å (Hβ 4861 Å); «Armstrong» → angstrom; «Adar/Adara» → Hadar (Beta Centauri); «nebulosa de Gun» → nebulosa de Gum; «Scudum Centauro» → brazo Scutum-Centaurus; «vaso espiral de Orión» → brazo (espolón) espiral de Orión; «mano besada» → mano alzada; «remanente IC» → probablemente IC 443 (inferencia). La transcripción dice que Alfa Centauri está «alrededor de tres años luz»: el valor aceptado es ~4,4 años luz (~1,3 pc). También dice «100 millones de estrellas» y luego «100.000 millones»: el valor correcto es ~10¹¹ (cien mil millones). El término «la Heracles» (parte 2) quedó sin resolver. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+  <p class="disc"><b>Material externo.</b> Para profundizar en el medio interestelar y la formación estelar con nivel introductorio, ver OpenStax <em>Astronomy 2e</em>, cap. 20 (Between the Stars: Gas and Dust in Space) y cap. 21 (The Birth of Stars…): <a href="https://openstax.org/books/astronomy-2e/pages/20-introduction">openstax.org/books/astronomy-2e</a>. La referencia del análisis fractal del ISM citada en las diapositivas es Elmegreen et al. 2001, ApJ, 548, 749.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: densidad de Jeans ----
+(function(){
+  var kB = 1.380649e-23, G = 6.674e-11, mH2 = 3.34e-27, MSUN = 1.989e30;
+  var inM = document.getElementById('jeans-m');
+  var inT = document.getElementById('jeans-t');
+  var out = document.getElementById('jeans-out');
+  var RHO_COAL = null;
+  function rhoJ(Msun, T){
+    var M = Msun * MSUN;
+    var a = kB*T/(G*mH2);
+    return (3/(4*Math.PI)) * Math.pow(a,3) / (M*M);
+  }
+  function fmtExp(x){
+    var e = Math.floor(Math.log10(x));
+    var m = x/Math.pow(10,e);
+    return m.toFixed(1)+"×10<sup>"+e+"</sup>";
+  }
+  function calc(){
+    var Msun = parseFloat(inM.value), T = parseFloat(inT.value);
+    if(!(Msun>0) || !(T>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var rho = rhoJ(Msun, T);
+    var n = rho/mH2;
+    var M = Msun*MSUN;
+    var R = Math.pow(3*M/(4*Math.PI*rho), 1/3);
+    var Rpc = R/3.086e16, Rau = R/1.496e11;
+    if(RHO_COAL===null) RHO_COAL = rhoJ(1000,20);
+    var fac = rho/RHO_COAL;
+    var nota;
+    if(Math.abs(Math.log10(fac)) < 0.5) nota = "→ Densidad comparable a la del Saco de Carbón: como la observada, la nube <b>está al borde del colapso</b>.";
+    else if(fac > 1) nota = "→ Necesita una densidad <b>"+fmtExp(fac)+" veces mayor</b> que la crítica del Saco de Carbón. Masas chicas (o nubes calientes) exigen densidades enormes: por eso la nube debe <b>fragmentarse</b> mientras colapsa.";
+    else nota = "→ Densidad crítica <b>"+fmtExp(1/fac)+" veces menor</b> que la del Saco de Carbón: las masas grandes colapsan con densidades muy bajas — el colapso parte a gran escala.";
+    out.innerHTML =
+      "<span class='k'>ρ<sub>J</sub></span> ≈ <b>"+fmtExp(rho)+"</b> kg/m³ "+
+      "&nbsp;·&nbsp; <span class='k'>n<sub>H₂</sub></span> ≈ <b>"+fmtExp(n)+"</b> moléculas/m³<br>"+
+      "<span class='k'>Radio a esa densidad</span> ≈ <b>"+(Rpc>=0.05 ? Rpc.toFixed(1)+" pc" : Math.round(Rau).toLocaleString('es-CL')+" au")+"</b><br>"+nota;
+  }
+  inM.addEventListener('input', calc);
+  inT.addEventListener('input', calc);
+  document.querySelectorAll('#jeans-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ inM.value = btn.dataset.m; inT.value = btn.dataset.t; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: escalera de distancias ----
+(function(){
+  var AU = 1.496e11, LY = 9.461e15, PC = 3.086e16;
+  var items = [
+    {n:"Tierra–Sol", d:1*AU, txt:"1 unidad astronómica (au): la vara de medir del sistema solar. La luz tarda ~8,3 minutos."},
+    {n:"Cola de McNaught", d:3*AU, txt:"Las colas cometarias grandes miden <b>varias au</b>: estructuras «no menores» del sistema solar, esculpidas por el viento solar."},
+    {n:"Neptuno", d:30*AU, txt:"El último planeta gigante. Ojo: el espacio de por aquí es <b>más vacío</b> que el medio interestelar de afuera."},
+    {n:"Heliopausa", d:120*AU, txt:"Frontera del campo magnético solar (~120 au en la dirección de las Voyager). Aquí <b>termina físicamente el sistema solar</b>."},
+    {n:"Nube de Oort", d:5e4*AU, txt:"Hipótesis: cometas de largo período, ligados al Sol pero viviendo en condiciones interestelares. Escala ~10⁴–10⁵ au (valor de referencia externo)."},
+    {n:"Alfa Centauri", d:4.4*LY, txt:"La estrella más cercana: ~4,4 años luz ≈ 1,3 pc (la transcripción dice «tres años luz»; el valor aceptado es ~4,4). El gas entre medio se detecta por absorción."},
+    {n:"Burbuja local", d:100*PC, txt:"La cavidad de baja densidad donde vive el Sol: radio ~100 pc, con el Cinturón de Gould como muralla. Ofiuco, el criadero estelar más cercano, está en ese borde (~140 pc, dato externo)."},
+    {n:"Mapas Gaia", d:1500*PC, txt:"Los mapas modernos de extinción con Gaia llegan a ~1500 pc: la «burbuja» resulta ser una estructura compleja conectada a la espiral galáctica."},
+    {n:"Centro galáctico", d:8000*PC, txt:"~8 kpc (dato externo, no dicho en clase). El Sol tarda ~200 millones de años en dar la vuelta — «nadando mariposa»."}
+  ];
+  var viz = document.getElementById('esc-viz');
+  var out = document.getElementById('esc-out');
+  var lo = Math.log10(0.8*AU), hi = Math.log10(1.2e4*PC);
+  function pos(d){ return 2 + 96*(Math.log10(d)-lo)/(hi-lo); }
+  function fmt(d){
+    if(d < 1e4*AU) return (d/AU).toLocaleString('es-CL',{maximumFractionDigits:0})+" au";
+    if(d < 2*PC) return (d/LY).toLocaleString('es-CL',{maximumFractionDigits:1})+" años luz";
+    if(d < 1000*PC) return Math.round(d/PC).toLocaleString('es-CL')+" pc";
+    return (d/PC/1000).toLocaleString('es-CL',{maximumFractionDigits:1})+" kpc";
+  }
+  var dots = [];
+  items.forEach(function(it, i){
+    var dot = document.createElement('div');
+    dot.className = 'dot'; dot.style.left = pos(it.d)+"%";
+    dot.title = it.n;
+    dot.addEventListener('click', function(){ show(i); });
+    viz.appendChild(dot); dots.push(dot);
+    if(i===0 || i===3 || i===5 || i===8){
+      var lab = document.createElement('div');
+      lab.className = 'lab'; lab.style.left = pos(it.d)+"%";
+      lab.textContent = it.n;
+      viz.appendChild(lab);
+    }
+  });
+  function show(i){
+    dots.forEach(function(d,j){ d.classList.toggle('active', j===i); });
+    var it = items[i];
+    var extra = "";
+    if(i>0){
+      var prev = items[i-1];
+      var ratio = it.d/prev.d;
+      extra = "<br>→ <b>"+ratio.toLocaleString('es-CL',{maximumFractionDigits:0})+"×</b> más lejos que «"+prev.n+"» ("+Math.log10(ratio).toFixed(1)+" órdenes de magnitud).";
+    }
+    out.innerHTML = "<span class='k'>"+it.n+"</span> ≈ <b>"+fmt(it.d)+"</b> = "+ (it.d/AU).toExponential(1).replace('e+','×10^')+" au<br>"+it.txt+extra;
+  }
+  show(0);
+})();
+
+// ---- Widget 3: edad cinemática ----
+(function(){
+  var PC = 3.086e16, YR = 3.156e7;
+  var inL = document.getElementById('cin-l');
+  var inV = document.getElementById('cin-v');
+  var labL = document.getElementById('cin-llab');
+  var labV = document.getElementById('cin-vlab');
+  var out = document.getElementById('cin-out');
+  function calc(){
+    var L = Math.pow(10, parseFloat(inL.value));   // pc
+    var v = Math.pow(10, parseFloat(inV.value));   // km/s
+    labL.textContent = L.toLocaleString('es-CL',{maximumFractionDigits:1})+" pc";
+    labV.textContent = v.toLocaleString('es-CL',{maximumFractionDigits:1})+" km/s";
+    var t = (L*PC)/(v*1000)/YR; // años
+    var txt;
+    if(t >= 1e9) txt = (t/1e9).toLocaleString('es-CL',{maximumFractionDigits:2})+" mil millones de años";
+    else if(t >= 1e6) txt = (t/1e6).toLocaleString('es-CL',{maximumFractionDigits:2})+" millones de años";
+    else txt = Math.round(t).toLocaleString('es-CL')+" años";
+    var frac = t/4.5e9;
+    out.innerHTML = "<span class='k'>Edad cinemática</span> = tamaño ÷ velocidad ≈ <b>"+txt+"</b><br>"+
+      "→ Eso es <b>"+(frac*100).toLocaleString('es-CL',{maximumFractionDigits:3})+"%</b> de la edad del Sol (4.500 millones de años): "+
+      (frac < 0.01 ? "la estructura es un <b>detalle transitorio</b> en la vida del Sol." : "una fracción apreciable de la vida del Sol.");
+  }
+  inL.addEventListener('input', calc);
+  inV.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

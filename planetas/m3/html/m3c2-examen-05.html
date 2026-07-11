@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 05 — m3c2 · Teorema del virial y camino a la ZAMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo III · Clase 2</span>
+<h1>Examen 05 — Teorema del virial y camino a la ZAMS</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="a,d,b">
+  <fieldset data-q="1"><legend>1. Según el teorema del virial aplicado a la protoestrella (NkT ~ GM²/R), al disminuir el radio la temperatura interna:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Aumenta, como T ~ GMm<sub>p</sub>/(k<sub>B</sub>R)</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Disminuye proporcionalmente a R</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Se mantiene constante, porque la energía se conserva</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Oscila alrededor de 10⁴ K</label>
+    <p class="fb" hidden>Con N ~ M/m<sub>p</sub> (gas ionizado), T ~ GMm<sub>p</sub>/(k<sub>B</sub>R): objeto más compacto ⇒ más caliente. Así el centro pasa de 10⁴ K a 10⁶–10⁷ K durante la contracción.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Qué evento marca la llegada a la «Zero-Age Main Sequence» (ZAMS)?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">La formación del disco de acreción</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La ionización completa del hidrógeno de la protoestrella</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La expulsión de la envoltura por los vientos</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El encendido de la fusión nuclear en el centro, cuando T alcanza 10⁶–10⁷ K</label>
+    <p class="fb" hidden>La secuencia principal de edad cero: la contracción llevó la temperatura central al umbral de fusión, y desde entonces las pérdidas superficiales se compensan con generación nuclear. Según la clase, ocurre cuando el radio llegó a ~2 R☉.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En la trayectoria pre-secuencia principal mostrada en el diagrama H-R, la protoestrella de tipo solar parte con:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Radio de 2 R☉ y temperatura superficial de 6000 K</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Radio de ~100 R☉ y temperatura superficial de ~3000 K</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Radio de 7000 au y temperatura de 20 K</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Radio de 0.1 pc y temperatura de 10⁴ K</label>
+    <p class="fb" hidden>La pelota hidrostática inicial tiene ~1 au ≈ 100 R☉ y una superficie a ~3000 K; se contrae lentamente hasta la ZAMS (~6000 K de temperatura superficial para una estrella tipo Sol). Las opciones c y d describen etapas anteriores de la nube.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Enuncia el teorema del virial tal como se presentó en clase y explica el rol que juega en el tramo final de la formación estelar: ¿por qué garantiza que la contracción termina encendiendo la fusión?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El teorema del virial dice que, para una pelota de gas autogravitante en equilibrio, la energía termal es comparable a la gravitacional con un factor 2: 2E<sub>K</sub> ≈ |E<sub>G</sub>|, es decir NkT ~ GM²/R. Tomando N ~ M/m<sub>p</sub> (la nube ya está ionizada, las partículas son protones y electrones) queda <strong>T ~ GMm<sub>p</sub>/(k<sub>B</sub>R)</strong>. Su rol es encadenar la contracción con el calentamiento: la protoestrella pierde energía por su superficie (L = 4πR²σT⁴), eso obliga al radio a disminuir, y el virial garantiza que a menor R corresponde mayor T central. Es un bucle de ganancia: contraerse ⇒ calentarse ⇒ seguir radiando ⇒ seguir contrayéndose. Como T crece sin freno mientras haya contracción, inevitablemente el centro alcanza los 10⁶–10⁷ K donde se gatilla la fusión del hidrógeno — y en ese momento la generación nuclear reemplaza a la contracción como fuente de energía: el bucle se corta y la estrella entra en el equilibrio duradero de la secuencia principal (ZAMS).</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Durante la clase, un estudiante preguntó si el brillo de la protoestrella «se mantenía o aumentaba» durante la contracción. Reconstruye la respuesta del profesor y explica la diferencia entre la temperatura superficial y la temperatura interna en esta etapa.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La respuesta del profesor: en la etapa de contracción cuasi-estática (Kelvin-Helmholtz), <strong>el brillo se mantiene gracias a la pérdida de energía gravitacional</strong> — la pelota cae lentamente bajo su propio peso y esa energía liberada alimenta la luminosidad que se escapa por la superficie. No hay fusión todavía: la fuente es puramente gravitacional. En cuanto a las temperaturas: la <strong>superficial</strong> es la que vemos y la que entra en L = 4πR²σT⁴; parte en ~3000 K y llega a ~6000 K en la ZAMS para una estrella tipo Sol (es el eje horizontal del diagrama H-R). La <strong>interna</strong> se rige por el teorema del virial, T ~ GMm<sub>p</sub>/(k<sub>B</sub>R), y es mucho más alta: parte en ~10⁴ K tras la ionización y sube hasta los 10⁶–10⁷ K que encienden la fusión. Confundirlas es un error clásico: la fotosfera fría de una protoestrella esconde un interior miles de veces más caliente.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo III (Astrofísica de Planetas). <a href="m3c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

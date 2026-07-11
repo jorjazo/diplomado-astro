@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De la nube fractal al disco protoplanetario — Astrofísica de Planetas, Módulo III · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.2rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.widget canvas{display:block;width:100%;max-width:640px;margin:12px auto 0;border:1px solid var(--line);
+  border-radius:10px;background:#060b15}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo III · Clase 2</span>
+  <h1>De la nube fractal al <em>disco protoplanetario</em></h1>
+  <p class="sub">Cómo una nube molecular de mil masas solares —que ni siquiera es una esfera— se fragmenta, colapsa en caída libre, se frena al ionizarse y, obligada por la conservación del momento angular, termina fabricando el platillo donde nacerán los planetas.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Simón Casassus</span>
+    <span><b>Curso:</b> Astrofísica de Planetas · U. de Chile</span>
+    <span><b>Fecha:</b> 6 jul 2026</span>
+    <span><b>Hilo conductor:</b> nube molecular → protoestrella → disco de acreción</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase pasada dejó planteada la condición de colapso gravitacional de una nube molecular modelada como esfera. Esta clase la pone a prueba contra la realidad —donde <span class="hl">no existen esferas homogéneas</span>, sino fractales aleatorias— y sigue la historia completa: la fragmentación jerárquica de la nube, el truco termodinámico que le permite caer sin calentarse, el freno abrupto cuando se ioniza, las dos escalas de tiempo del nacimiento estelar, y el obstáculo final: el <strong>momento angular</strong>, que impide que la masa caiga directo sobre la estrella y obliga a la naturaleza a formar un <strong>disco de acreción</strong>. Ese disco —con sus clases 0 a III, su acreción magnetosférica, sus vientos y jets— es precisamente el escenario de la formación planetaria que ocupa el resto del módulo.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Repaso: criterio de Jeans y el Saco de Carbón</a></li>
+    <li><a href="#s2">El ISM real: fractales y fragmentación</a></li>
+    <li><a href="#s3">Caer sin calentarse: la nube transparente</a></li>
+    <li><a href="#s4">El freno: ionización y protoestrella</a></li>
+    <li><a href="#s5">Dos relojes: caída libre y Kelvin-Helmholtz</a></li>
+    <li><a href="#s6">Simulaciones: el colapso en el computador</a></li>
+    <li><a href="#s7">Momento angular: nace el disco</a></li>
+    <li><a href="#s8">Las cuatro clases de objetos estelares jóvenes</a></li>
+    <li><a href="#s9">Acreción magnetosférica</a></li>
+    <li><a href="#s10">Vientos, jets y objetos Herbig-Haro</a></li>
+    <li><a href="#s11">Ophiuchus: el vivero de discos</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Repaso: el criterio de Jeans y el Saco de Carbón</h2>
+    <p>Colapsa si la gravedad le gana a la agitación térmica.</p>
+  </div></div>
+
+  <p>Modelamos la nube molecular como una <strong>esfera homogénea autogravitante</strong> de masa M, radio R y temperatura T. La convención: la energía gravitacional vale cero cuando todas las partículas están infinitamente separadas. Con eso, la <span class="hl">condición de colapso</span> es que la energía gravitacional (en magnitud) supere a la energía termal —la suma de las energías cinéticas de las partículas del gas:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E_G \sim \frac{G M^2}{R} \;>\; E_K \sim N k_B T"></div>
+    <small>N = número de partículas, k<sub>B</sub> = constante de Boltzmann. De aquí sale la <strong>masa de Jeans</strong> M<sub>J</sub> ∝ T·R (masa umbral para colapsar dado un radio y una temperatura) y, dividiendo por el volumen, la <strong>densidad crítica de Jeans</strong>.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\rho_J \;\propto\; \frac{T^{3}}{M^{2}}"></div>
+    <small>Para colapsar una masa <em>menor</em> se necesita una densidad <em>mucho mayor</em> (va como 1/M²). Esta dependencia es el motor de toda la sección siguiente.</small>
+  </div>
+
+  <h3>La prueba observacional</h3>
+  <p>El modelo se contrasta con el <span class="hl">Saco de Carbón</span>, la nube oscura vecina a la Cruz del Sur. Con radiotelescopios se mide su temperatura (~20 K, a partir del máximo de intensidad de líneas moleculares convertido a temperatura equivalente), su masa (~10³ M<sub>☉</sub>, con trazadores moleculares ópticamente delgados, o por cuánto oscurece la Vía Láctea en el óptico) y su tamaño (del diámetro angular). Resultado: su densidad, ρ ~ 10⁻²² kg m⁻³ (n<sub>H₂</sub> ~ 10⁵ m⁻³), <strong>calza con la densidad de Jeans</strong> para esos parámetros: el Saco de Carbón cumple el criterio y debería estar iniciando su colapso.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-04.jpg" alt="Diapositiva con los parámetros del Saco de Carbón y la pregunta sobre el colapso jerárquico">
+    <figcaption><span class="cap">Diapositiva · El Saco de Carbón como test</span>M ~ 10³ M<sub>☉</sub>, T ~ 20 K, ρ<sub>J</sub> ~ 10⁻²² kg m⁻³: consistente con lo observado en las regiones más difusas de la nube. Pero para formar una estrella de 1 M<sub>☉</sub> se necesita una densidad <strong>un millón de veces más alta</strong> (ρ<sub>J</sub> ∝ 1/M²: bajar la masa de 10³ a 1 sube la densidad crítica en (10³)² = 10⁶). ¿Quizás el colapso ocurre primero a gran escala y luego, al subir ρ, colapsan condensaciones más chicas?</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>En astronomía «las cosas siempre son aproximadas a un orden de magnitud», dijo el profesor: la masa se estima con trazadores indirectos, el volumen a partir de un diámetro angular asumiendo esfericidad. Es el modo de trabajo del <em>back-of-the-envelope</em>: antes de simular nada, un análisis dimensional con potencias de 10 decide si la hipótesis (¿colapsa o no?) es plausible. La validación del modelo no es un ajuste fino, es un <strong>test de consistencia de órdenes de magnitud</strong>.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El medio interestelar real: fractales y fragmentación</h2>
+    <p>La esfera homogénea no existe; el colapso la destruye al tiro.</p>
+  </div></div>
+
+  <p>¿Se parece la naturaleza a una esfera autogravitante? No. Las cartas del <span class="hl">Aquila Rift</span> y de la región de Ophiuchus —observadas por los satélites <strong>Planck</strong> (radio) y <strong>Herschel</strong> (infrarrojo, con mayor resolución angular; ambos fueron lanzados en el mismo cohete)— muestran nubosidad con estructura a toda escala, sin nada esférico a la vista.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-05.jpg" alt="Región de formación estelar Aquila Rift vista por Herschel y Planck">
+    <figcaption><span class="cap">Diapositiva · Aquila Rift</span>«En la naturaleza el concepto de una esfera homogénea autogravitante no existe». Derecha: carta de Planck; izquierda: detalle de Herschel en infrarrojo, con mayor resolución angular. Estructura filamentosa y grumosa a todas las escalas.</figcaption>
+  </figure>
+
+  <h3>Una fractal aleatoria</h3>
+  <p>El medio interestelar (ISM) es una <span class="hl">fractal aleatoria</span>: una estructura <strong>autosimilar</strong>, que se ve estadísticamente igual a gran y a pequeña escala, como un copo de nieve que se construye replicándose a sí mismo. La evidencia mostrada en clase: el mapa de hidrógeno atómico (línea de 21 cm) de la <strong>Nube Grande de Magallanes</strong> (Elmegreen et al. 2001, ApJ 548, 749). El mapa se presentó en cuatro versiones: la <em>intensidad total</em> (el área bajo la curva de la línea espectral en cada punto del cielo), el máximo de la línea, y la emisión separada en mitades azul y roja de la línea —que revelan el <strong>patrón de rotación</strong> de la galaxia vía efecto Doppler.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición: intensidad específica</span>
+    <p>En cada dirección del cielo (una ascensión recta y una declinación) se registra un espectro: brillo en función de la longitud de onda alrededor de los 21 cm. <strong>Integrar bajo la curva</strong> da la intensidad total en ese punto; quedarse con el lado azul o el rojo separa el gas que se acerca del que se aleja. Un mapa por cada estadístico del espectro: es exactamente la idea de reducir una señal por píxel a <em>features</em> (integral, máximo, momentos).</p>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-07.jpg" alt="Comparación entre un extracto real de la Nube Grande de Magallanes y una fractal aleatoria sintética">
+    <figcaption><span class="cap">Diapositiva · Real vs sintético</span>Izquierda: extracto de la observación real de la Nube Grande de Magallanes. Derecha: fractal aleatoria <em>sintética</em>, generada por el profesor «en dos líneas de código Python». Son indistinguibles a simple vista: el ISM tiene estadística fractal hasta el límite de resolución del telescopio.</figcaption>
+  </figure>
+
+  <h3>Fragmentación jerárquica</h3>
+  <p>El argumento clave: cuando la nube empieza a caerse bajo su propio peso, su densidad sube. Pero como ρ<sub>J</sub> ∝ 1/M², <strong>una densidad más alta habilita el colapso de masas más chicas</strong>. Regiones internas de un décimo de la masa total ya cumplen su propio criterio de Jeans y colapsan por su cuenta; dentro de ellas, otras aún más chicas… La contracción gravitacional <span class="hl">conduce a fragmentación</span>: la esfera homogénea «se rompe al tiro» y la nube se despedaza en grumos cada vez menores. Así, una nube de ~1000 M<sub>☉</sub> termina formando un <strong>cúmulo</strong> de estrellas, no una estrella gigante.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-08.jpg" alt="Diapositiva resumen: fragmentación, fragmento de una masa solar y freno por ionización">
+    <figcaption><span class="cap">Diapositiva · El fragmento de 1 M☉</span>Si logramos la densidad crítica para condensar 1 M<sub>☉</sub> a T ~ 20 K: ρ<sub>J</sub> = 10⁻¹⁶ kg m⁻³ y R = 10¹⁵ m ≈ <strong>0.1 pc ≈ 7000 au</strong> — como un tercio de la distancia a Alfa Centauri: chico a escala galáctica, pero más grande que el sistema solar. La diapositiva adelanta el final: para frenar el colapso hay que <em>ionizar</em> la nube, llegando a R ~ 1 au ≈ 100 R<sub>☉</sub>.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Honestidad intelectual del profesor</span>
+    <p>«No tenemos aún las herramientas matemáticas para trabajar de manera simple y analítica con estructuras de ese tipo. Quizás nos falta madurar, me refiero como humanidad.» El colapso de una fractal aleatoria no tiene solución cerrada; por eso el guión de esta clase alterna argumentos de orden de magnitud con simulaciones numéricas (sección 6).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>La fragmentación jerárquica es una <strong>recursión</strong>: <code>colapsa(nube)</code> aumenta ρ, lo que dispara <code>colapsa(sub-región)</code> con masa menor, hasta un caso base que la corta (sección 4: la ionización). Y que una fractal sintética de «dos líneas de Python» sea indistinguible de la observación real es un test generativo clásico: si un modelo estadístico mínimo reproduce la textura de los datos, la estructura aparente no exige física adicional a esa estadística.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Caer sin calentarse: la nube transparente</h2>
+    <p>El secreto termodinámico que permite la fragmentación indefinida.</p>
+  </div></div>
+
+  <p>Hay una pregunta incómoda: si la nube cae bajo su propio peso y pierde energía gravitacional, la conservación de energía exige que esa energía se convierta en algo — calor, por último. ¿Por qué entonces la temperatura se mantiene en ~20 K durante todo el colapso? (Y tiene que mantenerse: si T subiera, la densidad de Jeans ∝ T³ subiría y el colapso se frenaría.)</p>
+
+  <p>La respuesta: la nube es <span class="hl">transparente a su propia radiación</span> (ópticamente delgada). Está compuesta de átomos y moléculas —<strong>sistemas ligados</strong>— que solo interactúan con la radiación a través de transiciones discretas. El calor generado por la contracción calienta un poco los <strong>granitos de polvo interestelar</strong> (los mismos que hacen que el Saco de Carbón se vea oscuro contra las estrellas de fondo); esos granos, al estar apenas más calientes, brillan un poco más, y esa radiación <strong>escapa libremente</strong> de la nube. El enfriamiento es eficientísimo:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\Delta E_G \;=\; \frac{G M^2}{R_2} - \frac{G M^2}{R_1} \;\longrightarrow\; \text{radiada por completo} \;\Rightarrow\; T_2 = T_1"></div>
+    <small>Al contraerse de R₁ a R₂ la nube libera energía gravitacional, pero toda esa «luminosidad» se disipa en fotones que escapan: la temperatura no cambia. La nube cae esencialmente en <strong>caída libre isoterma</strong>.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Ligado vs ionizado: la clave</span>
+    <p>Átomos y moléculas (sistemas ligados) interactúan con la luz solo en líneas espectrales: son casi transparentes. Electrones y protones sueltos (plasma, como el interior del Sol) interactúan con los fotones continuamente: son opacos. <strong>Toda la historia del colapso pivota sobre esta diferencia</strong>: mientras la nube sea molecular, se enfría y cae; cuando se ionice, guardará su energía y se frenará.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Es un problema de <strong>disipación térmica</strong>: la nube molecular tiene un «radiador» perfecto (los granos de polvo radiando a un medio ópticamente delgado), así que su temperatura no sube por más potencia gravitacional que disipe — como un componente con un heatsink sobredimensionado. La ionización equivale a taparle el radiador: misma potencia entrante, disipación solo por la superficie, y la temperatura interna se dispara.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El freno del colapso: ionización y protoestrella</h2>
+    <p>La energía gravitacional se gasta en romper moléculas — y ahí se acaba la caída libre.</p>
+  </div></div>
+
+  <p>¿Qué detiene la fragmentación? ¿Por qué no sigue hasta pedazos de masa planetaria o menores? Para frenar el colapso hay que <strong>subir la temperatura</strong> (recordar ρ<sub>J</sub> ∝ T³), y eso solo ocurre cuando la nube deja de poder enfriarse. La secuencia:</p>
+  <ol class="steps">
+    <li>El fragmento de ~1 M<sub>☉</sub> sigue cayendo y densificándose, siempre a ~20 K.</li>
+    <li>Llega un punto en que la energía gravitacional liberada alcanza para <strong>disociar el hidrógeno molecular</strong> (H₂ → 2H) y luego <strong>ionizarlo</strong> (H → p + e⁻). El gas se convierte en <span class="hl">plasma</span>, como el interior del Sol.</li>
+    <li>Un plasma —sistemas <em>no</em> ligados— interactúa fácilmente con la radiación: la pelota se vuelve <strong>opaca</strong>. Un fotón en su interior rebota muchísimas veces antes de escapar; solo puede perder energía <em>por la superficie</em>.</li>
+    <li>Sin poder disipar, la energía gravitacional queda almacenada como calor: T salta de 20 K a ~10⁴ K (la temperatura de ionización). La presión térmica sostiene a la pelota: <strong>equilibrio hidrostático</strong>. Nació la <span class="hl">protoestrella</span>.</li>
+  </ol>
+
+  <p>El balance energético que fija cuándo ocurre esto:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{G M^2}{R_{\text{inicial}}} \;\approx\; \frac{M}{m_{\mathrm{H_2}}}\,E_{\text{disociación}} \;+\; \frac{M}{m_{\mathrm{H}}}\,E_{\text{ionización}}"></div>
+    <small>La energía gravitacional disponible se gasta primero en disociar cada molécula de H₂ y después en ionizar cada átomo de H. Igualando, resulta que esto sucede para masas del orden de <strong>0.1 a 1 M<sub>☉</sub></strong>, con un radio final de <strong>R ~ 1 au ≈ 100 R<sub>☉</sub></strong> — una protoestrella cuyo radio es la órbita de la Tierra.</small>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Analogía de la clase: la radiación fósil del Big Bang</span>
+    <p>El mismo principio, a escala cósmica pero al revés: el universo temprano estaba ionizado y era <strong>opaco</strong> («una gran bola de fuego»). Al expandirse y enfriarse, en z ≈ 1000 —cuando el universo tenía ~300.000 años— se recombinaron los primeros átomos de hidrógeno y el universo se hizo <strong>transparente</strong>: esa luz liberada es la radiación fósil (fondo cósmico de microondas). Por eso al mirar lejos vemos galaxias cada vez más antiguas hasta topar con ese «muro» incandescente más allá del cual no se puede ver. En la nube ocurre la transición opuesta: de transparente (molecular) a opaca (ionizada).</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Ojo con la definición</span>
+    <p>La protoestrella <em>puede</em> seguir contrayéndose, pero ya no en caída libre: lo hace de forma <strong>cuasi-estática</strong>, limitada por lo lento de su pérdida radiativa superficial (sección 5). El colapso rápido terminó; empieza la contracción lenta.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Dos relojes: caída libre y Kelvin-Helmholtz</h2>
+    <p>~10⁴ años de colapso, ~10⁷ años de contracción hasta encender la fusión.</p>
+  </div></div>
+
+  <h3>Reloj 1: el tiempo de caída libre</h3>
+  <p>El colapso gravitacional es esencialmente una caída libre, con una escala de tiempo que <strong>solo depende de la densidad</strong> (y de G):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\tau_{\mathrm{ff}} = \sqrt{\frac{3\pi}{32\,G\,\rho}}"></div>
+    <small>Notable por lo que <em>no</em> aparece: ni la masa ni el radio por separado, solo su combinación en ρ. Densidades altas ⇒ caídas rápidas.</small>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-09.jpg" alt="Fórmula del tiempo de caída libre y escalas de tiempo del colapso">
+    <figcaption><span class="cap">Diapositiva · Tiempo de caída libre</span>Una nube molecular de 1 M<sub>☉</sub> con la densidad crítica colapsa de 7000 au a 1 au en solo <strong>~20.000 años</strong> (~10⁴ yr) — un suspiro comparado con los miles de millones de años que vivirá la estrella. La contracción estelar ulterior es mucho más lenta: <strong>~10 Myr</strong>.</figcaption>
+  </figure>
+
+  <p>Para la densidad promedio del Sol (~1 tonelada/m³, parecida a la del agua: masa solar dividida por su volumen; el centro es mucho más denso) el tiempo de caída libre da del orden de <strong>media hora</strong> — el Sol obviamente no está en caída libre, está sostenido por su presión; el punto es que τ<sub>ff</sub> es cortísimo a densidades estelares. <em>[Nota de estos apuntes: en la transcripción el profesor duda del número («un milisegundo… una cosa de segundos o menos, no me acuerdo el número exacto»); evaluando la fórmula con ρ ≈ 1.4×10³ kg m⁻³ se obtiene τ<sub>ff</sub> ≈ 30 minutos. El orden de magnitud del argumento —«se cae muy rápido»— se mantiene.]</em></p>
+
+  <h3>Reloj 2: la contracción de Kelvin-Helmholtz</h3>
+  <p>La protoestrella opaca solo pierde energía por su superficie, radiando aproximadamente como <strong>cuerpo negro</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L = 4\pi R^{2}\,\sigma\,T^{4}"></div>
+    <small>σ es la constante de <strong>Stefan-Boltzmann</strong>. Al perder energía por la superficie, la energía gravitacional (negativa, E<sub>G</sub> ~ −GM²/R) se hace más negativa: el radio sigue cayendo, pero lento. Punto destacado en clase: <strong>el brillo se mantiene gracias a la pérdida de energía gravitacional</strong> — la pelota se alimenta de su propia contracción.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\tau_{\mathrm{KH}} \;\approx\; \frac{E_G}{L} \;\approx\; \frac{G M^2}{R\,L} \;\sim\; 10^{7}\ \text{años}"></div>
+    <small>La <strong>etapa de Kelvin-Helmholtz</strong>: energía gravitacional disponible dividida por la tasa a la que se pierde. Unas mil veces más lenta que la caída libre de la nube.</small>
+  </div>
+
+  <h3>El teorema del virial y el encendido de la fusión</h3>
+  <p>Para una pelota autogravitante en equilibrio, el <span class="hl">teorema del virial</span> dice que la energía termal es la mitad de la gravitacional (en magnitud): 2E<sub>K</sub> ≈ |E<sub>G</sub>|. Con E<sub>K</sub> ~ NkT y N ~ M/m<sub>p</sub> (gas ya ionizado):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="N k_B T \sim \frac{G M^2}{R} \;\;\Rightarrow\;\; T \sim \frac{G M m_p}{k_B R}"></div>
+    <small>La temperatura <strong>sube al achicarse el radio</strong>. Partiendo de ~10⁴ K, la contracción de Kelvin-Helmholtz lleva el centro a <strong>10⁶–10⁷ K</strong>… y ahí se gatilla la <strong>fusión nuclear</strong>: nace la estrella, en la <span class="hl">Zero-Age Main Sequence</span> (ZAMS, secuencia principal de edad cero). Según la clase, esto ocurre cuando el radio llegó a ~2 R<sub>☉</sub>. Las pérdidas superficiales pasan a ser compensadas por generación nuclear central: equilibrio que dura miles de millones de años.</small>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-11.jpg" alt="Trayectoria pre-secuencia principal en el diagrama HR desde 100 radios solares hasta la ZAMS">
+    <figcaption><span class="cap">Diapositiva · La contracción en el diagrama H-R</span>Resumen del guión: el colapso del corazón molecular ocurre en ~10⁴ yr y es frenado por su ionización, creando una protoestrella en equilibrio hidrostático que tarda <strong>~10⁷ yr</strong> en llegar a la secuencia principal. La trayectoria pre-secuencia parte en ~100 R<sub>☉</sub> con temperatura superficial ~3000 K y desciende hasta la ZAMS (~6000 K para una estrella tipo Sol). La temperatura <em>interna</em>, regida por el virial, es mucho mayor que la superficial.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Dos constantes de tiempo separadas por tres órdenes de magnitud (10⁴ vs 10⁷ años) definen un sistema <em>stiff</em>: una dinámica rápida (caída libre) que se satura y entrega el control a una dinámica lenta (drenaje radiativo). Es la misma razón por la que un integrador numérico de este problema necesitaría paso adaptativo — y por la que en el diagrama H-R casi todas las estrellas que vemos están en fases lentas: el tiempo de permanencia en cada estado determina la probabilidad de observarlo, igual que en un <em>profiler</em> estadístico.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Simulaciones: el colapso en el computador</h2>
+    <p>Donde no llega el lápiz, llegan las leyes de Newton programadas.</p>
+  </div></div>
+
+  <p>No hay teoría analítica del colapso de una fractal aleatoria, pero sí «súper buenos computadores» y leyes físicas simples: para esto basta <strong>F = ma</strong> aplicada a un fluido (hidrodinámica) — nada de relatividad general ni física de partículas. La clase mostró las simulaciones de <span class="hl">Matthew Bate</span> (físico computacional inglés, pionero en estos cálculos; hay muchos ejemplos en su página web).</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-10.jpg" alt="Cuadro inicial de la simulación de colapso de Matthew Bate: esfera homogénea de 82500 au">
+    <figcaption><span class="cap">Diapositiva · Condición inicial de la simulación</span>Esfera de gas de ~82.500 au. La escala de colores es <strong>densidad de columna</strong>: toda la densidad integrada a lo largo de cada línea de visión (en log). Las simulaciones hidrodinámicas reproducen bien las propiedades generales de las regiones de formación estelar.</figcaption>
+  </figure>
+
+  <p>Lo que muestra la película, según la clase:</p>
+  <ul>
+    <li>La esfera homogénea <strong>se fragmenta de inmediato</strong>: «como que no duró nada» — confirmando el argumento de la sección 2.</li>
+    <li>Los grumos se contraen hasta el punto en que un píxel supera la densidad crítica para condensar una masa solar (~0.1 pc): la simulación lo <strong>declara una estrella</strong> (una simplificación: no resuelve lo que pasa dentro).</li>
+    <li>Las estrellas <strong>se forman en grupos</strong>, tienen encuentros entre sí, algunas <strong>salen disparadas</strong> del cúmulo (¡y eso se observa en regiones de formación estelar reales!), y en torno a algunas se forman estructuras como <strong>anillos circumbinarios</strong> de material.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión informática</span>
+    <p>«El computador resuelve un fenómeno del que no tenemos conocimiento analítico; en ese sentido no lo comprendemos, pero lo podemos reproducir en una máquina.» Física computacional pura: el criterio «densidad de píxel &gt; umbral ⇒ estrella» es un <em>sink particle</em>, el equivalente a colapsar una sub-simulación irresoluble en un objeto puntual con las propiedades agregadas correctas — cambiar resolución por tratabilidad, como en cualquier modelo multiescala.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Momento angular: la barrera centrífuga y el nacimiento del disco</h2>
+    <p>Por qué la masa no puede caer directo sobre la estrella.</p>
+  </div></div>
+
+  <p>En el colapso hay <span class="hl">conservación de momento angular</span>. Toda nube real tiene alguna rotación neta: promediando las velocidades caóticas de la fractal queda una rotación promedio, chiquitita pero no nula, con su eje. El momento angular (por unidad de masa, en magnitud) es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L \;=\; M\, v\, r \;=\; \text{constante} \quad\Rightarrow\quad v \propto \frac{1}{r}"></div>
+    <small>Si M se mantiene y r se achica, v <strong>debe crecer</strong>: es la bailarina que junta los brazos para girar más rápido. Una rotación indetectable a 7000 au se vuelve vertiginosa al contraer la nube.</small>
+  </div>
+
+  <p>La consecuencia geométrica es el corazón de todo el módulo:</p>
+  <ol class="steps">
+    <li><strong>A lo largo del eje de rotación</strong>, nada impide caer: la gravedad actúa sin oposición.</li>
+    <li><strong>En el plano ecuatorial</strong>, la fuerza centrífuga (creciente, porque v ∝ 1/r) se opone a la contracción: caer hacia adentro exigiría perder momento angular, y no hay cómo — igual que la Tierra no se cae sobre el Sol porque conserva el suyo.</li>
+    <li>La nube <strong>se achata</strong>: colapsa fácil por los polos y queda frenada en el ecuador. Se forma un <span class="hl">platillo</span>: el <strong>disco de acreción circunestelar</strong>.</li>
+  </ol>
+
+  <p>Y aquí aparece <em>el</em> problema teórico: si el grueso de la masa queda orbitando en el disco, atrapado por la barrera centrífuga, <strong>¿cómo se alimenta la estrella?</strong> Para que el material caiga debe <em>perder</em> momento angular. Dos mecanismos aparecen en la clase: la <strong>fricción viscosa</strong> entre anillos del disco (los anillos se rozan unos con otros, el material migra hacia adentro y el roce genera luminosidad: un «disco activo») y los <strong>vientos y jets</strong> que se llevan momento angular del sistema (secciones 9 y 10).</p>
+
+  <div class="box physics">
+    <span class="tag">Rotación kepleriana</span>
+    <p>El gas del disco, orbitando la masa central, sigue el <strong>perfil kepleriano</strong>: v(r) = √(GM/r). Cada anillo a su propia velocidad —los internos más rápido— a diferencia de un cuerpo rígido donde v = Ωr. Este perfil diferencial es justamente lo que permite que haya roce entre anillos vecinos.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de un estudiante: ¿en qué momento empieza a rotar la estrella?</span>
+    <p>Respuesta del profesor: <strong>rota desde el inicio</strong> — cualquier pedazo de gas tiene una rotación promedio—, pero al contraerse gira cada vez más rápido (conservación de L). Las regiones internas son las primeras en acelerar. Las estrellas y planetas jóvenes rotan muy rápido y luego <strong>se frenan por el campo magnético</strong>; tanto, que se puede estimar la edad de una estrella por su velocidad de rotación: la <span class="hl">girocronología</span> (gyrochronology).</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>El momento angular es un <strong>invariante del sistema</strong>: como una ley de conservación en un programa, restringe qué estados son alcanzables sin importar la trayectoria. El colapso no puede «optimizar» hacia la configuración de mínima energía (todo en la estrella) porque violaría el invariante; la solución factible es un disco + mecanismos de transporte que muevan momento angular hacia afuera mientras la masa fluye hacia adentro — una arquitectura de contraflujo, como un buffer que despacha datos en una dirección y créditos de flujo en la otra.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Las cuatro clases de objetos estelares jóvenes</h2>
+    <p>De la envoltura fría al disco de escombros, contado por sus espectros.</p>
+  </div></div>
+
+  <p>La evolución de la protoestrella se clasifica en <strong>cuatro etapas o «clases» (0, I, II, III)</strong>, distinguibles por su <span class="hl">distribución espectral de energía</span> (SED: luminosidad νF<sub>ν</sub> en función de la frecuencia):</p>
+
+  <ul>
+    <li><strong>Clase 0</strong> — El corazón molecular en colapso: un solo cuerpo negro <strong>frío</strong>, que emite a baja frecuencia (radio/submilimétrico). Escala ~5000 au. Los chorros ya crean cavidades bipolares.</li>
+    <li><strong>Clase I</strong> — Aparece la protoestrella caliente (rango infrarrojo/visible) más un <span class="hl">disco activo de acreción</span>, que brilla en infrarrojo/radio calentado <strong>por su propia viscosidad</strong>: el roce entre anillos que regula la alimentación de la estrella. Todavía hay envoltura cayendo y vientos fuertes. Escala ~500 au.</li>
+    <li><strong>Clase II</strong> — Tras ~0.5–1 millón de años: la protoestrella ya casi tiene su radio final, no queda envoltura ni vientos fuertes. El disco es <span class="hl">pasivo</span>: brilla calentado <strong>principalmente por la estrella</strong>, no por acreción. Es el disco protoplanetario clásico. Escala ~50 au.</li>
+    <li><strong>Clase III</strong> — Se perdió el gas del platillo: quedan «los puros escombros», rocas y restos — el <span class="hl">disco de escombros</span> (debris disk) — junto a los productos de la formación planetaria. Escala ~5 au en el esquema.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c2/assets/slide-12.jpg" alt="Esquema de las clases 0 a III con sus distribuciones espectrales de energía">
+    <figcaption><span class="cap">Diapositiva · SEDs de las clases 0–III</span>Izquierda: νF<sub>ν</sub> vs frecuencia para cada clase — de un cuerpo negro frío único (clase 0) a estrella + disco activo (I), estrella + disco pasivo (II) y estrella + disco remanente (III). Derecha: esquema físico con la escala espacial decreciente (5000 → 500 → 50 → 5 au). La conservación de momento angular frena el colapso en el plano ecuatorial y el disco resultante regula el crecimiento de la protoestrella.</figcaption>
+  </figure>
+
+  <h3>Cada clase, observada</h3>
+  <figure>
+    <img src="m3c2/assets/slide-13.jpg" alt="Ejemplos observacionales de cada clase: L1527, HL Tau, HD 163296 y HR 4796A">
+    <figcaption><span class="cap">Diapositiva · Las clases en observaciones reales</span><strong>Clase 0:</strong> L1527 IRS (Tobin+ 2012), imagen Gemini en banda L (~3.8 μm): la luz de la protoestrella se refleja en las <em>cavidades bipolares</em> excavadas por los chorros; entre los dos lóbulos se adivina la franja oscura del platillo incipiente. <strong>Clase I:</strong> HL Tau, la primera observación de ALMA a capacidad completa (2014): un disco con <em>anillos concéntricos</em> que asociamos al nacimiento de planetas — gran sorpresa, porque se pensaba que la formación planetaria ocurría más tarde. <strong>Clase II:</strong> disco ya formado cuya rotación se ve en el corrimiento azul/rojo de la línea de CO (HD 162396 según la diapositiva; la referencia Rosenfeld+ 2013 corresponde a HD 163296). <strong>Clase III:</strong> HR 4796A (GPI), un «exo-cinturón de Kuiper» visto en intensidad total y en <em>luz polarizada</em>.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">La técnica «chora» de la polarización</span>
+    <p>Ver un anillo tenue junto a una estrella brillantísima exige una máscara coronográfica en el plano focal — y aun así la luz estelar residual ensucia la imagen («un montón de cachureo»). El truco: la luz directa de la estrella <strong>no está polarizada</strong>, pero la que se <em>refleja</em> en el cinturón <strong>sí</strong>. Observando solo la radiación polarizada, la estrella se cancela y la superficie reflectora aparece limpia hasta muy cerca de la estrella. Ingeniería de señales: separar señal de ruido por una propiedad física que solo tiene la señal.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Por qué HL Tau cambió el campo</span>
+    <p>El profesor estaba en una conferencia cuando salió la imagen de HL Tau (2014): «quedamos impresionadísimos». Anillos —posibles huellas de planetas— en una etapa tan temprana como la clase I implicaban que los planetas pueden empezar a formarse <em>antes</em> de lo que se creía. La clase volverá sobre esta relación anillos–planetas más adelante en el módulo.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Acreción magnetosférica: cómo come la estrella</h2>
+    <p>El campo magnético trunca el disco y canaliza la caída.</p>
+  </div></div>
+
+  <p>Zoom al proceso de acreción (modelo de <em>magnetospheric accretion</em>, Romanova &amp; Owocki 2016, mostrado con cálculos <strong>magnetohidrodinámicos</strong>: las leyes de Newton para un fluido <em>magnetizado</em> — mucho más difíciles que la hidrodinámica pura). Los ingredientes:</p>
+  <ul>
+    <li>El <strong>disco</strong> rota con perfil kepleriano: v<sub>disco</sub>(r) = √(GM/r), decreciente con r.</li>
+    <li>La <strong>estrella y su campo magnético</strong> (dipolo, polo norte y sur) rotan aproximadamente como <strong>cuerpo rígido</strong> con velocidad angular Ω: v<sub>B</sub>(r) = Ω·r, creciente con r.</li>
+    <li>El campo magnético <strong>permea el disco</strong>, y como el disco tiene un poco de ionización, está bien acoplado a él: las líneas de campo están «congeladas» en la materia (situación nada cotidiana, pero universal en astrofísica).</li>
+  </ul>
+
+  <p>Las dos curvas de velocidad se cruzan en un <span class="hl">radio crítico</span> R<sub>c</sub> (radio de corrotación):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\sqrt{\frac{G M}{R_c}} = \Omega\, R_c \quad\Rightarrow\quad R_c = \left(\frac{G M}{\Omega^{2}}\right)^{1/3}"></div>
+    <small>Adentro de R<sub>c</sub>: el campo (lento) <strong>frena</strong> al disco (rápido) ⇒ el material pierde momento angular y <strong>cae sobre la estrella</strong>. Afuera de R<sub>c</sub>: el campo (rápido) <strong>acelera</strong> al disco (lento) ⇒ el material es <strong>disparado</strong> hacia afuera, como un anillo ensartado en una varilla que se hace girar.</small>
+  </div>
+
+  <figure>
+    <img src="m3c2/assets/slide-16.jpg" alt="Simulación magnetohidrodinámica de acreción magnetosférica de Romanova y Owocki">
+    <figcaption><span class="cap">Diapositiva · Acreción magnetosférica (MHD)</span>Render 3D del campo magnético dipolar (izquierda), corte de densidad (centro) y el <em>hotspot</em> de acreción sobre la superficie estelar (derecha). El disco está <strong>truncado</strong> en su borde interno: el material es arrastrado a gran altura siguiendo las líneas de campo y cae en <strong>columnas de acreción</strong> sobre puntos específicos — manchas estelares <em>calientes</em>, lo opuesto de las manchas solares frías. Así crece la estrella.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-17.jpg" alt="Visión artística de la acreción magnetosférica sobre una protoestrella">
+    <figcaption><span class="cap">Diapositiva · Visión de artista</span>El borde interno del disco levantado por el campo magnético, las columnas de acreción cayendo sobre la protoestrella, y un planeta ya formándose en el disco. Hasta hace ~10 años esto «era el dominio de la teoría»; una alternativa que se consideraba era que el disco llegara hasta la superficie y la estrella lo erosionara por roce directo — algo así podría ocurrir en algunos <em>planetas</em>, pero para el caso estelar las observaciones favorecieron la acreción magnetosférica.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>El radio de corrotación funciona como un <strong>acoplamiento de embrague</strong>: dos volantes girando a distinta velocidad angular conectados por un medio elástico (el campo). Del lado donde el disco va más rápido, el campo extrae momento angular (frena → cae); del lado donde va más lento, se lo inyecta (acelera → eyecta). El mismo dispositivo físico resuelve simultáneamente la alimentación de la estrella y el lanzamiento de vientos.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Vientos, jets y objetos Herbig-Haro</h2>
+    <p>Para poder nacer, la estrella tiene que soplar.</p>
+  </div></div>
+
+  <p>La aceleración magnética fuera del radio de corrotación genera una familia de flujos salientes: el <strong>X-wind</strong>, el <strong>viento cónico</strong> (conical wind), el <strong>viento del disco</strong> (disk wind) y, sobre el eje de la estrella, un <span class="hl">jet colimado</span> por otro efecto magnético. En los cálculos MHD se ve la configuración completa: material entrando por el plano del disco (inflow) y una estructura bipolar escapando del sistema.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-18.jpg" alt="Esquema de vientos estelares, X-wind, viento cónico y viento del disco, con simulación MHD">
+    <figcaption><span class="cap">Diapositiva · El mapa de los vientos</span>Arriba: esquema con stellar wind, conical wind, X-wind, disk wind y el inflow por el plano ecuatorial. Abajo: simulación con el campo de velocidades — lo rojo sale, lo azul entra. El mismo modelo de acreción magnetosférica propone el mecanismo de aceleración del viento.</figcaption>
+  </figure>
+
+  <p>Estos chorros <strong>se observan</strong>. El ejemplo de la clase: <span class="hl">HH 212</span> en Orión.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-19.jpg" alt="Jet HH 212 observado por ALMA en SiO(8-7), con el disco de acreción y la rotación del chorro">
+    <figcaption><span class="cap">Diapositiva · HH 212: el jet que rota</span>Observación ALMA de la transición rotacional SiO(8-7) del monóxido de silicio. (a) El jet (verde) perpendicular al disco de acreción; a escala, el sistema solar (Sol + órbita de Neptuno). (b) El chorro dividido en componente azul y roja: <strong>el jet está rotando</strong> — se está llevando momento angular del sistema, exactamente lo que la formación estelar necesita.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m3c2/assets/slide-20.jpg" alt="Imagen infrarroja del jet HH 212 impactando el medio interestelar">
+    <figcaption><span class="cap">Diapositiva · El mismo jet en infrarrojo (ESO)</span>A gran escala, el jet colimado impacta el medio interestelar produciendo los nudos brillantes llamados <strong>objetos Herbig-Haro</strong>. Es «muy curioso que para poder nacer, la estrella tenga que soplar vientos».</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Un patrón universal</span>
+    <p>Acreción sobre objetos compactos ⇒ grandes vientos: es un fenómeno común en astrofísica. Los núcleos activos de galaxias —agujeros negros supermasivos acretando— soplan vientos gigantes por el mismo tipo de mecanismo que esta protoestrella. Mismo patrón físico, escalas separadas por muchos órdenes de magnitud.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Ophiuchus: el vivero de discos y el nacimiento de un campo</h2>
+    <p>El contexto que conecta con el resto del módulo.</p>
+  </div></div>
+
+  <p>Volviendo al contexto del módulo: en una nube molecular como la de <span class="hl">Ophiuchus</span> (la favorita del profesor), las protoestrellas nacen rodeadas de sus platillos — los discos de acreción que son, desde el punto de vista de la formación planetaria, los <strong>discos protoplanetarios</strong> donde vamos a observar nacer planetas.</p>
+
+  <figure>
+    <img src="m3c2/assets/slide-22.jpg" alt="Región de Ophiuchus con la diversidad de discos protoplanetarios de los sondeos ODISEA y DSHARP">
+    <figcaption><span class="cap">Diapositiva · La diversidad de discos en Ophiuchus</span>Zoom sobre la región (sondeos ODISEA long-baseline y DSHARP con ALMA): cada estrellita está rodeada de un disco con estructura propia — anillos, surcos, asimetrías, espirales. Esta diversidad «fue una gran sorpresa»: con estas observaciones de ALMA <strong>nace realmente el campo de la formación planetaria</strong>.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Perspectiva histórica del profesor</span>
+    <p>Antes de ALMA, la formación planetaria se imaginaba de forma simple («van chocando arenitas y forman un corazón telúrico») y se dedicaban a ella «dos o tres» investigadores en el mundo, en Japón y Estados Unidos. Las imágenes de discos con estructura mostraron una riqueza de fenómenos mucho mayor — y entender esa estructura es la condición inicial para entender el origen de los planetas, su composición, y en última instancia el origen de la vida.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Continúa la próxima clase</span>
+    <p>La clase quedó hasta aquí. Lo que sigue en el módulo: la <strong>estructura del disco</strong> (equilibrio hidrostático vertical, escala de altura), la rotación <em>sub</em>-kepleriana del gas y las <strong>trampas de polvo</strong> — el mecanismo que salva a las arenas y rocas de caer en espiral sobre la estrella y permite fabricar planetas (PDF «Módulo III – Clase 2: trampas de polvo»).</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-momento">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Conservación de momento angular: la bailarina cósmica</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Contrae la nube desde 7000 au y observa cómo la rotación (v ∝ 1/r) se dispara, hasta cruzarse con la velocidad kepleriana: ahí la fuerza centrífuga iguala a la gravedad y el material queda en órbita — nace el disco. Supone 1 M☉ y una rotación inicial de 0.05 km/s a 7000 au (rotación «chiquitita pero existente»).</p>
+    <div class="presets" id="mom-presets">
+      <button data-r="7000">Nube inicial (7000 au)</button>
+      <button data-r="1000">1000 au</button>
+      <button data-r="138">Radio de frenado</button>
+      <button data-r="30">30 au (Neptuno)</button>
+      <button data-r="1">1 au (protoestrella)</button>
+    </div>
+    <label for="mom-r">Radio de la región contraída (au, escala log): <span id="mom-rlab"></span></label>
+    <input type="range" id="mom-r" min="0" max="3.845" step="0.005" value="3.845">
+    <output id="mom-out"></output>
+  </div>
+
+  <div class="widget" id="w-jeans">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Densidad de Jeans y tiempo de caída libre: ρ<sub>J</sub> ∝ T³/M²</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige la masa que quieres condensar y la temperatura de la nube: obtén la densidad crítica (anclada al valor de la clase: ρ<sub>J</sub> = 10⁻²² kg/m³ para 10³ M☉ a 20 K) y el tiempo de caída libre τ<sub>ff</sub> = √(3π/32Gρ) correspondiente. <em>Nota: todos estos valores son de orden de magnitud; al evaluar la fórmula con la densidad anclada, el τ<sub>ff</sub> del fragmento de 1 M☉ da ~10⁵ años, mientras la diapositiva cita ~2×10⁴ años — misma física, escalas «aprox» como advirtió el profesor.</em></p>
+    <div class="presets" id="jeans-presets">
+      <button data-m="1000" data-t="20">Saco de Carbón (10³ M☉, 20 K)</button>
+      <button data-m="100" data-t="20">Fragmento de 100 M☉</button>
+      <button data-m="1" data-t="20">Fragmento de 1 M☉</button>
+      <button data-m="1" data-t="100">1 M☉ a 100 K</button>
+    </div>
+    <div class="wgrid">
+      <div>
+        <label for="jeans-m">Masa a condensar (M☉, escala log): <span id="jeans-mlab"></span></label>
+        <input type="range" id="jeans-m" min="-1" max="3" step="0.01" value="3">
+      </div>
+      <div>
+        <label for="jeans-t">Temperatura (K): <span id="jeans-tlab"></span></label>
+        <input type="range" id="jeans-t" min="10" max="100" step="1" value="20">
+      </div>
+    </div>
+    <output id="jeans-out"></output>
+  </div>
+
+  <div class="widget" id="w-corot">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Disco kepleriano vs magnetosfera rígida: el radio de corrotación</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">El disco rota con v = √(GM/r) (decreciente); la magnetosfera, como cuerpo rígido, con v = Ωr (creciente). Donde se cruzan está R<sub>c</sub>: hacia adentro el campo frena al disco (el material cae en columnas de acreción), hacia afuera lo acelera (vientos). Ajusta la masa estelar y el período de rotación.</p>
+    <div class="wgrid">
+      <div>
+        <label for="cor-m">Masa de la estrella (M☉): <span id="cor-mlab"></span></label>
+        <input type="range" id="cor-m" min="0.2" max="3" step="0.1" value="1">
+      </div>
+      <div>
+        <label for="cor-p">Período de rotación estelar (días): <span id="cor-plab"></span></label>
+        <input type="range" id="cor-p" min="1" max="15" step="0.5" value="7">
+      </div>
+    </div>
+    <canvas id="cor-canvas" width="640" height="330"></canvas>
+    <output id="cor-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Criterio de Jeans</b></td><td>Colapso si GM²/R &gt; NkT; ρ<sub>J</sub> ∝ T³/M²</td><td>Decide qué (y cuánta) masa puede colapsar en cada etapa</td></tr>
+      <tr><td><b>Saco de Carbón</b></td><td>10³ M<sub>☉</sub>, 20 K, ρ ~ 10⁻²² kg/m³</td><td>Test observacional: cumple el criterio, debería estar colapsando</td></tr>
+      <tr><td><b>ISM fractal</b></td><td>Estructura autosimilar (LMC en H I 21 cm)</td><td>La esfera homogénea no existe; no hay teoría analítica del colapso real</td></tr>
+      <tr><td><b>Fragmentación jerárquica</b></td><td>Al subir ρ, colapsan masas menores (ρ<sub>J</sub> ∝ 1/M²)</td><td>Una nube de 1000 M<sub>☉</sub> forma un cúmulo, no una superestrella</td></tr>
+      <tr><td><b>Colapso isotermo</b></td><td>Nube molecular transparente: radia toda la energía liberada</td><td>T constante ⇒ la caída libre y la fragmentación continúan</td></tr>
+      <tr><td><b>Freno por ionización</b></td><td>E<sub>G</sub> se gasta en disociar H₂ e ionizar H; gas → plasma opaco</td><td>Detiene la caída libre en R ~ 1 au ≈ 100 R<sub>☉</sub>: nace la protoestrella</td></tr>
+      <tr><td><b>Tiempo de caída libre</b></td><td>τ<sub>ff</sub> = √(3π/32Gρ); ~2×10⁴ yr para el fragmento</td><td>Solo depende de la densidad; el colapso es un suspiro astronómico</td></tr>
+      <tr><td><b>Etapa de Kelvin-Helmholtz</b></td><td>τ<sub>KH</sub> ≈ GM²/(RL) ~ 10⁷ yr; L = 4πR²σT⁴</td><td>Contracción lenta alimentada por energía gravitacional, hasta la fusión</td></tr>
+      <tr><td><b>Teorema del virial</b></td><td>2E<sub>K</sub> ≈ |E<sub>G</sub>| ⇒ T ~ GMm<sub>p</sub>/(k<sub>B</sub>R)</td><td>T central sube al contraerse; a 10⁶–10⁷ K se gatilla la fusión (ZAMS)</td></tr>
+      <tr><td><b>Momento angular</b></td><td>L = Mvr constante ⇒ v ∝ 1/r (bailarina)</td><td>Barrera centrífuga ecuatorial: achata la nube y forma el disco</td></tr>
+      <tr><td><b>Rotación kepleriana</b></td><td>v(r) = √(GM/r), rotación diferencial</td><td>Perfil del disco; el roce entre anillos transporta momento angular</td></tr>
+      <tr><td><b>Clases 0–III</b></td><td>SEDs: núcleo frío → disco activo → disco pasivo → escombros</td><td>Cronología observable de la protoestrella y su disco</td></tr>
+      <tr><td><b>Acreción magnetosférica</b></td><td>Disco truncado; columnas de caída; hotspots; R<sub>c</sub> = (GM/Ω²)<sup>1/3</sup></td><td>Explica cómo la estrella come a pesar de la barrera centrífuga</td></tr>
+      <tr><td><b>Vientos y jets</b></td><td>X-wind, conical wind, disk wind, jet colimado; HH 212 rota</td><td>Se llevan momento angular: «para nacer, la estrella tiene que soplar»</td></tr>
+      <tr><td><b>Objetos Herbig-Haro</b></td><td>Nudos brillantes donde el jet impacta el ISM</td><td>Evidencia a gran escala de los chorros protoestelares</td></tr>
+      <tr><td><b>Girocronología</b></td><td>Edad estelar estimada por velocidad de rotación</td><td>Las estrellas jóvenes rotan rápido y se frenan magnéticamente</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c2-examen-01.html">Examen 01<small>Criterio de Jeans</small></a></li>
+    <li><a href="m3c2-examen-02.html">Examen 02<small>Fractales y fragmentación</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>Transparencia e ionización</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>Escalas de tiempo</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>Virial y camino a la ZAMS</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Simulaciones y momento angular</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>Clases 0–III</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>Acreción magnetosférica</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>Vientos, jets y Herbig-Haro</small></a></li>
+    <li><a href="m3c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo III del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Simón Casassus, 6 jul 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m3/ff/planetas-m3c2.md</code>) y las diapositivas <code>Modulo_III_-_Clase_1_formacion_del_disco_protoplanetario.pptx.pdf</code> (la numeración de los PDF no coincide 1:1 con las clases; esta clase avanzó por buena parte de ese PDF y no alcanzó a entrar en el de trampas de polvo).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «Zero Age Main Chic» → Zero-Age Main Sequence (ZAMS); «objetos de Hermit» → objetos <em>Herbig-Haro</em>; «Matthew Bates» → Matthew Bate; «Bruce Sungreen» → Bruce <em>Elmegreen</em> (Elmegreen et al. 2001, ApJ 548, 749, según la diapositiva); «sigma, que es la constante de Boltzmann» → constante de <em>Stefan-Boltzmann</em>; el colapso de 7000 au a 1 au «en mil años» → <em>~20.000 años</em> (~10⁴ yr, según las diapositivas); «H 212» → HH 212; «Kelvin Helmut» → Kelvin-Helmholtz; «la cheya / la CHE» → la estrella; «saco carbón / charco carbono / cocarbundo» → Saco de Carbón; «0.1 farsa» → 0.1 parsec; «calle libre» → caída libre; «atención magnetosférica» → acreción magnetosférica; «galaxias de Redshift 100» → probable error de la transcripción (las galaxias más lejanas observadas están en z ~ 10–14; la radiación fósil sí está en z ≈ 1000). El tiempo de caída libre del Sol («un milisegundo… una cosa de segundos») da ~30 minutos al evaluar la fórmula — señalado como inferencia propia en la sección 5. La identificación del disco de clase II como HD 163296 (la diapositiva dice «HD162396») es material externo basado en la referencia Rosenfeld et al. 2013. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Utilidades ----
+function fmtNum(x, dec){
+  if(x >= 1e5 || (x > 0 && x < 1e-3)) return x.toExponential(dec===undefined?2:dec);
+  return x.toLocaleString('es-CL',{maximumFractionDigits:dec===undefined?2:dec});
+}
+function fmtYears(y){
+  if(y >= 1e9) return (y/1e9).toLocaleString('es-CL',{maximumFractionDigits:1})+" mil millones de años";
+  if(y >= 1e6) return (y/1e6).toLocaleString('es-CL',{maximumFractionDigits:1})+" millones de años";
+  if(y >= 1) return Math.round(y).toLocaleString('es-CL')+" años";
+  var d = y*365.25;
+  if(d >= 1) return d.toLocaleString('es-CL',{maximumFractionDigits:1})+" días";
+  var h = d*24;
+  if(h >= 1) return h.toLocaleString('es-CL',{maximumFractionDigits:1})+" horas";
+  return (h*60).toLocaleString('es-CL',{maximumFractionDigits:1})+" minutos";
+}
+
+// ---- Widget 1: momento angular ----
+(function(){
+  var r = document.getElementById('mom-r');
+  var lab = document.getElementById('mom-rlab');
+  var out = document.getElementById('mom-out');
+  var V0 = 0.05;      // km/s a 7000 au
+  var R0 = 7000;      // au
+  function calc(){
+    var rau = Math.pow(10, parseFloat(r.value));
+    lab.textContent = fmtNum(rau, rau<10?2:0)+" au";
+    var vrot = V0 * R0 / rau;                 // v ∝ 1/r
+    var vkep = 29.78 / Math.sqrt(rau);        // 1 M☉
+    var Rfreno = Math.pow(V0*R0/29.78, 2);    // donde vrot = vkep
+    var estado;
+    if(vrot < 0.5*vkep){
+      estado = "→ La rotación aún es despreciable frente a la gravedad: la nube <b>cae casi libremente</b> en todas las direcciones.";
+    } else if(vrot < vkep){
+      estado = "→ La fuerza centrífuga ya se nota en el plano ecuatorial: la nube <b>se está achatando</b> (cae fácil por los polos, con freno en el ecuador).";
+    } else {
+      estado = "→ ¡<b>Barrera centrífuga</b>! v<sub>rot</sub> ≥ v<sub>kepleriana</sub>: en el plano ecuatorial el material queda <b>en órbita</b> — de aquí hacia adentro solo se cae perdiendo momento angular (viscosidad, vientos). Nació el disco.";
+    }
+    out.innerHTML = "<span class='k'>v de rotación</span> (L = Mvr conservado) ≈ <b>"+fmtNum(vrot, vrot<1?3:1)+" km/s</b><br>"+
+      "<span class='k'>v kepleriana</span> a este radio (1 M☉) ≈ <b>"+fmtNum(vkep, 1)+" km/s</b><br>"+
+      "<span class='k'>Radio de frenado</span> (v<sub>rot</sub> = v<sub>kep</sub>) ≈ <b>"+fmtNum(Rfreno,0)+" au</b> — la escala natural del disco<br>"+estado;
+  }
+  r.addEventListener('input', calc);
+  document.querySelectorAll('#mom-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ r.value = Math.log10(parseFloat(btn.dataset.r)); calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: densidad de Jeans + caída libre ----
+(function(){
+  var m = document.getElementById('jeans-m');
+  var t = document.getElementById('jeans-t');
+  var mlab = document.getElementById('jeans-mlab');
+  var tlab = document.getElementById('jeans-tlab');
+  var out = document.getElementById('jeans-out');
+  var G = 6.674e-11;
+  // Ancla de la clase: rho_J = 1e-22 kg/m3 para M=1000 Msun, T=20 K
+  function calc(){
+    var M = Math.pow(10, parseFloat(m.value));
+    var T = parseFloat(t.value);
+    mlab.textContent = fmtNum(M, M<10?2:0)+" M☉";
+    tlab.textContent = T+" K";
+    var rho = 1e-22 * Math.pow(T/20, 3) * Math.pow(1000/M, 2);
+    var tff = Math.sqrt(3*Math.PI/(32*G*rho));   // s
+    var tffYr = tff/3.156e7;
+    var Msun = 1.989e30;
+    var Rm = Math.pow(3*M*Msun/(4*Math.PI*rho), 1/3);  // m
+    var Rau = Rm/1.496e11;
+    var Rpc = Rm/3.086e16;
+    out.innerHTML = "<span class='k'>Densidad crítica</span> ρ<sub>J</sub> ≈ <b>"+rho.toExponential(1)+" kg/m³</b> (∝ T³/M²)<br>"+
+      "<span class='k'>Radio del fragmento</span> ≈ <b>"+fmtNum(Rau,0)+" au</b> ("+fmtNum(Rpc,2)+" pc)<br>"+
+      "<span class='k'>Tiempo de caída libre</span> τ<sub>ff</sub> ≈ <b>"+fmtYears(tffYr)+"</b><br>"+
+      "→ Nota cómo bajar la masa de 10³ a 1 M☉ exige una densidad <b>10⁶ veces</b> mayor — el motor de la fragmentación jerárquica.";
+  }
+  m.addEventListener('input', calc);
+  t.addEventListener('input', calc);
+  document.querySelectorAll('#jeans-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      m.value = Math.log10(parseFloat(btn.dataset.m));
+      t.value = btn.dataset.t;
+      calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 3: radio de corrotación ----
+(function(){
+  var mS = document.getElementById('cor-m');
+  var pS = document.getElementById('cor-p');
+  var mlab = document.getElementById('cor-mlab');
+  var plab = document.getElementById('cor-plab');
+  var out = document.getElementById('cor-out');
+  var cv = document.getElementById('cor-canvas');
+  var ctx = cv.getContext('2d');
+  var G = 6.674e-11, Msun = 1.989e30, AU = 1.496e11, DAY = 86400, RSUN = 6.957e8;
+  function calc(){
+    var M = parseFloat(mS.value)*Msun;
+    var P = parseFloat(pS.value)*DAY;
+    mlab.textContent = parseFloat(mS.value).toFixed(1)+" M☉";
+    plab.textContent = parseFloat(pS.value).toFixed(1)+" días";
+    var Om = 2*Math.PI/P;
+    var Rc = Math.pow(G*M/(Om*Om), 1/3);   // m
+    var RcAU = Rc/AU, RcRsun = Rc/RSUN;
+    var vc = Om*Rc/1000;                    // km/s
+
+    // ---- dibujo ----
+    var W = cv.width, H = cv.height, padL = 56, padB = 40, padT = 16, padR = 14;
+    ctx.clearRect(0,0,W,H);
+    var rMax = 0.25*AU;                     // eje x: 0 → 0.25 au
+    var vMax = 350;                         // km/s
+    function X(rm){ return padL + (rm/rMax)*(W-padL-padR); }
+    function Y(v){ return H-padB - Math.min(v,vMax)/vMax*(H-padT-padB); }
+    // ejes
+    ctx.strokeStyle = "#26324a"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL,padT); ctx.lineTo(padL,H-padB); ctx.lineTo(W-padR,H-padB); ctx.stroke();
+    ctx.fillStyle = "#9aa6bb"; ctx.font = "12px Spectral, serif";
+    ctx.fillText("v (km/s)", 6, padT+10);
+    ctx.fillText("radio (au)", W-padR-60, H-10);
+    for(var g=0; g<=0.25; g+=0.05){
+      var xg = X(g*AU);
+      ctx.fillText(g.toFixed(2), xg-10, H-padB+16);
+      ctx.strokeStyle="#141c2e"; ctx.beginPath(); ctx.moveTo(xg,padT); ctx.lineTo(xg,H-padB); ctx.stroke();
+    }
+    for(var vg=0; vg<=vMax; vg+=100){
+      ctx.fillStyle = "#9aa6bb"; ctx.fillText(vg, padL-34, Y(vg)+4);
+      ctx.strokeStyle="#141c2e"; ctx.beginPath(); ctx.moveTo(padL,Y(vg)); ctx.lineTo(W-padR,Y(vg)); ctx.stroke();
+    }
+    // curva kepleriana
+    ctx.strokeStyle = "#6fc7d6"; ctx.lineWidth = 2; ctx.beginPath();
+    var first = true;
+    for(var px=padL+2; px<=W-padR; px+=2){
+      var rm = (px-padL)/(W-padL-padR)*rMax;
+      if(rm < 0.004*AU) continue;
+      var v = Math.sqrt(G*M/rm)/1000;
+      if(v > vMax) continue;
+      if(first){ ctx.moveTo(px, Y(v)); first = false; } else ctx.lineTo(px, Y(v));
+    }
+    ctx.stroke();
+    // curva cuerpo rígido
+    ctx.strokeStyle = "#d9a74a"; ctx.beginPath();
+    ctx.moveTo(X(0), Y(0));
+    for(var px2=padL; px2<=W-padR; px2+=2){
+      var rm2 = (px2-padL)/(W-padL-padR)*rMax;
+      var v2 = Om*rm2/1000;
+      if(v2 > vMax) break;
+      ctx.lineTo(px2, Y(v2));
+    }
+    ctx.stroke();
+    // punto de corrotación
+    if(Rc < rMax){
+      ctx.fillStyle = "#f06a5e";
+      ctx.beginPath(); ctx.arc(X(Rc), Y(vc), 5, 0, 2*Math.PI); ctx.fill();
+      ctx.strokeStyle = "#f06a5e"; ctx.setLineDash([4,4]);
+      ctx.beginPath(); ctx.moveTo(X(Rc), Y(vc)); ctx.lineTo(X(Rc), H-padB); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillText("R꜀", X(Rc)-6, H-padB-6);
+    }
+    // leyenda
+    ctx.fillStyle = "#6fc7d6"; ctx.fillText("— disco kepleriano √(GM/r)", padL+14, padT+14);
+    ctx.fillStyle = "#d9a74a"; ctx.fillText("— magnetosfera rígida Ωr", padL+14, padT+30);
+
+    out.innerHTML = "<span class='k'>Radio de corrotación</span> R<sub>c</sub> = (GM/Ω²)<sup>1/3</sup> ≈ <b>"+RcAU.toFixed(3)+" au</b> ≈ <b>"+RcRsun.toFixed(0)+" R☉</b> (v ≈ "+vc.toFixed(0)+" km/s)<br>"+
+      "→ r &lt; R<sub>c</sub>: el campo va más lento que el disco ⇒ <b>frena</b> el material ⇒ cae en columnas de acreción (hotspots).<br>"+
+      "→ r &gt; R<sub>c</sub>: el campo va más rápido ⇒ <b>acelera</b> el material ⇒ vientos y eyección (el anillo en la varilla giratoria).";
+  }
+  mS.addEventListener('input', calc);
+  pS.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>
