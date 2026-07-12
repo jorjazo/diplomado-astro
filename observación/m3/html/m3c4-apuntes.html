@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neutrinos y ondas gravitacionales — Módulo III · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:12px;background:#060b15;
+  border:1px solid var(--line);border-radius:10px}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c3-apuntes.html">Clase 3</a></nav>
+<div class="hero">
+<span class="kick">Instrumentación y Observación · Módulo III · Clase 4</span>
+<h1>Astronomía <em>multi-mensajero</em></h1>
+<p class="sub">Neutrinos y ondas gravitacionales: cuando el mensajero ya no es la luz. Homestake, Super-Kamiokande, IceCube, LIGO y el Pulsar Timing Array.</p>
+</div>
+<p class="lead"><span class="drop">T</span>oda la astronomía anterior usaba <em>un solo canal</em>: la onda electromagnética. Esta clase abre dos canales nuevos — partículas casi indetectables y perturbaciones del espacio mismo — y muestra la ingeniería extrema que hace falta para «escucharlos».</p>
+<nav class="idx"><span class="tag">Contenido</span><ol>
+<li><a href="#s1">Más allá de la luz</a></li>
+<li><a href="#s2">Neutrinos: sabor y masa</a></li>
+<li><a href="#s3">El Sol como fuente</a></li>
+<li><a href="#s4">Por qué son fantasmas</a></li>
+<li><a href="#s5">Homestake y el déficit</a></li>
+<li><a href="#s6">Super-Kamiokande</a></li>
+<li><a href="#s7">IceCube y TXS 0506+056</a></li>
+<li><a href="#s8">Ondas gravitacionales</a></li>
+<li><a href="#s9">LIGO y GW150914</a></li>
+<li><a href="#s10">Consorcio y Pulsar Timing</a></li>
+<li><a href="#interactivo">Widgets</a></li>
+<li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#examenes">Exámenes</a></li>
+</ol></nav>
+
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Más allá de la luz: multi-messenger astronomy</h2>
+<p>La astronomía tradicional «ve» ondas electromagnéticas (del radio al gamma: mismo fenómeno físico). Pero hay otros portadores de información desde el cosmos.</p></div></div>
+<p>El módulo venía recorriendo tecnologías por banda: telescopio óptico, detectores IR, radio, alta energía. Esta clase cierra el recorrido con fenómenos que <strong>no son electromagnéticos</strong>: los <span class="hl">neutrinos</span> (partículas) y las <span class="hl">ondas gravitacionales</span> (perturbaciones del espacio-tiempo). Si sabemos interpretarlos, entregan información <em>complementaria e independiente</em> de la luz.</p>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Piensa en cada mensajero como un <strong>canal de comunicación independiente</strong> con su propio ruido, ancho de banda y función de transferencia. La luz se absorbe y dispersa en el camino; el neutrino casi no interactúa (canal de bajísima tasa pero sin distorsión); la onda gravitacional atraviesa todo. Combinar canales es fusión de sensores: la información conjunta supera a la de cualquier canal aislado.</p></div>
+</section>
+
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Neutrinos: tres sabores y una masa diminuta</h2>
+<p>Partículas elementales del modelo estándar, familia de los leptones. Vienen en tres «sabores»: ν<sub>e</sub>, ν<sub>μ</sub>, ν<sub>τ</sub>.</p></div></div>
+<p>En el modelo estándar, los <strong>quarks</strong> combinados forman protones y neutrones; los <strong>bosones</strong> (gluón, fotón, W, Z) median las fuerzas; y los <strong>leptones</strong> incluyen al electrón, al muón, al tau y sus tres neutrinos asociados. El electrón — y el neutrino — son <em>fundamentales</em>: no están hechos de quarks.</p>
+<ul>
+<li>Los neutrinos <strong>oscilan</strong>: un ν<sub>e</sub> no se queda como ν<sub>e</sub>, va cambiando de sabor mientras viaja.</li>
+<li>Que cambien implica que <em>experimentan tiempo propio</em> → no viajan exactamente a <em>c</em> → <strong>tienen masa</strong>. (Para un fotón, sin masa, el reloj propio está congelado: no puede «evolucionar».)</li>
+<li>La masa es minúscula: menor que <strong>10<sup>−6</sup> veces la masa del electrón</strong>. Su valor exacto es uno de los grandes problemas abiertos de la física.</li>
+</ul>
+<figure>
+<img src="m3c4/assets/slide-04.jpg" alt="Modelo estándar de partículas elementales y propiedades de los neutrinos.">
+<figcaption><span class="cap">Diapositiva 4</span>Modelo estándar: quarks, leptones (con los tres neutrinos abajo) y bosones. El cambio de «flavor» implica masa &lt; 10⁻⁶ m<sub>e</sub>.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice «neutrino tipo K» y «combinaciones de cuartos»: son el <strong>neutrino tau (ν<sub>τ</sub>)</strong> y combinaciones de <strong>quarks</strong>. La diapositiva 4 muestra la tabla correcta: electron / muon / tau neutrino.</p></div>
+<div class="box physics"><span class="tag">Intuición física</span>
+<p>El argumento «cambia ⇒ tiene masa» es de relatividad especial pura: la dilatación temporal hace que a <em>v = c</em> no transcurra tiempo propio. Un sistema que muta de estado necesita un reloj interno andando; por lo tanto <em>v &lt; c</em> y la masa en reposo no puede ser cero. Un argumento cualitativo con consecuencia cuantitativa — estilo análisis dimensional.</p></div>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>El Sol: una fábrica de neutrinos</h2>
+<p>La fusión de H en He vía cadena protón-protón libera un ν<sub>e</sub> en cada conversión p → n.</p></div></div>
+<p>Al fusionar hidrógeno, dos protones forman deuterio: uno de los protones <em>decae</em> a neutrón, y para conservar carga y número leptónico se emiten un positrón y un <strong>neutrino electrónico</strong>:</p>
+<div class="formula"><span class="katex-block" data-tex="p + p \;\rightarrow\; d + e^{+} + \nu_e"></span>
+<small>Primer paso de la cadena protón-protón. Cada reacción emite un ν<sub>e</sub>; el Sol produce cantidades gigantescas por segundo.</small></div>
+<p>Contar neutrinos = contar reacciones de fusión = <strong>auditar el balance de energía del Sol</strong>. Esa fue la motivación original de la detección de neutrinos solares (segunda mitad del siglo XX).</p>
+<figure>
+<img src="m3c4/assets/slide-05.jpg" alt="Estructura del Sol y reacción p+p → d + e+ + neutrino.">
+<figcaption><span class="cap">Diapositiva 5</span>El Sol produce abundantes neutrinos al fusionar H en He; el mecanismo principal es la cadena protón-protón.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio menciona la «cadena CN»: se refiere al <strong>ciclo CNO</strong> (carbono-nitrógeno-oxígeno), el otro mecanismo de fusión visto en el curso de estrellas.</p></div>
+</section>
+
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Por qué son fantasmas: la fuerza nuclear débil</h2>
+<p>Detectar = lograr una interacción. El neutrino no tiene carga (nada electromagnético) y su masa es ínfima (nada gravitacional útil). Solo queda la fuerza débil.</p></div></div>
+<p>Un CCD detecta fotones porque el fotón interactúa con el silicio y hace saltar un electrón. Para el neutrino ese camino no existe: la única interacción disponible es la <strong>fuerza nuclear débil</strong>, mediada por los bosones <strong>W y Z</strong>. El mecanismo: al pasar cerca de un núcleo, el neutrino intercambia un bosón Z⁰ — como lanzar una roca desde un skate, el intercambio de momentum deflecta ambas partes. Eso <em>es</em> la fuerza.</p>
+<p>El problema es el alcance: el bosón solo «viaja» <strong>~0,001 veces el tamaño de un protón</strong>. El neutrino debe pasar a esa distancia de un núcleo para que ocurra algo. Como la materia es esencialmente vacío a esa escala, casi nunca ocurre:</p>
+<ul>
+<li>Cada segundo, <strong>~10<sup>10</sup> neutrinos</strong> atraviesan cada cm² de tu cuerpo sin que lo notes.</li>
+<li>De cada <strong>10<sup>13</sup> neutrinos</strong> que atraviesan el diámetro de la Tierra, solo <strong>1</strong> interactúa con algún átomo del planeta.</li>
+</ul>
+<figure>
+<img src="m3c4/assets/slide-07.jpg" alt="Interacción neutrino-núcleo por intercambio de bosón Z0 y números de flujo.">
+<figcaption><span class="cap">Diapositiva 7</span>Intercambio de un Z⁰ con un núcleo atómico. El alcance del bosón es ~0,001× el tamaño de un protón: por eso interactúan tan poco.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice que el bosón alcanza «un 1% del tamaño de un protón»; la diapositiva 7 indica <strong>~0,001× (0,1%)</strong> el tamaño del protón. También «bosón cero» → <strong>bosón Z⁰</strong>.</p></div>
+<div class="box physics"><span class="tag">Intuición física</span>
+<p>¿Qué significa «chocar»? Un protón choca con una pared porque la repulsión de Coulomb (∝ q₁q₂/r², con constante grande) lo deflecta a distancias «grandes». La gravedad tiene la misma forma funcional pero constante minúscula (por eso un imán le gana a todo el planeta sosteniendo un clavo). La fuerza débil es efectiva solo a distancias ínfimas: chocar es siempre una interacción, y cada fuerza define su propia sección eficaz.</p></div>
+</section>
+
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Homestake y el problema de los neutrinos solares</h2>
+<p>Un tanque de cloro en una mina a 1,5 km de profundidad. Durante años detectó solo ⅓ de lo esperado.</p></div></div>
+<p>El experimento de <strong>Homestake</strong> usó un tanque con una solución rica en cloro, bajo tierra (para blindarse de rayos cósmicos). Cuando un ν<sub>e</sub> interactúa con el isótopo ³⁷Cl, un neutrón del núcleo se convierte en protón y el átomo se transmuta a argón:</p>
+<div class="formula"><span class="katex-block" data-tex="\nu_e + {}^{37}\mathrm{Cl} \;\rightarrow\; {}^{37}\mathrm{Ar} + e^{-}"></span>
+<small>El ³⁷Ar tiene vida media de ~35 días: se dejaba acumular y luego se contaban los átomos (decenas por semana).</small></div>
+<p>El resultado, sostenido por años: <strong>un tercio</strong> del flujo predicho por el modelo solar. Peor que un exceso — un déficit no se tapa con «fuentes extra». ¿Estaba mal el modelo del Sol… o el experimento?</p>
+<h3>La resolución: oscilaciones</h3>
+<p>La reacción del cloro solo es sensible a <strong>ν<sub>e</sub></strong>. Experimentos posteriores midieron simultáneamente el flujo total (todos los sabores) y el flujo de ν<sub>e</sub>: el total coincidía con la predicción solar, y exactamente ⅓ llegaba como ν<sub>e</sub>. El Sol produce ν<sub>e</sub>, pero en el camino <em>oscilan</em> entre los tres sabores. El «experimento fallido» terminó demostrando que los neutrinos tienen masa — con premios Nobel de por medio.</p>
+<figure>
+<img src="m3c4/assets/slide-08.jpg" alt="Experimento Homestake: tanque de cloro en una mina.">
+<figcaption><span class="cap">Diapositiva 8</span>Homestake: tanque con limpiador rico en cloro a 1,5 km de profundidad. Se contaban los átomos de ³⁷Ar producidos.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«Experimento de Homestead» → <strong>Homestake</strong> (mina de oro en Dakota del Sur, EE.UU.). El audio duda si «no se sabía que existían otros tipos de neutrino»: lo clave es que no se sabía que <em>cambiaban de sabor</em> en el camino.</p></div>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Caso de manual de <strong>sesgo de instrumento</strong>: el sensor solo respondía a un subconjunto de la señal (un «filtro pasa-sabor»). La discrepancia sistemática de un factor 3 no era ruido: era la función de respuesta del detector. Moraleja para cualquier pipeline de medición: modela qué es lo que tu sensor <em>realmente</em> mide.</p></div>
+</section>
+
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Super-Kamiokande: Cherenkov en 50 000 toneladas de agua</h2>
+<p>Detección moderna: la interacción del neutrino en agua produce partículas más rápidas que la luz <em>en el agua</em> → destello Cherenkov.</p></div></div>
+<p>Recordando la clase pasada: cuando una partícula cargada supera <em>c/n</em> (la velocidad de la luz en el medio), emite <strong>radiación Cherenkov</strong>. Un neutrino que interactúa dentro de un tanque de agua genera una cascada de partículas que producen ese destello, y detectarlo equivale a detectar al neutrino.</p>
+<p><strong>Super-Kamiokande</strong> (Japón): 50 000 toneladas de agua ultra purificada, 1 km bajo tierra, rodeadas de <strong>13 000 fotomultiplicadores</strong> — cada uno es como un «pixel gigante» basado en efecto fotoeléctrico con amplificación, tan sensible que podría detectar la luz de una vela desde la Luna. Bajo tierra para blindarse de rayos cósmicos; agua purísima para que impurezas no generen destellos falsos.</p>
+<figure>
+<img src="m3c4/assets/slide-10.jpg" alt="Interior de Super-Kamiokande cubierto de fotomultiplicadores.">
+<figcaption><span class="cap">Diapositiva 10</span>Super-Kamiokande sin agua: la pared interior es una matriz de fotomultiplicadores dorados.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice «radiación Chereto», «Cherekov», «chelen»: siempre es <strong>radiación Cherenkov</strong>. Y los «puto multiplicadores» / «fotomultificadores» son <strong>fotomultiplicadores</strong> (PMT).</p></div>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>El fotomultiplicador es un amplificador analógico extremo: un fotón arranca un electrón (fotoeléctrico) y una cadena de dinodos multiplica la carga ~10⁶–10⁷ veces. Es el mismo problema de un receptor con ganancia altísima: el diseño completo del experimento (profundidad, pureza del agua) es <strong>supresión de ruido de fondo</strong>, no mejora del sensor.</p></div>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>IceCube: un km³ de hielo antártico como detector</h2>
+<p>¿Dónde conseguir un «tanque» gigante de agua pura gratis? En el hielo de la Antártida.</p></div></div>
+<p>Mientras más grande el tanque, más interacciones. <strong>IceCube</strong> usa <strong>1 km³ de hielo antártico</strong> como volumen detector: se perforan pozos de 2,5 km y se cuelgan cables como «rosarios» de fotomultiplicadores (DOMs) — el primero a 1,5 km de profundidad y el último a 2,5 km, con módulos cada <strong>17 m</strong> y cuerdas separadas <strong>125 m</strong> en una grilla.</p>
+<p>Cuando un neutrino interactúa dentro del hielo, el destello Cherenkov llega a distintos módulos en distintos instantes: un computador en superficie reconstruye el <strong>camino temporal</strong> de la luz y con ello la <em>dirección de origen</em> del neutrino — igual que triangular una fuente por tiempos de llegada.</p>
+<figure>
+<img src="m3c4/assets/slide-13.jpg" alt="Diagrama de IceCube: 86 cuerdas con 5160 DOMs entre 1450 y 2450 m de profundidad.">
+<figcaption><span class="cap">Diapositiva 13</span>IceCube: 86 cuerdas, &gt;5000 módulos ópticos digitales (DOMs) cada 17 m, entre 1450 y 2450 m bajo el hielo.</figcaption>
+</figure>
+<h3>2017: el neutrino del blazar</h3>
+<p>El <strong>22 de septiembre de 2017</strong>, IceCube detectó un <strong>neutrino muónico</strong> de alta energía y emitió una alerta con sus coordenadas. La búsqueda de contrapartes electromagnéticas identificó al <strong>blazar TXS 0506+056</strong> — un AGN (agujero negro supermasivo) con su jet apuntando hacia nosotros, ya conocido como fuente de rayos gamma — como única fuente probable. Primera asociación confirmada neutrino ↔ fuente electromagnética fuera del Sol: nace en serio la <em>multi-messenger astronomy</em>.</p>
+<p>La energía de ese neutrino: <strong>~290 TeV</strong>. Comparación: el LHC, el colisionador más potente construido, alcanza ~13 TeV. El universo nos regala aceleradores que no sabemos construir.</p>
+<div class="formula"><span class="katex-block" data-tex="E_\nu \approx 290\ \text{TeV} \;\;\gg\;\; E_{\text{LHC}} \approx 13\ \text{TeV}"></span>
+<small>Un solo neutrino cósmico supera en ~20× la energía por colisión del Large Hadron Collider.</small></div>
+<figure>
+<img src="m3c4/assets/slide-12.jpg" alt="Laboratorio IceCube en la superficie antártica.">
+<figcaption><span class="cap">Diapositiva 12</span>El laboratorio IceCube en el Polo Sur: bajo esta superficie hay 1 km³ de hielo instrumentado.</figcaption>
+</figure>
+<figure>
+<img src="m3c4/assets/slide-14.jpg" alt="Evento de neutrino en IceCube y alerta de septiembre de 2017.">
+<figcaption><span class="cap">Diapositiva 14</span>El patrón espacio-temporal de luz en los DOMs permite reconstruir la dirección del neutrino. La alerta del 22-sep-2017 llevó al blazar TXS 0506+056.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«Large Hydrogliber» → <strong>Large Hadron Collider (LHC)</strong>. «Endocrinos», «nutrientes», «nutrirnos» → <strong>neutrinos</strong> (el reconocedor de voz insiste). El audio dice «13.000 sensores» hablando de IceCube en un momento: ese número es de Super-Kamiokande; IceCube tiene &gt;5000 DOMs (diapositivas 12–13).</p></div>
+<div class="box dato"><span class="tag">Dato</span>
+<p>El supercomputador de IceCube igual necesita refrigeración activa a −40 °C exteriores: la densidad de calor de un datacenter no se resuelve «abriendo la ventana». Los datos viajan por satélite a UW–Madison.</p></div>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Ondas gravitacionales: perturbar el espacio mismo</h2>
+<p>Predichas por la relatividad general. Ondas transversales donde lo que oscila es la distancia entre puntos del espacio.</p></div></div>
+<p>Toda onda es una perturbación que viaja: en una cuerda, la altura; en el sonido, la densidad del aire (perturbación <em>longitudinal</em>, en la dirección de viaje); en la luz, los campos E y B (transversal). En una onda gravitacional lo que se perturba son las <strong>distancias en el espacio</strong>, en dirección <em>perpendicular</em> a la propagación: un anillo de puntos se estira en un eje y se comprime en el otro, alternadamente.</p>
+<p>La magnitud se cuantifica con el <span class="hl">strain</span> <em>h</em>: la deformación relativa máxima del espacio.</p>
+<div class="formula"><span class="katex-block" data-tex="h \;=\; \frac{\Delta L}{L}"></span>
+<small>Deformación relativa (adimensional, como la deformación unitaria en mecánica de materiales). LIGO detecta ΔL del orden de 10⁻⁴ veces el tamaño de un protón.</small></div>
+<p>Cualquier masa acelerada genera ondas gravitacionales — mover una roca también — pero con amplitudes ridículamente pequeñas. Solo eventos extremos (masas estelares compactas orbitando a velocidades relativistas) producen strains detectables.</p>
+<h3>La firma detectable: el «chirp» del merger</h3>
+<p>Un sistema binario emite ondas gravitacionales todo el tiempo, pero esa emisión constante es indistinguible del ruido de fondo. Lo detectable es el <strong>merger</strong>: en los instantes finales la órbita se encoge, la <em>frecuencia y la amplitud crecen aceleradamente</em> y la señal muere de golpe. Ese barrido de frecuencia (como un sonido que se agudiza y se corta) es la firma que se busca en los datos.</p>
+<figure>
+<img src="m3c4/assets/slide-17.jpg" alt="Las dos polarizaciones de una onda gravitacional y la definición de strain.">
+<figcaption><span class="cap">Diapositiva 17</span>Ondas transversales con dos polarizaciones posibles; <em>h</em> (strain) mide el máximo efecto de perturbación espacial.</figcaption>
+</figure>
+<figure>
+<img src="m3c4/assets/slide-19.jpg" alt="Espectro de ondas gravitacionales: strain vs longitud de onda, con fondo de binarias y zonas de mergers.">
+<figcaption><span class="cap">Diapositiva 19</span>El espectro de ondas gravitacionales: strain h vs longitud de onda/frecuencia. El fondo verde son binarias que nunca se fusionarán (ruido); los mergers destacan sobre él.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice «sprain» y «spray»: es <strong>strain</strong> (h). También dice «10⁻⁴ veces el tamaño de un neutrón» una vez: la diapositiva 17 confirma <strong>protón</strong>. Y «el higo» → <strong>LIGO</strong>.</p></div>
+</section>
+
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>LIGO: interferometría láser y GW150914</h2>
+<p>Un interferómetro de Michelson gigante: la interferencia entre dos brazos revela cambios de camino óptico comparables a la longitud de onda del láser.</p></div></div>
+<p>Un láser potente incide en un <strong>divisor de haz</strong>: mitad de la luz viaja por un brazo, mitad por el otro, perpendicular. Espejos al final de cada brazo devuelven ambos haces, que se recombinan hacia un detector. Si los caminos son idénticos, las ondas llegan <strong>en fase</strong> (interferencia constructiva); una diferencia de media longitud de onda las deja <strong>en contrafase</strong> (destructiva). Al pasar una onda gravitacional, un brazo se alarga y el otro se acorta alternadamente → la intensidad en el detector oscila.</p>
+<p>Lo que se busca no es interferencia constante, sino el patrón chirp: oscilación de frecuencia creciente que se acelera y desaparece. El desafío de ingeniería es aislar el instrumento de todo lo demás: microsismos, dilataciones térmicas, camiones — cualquier cosa produce ΔL enormes comparados con la señal.</p>
+<figure>
+<img src="m3c4/assets/slide-20.jpg" alt="Esquema del interferómetro de LIGO: láser, divisor de haz, espejos y detector.">
+<figcaption><span class="cap">Diapositiva 20</span>El interferómetro: láser, divisor de haz, dos brazos perpendiculares con espejos, y el detector donde interfieren los haces.</figcaption>
+</figure>
+<h3>GW150914: la primera detección</h3>
+<p>El <strong>14 de septiembre de 2015</strong>, los dos detectores LIGO (Hanford y Livingston, EE.UU.) registraron la misma señal: la fusión de dos agujeros negros de <strong>36 y 29 masas solares</strong>, dejando un remanente de <strong>62 M<sub>☉</sub></strong>, a ~1,4×10⁹ años luz (redshift ~0,09).</p>
+<div class="formula"><span class="katex-block" data-tex="36\,M_\odot + 29\,M_\odot \;\rightarrow\; 62\,M_\odot + \underbrace{\sim 3\,M_\odot c^2}_{\text{ondas gravitacionales}}"></span>
+<small>~3 masas solares convertidas en energía de ondas gravitacionales en una fracción de segundo (≈0,2 s de señal detectable).</small></div>
+<p>¿Cómo se sabe qué colisionó? Se compara la señal contra una <strong>librería de formas de onda</strong> simuladas con relatividad general (costosas computacionalmente): el par de masas que mejor reproduce la curva observada es la solución. Es <em>template matching</em> — correlación cruzada contra un banco de plantillas, la misma técnica de un receptor de radar o GPS.</p>
+<figure>
+<img src="m3c4/assets/slide-21.jpg" alt="Señales de GW150914 en Hanford y Livingston: strain, modelo y espectrograma.">
+<figcaption><span class="cap">Diapositiva 21</span>GW150914 en ambos detectores: señal ruidosa + modelo teórico, y el espectrograma con la frecuencia subiendo hasta el merger.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«Laigo», «LIPO», «el higo» → <strong>LIGO</strong>. El audio dice que el túnel «tiene como un kilómetro»: los brazos de LIGO miden <strong>4 km</strong> (dato externo; las diapositivas no lo especifican). La fecha exacta y las masas vienen de la diapositiva 21.</p></div>
+<div class="box physics"><span class="tag">Intuición física</span>
+<p>¿Dónde quedaron las ~3 M<sub>☉</sub> perdidas? Se radiaron como energía de la onda misma: deformar el espacio cuesta energía. Que una perturbación de 10⁻⁴ radios de protón en el detector corresponda a 3 soles convertidos en energía te dice lo <em>rígido</em> que es el espacio-tiempo.</p></div>
+</section>
+
+<section id="s10"><div class="shead"><span class="num">10</span><div><h2>El consorcio, el cementerio estelar y el Pulsar Timing Array</h2>
+<p>Más detectores → mejor localización → contrapartes electromagnéticas. Y para longitudes de onda gigantes: usar púlsares como relojes.</p></div></div>
+<h3>LIGO–Virgo–KAGRA</h3>
+<p>Con solo 2 detectores, la diferencia de tiempos de llegada restringe la fuente a una <em>franja enorme</em> del cielo. Hoy operan en conjunto 4 interferómetros — LIGO Hanford y Livingston (EE.UU.), Virgo (Italia) y KAGRA (Japón) — que triangulan mucho mejor y permiten apuntar telescopios en busca de contraparte electromagnética (no todos los eventos la tienen: dos agujeros negros no emiten luz; un merger con estrella de neutrones sí puede).</p>
+<figure>
+<img src="m3c4/assets/slide-23.jpg" alt="Los cuatro detectores del consorcio LIGO-Virgo-KAGRA.">
+<figcaption><span class="cap">Diapositiva 23</span>El consorcio: LIGO Hanford, LIGO Livingston, Virgo (Italia) y KAGRA (Japón, subterráneo).</figcaption>
+</figure>
+<h3>Lo que aprendimos: masas que no conocíamos</h3>
+<p>El catálogo de detecciones («Masses in the Stellar Graveyard») pobló una zona que estaba vacía: entre las estrellas de neutrones conocidas (~1–2 M<sub>☉</sub>) y los agujeros negros conocidos por métodos electromagnéticos, había un hueco de masas — incluso existían teorías para explicar por qué no había objetos ahí. Las ondas gravitacionales mostraron fusiones que crean remanentes justo en ese rango: el vacío era un <strong>sesgo de detección</strong>, no un vacío real.</p>
+<figure>
+<img src="m3c4/assets/slide-24.jpg" alt="Gráfico Masses in the Stellar Graveyard con agujeros negros y estrellas de neutrones detectados.">
+<figcaption><span class="cap">Diapositiva 24</span>El «cementerio estelar»: agujeros negros (azul) y estrellas de neutrones (naranjo) de LIGO-Virgo-KAGRA, junto a los conocidos por vía electromagnética.</figcaption>
+</figure>
+<h3>Pulsar Timing Array: el detector del tamaño de la galaxia</h3>
+<p>LIGO es sensible a λ ~ km (agujeros negros estelares). Fusiones de agujeros negros <strong>supermasivos</strong> (millones de M<sub>☉</sub>) emiten a λ ~ 10¹² m: ningún instrumento terrestre puede medirlas. La idea: los <strong>púlsares de milisegundo</strong> son relojes naturales ultra precisos. Si una onda gravitacional atraviesa el camino Tierra–púlsar, la distancia cambia y el tiempo de llegada de los pulsos se desvía. Monitoreando <em>muchos</em> púlsares por el cielo, se busca una desviación <strong>coherente en el espacio</strong> — la huella de una onda de longitud gigante.</p>
+<p>Cuatro consorcios internacionales de radioobservatorios llevan años en esto. En <strong>2023</strong> anunciaron evidencia tentativa (~3–4 sigmas; el estándar de «detección» en física son 5) de un <strong>fondo de ondas gravitacionales</strong> que llega de todo el cielo. Aún no se detectan fusiones individuales de supermasivos: es trabajo acumulativo de décadas.</p>
+<figure>
+<img src="m3c4/assets/slide-26.jpg" alt="Esquema del Pulsar Timing Array: la Tierra y púlsares sobre el espacio-tiempo perturbado.">
+<figcaption><span class="cap">Diapositiva 26</span>Pulsar Timing Array: púlsares como relojes distribuidos; una onda gravitacional altera coherentemente los tiempos de llegada.</figcaption>
+</figure>
+<figure>
+<img src="m3c4/assets/slide-27.jpg" alt="Resultado 2023 del Pulsar Timing Array: evidencia tentativa del fondo de ondas gravitacionales.">
+<figcaption><span class="cap">Diapositiva 27</span>2023: evidencia tentativa del «background» de ondas gravitacionales en datos de púlsares de milisegundo (nHz).</figcaption>
+</figure>
+<div class="box next"><span class="tag">Próxima clase</span>
+<p>Detectores espaciales (interferómetros con satélites en órbita, tipo LISA) y cómo se planean los grandes proyectos astronómicos del futuro.</p></div>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>El PTA es un sistema distribuido de relojes con drift: la señal se extrae por <strong>correlación entre pares de púlsares</strong> (la curva de Hellings–Downs, material externo). Igual que en redes NTP o GPS diferencial, lo que delata la perturbación común no es un reloj individual sino la estructura de correlaciones del conjunto.</p></div>
+</section>
+
+<section id="interactivo">
+<div class="shead"><span class="num">⚙</span><div><h2>Widgets interactivos</h2>
+<p>Juega con los números de la clase.</p></div></div>
+
+<div class="widget"><h4>Neutrinos a través de tu cuerpo</h4>
+<p style="font-size:.9rem;color:var(--muted);margin:0 0 6px">Flujo solar ~10¹⁰ ν/cm²/s (diapositiva 7). Estimación de orden de magnitud de cuántos te atraviesan y cuántos interactúan contigo (inferencia propia, escalando la probabilidad terrestre de 1 en 10¹³ por densidad de columna).</p>
+<div class="wgrid">
+<label>Sección transversal de tu cuerpo (cm²)<input type="number" id="nu-area" value="7000" step="100"></label>
+<label>Tiempo considerado (años)<input type="number" id="nu-anios" value="80" step="1"></label>
+</div>
+<output class="wout" id="nu-body-out"></output>
+</div>
+
+<div class="widget"><h4>Chirp de una fusión de agujeros negros</h4>
+<p style="font-size:.9rem;color:var(--muted);margin:0 0 6px">Elige las masas del binario: la forma de onda «constante → se acelera → muere» es la firma que busca LIGO. Masa final ≈ 95% del total; el resto se radia como ondas gravitacionales.</p>
+<div class="wgrid">
+<label>Masa 1: <b id="gw-m1-v">36</b> M☉<input type="range" id="gw-m1" min="5" max="100" value="36"></label>
+<label>Masa 2: <b id="gw-m2-v">29</b> M☉<input type="range" id="gw-m2" min="5" max="100" value="29"></label>
+</div>
+<div class="presets">
+<button type="button" onclick="gwPreset(36,29)">GW150914 (36+29)</button>
+<button type="button" onclick="gwPreset(85,66)">Masivo (85+66)</button>
+<button type="button" onclick="gwPreset(10,8)">Liviano (10+8)</button>
+</div>
+<canvas id="gw-canvas" width="900" height="240"></canvas>
+<output class="wout" id="gw-out"></output>
+</div>
+</section>
+
+<section id="conceptos"><div class="shead"><span class="num">★</span><div><h2>Conceptos clave</h2></div></div>
+<div class="tbl"><table>
+<thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td><b>Multi-messenger</b></td><td>Combinar luz + neutrinos + ondas gravitacionales de una misma fuente</td></tr>
+<tr><td><b>Oscilación de neutrinos</b></td><td>Cambio de sabor ν<sub>e</sub>↔ν<sub>μ</sub>↔ν<sub>τ</sub> en viaje ⇒ tienen masa (&lt;10⁻⁶ m<sub>e</sub>)</td></tr>
+<tr><td><b>Fuerza nuclear débil</b></td><td>Única interacción útil del neutrino; bosones W/Z, alcance ~0,001× protón</td></tr>
+<tr><td><b>Homestake</b></td><td>ν<sub>e</sub> + ³⁷Cl → ³⁷Ar + e⁻; detectó ⅓ del flujo esperado → oscilaciones</td></tr>
+<tr><td><b>Super-Kamiokande</b></td><td>50 000 t de agua, 13 000 PMT; destellos Cherenkov de las interacciones</td></tr>
+<tr><td><b>IceCube</b></td><td>1 km³ de hielo antártico; 2017: neutrino de 290 TeV ← blazar TXS 0506+056</td></tr>
+<tr><td><b>Strain h</b></td><td>ΔL/L; LIGO llega a ΔL ~10⁻⁴ del tamaño de un protón</td></tr>
+<tr><td><b>Interferómetro</b></td><td>Diferencias de camino ~λ/2 cambian interferencia constructiva↔destructiva</td></tr>
+<tr><td><b>GW150914</b></td><td>14-sep-2015: 36+29 → 62 M☉; ~3 M☉ radiadas como ondas gravitacionales</td></tr>
+<tr><td><b>Pulsar Timing Array</b></td><td>Púlsares como relojes; 2023: evidencia tentativa del fondo de OG (nHz)</td></tr>
+</tbody></table></div></section>
+
+<section id="examenes">
+<div class="shead"><span class="num">✓</span><div>
+<h2>Exámenes de práctica</h2>
+<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
+</div></div>
+<ol class="examlist">
+    <li><a href="m3c4-examen-01.html">Examen 01<small>Multi-messenger</small></a></li>
+    <li><a href="m3c4-examen-02.html">Examen 02<small>Neutrinos: propiedades</small></a></li>
+    <li><a href="m3c4-examen-03.html">Examen 03<small>Oscilaciones y masa</small></a></li>
+    <li><a href="m3c4-examen-04.html">Examen 04<small>Neutrinos solares</small></a></li>
+    <li><a href="m3c4-examen-05.html">Examen 05<small>Fuerza débil y detección</small></a></li>
+    <li><a href="m3c4-examen-06.html">Examen 06<small>Homestake</small></a></li>
+    <li><a href="m3c4-examen-07.html">Examen 07<small>Super-K e IceCube</small></a></li>
+    <li><a href="m3c4-examen-08.html">Examen 08<small>Ondas gravitacionales</small></a></li>
+    <li><a href="m3c4-examen-09.html">Examen 09<small>LIGO y GW150914</small></a></li>
+    <li><a href="m3c4-examen-10.html">Examen 10<small>Consorcio y PTA</small></a></li>
+</ol>
+</section>
+<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c4.md</code>, diapositivas Clase 4 (<code>Modulo_III_Clase_4.pdf</code>, 28 láminas).</p>
+<p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente. Correcciones aplicadas en estos apuntes:
+<ul><li>"neutrino tipo K" → neutrino tau (ν<sub>τ</sub>); "cuartos" → quarks; "cadena CN" → ciclo CNO</li><li>"Homestead" → Homestake; "bosón cero" → bosón Z⁰</li><li>Alcance del bosón: el audio dice "1%" del tamaño del protón; la diapositiva indica ~0,001× (0,1%)</li><li>"radiación Chereto" / "Cherekov" / "chelen" / "revés en chaleco" → radiación Cherenkov; "puto multiplicadores" / "fotomultificador" → fotomultiplicadores</li><li>"Large Hydrogliber" → Large Hadron Collider (LHC); "endocrinos" / "nutrientes" / "nutrirnos" → neutrinos</li><li>"el higo" / "laigo" / "LIPO" → LIGO; "sprain" / "spray" → strain; "10⁻⁴ veces el tamaño de un neutrón" → protón</li><li>Primera detección: el audio dice "hace más de 10 años"; la diapositiva precisa 14 de septiembre de 2015 (GW150914), redshift ~0,09</li><li>Brazos de LIGO: el audio dice "como un kilómetro"; miden 4 km (dato externo)</li><li>El audio atribuye "13.000 sensores" a IceCube en un pasaje: corresponde a Super-Kamiokande; IceCube tiene &gt;5000 DOMs</li></ul></p></footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
+  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
+
+  // Widget 1: neutrinos por el cuerpo
+  function fmtExp(x){
+    if(!isFinite(x))return "∞";
+    if(x===0)return "0";
+    var e=Math.floor(Math.log10(Math.abs(x)));
+    var m=x/Math.pow(10,e);
+    return m.toFixed(1)+"×10<sup>"+e+"</sup>";
+  }
+  function nuBody(){
+    var area=+document.getElementById('nu-area').value;
+    var anios=+document.getElementById('nu-anios').value;
+    var flux=1e10;                 // nu / cm2 / s (diapositiva 7)
+    var seg=anios*3.156e7;
+    var total=flux*area*seg;
+    // p(interaccion) escalada por densidad de columna: Tierra ~7e9 g/cm2 -> 1e-13; cuerpo ~20 g/cm2
+    var p=1e-13*(20/7e9);
+    var inter=total*p;
+    document.getElementById('nu-body-out').innerHTML=
+      'Te atraviesan ≈ <b>'+fmtExp(total)+'</b> neutrinos en '+anios+' años '+
+      '(<span class="k">'+fmtExp(flux*area)+' por segundo</span>).<br>'+
+      'Interacciones esperadas contigo: ≈ <b>'+(inter<1?inter.toFixed(1):Math.round(inter))+'</b> en todo ese tiempo. '+
+      '<span class="k">Eres transparente para ellos.</span>';
+  }
+  ['nu-area','nu-anios'].forEach(function(id){document.getElementById(id).oninput=nuBody;});
+  nuBody();
+
+  // Widget 2: chirp de fusion de agujeros negros
+  window.gwPreset=function(a,b){
+    document.getElementById('gw-m1').value=a;
+    document.getElementById('gw-m2').value=b;
+    gwDraw();
+  };
+  function gwDraw(){
+    var m1=+document.getElementById('gw-m1').value;
+    var m2=+document.getElementById('gw-m2').value;
+    document.getElementById('gw-m1-v').textContent=m1;
+    document.getElementById('gw-m2-v').textContent=m2;
+    var M=m1+m2;
+    var mc=Math.pow(m1*m2,3/5)/Math.pow(M,1/5);      // chirp mass
+    var mf=0.95*M;                                    // aprox. masa final
+    var erad=M-mf;                                    // radiado en M_sun c^2
+    var c=document.getElementById('gw-canvas'),ctx=c.getContext('2d');
+    var W=c.width,H=c.height,mid=H/2;
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle="#1a2438";ctx.beginPath();ctx.moveTo(0,mid);ctx.lineTo(W,mid);ctx.stroke();
+    // inspiral: f(t) ~ (tc-t)^(-3/8), amplitud ~ f^(2/3); mas masivo => chirp mas lento/grave
+    var tc=0.86, k=6.5*Math.pow(30/mc,5/8);           // escala de frecuencia con masa (cualitativo)
+    ctx.strokeStyle="#f06a5e";ctx.lineWidth=1.8;ctx.beginPath();
+    var phase=0,prevT=0;
+    for(var i=0;i<=W;i++){
+      var t=i/W;
+      var y;
+      if(t<tc){
+        var f=k*Math.pow(tc-t+0.004,-3/8);
+        phase+=2*Math.PI*f*(t-prevT);
+        var A=0.16*Math.pow(f/k,2/3);
+        y=mid-Math.sin(phase)*Math.min(A,0.42)*H;
+      }else{
+        // ringdown: oscilacion amortiguada
+        var td=t-tc;
+        var fr=k*Math.pow(0.004,-3/8);
+        phase+=2*Math.PI*fr*(t-prevT);
+        y=mid-Math.sin(phase)*0.42*H*Math.exp(-td*60);
+      }
+      prevT=t;
+      if(i===0)ctx.moveTo(i,y);else ctx.lineTo(i,y);
+    }
+    ctx.stroke();
+    ctx.fillStyle="#9aa6bb";ctx.font="12px Spectral,serif";
+    ctx.fillText("tiempo →",W-70,H-10);
+    ctx.fillText("merger",W*tc-22,16);
+    ctx.strokeStyle="#26324a";ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(W*tc,20);ctx.lineTo(W*tc,H);ctx.stroke();ctx.setLineDash([]);
+    document.getElementById('gw-out').innerHTML=
+      'Masa total: <b>'+M+' M☉</b> · Masa chirp: <b>'+mc.toFixed(1)+' M☉</b> · '+
+      'Remanente ≈ <b>'+mf.toFixed(0)+' M☉</b> · Energía radiada ≈ <b>'+erad.toFixed(1)+' M☉·c²</b>. '+
+      '<span class="k">Binarios más masivos «cantan» más grave y se fusionan a menor frecuencia.</span>';
+  }
+  document.getElementById('gw-m1').oninput=gwDraw;
+  document.getElementById('gw-m2').oninput=gwDraw;
+  gwDraw();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 10 — m3c4 · Consorcio y PTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo III · Clase 4</span>
+<h1>Examen 10 — Consorcio y PTA</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
+
+<form id="quiz" data-answers="c,c,d">
+  <fieldset data-q="1"><legend>1. El consorcio LIGO–Virgo–KAGRA opera cuatro interferómetros ubicados en:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Los cuatro en el estado de Washington (EE.UU.)</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Virgo y KAGRA en EE.UU., y los dos LIGO en Italia y Japón</label>
+    <label class="opt"><input type="radio" name="q1" value="c">LIGO Hanford y Livingston (EE.UU.), Virgo (Italia) y KAGRA (Japón, subterráneo)</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un solo sitio compartido en Ginebra (CERN)</label>
+    <p class="fb" hidden>La red global combina separaciones basales continentales; KAGRA en Japón aporta orientación y baseline distinta a los dos LIGO y a Virgo.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Con solo dos detectores terrestres, la localización en el cielo de un evento de ondas gravitacionales queda restringida a:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Un punto con incertidumbre de pocos segundos de arco</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Imposible inferir ninguna información direccional</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Una franja o anillo muy amplio del cielo (dirección ambigua a lo largo de una línea)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El hemisferio completo donde llegó primero la señal</label>
+    <p class="fb" hidden>La diferencia de tiempos de llegada fija el ángulo respecto de la línea que une los detectores, pero no distingue fuentes a lo largo de ese arco: una región enorme, no un punto.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En 2023, los consorcios internacionales del Pulsar Timing Array anunciaron:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Confirmación definitiva (&gt;5σ) de la primera fusión individual de agujeros negros supermasivos</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Que los púlsares de milisegundo no son relojes lo bastante estables para medir ondas gravitacionales</label>
+    <label class="opt"><input type="radio" name="q3" value="c">La cancelación del fondo estocástico de ondas gravitacionales en frecuencias de nanohertz</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Evidencia tentativa (~3–4σ) de un fondo de ondas gravitacionales que llega de todo el cielo</label>
+    <p class="fb" hidden>No alcanza el umbral habitual de 5σ para «detección» formal, pero la forma de la señal es compatible con un background isotrópico de muchas fuentes débiles — no con un evento puntual.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. ¿Cómo funciona el Pulsar Timing Array como detector de ondas gravitacionales y por qué requiere monitorear muchos púlsares durante años?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Los púlsares de milisegundo emiten pulsos de radio con tiempos de llegada ultra estables: son relojes naturales distribuidos por el cielo. Si una onda gravitacional de longitud de onda gigante (λ ~ años luz) atraviesa el camino Tierra–púlsar, la distancia cambia ligeramente y los tiempos de llegada se desvían respecto del modelo. Un solo púlsar podría confundir ese drift con ruido del propio púlsar; la clave es buscar desviaciones <strong>coherentes en el espacio</strong> — el mismo patrón correlacionado entre muchos púlsares en distintas direcciones, huella de una perturbación común del espacio-tiempo. Las frecuencias son nanohertz (periodos de años), así que la señal se acumula lentamente: hacen falta décadas de observación radio y cuatro consorcios internacionales que combinan datos.</div>
+  </details>
+</div>
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. ¿Qué aporta el consorcio LIGO–Virgo–KAGRA frente a los dos LIGO originales, tanto en localización como en astronomía multi-messenger?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Con dos detectores la fuente queda en una franja enorme del cielo; añadir Virgo (Italia) y KAGRA (Japón) permite <strong>triangular</strong> con baselines y orientaciones distintas: la diferencia de tiempos de llegada entre tres o cuatro sitios reduce el volumen de cielo a una región mucho más pequeña. Eso habilita apuntar telescopios ópticos, radio o gamma en busca de contraparte electromagnética — no todos los mergers la tienen (dos agujeros negros no emiten luz), pero eventos con estrellas de neutrones sí pueden. Además, el consorcio acumula más detecciones que poblaron el «cementerio estelar»: masas de agujeros negros y estrellas de neutrones en el rango intermedio que antes parecía vacío por vía electromagnética. Es la misma lógica que una red GPS: más receptores sincronizados mejoran la geometría y permiten cruzar el mensaje gravitacional con otros mensajeros.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · <a href="m3c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a></footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

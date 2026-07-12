@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El espacio y la próxima frontera — Módulo III · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c4-apuntes.html">Clase 4</a></nav>
+<div class="hero">
+<span class="kick">Instrumentación y Observación · Módulo III · Clase 5</span>
+<h1>El <em>espacio</em> y la próxima <em>frontera</em></h1>
+<p class="sub">Cómo nacen las grandes misiones: el caso JWST, el Decadal Survey y Cosmic Vision, y el catálogo de proyectos que vienen — Euclid, Roman, ELT/GMT/TMT, Habitable Worlds, Lynx, Athena, ngVLA, LISA y Xuntian.</p>
+<div class="meta"><span>Docente: <b>César Fuentes</b></span><span>Última clase del <b>curso</b></span><span>Tema: <b>política y futuro de los grandes proyectos</b></span></div>
+</div>
+<p class="lead"><span class="drop">U</span>n flagship demora <em>~30 años</em> entre la idea y la primera luz. La clase muestra el «detrás de bambalinas»: cómo una comunidad llega a consenso, cómo se consigue la plata, y qué máquinas están en el pipeline en cada longitud de onda — y en ondas gravitacionales.</p>
+<nav class="idx"><span class="tag">Contenido</span><ol>
+<li><a href="#s1">Cómo nace una misión: JWST</a></li>
+<li><a href="#s2">Ingeniería en el vacío</a></li>
+<li><a href="#s3">El US Decadal Survey</a></li>
+<li><a href="#s4">ESA: Cosmic Vision</a></li>
+<li><a href="#s5">Euclid y Roman</a></li>
+<li><a href="#s6">Gigantes en tierra</a></li>
+<li><a href="#s7">Habitable Worlds Observatory</a></li>
+<li><a href="#s8">Lynx, Athena y ngVLA</a></li>
+<li><a href="#s9">LISA y el último parsec</a></li>
+<li><a href="#s10">Nuevos actores y ciclo virtuoso</a></li>
+<li><a href="#interactivo">Widgets</a></li>
+<li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#examenes">Exámenes</a></li>
+</ol></nav>
+
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>¿Cómo nace una misión espacial? El caso JWST</h2>
+<p>De la idea (1989) al lanzamiento (2021): 32 años. La escala típica de un flagship.</p></div></div>
+<p>El James Webb nació como <strong>NGST</strong> (<em>Next Generation Space Telescope</em>): la «siguiente generación» después de Hubble. Lo notable es que la idea se anunció en <strong>1989</strong>, <em>antes</em> de que Hubble fuera lanzado (abril de 1990) — y antes de saber si Hubble funcionaría siquiera (recordemos que salió con la óptica defectuosa y hubo que instalarle una corrección en órbita).</p>
+<ul>
+<li><strong>1989</strong> — se empieza a discutir el NGST.</li>
+<li><strong>1996</strong> — se propone formalmente: un telescopio de <strong>8 m</strong>.</li>
+<li><strong>2001</strong> — el NGST alcanza <strong>máxima prioridad en el Decadal Survey</strong>: las agencias empiezan a poner plata en serio.</li>
+<li><strong>2002</strong> — se rebautiza como <strong>JWST</strong> y el espejo baja a <strong>~6,5 m</strong>.</li>
+<li><strong>2004</strong> — comienza la construcción (contratista principal: Northrop Grumman, una empresa de defensa).</li>
+<li><strong>2011</strong> — <strong>casi se cancela</strong>: el presupuesto se pasó «por un factor chiquitito de 10». Una task force fiscaliza, reorganiza los procesos entre NASA y Goddard, fija un nuevo presupuesto y el proyecto se ejecuta dentro de él.</li>
+<li><strong>2021</strong> — lanzamiento el 25 de diciembre; llega a L2 en enero de 2022.</li>
+</ul>
+<figure>
+<img src="m3c5/assets/slide-03.jpg" alt="Línea de tiempo del JWST y concepto original del NGST.">
+<figcaption><span class="cap">Diapositiva 3</span>Línea de tiempo 1989→2021 y el concepto original del NGST: se reconoce el protector solar, pero el diseño cambió radicalmente en 30 años.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>Cuando se diseñó Hubble se pensaba en un espejo de 3 m. Los contratistas (todos con negocios militares) sugirieron <strong>2,4 m</strong> — un número «arbitrario» que delataba que ya sabían fabricar espejos de ese tamaño para satélites espía. Análogamente, el NGST bajó de 8 m a ~6,5 m tras negociar con la industria. Como dijo el profesor: «probablemente existe más de un telescopio de 6 metros en el espacio… apuntando para el otro lado».</p></div>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice que James Webb costó «10 millones de dólares» y Hubble «16 millones». Las diapositivas confirman las cifras reales: <strong>USD 10&nbsp;mil millones</strong> (JWST) y <strong>USD 16&nbsp;mil millones acumulados</strong> (Hubble, aprobado por el Congreso en 1977). El transcriptor perdió sistemáticamente el «mil». Para dimensionar: en EE.UU. se gasta más en dulces de Halloween cada año que el costo total de JWST repartido en sus décadas de desarrollo.</p></div>
+</section>
+
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Ingeniería en el vacío</h2>
+<p>Por qué estas máquinas demoran 30 años: cada subsistema es un problema de ingeniería sin solución de catálogo.</p></div></div>
+<h3>Enfriar sin aire</h3>
+<p>Un computador en tierra se enfría con ventiladores o con circuito líquido + radiador: en ambos casos el calor termina entregado <em>al aire por convección</em>. En el espacio no hay aire: la única salida de calor es la <strong>radiación</strong>. Hay que diseñar caminos térmicos (conducción hacia radiadores que emiten al vacío) para que la electrónica no se fría — un problema clásico de ingeniería térmica, pero con una condición de borde brutal.</p>
+<h3>Espejos que cambian de forma con la temperatura</h3>
+<p>La curvatura de un espejo depende de la temperatura, y JWST opera en un entorno criogénico cercano al frío profundo del espacio (~3 K de fondo). Nunca se pudo probar la óptica a esa temperatura en tierra: se <strong>modeló</strong> la deformación térmica y se fabricó un espejo que en el laboratorio está <em>desenfocado a propósito</em>, para que al enfriarse en el espacio adopte la curvatura correcta. Es validación por simulación: el commissioning es el primer test de integración real.</p>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Dos ideas familiares para informáticos: (1) <strong>deploy sin rollback</strong> — un telescopio en L2 no se puede «parchar» in situ, así que todo se verifica por modelo y redundancia antes del lanzamiento; (2) <strong>obsolescencia por lead time</strong> — como el ciclo de diseño dura décadas, la misión vuela con procesadores y detectores de una generación anterior: «las misiones espaciales quedan obsoletas en el momento en que se lanzan». En 1989 los detectores que JWST usaría ni siquiera existían; el CCD era tecnología naciente.</p></div>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>El US Decadal Survey</h2>
+<p>Cada 10 años, la comunidad astronómica de EE.UU. produce un documento de consenso que dice dónde poner la plata.</p></div></div>
+<p>El proceso: se convocan <strong>white papers</strong> — artículos que en vez de reportar resultados proponen ideas («la comunidad necesita un instrumento con estas características para responder estas preguntas»). Un comité organizador recorre el país recogiendo insumos de grupos de interés y produce un libro con recomendaciones en tres escalas: proyectos <strong>grandes (flagships)</strong>, medianos y chicos.</p>
+<p>La clave es el <strong>compromiso tácito</strong>: las agencias que financian — NASA, la <strong>NSF</strong> (National Science Foundation) y el Departamento de Energía — se comprometen (sin firma, por costumbre institucional) a seguir las recomendaciones <em>si hay presupuesto</em>. Sin ese compromiso, el ejercicio no tendría sentido. Y es frágil: una decisión política puede romperlo.</p>
+<figure>
+<img src="m3c5/assets/slide-04.jpg" alt="Portada del Decadal Survey y costos de flagships.">
+<figcaption><span class="cap">Diapositiva 4</span>El último Decadal («Pathways to Discovery in Astronomy and Astrophysics for the 2020s») y el costo de los flagships: Hubble USD 16 mil M, JWST 10 mil M, Roman 3 mil M, HWO ~11 mil M.</figcaption>
+</figure>
+<h3>Recomendaciones 2021</h3>
+<ul>
+<li><strong>Máxima prioridad NASA:</strong> el híbrido LUVOIR + HabEx (que se convirtió en el <em>Habitable Worlds Observatory</em>, sección 7).</li>
+<li><strong>Siguiente prioridad NASA:</strong> Origins y Lynx.</li>
+<li><strong>Máxima prioridad NSF:</strong> financiar <em>un</em> telescopio de clase 30 m (combinar TMT y GMT — sección 6).</li>
+<li><strong>Otras:</strong> CMB-S4 (fondo cósmico de microondas) y ngVLA (sección 8).</li>
+</ul>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>Los flagships demoran más de 10 años, así que aparecen en <em>varios</em> Decadals: un proyecto puede ser primera prioridad en uno, recomendarse matarlo en el siguiente, y revivir en el subsiguiente (le pasó a LISA, sección 9). Roman salió «barato» (3 mil M) en parte porque el satélite fue regalado: a la agencia de reconocimiento le sobraban dos telescopios clase Hubble y los ofreció a la comunidad astronómica.</p></div>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio escribe «Decadel/Decay del/Decaden/Decaylor Survey» — es <strong>Decadal Survey</strong>. También «la Dowley es American Astronomical Society»: el profesor se refiere a que el ejercicio lo lidera la comunidad organizada (el survey lo conducen las <em>National Academies</em> de EE.UU. con amplia participación de la comunidad; la AAS es la sociedad profesional). Y «LCEF/NCEF/NCF» es la <strong>NSF</strong>; «ANIT» es <strong>ANID</strong>, su análogo chileno («la NSF es como ANID pero con plata»).</p></div>
+</section>
+
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>ESA: Cosmic Vision</h2>
+<p>La versión europea del Decadal: un plan a ~10 años con misiones clase L (Large), M y S.</p></div></div>
+<p>El plan <strong>Cosmic Vision 2015–2025</strong> se creó en <strong>2005</strong> — desfasado respecto del ciclo norteamericano, y con horizonte largo: se planifica una década antes de ejecutar. Los «flagships» europeos se llaman misiones <strong>clase L</strong> y la idea general es que sean colaboraciones internacionales. Las tres L de este ciclo:</p>
+<ul>
+<li><strong>L1 — JUICE</strong> (Jupiter Icy Moons Explorer): lanzada el 14 de abril de 2023 hacia Júpiter, con asistencias gravitacionales en el camino.</li>
+<li><strong>L2 — Athena</strong>: telescopio de rayos X; el plan actual (NewAthena) apunta a lanzamiento en <strong>2037</strong>.</li>
+<li><strong>L3 — LISA</strong>: interferómetro espacial de ondas gravitacionales, planeado para ~2035 (sección 9).</li>
+</ul>
+<figure>
+<img src="m3c5/assets/slide-06.jpg" alt="Cosmic Vision de ESA y misión JUICE.">
+<figcaption><span class="cap">Diapositiva 6</span>Cosmic Vision 2015–2025: JUICE (ya en vuelo), Athena/NewAthena y LISA como misiones clase L.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice que Athena «está planeado para lanzarse en 2017» — imposible (es futuro). La diapositiva confirma: Athena se planeaba para <strong>2035</strong> y el plan NewAthena apunta a <strong>2037</strong>. El punto pedagógico del profesor se mantiene: en un plan 2015–2025 se trabaja en misiones que volarán mucho después del período.</p></div>
+</section>
+
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Presente cercano: Euclid y Roman</h2>
+<p>Dos telescopios espaciales de campo amplio para cartografiar la distribución de masa y estudiar la energía oscura.</p></div></div>
+<p><strong>Euclid</strong> (ESA) es un telescopio óptico similar a Hubble pero con <strong>gran campo de visión</strong>, ubicado en <strong>L2</strong> (no en órbita baja como Hubble). Su objetivo: <em>energía oscura</em>. ¿Cómo se estudia algo que no se ve? A través de su efecto sobre la <strong>distribución de materia a gran escala</strong> (filamentos, cúmulos): hay que mapear pedazos gigantes del cielo, con profundidad y buena resolución a la vez.</p>
+<figure>
+<img src="m3c5/assets/slide-08.jpg" alt="Euclid y los puntos de Lagrange.">
+<figcaption><span class="cap">Diapositiva 8</span>Euclid: telescopio de survey cosmológico en L2. El diagrama muestra los puntos de Lagrange del sistema Sol–Tierra.</figcaption>
+</figure>
+<figure>
+<img src="m3c5/assets/slide-09.jpg" alt="Mosaico de Euclid con zooms sucesivos.">
+<figcaption><span class="cap">Diapositiva 9</span>El mosaico famoso de Euclid: un área de cielo enorme (nótese la Luna como referencia de escala, arriba a la derecha) con zoom ×3 → ×600 hasta resolver galaxias individuales. Hubble jamás podría: su campo es un «pixel» de esta imagen.</figcaption>
+</figure>
+<p><strong>Nancy Grace Roman</strong> (NASA) es la contraparte norteamericana: mismo objetivo cosmológico, campo aún mayor y optimizado más hacia el <strong>infrarrojo</strong> (Euclid es más óptico) — por eso son <em>complementarios</em>. Su hardware viene de uno de los dos telescopios clase Hubble que la agencia de reconocimiento regaló: se reacondicionó para apuntar al cielo en vez de a la Tierra.</p>
+<figure>
+<img src="m3c5/assets/slide-10.jpg" alt="Campo de visión de Roman comparado con Hubble sobre Andrómeda.">
+<figcaption><span class="cap">Diapositiva 10</span>El campo de visión de Roman (rojo) vs. el de Hubble (cuadradito azul) sobre M31: una sola imagen de Roman cubre lo que a Hubble le tomaría cientos de apuntados.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>Euclid es un proyecto tipo <strong>survey</strong>: el telescopio fue construido <em>para el mapa</em>; no se puede pedir tiempo para apuntarlo a otra cosa. Y como Vera Rubin (en tierra, EE.UU.) tiene objetivos similares a Euclid (Europa), hoy se negocian <em>intercambios de datos</em> entre comunidades — otro ejemplo de que los acuerdos políticos son parte del instrumento.</p></div>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«el satélite mismo lo regaló la CIA»: la donación de los dos telescopios clase Hubble (2012) la hizo la <strong>NRO</strong> (National Reconnaissance Office), la agencia de satélites de reconocimiento de EE.UU. — precisión externa; la anécdota de clase es correcta en lo esencial.</p></div>
+</section>
+
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Gigantes en tierra: ELT, GMT, TMT</h2>
+<p>La clase 30–40 metros: tres proyectos, plata para menos, y la política de los sitios.</p></div></div>
+<p>Tres telescopios ópticos gigantes compiten por existir: el <strong>ELT</strong> europeo (~39 m, en construcción avanzada en Chile), el <strong>GMT</strong> (Giant Magellan Telescope, cerca de Las Campanas: los espejos están hechos, pero en el sitio solo hay plataforma) y el <strong>TMT</strong> (Thirty Meter Telescope, pensado para Mauna Kea, Hawái; quizás termine en Canarias). El Decadal recomendó que la NSF financie <strong>solo uno</strong> entre TMT y GMT — pero las comunidades no han querido converger en un único proyecto y buscan socios externos para construir ambos.</p>
+<figure>
+<img src="m3c5/assets/slide-11.jpg" alt="Renders del ELT, TMT y GMT.">
+<figcaption><span class="cap">Diapositiva 11</span>ELT (izquierda), TMT (arriba) y GMT (abajo): la cúpula sola ya es un proyecto de ingeniería gigantesco — estructura pesada y móvil, flujo de aire sin turbulencia, logística en pleno desierto.</figcaption>
+</figure>
+<h3>El conflicto de Mauna Kea</h3>
+<p>La cima del volcán (casi 5000 m) es <strong>sitio sagrado</strong> para la comunidad hawaiana, que siente incumplidos los acuerdos de las concesiones anteriores (preservar el sitio, retirar los telescopios al final de su vida útil). Se suma un trasfondo de colonialismo y relación con el gobierno de EE.UU. que excede a la astronomía. Físicamente el sitio es excepcional: sobre la capa de humedad, viento laminar sin montañas alrededor → seeing excelente. Canarias es similar, pero las tormentas de arena del Sahara obligan a cerrar semanas al año.</p>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«el Biopian Extremidad» = el <strong>European Extremely Large Telescope (ELT)</strong>, de ~39 m. Y «una de estas cosas cuesta 1,3 millones de euros» → <strong>~1300 millones de euros</strong> (mil millones de nuevo perdido). Grandes, pero un orden de magnitud más baratos que un flagship espacial como JWST.</p></div>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>LUVOIR + HabEx = Habitable Worlds Observatory</h2>
+<p>Dos comunidades, dos conceptos — y un «matrimonio» recomendado por el Decadal 2020.</p></div></div>
+<p><strong>LUVOIR</strong> (Large UV/Optical/IR Surveyor) era el sueño de un super-telescopio espacial UV/óptico/IR: la versión A de <strong>15 m</strong> de espejo segmentado, la versión B de 8 m. El UV es hoy un vacío de capacidad: la atmósfera lo bloquea, GALEX murió, Hubble conserva capacidad UV degradada (India lanzó recientemente un telescopio UV pequeño — AstroSat).</p>
+<figure>
+<img src="m3c5/assets/slide-13.jpg" alt="Concepto LUVOIR y comparación de espejos.">
+<figcaption><span class="cap">Diapositiva 13</span>Espejos comparados: Hubble 2,4 m → JWST 6,5 m → LUVOIR-B 8 m → LUVOIR-A 15 m. La herencia del diseño segmentado de JWST es evidente.</figcaption>
+</figure>
+<p><strong>HabEx</strong> (Habitable Exoplanet Observatory) venía de la comunidad de exoplanetas: obtener <strong>imágenes directas de planetas tipo Tierra</strong> y caracterizar sus atmósferas. Su tecnología estrella: el <strong>coronógrafo</strong> — y en su versión más ambiciosa, una <em>starshade</em>: un segundo satélite con una pantalla en forma de flor que genera un <strong>eclipse artificial</strong>, bloqueando la luz de la estrella para que no te encandile y puedas ver lo que la orbita.</p>
+<figure>
+<img src="m3c5/assets/slide-14.jpg" alt="Concepto HabEx con starshade.">
+<figcaption><span class="cap">Diapositiva 14</span>HabEx: el telescopio (abajo) y la starshade (arriba) volando en formación para eclipsar la estrella y revelar sus planetas.</figcaption>
+</figure>
+<p>El Decadal 2020 recomendó fusionarlos: el <strong>Habitable Worlds Observatory</strong> (HWO), propuesto en 2023 — un telescopio de <strong>~6 m</strong> (ni los 15 de LUVOIR-A ni tan chico), enfocado en los objetivos de HabEx pero versátil, con capacidad para estudios extragalácticos. Costo estimado: <strong>USD 11 mil millones</strong>.</p>
+<figure>
+<img src="m3c5/assets/slide-15.jpg" alt="Concepto del Habitable Worlds Observatory.">
+<figcaption><span class="cap">Diapositiva 15</span>HWO: el «matrimonio» entre LUVOIR y HabEx. Cuando las comunidades logran ponerse de acuerdo, nace un proyecto ejecutable.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio escribe «Luboy, Lugoir, Luer, Luoy, LUGO» → <strong>LUVOIR</strong>; «havex/HAVEX» → <strong>HabEx</strong> (Habitable <em>Exoplanet</em> Observatory — el profesor no recordaba la sigla); «habitable world observa tres» → <strong>Habitable Worlds Observatory</strong>; y «<strong>cronógrafo</strong>» → <strong>coronógrafo</strong> (instrumento que oculta el disco estelar; un cronógrafo mide tiempo). Además, según la diapositiva LUVOIR-A es de <strong>15 m</strong> (el audio dice 16) y LUVOIR-B de 8 m.</p></div>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Altas energías y radio: Lynx, Athena, ngVLA</h2>
+<p>Llenar los vacíos fuera del óptico/IR: rayos X con resolución sub-arcosegundo y un interferómetro continental.</p></div></div>
+<h3>Lynx (NASA)</h3>
+<p>Los telescopios de rayos X suelen tener <em>pésima</em> resolución espacial y campo chico. Lynx propone campo amplio (22′ × 22′, casi la Luna) con resolución de <strong>0,5 segundos de arco</strong> — ¡mejor que un buen seeing óptico en tierra! Eso permitiría pasar de «ahí hay una galaxia en rayos X» a resolver <em>las fuentes individuales dentro</em> de una galaxia. Sería ≥10× más poderoso que Chandra; planeado para ~2036, costo ~USD 5 mil millones.</p>
+<figure>
+<img src="m3c5/assets/slide-17.jpg" alt="Concepto del observatorio de rayos X Lynx.">
+<figcaption><span class="cap">Diapositiva 17</span>Lynx: campo de 22′×22′ y 0,5″ de resolución en rayos X — un salto de 10× sobre Chandra.</figcaption>
+</figure>
+<h3>Athena (ESA)</h3>
+<p>Peor resolución que Lynx (~5″, factor 10), pero con un as bajo la manga: el <strong>X-IFU</strong>, una <em>Integral Field Unit</em> en rayos X. Un IFU es como un CCD donde cada «pixel» es un espectrógrafo: obtienes un cubo de datos (x, y, λ) — <strong>un espectro por cada punto de la imagen</strong>. Para objetos extendidos permite mapear qué región emite qué espectro y de dónde sale la energía.</p>
+<figure>
+<img src="m3c5/assets/slide-18.jpg" alt="Concepto del telescopio Athena.">
+<figcaption><span class="cap">Diapositiva 18</span>Athena/NewAthena: menos resolución que Lynx, pero espectroscopía de campo integral en rayos X (X-IFU).</figcaption>
+</figure>
+<h3>ngVLA (radio)</h3>
+<p>El <strong>next generation VLA</strong>: 10× más sensibilidad y resolución que el VLA actual (el de la película <em>Contact</em>) y que ALMA. Diseño: <strong>244 antenas de 18 m</strong> + <strong>19 de 6 m</strong> (compárese con ALMA: 66 antenas, 54 de ellas de 12 m). El número y tamaño de antenas da la <em>sensibilidad</em> (área recolectora total); la separación entre ellas da la <em>resolución</em> (línea de base). El núcleo estará junto al VLA en Nuevo México, con estaciones medias en Arizona/Texas/México y largas hasta Hawái, Puerto Rico y Canadá — líneas de base continentales.</p>
+<div class="formula"><span class="katex-block" data-tex="\theta \approx \frac{\lambda}{B}\qquad\text{(resolución)}\qquad\quad A_{\text{col}}=\sum_i \pi\!\left(\tfrac{D_i}{2}\right)^{2}\quad\text{(sensibilidad)}"></span>
+<small>Interferometría (clase 3 aplicada al futuro): la resolución la fija la línea de base B; la sensibilidad, la suma de las áreas de los platos. ngVLA maximiza ambas: 244×18 m y B de miles de km.</small></div>
+<figure>
+<img src="m3c5/assets/slide-20.jpg" alt="Antena del ngVLA y distribución de estaciones.">
+<figcaption><span class="cap">Diapositiva 20</span>ngVLA: 244 antenas de 18 m + 19 de 6 m, de Nuevo México a Hawái y Canadá. Operaciones esperadas ~2037.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«Links/Linz» → <strong>Lynx</strong>; «Atena» → <strong>Athena</strong>; «IFF/IF» → <strong>IFU</strong> (Integral Field Unit); «NG GLA/NGBLA/decadente Survey» → <strong>ngVLA</strong>. Sobre ALMA, el audio duda («56 antenas, creo»): ALMA tiene <strong>66 antenas</strong> en total, 54 de 12 m y 12 de 7 m (dato externo para precisar).</p></div>
+</section>
+
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>LISA y el problema del último parsec</h2>
+<p>Un interferómetro de 2,5 millones de km de brazo para escuchar fusiones de agujeros negros supermasivos.</p></div></div>
+<p><strong>LISA</strong> (Laser Interferometer Space Antenna): tres satélites en formación triangular, unidos por láseres, midiendo cambios de distancia entre sí al paso de una onda gravitacional. Es la misma tecnología de LIGO con una diferencia clave: <strong>los brazos no tienen largo constante</strong>. Las órbitas hacen que la separación varíe en el tiempo — pero de forma <em>predecible</em>; la onda gravitacional es la perturbación extra sobre ese modelo. Un problema de estimación de señal sobre línea de base móvil, muy familiar para ingeniería de señales.</p>
+<div class="formula"><span class="katex-block" data-tex="L = 2{,}5\times10^{6}\ \text{km} \;\approx\; 8{,}3\ \text{s luz} \quad\Rightarrow\quad f \sim \frac{c}{L} \approx 0{,}12\ \text{Hz}"></span>
+<small>El largo del brazo fija la banda de frecuencias. LIGO (km) escucha ~100 Hz: agujeros negros de decenas de masas solares. LISA (millones de km) escucha mHz: fusiones de agujeros negros <em>supermasivos</em>, de millones de masas solares.</small></div>
+<figure>
+<img src="m3c5/assets/slide-22.jpg" alt="Concepto LISA: tres satélites y ondas gravitacionales.">
+<figcaption><span class="cap">Diapositiva 22</span>LISA/eLISA: prioridad en el Decadal 2010, abandonada por NASA en 2011 (antes de la primera detección de ondas gravitacionales), continuada por ESA como «evolved LISA», y re-priorizada por el Decadal 2020… cuando ESA ya lideraba.</figcaption>
+</figure>
+<h3>¿Por qué importa? El último parsec</h3>
+<p>Casi todas las galaxias tienen un agujero negro supermasivo central, y las galaxias se fusionan; el producto final tiene <em>un</em> agujero negro. Ergo, los agujeros negros supermasivos deben fusionarse. Pero el mecanismo conocido para acercar un par orbitante — expulsar material que se lleva energía del sistema — se queda sin material a escala de <strong>~1 parsec</strong>: nadie sabe todavía cómo cruzan ese último parsec. Medir la frecuencia y propiedades de estas fusiones con LISA daría la evidencia empírica para resolver este problema abierto.</p>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>La historia política de LISA es el ejemplo perfecto de acuerdos y desacuerdos: NASA se bajó en 2011 de un proyecto conjunto (cuando las ondas gravitacionales aún no se detectaban y era «alto riesgo»); ESA siguió sola; tras la detección de 2015 todo el mundo quiso volver — y ahora ESA tiene la prioridad y probablemente EE.UU. quede fuera.</p></div>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«E LISA / Evolut Visa / EVO LISA / ELISA» → <strong>eLISA</strong> (<em>evolved LISA</em>), el programa reducido que ESA continuó sola. «mató el rifle» parece ser «mató el proyecto». Y «millones de bases de la masa del Sol» → millones de <em>veces</em> la masa del Sol.</p></div>
+</section>
+
+<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Nuevos actores, basura espacial y el ciclo virtuoso</h2>
+<p>Xuntian y el modelo chino; Starlink como ruido; y el mensaje final del curso.</p></div></div>
+<h3>Xuntian: mantenimiento en órbita</h3>
+<p>El proyecto chino <strong>Xuntian</strong> es un telescopio espacial de ~2 m, clase Hubble en capacidades. Lo extraordinario no es el espejo sino la arquitectura: co-orbita con la <strong>estación espacial china (Tiangong)</strong>, ya en órbita baja, y puede <em>acoplarse</em> a ella periódicamente para cambiar instrumentos, hacer upgrades y reparaciones. Diseño para mantenibilidad — justo lo que Hubble solo logró con costosas misiones del transbordador. Además, el modelo de decisión chino no pasa por consensos comunitarios tipo Decadal: es una forma completamente distinta de fijar y ejecutar prioridades.</p>
+<figure>
+<img src="m3c5/assets/slide-26.jpg" alt="Telescopio Xuntian y estación espacial china.">
+<figcaption><span class="cap">Diapositiva 26</span>Xuntian, el «Chinese space station survey telescope», y la estación Tiangong a la que puede acoplarse para servicio.</figcaption>
+</figure>
+<h3>Satélites, ruido y basura espacial</h3>
+<p>Preguntas del chat: sí, las megaconstelaciones tipo <strong>Starlink</strong> interfieren — dejan rayas en las imágenes, y para surveys de campo amplio como Vera Rubin la probabilidad de cruce por imagen es alta. Con pocos satélites uno podía «hacerles el quite»; con enjambres de miles ya no. Y sí, los satélites tienen vida útil: algunos se desorbitan al mar de forma controlada, otros se fragmentan en órbita (basura espacial), y existen ideas de misiones de rescate — reimpulsar satélites que pierden órbita (el profesor menciona con cautela un caso tipo Swift) e incluso, algún día, Hubble. Los que están en L2 no son problema de basura cercana.</p>
+<h3>El mensaje final del curso</h3>
+<p>Todo el módulo cabe en un diagrama de retroalimentación: los <strong>objetivos científicos</strong> exigen instrumentos con ciertas características; construirlos requiere <strong>desarrollo tecnológico</strong>; esa tecnología se apoya en <strong>ciencia básica</strong> previa (varios premios Nobel mediante), que a su vez genera nuevos objetivos. Un ciclo virtuoso — pero cada vuelta es más cara: los proyectos ya exceden a naciones individuales y requieren <strong>cooperación internacional</strong>, que depende de una geopolítica que hoy cambia rápido. «Al final la ciencia la hacen los seres humanos, y poner de acuerdo a seres humanos no siempre es trivial. Es más fácil resolver ecuaciones.»</p>
+<figure>
+<img src="m3c5/assets/slide-27.jpg" alt="Diapositiva de cierre: ciclo ciencia-tecnología y componente político.">
+<figcaption><span class="cap">Diapositiva 27</span>El cierre del curso: objetivos científicos ⇄ tecnología ⇄ ciencia básica, con la política, economía y sociología como componente crucial de los grandes desarrollos.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>Chile: astronomía de nivel mundial gracias al <em>acceso</em> a máquinas que no podríamos financiar (10% de tiempo de observación de los observatorios instalados). En desarrollo de tecnología propia hay laboratorios incipientes (ondas, IR, óptico) pero «no tenemos 10 mil millones de dólares para poner un telescopio en el espacio». Sobre investigación aplicada: si hay masa crítica de ciencia básica, las aplicaciones llegan solas — exigir aplicación a priori es, en opinión del profesor, un mal enfoque.</p></div>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>«el proyecto Chung Yan» → <strong>Xuntian</strong> (diapositiva 26); «Estación Espacial Chile» → estación espacial <strong>China</strong> (Tiangong). El audio duda del estado del proyecto; la diapositiva lo presenta como telescopio de survey asociado a la estación (lanzamiento aún pendiente).</p></div>
+</section>
+
+<section id="interactivo">
+<div class="shead"><span class="num">⚙</span><div><h2>Widgets interactivos</h2>
+<p>Tres calculadoras para jugar con los números de la clase.</p></div></div>
+
+<div class="widget"><h4>Comparador de flagships: costo y tiempo idea → lanzamiento</h4>
+<label>Proyecto
+<select id="fl-sel">
+<option value="hst">Hubble (HST)</option>
+<option value="jwst" selected>James Webb (JWST)</option>
+<option value="roman">Nancy Grace Roman</option>
+<option value="hwo">Habitable Worlds Observatory</option>
+<option value="lynx">Lynx</option>
+<option value="elt">ELT (tierra)</option>
+</select></label>
+<output class="wout" id="fl-out"></output>
+</div>
+
+<div class="widget"><h4>Resolución por difracción θ ≈ 1,22 λ/D — presente y futuro</h4>
+<div class="wgrid"><label>λ (nm)<input type="number" id="df-lam" value="550" step="any"></label>
+<label>D (m)<input type="number" id="df-d" value="6" step="any"></label></div>
+<div class="presets">
+<button type="button" onclick="dfSet(550,2.4)">Hubble óptico</button>
+<button type="button" onclick="dfSet(2000,6.5)">JWST IR</button>
+<button type="button" onclick="dfSet(550,6)">HWO óptico</button>
+<button type="button" onclick="dfSet(200,15)">LUVOIR-A UV</button>
+<button type="button" onclick="dfSet(550,39)">ELT óptico</button>
+</div>
+<output class="wout" id="df-out"></output>
+</div>
+
+<div class="widget"><h4>Interferómetro de ondas gravitacionales: brazo → banda de frecuencia</h4>
+<label>Largo del brazo L (km)<input type="number" id="gw-l" value="2500000" step="any"></label>
+<div class="presets">
+<button type="button" onclick="gwSet(4)">LIGO (4 km)</button>
+<button type="button" onclick="gwSet(2500000)">LISA (2,5 M km)</button>
+</div>
+<output class="wout" id="gw-out"></output>
+</div>
+</section>
+
+<section id="conceptos"><div class="shead"><span class="num">★</span><div><h2>Conceptos clave</h2>
+<p>Para repaso rápido antes de los exámenes.</p></div></div>
+<div class="tbl"><table>
+<thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td><b>Flagship</b></td><td>Proyecto grande del Decadal; ~30 años idea→lanzamiento; miles de millones USD</td></tr>
+<tr><td><b>Decadal Survey</b></td><td>Consenso decenal de la comunidad de EE.UU.; white papers; compromiso tácito de NASA/NSF/DOE</td></tr>
+<tr><td><b>Cosmic Vision</b></td><td>Plan de ESA; misiones clase L/M/S: JUICE, Athena, LISA</td></tr>
+<tr><td><b>Euclid / Roman</b></td><td>Surveys de campo amplio en L2 para energía oscura; óptico vs. IR, complementarios</td></tr>
+<tr><td><b>HWO</b></td><td>Fusión LUVOIR+HabEx; ~6 m; coronógrafo; imágenes de exo-Tierras; USD 11 mil M</td></tr>
+<tr><td><b>Coronógrafo / starshade</b></td><td>Eclipse artificial: bloquear la estrella para ver sus planetas</td></tr>
+<tr><td><b>Lynx / Athena</b></td><td>Rayos X: 0,5″ y campo amplio vs. X-IFU (un espectro por pixel)</td></tr>
+<tr><td><b>ngVLA</b></td><td>244×18 m + 19×6 m; sensibilidad = Σ áreas, resolución = línea de base</td></tr>
+<tr><td><b>LISA</b></td><td>Brazos de 2,5 M km (~0,12 Hz); fusiones de agujeros negros supermasivos</td></tr>
+<tr><td><b>Último parsec</b></td><td>Problema abierto: cómo dos agujeros negros supermasivos cierran el último pc antes de fusionarse</td></tr>
+<tr><td><b>Xuntian</b></td><td>Telescopio chino ~2 m acoplable a Tiangong: mantenimiento en órbita</td></tr>
+<tr><td><b>Ciclo virtuoso</b></td><td>Objetivos científicos ⇄ tecnología ⇄ ciencia básica; la política como componente crucial</td></tr>
+</tbody></table></div></section>
+
+<section id="examenes">
+<div class="shead"><span class="num">✓</span><div>
+<h2>Exámenes de práctica</h2>
+<p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
+</div></div>
+<ol class="examlist">
+    <li><a href="m3c5-examen-01.html">Examen 01<small>El nacimiento del JWST</small></a></li>
+    <li><a href="m3c5-examen-02.html">Examen 02<small>Ingeniería espacial</small></a></li>
+    <li><a href="m3c5-examen-03.html">Examen 03<small>El Decadal Survey</small></a></li>
+    <li><a href="m3c5-examen-04.html">Examen 04<small>Costos y financiamiento</small></a></li>
+    <li><a href="m3c5-examen-05.html">Examen 05<small>ESA y Cosmic Vision</small></a></li>
+    <li><a href="m3c5-examen-06.html">Examen 06<small>Euclid y Roman</small></a></li>
+    <li><a href="m3c5-examen-07.html">Examen 07<small>Gigantes en tierra</small></a></li>
+    <li><a href="m3c5-examen-08.html">Examen 08<small>Habitable Worlds</small></a></li>
+    <li><a href="m3c5-examen-09.html">Examen 09<small>Lynx, Athena, ngVLA</small></a></li>
+    <li><a href="m3c5-examen-10.html">Examen 10<small>LISA y cierre del curso</small></a></li>
+</ol>
+</section>
+<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c5.md</code>, diapositivas Clase 5 (<code>Modulo_III_Clase_5.pdf</code>).</p>
+<p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente. Correcciones aplicadas en estos apuntes:
+<ul><li>"10/16/3/11/5 millones de dólares" → 10/16/3/11/5 <em>mil</em> millones (miles de millones USD; confirmado por diapositivas 4 y 17)</li><li>"Decadel / Decay del / Decaden / Decaylor / decadente Survey" → Decadal Survey</li><li>"telefono espacial" → telescopio espacial; "el Haul / Wallahau / Howell" → Hubble</li><li>"Luboy / Lugoir / Luer / Luoy / LUGO / Louis" → LUVOIR (LUVOIR-A 15 m, LUVOIR-B 8 m según diapositiva 13)</li><li>"havex / HAVEX" → HabEx (Habitable Exoplanet Observatory); "habitable world observa tres" → Habitable Worlds Observatory (HWO)</li><li>"cronógrafo" → coronógrafo</li><li>"Links / Linz" → Lynx; "Atena" → Athena; Athena "para 2017" → 2035/2037 (NewAthena)</li><li>"IFF / IF" → IFU (Integral Field Unit; X-IFU en Athena)</li><li>"NG GLA / NGBLA" → ngVLA; ALMA tiene 66 antenas (54 de 12 m + 12 de 7 m), no "56"</li><li>"E LISA / Evolut Visa / EVO LISA" → eLISA (evolved LISA); "millones de bases" → millones de veces la masa del Sol</li><li>"LCEF / NCEF / NCF / NZ" → NSF; "ANIT" → ANID; "la Dowley" → la AAS/National Academies</li><li>"el Biopian Extremidad" → European Extremely Large Telescope (ELT, ~39 m); "1,3 millones de euros" → ~1300 millones</li><li>"Chung Yan" → Xuntian; "Estación Espacial Chile" → estación espacial China (Tiangong)</li><li>"lo regaló la CIA" → la NRO (National Reconnaissance Office) donó los telescopios clase Hubble (precisión externa)</li><li>"no te encantigue" → no te encandile; "GMD / CMT" → GMT</li></ul></p></footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+  document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
+  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
+
+  var FLAG={
+    hst:{n:"Hubble",idea:1977,lanza:1990,costo:16,nota:"aprobado por el Congreso en 1977; costo acumulado a la fecha"},
+    jwst:{n:"JWST",idea:1989,lanza:2021,costo:10,nota:"NGST desde 1989; lanzado el 25-dic-2021"},
+    roman:{n:"Roman",idea:2010,lanza:2027,costo:3,nota:"barato en parte porque el satélite fue donado (NRO); lanzamiento estimado"},
+    hwo:{n:"Habitable Worlds Observatory",idea:2023,lanza:2040,costo:11,nota:"propuesto 2023; lanzamiento ~décadas de 2040 (estimación)"},
+    lynx:{n:"Lynx",idea:2019,lanza:2036,costo:5,nota:"concepto para el Decadal 2020; planeado ~2036"},
+    elt:{n:"ELT (~39 m, tierra)",idea:2005,lanza:2029,costo:1.4,nota:"~1300 M€; primera luz estimada. Un orden de magnitud más barato que un flagship espacial"}
+  };
+  function flCalc(){
+    var p=FLAG[document.getElementById('fl-sel').value];
+    var yrs=p.lanza-p.idea;
+    var halloween=(p.costo*1000/3600).toFixed(1);
+    document.getElementById('fl-out').innerHTML='<span class="k">'+p.n+'</span>: <b>USD '+p.costo+' mil millones</b> · idea→lanzamiento: <b>'+yrs+' años</b> ('+p.idea+'→'+p.lanza+')<br><small style="color:#9aa6bb">'+p.nota+'. Equivale a ~'+halloween+' años del gasto de EE.UU. en dulces de Halloween (~3,6 mil M USD/año).</small>';
+  }
+  var fs=document.getElementById('fl-sel'); if(fs){fs.onchange=flCalc;flCalc();}
+
+  function dfCalc(){
+    var lam=+document.getElementById('df-lam').value*1e-9;
+    var D=+document.getElementById('df-d').value;
+    var theta=1.22*lam/D*206265;
+    var cmp = theta<0.02 ? 'muy por debajo de' : (theta<0.6 ? 'mejor que' : 'comparable o peor que');
+    document.getElementById('df-out').innerHTML='θ ≈ <b>'+theta.toFixed(4)+'</b> arcsec — '+cmp+' un buen seeing en tierra (~0,6″).';
+  }
+  window.dfSet=function(lam,d){document.getElementById('df-lam').value=lam;document.getElementById('df-d').value=d;dfCalc();};
+  var dl=document.getElementById('df-lam'),dd=document.getElementById('df-d');
+  if(dl){dl.oninput=dfCalc;dd.oninput=dfCalc;dfCalc();}
+
+  function gwCalc(){
+    var L=+document.getElementById('gw-l').value*1000;
+    var c=299792458;
+    var t=L/c, f=c/L;
+    var fstr = f>=1 ? f.toFixed(0)+' Hz' : (f>=1e-3 ? (f*1e3).toFixed(2)+' mHz' : f.toExponential(2)+' Hz');
+    var masa = f>1 ? 'decenas de masas solares (régimen LIGO)' : 'millones de masas solares (agujeros negros supermasivos, régimen LISA)';
+    document.getElementById('gw-out').innerHTML='Tiempo de luz por brazo: <b>'+(t<1?(t*1e6).toFixed(1)+' µs':t.toFixed(1)+' s')+'</b> · frecuencia característica c/L ≈ <b>'+fstr+'</b><br><small style="color:#9aa6bb">Fuentes típicas: '+masa+'.</small>';
+  }
+  window.gwSet=function(km){document.getElementById('gw-l').value=km;gwCalc();};
+  var gl=document.getElementById('gw-l'); if(gl){gl.oninput=gwCalc;gwCalc();}
+});
+</script>
+</body>
+</html>
