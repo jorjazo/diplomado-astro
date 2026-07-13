@@ -43,43 +43,43 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <h1>Examen 04 — El modelo de faro</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="c,a,d">
-  <fieldset data-q="1"><legend>1. ¿Desde dónde salen los haces de radiación y partículas de un púlsar?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Desde el ecuador de la estrella, por la fuerza centrífuga</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Desde toda la superficie de forma uniforme</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Desde los polos magnéticos, donde se concentran las líneas de campo</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Desde los polos del eje de rotación</label>
-    <p class="fb" hidden>Las partículas cargadas (electrones, protones) son atraídas por las líneas de campo, se acumulan en los polos magnéticos y desde ahí salen disparadas. Los polos magnéticos NO coinciden con el eje de rotación.</p>
+<form id="quiz" data-answers="b,d,a">
+  <fieldset data-q="1"><legend>1. Según el modelo de faro, ¿cuál es la condición geométrica para que veamos pulsos desde la Tierra?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Que la estrella de neutrones esté dentro de una nebulosa</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Que el haz que sale de los polos magnéticos cruce nuestra línea de visión al girar la estrella</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Que la estrella esté a menos de 100 años luz</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Que el eje de rotación apunte exactamente hacia la Tierra</label>
+    <p class="fb" hidden>Los haces salen de los polos magnéticos, que casi nunca están alineados con el eje de rotación; al girar, los haces barren el cielo como un faro costero, y solo vemos pulsos si uno de esos barridos pasa por la Tierra.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Por qué vemos los púlsares como pulsos y no como una fuente de luz continua?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Porque los haces salen desalineados del eje de rotación y solo nos apuntan una fracción de cada vuelta, como un faro</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Porque la estrella se enciende y se apaga físicamente</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Porque la nebulosa que la rodea eclipsa el objeto periódicamente</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Porque la fusión nuclear ocurre a intervalos regulares</label>
-    <p class="fb" hidden>El haz barre el cielo con la rotación de la estrella: recibimos luz solo cuando pasa por la Tierra. El periodo del pulso refleja el periodo de rotación.</p>
+  <fieldset data-q="2"><legend>2. ¿Por qué un púlsar no puede ser una enana blanca girando muy rápido?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque las enanas blancas no tienen campo magnético</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque las enanas blancas son demasiado frías para emitir en radio</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque las enanas blancas no rotan</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque un objeto del tamaño de la Tierra no puede girar a la velocidad requerida sin despedazarse</label>
+    <p class="fb" hidden>Para producir pulsos con esos períodos, un objeto de ~6.000 km tendría que girar a una velocidad físicamente incompatible con su tamaño. Solo un objeto de ~10 km puede rotar así de rápido y mantenerse entero.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. "Todos los púlsares son estrellas de neutrones, pero no todas las estrellas de neutrones son púlsares." ¿Cuál es la razón principal?</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Algunas estrellas de neutrones no tienen campo magnético</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Los púlsares tienen distinta composición química</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo las estrellas de neutrones más masivas pueden pulsar</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Es un efecto observacional: si el haz nunca barre la dirección de la Tierra, no vemos pulsos aunque el objeto sea idéntico</label>
-    <p class="fb" hidden>Es pura geometría: el mismo objeto visto desde otra dirección no muestra pulsos. (Además, las estrellas de neutrones viejas que cruzaron la "línea de muerte" dejan de emitir haces.)</p>
+  <fieldset data-q="3"><legend>3. ¿Por qué las partículas cargadas escapan únicamente por los polos magnéticos?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Porque las líneas de campo las atrapan en el resto de la estrella, y los polos son donde el campo se concentra y se «abre» hacia afuera</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Porque en los polos la gravedad es cero</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Porque la temperatura en los polos es mayor que en el ecuador</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Porque la rotación empuja las partículas hacia el eje</label>
+    <p class="fb" hidden>Electrones y protones tienen carga y quedan amarrados a las líneas de campo magnético; se acumulan donde el campo se concentra —los polos— y ahí salen disparados en un haz estrecho de partículas y radiación.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica la cadena física que va desde "electrones sueltos en la superficie" hasta "haz de radiación y partículas saliendo de los polos magnéticos". ¿Por qué se dice que un púlsar es un acelerador de partículas natural?</p>
+  <p class="q">4. «Todos los púlsares son estrellas de neutrones, pero no todas las estrellas de neutrones son púlsares.» Explica las dos razones —una geométrica y una evolutiva— por las que una estrella de neutrones puede no ser un púlsar para nosotros.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">(1) Tras el colapso quedan <strong>partículas cargadas</strong> (electrones, protones) moviéndose muy rápido cerca de la superficie. (2) Cargas en movimiento son <strong>corrientes eléctricas</strong>, y las corrientes generan <strong>campos magnéticos</strong> — intensísimos, ~10¹² Gauss por la compresión del colapso. (3) Las partículas cargadas quedan atrapadas por las <strong>líneas de campo</strong> y son canalizadas hacia los <strong>polos magnéticos</strong>, donde la concentración de campo es máxima. (4) Desde ahí salen disparadas en dos haces que contienen <strong>radiación y partículas</strong> (electrones, protones, también neutrinos), aceleradas a velocidades relativistas (≳ 90% de c). Por eso es un "acelerador de partículas natural": el campo magnético rotante confina las partículas y les transfiere energía, como los imanes de un acelerador humano, pero a escalas y energías inalcanzables en la Tierra.</div>
+    <div class="answer"><strong>Razón geométrica (efecto observacional):</strong> el haz sale de los polos magnéticos y barre un cono en el cielo al girar la estrella. Si la Tierra no está dentro de ese cono de barrido, el haz <em>nunca</em> nos apunta: el faro está encendido, pero no lo vemos pulsar. El objeto es físicamente idéntico a un púlsar; la diferencia es solo nuestra posición. <strong>Razón evolutiva:</strong> los púlsares tienen una vida activa de ~10 millones de años. Al radiar energía y partículas pierden energía rotacional, giran cada vez más lento y sus campos se debilitan; pasada la «línea de muerte» (campo ≲10¹¹ G y período largo), la estrella ya no puede acelerar partículas ni producir los haces. La estrella de neutrones sigue existiendo, pero su faro se apagó: dejó de ser púlsar para cualquier observador.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. La clase comparó los púlsares con las auroras terrestres ("el efecto inverso") y descartó que un púlsar pudiera ser una enana blanca girando rápido. Desarrolla ambas ideas.</p>
+  <p class="q">5. La clase comparó los haces de los púlsares con las auroras terrestres, llamándolo «el efecto inverso». Desarrolla la comparación: qué papel juega el campo magnético en cada caso y en qué dirección viajan las partículas.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>Auroras al revés:</strong> en la Tierra, partículas cargadas que vienen <em>desde afuera</em> (viento solar) son canalizadas por el campo magnético terrestre <em>hacia</em> los polos magnéticos, donde chocan con la atmósfera y la iluminan (auroras boreales/australes). En un púlsar el flujo es el contrario: partículas <em>de la propia estrella</em> se concentran en los polos magnéticos y salen disparadas <em>hacia afuera</em>. Misma física de confinamiento magnético, dirección opuesta. <strong>Por qué no puede ser una enana blanca:</strong> los pulsos observados requieren rotaciones de segundos a milisegundos. Un objeto del tamaño de la Tierra (enana blanca) tendría que girar tan rápido que se despedazaría; físicamente no puede generar pulsos a esa velocidad. Solo un objeto de ~10 km puede rotar así de rápido: el periodo del pulso delata el tamaño del emisor.</div>
+    <div class="answer">En ambos casos el ingrediente común es un <strong>campo magnético que atrapa partículas cargadas y las canaliza hacia los polos</strong>, porque es ahí donde las líneas de campo se concentran. En la <strong>Tierra</strong>, las partículas vienen <em>desde afuera</em> (viento solar): el campo magnético terrestre las desvía y las confina, y solo cerca de los polos magnéticos logran penetrar, chocar con la atmósfera y producir las auroras boreales y australes — las partículas viajan <strong>hacia adentro</strong>. En el <strong>púlsar</strong>, las partículas son <em>de la propia estrella</em> (electrones y protones de la superficie): el campo giratorio las atrapa y las acelera, y solo en los polos magnéticos pueden <strong>escapar hacia afuera</strong>, formando los haces de partículas y radiación que vemos como pulsos. Mismo mecanismo de confinamiento magnético y canalización polar, pero con el flujo de partículas en dirección opuesta.</div>
   </details>
 </div>
 

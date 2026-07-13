@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 01 — m3c5 · Masa y remanentes</title>
+<title>Examen 01 — m3c5 · Espacio-tiempo y relatividad general</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,46 +40,46 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 5</span>
-<h1>Examen 01 — Masa y remanentes estelares</h1>
+<h1>Examen 01 — Espacio-tiempo y relatividad general</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="c,d,b">
-  <fieldset data-q="1"><legend>1. Según la clase, ¿cuál es el parámetro más importante para determinar cuánto vive una estrella, cuánto brilla, qué elementos genera y qué remanente deja?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Su temperatura superficial</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Su composición química inicial</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Su masa</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Su distancia al centro galáctico</label>
-    <p class="fb" hidden>La masa lo decide todo en astrofísica estelar — e, irónicamente, junto con la edad es uno de los parámetros más difíciles de medir.</p>
+<form id="quiz" data-answers="b,c,d">
+  <fieldset data-q="1"><legend>1. Según la idea central de Einstein presentada en clase, el espacio y el tiempo:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Son magnitudes completamente independientes que conviene graficar juntas</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Forman una única entidad, el espacio-tiempo: solo considerándolos juntos entendemos correctamente el mundo físico</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Son intercambiables: el tiempo es una dirección espacial más, idéntica a X, Y, Z</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Solo se conectan dentro de los agujeros negros</label>
+    <p class="fb" hidden>Cuando el espacio se estira o contrae, el tiempo también se dilata: son una sola entidad. La analogía de la clase: el tiempo como acumulación de «capturas de pantalla» (timestamps) del espacio X, Y, Z.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Cuál es el remanente final de una enana marrón?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Una enana blanca</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Una estrella de neutrones</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Un agujero negro pequeño</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Sigue siendo una enana marrón "para siempre"</label>
-    <p class="fb" hidden>Las enanas marrones son objetos subestelares que nunca fusionan hidrógeno común; creemos que quedan así indefinidamente.</p>
+  <fieldset data-q="2"><legend>2. En la analogía de la malla elástica con la hormiga, la hormiga representa:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Un planeta orbitando</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Un observador en la Tierra</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Un fotón: la luz, que siempre intenta seguir el camino más corto</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Una onda gravitacional</label>
+    <p class="fb" hidden>La hormiga es la luz: sin masa sobre la malla camina en línea recta; con una masa grande, se ve obligada a seguir la curvatura porque ese es el nuevo espacio donde circula.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. ¿Qué fusionan las enanas marrones, según lo dicho en clase?</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Hidrógeno común, igual que el Sol pero más lento</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Isótopos del hidrógeno: deuterio (y tritio)</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Helio directamente a carbono</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Nada: no ocurre ninguna fusión en su interior</label>
-    <p class="fb" hidden>No alcanzan la masa para fusionar hidrógeno, pero sí fusionan sus "primos" isotópicos, como el deuterio.</p>
+  <fieldset data-q="3"><legend>3. ¿Qué observación de 1919 dio la primera confirmación de que la luz se curva cerca de una gran masa?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El corrimiento al rojo de galaxias lejanas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La primera detección de un púlsar</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El tránsito de Venus frente al Sol</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Un eclipse solar, observado desde Brasil y África</label>
+    <p class="fb" hidden>Durante el eclipse de 1919 se midió la desviación de la luz de estrellas que pasaba cerca del Sol, confirmando la predicción de Einstein que hasta entonces «nadie le creía».</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. El límite de ~3 masas solares para formar un agujero negro suele malinterpretarse. Explica a qué masa se refiere exactamente ese límite y por qué la distinción importa.</p>
+  <p class="q">4. La profesora dijo que, más que «la cuarta dimensión», el tiempo puede pensarse como «capturas de pantalla» del espacio. Explica esa analogía con tus palabras.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">El límite de ~3 M<sub>☉</sub> se refiere a la <strong>masa del núcleo colapsante</strong> de la estrella, no a la masa total de la estrella. Sobre el núcleo hay capas y capas de otros materiales que salen expulsadas en la explosión de supernova: lo único que colapsa es el núcleo. Una estrella mucho más masiva que 3 M<sub>☉</sub> puede perfectamente dejar una estrella de neutrones si su <em>núcleo</em> queda por debajo del límite. Además, la clase recalcó que ese valor de ~3 M<sub>☉</sub> <strong>sigue en debate</strong>: es una estimación, no una constante exacta.</div>
+    <div class="answer">La idea es que los eventos ocurren <strong>en el espacio</strong> (X, Y, Z), y el tiempo funciona como una <strong>acumulación de instantáneas</strong> —timestamps— de ese espacio: cada «captura de pantalla» es el estado completo de las tres dimensiones en un instante. La dimensión temporal sería entonces la pila ordenada de esas placas, y un evento queda identificado por <em>dónde</em> ocurre (su posición en la captura) y <em>en cuál captura</em> ocurre. Esto ayuda a ver por qué espacio y tiempo no son independientes: describir el mundo físico exige las cuatro coordenadas juntas, y una deformación del espacio (por una masa) afecta también cómo transcurre el tiempo en esa región.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Construye la secuencia completa de remanentes estelares vista en el curso, ordenada por masa creciente del objeto, indicando qué mecanismo físico sostiene (o no) a cada remanente contra la gravedad.</p>
+  <p class="q">5. Describe el experimento de la sonda Viking mencionado en clase: qué se midió, qué resultado se obtuvo y qué demuestra sobre el espacio-tiempo.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">De menor a mayor masa: <strong>(1) Enana marrón</strong> — objeto subestelar que nunca fusiona hidrógeno (solo deuterio); su remanente es ella misma. <strong>(2) Enana blanca</strong> — remanente de estrellas de baja masa, sostenida por la <em>presión de degeneración de electrones</em>. <strong>(3) Estrella de neutrones</strong> (púlsares, magnetares) — remanente de estrellas de alta masa cuyo núcleo queda bajo ~3 M<sub>☉</sub>, sostenida por la <em>presión de degeneración de neutrones</em>. <strong>(4) Agujero negro</strong> — si el núcleo supera ~3 M<sub>☉</sub>, <em>ninguna presión conocida</em> puede detener el colapso y se forma una singularidad. La cadena completa ilustra el mensaje central del curso: la masa determina el destino.</div>
+    <div class="answer">Cuando la sonda Viking quedó —vista desde la Tierra— casi detrás del Sol, envió señales de radio hacia nosotros. Como conocemos la distancia a la sonda y la velocidad de la luz, sabemos cuánto <em>debería</em> tardar la señal si viajara en línea recta. Lo medido fue un <strong>retraso</strong>: la señal llegó más tarde de lo esperado. La explicación es que cerca del Sol el espacio-tiempo está fuertemente curvado; la señal no recorre una recta sino un <strong>camino curvado (más largo)</strong> al atravesar esa deformación. El retraso es proporcional a cuánto curva el objeto el espacio-tiempo, así que la medición confirma la curvatura predicha por la relatividad general. (Nota externa a la clase: este efecto se conoce como <em>retraso de Shapiro</em>.)</div>
   </details>
 </div>
 

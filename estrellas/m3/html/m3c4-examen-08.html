@@ -43,43 +43,43 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <h1>Examen 08 — Púlsares binarios y ondas gravitacionales</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="c,a,b">
-  <fieldset data-q="1"><legend>1. ¿Qué configuración genera ondas gravitacionales?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Cualquier objeto masivo, aunque esté quieto</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Solo los agujeros negros aislados</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Dos objetos masivos orbitando en torno a su centro de masa (u otras masas aceleradas)</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Las estrellas de neutrones cuando emiten pulsos de radio</label>
-    <p class="fb" hidden>Un objeto masivo quieto solo "hunde la sábana" del espacio-tiempo. Para generar ondas que se propaguen hace falta movimiento: dos masas orbitándose, como la mano que agita el agua del lago.</p>
+<form id="quiz" data-answers="b,d,c">
+  <fieldset data-q="1"><legend>1. ¿Qué predijo Einstein sobre las órbitas de dos objetos masivos compactos (como un púlsar binario)?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Que las órbitas son perfectamente estables por siempre</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Que las órbitas deben «decaer»: el sistema pierde energía emitiendo ondas gravitacionales y los objetos se acercan en espiral</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Que los objetos se repelen gradualmente</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Que las órbitas se vuelven circulares instantáneamente</label>
+    <p class="fb" hidden>Dos masas en órbita compacta «arrugan» el espacio-tiempo y emiten ondas gravitacionales, que se llevan energía orbital: la órbita se encoge con el tiempo. Un objeto masivo solitario y quieto curva el espacio-tiempo pero no genera ondas.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Cómo se usan los púlsares para detectar ondas gravitacionales?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Midiendo retrasos (time delays) en pulsos que deberían llegar con periodicidad perfecta: si el espacio-tiempo se deforma, la luz recorre un camino distinto y llega desfasada</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Midiendo cambios en el color de los pulsos</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Contando cuántos púlsares desaparecen del cielo</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Midiendo el aumento de temperatura del púlsar al paso de la onda</label>
-    <p class="fb" hidden>El púlsar es un reloj de precisión 10⁻¹⁶: si la señal atraviesa espacio-tiempo deformado, el camino efectivo cambia y el pulso llega con retraso medible. Así trabajan LIGO (binarias compactas) y NANOGrav (red de púlsares).</p>
+  <fieldset data-q="2"><legend>2. En el púlsar binario de Hulse &amp; Taylor (Nobel 1993), las mediciones entre 1975 y 2005 mostraron que:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">La separación entre las estrellas aumenta 3.5 metros por año</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El período orbital crece 76.5 milisegundos por año</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Las estrellas ya se fusionaron</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El decaimiento orbital medido calza con la predicción de la Relatividad General: separación −3.5 m/año y fusión en ~300 millones de años</label>
+    <p class="fb" hidden>Los puntos medidos caen sobre la curva predicha por la Relatividad General: el período orbital decae 76.5 ms/año, la separación disminuye ~3.5 m/año y el sistema se fusionará en ~300 millones de años.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. En el primer púlsar binario estudiado, ¿qué se comprobó sobre su órbita, tal como predijo Einstein?</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Que la órbita es perfectamente estable para siempre</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Que la órbita decae: el sistema pierde energía en ondas gravitacionales y las estrellas se acercan (~3,5 m/año), en una espiral que terminará en fusión en ~300 millones de años</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Que las estrellas se alejan por la expansión del universo</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Que el periodo orbital crece sin cambiar la separación</label>
-    <p class="fb" hidden>Las mediciones del cambio del periastro (1975–2000+) siguen la curva azul predicha por la relatividad general. Ese trabajo recibió el Nobel de 1993.</p>
+  <fieldset data-q="3"><legend>3. ¿Cómo infiere un «pulsar timing array» (como NANOGrav) la existencia de un fondo de ondas gravitacionales?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Midiendo el brillo de los púlsares en rayos X</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Contando cuántos púlsares desaparecen cada año</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Midiendo diferencias entre el período esperado y el observado de muchos púlsares: una onda gravitacional produce un patrón correlacionado según la separación angular entre pares</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Detectando cambios en el color de la luz de los púlsares</label>
+    <p class="fb" hidden>Como los púlsares pulsan a ritmo casi perfecto, un retraso anómalo delata una distorsión del espacio-tiempo en el camino. El patrón de correlación entre pares de púlsares vs. su separación angular (curva predicha vs. puntos de NANOGrav 2023) es la firma del fondo de ondas gravitacionales.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Define "periastro" y "apoastro" (explica la etimología usada en clase), y describe qué muestra el gráfico clásico del púlsar binario: qué se midió, contra qué se comparó y qué se concluyó.</p>
+  <p class="q">4. Con la analogía de la «sábana cósmica» usada en clase, explica por qué un objeto masivo solitario y quieto no genera ondas gravitacionales, pero dos objetos masivos orbitando su centro de masa sí.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>Periastro</strong>: la distancia más corta entre las dos estrellas de la binaria (<em>peri</em> = cercano + <em>astro</em> = estrella; análogo al perihelio, el punto más cercano al Sol). <strong>Apoastro</strong>: la distancia más larga entre los objetos. El gráfico clásico muestra el <strong>cambio acumulativo del tiempo de paso por el periastro</strong> a lo largo de décadas (mediciones desde 1975 hasta pasado el 2000, los puntos rojos) comparado con la <strong>curva predicha por la relatividad general</strong> (línea azul) para un sistema que pierde energía por radiación gravitacional. Los puntos caen sobre la curva: la órbita decae exactamente como predice la teoría (~3,5 m de acercamiento por año), lo que constituyó la primera evidencia (indirecta) de ondas gravitacionales y mereció el Nobel de 1993.</div>
+    <div class="answer">Un objeto masivo solitario <strong>curva</strong> el espacio-tiempo a su alrededor: en la analogía, la sábana queda <em>hundida</em>, pero de forma estática — el hundimiento no cambia en el tiempo, y una deformación estática no se propaga. Para generar una <strong>onda</strong> se necesita una deformación <em>variable en el tiempo</em>: dos objetos masivos orbitando en torno al centro de masa están constantemente reorganizando la curvatura a su alrededor, y esa perturbación periódica <strong>se propaga por el espacio-tiempo</strong> (a la velocidad de la luz, según la teoría) como las ondas que se forman al pasar la mano por el agua de un lago. Las ondas se llevan energía, por eso la órbita decae. La clase también aclaró que la analogía 2D de la sábana se queda corta: la perturbación real ocurre en las tres dimensiones — mejor imaginar un «cubo de universo macizo» que se deforma completo. (Y mencionó la búsqueda del <em>gravitón</em>, la hipotética partícula portadora, aún no detectada.)</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Ordena y explica la línea de tiempo de las ondas gravitacionales mencionada en clase: predicción de Einstein, primera detección directa (LIGO) y los resultados de NANOGrav (2023). ¿Qué mide NANOGrav y qué mostró su gráfico?</p>
+  <p class="q">5. Explica el concepto de «time delay» en los pulsos de un púlsar: por qué la clase insistió en que la luz «no se ralentiza», y cómo este retraso permite detectar tanto ondas gravitacionales como compañeros orbitando el púlsar.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>1915:</strong> Einstein formula la relatividad general y de ella se deriva que deben existir ondas gravitacionales: perturbaciones del espacio-tiempo que se propagan a la velocidad de la luz. <strong>2015–2016:</strong> un siglo después, LIGO logra la primera detección directa, con fusiones de binarias compactas (agujeros negros; luego también estrellas de neutrones, GW170817 en 2017). <strong>Junio 2023:</strong> NANOGrav publica evidencia usando un método distinto: un <em>pulsar timing array</em>, una red de púlsares de milisegundos usados como relojes distribuidos. Mide las <strong>correlaciones entre los retrasos de pulsos de pares de púlsares en función de su separación angular</strong> en el cielo: si un fondo de ondas gravitacionales atraviesa la galaxia, esos retrasos deben correlacionarse siguiendo una curva específica predicha por la teoría. El gráfico mostró los puntos medidos (con barras de error grandes, como casi toda medición astronómica) siguiendo el comportamiento del modelo: observaciones respaldando teoría.</div>
+    <div class="answer">Un púlsar emite pulsos con un período conocido con precisión extrema, así que sabemos <em>cuándo debería llegar</em> cada pulso. Si llega tarde, algo pasó. Cuando una <strong>onda gravitacional</strong> distorsiona el espacio-tiempo entre el púlsar y nosotros, la luz no viaja más lento: <strong>recorre un camino efectivamente más largo</strong>, porque el espacio mismo está «arrugado» — no es lo mismo recorrer una superficie plana que una ondulada, aunque la velocidad sea la misma. Ese desfase temporal, correlacionado entre muchos púlsares, es la firma del fondo de ondas gravitacionales (método de los timing arrays). El mismo principio detecta <strong>compañeros orbitales</strong>: si algo orbita al púlsar (otra estrella, o incluso planetas), el púlsar se bambolea alrededor del centro de masa, acercándose y alejándose de nosotros periódicamente, y los pulsos llegan alternadamente adelantados y atrasados. Así se descubrieron los primeros planetas extrasolares en 1992. El reloj es tan bueno que cualquier perturbación mínima queda registrada.</div>
   </details>
 </div>
 

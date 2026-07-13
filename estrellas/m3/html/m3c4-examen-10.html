@@ -43,43 +43,43 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <h1>Examen 10 — Integrador</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="d,c,b">
-  <fieldset data-q="1"><legend>1. Ordena correctamente la secuencia de formación de una estrella de neutrones:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Supernova → colapso del núcleo → fotodesintegración → núcleo de hierro</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Núcleo de hierro → supernova → fotodesintegración y captura electrónica → colapso</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Fotodesintegración → núcleo de hierro → rebote → colapso</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Núcleo de hierro (fusión endotérmica) → colapso → fotodesintegración y captura electrónica → rebote a densidad nuclear → supernova → estrella de neutrones</label>
-    <p class="fb" hidden>Primero se apaga la fusión (hierro), el núcleo colapsa, se "neutroniza" (fotodesintegración + captura electrónica), rebota a densidad nuclear, y esa onda de choque + neutrinos produce la supernova. La estrella de neutrones es lo que queda.</p>
+<form id="quiz" data-answers="b,c,a">
+  <fieldset data-q="1"><legend>1. Si pudieras mirar el cielo desde la superficie de una estrella de neutrones, ¿qué verías, según la clase?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Un cielo negro: la gravedad no deja escapar la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Una gran mancha borrosa por la rotación rapidísima, y —por la curvatura del espacio-tiempo— objetos bajo el horizonte e incluso ambos polos celestes desde el ecuador</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Exactamente el mismo cielo que desde la Tierra</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Solo la nebulosa del remanente, sin estrellas</label>
+    <p class="fb" hidden>La luz sí escapa (no es un agujero negro), pero viaja curvada: se ven objetos «detrás» del horizonte. Y girando una vuelta por segundo, las estrellas serían trazos, no puntos.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Cuál de estas afirmaciones sobre estrellas de neutrones, púlsares y magnetares es FALSA?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Todos los púlsares y magnetares son estrellas de neutrones</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Un púlsar deja de ser observable como púlsar al envejecer, aunque el objeto sigue existiendo</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Los magnetares emiten pulsos más rápidos que los púlsares porque su campo es más intenso</label>
-    <label class="opt"><input type="radio" name="q2" value="d">El púlsar del Cangrejo se puede ver parpadeando incluso en luz óptica</label>
-    <p class="fb" hidden>Falsa la (c): los magnetares rotan muy LENTO; su campo intenso no produce pulsos (salvo rarísimas excepciones). Su energía viene del decaimiento del campo magnético, no de la rotación.</p>
+  <fieldset data-q="2"><legend>2. Según lo comentado en clase, ¿cuál es aproximadamente la masa máxima que puede tener una estrella (para formarse y mantenerse como estrella)?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">8 M☉</label>
+    <label class="opt"><input type="radio" name="q2" value="b">1.000 M☉</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Entre ~200 y 250 M☉ (límite debatible)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">100 M☉ exactos</label>
+    <p class="fb" hidden>Sobre ~200–250 M☉, la presión de radiación de la propia estrella es tan potente que la desarma mientras intenta formarse. Las 8 M☉ son otro umbral: el mínimo para ser progenitora de estrella de neutrones.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Si estuvieras parado en el ecuador de una estrella de neutrones, ¿cuál de estos efectos NO ocurriría?</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Verías el cielo como manchas borrosas por la rotación rapidísima</label>
-    <label class="opt"><input type="radio" name="q3" value="b">No podrías ver nada porque la luz no escapa de la estrella</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Podrías ver objetos que están físicamente bajo el horizonte</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Podrías ver ambos polos celestes desde el ecuador</label>
-    <p class="fb" hidden>La luz SÍ escapa de una estrella de neutrones (eso la diferencia del agujero negro). Los otros tres efectos sí ocurren por la rotación extrema y la curvatura del espacio-tiempo.</p>
+  <fieldset data-q="3"><legend>3. ¿Cuál de estas comparaciones entre enana blanca (EB) y estrella de neutrones (EN) es correcta?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">EB: núcleo de C-O, tamaño ~Tierra, presión degenerada de electrones · EN: esfera de neutrones, ~10 km, presión degenerada de neutrones</label>
+    <label class="opt"><input type="radio" name="q3" value="b">EB: esfera de neutrones, ~10 km · EN: núcleo de C-O, tamaño ~Tierra</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Ambas provienen de estrellas de más de 8 M☉</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Ambas están sostenidas por fusión de helio</label>
+    <p class="fb" hidden>EB: remanente de baja masa, C-O, ~6.000 km, electrones degenerados. EN: remanente de alta masa (≳8 M☉), neutrones, ~10 km, neutrones degenerados. Ninguna genera energía por fusión: son núcleos muertos.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Construye el "cuadro comparativo del cementerio estelar" con lo visto hasta ahora en el módulo: enana blanca vs. estrella de neutrones. Incluye: progenitora, composición, tamaño, presión de soporte, límite de masa y tipo de supernova asociada. Indica qué objeto completa el cuadro en la próxima clase.</p>
+  <p class="q">4. Integra toda la clase: narra la historia completa de una estrella de 20 M☉ desde la secuencia principal hasta convertirse en un púlsar detectable desde la Tierra, mencionando al menos: el núcleo de hierro, los dos procesos que forman neutrones, la supernova, y las dos leyes de conservación que explican las propiedades del púlsar.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>Enana blanca:</strong> progenitora de baja masa (&lt; 8 M☉); núcleo expuesto de carbono-oxígeno; tamaño ~Tierra; sostenida por degeneración de <em>electrones</em>; masa máxima 1,4 M☉ (Chandrasekhar); asociada a la supernova <em>tipo Ia</em> solo si acreta en binaria. <strong>Estrella de neutrones:</strong> progenitora de alta masa (≥ 8 M☉); núcleo de hierro "neutronizado" (fotodesintegración + captura electrónica); radio ~10 km (tamaño de Santiago); sostenida por degeneración de <em>neutrones</em>; masa entre 1,4 y ~3 M☉ (límite superior debatido); nace en una supernova de <em>colapso de núcleo</em> (tipo II). Densidades: ~10⁶ g/cm³ vs. 10¹³–10¹⁵ g/cm³. Si el núcleo colapsante supera el límite de ~3 M☉, ni los neutrones aguantan y el colapso continúa: se forma un <strong>agujero negro</strong>, el objeto que completa el cementerio estelar en la clase 5.</div>
+    <div class="answer">La estrella pasa su vida fusionando elementos cada vez más pesados hasta acumular un <strong>núcleo de hierro</strong>, cuya fusión es endotérmica: la fábrica de energía se apaga. La fusión en capas sigue agregando masa al núcleo hasta superar el <strong>límite de Chandrasekhar (1.4 M☉)</strong> y el núcleo colapsa, alcanzando ~10⁹ K. La <strong>fotodesintegración</strong> (fotones que rompen núcleos en elementos ligeros y neutrones) y la <strong>captura electrónica</strong> (p⁺+e⁻→n+νₑ) convierten el material en neutrones. Al llegar a densidad nuclear, la <strong>presión degenerada de neutrones</strong> frena el colapso en seco; el material que sigue cayendo <strong>rebota</strong> y —junto al flujo de neutrinos— expulsa las capas externas: <strong>supernova de colapso de núcleo</strong>. Queda una estrella de neutrones de ~10 km. Por <strong>conservación del momento angular</strong> (ω∝1/R²) gira en milisegundos-segundos; por <strong>conservación del flujo magnético</strong> (B∝1/R²) su campo se amplifica de ~100 G a ~10¹² G. Ese campo giratorio acelera partículas a velocidades relativistas y las dispara en haces desde los polos magnéticos, desalineados del eje de rotación. Si uno de esos haces barre la Tierra, registramos pulsos periódicos: un <strong>púlsar</strong>.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. "Todo está conectado": la clase mostró varias veces cómo la teoría y las observaciones se validan mutuamente. Elige tres ejemplos concretos de la clase y explica en cada uno qué predijo la teoría y qué confirmó la observación.</p>
+  <p class="q">5. La clase cerró diciendo que los púlsares son «laboratorios excelentes para hacer lo que se nos ocurra». Justifica esa afirmación describiendo al menos tres aplicaciones o mediciones concretas vistas en la clase, y explica qué propiedad común de los púlsares las hace posibles.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Ejemplos posibles (bastan tres): <strong>(1) Masas de púlsares:</strong> la teoría predice que las estrellas de neutrones deben tener entre 1,4 M☉ (Chandrasekhar) y ~3 M☉; las masas medidas de púlsares (especialmente en binarias) caen exactamente en ese rango. <strong>(2) Energía del Cangrejo:</strong> si la fuente de energía es la rotación, la energía rotacional perdida por el frenado del púlsar debe coincidir con la energía que emite la nebulosa: los cálculos coinciden. <strong>(3) Frenado medible:</strong> la teoría predice que los púlsares se ralentizan al radiar; se ha medido el ralentí del Cangrejo (~10⁻¹⁹ s/s, con derivada ~10⁻³⁰). <strong>(4) Decaimiento orbital de binarias:</strong> la relatividad general predice pérdida de energía por ondas gravitacionales; las mediciones del periastro (1975–2000+) siguen la curva predicha (~3,5 m/año, Nobel 1993). <strong>(5) NANOGrav:</strong> el modelo predice la correlación entre retrasos de pares de púlsares según su separación angular; las mediciones de 2023 siguen ese comportamiento. En todos los casos el patrón es el mismo: una consecuencia numérica no trivial de la teoría, verificada con mediciones independientes de precisión extrema.</div>
+    <div class="answer">La propiedad habilitante es su <strong>precisión de reloj</strong>: períodos cronometrables con errores de hasta 10⁻¹⁶, sumada a condiciones físicas (densidad, gravedad, campos magnéticos) imposibles de recrear en la Tierra. Aplicaciones vistas en clase: (1) <strong>Tests de Relatividad General</strong> — el púlsar binario de Hulse &amp; Taylor confirmó la pérdida de energía orbital por ondas gravitacionales (decaimiento de 76.5 ms/año calzando con la predicción; Nobel 1993). (2) <strong>Detección de ondas gravitacionales de fondo</strong> — los timing arrays como NANOGrav (2023) miden retrasos correlacionados entre muchos púlsares. (3) <strong>Detección de planetas</strong> — los retrasos en los pulsos de PSR B1257+12 revelaron en 1992 los primeros planetas extrasolares, incluyendo uno de masa lunar. (4) <strong>Medición de masas de estrellas de neutrones</strong> en binarias, para acotar el límite superior (~3 M☉) y estudiar la materia a densidad nuclear. (5) Incluso <strong>navegación galáctica</strong>: el mapa de púlsares del Voyager. Todas dependen de que cualquier perturbación mínima —una órbita, una onda, un planeta— deje huella medible en un reloj casi perfecto.</div>
   </details>
 </div>
 

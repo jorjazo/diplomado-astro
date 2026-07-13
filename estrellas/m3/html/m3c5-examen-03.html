@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c5 · Velocidad de escape</title>
+<title>Examen 03 — m3c5 · Horizonte de eventos y radio de Schwarzschild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,46 +40,46 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Astrofísica de Estrellas · Módulo III · Clase 5</span>
-<h1>Examen 03 — Velocidad de escape y definición clásica</h1>
+<h1>Examen 03 — Horizonte de eventos y radio de Schwarzschild</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
 
-<form id="quiz" data-answers="b,d,c">
-  <fieldset data-q="1"><legend>1. ¿Cuál es, aproximadamente, la velocidad de escape de la Tierra?</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">618 km/s</label>
-    <label class="opt"><input type="radio" name="q1" value="b">11 km/s</label>
-    <label class="opt"><input type="radio" name="q1" value="c">5.500 km/s</label>
-    <label class="opt"><input type="radio" name="q1" value="d">300.000 km/s</label>
-    <p class="fb" hidden>≈ 11 km/s: la velocidad que necesitan alcanzar los cohetes para librarse de la atracción de la Tierra. Los 618 km/s corresponden al Sol.</p>
+<form id="quiz" data-answers="d,a,c">
+  <fieldset data-q="1"><legend>1. La definición física más correcta del horizonte de eventos, según la clase, es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">La superficie sólida del agujero negro</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La distancia a la cual la temperatura llega a cero</label>
+    <label class="opt"><input type="radio" name="q1" value="c">El punto donde comienza el disco de acreción</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un límite en el espacio-tiempo: los eventos en su interior no pueden tener ningún efecto sobre el mundo exterior</label>
+    <p class="fb" hidden>Más que «caer y no poder volver», la formulación purista es de interacción: dentro del horizonte se pierde todo efecto sobre —e interacción con— el exterior.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. ¿Cuál es la definición clásica de agujero negro dada en la clase?</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Un objeto que no emite luz porque su superficie es perfectamente absorbente</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Una estrella de neutrones que dejó de rotar</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Una región del espacio completamente vacía de materia</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Un objeto extremadamente compacto cuya velocidad de escape es mayor que la velocidad de la luz</label>
-    <p class="fb" hidden>Como nada — ni la luz — puede superar c, nada puede salir del objeto. Por eso es "negro": adentro hay materia, pero ninguna información luminosa sale.</p>
+  <fieldset data-q="2"><legend>2. Un agujero negro de 1 masa solar tiene un radio de Schwarzschild de aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">3 km</label>
+    <label class="opt"><input type="radio" name="q2" value="b">10 km</label>
+    <label class="opt"><input type="radio" name="q2" value="c">300 km</label>
+    <label class="opt"><input type="radio" name="q2" value="d">3.000 km</label>
+    <p class="fb" hidden>~3 km por masa solar. Compárese con la estrella de neutrones de masa similar, que medía ~10 km de radio: el agujero negro es aún más compacto.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. En la secuencia Sol → enana blanca → estrella de neutrones (todas con ~1 masa solar), la velocidad de escape crece de 618 a ~5.500 a ~125.000 km/s. ¿Qué cambia entre estos objetos?</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">La masa: cada objeto es más masivo que el anterior</label>
-    <label class="opt"><input type="radio" name="q3" value="b">La temperatura: los más calientes retienen mejor su material</label>
-    <label class="opt"><input type="radio" name="q3" value="c">El radio: la misma masa cada vez más comprimida hace crecer el potencial gravitacional en la superficie</label>
-    <label class="opt"><input type="radio" name="q3" value="d">La composición química: los elementos pesados atraen más</label>
-    <p class="fb" hidden>v<sub>esc</sub> = √(2GM/R): a masa fija, reducir R aumenta la velocidad de escape. Es pura compresión.</p>
+  <fieldset data-q="3"><legend>3. Geométricamente, el horizonte de eventos es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Un anillo plano alrededor del ecuador del agujero negro</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Un punto matemático</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Una superficie (en tres dimensiones) alrededor del agujero negro donde la curvatura impide escapar incluso a la luz</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Un disco de gas caliente</label>
+    <p class="fb" hidden>La clase lo enfatizó: «no es un anillo, es una superficie». Envuelve al agujero negro en 3D, como una esfera de no retorno.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica con la lógica de la clase por qué un agujero negro es "negro", conectando la velocidad de escape con el hecho de que ni siquiera la luz sale de él.</p>
+  <p class="q">4. ¿Por qué se usa el radio de Schwarzschild como «tamaño de referencia» de un agujero negro, si el agujero negro en sí es una singularidad?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">La velocidad de escape es la velocidad mínima necesaria para librarse de la atracción gravitacional de un objeto. En un agujero negro esa velocidad <strong>supera la velocidad de la luz</strong>. Ningún objeto material puede alcanzar c, así que nada material sale. ¿Y la luz? La luz viaja exactamente a c — y <strong>tampoco puede ir más rápido que c</strong> — de modo que tampoco alcanza la velocidad de escape y no sale. Como no sale luz, no recibimos ninguna información electromagnética directa del objeto: no lo vemos, es "negro". Importante: adentro sí hay materia, masa y propiedades físicas; lo que no hay es forma de que la información luminosa cruce hacia afuera.</div>
+    <div class="answer">Porque el agujero negro «como tal» es prácticamente <strong>inmedible</strong>: la singularidad concentra la masa (y rotación) en un volumen ínfimo —la clase mencionó que, para que calcen las ecuaciones, una masa solar debería caber en algo como la cabeza de un alfiler— y además está oculta dentro del horizonte, de donde no sale información. Lo que sí tiene significado físico operativo es <strong>hasta dónde llega la región de no retorno</strong>: la superficie desde la cual ni la luz escapa. Por eso el radio de Schwarzschild (~3 km por masa solar, creciendo linealmente con la masa) se usa como el «tamaño» del agujero negro: delimita su zona de influencia extrema y es la única frontera medible y comparable entre objetos.</div>
   </details>
 </div>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Usando v<sub>esc</sub> = √(2GM/R), estima la velocidad de escape de un objeto de 1 masa solar (M ≈ 2×10³⁰ kg) comprimido a un radio de 10 km, y compárala con la velocidad de la luz. ¿Qué tipo de objeto sería?</p>
+  <p class="q">5. En clase se mostró un cómic con una linterna encendida en la Tierra, en un púlsar y justo en el horizonte de eventos de un agujero negro. Describe qué pasa con los haces de luz en cada caso y qué concepto ilustra la progresión.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">v<sub>esc</sub> = √(2 · 6,67×10⁻¹¹ · 2×10³⁰ / 10⁴) = √(2,67×10¹⁶) ≈ <strong>1,6×10⁸ m/s ≈ 160.000 km/s</strong>, es decir, algo más del <strong>50% de la velocidad de la luz</strong> (c ≈ 3×10⁵ km/s). Un objeto de masa solar con radio de 10 km corresponde a una <strong>estrella de neutrones</strong> (en clase se citó ~125.000 km/s como orden de magnitud, consistente con este cálculo aproximado). Aún no es agujero negro: para eso habría que comprimir esa masa por debajo de su radio de Schwarzschild, ~3 km, donde v<sub>esc</sub> alcanzaría c. El ejercicio muestra lo cerca que está una estrella de neutrones del límite.</div>
+    <div class="answer">En la <strong>Tierra</strong>, los haces salen esencialmente rectos en todas direcciones: la deformación del espacio-tiempo es despreciable. En el <strong>púlsar</strong> (estrella de neutrones), los haces salen pero se ven <strong>visiblemente curvados</strong>: el objeto es tan compacto que el espacio-tiempo cercano está fuertemente deformado. <strong>En el horizonte de eventos</strong>, la curvatura es tal que las trayectorias de la luz se enrollan sobre sí mismas y <strong>conducen de regreso hacia adentro</strong>: la luz «sale» pero ningún camino la lleva afuera, así que no se ve nada. La progresión ilustra que la curvatura del espacio-tiempo crece con la <strong>compacidad</strong> del objeto, y que el agujero negro es el caso extremo donde ni la luz puede escapar — sin necesidad de imaginar que la gravedad «atrapa» la luz como si fuera una piedra.</div>
   </details>
 </div>
 
