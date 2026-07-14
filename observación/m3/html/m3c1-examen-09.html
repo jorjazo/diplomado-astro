@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 09 — m3c1 · Monturas y espejos</title>
+<title>Examen 09 — m3c1 · Límite de difracción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 1</span>
-<h1>Examen 09 — Monturas y espejos</h1>
+<h1>Examen 09 — Límite de difracción</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,b">
-  <fieldset data-q="1"><legend>1. El Mirror Lab en Arizona fabrica espejos:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Fundiendo vidrio en centrífuga y enfriando lentamente</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Pegando espejos de baño</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo con impresión 3D</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Importándolos de Yerkes</label>
-    <p class="fb" hidden>Rotación mantiene curvatura líquida; meses de enfriamiento.</p>
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. La fórmula del límite de difracción es θ ≈ 1,22 λ/D. Un telescopio más grande:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Empeora la resolución</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Produce un patrón de difracción más pequeño: mejor resolución</label>
+    <label class="opt"><input type="radio" name="q1" value="c">No cambia la resolución</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Solo junta más luz, sin efecto en la definición</label>
+    <p class="fb" hidden>D en el denominador: más abertura, patrón más chico, capacidad de separar objetos más juntos. Grande = más luz y mejor definición.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El revestimiento de espejos ópticos típicamente usa:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Cobre o hierro</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Aluminio o plata (capas atómicas)</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Pintura latex</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Agua</label>
-    <p class="fb" hidden>Evaporación en vacío; JWST usa oro para IR.</p>
+  <fieldset data-q="2"><legend>2. La imagen de una estrella puntual en un telescopio perfecto (sin atmósfera) se ve como:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Un punto matemático</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Un disco con anillos alrededor (patrón de difracción)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Una línea</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Un cuadrado del tamaño del píxel</label>
+    <p class="fb" hidden>El «huevo frito»: disco central + anillos. Es física de ondas en una abertura, no un defecto — se ve en las estrellas del Hubble.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La montura alt-azimutal de muchos telescopios modernos:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">No puede apuntar al cielo</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Rota en azimut e inclina en elevación</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo funciona de día</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Reemplaza el detector</label>
-    <p class="fb" hidden>Más compacta que ecuatorial clásica; requiere rotación de campo.</p>
+  <fieldset data-q="3"><legend>3. ¿Por qué el Saturno dibujado por Galileo era tan pobre comparado con imágenes modernas?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Galileo dibujaba mal</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Su telescopio pequeño tenía un límite de difracción enorme: no podía separar los anillos del planeta</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Saturno estaba más lejos entonces</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Su lente estaba sucio</label>
+    <p class="fb" hidden>Con pocos cm de abertura, θ es tan grande que los detalles se funden. La resolución es inversamente proporcional a D.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Qué pasó con el espejo de Gemini al túnel en Tololo?</p>
+  <p class="q">4. Calcula (orden de magnitud) el límite de difracción de un telescopio de 10 m en el óptico (λ ≈ 550 nm) y compáralo con el seeing típico de un buen sitio chileno.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">El espejo de 8 m no cabía; hubo que modificar el túnel — ejemplo de logística de infraestructura olvidada en el diseño.</div>
+    <div class="answer">θ ≈ 1,22 × 550×10⁻⁹ / 10 ≈ 6,7×10⁻⁸ rad ≈ 0,014″. El seeing de un buen sitio (~0,6″) es unas 40 veces peor: en tierra y sin óptica adaptativa, la atmósfera —no la abertura— fija la resolución real. Por eso la óptica adaptativa es tan valiosa: acerca el desempeño al límite de difracción.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Compara Dupont (2,5 m) con Magallanes (6,5 m) en Las Campanas.</p>
+  <p class="q">5. Explica con el criterio de resolución por qué dos estrellas muy cercanas pueden verse como una sola.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Misma tecnología reflectora Cassegrain; Magallanes usa <strong>óptica activa</strong> y espejo más delgado; estructura relativamente más compacta que la escala de Palomar.</div>
+    <div class="answer">Cada estrella produce su propio patrón de difracción de tamaño angular θ ≈ 1,22 λ/D. Si la separación angular entre ambas es menor que ese tamaño, los dos patrones se superponen y el ojo/detector no puede distinguir dos máximos: se ven como un solo objeto alargado o puntual. La capacidad de separar objetos cercanos mejora linealmente con el diámetro del telescopio.</div>
   </details>
 </div>
 

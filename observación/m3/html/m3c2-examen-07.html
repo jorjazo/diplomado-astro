@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 07 — m3c2 · Rayos cósmicos</title>
+<title>Examen 07 — m3c2 · Overscan y FITS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 2</span>
-<h1>Examen 07 — Rayos cósmicos</h1>
+<h1>Examen 07 — Overscan y FITS</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
 <form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. En superficie terrestre la tasa de rayos cósmicos es del orden de:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">2 por km² por hora</label>
-    <label class="opt"><input type="radio" name="q1" value="b">~2 por cm² por minuto</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Cero</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Uno por siglo</label>
-    <p class="fb" hidden>Partículas cargadas constantes; mutaciones en ADN posibles.</p>
+  <fieldset data-q="1"><legend>1. La «corriente oscura» de un CCD es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Luz del cielo nocturno</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Carga generada térmicamente por el propio detector, sin fotones</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Corriente del cable de alimentación</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un defecto de fabricación raro</label>
+    <p class="fb" hidden>El silicio libera electrones por agitación térmica. Por eso los detectores se enfrían con nitrógeno líquido: menos temperatura, menos carga espuria.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Un rayo cósmico en un CCD aparece típicamente como:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Línea espectral estrecha</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Mancha/raya brillante en pocos píxeles</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Oscurecimiento total</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Solo en radio</label>
-    <p class="fb" hidden>Ioniza silicio → varios electrones espurios.</p>
+  <fieldset data-q="2"><legend>2. El overscan consiste en:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Exponer más tiempo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Seguir leyendo columnas más allá de las físicas para medir la carga de base sin luz</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Escanear la imagen dos veces</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Ampliar digitalmente la imagen</label>
+    <p class="fb" hidden>Píxeles «leídos de más» que nunca vieron luz: su nivel (~1380 en el ejemplo de clase, no cero) caracteriza la señal espuria a restar.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La mitigación estándar es:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Una sola exposición larga</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Múltiples exposiciones y rechazar coincidencias</label>
-    <label class="opt"><input type="radio" name="q3" value="c">No usar CCD</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Apagar el telescopio</label>
-    <p class="fb" hidden>Probabilidad de golpear el mismo píxel dos veces es baja.</p>
+  <fieldset data-q="3"><legend>3. Un archivo FITS se diferencia de un JPG en que:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Es más liviano</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Guarda el valor completo de cada píxel más un header con metadatos de la observación</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Solo guarda colores</label>
+    <label class="opt"><input type="radio" name="q3" value="d">No puede abrirse en computadores modernos</label>
+    <p class="fb" hidden>Matriz con la profundidad real (BITPIX) + header (objeto, exposición, ejes, instrumento). El estándar astronómico desde 1981.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué exposiciones >30 min pueden ser problemáticas?</p>
+  <p class="q">4. En la imagen de MagE mostrada en clase, los ejes decían 2176×1152 pero el CCD es de 2048×1024. Explica la diferencia y su utilidad.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Acumulas muchos RC → imagen llena de rayas → difícil extraer ciencia del espectro/objeto.</div>
+    <div class="answer">Los píxeles extra no existen físicamente: son lecturas de overscan — se siguió desplazando y digitalizando después de vaciar el chip. Como nunca recibieron luz, su valor (~1380 unidades) mide el nivel de base del sistema (bias + corriente espuria) en esa misma lectura. En la calibración, ese nivel se resta de toda la imagen, de modo que los números restantes representen solo la señal astronómica.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Relaciona RC con ingeniería de confiabilidad.</p>
+  <p class="q">5. ¿Qué es un espectrógrafo echelle y qué eran las «franjas» de la imagen de MagE?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Eventos aleatorios de alta energía = <strong>ruido impulsivo</strong>; mitigación por redundancia temporal (median stack, sigma clip).</div>
+    <div class="answer">Un echelle dispersa la luz en múltiples órdenes superpuestos que una segunda dispersión separa verticalmente: cada franja de la imagen es un tramo distinto del espectro (un rango de λ). Dentro de cada orden, la línea continua horizontal es el espectro del objeto; los puntos brillantes sobre ella son líneas de emisión del objeto, y las líneas verticales que cruzan todo el orden son emisión del cielo (la atmósfera también brilla). Así, una sola imagen de CCD contiene el espectro completo en alta resolución.</div>
   </details>
 </div>
 

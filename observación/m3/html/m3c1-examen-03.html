@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c1 · Óptica activa</title>
+<title>Examen 03 — m3c1 · ¿Por qué telescopios grandes?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 1</span>
-<h1>Examen 03 — Óptica activa</h1>
+<h1>Examen 03 — ¿Por qué telescopios grandes?</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,b">
-  <fieldset data-q="1"><legend>1. La óptica activa corrige principalmente:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">La deformación del espejo al cambiar la orientación del telescopio</label>
-    <label class="opt"><input type="radio" name="q1" value="b">La turbulencia atmosférica en milisegundos</label>
-    <label class="opt"><input type="radio" name="q1" value="c">El redshift cosmológico</label>
-    <label class="opt"><input type="radio" name="q1" value="d">La rotación de la Tierra</label>
-    <p class="fb" hidden>Pistones en el espejo (~cada minuto), no la atmósfera (eso es OA).</p>
+<form id="quiz" data-answers="c,b,b">
+  <fieldset data-q="1"><legend>1. Si un objeto se pone al triple de distancia, su flujo observado cae a:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Un tercio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Un sexto</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Un noveno</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La mitad</label>
+    <p class="fb" hidden>F ∝ 1/d²: al triple de distancia, 1/9 del flujo. La luz se reparte sobre un área que crece como d².</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. En Gemini 8 m, el espejo es más delgado que en Palomar porque:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Se usa plástico</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Se acepta flexión y se corrige con pistones</label>
-    <label class="opt"><input type="radio" name="q2" value="c">No hay gravedad en la cúpula</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Es un refractor</label>
-    <p class="fb" hidden>Rendirse a la rigidez perfecta y corregir activamente.</p>
+  <fieldset data-q="2"><legend>2. ¿Cuál es la razón principal para construir telescopios de mayor diámetro?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Ver objetos más grandes</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Recolectar más luz por unidad de tiempo y ver objetos más débiles</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Reducir el peso del instrumento</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Evitar usar detectores</label>
+    <p class="fb" hidden>El área colectora ∝ D²: más fotones por segundo, acceso a objetos más débiles (usualmente más lejanos). Además mejora la resolución (§11).</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La estrella guía en óptica activa sirve para:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Medir temperatura</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Detectar si la imagen se desenfoca y reajustar pistones</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Calibrar el láser de sodio</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Medir redshift</label>
-    <p class="fb" hidden>Si la estrella deja de ser un puntito → recorregir forma del espejo.</p>
+  <fieldset data-q="3"><legend>3. El tarsero (el primate de la diapositiva) aparece en la clase porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Vive cerca de los observatorios</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Sus ojos gigantes son la solución evolutiva al mismo problema: recolectar mucha luz en poco tiempo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Fue la mascota de Herschel</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Puede ver en infrarrojo</label>
+    <p class="fb" hidden>Animal nocturno de la selva: ojos enormes = área colectora grande. La misma lógica del espejo primario.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Diferencia óptica activa y óptica adaptativa en tiempos y qué corrigen.</p>
+  <p class="q">4. Deduce cuánta más luz por segundo recolecta un telescopio de 8 m que uno de 1 m, y qué implica para el tiempo de exposición.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>Activa:</strong> forma del espejo, pistones, ~1 min, gravedad/flexión del instrumento. <strong>Adaptativa:</strong> atmósfera, espejo deformable secundario, ms–s, láser en capa de sodio.</div>
+    <div class="answer">El área colectora escala como D², así que un 8 m recolecta (8/1)² = 64 veces más luz por segundo. Lo que el telescopio de 1 m logra en 64 horas de integración, el de 8 m lo consigue en 1 hora; equivalentemente, en el mismo tiempo alcanza objetos ~64 veces más débiles en flujo.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué Palomar 5 m fue un límite práctico para espejos monolíticos?</p>
+  <p class="q">5. Explica con la ley del inverso del cuadrado por qué «más débil» suele significar «más lejano» en astronomía.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Mantener rigidez y mover toneladas de estructura escala mal; más diámetro → mucho más masa de soporte y actuadores.</div>
+    <div class="answer">El flujo recibido es F = L/(4πd²): para una luminosidad intrínseca L dada, el flujo cae con el cuadrado de la distancia. Objetos idénticos a mayor distancia se ven sistemáticamente más débiles, así que ganar sensibilidad (más área, más eficiencia) equivale a ganar profundidad en distancia — y, por la velocidad finita de la luz, también mirar más atrás en el tiempo.</div>
   </details>
 </div>
 

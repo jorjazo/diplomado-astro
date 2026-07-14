@@ -42,41 +42,41 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
 <form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. Las placas fotográficas astronómicas registran imagen mediante:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">CCD digital</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Emulsión de plata que se oscurece con la luz</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Antenas de radio</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Efecto Compton</label>
-    <p class="fb" hidden>Vidrio + emulsión; precursor del detector integrador.</p>
+  <fieldset data-q="1"><legend>1. Una placa fotográfica astronómica es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Un espejo delgado de plata</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Una placa de vidrio con emulsión de sales de plata que se oscurece con la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Un CCD primitivo de vidrio</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un filtro de color</label>
+    <p class="fb" hidden>Vidrio + emulsión fotosensible: donde llega más luz, más se oscurece. Se usaron activamente hasta ~1990.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El Tololo Supernova Survey usó:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Solo satélites</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Placas + blink comparator para encontrar transientes</label>
-    <label class="opt"><input type="radio" name="q2" value="c">LIGO</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Neutrinos</label>
-    <p class="fb" hidden>Blink alterna dos placas → supernovas.</p>
+  <fieldset data-q="2"><legend>2. ¿Cuál era la principal limitación fotométrica de las placas?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">No registraban posiciones</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Saturaban rápido: negro es negro, sin niveles para medir brillos</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Solo funcionaban de día</label>
+    <label class="opt"><input type="radio" name="q2" value="d">No cubrían el color azul</label>
+    <p class="fb" hidden>Un objeto brillante se ve negro y ya no hay gradación: medir luminosidades totales era muy difícil. Posiciones y variabilidad, en cambio, funcionaban bien.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Una limitación clave de las placas es:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">No captan luz</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Saturación sin escala de brillo fina</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo funcionan en gamma</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Requieren láser</label>
-    <p class="fb" hidden>Zona negra = información perdida de luminosidad.</p>
+  <fieldset data-q="3"><legend>3. El survey Calán/Tololo usaba máquinas «blinker» para:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Revelar placas más rápido</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Alternar la vista entre dos placas de la misma zona y detectar objetos que aparecen o se mueven (supernovas)</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Medir el color de las estrellas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Proyectar las placas al público</label>
+    <p class="fb" hidden>El parpadeo entre dos épocas delata lo que cambió: así se cazaban supernovas, base de la calibración usada luego para descubrir la expansión acelerada.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué digitalizar placas antiguas sigue siendo útil?</p>
+  <p class="q">4. ¿Por qué las placas fotográficas antiguas siguen teniendo valor científico hoy, y qué se hace con ellas en Cerro Calán?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Baselines de <strong>décadas</strong> para movimientos propios y variabilidad; el cielo cambia lentamente.</div>
+    <div class="answer">Son registros del cielo de hace 50–100 años: comparándolas con imágenes actuales se miden movimientos propios y variabilidad de largo plazo, información imposible de recrear (habría que esperar décadas). En Cerro Calán se están digitalizando (proyecto del profesor René Méndez) las placas del observatorio — incluidas las de la Carte du Ciel, el primer atlas fotográfico del cielo, cuya zona sur se hacía desde Chile.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Menciona el proyecto «Carte du Ciel» y el rol de Chile.</p>
+  <p class="q">5. Describe el flujo de trabajo del survey Calán/Tololo, desde la observación hasta la detección de una supernova.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Atlas fotográfico del cielo; Chile aportó la parte <strong>austral</strong> — primer mapeo global con placas.</div>
+    <div class="answer">Se tomaban placas fotográficas en el telescopio en Tololo durante la noche; en la mañana se revelaban y se enviaban en bus desde La Serena a Santiago; en Cerro Calán, operadores con máquinas blink comparaban la placa nueva con una anterior de la misma región, alternando rápidamente entre ambas: un punto nuevo o cambiado delataba una candidata a supernova. Con esas detecciones (proyecto de Mario Hamuy y José Maza) se calibró la relación entre supernovas tipo Ia y distancia, esencial para el descubrimiento de la expansión acelerada del universo.</div>
   </details>
 </div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 08 — m3c2 · Calibración y artefactos</title>
+<title>Examen 08 — m3c2 · Defectos del detector</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 2</span>
-<h1>Examen 08 — Calibración y artefactos</h1>
+<h1>Examen 08 — Defectos del detector</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,a,b">
-  <fieldset data-q="1"><legend>1. Un flat field sirve para:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Medir posición de estrellas solo</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Corregir sensibilidad distinta píxel a píxel</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Aumentar el seeing</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Detectar neutrinos</label>
-    <p class="fb" hidden>Iluminación uniforme conocida → mapa de ganancias.</p>
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. Una columna muerta se produce cuando:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Se raya el vidrio de la ventana</label>
+    <label class="opt"><input type="radio" name="q1" value="b">El aislante de un píxel se daña: la carga que pasa por él se fuga y toda la columna aguas arriba se pierde</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Un rayo cósmico golpea el chip</label>
+    <label class="opt"><input type="radio" name="q1" value="d">El amplificador se apaga</label>
+    <p class="fb" hidden>La lectura mueve la carga a través de cada píxel de la columna: un solo píxel malo corta el camino para todos los anteriores.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Una columna muerta ocurre cuando:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Falla un píxel y pierde carga de toda la columna</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Hay demasiadas estrellas</label>
-    <label class="opt"><input type="radio" name="q2" value="c">El láser está encendido</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Es de noche</label>
-    <p class="fb" hidden>Aislante dañado → fuga de electrones en transferencia.</p>
+  <fieldset data-q="2"><legend>2. Los rayos cósmicos aparecen en las imágenes como:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Manchas oscuras</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Grupos de píxeles brillantes con señal idéntica a la luz, en posiciones aleatorias</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Líneas horizontales fijas</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Un aumento uniforme del fondo</label>
+    <p class="fb" hidden>Partículas cargadas ionizan el silicio y depositan miles de electrones en píxeles adyacentes. Llegan ~2 por cm² por minuto.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El dithering (mover ligeramente el telescopio) ayuda a:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Empeorar la imagen</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Rellenar huecos de píxeles/columnas malas</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Aumentar RC</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Apagar el CCD</label>
-    <p class="fb" hidden>Varias posiciones → combinar y recuperar área.</p>
+  <fieldset data-q="3"><legend>3. ¿Por qué no conviene exponer mucho más de ~30 minutos por imagen?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El telescopio se desenfoca</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Se acumulan tantos rayos cósmicos que la imagen se vuelve inservible</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El CCD se descarga</label>
+    <label class="opt"><input type="radio" name="q3" value="d">La rotación de la Tierra borra la imagen</label>
+    <p class="fb" hidden>A más tiempo, más impactos: pasado cierto punto, la probabilidad de que caigan sobre la señal de interés arruina la exposición.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Describe el flujo bias → dark → flat → ciencia.</p>
+  <p class="q">4. Explica la estrategia del dithering y por qué resuelve simultáneamente columnas muertas y rayos cósmicos.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Restar bias/dark; dividir por flat normalizado; aplicar a imagen científica para flujo y forma flat.</div>
+    <div class="answer">Se toman varias exposiciones del mismo campo moviendo el telescopio unos pocos píxeles entre una y otra. Las columnas muertas están fijas en el detector pero, al mover el apuntado, cubren partes distintas del cielo: al alinear y combinar, cada zona del cielo fue vista por píxeles sanos en la mayoría de las tomas. Los rayos cósmicos caen en posiciones aleatorias distintas cada vez: la probabilidad de repetirse en el mismo lugar es nula, y una combinación con mediana o rechazo de outliers los elimina. Una sola técnica, dos males resueltos estadísticamente.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Qué es un echelle y por qué la imagen parece «franjas»?</p>
+  <p class="q">5. ¿Qué es un flat field, cómo se toma y para qué se usa?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Espectrógrafo de alto orden; cada franja = rango λ distinto superpuesto en el CCD 2D.</div>
+    <div class="answer">Es una imagen de calibración de una fuente uniformemente iluminada — típicamente una pantalla dentro de la cúpula iluminada con una lámpara. Idealmente todos los píxeles deberían registrar lo mismo; las diferencias observadas mapean la sensibilidad (eficiencia cuántica) relativa de cada píxel y las variaciones de iluminación del sistema óptico. Los datos de ciencia se dividen por el flat normalizado, corrigiendo esas variaciones para que los brillos medidos sean comparables en todo el campo.</div>
   </details>
 </div>
 

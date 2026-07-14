@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detectores ópticos/IR — Módulo III · Clase 2</title>
+<title>Detectores ópticos e infrarrojos — Módulo III · Clase 2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
@@ -122,6 +122,8 @@ td b{color:var(--gold);font-weight:600}
 .widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
   border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:12px;background:#060b15;
+  border:1px solid var(--line);border-radius:10px}
 .tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -136,149 +138,270 @@ footer b{color:var(--ink)}
 </style>
 </head>
 <body>
-
 <main class="wrap">
-<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c1-apuntes.html">Clase 1</a></nav>
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c1-apuntes.html">← Clase 1</a> · <a href="m3c3-apuntes.html">Clase 3 →</a></nav>
 <div class="hero">
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 2</span>
-<h1><em>Detectores</em> ópticos e infrarrojos</h1>
-<p class="sub">De la placa fotográfica al CCD: fotoeléctrico, transferencia de carga, calibración, rayos cósmicos y cámaras gigantes.</p>
+<h1>Detectores: <em>del fotón al número</em></h1>
+<p class="sub">Placas fotográficas, efecto fotoeléctrico y CCDs: cómo la luz concentrada por el telescopio se convierte en una matriz de números — con todos sus detalles sucios: overscan, columnas muertas, rayos cósmicos, saturación y la carrera por leer más rápido.</p>
+<div class="meta"><span><b>Curso</b> Instrumentación y Métodos de Observación</span><span><b>Módulo</b> III</span><span><b>Clase</b> 2</span><span><b>Fuentes</b> transcripción + 29 diapositivas</span></div>
 </div>
-<p class="lead"><span class="drop">D</span>espués de que el telescopio concentra la luz llega al <strong>instrumento</strong>: el detector que convierte fotones en números. Hoy el estándar en óptico es el <span class="hl">CCD</span>; en IR, variantes con lectura distinta.</p>
+<p class="lead"><span class="drop">L</span>a clase 1 terminaba donde la luz queda concentrada en el foco. Hoy entramos al final del pipeline: el <em>detector</em>, el componente que transforma fotones en información digital. Es la parte más «informática» del curso: píxeles, bits, rango dinámico, ruido de lectura y archivos FITS.</p>
 <nav class="idx"><span class="tag">Contenido</span><ol>
 <li><a href="#s1">Placas fotográficas</a></li>
-<li><a href="#s2">Efecto fotoeléctrico</a></li>
-<li><a href="#s3">CCD: baldes de agua</a></li>
+<li><a href="#s2">El efecto fotoeléctrico</a></li>
+<li><a href="#s3">El CCD: baldes de fotones</a></li>
 <li><a href="#s4">Silicio y longitud de onda</a></li>
 <li><a href="#s5">Eficiencia cuántica</a></li>
-<li><a href="#s6">Trampa de carga y lectura</a></li>
-<li><a href="#s7">Bits, rango dinámico y FITS</a></li>
-<li><a href="#s8">Dark current y overscan</a></li>
-<li><a href="#s9">Rayos cósmicos y dithering</a></li>
-<li><a href="#s10">Vera Rubin y JWST/NIRCam</a></li>
-<li><a href="#interactivo">Widgets</a></li>
-<li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#s6">Atrapar y mover la carga</a></li>
+<li><a href="#s7">Amplificador, bits y rango dinámico</a></li>
+<li><a href="#s8">Overscan y corriente oscura</a></li>
+<li><a href="#s9">FITS: datos + metadatos</a></li>
+<li><a href="#s10">Defectos: columnas muertas y rayos cósmicos</a></li>
+<li><a href="#s11">Mosaicos y velocidad de lectura</a></li>
+<li><a href="#s12">Detectores infrarrojos: NIRCam</a></li>
+<li><a href="#interactivo">Explorar conceptos</a></li>
+<li><a href="#conceptos">Conceptos clave</a></li>
 <li><a href="#examenes">Exámenes</a></li>
 </ol></nav>
 
-<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Placas fotográficas</h2>
-<p>Vidrio + emulsión de nitrato de plata. Hubble en Andrómeda (Cefeidas) → distancias extragalácticas. Tololo Supernova Survey: placas + <em>blinker</em> en Cerro Calán.</p></div></div>
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Placas fotográficas: el detector de un siglo</h2>
+<p>Vidrio + emulsión de sales de plata: donde llega luz, se oscurece. Se usaron activamente hasta ~1990.</p></div></div>
+<p>Después del ojo, el primer detector registrable fue la <strong>placa fotográfica</strong>: una placa de vidrio bañada en una emulsión de sales de plata que se oscurece proporcionalmente (hasta cierto punto) a la luz recibida. Con placas se hizo ciencia mayúscula:</p>
+<ul>
+<li>La placa de <strong>Hubble</strong> con la estrella variable de Andrómeda (marcada «VAR!») — la observación que, vía la relación período-luminosidad de las Cefeidas, dio las primeras distancias extragalácticas.</li>
+<li>La <em>Carte du Ciel</em>: el primer atlas fotográfico de todo el cielo; el Observatorio Nacional en Cerro Calán cubría parte del hemisferio sur.</li>
+<li>El <strong>survey Calán/Tololo</strong> (fines de los 80 – 90, Mario Hamuy y José Maza): placas tomadas en Tololo viajaban <em>en bus</em> a Santiago, donde máquinas <strong>blinker</strong> alternaban dos placas de la misma zona del cielo para detectar supernovas «parpadeando» — la calibración de supernovas tipo Ia que después fue esencial para descubrir la expansión acelerada del universo.</li>
+</ul>
+<p>Las placas siguen siendo útiles: son observaciones de hace 50–100 años, ideales para medir <strong>movimientos propios</strong> comparando con imágenes actuales. Hoy se digitalizan (proyecto del profesor René Méndez en Calán), y el <a href="https://archive.eso.org/dss/dss">Digitized Sky Survey</a> permite pedir online la imagen de cualquier coordenada del cielo.</p>
 <figure>
-<img src="m3c2/assets/slide-03.jpg" alt="Placa histórica: variable en Andrómeda.">
-<figcaption><span class="cap">Diapositiva 3</span>Placa histórica: variable en Andrómeda.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-05.jpg" alt="Digitized Sky Survey.">
-<figcaption><span class="cap">Diapositiva 5</span>Digitized Sky Survey.</figcaption>
+<img src="m3c2/assets/slide-04.jpg" alt="Placa fotográfica de Hubble con la estrella variable de Andrómeda.">
+<figcaption><span class="cap">Diapositiva 4</span>Placas de vidrio con emulsión de plata. La placa «VAR!» de Hubble es de las observaciones más famosas de la historia.</figcaption>
 </figure>
-<p>Limitación: saturación — no hay escala de «cuánto más negro». Aún útiles para movimientos propios con baselines de décadas.</p>
+<h3>Limitaciones</h3>
+<p>Las placas <strong>saturan rápido</strong>: un objeto brillante se ve negro, y no hay «niveles de negro» — medir luminosidades totales (fotometría) es difícil. Sirven para posiciones y variabilidad; para brillos precisos hacía falta otra cosa.</p>
 </section>
 
-<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Efecto fotoeléctrico</h2>
-<p>Einstein 1905: energía del electrón depende de <strong>ν</strong>, no de intensidad. Umbral: hν &gt; φ (función de trabajo).</p></div></div>
-<div class="formula"><span class="katex-block" data-tex="E = h\nu = \frac{hc}{\lambda}"></span></div>
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>El efecto fotoeléctrico</h2>
+<p>Luz que golpea un material y libera electrones. La energía del electrón depende de la frecuencia, no de la intensidad: Nobel para Einstein.</p></div></div>
+<p>Si se ilumina un material (típicamente un metal), se liberan electrones. El hallazgo clave: <strong>aumentar la intensidad no aumenta la energía</strong> de cada electrón liberado — solo la frecuencia de la luz lo hace. Cómo se mide: los electrones deben remontar un voltaje de frenado; solo generan corriente si su energía supera esa barrera.</p>
+<div class="formula"><span class="katex-block" data-tex="E_{\text{fotón}} = h\nu = \frac{hc}{\lambda}"></span>
+<small>La luz entrega energía en paquetes discretos (fotones). Si cada fotón trae menos que el umbral del material, no salta ningún electrón — aunque mandes diez veces más fotones.</small></div>
+<p>Esto demuestra el comportamiento <em>corpuscular</em> de la luz: la interacción es fotón-a-electrón, no una acumulación gradual de energía de onda. Fue uno de los tres artículos revolucionarios de Einstein de 1905 y el motivo (oficial) de su Nobel. El mismo efecto opera en los <strong>paneles fotovoltaicos</strong>… y en los CCD.</p>
 <figure>
-<img src="m3c2/assets/slide-08.jpg" alt="Esquema fotoeléctrico.">
-<figcaption><span class="cap">Diapositiva 8</span>Esquema fotoeléctrico.</figcaption>
+<img src="m3c2/assets/slide-05.jpg" alt="Esquema del efecto fotoeléctrico.">
+<figcaption><span class="cap">Diapositiva 5</span>El efecto fotoeléctrico: la energía del electrón emitido depende de ν, no de la intensidad. Comportamiento de partícula.</figcaption>
 </figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Es un <strong>umbral por evento</strong>, no por potencia acumulada: como un comparador digital. Señal analógica (flujo de fotones) → eventos discretos (fotoelectrones) → conteo. El CCD es, en el fondo, un contador de eventos con memoria analógica.</p></div>
 </section>
 
-<section id="s3"><div class="shead"><span class="num">3</span><div><h2>CCD: analogía de los baldes</h2>
-<p>Charge-Coupled Device: grilla de píxeles acumula carga (fotoelectrones); se desplaza fila a fila hasta un <strong>amplificador</strong> único (típico astronómico).</p></div></div>
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>El CCD: una grilla de baldes bajo la lluvia</h2>
+<p>Charge-Coupled Device: el detector estándar de la astronomía desde los 90 (otro Nobel, 2009).</p></div></div>
+<p>La analogía canónica: un CCD es un <strong>arreglo de baldes bajo la lluvia</strong>. Los fotones (gotas) caen y cada balde (píxel) acumula los fotoelectrones que se generan en él. Al terminar la exposición, el agua de cada balde debe transportarse, balde a balde, hasta un único medidor que la cuantifica: el <strong>amplificador</strong>.</p>
 <figure>
-<img src="m3c2/assets/slide-10.jpg" alt="CCD físico en instrumento.">
-<figcaption><span class="cap">Diapositiva 10</span>CCD físico en instrumento.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-12.jpg" alt="Transferencia de carga entre píxeles.">
-<figcaption><span class="cap">Diapositiva 12</span>Transferencia de carga entre píxeles.</figcaption>
+<img src="m3c2/assets/slide-07.jpg" alt="Analogía de los baldes de agua para el CCD.">
+<figcaption><span class="cap">Diapositiva 7</span>La analogía de los baldes: acumular carga por píxel y transferirla en secuencia hasta el punto de lectura.</figcaption>
 </figure>
+<ul>
+<li>Un CCD típico de instrumento astronómico: <strong>2048 × 1024 píxeles</strong>, cada píxel de <strong>10–20 µm</strong>.</li>
+<li>No se usa un metal sino <strong>semiconductores</strong> (silicio): el fotón incidente libera un <span class="hl">fotoelectrón</span> dentro del material.</li>
+<li>Los celulares y cámaras actuales usan la tecnología prima <strong>CMOS</strong> (un amplificador por píxel, §11) — misma física, arquitectura de lectura distinta.</li>
+</ul>
 </section>
 
-<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Silicio: absorción vs. λ</h2>
-<p>Longitud de absorción crece con λ. Capa demasiado delgada → pierde IR. Rango típico en tierra: ~300 nm – 1 μm (post-atmósfera).</p></div></div>
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Silicio y longitud de onda: el largo de absorción</h2>
+<p>Cada λ penetra una profundidad característica en el silicio. El grosor del material define qué fotones se detectan.</p></div></div>
+<p>El silicio responde al efecto fotoeléctrico para fotones de aproximadamente <strong>1,14 eV a 4 eV</strong>. Pero además, el <strong>largo de absorción</strong> depende fuertemente de λ: un fotón de 300 nm penetra ~5 nm; uno de 600 nm, ~1 µm. Si la capa de silicio es más delgada que el largo de absorción, el fotón la atraviesa sin ser detectado: el grosor del chip define la sensibilidad roja del detector.</p>
+<p>El cálculo hecho en clase, con \(E = hc/\lambda\):</p>
+<div class="formula"><span class="katex-block" data-tex="\lambda_{1.14\,\mathrm{eV}} = \frac{hc}{1.14 \times 1.6\times10^{-19}\,\mathrm{J}} \approx 1\,\mu\mathrm{m} \qquad \lambda_{4\,\mathrm{eV}} \approx 0.3\,\mu\mathrm{m}"></span>
+<small>El rango sensible del silicio va del corte atmosférico ultravioleta (~0,3 µm) hasta ~1 µm en el infrarrojo cercano. Para ir más allá se necesitan otros semiconductores (§12).</small></div>
 <figure>
-<img src="m3c2/assets/slide-14.jpg" alt="Absorción en silicio vs. longitud de onda.">
-<figcaption><span class="cap">Diapositiva 14</span>Absorción en silicio vs. longitud de onda.</figcaption>
-</figure>
-</section>
-
-<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Eficiencia cuántica (EQ)</h2>
-<p>Fracción de fotones que generan electrón. CCD óptico: hasta ~90%. Ojo humano: ~1% en el pico. Placas ~similar al ojo.</p></div></div>
-<figure>
-<img src="m3c2/assets/slide-16.jpg" alt="Curva EQ: ojo vs. CCD (escala log).">
-<figcaption><span class="cap">Diapositiva 16</span>Curva EQ: ojo vs. CCD (escala log).</figcaption>
-</figure>
-</section>
-
-<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Trampa de carga y lectura</h2>
-<p>Voltajes en electrodos atrapan electrones en cada píxel (~10–20 μm). Lectura serial: filas → fila de transferencia → amplificador. Típico: 2048×1024.</p></div></div>
-<figure>
-<img src="m3c2/assets/slide-18.jpg" alt="Corte transversal de píxel CCD.">
-<figcaption><span class="cap">Diapositiva 18</span>Corte transversal de píxel CCD.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-20.jpg" alt="Animación de corrimiento de carga.">
-<figcaption><span class="cap">Diapositiva 20</span>Animación de corrimiento de carga.</figcaption>
+<img src="m3c2/assets/slide-09.jpg" alt="Largo de absorción del silicio versus longitud de onda.">
+<figcaption><span class="cap">Diapositiva 9</span>Largo de absorción del silicio vs λ. Fotones más rojos penetran más: el material debe ser suficientemente grueso para capturarlos.</figcaption>
 </figure>
 </section>
 
-<section id="s7"><div class="shead"><span class="num">7</span><div><h2>Bits, rango dinámico y FITS</h2>
-<p>Astronomía usa 16–64 bits (no 8 como JPG). FITS: datos + <em>header</em> con metadatos (BITPIX, NAXIS, etc.).</p></div></div>
-<p>Contraste quasar + nebulosa difusa en 255 niveles → pérdida de información. Mage (Las Campanas): modos slow/turbo de lectura.</p>
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Eficiencia cuántica: CCD 90, ojo 1</h2>
+<p>No todo fotón produce un electrón. La fracción detectada es la eficiencia cuántica (QE).</p></div></div>
+<p>La captura es probabilística (mecánica cuántica): la <strong>eficiencia cuántica</strong> mide qué fracción de los fotones incidentes produce un fotoelectrón detectado.</p>
+<ul>
+<li><strong>CCD</strong>: hasta <strong>~90%</strong> en el óptico — 9 de cada 10 fotones cuentan.</li>
+<li><strong>Ojo humano</strong>: ~<strong>1%</strong> en su máximo (cerca del peak solar) — y cae hacia el azul y el rojo.</li>
+<li><strong>Placas fotográficas</strong>: comparables al ojo en eficiencia, aunque con mayor cobertura espectral.</li>
+</ul>
+<p>Ese factor ~90 en eficiencia es una revolución equivalente a agrandar el telescopio ~9,5 veces en diámetro, gratis.</p>
 <figure>
-<img src="m3c2/assets/slide-22.jpg" alt="Imagen echelle real (proyectada en escala 0–255).">
-<figcaption><span class="cap">Diapositiva 22</span>Imagen echelle real (proyectada en escala 0–255).</figcaption>
+<img src="m3c2/assets/slide-10.jpg" alt="Curvas de eficiencia cuántica: CCD, ojo humano, placas.">
+<figcaption><span class="cap">Diapositiva 10</span>QE en escala logarítmica: el CCD ronda 90%; el ojo, 1%. (Fuente: Handbook of CCD Astronomy, S. Howell.)</figcaption>
 </figure>
 </section>
 
-<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Dark current y overscan</h2>
-<p>CCD enfriado (N₂ líquido) reduce electrones térmicos. Tras leer todos los píxeles, se sigue leyendo filas «vacías» → <strong>overscan</strong> mide bias/dark (~1300 ADU en ejemplo de clase).</p></div></div>
-<p>Saturación: 2¹⁶−1 = 65535 ADU máximo con 16 bits.</p>
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Atrapar y mover la carga</h2>
+<p>Voltajes que forman pozos de potencial, y una coreografía de voltajes que hace caminar los electrones.</p></div></div>
+<h3>El pozo de potencial</h3>
+<p>Dentro de cada píxel, el fotoelectrón queda libre en el silicio. Para retenerlo: capas <strong>aislantes</strong> impiden que escape hacia los lados y hacia los electrodos, y tres <strong>electrodos metálicos</strong> por píxel aplican voltajes. Con voltaje positivo al centro y negativo a los lados, los electrones (carga negativa) se acumulan bajo el electrodo positivo: un <span class="hl">pozo de potencial</span> — el «balde» real, que es una capacitancia.</p>
 <figure>
-<img src="m3c2/assets/slide-24.jpg" alt="Región de overscan en imagen FITS.">
-<figcaption><span class="cap">Diapositiva 24</span>Región de overscan en imagen FITS.</figcaption>
+<img src="m3c2/assets/slide-14.jpg" alt="Corte transversal del arreglo de píxeles de un CCD.">
+<figcaption><span class="cap">Diapositiva 14</span>Corte transversal: material fotosensible, aislantes laterales y electrodos arriba. Dos píxeles vecinos, cada uno con sus tres electrodos.</figcaption>
+</figure>
+<h3>La marcha de las cargas</h3>
+<p>Para leer, se cambian los voltajes <strong>en secuencia</strong>: se da voltaje positivo al electrodo vecino (la nube de carga se «desparrama» hacia él), luego se apaga el original (la nube queda un paso más allá). Repetido, el paquete de carga <em>camina físicamente</em> píxel a píxel hacia abajo por la columna — y los paquetes del píxel de arriba van entrando detrás, como los baldes de la analogía.</p>
+<figure>
+<img src="m3c2/assets/slide-15.jpg" alt="Secuencia de voltajes que mueve la carga de píxel a píxel.">
+<figcaption><span class="cap">Diapositiva 15</span>Cambiando voltajes en secuencia, la carga avanza físicamente por la columna. Esto es el «charge-coupled» del nombre.</figcaption>
+</figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Es un <strong>registro de desplazamiento analógico</strong> (shift register): la imagen se serializa columna a columna, fila a fila, hacia un único conversor. La consecuencia arquitectónica es directa: la lectura es <em>secuencial</em> y su tiempo escala con el número de píxeles por amplificador — el cuello de botella que motiva mosaicos y CMOS (§11).</p></div>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>El amplificador: bits y rango dinámico</h2>
+<p>Al final de la última fila, la carga se convierte en un número. Cuántos bits usar define cuánta información cabe.</p></div></div>
+<p>Al pie del arreglo hay una <strong>fila especial de lectura</strong>: las cargas que llegan ahí se mueven lateralmente hasta el <strong>amplificador</strong>, que convierte cada paquete de carga en un número entero (que <em>no</em> es exactamente el número de electrones: hay una ganancia de por medio).</p>
+<ul>
+<li>Con <em>n</em> bits se representan valores de 0 a 2<sup>n</sup>−1: 8 bits → 255; <strong>16 bits → 65 535</strong>; los CCD científicos usan 16 o más.</li>
+<li>Una imagen JPG usa 0–255 por canal porque los monitores no muestran más niveles. Pero en astronomía una misma imagen puede contener un cuásar brillante y una nebulosa difusa: cortar en 255 niveles destruiría información. Más bits = más <span class="hl">rango dinámico</span>.</li>
+<li>Si llega más carga que el máximo representable, el número se clava en 2<sup>n</sup>−1: <strong>saturación</strong>. En el flat muy azul mostrado en clase, una zona entera marcaba exactamente 65 535 = 2¹⁶−1.</li>
+</ul>
+<figure>
+<img src="m3c2/assets/slide-17.jpg" alt="La carga llega por filas al amplificador que la convierte a número.">
+<figcaption><span class="cap">Diapositiva 17</span>Fin del viaje: la fila de lectura entrega los paquetes al amplificador, el ADC del sistema.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>Las cámaras fotográficas «logarítmicas» comprimen la escala antes de digitalizar para abarcar escenas de alto contraste (la selfie a contraluz). Mismo problema, otra solución: en astronomía se prefiere respuesta lineal y muchos bits, porque el objetivo es <em>medir</em>, no solo mostrar.</p></div>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Overscan y corriente oscura</h2>
+<p>El CCD genera carga incluso sin luz. Para restarla, se leen píxeles que no existen.</p></div></div>
+<p>El silicio produce electrones «fantasma» por agitación térmica (<strong>corriente oscura</strong>). Por eso los detectores se enfrían con <strong>nitrógeno líquido</strong> — menos temperatura, menos carga espuria. Pero algo queda, y hay que medirlo para restarlo.</p>
+<p>La técnica del <span class="hl">overscan</span>: después de desplazar las 2048 columnas reales, se sigue leyendo «de más», como si hubiera más píxeles. Esos valores no vieron luz jamás: miden la carga de base del sistema. Por eso la imagen FITS resultante es <em>más grande que el chip</em> (en el ejemplo de clase: 2176×1152 leídos vs 2048×1024 físicos), y en la región de overscan los valores caían de ~10 500 a ~1380 — no a cero.</p>
+<figure>
+<img src="m3c2/assets/slide-18.jpg" alt="Región de overscan en una imagen de CCD.">
+<figcaption><span class="cap">Diapositiva 18</span>Overscan: columnas leídas de más que caracterizan la carga generada por el propio CCD, para sustraerla en la calibración.</figcaption>
 </figure>
 </section>
 
-<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Rayos cósmicos y dithering</h2>
-<p>~2 cm⁻² min⁻¹ en superficie. Un RC ioniza varios píxeles → raya brillante. Solución: múltiples exposiciones + rechazo de outliers. <strong>Columnas muertas</strong>: un píxel malo arruina toda la columna → mover telescopio (<em>dither</em>).</p></div></div>
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>FITS: datos + metadatos</h2>
+<p>El formato estándar de la astronomía: la matriz de píxeles y el header que describe la observación.</p></div></div>
+<p>Lo que entrega el telescopio son archivos <strong>FITS</strong>. A diferencia de un JPG, cada píxel guarda el valor completo del amplificador (según BITPIX, ej. 16 bits), y el archivo incluye un <strong>header</strong> con metadatos: objeto, coordenadas, tiempo de exposición, dimensiones (NAXIS), configuración del instrumento.</p>
+<p>En clase se exploró con <strong>DS9</strong> (el visor estándar) una imagen real del espectrógrafo <strong>echelle MagE</strong> (Las Campanas): las franjas son <em>órdenes</em> del espectro, cada una un rango distinto de longitud de onda; los cortes transversales mostraron datos → overscan → nada; y el header reveló BITPIX=16 y los ejes con overscan incluido.</p>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>FITS es el ejemplo perfecto de <strong>datos autodescriptivos</strong>: payload binario + diccionario clave-valor, de 1981 y aún universal. La lección de diseño: en ciencia, el dato sin su contexto de adquisición no sirve; el header <em>es</em> parte del dato.</p></div>
+</section>
+
+<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Defectos: columnas muertas y rayos cósmicos</h2>
+<p>Un píxel dañado mata su columna entera; el espacio bombardea el detector. La defensa: repetir y promediar.</p></div></div>
+<h3>Columnas muertas</h3>
+<p>Si el aislante de <em>un</em> píxel se daña, los electrones fugan al electrodo y se pierden. Como la lectura mueve toda la columna <em>a través</em> de ese píxel, todos los píxeles aguas arriba se pierden también: <strong>un píxel malo = una columna muerta</strong>. En 2 millones de píxeles, la probabilidad de tener varios es alta.</p>
 <figure>
-<img src="m3c2/assets/slide-26.jpg" alt="Flat field con columnas muertas.">
-<figcaption><span class="cap">Diapositiva 26</span>Flat field con columnas muertas.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-28.jpg" alt="Rayo cósmico en espectro de ciencia.">
-<figcaption><span class="cap">Diapositiva 28</span>Rayo cósmico en espectro de ciencia.</figcaption>
+<img src="m3c2/assets/slide-19.jpg" alt="Columnas muertas en un flat field.">
+<figcaption><span class="cap">Diapositiva 19</span>Flat field con columnas muertas: cada línea negra nace de un único píxel defectuoso a través del cual debía pasar la carga.</figcaption>
+</figure>
+<h3>Rayos cósmicos</h3>
+<p>Partículas cargadas del espacio ionizan el silicio y dejan señales idénticas a la luz, en grupos de píxeles y con miles de electrones. Llegan a razón de <strong>~2 por cm² por minuto</strong> (también a tu cuerpo, ahora mismo). En una exposición de ~30 minutos — el máximo práctico recomendado — caen varios sobre el chip; con suerte no encima de tu línea de emisión.</p>
+<figure>
+<img src="m3c2/assets/slide-20.jpg" alt="Rayos cósmicos en una imagen astronómica.">
+<figcaption><span class="cap">Diapositiva 20</span>Impactos de rayos cósmicos: señal indistinguible de la luz, en posiciones aleatorias. Llegan igual en tierra y en el espacio.</figcaption>
+</figure>
+<h3>La defensa estadística: dithering y apilado</h3>
+<p>Contra ambos males, la misma estrategia: tomar <strong>varias exposiciones</strong> moviendo levemente el telescopio entre una y otra (<em>dithering</em>). La probabilidad de que un rayo cósmico caiga cinco veces en el mismo lugar es nula, y las columnas muertas quedan en posiciones distintas del cielo: al combinar (mediana/promedio con rechazo), se recupera la imagen completa.</p>
+<div class="box physics"><span class="tag">Flat field</span>
+<p>Además, cada píxel tiene sensibilidad ligeramente distinta. Se calibra iluminando una pantalla uniforme dentro de la cúpula (<strong>flat field</strong>): la imagen debería ser plana, y sus variaciones mapean la respuesta píxel a píxel, que luego se divide de los datos de ciencia.</p></div>
+</section>
+
+<section id="s11"><div class="shead"><span class="num">11</span><div><h2>Mosaicos, amplificadores y la carrera de la lectura</h2>
+<p>Leer 2 millones de píxeles por un solo puerto toma tiempo. Soluciones: más amplificadores, más CCDs, o un amplificador por píxel.</p></div></div>
+<p>La lectura secuencial cuesta tiempo de telescopio. El instrumento MagE, por ejemplo, ofrece tres modos: <strong>lenta (33 s, ruido 2,9 e⁻)</strong>, rápida y <strong>turbo (14 s, ruido 4,2 e⁻)</strong> — el clásico trade-off <span class="hl">velocidad vs ruido de lectura</span>.</p>
+<ul>
+<li><strong>Más amplificadores por CCD</strong>: la carga se reparte y se lee en paralelo — pero cada amplificador tiene su propia sensibilidad, y la imagen queda «por mitades» hasta calibrarlas.</li>
+<li><strong>Mosaicos de CCDs</strong>: varios chips lado a lado, cada uno con su(s) amplificador(es), para cubrir más campo sin alargar la lectura. Quedan <em>gaps</em> entre chips que se rellenan con dithering.</li>
+<li><strong>CMOS</strong>: un amplificador <em>por píxel</em>, lectura masivamente paralela (los celulares). El costo: calibrar millones de amplificadores; para ciencia de precisión, el CCD aún manda.</li>
+</ul>
+<figure>
+<img src="m3c2/assets/slide-22.jpg" alt="Mosaico de CCDs.">
+<figcaption><span class="cap">Diapositiva 22</span>Mosaico: los CCD se colocan lado a lado. Las líneas entre chips y las columnas muertas se cubren moviendo el telescopio (dithering).</figcaption>
+</figure>
+<h3>El extremo: la cámara de Vera Rubin</h3>
+<p><strong>3,2 gigapíxeles</strong>: un mosaico de <strong>~200 CCDs de 16 Mpx</strong>, cada uno con <strong>16 amplificadores</strong>. Con lectura masivamente paralela, el arreglo completo se lee en <strong>2 segundos</strong> — y con bajo ruido, porque el survey de 10 años exige estabilidad. Para comparar: MagE tarda 14–33 s en leer 2 Mpx.</p>
+<figure>
+<img src="m3c2/assets/slide-23.jpg" alt="Plano focal de la cámara del observatorio Vera Rubin.">
+<figcaption><span class="cap">Diapositiva 23</span>El plano focal de Rubin: ~200 CCD (los tonos distintos delatan fabricantes distintos). 3,2 Gpx leídos en 2 segundos.</figcaption>
 </figure>
 </section>
 
-<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Vera Rubin y detectores IR</h2>
-<p>Vera Rubin: 200 CCD × 16 Mpx, 16 amplificadores cada uno, lectura total ~2 s. JWST/NIRCam: 10 detectores IR; píxeles físicos más grandes en λ larga; overscan físico (píxeles tapados); lectura diferencial (tasa dQ/dt).</p></div></div>
+<section id="s12"><div class="shead"><span class="num">12</span><div><h2>Detectores infrarrojos: NIRCam de JWST</h2>
+<p>Misma física, otro semiconductor, otra lectura: no destructiva, píxel a píxel, midiendo la tasa de acumulación.</p></div></div>
+<p>El James Webb observa en infrarrojo porque las galaxias distantes llegan corridas al rojo. Su plano focal reparte la luz entre instrumentos: <strong>NIRCam</strong> (cámara, 0,6–5 µm), <strong>NIRSpec</strong> (espectrógrafo), <strong>NIRISS</strong>, <strong>MIRI</strong> (infrarrojo medio, hasta ~28 µm) y el sensor de guiado FGS, que fija una estrella en el mismo píxel para estabilizar el apuntado.</p>
+<h3>NIRCam en números</h3>
+<ul>
+<li><strong>10 detectores de 2048×2048</strong> de <strong>HgCdTe</strong> (mercurio-cadmio-telurio) — el silicio no llega a estas λ (§4).</li>
+<li>Ocho detectores para <strong>0,6–2,3 µm</strong> (escala 0,03″/px) y dos para <strong>2,4–5 µm</strong> (píxeles físicamente del doble de tamaño: 0,06″/px, menos resolución).</li>
+<li>Dos «brazos» observan simultáneamente en dos bandas; ~20+ filtros refinan el rango de cada detector.</li>
+<li>El «overscan» aquí es <em>físico</em>: de 2048², solo <strong>2040×2040</strong> píxeles ven el cielo; el borde de 8 píxeles está tapado con metal y sirve de referencia de carga espuria.</li>
+<li>Todo debe operar criogénico: cualquier fuente de calor cercana <em>brilla</em> en infrarrojo; la electrónica va térmicamente aislada de los detectores.</li>
+</ul>
 <figure>
-<img src="m3c2/assets/slide-25.jpg" alt="Mosaico de CCD en cámara astronómica.">
-<figcaption><span class="cap">Diapositiva 25</span>Mosaico de CCD en cámara astronómica.</figcaption>
-</figure><figure>
-<img src="m3c2/assets/slide-27.jpg" alt="Arreglo NIRCam con gaps entre chips.">
-<figcaption><span class="cap">Diapositiva 27</span>Arreglo NIRCam con gaps entre chips.</figcaption>
+<img src="m3c2/assets/slide-24.jpg" alt="Detectores de NIRCam de JWST.">
+<figcaption><span class="cap">Diapositiva 24</span>NIRCam: 10 arreglos HgCdTe de 2k×2k. Los de onda larga van detrás de los de onda corta, que son transparentes a esas λ.</figcaption>
 </figure>
+<h3>Lectura no destructiva</h3>
+<p>Cada píxel tiene su propio circuito de lectura y se puede leer <strong>sin vaciar la carga</strong>: se muestrea el voltaje repetidas veces (cada lectura toma ~10 µs, convertida a 16 bits) mientras la carga se acumula, y la señal se estima de la <em>pendiente</em> — la tasa de electrones por unidad de tiempo — antes de resetear.</p>
+<figure>
+<img src="m3c2/assets/slide-28.jpg" alt="Lectura up-the-ramp de un detector infrarrojo.">
+<figcaption><span class="cap">Diapositiva 28</span>Lectura «up the ramp»: múltiples muestras no destructivas del voltaje; la pendiente da el flujo. Ventaja extra: los saltos delatan rayos cósmicos.</figcaption>
+</figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Es una <strong>regresión lineal en hardware</strong>: en vez de una medición integrada única (CCD), N muestras de la rampa carga(t). Reduce el ruido efectivo de lectura (promedia), permite rango dinámico adaptativo y detecta outliers (un rayo cósmico es un escalón en la rampa). El mosaico CEERS mostrado en clase ilustra el precio del plano focal segmentado: gaps que se rellenan re-apuntando el telescopio.</p></div>
 </section>
 
-<section id="interactivo">
-<div class="widget"><h4>Energía del fotón E = hc/λ</h4>
-<label>λ (nm)<input type="number" id="ph-lam" value="550"></label>
-<output class="wout" id="ph-out"></output></div>
-<div class="widget"><h4>Rango dinámico (bits)</h4>
-<input type="range" id="bits-n" min="8" max="20" value="16"> bits
-<output class="wout" id="bits-out"></output></div>
+<section id="interactivo"><div class="shead"><span class="num">⚙</span><div><h2>Explorar conceptos</h2>
+<p>Dos calculadoras para las ideas centrales: energía del fotón vs silicio, y bits vs rango dinámico.</p></div></div>
+
+<div class="widget">
+<h4>Widget 1 — Energía del fotón y detectabilidad en silicio</h4>
+<div class="wgrid">
+<div><label>Longitud de onda λ (nm)</label><input type="number" id="ph-l" value="550" step="any" min="1"></div>
+</div>
+<div class="presets">
+<button type="button" onclick="phPreset(300)">UV corte atmosférico (300)</button>
+<button type="button" onclick="phPreset(550)">Verde (550)</button>
+<button type="button" onclick="phPreset(700)">Rojo (700)</button>
+<button type="button" onclick="phPreset(1000)">1 µm (límite Si)</button>
+<button type="button" onclick="phPreset(2200)">IR banda K (2200)</button>
+<button type="button" onclick="phPreset(4500)">JWST 4,5 µm</button>
+</div>
+<output class="wout" id="ph-out"></output>
+</div>
+
+<div class="widget">
+<h4>Widget 2 — Bits, niveles y saturación</h4>
+<div class="wgrid">
+<div><label>Bits por píxel</label><select id="bit-n"><option>8</option><option selected>16</option><option>32</option></select></div>
+<div><label>Señal que llega (electrones equivalentes)</label><input type="number" id="bit-s" value="40000" step="1000" min="0"></div>
+</div>
+<output class="wout" id="bit-out"></output>
+</div>
 </section>
 
-<section id="conceptos"><div class="tbl"><table>
+<section id="conceptos"><div class="shead"><span class="num">★</span><div><h2>Conceptos clave</h2></div></div>
+<div class="tbl"><table>
 <thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
 <tbody>
-<tr><td><b>CCD</b></td><td>Transferencia serial de carga; amplificador central</td></tr>
-<tr><td><b>EQ</b></td><td>~90% CCD vs. ~1% ojo</td></tr>
-<tr><td><b>Overscan</b></td><td>Mide dark/bias sin iluminación</td></tr>
-<tr><td><b>FITS</b></td><td>Formato estándar astronómico</td></tr>
-<tr><td><b>Flat field</b></td><td>Corrección de sensibilidad pixel a pixel</td></tr>
-<tr><td><b>Dither</b></td><td>Recuperar datos tras píxeles muertos</td></tr>
+<tr><td><b>Placa fotográfica</b></td><td>Vidrio + sales de plata; usada hasta ~1990; buena para posiciones/variabilidad, mala fotometría (satura); Calán/Tololo y las supernovas</td></tr>
+<tr><td><b>Efecto fotoeléctrico</b></td><td>E del electrón depende de ν, no de la intensidad; E = hν = hc/λ; Nobel de Einstein; base de CCD y paneles solares</td></tr>
+<tr><td><b>CCD</b></td><td>Grilla de «baldes» de fotoelectrones; ~2048×1024 px de 10–20 µm; Nobel 2009 a sus inventores</td></tr>
+<tr><td><b>Largo de absorción</b></td><td>Profundidad de captura en Si depende de λ (5 nm a 300 nm; ~1 µm a 600 nm); rango útil Si: ~0,3–1 µm</td></tr>
+<tr><td><b>Eficiencia cuántica</b></td><td>Fracción de fotones detectados: CCD ~90%, ojo ~1%, placas ~1%</td></tr>
+<tr><td><b>Transferencia de carga</b></td><td>Voltajes en secuencia mueven los paquetes píxel a píxel hasta el amplificador (shift register analógico)</td></tr>
+<tr><td><b>Bits y rango dinámico</b></td><td>n bits → 0 a 2ⁿ−1; 16 bits = 65 535; saturación = valor clavado en el máximo</td></tr>
+<tr><td><b>Overscan / corriente oscura</b></td><td>Carga térmica sin luz; se enfría con N₂ líquido y se mide leyendo píxeles «de más»</td></tr>
+<tr><td><b>FITS</b></td><td>Matriz de píxeles + header de metadatos; el estándar astronómico; se explora con DS9</td></tr>
+<tr><td><b>Columna muerta</b></td><td>Un píxel con aislante dañado pierde toda la carga que pasa por él: columna completa inutilizada</td></tr>
+<tr><td><b>Rayos cósmicos</b></td><td>~2 /cm²/min; señal espuria idéntica a luz; defensa: varias exposiciones + dithering + combinación</td></tr>
+<tr><td><b>Mosaico / lectura</b></td><td>Trade-off velocidad vs ruido (MagE: 33 s/2,9 e⁻ ↔ 14 s/4,2 e⁻); Rubin: 200 CCD ×16 amps = 3,2 Gpx en 2 s</td></tr>
+<tr><td><b>Detector IR (NIRCam)</b></td><td>HgCdTe, 10×2k×2k, bordes tapados como referencia, lectura no destructiva «up the ramp», criogénico</td></tr>
 </tbody></table></div></section>
+
 <section id="examenes">
 <div class="shead"><span class="num">✓</span><div>
 <h2>Exámenes de práctica</h2>
@@ -287,19 +410,20 @@ footer b{color:var(--ink)}
 <ol class="examlist">
     <li><a href="m3c2-examen-01.html">Examen 01<small>Placas fotográficas</small></a></li>
     <li><a href="m3c2-examen-02.html">Examen 02<small>Efecto fotoeléctrico</small></a></li>
-    <li><a href="m3c2-examen-03.html">Examen 03<small>Anatomía del CCD</small></a></li>
-    <li><a href="m3c2-examen-04.html">Examen 04<small>Eficiencia cuántica</small></a></li>
-    <li><a href="m3c2-examen-05.html">Examen 05<small>Lectura y bits</small></a></li>
-    <li><a href="m3c2-examen-06.html">Examen 06<small>Overscan y dark</small></a></li>
-    <li><a href="m3c2-examen-07.html">Examen 07<small>Rayos cósmicos</small></a></li>
-    <li><a href="m3c2-examen-08.html">Examen 08<small>Calibración y artefactos</small></a></li>
-    <li><a href="m3c2-examen-09.html">Examen 09<small>Vera Rubin CCD</small></a></li>
+    <li><a href="m3c2-examen-03.html">Examen 03<small>El CCD y sus baldes</small></a></li>
+    <li><a href="m3c2-examen-04.html">Examen 04<small>Silicio y QE</small></a></li>
+    <li><a href="m3c2-examen-05.html">Examen 05<small>Mover la carga</small></a></li>
+    <li><a href="m3c2-examen-06.html">Examen 06<small>Bits y rango dinámico</small></a></li>
+    <li><a href="m3c2-examen-07.html">Examen 07<small>Overscan y FITS</small></a></li>
+    <li><a href="m3c2-examen-08.html">Examen 08<small>Defectos del detector</small></a></li>
+    <li><a href="m3c2-examen-09.html">Examen 09<small>Mosaicos y lectura</small></a></li>
     <li><a href="m3c2-examen-10.html">Examen 10<small>Detectores infrarrojos</small></a></li>
 </ol>
 </section>
-<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c2.md</code>, diapositivas Clase 2.</p>
+
+<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c2.md</code>, diapositivas Clase 2 (<code>Modulo_III_Clase_2.pdf</code>, 29 láminas).</p>
 <p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente. Correcciones aplicadas en estos apuntes:
-<ul><li>"difracción" en lentes refractores → refracción (la curvatura del vidrio desvía la luz, no la difracción)</li><li>"zing", "SIG", "sync" → seeing (turbulencia atmosférica que desparrama la imagen)</li><li>"Hull" / telescopio espacial Hull → Hubble</li><li>"Verapoint", "ver a Rubí" → Vera Rubin (LSST)</li><li>"Verarubin" → Vera Rubin</li><li>"Churchill" y otros nombres mal reconocidos se contrastan con diapositivas cuando aparecen</li></ul></p></footer>
+<ul><li>«placas fotera recto» → placas fotográficas; «nitrato de plata» → la diapositiva dice <strong>sales de plata</strong> (la emulsión clásica usa haluros de plata)</li><li>«La Caq du Ciel» → <em>La Carte du Ciel</em>; «Tololo Calan Survey» / «Mario Muy» → survey <strong>Calán/Tololo</strong>, Mario <strong>Hamuy</strong></li><li>«archivos tipo fix / FIX» → archivos <strong>FITS</strong>; «DS» → <strong>DS9</strong>; «Blinkers» → máquinas blink (comparador de parpadeo)</li><li>«Very Blue Flat» → flat de lámpara muy azul; «Oberstan / Orskan» → <strong>overscan</strong></li><li>«8 píxeles» al hablar del registrador → 8 <strong>bits</strong>; «2000 por 1000» ↔ 2048×1024 (redondeo del profesor)</li><li>«Verarubin» → Vera Rubin; «200 ccd» y «201 CCDs» conviven en audio y diapositiva: la cámara LSSTCam tiene 189 CCD de ciencia + auxiliares (dato externo)</li><li>«NEAR SPEC» → NIRSpec; «NIRIS» → NIRISS; «Niencam» → NIRCam; «MIRI llega hasta 70 µm» dicho en audio: MIRI llega a ~28 µm (dato externo)</li><li>«espectrógrafo Echell» → echelle (MagE, Magellan Echellette, Las Campanas)</li></ul></p></footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -308,21 +432,40 @@ footer b{color:var(--ink)}
 document.addEventListener("DOMContentLoaded",function(){
   if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
   document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
-  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
 
-  function photonCalc(){
-    var lam=+document.getElementById('ph-lam').value*1e-9;
-    var h=6.626e-34,c=299792458;
-    var E=h*c/lam, ev=1.602e-19;
-    document.getElementById('ph-out').innerHTML='E ≈ <b>'+(E/ev).toFixed(3)+'</b> eV · λ = <b>'+(lam*1e9).toFixed(0)+'</b> nm';
+  // Widget 1: energia del foton y silicio
+  var h=6.62607015e-34, c=299792458, eV=1.602176634e-19;
+  window.phPreset=function(l){document.getElementById('ph-l').value=l;phCalc();};
+  function phCalc(){
+    var lnm=+document.getElementById('ph-l').value;
+    if(!(lnm>0))return;
+    var lam=lnm*1e-9;
+    var E=h*c/lam, Eev=E/eV;
+    var det;
+    if(Eev>4) det='Por encima del rango típico del silicio (>4 eV): este fotón no llega al suelo de todos modos (corte UV atmosférico).';
+    else if(Eev>=1.14) det='<b>Detectable con silicio</b> (rango ~1,14–4 eV). '+(lnm>600?'Fotón rojo: penetra ~1 µm, el chip debe ser grueso.':'Penetra poco: basta una capa delgada.');
+    else det='<b>Bajo el umbral del silicio</b> (&lt;1,14 eV): se necesita otro semiconductor, como el HgCdTe de NIRCam.';
+    document.getElementById('ph-out').innerHTML=
+      'E = hc/λ = <b>'+E.toExponential(2)+' J</b> = <b>'+Eev.toFixed(2)+' eV</b> · ν = '+(c/lam).toExponential(2)+' Hz.<br>'+det;
   }
-  var pl=document.getElementById('ph-lam'); if(pl){pl.oninput=photonCalc;photonCalc();}
-  function bitsCalc(){
-    var b=+document.getElementById('bits-n').value;
-    document.getElementById('bits-out').innerHTML='Máximo ADU: <b>'+(Math.pow(2,b)-1)+'</b> niveles ('+b+' bits)';
-  }
-  var bn=document.getElementById('bits-n'); if(bn){bn.oninput=bitsCalc;bitsCalc();}
+  document.getElementById('ph-l').oninput=phCalc;
+  phCalc();
 
+  // Widget 2: bits y saturacion
+  function bitCalc(){
+    var n=+document.getElementById('bit-n').value;
+    var s=+document.getElementById('bit-s').value;
+    var max=Math.pow(2,n)-1;
+    var sat=s>max;
+    document.getElementById('bit-out').innerHTML=
+      'Con <b>'+n+' bits</b> el amplificador representa valores de 0 a <b>'+max.toLocaleString('es-CL')+'</b>.<br>'+
+      (sat
+        ? 'Señal de '+s.toLocaleString('es-CL')+' → <b style="color:var(--red-soft)">SATURADO</b>: el registro se clava en '+max.toLocaleString('es-CL')+' y se pierde toda la información por encima (como el flat de clase con 65 535).'
+        : 'Señal de '+s.toLocaleString('es-CL')+' → registrada sin saturar. Margen restante: <b>'+(max-s).toLocaleString('es-CL')+'</b> niveles ('+((1-s/max)*100).toFixed(1)+'% del rango dinámico).');
+  }
+  document.getElementById('bit-n').onchange=bitCalc;
+  document.getElementById('bit-s').oninput=bitCalc;
+  bitCalc();
 });
 </script>
 </body>

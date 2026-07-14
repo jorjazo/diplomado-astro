@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Telescopios — Módulo III · Clase 1</title>
+<title>Telescopios: doblar la luz — Módulo III · Clase 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
@@ -122,6 +122,8 @@ td b{color:var(--gold);font-weight:600}
 .widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
   border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:12px;background:#060b15;
+  border:1px solid var(--line);border-radius:10px}
 .tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -136,179 +138,322 @@ footer b{color:var(--ink)}
 </style>
 </head>
 <body>
-
 <main class="wrap">
-<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c2-apuntes.html">Clase 2 →</a></nav>
 <div class="hero">
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 1</span>
-<h1>El <em>telescopio</em> como recolector de luz</h1>
-<p class="sub">Del refractor de Galileo a espejos segmentados de 10 m, óptica activa y adaptativa: el aparato que concentra la luz antes del detector.</p>
-<div class="meta">
-<span><b>Docente:</b> César Fuentes</span>
-<span><b>Tema:</b> Telescopios ópticos e infrarrojos</span>
+<h1>Telescopios: <em>doblar la luz</em></h1>
+<p class="sub">Del lente de Galileo a los espejos segmentados de 40 metros: la historia de los telescopios es la historia de las tecnologías que permiten recolectar y concentrar cada vez más luz — y de los límites físicos que hubo que vencer en cada paso.</p>
+<div class="meta"><span><b>Curso</b> Instrumentación y Métodos de Observación</span><span><b>Módulo</b> III</span><span><b>Clase</b> 1</span><span><b>Fuentes</b> transcripción + 38 diapositivas</span></div>
 </div>
-</div>
-<p class="lead"><span class="drop">E</span>sta clase se centra en el <span class="hl">instrumento que dobla y concentra la luz</span>, no en los detectores (clase 2). El Módulo III recorre técnicas de observación y las tecnologías que las hicieron posibles — escalas de décadas, como Hubble o James Webb.</p>
+<p class="lead"><span class="drop">U</span>n telescopio no es un aparato para «acercar» cosas: es un <em>embudo de luz</em>. Esta clase recorre el aparato que recolecta y concentra la luz — no el detector, que viene en la clase 2 — y las cinco revoluciones tecnológicas que permitieron pasar de lentes de 1 metro a espejos de 40: reflectores, óptica activa, espejos centrifugados, segmentación y óptica adaptativa.</p>
 <nav class="idx"><span class="tag">Contenido</span><ol>
-<li><a href="#s1">Refractores: lentes y límites</a></li>
-<li><a href="#s2">¿Por qué telescopios grandes?</a></li>
-<li><a href="#s3">Reflectores newtonianos y Cassegrain</a></li>
-<li><a href="#s4">Escala histórica: Herschel a Palomar</a></li>
-<li><a href="#s5">Revestimiento y espejos modernos</a></li>
-<li><a href="#s6">Óptica activa (8 m)</a></li>
-<li><a href="#s7">Espejos segmentados (Keck, GMT)</a></li>
-<li><a href="#s8">Vera Rubin y campo amplio</a></li>
-<li><a href="#s9">Difracción, seeing y óptica adaptativa</a></li>
-<li><a href="#interactivo">Widgets</a></li>
+<li><a href="#s1">Las tres partes de un instrumento</a></li>
+<li><a href="#s2">Refractores: el diseño de Galileo</a></li>
+<li><a href="#s3">Los límites del lente</a></li>
+<li><a href="#s4">¿Por qué telescopios grandes?</a></li>
+<li><a href="#s5">Reflectores: la idea de Newton</a></li>
+<li><a href="#s6">Recubrimientos y el límite rígido</a></li>
+<li><a href="#s7">Óptica activa</a></li>
+<li><a href="#s8">Cómo se funde un espejo gigante</a></li>
+<li><a href="#s9">Vera Rubin: el gran angular</a></li>
+<li><a href="#s10">Espejos segmentados</a></li>
+<li><a href="#s11">Límite de difracción</a></li>
+<li><a href="#s12">Atmósfera, seeing y óptica adaptativa</a></li>
+<li><a href="#interactivo">Explorar conceptos</a></li>
 <li><a href="#conceptos">Conceptos clave</a></li>
 <li><a href="#examenes">Exámenes</a></li>
 </ol></nav>
 
-<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Refractores: lentes y límites</h2>
-<p>Galileo usó un <strong>refractor</strong>: lente objetivo concentra la luz; ocular la paraleliza para el ojo.</p></div></div>
-<div class="box prof"><span class="tag">Corrección transcripción</span><p>En audio: «difracción de la luz en lentes». Físicamente es <strong>refracción</strong> (cambio de índice al entrar/salir del vidrio). La dispersión cromática produce arcoíris en los bordes del campo.</p></div>
-<p>Limitaciones: solo se sujeta por los bordes → flexión y vibración; vidrio grueso y pesado; aberración cromática. Gaia debe corregir movimientos propios espurios por este efecto óptico.</p>
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Las tres partes de un instrumento astronómico</h2>
+<p>Antes de entrar en detalles conviene separar el sistema completo en bloques.</p></div></div>
+<p>Todo instrumento astronómico moderno se puede descomponer en tres etapas:</p>
+<ul>
+<li><strong>El telescopio</strong>: recolecta la luz y la concentra en un área pequeña. Es el «embudo». De esto trata la clase de hoy.</li>
+<li><strong>El instrumento</strong>: filtra o separa la luz en componentes (filtros, espectrógrafos, óptica interna).</li>
+<li><strong>El detector</strong>: registra la señal. Históricamente el ojo; hoy, detectores CCD y similares (clase 2).</li>
+</ul>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Es un <strong>pipeline de adquisición de señal</strong>: antena/colector → etapa de acondicionamiento → ADC. Cada bloque aporta su propia función de transferencia y su propio ruido, y el diseño de cada uno condiciona a los demás. Esta clase es sobre la «antena».</p></div>
+<div class="box prof"><span class="tag">Anécdota de clase</span>
+<p>El profesor mostró el telescopio histórico de Cerro Calán (en el audio la transcripción lo llama «Heidegger»; se refiere al telescopio <strong>Heyde</strong> del Observatorio Astronómico Nacional), donde el detector era simplemente el ojo del observador puesto en el foco.</p></div>
+</section>
+
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Refractores: el diseño de Galileo</h2>
+<p>Galileo fue el primero en apuntar un telescopio al cielo. Su diseño usa lentes: un telescopio refractor.</p></div></div>
+<p>En un refractor, un <strong>lente objetivo</strong> a la entrada curva la luz por <span class="hl">refracción</span> y la concentra hacia un foco; un segundo lente (ocular) vuelve a paralelizar los rayos para que el ojo reciba la imagen. El diseño es conceptualmente simple: basta la curvatura correcta y un tubo suficientemente largo para que la luz converja.</p>
 <figure>
-<img src="m3c1/assets/slide-03.jpg" alt="Esquema de telescopio refractor.">
-<figcaption><span class="cap">Diapositiva 3</span>Esquema de telescopio refractor.</figcaption>
+<img src="m3c1/assets/slide-05.jpg" alt="Esquema de telescopio refractor y Galileo.">
+<figcaption><span class="cap">Diapositiva 5</span>El esquema del refractor: un lente a la entrada concentra la luz; el ocular la devuelve paralela al ojo.</figcaption>
 </figure>
+<div class="box prof"><span class="tag">Corrección de transcripción</span>
+<p>El audio dice repetidamente que los lentes funcionan «utilizando la difracción de la luz». El fenómeno que curva la luz en un lente es la <strong>refracción</strong> (cambio de dirección al cambiar de medio). La <em>difracción</em> es otra cosa y aparece más adelante, en el límite de resolución (§11).</p></div>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Los límites del lente</h2>
+<p>Pureza, pulido, peso y arcoíris: cuatro problemas que acotaron el tamaño de los refractores.</p></div></div>
+<h3>Material y sujeción</h3>
+<ul>
+<li>La luz <em>atraviesa</em> el lente: el cristal debe ser <strong>extremadamente puro</strong> y estar pulido con alta precisión <strong>por ambas caras</strong>.</li>
+<li>El lente solo puede sujetarse <strong>por los bordes</strong> (por el centro pasa la luz). Un vidrio grande sujeto solo por el borde vibra y se flecta; para evitarlo hay que hacerlo más grueso — y por lo tanto más pesado. Eso limita el tamaño máximo.</li>
+</ul>
+<h3>Aberración cromática: los arcoíris</h3>
+<p>El vidrio refracta distinto a cada longitud de onda, igual que un prisma: la luz blanca que entra sale separada en colores. El efecto es peor en los bordes del lente (mayor ángulo), así que las imágenes de refractores se ven bien al centro y con <span class="hl">pequeños arcoíris</span> hacia los bordes. Para mitigarlo se alarga el <strong>largo focal</strong>: concentrar la luz «más suavemente» reduce la dispersión cromática — de ahí los tubos kilométricos de la época.</p>
 <figure>
-<img src="m3c1/assets/slide-05.jpg" alt="Dispersión cromática en lente: arcoíris en los bordes.">
-<figcaption><span class="cap">Diapositiva 5</span>Dispersión cromática en lente: arcoíris en los bordes.</figcaption>
+<img src="m3c1/assets/slide-07.jpg" alt="Prisma dispersando luz blanca: aberración cromática.">
+<figcaption><span class="cap">Diapositiva 7</span>El lente actúa como prisma: cada color se curva distinto y la imagen se contamina con arcoíris (aberración cromática).</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Vigente hasta hoy</span>
+<p>El efecto no es historia antigua: la misión <strong>Gaia</strong>, midiendo movimientos propios de estrellas en Andrómeda con precisión de microsegundos de arco, debe corregir el corrimiento diferencial entre objetos rojos y azules dentro de su propia óptica — el mismo fenómeno cromático, en un telescopio espacial moderno. Todo instrumento tiene lentes en alguna parte del camino óptico.</p></div>
+<h3>Los gigantes refractores</h3>
+<ul>
+<li><strong>Herschel (1785)</strong>: ~1,2 m de diámetro y 12 m de largo focal. Tan artesanal y peligroso que lo obligaron a desarmarlo.</li>
+<li><strong>Yerkes, Wisconsin (1890s)</strong>: 1 m de diámetro y 18 m de largo — el refractor más grande jamás construido. Como se miraba por el ocular, el piso completo de la cúpula <em>sube y baja</em> para seguir el extremo del tubo.</li>
+</ul>
+<figure>
+<img src="m3c1/assets/slide-11.jpg" alt="Telescopio refractor de Yerkes.">
+<figcaption><span class="cap">Diapositiva 11</span>Yerkes: 1 m de lente, 18 m de tubo, y un piso móvil para alcanzar el ocular. Aquí terminó la carrera de los refractores.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Anécdota de clase</span>
+<p>El observatorio <strong>Lick</strong> (California) tiene un refractor del mismo tipo. James Lick, millonario excéntrico, quería una pirámide funeraria; unos astrónomos lo convencieron de financiar un observatorio… y terminó enterrado bajo el piso móvil del telescopio, cerca de lo que hoy es Silicon Valley. La cúpula vacía de Cerro Calán estaba diseñada para un telescopio de este tipo, con piso móvil, que nunca llegó.</p></div>
+</section>
+
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>¿Por qué telescopios grandes?</h2>
+<p>Porque la luz se diluye con el cuadrado de la distancia, y la única defensa es un área colectora mayor.</p></div></div>
+<p>La luz de una fuente se reparte sobre una esfera cuya área crece como \(d^2\). El flujo que recibimos cae entonces como el inverso del cuadrado:</p>
+<div class="formula"><span class="katex-block" data-tex="F=\frac{L}{4\pi d^{2}}"></span>
+<small>Un objeto al doble de distancia se ve 4 veces más débil; al triple, 9 veces. Para ver objetos lejanos (débiles) hay que capturar más luz por unidad de tiempo: espejo más grande.</small></div>
+<p>El área colectora escala como \(D^2\): duplicar el diámetro cuadruplica la luz recolectada por segundo. La evolución ya lo descubrió: el <strong>tarsero</strong>, primate nocturno de la diapositiva, tiene ojos gigantes para «recolectar mucha luz en poco tiempo» en la selva oscura.</p>
+<figure>
+<img src="m3c1/assets/slide-09.jpg" alt="Por qué construir telescopios grandes: dilución de la luz y el tarsero.">
+<figcaption><span class="cap">Diapositiva 9</span>La misma luz repartida en un área ∝ d². Más área colectora = más fotones por segundo = objetos más débiles (y usualmente más lejanos) al alcance.</figcaption>
 </figure>
 </section>
 
-<section id="s2"><div class="shead"><span class="num">2</span><div><h2>¿Por qué telescopios grandes?</h2>
-<p>Ley del inverso del cuadrado: flujo ∝ 1/d². Objeto al doble de distancia → un cuarto de luminosidad. Área colectora grande = más fotones por segundo.</p></div></div>
-<div class="formula"><span class="katex-block" data-tex="F = \frac{L}{4\pi d^2}"></span>
-<small>Analogía biológica: ojos de animales nocturnos con pupilas enormes.</small></div>
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Reflectores: la idea de Newton</h2>
+<p>Sustituir el lente por un espejo curvo resuelve de un golpe casi todos los problemas del refractor.</p></div></div>
+<p>En un <strong>telescopio reflector</strong> la luz entra por el tubo abierto y rebota en un <strong>espejo primario</strong> curvado que la concentra. Como el observador no puede poner la cabeza en el camino de la luz, hay dos soluciones clásicas para extraer el foco:</p>
+<ul>
+<li><strong>Montura newtoniana</strong>: un espejo plano inclinado desvía el haz hacia un costado del tubo.</li>
+<li><strong>Montura Cassegrain</strong>: un <strong>espejo secundario</strong> devuelve la luz hacia atrás, a través de un orificio central del primario, donde se montan los instrumentos.</li>
+</ul>
+<p>Las ventajas son decisivas:</p>
+<ul>
+<li>El espejo se puede <strong>apoyar por atrás y por los lados</strong>, no solo por el borde: estructuras mucho más rígidas.</li>
+<li>La luz <strong>no atraviesa el vidrio</strong>: la pureza interna del material deja de importar (solo el pulido y la capa reflectante) y no hay aberración cromática del primario.</li>
+<li>El camino óptico se pliega con rebotes: tubos <strong>más cortos</strong> para el mismo largo focal.</li>
+<li>Al estar apoyado por atrás, la forma del espejo se puede <strong>corregir empujándolo</strong> — la semilla de la óptica activa (§7).</li>
+</ul>
+<p>El secundario bloquea algo de luz, pero es un obstáculo pequeño comparado con el área del primario: en la práctica no se nota (aunque sus soportes generan los picos de difracción que se ven en las estrellas de las fotos astronómicas).</p>
 <figure>
-<img src="m3c1/assets/slide-08.jpg" alt="Área colectora vs. distancia al objeto.">
-<figcaption><span class="cap">Diapositiva 8</span>Área colectora vs. distancia al objeto.</figcaption>
+<img src="m3c1/assets/slide-12.jpg" alt="Esquema de telescopio reflector newtoniano y Cassegrain.">
+<figcaption><span class="cap">Diapositiva 12</span>Reflector: el espejo primario concentra; el secundario extrae el foco hacia el costado (Newton) o hacia atrás por el orificio central (Cassegrain).</figcaption>
 </figure>
 </section>
 
-<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Reflectores: Newton y Cassegrain</h2>
-<p>Newton: espejo primario + secundario que desvía la luz al lateral. Cassegrain: orificio central en el primario. Ventajas: soporte por detrás, espejos más grandes, corrección activa de forma.</p></div></div>
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Recubrimientos y el límite del espejo rígido</h2>
+<p>Una película de metal de átomos de espesor, y un tope estructural en los 5 metros.</p></div></div>
+<h3>La capa reflectante</h3>
+<p>La superficie del espejo se recubre con un metal: <strong>aluminio o plata</strong> para el óptico; <strong>oro</strong> para el infrarrojo (por eso el James Webb es dorado — el oro refleja mejor a λ largas). La capa tiene apenas <em>2–3 átomos de espesor</em>. Se aplica en una <strong>cámara de vacío</strong> del tamaño del espejo: filamentos del metal se evaporan con una descarga eléctrica enorme y la «nube» metálica se deposita homogéneamente sobre el vidrio — el mismo principio con que se metalizan los envoltorios de papas fritas.</p>
+<h3>Du Pont, Hale y el tope de la rigidez</h3>
+<ul>
+<li><strong>Du Pont (Las Campanas)</strong>: 2,5 m — casi el diámetro del Hubble (2,4 m). El armatoste que lo mantiene rígido y lo mueve es del tamaño de un edificio: la estructura pesa mucho más que el espejo.</li>
+<li><strong>Hale (Monte Palomar)</strong>: 5 m y ~14,5 toneladas solo el primario. Es el telescopio más grande construido con la lógica de «mantener el espejo rígido a toda costa». En Chile, el mayor de esta generación es el <strong>Blanco</strong> (Tololo), de 4 m.</li>
+</ul>
+<p>Más allá de 5 m no existe material suficientemente rígido y liviano: cada metro extra multiplica el peso del espejo, de la celda que lo sostiene y del mecanismo que mueve todo. El problema dejó de ser óptico y pasó a ser de <strong>ingeniería estructural y de materiales</strong>.</p>
 <figure>
-<img src="m3c1/assets/slide-12.jpg" alt="Monturas newtoniana y Cassegrain.">
-<figcaption><span class="cap">Diapositiva 12</span>Monturas newtoniana y Cassegrain.</figcaption>
-</figure>
-<p>James Webb: capa de <strong>oro</strong> para reflejar bien en infrarrojo (no por costo del oro, sino por λ).</p>
-</section>
-
-<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Escala histórica: Herschel a Palomar</h2>
-<p>Herschel (~1785): lente ~1,2 m, tubo ~12 m. Yerkes (1890): 1 m, 18 m de largo; piso móvil para el observador. Lick: piso que sube/baja; el mecenas enterrado bajo la cúpula.</p></div></div>
-<figure>
-<img src="m3c1/assets/slide-14.jpg" alt="Telescopio de Herschel.">
-<figcaption><span class="cap">Diapositiva 14</span>Telescopio de Herschel.</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-16.jpg" alt="Yerkes: refractor clásico.">
-<figcaption><span class="cap">Diapositiva 16</span>Yerkes: refractor clásico.</figcaption>
-</figure>
-<p>Palomar 5 m (~1948): límite de espejo monolítico rígido. Dupont/Las Campanas 2,5 m: comparable al Hubble espacial en diámetro.</p>
-<figure>
-<img src="m3c1/assets/slide-22.jpg" alt="Espejo de 2,5 m en Las Campanas.">
-<figcaption><span class="cap">Diapositiva 22</span>Espejo de 2,5 m en Las Campanas.</figcaption>
+<img src="m3c1/assets/slide-15.jpg" alt="Telescopio Hale de 5 metros en Monte Palomar.">
+<figcaption><span class="cap">Diapositiva 15</span>Hale (5 m): la persona de la foto da la escala. Hasta aquí llegó la tecnología del espejo rígido.</figcaption>
 </figure>
 </section>
 
-<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Revestimiento y fabricación</h2>
-<p>Evaporación en cámara de vacío: filamentos de Al o Ag se evaporan en capas de 2–3 átomos. Mirror Lab (Arizona): vidrio fundido en centrífuga de 8 m, meses de enfriamiento controlado.</p></div></div>
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>Óptica activa: dejar que se doble (y corregirlo)</h2>
+<p>El cambio de paradigma: espejos delgados y flexibles cuya forma se corrige continuamente con pistones.</p></div></div>
+<p>Para superar los 5 m hubo que rendirse: <em>es imposible mantener el espejo rígido; dejemos que se curve y corrijamos la curvatura</em>. El espejo se hace <strong>delgado</strong> (el de <strong>Gemini</strong>, de 8 m, tiene solo ~20 cm de grosor) y por detrás se instalan <strong>actuadores (pistones)</strong> — unos 120 en Gemini — que restauran la forma correcta a medida que el telescopio apunta en distintas direcciones.</p>
+<ul>
+<li>Si Gemini se hubiese construido con la lógica de Hale, pesaría <strong>2,6 veces más</strong>; con óptica activa quedó en ~1,7× el peso de un telescopio mucho menor.</li>
+<li>El sistema monitorea una <strong>estrella de referencia</strong> en el borde del campo: si el punto se «desparrama» o se alarga, se recalculan las posiciones de los pistones. El ciclo de corrección es del orden de <strong>1 minuto</strong>.</li>
+<li>Con esta tecnología funcionan los telescopios de 6–8 m actuales: <strong>VLT</strong> (4×8,2 m), <strong>Gemini</strong> (8 m) y los <strong>Magallanes Baade y Clay</strong> (6,5 m, Las Campanas).</li>
+</ul>
 <figure>
-<img src="m3c1/assets/slide-26.jpg" alt="Fabricación de espejo en centrífuga.">
-<figcaption><span class="cap">Diapositiva 26</span>Fabricación de espejo en centrífuga.</figcaption>
+<img src="m3c1/assets/slide-16.jpg" alt="Óptica activa: espejo delgado de Gemini con actuadores.">
+<figcaption><span class="cap">Diapositiva 16</span>Gemini: 8 m de diámetro, 20 cm de grosor. Los pistones traseros corrigen la deformación aproximadamente cada minuto.</figcaption>
 </figure>
+<div class="box prof"><span class="tag">Anécdota de clase</span>
+<p>Los Magallanes usan una montura de semicírculos sobre un piso giratorio, flotando sobre una película de <strong>aceite a presión</strong> que reduce la fricción al mínimo: con el bombeo activo, un telescopio de cientos de toneladas <em>se puede empujar a mano</em>.</p></div>
+<div class="box physics"><span class="tag">No confundir</span>
+<p><strong>Óptica activa</strong> corrige la deformación <em>del espejo</em> (gravedad, temperatura) en escalas de ~1 minuto. La <strong>óptica adaptativa</strong> (§12) corrige la <em>atmósfera</em>, cientos de veces por segundo y en otro espejo más pequeño. Nombres parecidos, problemas distintos.</p></div>
 </section>
 
-<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Óptica activa (~8 m)</h2>
-<p>Gemini 8 m: espejo más delgado + ~120 pistones que corrigen deformación al apuntar. Estrella guía: si se alarga → reenfocar (~1 min). Distinto de óptica adaptativa (atmósfera, ms).</p></div></div>
-<figure>
-<img src="m3c1/assets/slide-28.jpg" alt="Gemini vs. Palomar: estructura más compacta.">
-<figcaption><span class="cap">Diapositiva 28</span>Gemini vs. Palomar: estructura más compacta.</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-30.jpg" alt="Magallanes 6,5 m en Las Campanas.">
-<figcaption><span class="cap">Diapositiva 30</span>Magallanes 6,5 m en Las Campanas.</figcaption>
-</figure>
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Cómo se funde un espejo gigante</h2>
+<p>Un horno giratorio bajo un estadio de fútbol americano: la curvatura se obtiene por rotación.</p></div></div>
+<p>Los grandes espejos monolíticos se fabrican en el <strong>Mirror Lab de la Universidad de Arizona</strong>, construido bajo el estadio de fútbol americano del campus. El proceso:</p>
+<ul>
+<li>Se cargan a mano pedazos de vidrio sobre un molde con estructura de <strong>panal de abeja</strong> (el espejo final es hueco por dentro: liviano pero con forma).</li>
+<li>El molde está dentro de un <strong>horno-centrífuga</strong>: el vidrio se derrite y la rotación le da la <strong>curvatura parabólica</strong> — como el té que se curva al revolver la taza. Se enfría lentamente, girando, durante meses (~8 meses el ciclo completo) para evitar fisuras.</li>
+<li>Después se limpia el soporte, se pule fino y se monta sobre la celda con los actuadores.</li>
+</ul>
+<div class="box dato"><span class="tag">Anécdotas</span>
+<p>Cuando el espejo de <strong>Gemini</strong> (8 m) llegó a Chile, el camión no cabía por el túnel del camino a Tololo: nadie había medido el túnel, y hubo que agrandarlo. Y los trocitos de vidrio sobrantes del espejo de <strong>Vera Rubin</strong> se sortearon como recuerdos en una conferencia — la señora del profesor se ganó uno.</p></div>
 </section>
 
-<section id="s7"><div class="shead"><span class="num">7</span><div><h2>Espejos segmentados</h2>
-<p>Keck (Hawái): 36 hexágonos de ~2 m, 7,5 cm grosor, 3 pistones cada uno. Problema computacional de los 80: alinear todos los segmentos. ELT: 40 m + láseres para OA.</p></div></div>
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Vera Rubin: el gran angular de 3,5 grados</h2>
+<p>Un primario de 8,4 m con dos curvaturas, tres rebotes y la cámara más grande del mundo.</p></div></div>
+<p>El <strong>Observatorio Vera Rubin</strong> lleva el espejo monolítico a un diseño extremo: el primario de 8,4 m tiene <strong>dos curvaturas distintas</strong> y actúa como espejo <em>primario y terciario a la vez</em>. La luz rebota: primario (anillo exterior) → secundario de 3,5 m (¡más grande que todo Du Pont!) → zona central del mismo vidrio (terciario) → cámara, que va suspendida <em>arriba</em>, no debajo.</p>
+<ul>
+<li>Por la forma compuesta, el área equivale a un espejo de ~6,7 m.</li>
+<li>El camino óptico plegado y largo produce el <strong>campo de visión más grande de su clase: 3,5°</strong> — unas 40 lunas llenas de una vez. (El campo del Hubble, en comparación, es como la cabeza de un alfiler con el brazo estirado.)</li>
+<li>La cámara registra <strong>3,2 gigapíxeles</strong> por imagen, una imagen cada ~5 minutos: <em>terabytes por noche</em>.</li>
+</ul>
 <figure>
-<img src="m3c1/assets/slide-33.jpg" alt="Espejo segmentado Keck (proyección).">
-<figcaption><span class="cap">Diapositiva 33</span>Espejo segmentado Keck (proyección).</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-35.jpg" alt="GMT: siete espejos de 8 m.">
-<figcaption><span class="cap">Diapositiva 35</span>GMT: siete espejos de 8 m.</figcaption>
+<img src="m3c1/assets/slide-21.jpg" alt="Diseño óptico del observatorio Vera Rubin con tres reflexiones.">
+<figcaption><span class="cap">Diapositiva 21</span>Rubin: el primario de 8,4 m con curvatura compuesta actúa como primario y terciario; tres rebotes concentran un campo de 3,5°.</figcaption>
 </figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Rubin optimiza <em>throughput de survey</em>, no resolución puntual: campo enorme × cadencia rápida = un problema de <strong>big data</strong> (pipeline de detección de transientes en tiempo casi real sobre TB/noche) más que de óptica clásica. El trade-off de diseño es explícito: campo gigante exige camino óptico largo y una cámara monstruosa.</p></div>
 </section>
 
-<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Vera Rubin (LSST)</h2>
-<p>8,4 m con curvaturas primaria+terciaria; campo 3,5° (~40 lunas). Cámara 3,2 Gpx; ~cada 5 min una imagen; terabytes/noche.</p></div></div>
-<div class="box prof"><span class="tag">Corrección transcripción</span><p>«Verapoint» / «ver a Rubí» → <strong>Vera Rubin Observatory</strong> (antes LSST).</p></div>
+<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Espejos segmentados: romper el espejo a propósito</h2>
+<p>Si un espejo no puede crecer más, se reemplaza por muchos espejos chicos coordinados.</p></div></div>
+<p>Aun con óptica activa, un vidrio monolítico no puede ser infinitamente delgado: se rompe. La siguiente tecnología — desarrollada en los laboratorios de la Universidad de California, los mismos del observatorio Lick — fue <strong>segmentar</strong> el primario en espejos hexagonales pequeños y delgados, cada uno con su propia orientación controlada.</p>
+<ul>
+<li><strong>Keck I y II</strong> (Mauna Kea, Hawái): primarios de 10 m formados por <strong>36 segmentos hexagonales</strong> de ~1,8 m, de solo <strong>7,5 cm de grosor</strong> (media tonelada cada uno).</li>
+<li>Cada segmento tiene <strong>3 pistones</strong>: 36×3 grados de libertad que deben coordinarse continuamente para que el conjunto actúe como un solo espejo enfocado.</li>
+<li>Ese problema matricial gigante <em>no era computable en los años 80</em>: hubo que esperar los algoritmos y el hardware de fines de esa década. «Hoy mi teléfono hace el cálculo.»</li>
+<li>Con la misma técnica: <strong>GTC</strong> (10,4 m, Islas Canarias) y el <strong>ELT</strong> europeo de ~40 m, en construcción en Chile, que combina <em>todo</em> lo visto: segmentos + óptica activa + óptica adaptativa con láseres.</li>
+</ul>
 <figure>
-<img src="m3c1/assets/slide-37.jpg" alt="Camino óptico Vera Rubin.">
-<figcaption><span class="cap">Diapositiva 37</span>Camino óptico Vera Rubin.</figcaption>
+<img src="m3c1/assets/slide-25.jpg" alt="Espejo segmentado del telescopio Keck: 36 segmentos hexagonales.">
+<figcaption><span class="cap">Diapositiva 25</span>Keck: 36 hexágonos de 1,8 m y 7,5 cm de grosor. Tres pistones por segmento mantienen la forma global — un problema de control multivariable resuelto por software.</figcaption>
 </figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>La segmentación es la historia clásica de un cuello de botella que se muda de disciplina: el límite dejó de ser el vidrio (materiales) y pasó a ser la <strong>capacidad de cómputo</strong> para resolver el problema de control en tiempo real. Cuando el cómputo se abarató, el diseño «imposible» se volvió estándar.</p></div>
 </section>
 
-<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Difracción, seeing y óptica adaptativa</h2>
-<p>Límite de difracción del telescopio: patrón de Airy. Atmósfera → <strong>seeing</strong> (imagen que titila y se desparrama).</p></div></div>
-<div class="box prof"><span class="tag">Corrección transcripción</span><p>Audio: «zinc», «SIG», «sync» → <strong>seeing</strong>. Chile ~0,6″ es excelente; Brasil puede ser 10–100× peor.</p></div>
+<section id="s11"><div class="shead"><span class="num">11</span><div><h2>El límite de difracción</h2>
+<p>Incluso un telescopio perfecto no produce puntos: produce patrones de difracción. Su tamaño fija la resolución.</p></div></div>
+<p>Toda onda que pasa por una abertura se difracta: el frente plano se curva en los bordes (por eso escuchamos a alguien hablando al otro lado de un muro). Un telescopio es, en esencia, una abertura grande: la imagen de una estrella puntual no es un punto sino un <strong>patrón de difracción</strong> (disco central + anillos — el «huevo frito»). Su tamaño angular característico es:</p>
 <div class="formula"><span class="katex-block" data-tex="\theta \approx 1.22\,\frac{\lambda}{D}"></span>
-<small>θ = tamaño del disco de Airy; D = diámetro del telescopio.</small></div>
-<p>Óptica adaptativa: láser en capa de sodio → estrella artificial; espejo deformable corrige frente de ondas en ms. Keck: órbitas estelares en Sgr A* (Nobel Ghez/Genzel). Comparación Galileo vs. Hubble en Saturno.</p>
-<div class="box prof"><span class="tag">Corrección transcripción</span><p>«Telescopio espacial Hull» → <strong>Hubble</strong>.</p></div>
+<small>θ en radianes; λ = longitud de onda; D = diámetro de la abertura. Es el tamaño angular mínimo distinguible: dos estrellas más juntas que θ se ven como una sola.</small></div>
+<ul>
+<li>λ más larga → patrón más grande → peor resolución (importará mucho en radio, clase 3).</li>
+<li>D más grande → patrón más chico → <strong>mejor resolución</strong>. Un telescopio grande no solo junta más luz: también <em>define mejor</em>.</li>
+</ul>
+<p>Por eso el Saturno que dibujó Galileo era un borrón con protuberancias: con unos pocos centímetros de abertura, su límite de difracción no daba para separar los anillos.</p>
 <figure>
-<img src="m3c1/assets/slide-36.jpg" alt="Simulación: sin atmósfera vs. con seeing vs. con OA.">
-<figcaption><span class="cap">Diapositiva 36</span>Simulación: sin atmósfera vs. con seeing vs. con OA.</figcaption>
-</figure><figure>
-<img src="m3c1/assets/slide-38.jpg" alt="Centro galáctico con y sin óptica adaptativa.">
-<figcaption><span class="cap">Diapositiva 38</span>Centro galáctico con y sin óptica adaptativa.</figcaption>
+<img src="m3c1/assets/slide-27.jpg" alt="Patrón de difracción y fórmula del límite de resolución.">
+<figcaption><span class="cap">Diapositiva 27</span>El patrón de difracción de una abertura. La imagen estelar del Hubble muestra los anillos: es el límite físico, no un defecto.</figcaption>
 </figure>
 </section>
 
-<section id="interactivo">
-<div class="widget" id="w-airy"><h4>Límite de difracción θ ≈ 1,22 λ/D</h4>
-<div class="wgrid"><label>λ (nm)<input type="number" id="airy-lam" value="500"></label>
-<label>D (m)<input type="number" id="airy-d" value="8" step="any"></label></div>
-<output class="wout" id="airy-out"></output></div>
-<div class="widget" id="w-flux"><h4>Ley del inverso del cuadrado</h4>
-<label>Factor de distancia d<input type="range" id="flux-d" min="1" max="5" step="0.5" value="2">
-<output class="wout" id="flux-out"></output></div>
+<section id="s12"><div class="shead"><span class="num">12</span><div><h2>La atmósfera: seeing y óptica adaptativa</h2>
+<p>La atmósfera es un lente imperfecto que cambia en fracciones de segundo. La óptica adaptativa lo contrarresta deformando un espejo en tiempo real.</p></div></div>
+<h3>El seeing</h3>
+<p>La atmósfera tiene celdas de distinta densidad y temperatura que se mueven con el viento: actúa como un <strong>lente turbulento</strong> que desvía la luz por caminos cambiantes. El patrón de difracción, que debía caer siempre en el mismo punto del detector, cae en puntos levemente distintos cada instante y la imagen integrada se <strong>desparrama</strong>. Al tamaño de esa mancha se le llama <span class="hl">seeing</span> (es el titilar de las estrellas). En el óptico, el seeing domina por lejos sobre el límite de difracción:</p>
+<ul>
+<li>Sitio bueno del norte de Chile: <strong>~0,6″</strong> (excelente); una noche promedio, ~1″. Hay sitios en el mundo 10–100 veces peores.</li>
+<li>Sin corregir, un telescopio de 8 m en tierra resuelve <em>peor</em> que su límite teórico por un factor enorme: la atmósfera borra la ganancia de diámetro.</li>
+</ul>
+<figure>
+<img src="m3c1/assets/slide-31.jpg" alt="La atmósfera como lente imperfecto que deteriora las observaciones.">
+<figcaption><span class="cap">Diapositiva 31</span>La atmósfera desvía la luz por caminos ópticos variables: el frente de ondas llega arrugado y la imagen se degrada.</figcaption>
+</figure>
+<figure>
+<img src="m3c1/assets/slide-33.jpg" alt="Patrones de difracción: teórico, sin atmósfera, con atmósfera, y con óptica adaptativa.">
+<figcaption><span class="cap">Diapositiva 33</span>Simulación: patrón teórico → con óptica del instrumento → con atmósfera (seeing 0,6″) → recuperado con óptica adaptativa.</figcaption>
+</figure>
+<h3>Óptica adaptativa</h3>
+<p>La idea: observar una <strong>estrella de referencia</strong> que debería verse como un punto; medir cómo la atmósfera la deforma, y aplicar la deformación <em>opuesta</em> en un <strong>espejo deformable pequeño</strong> dentro del instrumento (no en el primario: habría que sacudirlo varias veces por segundo y se rompería). Si la referencia queda corregida, el objeto de ciencia vecino también.</p>
+<ul>
+<li>Como no siempre hay una estrella al lado del objetivo, se crea una <strong>estrella artificial</strong>: un <strong>láser</strong> excita la capa de sodio de la alta atmósfera (a unos ~90 km, por encima de la turbulencia) y genera un punto brillante donde se necesite.</li>
+<li>La corrección corre <strong>cientos de veces por segundo</strong> — contra ~1 vez por minuto de la óptica activa.</li>
+<li>Se estudia usar <em>varios láseres</em> para corregir el campo de visión completo, no solo la vecindad de una referencia.</li>
+</ul>
+<figure>
+<img src="m3c1/assets/slide-35.jpg" alt="Esquema de óptica adaptativa con estrella láser de referencia.">
+<figcaption><span class="cap">Diapositiva 35</span>Óptica adaptativa: estrella (natural o láser) como referencia + espejo deformable que corrige el frente de ondas muchas veces por segundo.</figcaption>
+</figure>
+<h3>El premio: el agujero negro del centro galáctico</h3>
+<p>Con óptica adaptativa, el telescopio <strong>Keck</strong> resolvió estrellas individuales orbitando el centro de la Vía Láctea. Siguiendo sus elipses durante años se midió la masa del objeto central invisible: <strong>~4 millones de masas solares</strong> — el agujero negro Sagitario A*. Esas observaciones dieron el <strong>Premio Nobel de Física 2020</strong> a Andrea Ghez y Reinhard Genzel (en el audio: «Andrea Guess»). Sin óptica adaptativa, ese campo es una mancha inservible.</p>
+<figure>
+<img src="m3c1/assets/slide-36.jpg" alt="Centro de la Vía Láctea observado con óptica adaptativa en Keck.">
+<figcaption><span class="cap">Diapositiva 36</span>El centro galáctico con Keck + óptica adaptativa: estrellas individuales cuyas órbitas revelan 4×10⁶ M☉ en un punto oscuro.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Dato de clase</span>
+<p>El láser permanece encendido durante toda la integración (la referencia debe existir todo el tiempo), pero solo para instrumentos y programas específicos que usan óptica adaptativa — no es la operación por defecto. Y hay que vigilar el tráfico aéreo: en el observatorio Lick, en plena bahía de San Francisco, una persona en una caseta vigilaba los aviones para apagar el láser a tiempo.</p></div>
 </section>
 
-<section id="conceptos"><div class="tbl"><table>
-<thead><tr><th>Concepto</th><th>Resumen</th></tr></thead>
+<section id="interactivo"><div class="shead"><span class="num">⚙</span><div><h2>Explorar conceptos</h2>
+<p>Dos calculadoras para jugar con las ideas centrales de la clase.</p></div></div>
+
+<div class="widget">
+<h4>Widget 1 — Límite de difracción: θ = 1.22 λ/D</h4>
+<div class="wgrid">
+<div><label>Diámetro D (m)</label><input type="number" id="dif-d" value="10" step="any" min="0.001"></div>
+<div><label>Longitud de onda λ (nm)</label><input type="number" id="dif-l" value="550" step="any" min="1"></div>
+</div>
+<div class="presets">
+<button type="button" onclick="difPreset(0.026,550)">Galileo (~2,6 cm)</button>
+<button type="button" onclick="difPreset(0.006,550)">Ojo humano (6 mm)</button>
+<button type="button" onclick="difPreset(2.4,550)">Hubble (2,4 m)</button>
+<button type="button" onclick="difPreset(10,550)">Keck (10 m)</button>
+<button type="button" onclick="difPreset(39,550)">ELT (39 m)</button>
+<button type="button" onclick="difPreset(6.5,2200)">Magallanes en IR-K (2,2 µm)</button>
+</div>
+<output class="wout" id="dif-out"></output>
+</div>
+
+<div class="widget">
+<h4>Widget 2 — Área colectora y dilución 1/d²</h4>
+<div class="wgrid">
+<div><label>Diámetro telescopio A (m)</label><input type="number" id="area-a" value="2.5" step="any" min="0.01"></div>
+<div><label>Diámetro telescopio B (m)</label><input type="number" id="area-b" value="6.5" step="any" min="0.01"></div>
+<div><label>Distancia relativa del objeto (×)</label><input type="range" id="area-dist" min="1" max="10" step="0.5" value="2"></div>
+</div>
+<output class="wout" id="area-out"></output>
+</div>
+</section>
+
+<section id="conceptos"><div class="shead"><span class="num">★</span><div><h2>Conceptos clave</h2></div></div>
+<div class="tbl"><table>
+<thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
 <tbody>
-<tr><td><b>Refractor</b></td><td>Lentes; limitado por peso y cromatismo</td></tr>
-<tr><td><b>Reflector</b></td><td>Espejos; escala a metros</td></tr>
-<tr><td><b>Óptica activa</b></td><td>Pistones corrigen forma del espejo (~min)</td></tr>
-<tr><td><b>Segmentado</b></td><td>Keck, ELT; muchos grados de libertad</td></tr>
-<tr><td><b>Seeing</b></td><td>Turbulencia atmosférica; &gt; difracción en tierra</td></tr>
-<tr><td><b>Óptica adaptativa</b></td><td>Corrige atmósfera en ms (láser + deformable)</td></tr>
+<tr><td><b>Refractor</b></td><td>Concentra con lentes (refracción); requiere cristal puro, doble pulido, sujeción por bordes; aberración cromática. Máximo histórico: Yerkes, 1 m</td></tr>
+<tr><td><b>Aberración cromática</b></td><td>El lente refracta distinto cada λ (efecto prisma): «arcoíris» en los bordes; se mitiga con largo focal grande</td></tr>
+<tr><td><b>Ley 1/d²</b></td><td>F = L/4πd²: el doble de distancia = ¼ del flujo; la defensa es más área colectora (∝ D²)</td></tr>
+<tr><td><b>Reflector</b></td><td>Concentra con espejo (Newton/Cassegrain): se apoya por atrás, sin cromatismo del primario, tubo corto, forma corregible</td></tr>
+<tr><td><b>Recubrimiento</b></td><td>Al/Ag (óptico), Au (IR, JWST); 2–3 átomos de espesor, depositado por evaporación en cámara de vacío</td></tr>
+<tr><td><b>Óptica activa</b></td><td>Espejo delgado + ~120 actuadores corrigen la forma ~1 vez/min con estrella de monitoreo (Gemini, VLT, Magallanes)</td></tr>
+<tr><td><b>Espejo centrifugado</b></td><td>Mirror Lab de Arizona: horno giratorio, curvatura por rotación, panal de abeja, ~8 meses por espejo</td></tr>
+<tr><td><b>Vera Rubin</b></td><td>8,4 m primario/terciario compuesto, FOV 3,5° (40 lunas), cámara 3,2 Gpx, terabytes por noche</td></tr>
+<tr><td><b>Espejos segmentados</b></td><td>Keck: 36 hexágonos ×1,8 m, 7,5 cm de grosor, 3 pistones c/u; posibilitados por el cómputo de fines de los 80; camino al ELT de 40 m</td></tr>
+<tr><td><b>Límite de difracción</b></td><td>θ ≈ 1,22 λ/D: resolución máxima de una abertura ideal; mayor D ⇒ mejor definición</td></tr>
+<tr><td><b>Seeing</b></td><td>Desparramo de la imagen por turbulencia atmosférica; ~0,6″ en buenos sitios de Chile; domina sobre la difracción en el óptico</td></tr>
+<tr><td><b>Óptica adaptativa</b></td><td>Espejo deformable corrige la atmósfera cientos de veces/s usando estrella natural o láser de sodio (~90 km); Nobel 2020 (Sgr A*)</td></tr>
 </tbody></table></div></section>
+
 <section id="examenes">
 <div class="shead"><span class="num">✓</span><div>
 <h2>Exámenes de práctica</h2>
 <p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
 </div></div>
 <ol class="examlist">
-    <li><a href="m3c1-examen-01.html">Examen 01<small>Refractores y reflectores</small></a></li>
-    <li><a href="m3c1-examen-02.html">Examen 02<small>Área colectora</small></a></li>
-    <li><a href="m3c1-examen-03.html">Examen 03<small>Óptica activa</small></a></li>
-    <li><a href="m3c1-examen-04.html">Examen 04<small>Espejos segmentados</small></a></li>
-    <li><a href="m3c1-examen-05.html">Examen 05<small>Vera Rubin</small></a></li>
-    <li><a href="m3c1-examen-06.html">Examen 06<small>Límite de difracción</small></a></li>
-    <li><a href="m3c1-examen-07.html">Examen 07<small>Seeing atmosférico</small></a></li>
-    <li><a href="m3c1-examen-08.html">Examen 08<small>Óptica adaptativa</small></a></li>
-    <li><a href="m3c1-examen-09.html">Examen 09<small>Monturas y espejos</small></a></li>
-    <li><a href="m3c1-examen-10.html">Examen 10<small>Integrador clase 1</small></a></li>
+    <li><a href="m3c1-examen-01.html">Examen 01<small>Instrumento y refractores</small></a></li>
+    <li><a href="m3c1-examen-02.html">Examen 02<small>Límites del lente</small></a></li>
+    <li><a href="m3c1-examen-03.html">Examen 03<small>¿Por qué grandes?</small></a></li>
+    <li><a href="m3c1-examen-04.html">Examen 04<small>Reflectores</small></a></li>
+    <li><a href="m3c1-examen-05.html">Examen 05<small>Recubrimientos y espejo rígido</small></a></li>
+    <li><a href="m3c1-examen-06.html">Examen 06<small>Óptica activa</small></a></li>
+    <li><a href="m3c1-examen-07.html">Examen 07<small>Fabricación y Vera Rubin</small></a></li>
+    <li><a href="m3c1-examen-08.html">Examen 08<small>Espejos segmentados</small></a></li>
+    <li><a href="m3c1-examen-09.html">Examen 09<small>Límite de difracción</small></a></li>
+    <li><a href="m3c1-examen-10.html">Examen 10<small>Seeing y óptica adaptativa</small></a></li>
 </ol>
 </section>
-<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c1.md</code>, diapositivas Módulo III Clase 1.</p>
+
+<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c1.md</code>, diapositivas Clase 1 (<code>Modulo_III_Clase_1.pdf</code>, 38 láminas).</p>
 <p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente. Correcciones aplicadas en estos apuntes:
-<ul><li>"difracción" en lentes refractores → refracción (la curvatura del vidrio desvía la luz, no la difracción)</li><li>"zing", "SIG", "sync" → seeing (turbulencia atmosférica que desparrama la imagen)</li><li>"Hull" / telescopio espacial Hull → Hubble</li><li>"Verapoint", "ver a Rubí" → Vera Rubin (LSST)</li><li>"Verarubin" → Vera Rubin</li><li>"Churchill" y otros nombres mal reconocidos se contrastan con diapositivas cuando aparecen</li></ul></p></footer>
+<ul><li>«los lentes funcionan con difracción» → <strong>refracción</strong> (la difracción aparece solo en el límite de resolución)</li><li>«telescopio Heidegger» → telescopio <strong>Heyde</strong> (Cerro Calán); «Cerro Calent» → Cerro Calán; «professor Massa / Rosa» → probable referencia a José Maza</li><li>«Yerkis» → Yerkes; «Lik» → Lick; «Heilen Cerro Palomar» → <strong>Hale</strong>, Monte Palomar; «Bade» → Baade; «Tolulo» → Tololo</li><li>«zing / ZING / SIG / sync» → <strong>seeing</strong>; «ver a Rubí / Verapoint / Verarubin» → Vera Rubin</li><li>«Andrea Guess» → <strong>Andrea Ghez</strong> (Nobel 2020 junto a Reinhard Genzel); «Magello X» → MagAO-X</li><li>Capa de sodio: el audio duda («diría que eran 90»); la altura aceptada es ~90 km (dato externo)</li><li>El final del audio (después de 1:20:29) es conversación doméstica ajena a la clase y se descartó</li></ul></p></footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -317,22 +462,48 @@ footer b{color:var(--ink)}
 document.addEventListener("DOMContentLoaded",function(){
   if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
   document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
-  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
 
-  function airyCalc(){
-    var lam=+document.getElementById('airy-lam').value*1e-9;
-    var D=+document.getElementById('airy-d').value;
-    var theta=1.22*lam/D;
-    document.getElementById('airy-out').innerHTML='θ ≈ <b>'+(theta*206265).toFixed(3)+'</b> arcsec';
+  // Widget 1: limite de difraccion
+  window.difPreset=function(d,l){
+    document.getElementById('dif-d').value=d;
+    document.getElementById('dif-l').value=l;
+    difCalc();
+  };
+  function difCalc(){
+    var D=+document.getElementById('dif-d').value;
+    var lam=+document.getElementById('dif-l').value*1e-9;
+    if(!(D>0)||!(lam>0)){return;}
+    var theta=1.22*lam/D;                     // rad
+    var arcsec=theta*206265;
+    var seeing=0.6;
+    var cmp;
+    if(arcsec<seeing) cmp='El límite teórico es <b>'+(seeing/arcsec).toFixed(0)+'× mejor que el seeing</b> (0,6″): en tierra, sin óptica adaptativa, manda la atmósfera.';
+    else cmp='El límite de difracción es <b>peor que el seeing</b> (0,6″): aquí domina la abertura, no la atmósfera.';
+    document.getElementById('dif-out').innerHTML=
+      'θ ≈ 1,22 × '+(lam*1e9).toFixed(0)+' nm / '+D+' m = <b>'+
+      (arcsec>=1?arcsec.toFixed(2)+'″':(arcsec*1000).toFixed(1)+' mas')+'</b> '+
+      '<span class="k">('+theta.toExponential(2)+' rad)</span>.<br>'+cmp;
   }
-  var al=document.getElementById('airy-lam'),ad=document.getElementById('airy-d');
-  if(al){al.oninput=airyCalc;ad.oninput=airyCalc;airyCalc();}
-  function fluxCalc(){
-    var d=+document.getElementById('flux-d').value;
-    document.getElementById('flux-out').innerHTML='F ∝ 1/d² → al doble de distancia: <b>'+(1/4).toFixed(3)+'</b>× el flujo';
-  }
-  var fd=document.getElementById('flux-d'); if(fd){fd.oninput=fluxCalc;fluxCalc();}
+  document.getElementById('dif-d').oninput=difCalc;
+  document.getElementById('dif-l').oninput=difCalc;
+  difCalc();
 
+  // Widget 2: area colectora y 1/d2
+  function areaCalc(){
+    var a=+document.getElementById('area-a').value;
+    var b=+document.getElementById('area-b').value;
+    var x=+document.getElementById('area-dist').value;
+    if(!(a>0)||!(b>0))return;
+    var razon=(b*b)/(a*a);
+    var flujo=1/(x*x);
+    document.getElementById('area-out').innerHTML=
+      'El telescopio B ('+b+' m) recolecta <b>'+razon.toFixed(1)+'×</b> más luz por segundo que A ('+a+' m): '+
+      'lo que A logra en <b>'+razon.toFixed(1)+' horas</b>, B lo hace en 1 hora.<br>'+
+      'Un objeto <b>'+x+'× más lejos</b> llega con <b>'+(flujo*100).toFixed(1)+'%</b> del flujo original (1/d²). '+
+      '<span class="k">Área ∝ D² es la única defensa contra la dilución ∝ 1/d².</span>';
+  }
+  ['area-a','area-b','area-dist'].forEach(function(id){document.getElementById(id).oninput=areaCalc;});
+  areaCalc();
 });
 </script>
 </body>

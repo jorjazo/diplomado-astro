@@ -41,42 +41,42 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <h1>Examen 02 — Efecto fotoeléctrico</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="c,b,b">
-  <fieldset data-q="1"><legend>1. En el efecto fotoeléctrico, la energía del electrón emitido depende de:</legend>
+<form id="quiz" data-answers="b,c,b">
+  <fieldset data-q="1"><legend>1. En el efecto fotoeléctrico, la energía de los electrones liberados depende de:</legend>
     <label class="opt"><input type="radio" name="q1" value="a">La intensidad de la luz</label>
-    <label class="opt"><input type="radio" name="q1" value="b">El área del metal</label>
-    <label class="opt"><input type="radio" name="q1" value="c">La frecuencia (energía) del fotón</label>
-    <label class="opt"><input type="radio" name="q1" value="d">La temperatura ambiente</label>
-    <p class="fb" hidden>E = hν − φ; Nobel Einstein 1921.</p>
+    <label class="opt"><input type="radio" name="q1" value="b">La frecuencia de la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La temperatura del metal</label>
+    <label class="opt"><input type="radio" name="q1" value="d">El tiempo de exposición</label>
+    <p class="fb" hidden>Aumentar el brillo no aumenta la energía por electrón; solo la frecuencia (energía por fotón) lo hace. Ese es el hallazgo revolucionario.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Si todos los fotones tienen energía bajo el umbral:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Más intensidad siempre libera electrones</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Ningún electrón sale por más fotones que lleguen</label>
-    <label class="opt"><input type="radio" name="q2" value="c">El metal se derrite</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Aumenta la frecuencia sola</label>
-    <p class="fb" hidden>Cuantización: un fotón o nada.</p>
+  <fieldset data-q="2"><legend>2. Si el umbral del material es 1 eV y llegan fotones de 0,5 eV, ¿qué ocurre al duplicar el número de fotones?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Saltan el doble de electrones</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Saltan electrones con la mitad de energía</label>
+    <label class="opt"><input type="radio" name="q2" value="c">No salta ningún electrón: cada fotón individual sigue bajo el umbral</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El material se calienta y emite luz</label>
+    <p class="fb" hidden>La interacción es fotón-a-electrón: sin fotones individuales sobre el umbral, no hay fotoelectrones — aunque se multiplique la intensidad.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El efecto fotoeléctrico es base de:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Telescopios de radio</label>
-    <label class="opt"><input type="radio" name="q3" value="b">CCDs y paneles solares</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo placas</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Cherenkov</label>
-    <p class="fb" hidden>Fotón libera electrón en semiconductor.</p>
+  <fieldset data-q="3"><legend>3. El efecto fotoeléctrico demuestra que la luz:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Es solo una onda</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Se comporta también como partícula: entrega energía en paquetes discretos (fotones)</label>
+    <label class="opt"><input type="radio" name="q3" value="c">No transporta energía</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Viaja más lento en los metales</label>
+    <p class="fb" hidden>E = hν por fotón. Fue uno de los tres artículos de Einstein de 1905 y el motivo de su Nobel.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Contrasta comportamiento «onda» vs «partícula» en fotoeléctrico.</p>
+  <p class="q">4. Explica cómo se mide experimentalmente la energía de los electrones liberados en el efecto fotoeléctrico.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Onda clásica esperaría acumulación de energía; se observa umbral por <strong>fotón</strong> → naturaleza cuántica de la luz.</div>
+    <div class="answer">Los electrones emitidos deben cruzar hacia una placa colectora contra un voltaje de frenado ajustable. Si su energía cinética supera la barrera e·V, llegan y producen corriente; si no, se devuelven. Subiendo el voltaje hasta que la corriente se anula se obtiene la energía máxima de los electrones — y así se comprobó que depende de la frecuencia de la luz y no de su intensidad.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Calcula orden de magnitud: ¿por qué hν debe superar φ?</p>
+  <p class="q">5. Conecta el efecto fotoeléctrico con dos aplicaciones tecnológicas mencionadas en clase.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">φ ~ eV típico en metales; visible hν ~ 1,5–3 eV; IR puede no liberar si φ es alto — depende del material.</div>
+    <div class="answer">1) Paneles fotovoltaicos: los fotones solares liberan electrones en el semiconductor y generan corriente eléctrica aprovechable. 2) Detectores CCD: cada fotón incidente libera un fotoelectrón en el silicio; acumulando y contando esas cargas píxel a píxel se construye la imagen astronómica. En ambos casos el corazón físico es el mismo: conversión fotón → electrón.</div>
   </details>
 </div>
 

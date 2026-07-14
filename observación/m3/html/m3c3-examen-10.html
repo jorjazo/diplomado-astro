@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 10 — m3c3 · Multibanda integrador</title>
+<title>Examen 10 — m3c3 · Cherenkov y CTA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 10 — Multibanda integrador</h1>
+<h1>Examen 10 — Cherenkov y CTA</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. El centro de la Vía Láctea visto en radio (HI) muestra:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Igual que en gamma</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Estructura angosta del disco de gas</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Nada</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Solo estrellas jóvenes</label>
-    <p class="fb" hidden>HI en disco delgado → mapa estrecho.</p>
+<form id="quiz" data-answers="b,b,a">
+  <fieldset data-q="1"><legend>1. La radiación Cherenkov se produce cuando:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Algo supera la velocidad de la luz en el vacío</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Una partícula cargada supera la velocidad de la luz en un medio (c/n), generando un frente de onda cónico</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Un fotón choca con otro fotón</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Se enfría un gas rápidamente</label>
+    <p class="fb" hidden>Nada supera c en el vacío; pero en agua o aire la luz va más lenta y una partícula puede «ganarle»: el análogo luminoso del boom sónico. Es el brillo azul de los reactores nucleares.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Combinar bandas EM es necesario porque:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Una sola banda basta siempre</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Cada λ revela procesos físicos distintos</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Es ilegal no hacerlo</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Solo por estética</label>
-    <p class="fb" hidden>Dust, gas, estrellas, AGN brillan distinto.</p>
+  <fieldset data-q="2"><legend>2. Los telescopios Cherenkov (CTA) detectan rayos gamma:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Directamente, con espejos de rayos gamma</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Indirectamente: captan el flash óptico de la cascada de partículas que el gamma desata en la atmósfera</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Solo desde el espacio</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Midiendo el calentamiento del aire</label>
+    <p class="fb" hidden>La atmósfera — el estorbo de las otras clases — se convierte en el volumen detector: el gamma genera una lluvia de partículas superlumínicas (en aire) que emiten el destello azul.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Próxima clase del módulo incluirá:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Solo más placas</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Ondas gravitacionales y neutrinos</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo óptica</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Nada nuevo</label>
-    <p class="fb" hidden>Mensajeros no electromagnéticos.</p>
+  <fieldset data-q="3"><legend>3. La cámara de un telescopio Cherenkov no es un CCD porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Necesita fotodetectores independientes con resolución temporal de nanosegundos para cronometrar el flash</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Los CCD son muy caros</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Debe operar bajo el agua</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Los CCD no ven el color azul</label>
+    <p class="fb" hidden>El flash dura nanosegundos y su secuencia temporal codifica la dirección de la cascada: cada elemento de la grilla registra cuándo le llegó la luz.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Compara FAST vs ALMA en ciencia.</p>
+  <p class="q">4. Describe la cadena completa desde que un rayo gamma llega a la atmósfera hasta que el CTA determina su dirección de origen.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">FAST: sensible, baja resolución, single dish. ALMA: interferometría, alta resolución en mm, menos área total.</div>
+    <div class="answer">1) El gamma interactúa con un átomo de la alta atmósfera y produce pares de partículas cargadas que a su vez generan más partículas: una cascada. 2) Esas partículas viajan más rápido que la luz en el aire y emiten un flash Cherenkov azulado, brevísimo y cónico. 3) Varios telescopios del arreglo — espejos segmentados grandes, sin cúpula, para juntar mucha luz en nanosegundos — captan el flash; sus cámaras de fotodetectores cronometran la llegada del pulso en cada punto. 4) La secuencia temporal en cada cámara da la orientación de la lluvia, y la triangulación entre varios telescopios ubica el origen del gamma primario en el cielo. Acumulando eventos se construye el mapa de fuentes gamma.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Resume en una frase por qué la astronomía es «multimessenger» hoy.</p>
+  <p class="q">5. El CTA tendrá telescopios de varios tamaños. ¿Qué determina el tamaño y por qué se instalan en Chile telescopios sin cúpula?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">EM multibanda + GW + neutrinos + rayos cósmicos dan vistas complementares del mismo universo.</div>
+    <div class="answer">El tamaño fija la cantidad de luz recolectable en el brevísimo flash: los telescopios grandes detectan cascadas más débiles (gammas de menor energía) y los chicos cubren los eventos más energéticos y brillantes — con distintos tamaños se cubre un rango amplio de energías. No llevan cúpula porque deben responder a flashes que ocurren en cualquier parte del cielo y su óptica no exige la protección de un telescopio de precisión clásico: son colectores de luz rápidos. El sitio chileno (cerca de Paranal, con La Palma como sitio norte) aporta cielos oscuros, secos y despejados en pleno desierto — el arreglo se extiende por kilómetros de terreno abierto.</div>
   </details>
 </div>
 

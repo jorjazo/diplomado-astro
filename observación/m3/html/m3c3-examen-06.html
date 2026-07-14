@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 06 — m3c3 · ALMA y correlador</title>
+<title>Examen 06 — m3c3 · Interferometría</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 06 — ALMA y correlador</h1>
+<h1>Examen 06 — Interferometría</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,b,a">
-  <fieldset data-q="1"><legend>1. ALMA opera principalmente en:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Solo FM radio</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Milímetro y submilímetro</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Rayos gamma</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Neutrinos</label>
-    <p class="fb" hidden>λ ~ 0,3 mm a mm; requiere sitio seco.</p>
+<form id="quiz" data-answers="b,b,c">
+  <fieldset data-q="1"><legend>1. En un interferómetro, el parámetro D de la fórmula de resolución θ ≈ 1,22 λ/D es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">El diámetro de cada antena</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La distancia máxima entre antenas (línea de base)</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La suma de los diámetros</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La altura del sitio</label>
+    <p class="fb" hidden>Antenas separadas por kilómetros actúan como «pedazos» de un plato de ese tamaño: la resolución mejora dramáticamente.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La línea de base máxima de ALMA es del orden de:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">1 metro</label>
-    <label class="opt"><input type="radio" name="q2" value="b">16 km</label>
-    <label class="opt"><input type="radio" name="q2" value="c">1 AU</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Un parsec</label>
-    <p class="fb" hidden>Antenas transportables entre pads.</p>
+  <fieldset data-q="2"><legend>2. Con solo dos antenas, la posición de la fuente queda:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Perfectamente determinada</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Degenerada: solo se obtiene una franja de posiciones compatibles (con repeticiones cada λ de desfase)</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Imposible de estimar</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Determinada solo de día</label>
+    <p class="fb" hidden>Un par mide un desfase: eso da una banda en el cielo, no un punto. Se necesitan más pares con otras orientaciones para cerrar la imagen.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El correlador de ALMA está en alta montaña porque:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Históricamente procesaba en sitio (upgrade mueve parte)</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Cerca de antenas; datos masivos</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Para ver nubes</label>
-    <label class="opt"><input type="radio" name="q3" value="d">No existe</label>
-    <p class="fb" hidden>Procesamiento HPC de miles de correlaciones; ahora upgrade en menor altitud.</p>
+  <fieldset data-q="3"><legend>3. Lo que NO mejora al usar interferometría en vez de un plato único es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">La resolución angular</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La capacidad de distinguir detalles finos</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El área colectora total</label>
+    <label class="opt"><input type="radio" name="q3" value="d">La posibilidad de líneas de base de kilómetros</label>
+    <p class="fb" hidden>El área sigue siendo la suma de las antenas individuales (50×12 m en ALMA): se gana resolución, no sensibilidad.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Qué muestra ALMA en discos protoplanetarios?</p>
+  <p class="q">4. Explica el rol del correlador en un interferómetro y por qué en ALMA es un supercomputador.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Estructura de polvo/gas a resolución fina → formación planetaria; revolucionario vs single-dish borroso.</div>
+    <div class="answer">El correlador combina las señales de cada par de antenas y mide su desfase (correlación cruzada): de esos desfases se reconstruye la distribución de brillo en el cielo. Con N antenas hay N(N−1)/2 pares — en ALMA, 50 antenas producen 1225 pares — y cada uno exige correlacionar flujos de datos de banda ancha en tiempo real, con retardos geométricos y de fibra compensados al detalle. Ese volumen de cómputo requiere un supercomputador dedicado, instalado en el sitio a 5000 m (y su reemplazo de nueva generación se construye más abajo, cerca de San Pedro). Sin correlador no hay imagen: ALMA es antenas + computador.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué agregar más antenas mejora la imagen?</p>
+  <p class="q">5. ¿Por qué las antenas de ALMA solo se instalan en plataformas pre-construidas y qué papel juegan los &gt;1000 km de fibra óptica?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Más pares → más frecuencias espaciales muestreadas → menos ambigüedad (síntesis tipo Fourier).</div>
+    <div class="answer">Porque la interferometría exige conocer el camino de cada señal con precisión de fracciones de longitud de onda: cada plataforma tiene posición topográfica medida y conexión de fibra de largo calibrado. Un cable más largo introduce un retardo — es decir, un desfase artificial — que corrompería la correlación si no se conociera exactamente. El transportador mueve las antenas solo entre esos puntos fijos para cambiar de configuración (compacta ↔ extendida) sin perder la calibración del sistema.</div>
   </details>
 </div>
 

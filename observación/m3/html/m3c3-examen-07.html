@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 07 — m3c3 · EHT y VLBI</title>
+<title>Examen 07 — m3c3 · ALMA y el correlador</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 07 — EHT y VLBI</h1>
+<h1>Examen 07 — ALMA y el correlador</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. El EHT combina telescopios mediante:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Fibra entre continentes en tiempo real</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Grabación sincronizada y correlación offline</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo un plato</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Ojo humano</label>
-    <p class="fb" hidden>VLBI: discos duros + timestamps ultra precisos.</p>
+<form id="quiz" data-answers="b,c,b">
+  <fieldset data-q="1"><legend>1. La configuración de ALMA incluye:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">10 antenas de 100 m</label>
+    <label class="opt"><input type="radio" name="q1" value="b">50 antenas de 12 m (más antenas compactas de 7 y 12 m), con línea de base máxima de 16 km</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Una sola antena de 500 m</label>
+    <label class="opt"><input type="radio" name="q1" value="d">200 antenas ópticas</label>
+    <p class="fb" hidden>El arreglo principal: 50×12 m; el Atacama Compact Array agrega 12×7 m y 4×12 m. Extendido, D efectivo = 16 km.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La línea de base del EHT es del orden de:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">1 cm</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Diámetro de la Tierra (~8000 km)</label>
-    <label class="opt"><input type="radio" name="q2" value="c">1 m</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Un año luz</label>
-    <p class="fb" hidden>Máxima separación posible en Tierra.</p>
+  <fieldset data-q="2"><legend>2. La superficie de cada antena de ALMA está construida con precisión de:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Milímetros</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Centímetros</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Micrones respecto de la parábola ideal</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Metros</label>
+    <p class="fb" hidden>A λ submilimétrica, el plato debe ser un «espejo»: errores de superficie ≪ λ para mantener la coherencia de fase.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. La imagen de M87* requirió:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Una foto con celular</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Petabytes y correlación posterior</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo teoría</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Una noche sin datos</label>
-    <p class="fb" hidden>Femtosegundos de muestreo × muchas estaciones.</p>
+  <fieldset data-q="3"><legend>3. La imagen icónica de ALMA que mostró por primera vez en detalle un disco protoplanetario demuestra:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Que hay vida en otros sistemas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La altísima resolución lograble con líneas de base de km a λ submilimétrica: el nacimiento de un sistema solar</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Que los planetas emiten luz propia</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Que el polvo no emite en radio</label>
+    <p class="fb" hidden>Anillos y surcos en el disco (HL Tauri): estructura finísima resuelta gracias a λ pequeña y D enorme.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué no hay fibra óptica entre telescopios del EHT?</p>
+  <p class="q">4. Combina los ingredientes de ALMA (λ, D, sitio, correlador) para explicar por qué puede resolver discos protoplanetarios.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Distancias intercontinentales; se graba señal local y se correlaciona después con relojes atómicos (H-maser, etc.).</div>
+    <div class="answer">Resolución θ ≈ 1,22 λ/D: ALMA opera a λ tan corta como 0,3 mm (lo mínimo de la ventana de radio) y en configuración extendida alcanza D = 16 km — la combinación da milésimas de segundo de arco, suficiente para resolver estructuras de tamaño de órbitas planetarias en discos cercanos. El sitio a 5000 m y ultra seco hace transparente la banda submilimétrica (vapor de agua mínimo), y el correlador-supercomputador convierte los 1225 pares de señales en imágenes. Cada ingrediente es necesario: sin λ corta o sin base larga no hay resolución; sin sitio seco no hay señal; sin correlador no hay imagen.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Relaciona EHT con límite de difracción pero en radio/mm.</p>
+  <p class="q">5. ¿Qué significa cambiar ALMA entre configuración «compacta» y «extendida», y qué se gana con cada una?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Mismo θ ~ λ/B; B enorme compensa λ mm para ver sombra de BH.</div>
+    <div class="answer">Las antenas se trasladan (con transportadores especiales, entre plataformas fijas calibradas) para cambiar la distribución: compacta = antenas cercanas, sensible a estructuras extensas y de bajo brillo superficial (mejor para emisión difusa); extendida = líneas de base de hasta 16 km, máxima resolución angular para detalles finos (discos, núcleos). Es elegir qué «frecuencias espaciales» del cielo se muestrean mejor: un zoom estructural configurable según la ciencia del proyecto.</div>
   </details>
 </div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 08 — m3c3 · Alta energía</title>
+<title>Examen 08 — m3c3 · EHT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 08 — Alta energía</h1>
+<h1>Examen 08 — EHT</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,b">
-  <fieldset data-q="1"><legend>1. En rayos X/gamma no se usa espejo reflector clásico porque:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">λ es demasiado corta; fotones atraviesan materiales</label>
-    <label class="opt"><input type="radio" name="q1" value="b">No hay fotones</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo hay ondas de radio</label>
-    <label class="opt"><input type="radio" name="q1" value="d">La atmósfera amplifica</label>
-    <p class="fb" hidden>λ ~ separación atómica → no refracción/reflexión útil.</p>
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. El Event Horizon Telescope logra su resolución récord usando:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Un telescopio espacial gigante</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Radiotelescopios en varios continentes como interferómetro con línea de base ~8000 km (diámetro terrestre)</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Miles de drones</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Lentes gravitacionales</label>
+    <p class="fb" hidden>VLBI extremo: la Tierra entera como antena. Resolución equivalente a «ver una dona en la superficie de la Luna».</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Compton scattering detecta:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Solo neutrinos</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Electrones liberados tras choque con fotón de alta energía</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Ondas de gravedad</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Solo placas</label>
-    <p class="fb" hidden>Intercambio energía-momento fotón-e⁻.</p>
+  <fieldset data-q="2"><legend>2. Como no se puede tender fibra entre continentes, el EHT:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Transmite por satélite en tiempo real</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Graba las señales a disco con marcas de tiempo ultraprecisas y las correlaciona después en un supercomputador</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Usa internet común</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Renuncia a correlacionar</label>
+    <p class="fb" hidden>Registro digital con muestreo a escalas de femtosegundos → petabytes por estación → los discos viajan físicamente al centro de correlación.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Fermi-LAT en 7 años detectó del orden de:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">7 fotones</label>
-    <label class="opt"><input type="radio" name="q3" value="b">700 000 fotones gamma</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Infinitos</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Cero</label>
-    <p class="fb" hidden>Pocos eventos → mapas de conteo, no imágenes CCD densas.</p>
+  <fieldset data-q="3"><legend>3. El resultado más famoso del EHT es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El primer exoplaneta</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La imagen del anillo alrededor del agujero negro de la galaxia M87</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El mapa completo del cielo en radio</label>
+    <label class="opt"><input type="radio" name="q3" value="d">La detección de ondas gravitacionales</label>
+    <p class="fb" hidden>El anillo de emisión en torno a la sombra del agujero negro supermasivo de M87 (y su jet, observado también en la región central).</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Contrasta detección óptica vs gamma.</p>
+  <p class="q">4. Explica por qué los datos del EHT llegan a petabytes y qué implica el post-procesamiento diferido frente a ALMA.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Óptico: millones de fotones/s en CCD. Gamma: conteo raro evento a evento; telescopio = cámara de trazas.</div>
+    <div class="answer">Cada estación digitaliza la señal cruda con resolución temporal extrema (muestras separadas por femtosegundos, 10⁻¹⁵ s, para preservar la fase a λ milimétrica): horas de observación × esa tasa de muestreo × varias estaciones = petabytes. Como no hay enlace físico entre continentes, la correlación no puede hacerse en vivo (como en ALMA con su fibra calibrada): cada estación sincroniza con relojes atómicos, graba a discos, y estos viajan a un centro donde un supercomputador correlaciona todo en diferido. El interferómetro «existe» recién en el post-procesamiento.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué cristales densos para Compton?</p>
+  <p class="q">5. Se estudian interferómetros con antenas en órbita terrestre. ¿Qué ganancia y qué desafíos anticipas según la lógica de la clase?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Alta probabilidad de interacción con electrones de valencia en grilla ordenada.</div>
+    <div class="answer">Ganancia: la línea de base D dejaría de estar limitada por el diámetro de la Tierra (~8000–13 000 km) y podría llegar a cientos de miles de kilómetros (se mencionan ~350 000 km), mejorando la resolución en la misma proporción — detalles decenas de veces más finos que el EHT. Desafíos: sincronización temporal ultraprecisa entre estaciones en movimiento orbital, conocimiento de la posición de cada antena a fracciones de λ, transmisión o almacenamiento de volúmenes aún mayores de datos, y un costo computacional de correlación creciente — más los costos y riesgos de operar en el espacio.</div>
   </details>
 </div>
 

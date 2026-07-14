@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c2 · Anatomía del CCD</title>
+<title>Examen 03 — m3c2 · El CCD y sus baldes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 2</span>
-<h1>Examen 03 — Anatomía del CCD</h1>
+<h1>Examen 03 — El CCD y sus baldes</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,b">
-  <fieldset data-q="1"><legend>1. Un CCD acumula señal en cada píxel como:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Carga (electrones) en potenciales</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Agua literal</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Campos magnéticos estáticos</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Solo voltaje AC de la red</label>
-    <p class="fb" hidden>Analogía de baldes: fotones → carga atrapada.</p>
+<form id="quiz" data-answers="b,b,b">
+  <fieldset data-q="1"><legend>1. En la analogía clásica, un CCD es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Un espejo que refleja fotones</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Una grilla de baldes que acumulan la lluvia de fotones y luego se vacían en secuencia hacia un medidor</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Una red de cables que vibra con la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un prisma que separa colores</label>
+    <p class="fb" hidden>Cada balde = un píxel que acumula fotoelectrones; la lectura transfiere la carga balde a balde hasta el amplificador que la cuantifica.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. La lectura típica de un CCD astronómico:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Paralela en todos los píxeles a la vez (CMOS típico celular)</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Serial: filas corridas al amplificador</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Solo una vez al año</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Por placas químicas</label>
-    <p class="fb" hidden>Cuello de botella: un amplificador (o pocos).</p>
+  <fieldset data-q="2"><legend>2. El tamaño típico de un píxel de CCD astronómico es:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">1–2 milímetros</label>
+    <label class="opt"><input type="radio" name="q2" value="b">10–20 micrómetros</label>
+    <label class="opt"><input type="radio" name="q2" value="c">10–20 nanómetros</label>
+    <label class="opt"><input type="radio" name="q2" value="d">0,5 centímetros</label>
+    <p class="fb" hidden>Decenas de micrones: en cada uno ocurre la generación del fotoelectrón y su captura electrostática. Un CCD típico: ~2048×1024 píxeles.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El tamaño típico de un píxel CCD es del orden de:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">1 metro</label>
-    <label class="opt"><input type="radio" name="q3" value="b">10–20 micrómetros</label>
-    <label class="opt"><input type="radio" name="q3" value="c">1 kilómetro</label>
-    <label class="opt"><input type="radio" name="q3" value="d">1 nanómetro exacto</label>
-    <p class="fb" hidden>Nanotecnología: electrodos y aislantes microscópicos.</p>
+  <fieldset data-q="3"><legend>3. La tecnología de los celulares actuales (CMOS) se diferencia del CCD en que:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">No usa el efecto fotoeléctrico</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Cada píxel tiene su propio amplificador y se lee en paralelo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">No tiene píxeles</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Solo funciona en blanco y negro</label>
+    <p class="fb" hidden>Lectura masivamente paralela y rápida; el costo es calibrar millones de amplificadores. Para ciencia de precisión el CCD sigue mandando.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Describe la analogía de los baldes y por qué es útil.</p>
+  <p class="q">4. ¿Por qué los inventores del CCD recibieron un Premio Nobel? Contextualiza su impacto en la astronomía.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Fotones = gotas; píxel = balde que acumula; corrimiento = transferir carga fila a fila hasta el «grifo» amplificador.</div>
+    <div class="answer">El CCD (Boyle y Smith, Nobel de Física 2009) transformó la detección de luz: eficiencia cuántica de ~90% (contra ~1% del ojo y las placas), respuesta lineal que permite fotometría precisa, y salida digital directamente procesable. Desde los años 90 es el detector estándar de la astronomía: equivale a haber multiplicado el área colectora de todos los telescopios del mundo por casi dos órdenes de magnitud, gratis, y habilitó los surveys digitales modernos.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Qué pasa si falla la transferencia en un píxel intermedio?</p>
+  <p class="q">5. Explica qué es un fotoelectrón y qué papel juega la capacitancia del píxel.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Se pierde toda la carga de esa columna aguas arriba → <strong>columna muerta</strong> en la imagen.</div>
+    <div class="answer">Cuando un fotón es absorbido en el semiconductor (silicio), libera un electrón — el fotoelectrón. Ese electrón quedaría vagando, así que cada píxel forma un pozo de potencial mediante voltajes en sus electrodos: una capacitancia donde los fotoelectrones se acumulan durante toda la exposición, aislados de los píxeles vecinos. Al leer, esa carga acumulada se transfiere en secuencia hacia el amplificador: el «agua del balde» es literalmente carga almacenada en una capacitancia.</div>
   </details>
 </div>
 

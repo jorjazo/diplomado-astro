@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 03 — m3c3 · Plato parabólico</title>
+<title>Examen 03 — m3c3 · Antenas y corriente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 03 — Plato parabólico</h1>
+<h1>Examen 03 — Antenas y corriente</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
 <form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. La forma parabólica garantiza que ondas planas lleguen al foco:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Con distintas fases aleatorias</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Con la misma fase (constructiva)</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Sin amplitud</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Solo en gamma</label>
-    <p class="fb" hidden>Igual camino óptico → coherencia.</p>
+  <fieldset data-q="1"><legend>1. ¿Quién construyó el primer radiotelescopio y cuándo?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Grote Reber en 1950</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Karl Jansky en 1932</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Jocelyn Bell en 1967</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Edwin Hubble en 1929</label>
+    <p class="fb" hidden>Jansky, 1932, estudiando radiación proveniente del espacio con una antena de alambres. Reber construyó el primer plato en 1937.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Si la antena apunta lejos del objeto:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">La señal aumenta</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Interferencia parcial/destructiva reduce señal</label>
-    <label class="opt"><input type="radio" name="q2" value="c">No cambia nada</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Detecta neutrinos</label>
-    <p class="fb" hidden>Caminos distintos → desfase.</p>
+  <fieldset data-q="2"><legend>2. Una antena de alambre detecta ondas de radio porque:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El alambre refleja la luz</label>
+    <label class="opt"><input type="radio" name="q2" value="b">El campo eléctrico oscilante de la onda mueve los electrones libres del conductor, generando una corriente</label>
+    <label class="opt"><input type="radio" name="q2" value="c">El alambre se calienta</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El viento la hace vibrar</label>
+    <p class="fb" hidden>La oscilación del campo E empuja los electrones arriba y abajo: esa corriente oscilante ES la señal.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. En radio, a diferencia del óptico «fotón a fotón», importa mucho:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Solo el color del cúpula</label>
-    <label class="opt"><input type="radio" name="q3" value="b">La coherencia de fase de la onda</label>
-    <label class="opt"><input type="radio" name="q3" value="c">La masa del astrónomo</label>
-    <label class="opt"><input type="radio" name="q3" value="d">El día juliano</label>
-    <p class="fb" hidden>Suma amplitud de campos, no solo potencia incoherente.</p>
+  <fieldset data-q="3"><legend>3. Jocelyn Bell descubrió los púlsares usando:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Un plato parabólico gigante</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Un arreglo de antenas de alambre</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Un telescopio óptico</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Un satélite</label>
+    <p class="fb" hidden>Con un campo de antenas dipolo. La tecnología «de alambres» sigue vigente: los precursores del SKA (como el MWA australiano, 70–300 MHz) son campos de dipolos.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Explica interferencia constructiva con dos ondas en fase.</p>
+  <p class="q">4. Explica físicamente el mecanismo completo por el cual una onda electromagnética se convierte en señal eléctrica en una antena.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Amplitudes se suman → señal más fuerte en detector; en antena eso significa fuente en la dirección apuntada.</div>
+    <div class="answer">La onda electromagnética es una oscilación acoplada de campos eléctrico y magnético que se propaga. Al pasar por un conductor, el campo eléctrico ejerce fuerza sobre los electrones libres del metal, que oscilan a la frecuencia de la onda. Ese movimiento colectivo de cargas es una corriente alterna en el alambre, que se conduce a un receptor donde se amplifica y se sintoniza (se selecciona la banda de frecuencia de interés). Alambres en distintas orientaciones capturan distintas polarizaciones del campo.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Analogía con cancelación de ruido en audífonos.</p>
+  <p class="q">5. ¿Por qué los radiotelescopios «no necesariamente se ven como antenas de plato»? Da ejemplos de la clase.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Generan onda desfasada π para cancelar — mismo principio de superposición, signo opuesto.</div>
+    <div class="answer">Porque el requisito físico es inducir y medir corrientes con la fase controlada, no concentrar luz en un foco. Ejemplos: la antena original de Jansky (estructura giratoria de alambres), el arreglo de dipolos con que Bell descubrió los púlsares, y los campos de antenas del MWA/SKA — miles de dipolos simples sobre mallas, cuya «puntería» se hace electrónicamente combinando señales con retardos (phased array), sin mover nada mecánicamente.</div>
   </details>
 </div>
 

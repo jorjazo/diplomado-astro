@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 02 — m3c3 · Antenas dipolo</title>
+<title>Examen 02 — m3c3 · La ventana de radio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 02 — Antenas dipolo</h1>
+<h1>Examen 02 — La ventana de radio</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,c">
-  <fieldset data-q="1"><legend>1. En una antena dipolo la señal se genera porque:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">El campo eléctrico de la onda mueve electrones en el conductor</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Los fotones se reflejan en espejo parabólico</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Ocurre fusión nuclear</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Hay CCD</label>
-    <p class="fb" hidden>Oscilación EM → corriente alterna medible.</p>
+<form id="quiz" data-answers="a,c,b">
+  <fieldset data-q="1"><legend>1. La ventana de radio abarca aproximadamente:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">De 10 MHz a 1 THz</label>
+    <label class="opt"><input type="radio" name="q1" value="b">De 1 Hz a 1 kHz</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Solo la banda FM</label>
+    <label class="opt"><input type="radio" name="q1" value="d">De 1 PHz en adelante</label>
+    <p class="fb" hidden>Unos cinco órdenes de magnitud de frecuencia; con λν = c, longitudes de onda desde decenas de metros hasta ~0,3 mm.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Jansky (1932) usó antenas para:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Televisión</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Primera detección astronómica de radio del cielo</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Medir neutrinos</label>
-    <label class="opt"><input type="radio" name="q2" value="d">GPS</label>
-    <p class="fb" hidden>Inicio de la radioastronomía.</p>
+  <fieldset data-q="2"><legend>2. Los fotones de radio, comparados con los ópticos, tienen:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Más energía</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La misma energía</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Muchísima menos energía (E = hν con ν baja)</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Energía negativa</label>
+    <p class="fb" hidden>λ larga = ν baja = energía por fotón ínfima. Por eso en radio no se cuentan fotones: se detectan ondas coherentes y se amplifican.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Las antenas SKA pathfinder tipo «cerca» son:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Espejos de 40 m</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Cables/dipolos sobre aislante</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo placas</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Detectores Cherenkov</label>
-    <p class="fb" hidden>Tecnología simple pero efectiva a bajas frecuencias.</p>
+  <fieldset data-q="3"><legend>3. ALMA está a ~5000 m en el desierto de Atacama porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Hay menos turbulencia de viento</label>
+    <label class="opt"><input type="radio" name="q3" value="b">La columna de vapor de agua es mínima y las bandas mm/submm quedan más transparentes</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Está cerca de las ciudades</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El suelo es más estable</label>
+    <p class="fb" hidden>Altura + sequedad extrema = menos agua sobre las antenas = ventanas milimétricas y submilimétricas utilizables.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Contrasta antena dipolo vs plato parabólico.</p>
+  <p class="q">4. El microondas de cocina opera a 2,45 GHz. Ubícalo en el espectro y explica el experimento de los marshmallows.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Dipolo: captura en λ ~ longitud del cable; parabólico: foco concentra ondas planas coherentes.</div>
+    <div class="answer">2,45 GHz → λ = c/ν ≈ 12 cm: plena ventana de radio (microondas). En el experimento escolar se quita el plato giratorio y se cubre una bandeja con marshmallows: la onda estacionaria dentro del horno tiene máximos separados por media longitud de onda, y solo ahí se queman los dulces. Midiendo la distancia entre quemaduras (~6 cm) y multiplicando por 2 y por la frecuencia se obtiene una estimación de c — una medición casera de la longitud de onda.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué Bell detectó púlsares con antena «rústica»?</p>
+  <p class="q">5. ¿Por qué en radio la detección es de ondas y no de fotones individuales, a diferencia del gamma?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Señales de radio fuertes y periódicas; no hace falta imagen fina para descubrir periodicidad.</div>
+    <div class="answer">La energía por fotón E = hν es tan baja en radio que un fotón individual es indetectable: no puede liberar un electrón ni activar un umbral. Lo que sí es medible es el efecto colectivo y coherente de muchísimos fotones: el campo eléctrico oscilante que induce corrientes en un conductor, amplificable por interferencia constructiva. En gamma ocurre lo contrario: cada fotón trae tanta energía que se detecta (y se cuenta) de a uno por sus interacciones.</div>
   </details>
 </div>
 

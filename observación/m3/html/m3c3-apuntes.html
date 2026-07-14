@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Radio y alta energía — Módulo III · Clase 3</title>
+<title>De la radio a las altas energías — Módulo III · Clase 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
@@ -122,6 +122,8 @@ td b{color:var(--gold);font-weight:600}
 .widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
   border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
 .wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:12px;background:#060b15;
+  border:1px solid var(--line);border-radius:10px}
 .tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
 .examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -136,171 +138,316 @@ footer b{color:var(--ink)}
 </style>
 </head>
 <body>
-
 <main class="wrap">
-<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c2-apuntes.html">Clase 2</a></nav>
+<nav class="top"><a href="index.html">← Módulo III</a> · <a href="m3c2-apuntes.html">← Clase 2</a> · <a href="m3c4-apuntes.html">Clase 4 →</a></nav>
 <div class="hero">
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1><em>Radio</em> y <em>alta energía</em></h1>
-<p class="sub">Dos extremos del espectro electromagnético: antenas, interferometría, EHT, Compton, Cherenkov y el mapa multibanda del cielo.</p>
+<h1>De la radio a las <em>altas energías</em></h1>
+<p class="sub">Los dos extremos del espectro electromagnético exigen tecnologías opuestas: antenas e interferómetros que suman ondas en fase (ALMA, EHT), y detectores de partículas que cazan fotones uno a uno (Fermi-LAT, Cherenkov Telescope Array).</p>
+<div class="meta"><span><b>Curso</b> Instrumentación y Métodos de Observación</span><span><b>Módulo</b> III</span><span><b>Clase</b> 3</span><span><b>Fuentes</b> transcripción + 34 diapositivas</span></div>
 </div>
-<p class="lead"><span class="drop">P</span>ara cubrir el EM completo hacen falta tecnologías <em>radicalmente distintas</em>. En radio la coherencia de fase importa; en gamma no puedes «reflejar» como en óptico.</p>
+<p class="lead"><span class="drop">T</span>odo es luz — del radio al gamma son fotones — pero un fotón de radio lleva energías ínfimas y uno gamma atraviesa cualquier espejo. En un extremo hay que <em>amplificar ondas coherentes</em>; en el otro, <em>contar partículas</em>. Esta clase recorre ambos mundos y el porqué de sus tecnologías tan distintas.</p>
 <nav class="idx"><span class="tag">Contenido</span><ol>
 <li><a href="#s1">Ventanas atmosféricas</a></li>
-<li><a href="#s2">Primeras antenas de radio</a></li>
-<li><a href="#s3">Plato parabólico y fase</a></li>
-<li><a href="#s4">Barrido y resolución</a></li>
-<li><a href="#s5">FAST y platos gigantes</a></li>
+<li><a href="#s2">La ventana de radio</a></li>
+<li><a href="#s3">Antenas: de Jansky a los dipolos</a></li>
+<li><a href="#s4">La antena parabólica y la fase</a></li>
+<li><a href="#s5">Resolución en radio: el problema</a></li>
 <li><a href="#s6">Interferometría</a></li>
-<li><a href="#s7">ALMA y EHT</a></li>
-<li><a href="#s8">Rayos X y gamma</a></li>
-<li><a href="#s9">Cherenkov y CTA</a></li>
-<li><a href="#s10">Cielo multibanda</a></li>
-<li><a href="#interactivo">Widgets</a></li>
-<li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#s7">ALMA y el correlador</a></li>
+<li><a href="#s8">EHT: la Tierra como antena</a></li>
+<li><a href="#s9">Altas energías: por qué no hay espejos</a></li>
+<li><a href="#s10">Compton y Fermi-LAT</a></li>
+<li><a href="#s11">Efecto Cherenkov y CTA</a></li>
+<li><a href="#s12">El cielo multibanda</a></li>
+<li><a href="#interactivo">Explorar conceptos</a></li>
+<li><a href="#conceptos">Conceptos clave</a></li>
 <li><a href="#examenes">Exámenes</a></li>
 </ol></nav>
 
-<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Ventanas atmosféricas</h2>
-<p>Óptico visible + radio transparentes; UV/X/γ y gran parte del IR bloqueados (protección + motivación espacial). Sub-mm sensible a H₂O → ALMA en Atacama.</p></div></div>
+<section id="s1"><div class="shead"><span class="num">1</span><div><h2>Ventanas atmosféricas: qué deja pasar el aire</h2>
+<p>La atmósfera es transparente solo en dos grandes ventanas: el óptico (donde evolucionó nuestro ojo) y el radio.</p></div></div>
+<p>Sobre el espectro electromagnético completo, la curva de <strong>transmisión atmosférica</strong> dice dónde se puede observar desde el suelo:</p>
+<ul>
+<li><strong>Altas energías</strong> (UV, rayos X, γ): la atmósfera es opaca. Nos protege — y nos ciega: hay que ir al espacio (o usar trucos, §11).</li>
+<li><strong>Ventana óptica</strong>: transparente justo donde funciona el ojo. Probablemente no es casualidad evolutiva.</li>
+<li><strong>Infrarrojo</strong>: opacidad alta con algunas bandas utilizables; por eso conviven telescopios IR en el suelo y en el espacio.</li>
+<li><strong>Ventana de radio</strong>: enorme y transparente — ahí operan también nuestras tecnologías (radio, celulares, WiFi).</li>
+<li>Más allá del radio (λ muy largas): opaca de nuevo.</li>
+</ul>
 <figure>
-<img src="m3c3/assets/slide-02.jpg" alt="Transmisión atmosférica vs. longitud de onda.">
-<figcaption><span class="cap">Diapositiva 2</span>Transmisión atmosférica vs. longitud de onda.</figcaption>
+<img src="m3c3/assets/slide-03.jpg" alt="Espectro electromagnético y transmisión atmosférica.">
+<figcaption><span class="cap">Diapositiva 3</span>El espectro completo con la curva de transparencia atmosférica: dos grandes ventanas (óptica y radio) y todo lo demás desde el espacio.</figcaption>
 </figure>
 </section>
 
-<section id="s2"><div class="shead"><span class="num">2</span><div><h2>Primeras antenas</h2>
-<p>1932: Karl Jansky — primer radiotelescopio. Jocelyn Bell: púlsares con antena tipo «cerca» (cables). SKA pathfinders: dipolos verticales.</p></div></div>
+<section id="s2"><div class="shead"><span class="num">2</span><div><h2>La ventana de radio</h2>
+<p>De 10 MHz a 1 THz: fotones de bajísima energía. En el extremo milimétrico, el vapor de agua vuelve a estorbar.</p></div></div>
+<p>La ventana de radio va de ~<strong>10 MHz a ~1 THz</strong>; con \(\lambda\nu=c\), eso corresponde a longitudes de onda de <strong>~30 m a ~0,3 mm</strong> (el rango «clásico» de un plato: ~30 cm a 3 mm). Como \(E=h\nu\), son los fotones menos energéticos del espectro: no se cuentan de a uno, se detectan como <em>ondas</em> que inducen corrientes.</p>
+<p>Hacia el milimétrico/submilimétrico aparecen bandas de absorción de moléculas — sobre todo <strong>vapor de agua</strong>. Por eso <strong>ALMA</strong> (Atacama Large Millimeter/submillimeter Array) está en el llano de Chajnantor a ~5000 m: altura extrema + desierto = mínima columna de agua sobre las antenas.</p>
 <figure>
-<img src="m3c3/assets/slide-05.jpg" alt="Antena de Jansky y cables de Bell.">
-<figcaption><span class="cap">Diapositiva 5</span>Antena de Jansky y cables de Bell.</figcaption>
+<img src="m3c3/assets/slide-04.jpg" alt="Ventana de radio y bandas de absorción molecular.">
+<figcaption><span class="cap">Diapositiva 4</span>La ventana de radio. En el extremo corto (mm/submm) la opacidad depende del agua atmosférica: se observa desde sitios altos y secos.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Referencia cotidiana</span>
+<p>El microondas de tu cocina opera a 2,45 GHz — λ ≈ 12 cm, en plena ventana de radio. El experimento escolar de los marshmallows quemados en franjas es literalmente medir λ con una grilla de dulces.</p></div>
+</section>
+
+<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Antenas: de Jansky a los dipolos modernos</h2>
+<p>Un radiotelescopio no es necesariamente un plato: puede ser un campo de alambres.</p></div></div>
+<p>El primer radiotelescopio lo construyó <strong>Karl Jansky en 1932</strong> (los futuros sucesores del VLA llevarán su nombre: ngVLA). <strong>Jocelyn Bell</strong> descubrió los púlsares con un arreglo de antenas de alambre, no con un plato.</p>
+<p>¿Cómo detecta un alambre? La onda electromagnética es una oscilación del campo eléctrico: al atravesar un <strong>conductor</strong>, el campo empuja los electrones libres arriba y abajo; esa oscilación de electrones <em>es</em> una corriente, y esa corriente es la señal. Alambres en distintas orientaciones capturan distintas polarizaciones.</p>
+<ul>
+<li>Esta tecnología sigue vigente: los precursores del <strong>SKA</strong> (Square Kilometre Array), como el MWA en Australia (70–300 MHz), son campos de dipolos sobre mallas aislantes.</li>
+</ul>
+<figure>
+<img src="m3c3/assets/slide-05.jpg" alt="Karl Jansky y Jocelyn Bell con sus antenas.">
+<figcaption><span class="cap">Diapositiva 5</span>Jansky (1932) y Jocelyn Bell (púlsares): la radioastronomía nació con antenas de alambre, no con platos.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-07.jpg" alt="Radiotelescopio de plato único de Grote Reber.">
+<figcaption><span class="cap">Diapositiva 7</span>Grote Reber construyó el primer plato («single dish») en 1937: medición dirigida, concentrando las ondas en un foco.</figcaption>
 </figure>
 </section>
 
-<section id="s3"><div class="shead"><span class="num">3</span><div><h2>Plato parabólico y coherencia de fase</h2>
-<p>Parábola: todos los caminos ópticos iguales → ondas <strong>en fase</strong> en el foco (interferencia constructiva). Fuera del eje → destructiva → haz dirigido.</p></div></div>
-<p>Distinto del óptico: en radio importa sumar <em>ondas coherentes</em>, no solo «recolectar fotones».</p>
+<section id="s4"><div class="shead"><span class="num">4</span><div><h2>La antena parabólica: geometría al servicio de la fase</h2>
+<p>La parábola no es capricho: garantiza que todas las ondas recorran el mismo camino y lleguen en fase al foco.</p></div></div>
+<p>Como el telescopio óptico, el plato concentra la radiación en un foco. Pero hay una diferencia crucial: la forma es <strong>parabólica</strong> porque así <em>todos los caminos desde un frente de onda plano hasta el foco miden lo mismo</em>. Las crestas llegan con las crestas y los valles con los valles: <span class="hl">interferencia constructiva</span>, señal amplificada.</p>
+<h3>Interferencia en 30 segundos</h3>
+<ul>
+<li>Dos ondas <strong>en fase</strong> (crestas alineadas) se suman: onda más grande.</li>
+<li>Dos ondas <strong>desfasadas media λ</strong> se cancelan (así funcionan los audífonos con cancelación de ruido).</li>
+</ul>
+<p>En el óptico esto casi no importa para <em>imagen</em> (se recolectan fotones, no fases); en radio, donde la energía por fotón es ínfima, la suma coherente <strong>es el mecanismo de detección</strong>. Consecuencia: si el plato apunta al objeto, señal máxima; apenas se desvía, los caminos difieren en fracciones de λ, la interferencia se hace destructiva y la señal cae. La antena «ve» <em>un solo punto a la vez</em>: para obtener una imagen debe <strong>barrer el cielo</strong> punto a punto, como construir la imagen píxel a píxel.</p>
 <figure>
-<img src="m3c3/assets/slide-08.jpg" alt="Geometría de antena parabólica.">
-<figcaption><span class="cap">Diapositiva 8</span>Geometría de antena parabólica.</figcaption>
-</figure><figure>
-<img src="m3c3/assets/slide-10.jpg" alt="Constructiva vs. destructiva.">
-<figcaption><span class="cap">Diapositiva 10</span>Constructiva vs. destructiva.</figcaption>
+<img src="m3c3/assets/slide-08.jpg" alt="La parábola concentra un frente de ondas en fase en el foco.">
+<figcaption><span class="cap">Diapositiva 8</span>Igual camino óptico para todos los rayos ⇒ llegan en fase ⇒ interferencia constructiva en el foco.</figcaption>
+</figure>
+<div class="box dato"><span class="tag">Radio quiet</span>
+<p>Estos aparatos operan en las mismas frecuencias que celulares y WiFi: los observatorios se rodean de <strong>zonas de silencio radioeléctrico</strong>. Incluso en Cerro Calán hay un sector donde se pide modo avión, porque una antena de prueba trabaja en las bandas de 2,4/5 GHz.</p></div>
+</section>
+
+<section id="s5"><div class="shead"><span class="num">5</span><div><h2>Resolución en radio: el problema de λ gigante</h2>
+<p>La misma fórmula θ ≈ 1,22 λ/D, pero con λ cien mil veces mayor: platos enormes, resolución pobre.</p></div></div>
+<p>La resolución sigue siendo \(\theta \approx 1.22\,\lambda/D\), pero λ pasó de ~500 nm a centímetros: <strong>5 órdenes de magnitud</strong>. Los ejemplos de clase:</p>
+<ul>
+<li>Plato de <strong>40 m</strong> a 15 GHz (λ = 2 cm): θ ≈ <strong>125″</strong> — contra ~0,6″ de seeing de un buen sitio óptico chileno. Un plato 4× más grande que Keck resuelve 200 veces peor.</li>
+<li><strong>FAST</strong> (China): <strong>500 m</strong> de plato esférico fijo (usa ~300 m por observación, «iluminando» una zona del plato según la dirección). A λ = 10 cm (3 GHz): θ ≈ <strong>50″</strong>. Medio kilómetro de antena y aún así resolución de arcominuto.</li>
+</ul>
+<figure>
+<img src="m3c3/assets/slide-11.jpg" alt="Radiotelescopio de plato único y su resolución.">
+<figcaption><span class="cap">Diapositiva 11</span>Un plato único barre el cielo y produce mapas de baja resolución: θ está dominado por la λ enorme.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-12.jpg" alt="FAST, el plato de 500 metros.">
+<figcaption><span class="cap">Diapositiva 12</span>FAST: 500 m de diámetro (300 m efectivos por apuntado). La fuerza bruta del área colectora no arregla la resolución.</figcaption>
+</figure>
+<div class="box physics"><span class="tag">Área vs resolución</span>
+<p>¿Para qué un plato gigante entonces? <strong>Sensibilidad</strong>: el área colectora de FAST supera a las 50 antenas de ALMA juntas — detecta señales mucho más débiles. Área compra sensibilidad; separación (§6) compra resolución. Son presupuestos distintos.</p></div>
+</section>
+
+<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Interferometría: D pasa a ser la distancia entre antenas</h2>
+<p>Varias antenas usadas al unísono equivalen a un plato del tamaño de su separación máxima.</p></div></div>
+<p>La idea genial: en \(\theta \approx 1.22\,\lambda/D\), <strong>D puede ser la distancia entre dos antenas</strong> que observan juntas. No hace falta construir el plato completo — basta poner «pedacitos del plato» separados por kilómetros. (El área colectora sigue siendo la suma de las antenas: se gana resolución, no sensibilidad.)</p>
+<h3>Cómo funciona un par</h3>
+<p>Dos antenas apuntan al mismo objeto. El frente de ondas llega <em>antes</em> a una que a otra: el <strong>desfase</strong> entre ambas señales codifica la dirección de origen. Las señales se combinan digitalmente en el <strong>correlador</strong>, que mide la interferencia entre ellas:</p>
+<ul>
+<li>Con <strong>2 antenas</strong> hay degeneración: se obtiene una <em>franja</em> de posiciones posibles (y repeticiones cada λ entera de diferencia de camino).</li>
+<li>Con una <strong>tercera antena</strong> se agregan pares con otras orientaciones: las franjas se cruzan.</li>
+<li>Con <strong>muchas antenas</strong> (muchos pares), la combinación reconstruye una imagen. Cada par debe correlacionarse: el costo computacional crece con el número de pares.</li>
+</ul>
+<figure>
+<img src="m3c3/assets/slide-13.jpg" alt="Concepto de interferometría: combinar antenas separadas por una distancia D.">
+<figcaption><span class="cap">Diapositiva 13</span>El D efectivo es la separación máxima («línea de base»). El límite es cuán lejos se pueden poner las antenas… y aún combinar sus señales.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-15.jpg" alt="El desfase entre señales permite calcular la posición del objeto.">
+<figcaption><span class="cap">Diapositiva 15</span>El correlador convierte desfases en posiciones. En ALMA hay &gt;1000 km de fibra óptica, con largos medidos al detalle: un cable más largo <em>es</em> un desfase.</figcaption>
+</figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>Es <strong>apertura sintética</strong>: cada par de antenas muestrea una «frecuencia espacial» de la imagen (un punto del plano de Fourier). Más pares y más orientaciones = mejor cobertura del plano (u,v) = imagen reconstruible por transformada inversa. Las antenas de ALMA solo se instalan en plataformas pre-construidas con posición y retardo de fibra calibrados.</p></div>
+</section>
+
+<section id="s7"><div class="shead"><span class="num">7</span><div><h2>ALMA: 50 antenas y un supercomputador a 5000 m</h2>
+<p>Líneas de base de 16 km y λ submilimétrica: resolución para ver nacer sistemas solares.</p></div></div>
+<ul>
+<li><strong>50 antenas de 12 m</strong> (más 12 de 7 m y 4 de 12 m adicionales del Atacama Compact Array).</li>
+<li>Línea de base máxima: <strong>16 km</strong>; λ hasta <strong>0,3 mm</strong>. λ chica y D enorme ⇒ resolución altísima.</li>
+<li>La superficie de cada plato está mecanizada con precisión de <strong>micrones</strong> respecto de la parábola ideal — a estas λ, el plato es un espejo.</li>
+<li>Un <strong>transportador</strong> mueve las antenas entre plataformas fijas para cambiar la configuración (compacta ↔ extendida).</li>
+<li>El <strong>correlador es un supercomputador</strong> en el sitio a 5000 m; se construye una nueva generación que operará más abajo (~2900 m, cerca de San Pedro). ALMA no es solo antenas: <em>sin el correlador no hay imagen</em>.</li>
+</ul>
+<p>El resultado icónico: los <strong>discos protoplanetarios</strong> como HL Tauri, con sus anillos y surcos — sistemas solares en formación, resueltos por primera vez.</p>
+<figure>
+<img src="m3c3/assets/slide-16.jpg" alt="ALMA y el disco protoplanetario HL Tauri.">
+<figcaption><span class="cap">Diapositiva 16</span>ALMA en configuración extendida y el disco protoplanetario: la imagen que justificó todo el proyecto.</figcaption>
+</figure>
+<div class="box prof"><span class="tag">Nota de transcripción</span>
+<p>La transcripción automática insertó «ALMA» en lugares donde el profesor decía «al» o «a la» (p. ej. «llegan ALMA foco»). Se restauró el sentido comparando con las diapositivas.</p></div>
+</section>
+
+<section id="s8"><div class="shead"><span class="num">8</span><div><h2>EHT: la Tierra entera como interferómetro</h2>
+<p>Línea de base de 8000 km, sin fibra posible: discos duros, relojes atómicos y correlación en diferido.</p></div></div>
+<p>Llevando la idea al extremo: ¿la máxima separación posible entre antenas? <strong>El diámetro de la Tierra</strong>. El <strong>Event Horizon Telescope</strong> coordina radiotelescopios de varios continentes (ALMA incluido) observando el mismo objeto simultáneamente. Como no se pueden unir con fibra:</p>
+<ul>
+<li>Cada estación <strong>graba la señal cruda a disco</strong> con marcas de tiempo ultraprecisas (muestreo a escalas de femtosegundos, 10⁻¹⁵ s): <strong>petabytes</strong> por campaña.</li>
+<li>Los discos <em>viajan físicamente</em> a un centro donde un supercomputador hace la <strong>correlación en post-procesamiento</strong>.</li>
+<li>Con ~8000 km de línea de base, la resolución equivale a «ver una dona en la superficie de la Luna».</li>
+</ul>
+<p>Así se obtuvieron las imágenes del anillo del agujero negro de <strong>M87</strong> (y su jet). Hay propuestas de poner antenas en órbita: líneas de base de cientos de miles de kilómetros.</p>
+<figure>
+<img src="m3c3/assets/slide-18.jpg" alt="Event Horizon Telescope y la imagen del agujero negro.">
+<figcaption><span class="cap">Diapositiva 18</span>EHT: VLBI a escala planetaria. Los datos se correlacionan después, moviendo discos duros — el «sneakernet» científico más famoso.</figcaption>
 </figure>
 </section>
 
-<section id="s4"><div class="shead"><span class="num">4</span><div><h2>Barrido y resolución</h2>
-<p>Una antena debe <strong>barrer</strong> el cielo pixel a pixel. Resolución θ ≈ 1,22 λ/D pero λ radio es enorme → θ muy grande (arcmin–arcsec).</p></div></div>
-<div class="formula"><span class="katex-block" data-tex="\theta \approx 1.22\,\frac{\lambda}{D}"></span>
-<small>Ejemplo: 40 m @ 15 GHz (λ~2 cm) → ~125″; seeing óptico en Chile ~0,6–1″.</small></div>
+<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Altas energías: por qué no hay espejos para rayos gamma</h2>
+<p>Cuando λ es menor que la distancia entre átomos, la luz atraviesa el material: no se puede reflejar ni enfocar.</p></div></div>
+<p>Al otro extremo del espectro, λ se hace más pequeña que el espaciado atómico del material. La analogía de clase: correr por un bosque de árboles muy separados — la onda pasa <em>entre</em> los átomos sin chocar. No existe superficie que haga rebotar rayos gamma:</p>
+<ul>
+<li>No hay espejo ⇒ no hay telescopio concentrador clásico.</li>
+<li>Tampoco sirve un CCD: su principio (efecto fotoeléctrico en silicio) requiere que el fotón <em>interactúe</em>, y el gamma atraviesa el chip.</li>
+<li>Es el mismo principio de la radiografía: los rayos X cruzan el cuerpo y solo se atenúan en el material denso (hueso).</li>
+</ul>
 <figure>
-<img src="m3c3/assets/slide-12.jpg" alt="Radiotelescopio de 40 m.">
-<figcaption><span class="cap">Diapositiva 12</span>Radiotelescopio de 40 m.</figcaption>
+<img src="m3c3/assets/slide-21.jpg" alt="En rayos gamma la luz pasa entre los átomos del material.">
+<figcaption><span class="cap">Diapositiva 21</span>λ ≪ espaciado atómico: la onda no «ve» el material. Hay que detectar por interacción partícula a partícula.</figcaption>
+</figure>
+<div class="box physics"><span class="tag">Matiz (rayos X)</span>
+<p>En rayos X existe un truco intermedio: espejos de <em>incidencia rasante</em> (Chandra, XMM) que desvían fotones X en ángulos muy pequeños. En rayos gamma ni eso: solo detección directa por interacción.</p></div>
+</section>
+
+<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Compton scattering y Fermi-LAT: contar fotones con nombre propio</h2>
+<p>Un cristal denso lleno de electrones disponibles: el gamma choca, cede energía, y la partícula cargada delata el evento.</p></div></div>
+<p>La técnica principal en el espacio usa el <strong>efecto Compton</strong>: el fotón gamma tiene momentum y puede «chocar» con un electrón como bolas de billar — el electrón sale disparado, el fotón sigue con menos energía. Para que la probabilidad de choque sea razonable se usa un <strong>cristal denso</strong>, cuya red ordenada ofrece abundantes electrones de valencia casi libres. La partícula cargada resultante sí es detectable eléctricamente.</p>
+<ul>
+<li><strong>Fermi-LAT</strong> (Large Area Telescope, lanzado en 2008): una «caja» de capas de cristales y trackers en órbita. Las capas atravesadas permiten reconstruir la dirección del fotón incidente.</li>
+<li>El régimen es de <strong>conteo de fotones</strong>: el mapa de todo el cielo mostrado en clase acumuló <strong>~700 000 fotones en 7 años</strong>. Literalmente se les puede poner nombre (la anécdota del grupo italiano que bautizaba cada fotón X de su AGN con un papa).</li>
+</ul>
+<figure>
+<img src="m3c3/assets/slide-22.jpg" alt="Esquema del Compton scattering en un cristal denso.">
+<figcaption><span class="cap">Diapositiva 22</span>Compton: el gamma cede energía a un electrón del cristal; se detecta la partícula cargada, no el fotón.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-25.jpg" alt="El cielo completo en rayos gamma visto por Fermi.">
+<figcaption><span class="cap">Diapositiva 25</span>El cielo en rayos gamma (Fermi): un histograma de direcciones de llegada de fotones individuales, no una «foto».</figcaption>
+</figure>
+<div class="box cs"><span class="tag">Conexión ingeniería</span>
+<p>El detector gamma opera en régimen de <strong>eventos discretos</strong> (photon counting): cada fotón es un registro con timestamp, energía y dirección reconstruida — más parecido a un log de eventos que a una imagen. La estadística de Poisson manda: con N fotones, el ruido relativo va como 1/√N.</p></div>
+</section>
+
+<section id="s11"><div class="shead"><span class="num">11</span><div><h2>Efecto Cherenkov y el CTA: la atmósfera como detector</h2>
+<p>Desde el suelo no se ve el gamma — pero sí el destello azul de la lluvia de partículas que provoca.</p></div></div>
+<h3>El efecto Cherenkov</h3>
+<p>Cuando una partícula cargada viaja <em>más rápido que la luz en un medio</em> (nunca más que c en el vacío), genera un frente de onda cónico — el análogo luminoso del <strong>boom sónico</strong> de un avión supersónico. Es el brillo azul del agua de los reactores nucleares (como el de La Reina).</p>
+<h3>De rayo gamma a flash azul</h3>
+<p>Un gamma que penetra la atmósfera interactúa con un átomo y desata una <strong>cascada de partículas secundarias cargadas</strong> (pares, piones…). Esas partículas superan la velocidad de la luz <em>en el aire</em> y emiten un <strong>destello Cherenkov</strong>: brevísimo, azulado, en luz óptica visible. La atmósfera — el mismo estorbo de las clases anteriores — se convierte en el <em>volumen detector</em>.</p>
+<h3>Cherenkov Telescope Array (CTA)</h3>
+<ul>
+<li>Telescopios <em>ópticos</em> segmentados, sin cúpula, a cielo abierto: deben recolectar <strong>mucha luz en muy poco tiempo</strong> (el flash es de nanosegundos).</li>
+<li>La cámara en el foco no es un CCD: es una grilla de <strong>fotodetectores independientes con resolución temporal</strong> — cada uno cronometra la llegada del pulso. El orden de llegada reconstruye la dirección de la cascada.</li>
+<li>Con <strong>varios telescopios</strong> viendo la misma lluvia se triangula el origen del gamma: el resultado final es, de nuevo, un mapa de conteo de fotones por dirección.</li>
+<li>Dos sitios: La Palma (norte) y <strong>Cerro Paranal-Armazones, Chile</strong> (sur), cerca del VLT; el arreglo se despliega en ~2 km de desierto con telescopios de varios tamaños (los más grandes detectan las señales más débiles; en Chile llegarían hasta ~25 m).</li>
+</ul>
+<figure>
+<img src="m3c3/assets/slide-26.jpg" alt="Efecto Cherenkov: onda de choque electromagnética.">
+<figcaption><span class="cap">Diapositiva 26</span>Cherenkov: partícula más rápida que la luz <em>del medio</em> ⇒ frente cónico, como el boom supersónico pero de luz.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-28.jpg" alt="Lluvia de partículas iniciada por un rayo gamma en la atmósfera.">
+<figcaption><span class="cap">Diapositiva 28</span>El gamma desata la cascada; las secundarias emiten el flash azul que los telescopios en tierra sí pueden ver.</figcaption>
+</figure>
+<figure>
+<img src="m3c3/assets/slide-32.jpg" alt="Reconstrucción del origen del fotón con múltiples telescopios Cherenkov.">
+<figcaption><span class="cap">Diapositiva 32</span>Varios telescopios cronometran la misma lluvia y triangulan el origen del fotón gamma primario.</figcaption>
 </figure>
 </section>
 
-<section id="s5"><div class="shead"><span class="num">5</span><div><h2>FAST (500 m)</h2>
-<p>Medio km de diámetro fijo; usa ~300 m efectivos según pointing. Área recolectora enorme → objetos débiles, pero resolución limitada.</p></div></div>
+<section id="s12"><div class="shead"><span class="num">12</span><div><h2>El cielo multibanda: la moraleja del módulo</h2>
+<p>El centro de la Vía Láctea se ve distinto en cada banda — y solo la combinación cuenta la historia completa.</p></div></div>
+<p>El póster clásico del <strong>centro galáctico en todas las longitudes de onda</strong> cierra la clase: en radio de baja frecuencia, en la línea de hidrógeno atómico (nótese lo <em>delgado</em> del disco de H I), en infrarrojo, óptico, rayos X y gamma, la misma región muestra estructuras completamente diferentes.</p>
+<ul>
+<li>Cada banda requiere su tecnología: platos y correladores, CCDs criogénicos, cristales en órbita, telescopios de flashes.</li>
+<li>Ninguna banda basta sola: la imagen física completa exige <strong>combinar</strong> — y la próxima clase agrega mensajeros que ya no son luz (ondas gravitacionales y neutrinos).</li>
+</ul>
 <figure>
-<img src="m3c3/assets/slide-14.jpg" alt="Telescopio FAST.">
-<figcaption><span class="cap">Diapositiva 14</span>Telescopio FAST.</figcaption>
+<img src="m3c3/assets/slide-30.jpg" alt="Cherenkov Telescope Array: tecnología similar a telescopios ópticos.">
+<figcaption><span class="cap">Diapositiva 30</span>CTA: espejos segmentados a cielo abierto y electrónica de nanosegundos — óptica clásica al servicio de la astronomía gamma.</figcaption>
 </figure>
+<div class="box next"><span class="tag">Próxima clase</span>
+<p>Ondas gravitacionales y neutrinos: detectar información del universo que no viaja como onda electromagnética. Y el detector de neutrinos enterrado en el hielo antártico.</p></div>
 </section>
 
-<section id="s6"><div class="shead"><span class="num">6</span><div><h2>Interferometría</h2>
-<p>D efectivo = <strong>separación entre antenas</strong> (línea de base), no tamaño del plato. Correlador digital combina señales con fase conocida. 2 antenas → ambigüedad (franjas); más antenas → imagen única.</p></div></div>
-<p>ALMA: 50×12 m + correlador a 5000 m; líneas de base hasta 16 km; λ hasta 0,3 mm. Área recolectora = suma de platos, no el disco completo.</p>
-<figure>
-<img src="m3c3/assets/slide-18.jpg" alt="Esquema de dos antenas y correlador.">
-<figcaption><span class="cap">Diapositiva 18</span>Esquema de dos antenas y correlador.</figcaption>
-</figure><figure>
-<img src="m3c3/assets/slide-22.jpg" alt="Disco protoplanetario ALMA.">
-<figcaption><span class="cap">Diapositiva 22</span>Disco protoplanetario ALMA.</figcaption>
-</figure>
+<section id="interactivo"><div class="shead"><span class="num">⚙</span><div><h2>Explorar conceptos</h2>
+<p>Resolución de plato único vs interferómetro, y la escalera de energías del espectro.</p></div></div>
+
+<div class="widget">
+<h4>Widget 1 — Resolución: plato único vs interferómetro</h4>
+<div class="wgrid">
+<div><label>λ de observación (mm)</label><input type="number" id="if-l" value="1.3" step="any" min="0.01"></div>
+<div><label>D o línea de base (m)</label><input type="number" id="if-d" value="16000" step="any" min="1"></div>
+</div>
+<div class="presets">
+<button type="button" onclick="ifPreset(20,40)">Plato 40 m @ 2 cm</button>
+<button type="button" onclick="ifPreset(100,500)">FAST 500 m @ 10 cm</button>
+<button type="button" onclick="ifPreset(1.3,16000)">ALMA extendido @ 1,3 mm</button>
+<button type="button" onclick="ifPreset(1.3,8000000)">EHT @ 1,3 mm</button>
+<button type="button" onclick="ifPreset(0.00055,10)">Keck óptico (referencia)</button>
+</div>
+<output class="wout" id="if-out"></output>
+</div>
+
+<div class="widget">
+<h4>Widget 2 — La escalera del espectro: λ, ν y energía por fotón</h4>
+<div class="wgrid">
+<div><label>Exponente: λ = 10<sup>x</sup> metros</label><input type="range" id="sp-x" min="-14" max="2" step="0.5" value="-6"></div>
+</div>
+<output class="wout" id="sp-out"></output>
+</div>
 </section>
 
-<section id="s7"><div class="shead"><span class="num">7</span><div><h2>EHT (Very Long Baseline Interferometry)</h2>
-<p>Telescopios en la Tierra graban señal en discos con timestamps de femtosegundos → correlación offline. Línea de base ~diámetro terrestre (~8000 km) → imagen del agujero negro en M87.</p></div></div>
-<figure>
-<img src="m3c3/assets/slide-20.jpg" alt="Red EHT global.">
-<figcaption><span class="cap">Diapositiva 20</span>Red EHT global.</figcaption>
-</figure><figure>
-<img src="m3c3/assets/slide-24.jpg" alt="Imagen del agujero negro M87.">
-<figcaption><span class="cap">Diapositiva 24</span>Imagen del agujero negro M87.</figcaption>
-</figure>
-</section>
-
-<section id="s8"><div class="shead"><span class="num">8</span><div><h2>Alta energía: Compton y conteo de fotones</h2>
-<p>λ tan corta que no hay espejo reflector útil. Compton: fotón choca con electrón libre en cristal → detectas la partícula cargada, no el γ original. Fermi-LAT: ~700 000 fotones en 7 años (mapa de todo el cielo).</p></div></div>
-<figure>
-<img src="m3c3/assets/slide-26.jpg" alt="Esquema Compton en cristal.">
-<figcaption><span class="cap">Diapositiva 26</span>Esquema Compton en cristal.</figcaption>
-</figure><figure>
-<img src="m3c3/assets/slide-28.jpg" alt="Mapa gamma Fermi.">
-<figcaption><span class="cap">Diapositiva 28</span>Mapa gamma Fermi.</figcaption>
-</figure>
-</section>
-
-<section id="s9"><div class="shead"><span class="num">9</span><div><h2>Radiación Cherenkov y CTA</h2>
-<p>Partícula &gt; c/n en el medio → cono de luz azul. Lluvia atmosférica por γ de alta energía → flash breve. CTA: arreglo de espejos segmentados en desierto (Chile + La Palma); detectores con timing ns reconstruyen dirección del primario.</p></div></div>
-<figure>
-<img src="m3c3/assets/slide-30.jpg" alt="Espejos CTA en el desierto.">
-<figcaption><span class="cap">Diapositiva 30</span>Espejos CTA en el desierto.</figcaption>
-</figure><figure>
-<img src="m3c3/assets/slide-32.jpg" alt="Detector con grilla temporizada.">
-<figcaption><span class="cap">Diapositiva 32</span>Detector con grilla temporizada.</figcaption>
-</figure>
-</section>
-
-<section id="s10"><div class="shead"><span class="num">10</span><div><h2>Cielo multibanda</h2>
-<p>El centro de la Vía Láctea se ve distinto en radio (HI angosto), IR, óptico, X y γ. Astronomía moderna = combinar bandas + mensajeros (GW, neutrinos — próxima clase).</p></div></div>
-<figure>
-<img src="m3c3/assets/slide-34.jpg" alt="Poster multibanda del centro galáctico.">
-<figcaption><span class="cap">Diapositiva 34</span>Poster multibanda del centro galáctico.</figcaption>
-</figure>
-</section>
-
-<section id="interactivo">
-<div class="widget"><h4>Resolución radio θ ≈ 1,22 λ/D</h4>
-<div class="wgrid"><label>λ (m)<input type="number" id="rad-lam" value="0.02" step="any"></label>
-<label>D (m)<input type="number" id="rad-d" value="40" step="any"></label></div>
-<output class="wout" id="rad-out"></output></div>
-<div class="widget"><h4>λ = c/ν</h4>
-<label>ν (MHz)<input type="number" id="nu-f" value="1420" step="any"></label>
-<output class="wout" id="nu-out"></output></div>
-</section>
-
-<section id="conceptos"><div class="tbl"><table>
+<section id="conceptos"><div class="shead"><span class="num">★</span><div><h2>Conceptos clave</h2></div></div>
+<div class="tbl"><table>
 <thead><tr><th>Concepto</th><th>Nota</th></tr></thead>
 <tbody>
-<tr><td><b>Radio quiet</b></td><td>Zonas sin RFI (celulares, etc.)</td></tr>
-<tr><td><b>Interferometría</b></td><td>Resolución ~ λ/B; área = Σ antenas</td></tr>
-<tr><td><b>Correlador</b></td><td>Combina fases; HPC en ALMA/EHT</td></tr>
-<tr><td><b>Compton</b></td><td>Detectar electrón tras choque γ</td></tr>
-<tr><td><b>Cherenkov</b></td><td>Lluvia atmosférica → flash óptico breve</td></tr>
-<tr><td><b>CTA</b></td><td>Próxima generación γ desde tierra</td></tr>
+<tr><td><b>Ventanas atmosféricas</b></td><td>Óptico y radio transparentes; UV/X/γ y gran parte del IR solo desde el espacio; mm/submm exige sitios altos y secos (agua)</td></tr>
+<tr><td><b>Ventana de radio</b></td><td>10 MHz–1 THz (≈30 m–0,3 mm); fotones de mínima energía: se detectan como ondas, no como partículas</td></tr>
+<tr><td><b>Antena de alambre</b></td><td>El campo eléctrico oscilante induce corriente en el conductor; Jansky 1932, Bell y los púlsares; vigente en SKA/MWA</td></tr>
+<tr><td><b>Parábola y fase</b></td><td>Todos los caminos al foco miden igual ⇒ llegada en fase ⇒ interferencia constructiva; apuntar mal = interferencia destructiva</td></tr>
+<tr><td><b>Barrido</b></td><td>Un plato único ve un «píxel» a la vez y construye el mapa punto a punto</td></tr>
+<tr><td><b>Resolución en radio</b></td><td>θ ≈ 1,22 λ/D con λ enorme: 40 m @ 2 cm ⇒ 125″; FAST 500 m @ 10 cm ⇒ 50″ (vs seeing óptico ~0,6″)</td></tr>
+<tr><td><b>Interferometría</b></td><td>D = separación máxima entre antenas (línea de base); el desfase entre pares codifica la posición; 2 antenas = franja, muchas = imagen</td></tr>
+<tr><td><b>Correlador</b></td><td>Supercomputador que combina todos los pares; en ALMA, a 5000 m con &gt;1000 km de fibra de largo calibrado</td></tr>
+<tr><td><b>ALMA</b></td><td>50×12 m (+12×7 m +4×12 m), base máx. 16 km, λ hasta 0,3 mm, platos con precisión de micrones: discos protoplanetarios resueltos</td></tr>
+<tr><td><b>EHT / VLBI</b></td><td>Base ~8000 km; grabación a disco con timestamps de fs, petabytes, correlación en diferido: imagen del agujero negro de M87</td></tr>
+<tr><td><b>Sin espejos gamma</b></td><td>λ menor que el espaciado atómico: la luz atraviesa el material; ni espejo ni CCD sirven</td></tr>
+<tr><td><b>Compton / Fermi-LAT</b></td><td>El γ cede energía a un electrón en un cristal denso; se detecta la partícula cargada; ~700 000 fotones en 7 años: régimen de conteo</td></tr>
+<tr><td><b>Efecto Cherenkov</b></td><td>Partícula más rápida que c/n del medio ⇒ frente cónico luminoso (boom sónico de luz); el azul de los reactores</td></tr>
+<tr><td><b>CTA</b></td><td>Telescopios ópticos sin cúpula + cámaras de fotodetectores con cronómetro; triangulación de lluvias; sitios en La Palma y Chile</td></tr>
 </tbody></table></div></section>
+
 <section id="examenes">
 <div class="shead"><span class="num">✓</span><div>
 <h2>Exámenes de práctica</h2>
 <p>10 exámenes de 5 preguntas (3 alternativas autocorregibles + 2 escritas).</p>
 </div></div>
 <ol class="examlist">
-    <li><a href="m3c3-examen-01.html">Examen 01<small>Espectro y atmósfera</small></a></li>
-    <li><a href="m3c3-examen-02.html">Examen 02<small>Antenas dipolo</small></a></li>
-    <li><a href="m3c3-examen-03.html">Examen 03<small>Plato parabólico</small></a></li>
-    <li><a href="m3c3-examen-04.html">Examen 04<small>Resolución en radio</small></a></li>
-    <li><a href="m3c3-examen-05.html">Examen 05<small>Interferometría básica</small></a></li>
-    <li><a href="m3c3-examen-06.html">Examen 06<small>ALMA y correlador</small></a></li>
-    <li><a href="m3c3-examen-07.html">Examen 07<small>EHT y VLBI</small></a></li>
-    <li><a href="m3c3-examen-08.html">Examen 08<small>Alta energía</small></a></li>
-    <li><a href="m3c3-examen-09.html">Examen 09<small>Cherenkov y CTA</small></a></li>
-    <li><a href="m3c3-examen-10.html">Examen 10<small>Multibanda integrador</small></a></li>
+    <li><a href="m3c3-examen-01.html">Examen 01<small>Ventanas atmosféricas</small></a></li>
+    <li><a href="m3c3-examen-02.html">Examen 02<small>La ventana de radio</small></a></li>
+    <li><a href="m3c3-examen-03.html">Examen 03<small>Antenas y corriente</small></a></li>
+    <li><a href="m3c3-examen-04.html">Examen 04<small>Parábola y fase</small></a></li>
+    <li><a href="m3c3-examen-05.html">Examen 05<small>Resolución en radio</small></a></li>
+    <li><a href="m3c3-examen-06.html">Examen 06<small>Interferometría</small></a></li>
+    <li><a href="m3c3-examen-07.html">Examen 07<small>ALMA y correlador</small></a></li>
+    <li><a href="m3c3-examen-08.html">Examen 08<small>EHT</small></a></li>
+    <li><a href="m3c3-examen-09.html">Examen 09<small>Compton y Fermi</small></a></li>
+    <li><a href="m3c3-examen-10.html">Examen 10<small>Cherenkov y CTA</small></a></li>
 </ol>
 </section>
-<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c3.md</code>, diapositivas Clase 3.</p>
-<p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente. Correcciones aplicadas en estos apuntes:
-<ul><li>"difracción" en lentes refractores → refracción (la curvatura del vidrio desvía la luz, no la difracción)</li><li>"zing", "SIG", "sync" → seeing (turbulencia atmosférica que desparrama la imagen)</li><li>"Hull" / telescopio espacial Hull → Hubble</li><li>"Verapoint", "ver a Rubí" → Vera Rubin (LSST)</li><li>"Verarubin" → Vera Rubin</li><li>"Churchill" y otros nombres mal reconocidos se contrastan con diapositivas cuando aparecen</li></ul></p></footer>
+
+<footer><p><b>Fuentes:</b> <code>observación/m3/ff/observacion-m3c3.md</code>, diapositivas Clase 3 (<code>Modulo_III_Clase_3.pdf</code>, 34 láminas).</p>
+<p class="disc"><strong>Nota sobre transcripción:</strong> el audio fue transcrito automáticamente y esta clase venía con muchos errores. Correcciones aplicadas:
+<ul><li>La transcripción insertó «ALMA» donde el profesor decía «al» / «a la» (p. ej. «llegan ALMA foco» → «llegan al foco»)</li><li>«transferencia de la almuff» → transmisión de la <strong>atmósfera</strong>; «nuestros bus» → nuestros <strong>ojos</strong>; «ciclos de onda instal» → longitudes de onda infrarrojas</li><li>«el PLA» → el <strong>VLA</strong> (Very Large Array, el de la película <em>Contacto</em>); su sucesor: ngVLA (next generation VLA)</li><li>«Jocelyn Per» → Jocelyn <strong>Bell</strong>; «esquiolímeter» → submillimeter; «Salombia» → la longitud de onda</li><li>«interfilometría / interprompus / intercrómetro» → interferometría / interferómetros; «Eleg Horizon» → <strong>Event Horizon Telescope</strong></li><li>«luz Cher / efecto Che / challenge» → <strong>Cherenkov</strong>; «CPA / Sheriff Telescop Array» → <strong>CTA</strong>, Cherenkov Telescope Array; «BLT / BRT» → VLT</li><li>«fotones de rojito de ondas muy cortas» → fotones de <strong>rayos X</strong>; «Fermila» → Fermi-LAT; «futones / pulo» → fotones / pulso</li><li>«3,5 grados = 40 lunas» y datos del Rubin citados de la clase 1; «se detecta el alumno» → se detecta el <strong>flash</strong></li><li>«2 kilómetros» del arreglo CTA y «27 m» del telescopio mayor en Chile: cifras dichas al vuelo; los tamaños nominales de CTA son 23 m / 12 m / 4 m (dato externo)</li></ul></p></footer>
 </main>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -309,23 +456,59 @@ footer b{color:var(--ink)}
 document.addEventListener("DOMContentLoaded",function(){
   if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
   document.querySelectorAll(".katex-block").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:true,throwOnError:false});});
-  document.querySelectorAll(".katex-inline").forEach(function(el){katex.render(el.dataset.tex,el,{displayMode:false,throwOnError:false});});
 
-  function radioRes(){
-    var lam=+document.getElementById('rad-lam').value;
-    var D=+document.getElementById('rad-d').value;
-    var theta=1.22*lam/D;
-    document.getElementById('rad-out').innerHTML='θ ≈ <b>'+(theta*206265).toFixed(2)+'</b> arcsec (λ='+lam+' m, D='+D+' m)';
+  // Widget 1: resolucion radio / interferometria
+  window.ifPreset=function(lmm,d){
+    document.getElementById('if-l').value=lmm;
+    document.getElementById('if-d').value=d;
+    ifCalc();
+  };
+  function ifCalc(){
+    var lam=+document.getElementById('if-l').value*1e-3;
+    var D=+document.getElementById('if-d').value;
+    if(!(lam>0)||!(D>0))return;
+    var theta=1.22*lam/D, arcsec=theta*206265;
+    var txt;
+    if(arcsec>=60) txt=(arcsec/60).toFixed(1)+'′ (arcominutos)';
+    else if(arcsec>=1) txt=arcsec.toFixed(2)+'″';
+    else if(arcsec>=1e-3) txt=(arcsec*1000).toFixed(2)+' mas';
+    else txt=(arcsec*1e6).toFixed(2)+' µas';
+    var ctx;
+    if(arcsec>60) ctx='Resolución de plato único en radio: mapas gruesos, píxeles gigantes.';
+    else if(arcsec>0.1) ctx='Comparable al seeing óptico: ya es útil para imágenes detalladas.';
+    else if(arcsec>1e-4) ctx='Régimen interferométrico: se resuelven discos protoplanetarios.';
+    else ctx='Régimen VLBI/EHT: la sombra de un agujero negro está a tu alcance («una dona en la Luna»).';
+    document.getElementById('if-out').innerHTML=
+      'θ ≈ 1,22 λ/D = <b>'+txt+'</b> <span class="k">('+theta.toExponential(2)+' rad)</span>.<br>'+ctx;
   }
-  var rl=document.getElementById('rad-lam'),rd=document.getElementById('rad-d');
-  if(rl){rl.oninput=radioRes;rd.oninput=radioRes;radioRes();}
-  function nuCalc(){
-    var f=+document.getElementById('nu-f').value*1e6;
-    var c=299792458;
-    document.getElementById('nu-out').innerHTML='λ = c/ν ≈ <b>'+(c/f).toFixed(3)+'</b> m ('+(c/f*100).toFixed(1)+' cm)';
-  }
-  var nf=document.getElementById('nu-f'); if(nf){nf.oninput=nuCalc;nuCalc();}
+  document.getElementById('if-l').oninput=ifCalc;
+  document.getElementById('if-d').oninput=ifCalc;
+  ifCalc();
 
+  // Widget 2: escalera del espectro
+  var h=6.62607015e-34, c=299792458, eV=1.602176634e-19;
+  function band(l){
+    if(l>=1e-1)return['Radio','platos, dipolos, interferómetros; suma coherente de ondas'];
+    if(l>=1e-3)return['Microondas / mm-submm','ALMA; sitios altos y secos por el vapor de agua'];
+    if(l>=7e-7)return['Infrarrojo','detectores HgCdTe criogénicos (JWST/NIRCam)'];
+    if(l>=4e-7)return['Óptico','CCDs con ~90% de eficiencia cuántica'];
+    if(l>=1e-8)return['Ultravioleta','desde el espacio; la atmósfera lo bloquea'];
+    if(l>=1e-11)return['Rayos X','incidencia rasante (Chandra); conteo de fotones'];
+    return['Rayos gamma','cristales + Compton (Fermi-LAT) o Cherenkov atmosférico (CTA)'];
+  }
+  function spCalc(){
+    var x=+document.getElementById('sp-x').value;
+    var lam=Math.pow(10,x);
+    var nu=c/lam, E=h*nu, Eev=E/eV;
+    var b=band(lam);
+    var ltxt = lam>=1 ? lam.toFixed(0)+' m' : lam>=1e-3 ? (lam*1e3).toFixed(1)+' mm' : lam>=1e-6 ? (lam*1e6).toFixed(2)+' µm' : lam>=1e-9 ? (lam*1e9).toFixed(2)+' nm' : (lam*1e12).toFixed(2)+' pm';
+    document.getElementById('sp-out').innerHTML=
+      'λ = <b>'+ltxt+'</b> · ν = <b>'+nu.toExponential(2)+' Hz</b> · E = <b>'+
+      (Eev>=1e3?(Eev/1e3).toFixed(1)+' keV':Eev>=0.01?Eev.toFixed(2)+' eV':Eev.toExponential(1)+' eV')+'</b> por fotón.<br>'+
+      'Banda: <b>'+b[0]+'</b>. <span class="k">'+b[1]+'.</span>';
+  }
+  document.getElementById('sp-x').oninput=spCalc;
+  spCalc();
 });
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 06 — m3c1 · Límite de difracción</title>
+<title>Examen 06 — m3c1 · Óptica activa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 1</span>
-<h1>Examen 06 — Límite de difracción</h1>
+<h1>Examen 06 — Óptica activa</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,c,b">
-  <fieldset data-q="1"><legend>1. El tamaño del disco de Airy escala como:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">1,22 λ/D</label>
-    <label class="opt"><input type="radio" name="q1" value="b">D/λ</label>
-    <label class="opt"><input type="radio" name="q1" value="c">λ·D²</label>
-    <label class="opt"><input type="radio" name="q1" value="d">1/D sin λ</label>
-    <p class="fb" hidden>θ ≈ 1,22 λ/D en radianes.</p>
+<form id="quiz" data-answers="b,b,a">
+  <fieldset data-q="1"><legend>1. La óptica activa consiste en:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Rigidizar el espejo con más vidrio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Dejar que el espejo delgado se deforme y corregir su forma con pistones (~1 vez por minuto)</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Mover el telescopio más rápido</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Deformar la atmósfera con láseres</label>
+    <p class="fb" hidden>El cambio de paradigma: espejo delgado + ~120 actuadores que restauran la curvatura correcta mientras el telescopio sigue al objeto.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Con λ fija, un telescopio más grande produce un disco de difracción:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Más grande</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Igual</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Más pequeño</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Inexistente</label>
-    <p class="fb" hidden>θ ∝ 1/D.</p>
+  <fieldset data-q="2"><legend>2. ¿Cómo sabe el sistema de óptica activa que debe corregir?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Mide la temperatura del vidrio</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Monitorea una estrella de referencia: si deja de verse puntual, recalcula los pistones</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Usa GPS</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Lo decide el astrónomo manualmente</label>
+    <p class="fb" hidden>Una estrella del borde del campo debe verse como punto; si se alarga o desparrama, la forma del espejo se corrige.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Dos estrellas separadas por menos que θ de Airy:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Se resuelven fácilmente</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Pueden verse como una sola</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Desaparecen</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Emiten radio</label>
-    <p class="fb" hidden>Convolutión de dos patrones de Airy.</p>
+  <fieldset data-q="3"><legend>3. El espejo de Gemini (8 m) tiene ~20 cm de grosor. Si se hubiese construido con la lógica rígida de Hale:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Pesaría 2,6 veces más</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Sería imposible de pulir</label>
+    <label class="opt"><input type="radio" name="q3" value="c">No reflejaría infrarrojo</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Tendría el mismo peso</label>
+    <p class="fb" hidden>El cálculo de la diapositiva: 2,6× más pesado. Con óptica activa quedó en ~1,7× el peso de referencia: la corrección reemplaza a la rigidez.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Escribe la fórmula del límite de difracción y explica cada símbolo.</p>
+  <p class="q">4. Diferencia óptica activa de óptica adaptativa: qué corrige cada una, dónde y a qué velocidad.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">θ ≈ 1,22 λ/D: λ longitud de onda observada, D diámetro del telescopio, θ tamaño angular mínimo resoluble (primer mínimo del patrón de Airy).</div>
+    <div class="answer">La óptica activa corrige las deformaciones del propio espejo primario (gravedad, temperatura) actuando con pistones sobre el vidrio, en escalas de ~1 minuto. La óptica adaptativa corrige las distorsiones que la atmósfera imprime en el frente de onda, actuando sobre un espejo deformable pequeño dentro del instrumento (el primario no soportaría sacudidas), cientos de veces por segundo, usando una estrella natural o láser como referencia.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué Galileo dibujó Saturno tan mal comparado con Hubble?</p>
+  <p class="q">5. Describe la montura de los telescopios Magallanes y el detalle del aceite a presión.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Telescopio pequeño → θ grande → baja resolución; no podía separar anillos y disco con claridad (inferencia histórica ilustrada en clase).</div>
+    <div class="answer">Los Magallanes (Baade y Clay, 6,5 m, Las Campanas) usan semicírculos montados sobre otro semicírculo, con el piso completo girando: la combinación inclina y rota el telescopio hacia cualquier punto. La estructura descansa sobre una película de aceite bombeado a presión que reduce la fricción casi a cero: con el bombeo activo, un instrumento de cientos de toneladas puede empujarse a mano — evidencia de un balanceo casi perfecto.</div>
   </details>
 </div>
 

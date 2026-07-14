@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 04 — m3c1 · Espejos segmentados</title>
+<title>Examen 04 — m3c1 · Reflectores</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 1</span>
-<h1>Examen 04 — Espejos segmentados</h1>
+<h1>Examen 04 — Reflectores</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. Keck usa espejos segmentados principalmente para:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Evitar revestir con aluminio</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Permitir espejos más delgados y livianos por segmento</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Observar solo en radio</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Eliminar el seeing</label>
-    <p class="fb" hidden>Cada segmento ~7,5 cm grosor; el problema es alinearlos.</p>
+<form id="quiz" data-answers="a,b,c">
+  <fieldset data-q="1"><legend>1. La diferencia esencial entre un reflector y un refractor es que el reflector:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Usa un espejo curvo en vez de un lente para concentrar la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="b">No necesita concentrar la luz</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Solo funciona en el espacio</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Usa dos lentes en vez de uno</label>
+    <p class="fb" hidden>Newton propuso reemplazar el lente por un espejo: la luz rebota en vez de atravesar.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. El reto computacional histórico de Keck era:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Imprimir las imágenes</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Alinear decenas de segmentos cada ~minuto</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Enfriar el detector</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Sincronizar con GPS</label>
-    <p class="fb" hidden>Matriz gigante de grados de libertad; en los 80 era caro, hoy trivial.</p>
+  <fieldset data-q="2"><legend>2. En una montura Cassegrain, la luz concentrada:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Sale por un costado del tubo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Rebota en un secundario y pasa por un orificio central del primario hacia los instrumentos</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Se refleja de vuelta al cielo</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Se detecta en el mismo espejo primario</label>
+    <p class="fb" hidden>El secundario devuelve el haz a través del «hoyito» del primario; detrás van los instrumentos. La newtoniana lo saca por el costado.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. El ELT combina:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Solo refractores</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Segmentación + óptica activa + láseres para OA</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo placas fotográficas</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Un único espejo de 1 m</label>
-    <p class="fb" hidden>40 m segmentado con OA en cada segmento y multi-láser.</p>
+  <fieldset data-q="3"><legend>3. ¿Cuál de estas NO es una ventaja del reflector sobre el refractor?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Se puede apoyar el espejo por atrás y por los lados</label>
+    <label class="opt"><input type="radio" name="q3" value="b">No importa la pureza interna del vidrio</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Elimina por completo la difracción de la luz</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Permite corregir la forma del espejo empujándolo por atrás</label>
+    <p class="fb" hidden>La difracción es un límite físico de toda abertura (θ ≈ 1,22 λ/D): ningún diseño la elimina. Las otras tres son ventajas reales.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. ¿Por qué dividir un espejo de 8 m en hexágonos?</p>
+  <p class="q">4. El espejo secundario y sus soportes obstruyen parte de la luz. Explica por qué esto es aceptable y qué efecto deja en las imágenes.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Un monolito más delgado se rompe o flexiona demasiado; segmentos permiten soporte local y pistones independientes, a costa de control activo continuo.</div>
+    <div class="answer">El secundario bloquea un área pequeña comparada con el primario: la pérdida de luz es porcentualmente menor y no arruina la observación (de noche y en cúpula oscura no entra luz lateral, incluso hay telescopios de estructura abierta). Los soportes («araña») sí difractan la luz y producen los picos en cruz que se ven en las estrellas brillantes de las fotos astronómicas — un artefacto cosmético conocido, no un impedimento.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. Menciona dos telescopios de ~10 m y dónde están.</p>
+  <p class="q">5. ¿Por qué la posibilidad de apoyar el espejo por atrás fue la semilla de la óptica activa?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer"><strong>Keck I/II</strong> en Mauna Kea (Hawái); también GTC ~10,2 m en Islas Canarias. Ambos usan segmentación o variantes avanzadas.</div>
+    <div class="answer">Al apoyarse por atrás, se puede instrumentar la parte trasera con actuadores que empujan el vidrio en puntos distintos. Eso permite modificar deliberadamente la curvatura: primero para mantener rígida la forma, y después (óptica activa) para corregir en tiempo casi real las deformaciones por gravedad cuando el telescopio apunta en distintas direcciones — algo imposible con un lente que solo se toca por el borde.</div>
   </details>
 </div>
 

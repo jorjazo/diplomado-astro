@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 09 — m3c2 · Vera Rubin CCD</title>
+<title>Examen 09 — m3c2 · Mosaicos y velocidad de lectura</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 2</span>
-<h1>Examen 09 — Vera Rubin CCD</h1>
+<h1>Examen 09 — Mosaicos y velocidad de lectura</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="b,b,b">
-  <fieldset data-q="1"><legend>1. La cámara Vera Rubin usa aproximadamente:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">1 CCD</label>
-    <label class="opt"><input type="radio" name="q1" value="b">200 CCD en paralelo</label>
-    <label class="opt"><input type="radio" name="q1" value="c">Solo placas</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Antenas de 40 m</label>
-    <p class="fb" hidden>Mosaico masivo para 3,2 Gpx.</p>
+<form id="quiz" data-answers="b,b,a">
+  <fieldset data-q="1"><legend>1. El instrumento MagE ofrece lectura lenta (33 s, ruido 2,9 e⁻) y turbo (14 s, ruido 4,2 e⁻). Esto ilustra:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Que la lectura rápida siempre es mejor</label>
+    <label class="opt"><input type="radio" name="q1" value="b">El trade-off entre velocidad de lectura y ruido de lectura</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Que el ruido no depende de la electrónica</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Un defecto exclusivo de MagE</label>
+    <p class="fb" hidden>Leer más rápido introduce más error por paquete de carga. Cada programa científico elige su punto en ese compromiso.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Cada CCD de Vera Rubin tiene del orden de:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">16 píxeles</label>
-    <label class="opt"><input type="radio" name="q2" value="b">16 megapíxeles</label>
-    <label class="opt"><input type="radio" name="q2" value="c">16 gigapíxeles</label>
-    <label class="opt"><input type="radio" name="q2" value="d">16 bytes</label>
-    <p class="fb" hidden>16 Mpx × 200 ≈ 3,2 Gpx.</p>
+  <fieldset data-q="2"><legend>2. ¿Por qué usar varios amplificadores por CCD tiene un costo?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Consumen demasiada energía</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Cada amplificador tiene sensibilidad propia: la imagen queda con zonas de respuesta distinta que hay que calibrar</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Hacen más lenta la lectura</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Bloquean parte de la luz</label>
+    <p class="fb" hidden>La imagen se ve «por mitades» (o dieciseisavos) hasta corregir las ganancias relativas de cada puerto de lectura.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Múltiples amplificadores por chip permiten:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Lectura más lenta</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Lectura más rápida en paralelo</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Eliminar calibración</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Ver neutrinos</label>
-    <p class="fb" hidden>Trade-off: más ruido de lectura si muy rápido.</p>
+  <fieldset data-q="3"><legend>3. La cámara del observatorio Vera Rubin logra leer 3,2 gigapíxeles en:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">2 segundos</label>
+    <label class="opt"><input type="radio" name="q3" value="b">2 minutos</label>
+    <label class="opt"><input type="radio" name="q3" value="c">20 minutos</label>
+    <label class="opt"><input type="radio" name="q3" value="d">2 horas</label>
+    <p class="fb" hidden>~200 CCD × 16 amplificadores en paralelo, con bajo ruido. Compárese con los 14–33 s que tarda MagE en leer 2 Mpx.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Compara Mage (Las Campanas) turbo vs Vera Rubin.</p>
+  <p class="q">4. ¿Por qué la velocidad de lectura es crítica para el Vera Rubin y no tanto para otros observatorios?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Mage ~2048² en 14 s turbo; Vera Rubin 3,2 Gpx en ~2 s — salto de ingeniería en paralelización.</div>
+    <div class="answer">Rubin toma una imagen de 3,2 Gpx cada ~5 minutos (survey de todo el cielo, 10 años): si la lectura tomara minutos, el observatorio pasaría gran parte de la noche leyendo en vez de observando, destruyendo la cadencia del survey. Por eso el diseño invierte en paralelismo extremo (200 CCD × 16 amplificadores = 3200 canales) para leer en 2 segundos con ruido bajo y estable. En un telescopio de apuntado clásico, con exposiciones largas y pocas tomas, medio minuto de lectura es tolerable.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué distintos chips tienen colores distintos en fotos del focal plane?</p>
+  <p class="q">5. Explica qué es un mosaico de CCDs, por qué existe, y cómo se manejan los espacios entre chips.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Fabricados por empresas distintas; pequeñas diferencias de EQ → corregir en calibración.</div>
+    <div class="answer">Es un plano focal compuesto por varios CCD adosados, cada uno con su propia electrónica de lectura. Existe porque un único CCD gigante sería lentísimo de leer (lectura secuencial) y más propenso a que un defecto arruine mucho campo; varios chips leen en paralelo. El precio: quedan gaps físicos entre chips donde no se registra cielo. Se cubren con dithering — re-apuntados pequeños entre exposiciones — planificados para rellenar los huecos sin duplicar demasiada área, como en el mosaico CEERS de JWST.</div>
   </details>
 </div>
 

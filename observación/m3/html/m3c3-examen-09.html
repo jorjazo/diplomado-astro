@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Examen 09 — m3c3 · Cherenkov y CTA</title>
+<title>Examen 09 — m3c3 · Compton y Fermi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
@@ -38,45 +38,45 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:v
 <main class="wrap">
 <nav><a href="m3c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
 <span class="kick">Instrumentación y Observación · Módulo III · Clase 3</span>
-<h1>Examen 09 — Cherenkov y CTA</h1>
+<h1>Examen 09 — Compton y Fermi</h1>
 <p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita.</p>
 
-<form id="quiz" data-answers="a,b,b">
-  <fieldset data-q="1"><legend>1. Radiación Cherenkov ocurre cuando:</legend>
-    <label class="opt"><input type="radio" name="q1" value="a">Una partícula viaja más rápido que la luz en el medio (c/n)</label>
-    <label class="opt"><input type="radio" name="q1" value="b">Hay eclipse</label>
-    <label class="opt"><input type="radio" name="q1" value="c">El CCD satura</label>
-    <label class="opt"><input type="radio" name="q1" value="d">Solo en vacío más rápido que c</label>
-    <p class="fb" hidden>Cono de luz azul; no viola SR (c del vacío es el límite).</p>
+<form id="quiz" data-answers="b,b,a">
+  <fieldset data-q="1"><legend>1. En rayos gamma no se pueden construir espejos porque:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">El vidrio es muy caro</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La λ es menor que la separación entre átomos: la radiación pasa entre ellos y atraviesa el material</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Los espejos se derriten</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La atmósfera los bloquea</label>
+    <p class="fb" hidden>Como correr por un bosque de árboles muy separados: no hay superficie capaz de hacer rebotar la onda. Ni espejo ni CCD sirven.</p>
   </fieldset>
-  <fieldset data-q="2"><legend>2. Los telescopios CTA detectan:</legend>
-    <label class="opt"><input type="radio" name="q2" value="a">Rayos gamma directamente con CCD</label>
-    <label class="opt"><input type="radio" name="q2" value="b">Flash óptico breve de lluvia atmosférica por γ</label>
-    <label class="opt"><input type="radio" name="q2" value="c">Solo radio FM</label>
-    <label class="opt"><input type="radio" name="q2" value="d">Neutrinos</label>
-    <p class="fb" hidden>Cascada en atmósfera → Cherenkov → espejos al desierto.</p>
+  <fieldset data-q="2"><legend>2. La detección por efecto Compton consiste en:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Reflejar el rayo gamma en un cristal</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Hacer chocar el fotón gamma con un electrón de un cristal denso: el electrón eyectado (partícula cargada) es lo que se detecta</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Enfriar el fotón hasta hacerlo visible</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Convertir el gamma en sonido</label>
+    <p class="fb" hidden>El fotón tiene momentum: choca como bola de billar, cede energía al electrón, y la partícula cargada deja señal eléctrica medible.</p>
   </fieldset>
-  <fieldset data-q="3"><legend>3. Los detectores CTA miden:</legend>
-    <label class="opt"><input type="radio" name="q3" value="a">Solo posición</label>
-    <label class="opt"><input type="radio" name="q3" value="b">Posición y tiempo de llegada (ns) para reconstruir dirección</label>
-    <label class="opt"><input type="radio" name="q3" value="c">Solo magnitud</label>
-    <label class="opt"><input type="radio" name="q3" value="d">Polarización únicamente</label>
-    <p class="fb" hidden>Grilla de fotodetectores con cronometraje.</p>
+  <fieldset data-q="3"><legend>3. El mapa del cielo de Fermi-LAT mostrado en clase acumuló en 7 años:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">700 000 fotones</label>
+    <label class="opt"><input type="radio" name="q3" value="b">700 000 millones de fotones</label>
+    <label class="opt"><input type="radio" name="q3" value="c">7 fotones</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Un flujo continuo imposible de contar</label>
+    <p class="fb" hidden>~10⁵–10⁶ eventos en años: régimen de conteo de fotones. Literalmente se podría ponerle nombre a cada uno.</p>
   </fieldset>
   <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
   <p class="score" id="score" hidden></p>
 </form>
 
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">4. Describe la cascada atmosférica iniciada por un γ.</p>
+  <p class="q">4. Explica por qué un CCD es inútil para rayos gamma, conectando con la física de la clase 2.</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">γ interactúa → pares e⁺e⁻ y hadrones → partículas superlumínicas en aire → conos Cherenkov → flash detectable.</div>
+    <div class="answer">El CCD depende del efecto fotoeléctrico en silicio: el fotón debe ser absorbido en el material para liberar un fotoelectrón, lo que requiere una interacción eficiente a esa λ. Un fotón gamma tiene λ mucho menor que el espaciado atómico y una probabilidad de absorción bajísima en un chip delgado: atraviesa el detector «como si nada». Detectarlo exige forzar otra interacción — el choque Compton con electrones en un volumen de cristal denso — y registrar la partícula cargada resultante, no el fotón.</div>
   </details>
 </div>
 <div class="qopen"><span class="tag">Respuesta escrita</span>
-  <p class="q">5. ¿Por qué CTA necesita espejos grandes y abiertos?</p>
+  <p class="q">5. ¿Qué consecuencias estadísticas tiene trabajar en régimen de conteo de fotones, como Fermi-LAT?</p>
   <details><summary>Ver respuesta propuesta</summary>
-    <div class="answer">Flash de ns; hay que recolectar mucha luz Cherenkov en ventana breve; muchos telescopios en array.</div>
+    <div class="answer">Con pocos eventos, manda la estadística de Poisson: la incertidumbre relativa de N fotones va como 1/√N, así que construir un mapa o espectro confiable exige acumular años de datos. Cada fotón es un registro individual (tiempo, energía, dirección reconstruida): el «dato» es un log de eventos, no una imagen. Las detecciones se expresan en significancia estadística, la variabilidad rápida es difícil de muestrear, y anécdota de clase: un grupo italiano bautizaba cada fotón X de su fuente con el nombre de un papa — así de pocos eran.</div>
   </details>
 </div>
 
