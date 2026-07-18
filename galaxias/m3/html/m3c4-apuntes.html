@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmología I: el universo en expansión — Astrofísica de Galaxias, Módulo III · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 4</span>
+  <h1>Cosmología I: el universo <em>en expansión</em></h1>
+  <p class="sub">Las ecuaciones de Einstein aplicadas al cosmos completo, las tres evidencias de que el Big Bang realmente ocurrió, el fondo cósmico de microondas como fotografía del universo a los 380.000 años, y la ecuación de Friedmann: contenido y curvatura deciden la historia — y el destino — de la expansión.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> III · Clase 4</span>
+    <span><b>Tema:</b> Expansión, CMB y ecuación de Friedmann</span>
+    <span><b>Fuentes:</b> transcripción <code>ff/</code> + diapositivas (screenshots)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>sta clase inicia el "viaje más largo" del curso: la cosmología, el estudio del universo como un todo. La herramienta es la relatividad general — las mismas ecuaciones que describían un agujero negro sirven para describir el cosmos entero — y la sorpresa histórica es que esas ecuaciones, aplicadas al universo, <em>nunca</em> dan un universo quieto: exigen que se expanda o se contraiga. La clase presenta la evidencia de que efectivamente ocurrió un Big Bang, y para un ingeniero el terreno es cómodo: hay una ecuación diferencial (Friedmann), una condición de borde (el contenido del universo), un análisis de Fourier (el espectro del CMB) y un problema de conversión de unidades que entrega, en una línea, la edad del universo.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Einstein y la constante cosmológica</a></li>
+    <li><a href="#s2">Los tres pilares del Big Bang</a></li>
+    <li><a href="#s3">La ley de Hubble–Lemaître</a></li>
+    <li><a href="#s4">Qué se expande (y qué no)</a></li>
+    <li><a href="#s5">La edad de Hubble: 1/H₀</a></li>
+    <li><a href="#s6">El CMB: descubrimiento accidental</a></li>
+    <li><a href="#s7">La recombinación: el origen del CMB</a></li>
+    <li><a href="#s8">El CMB se creó en todas partes</a></li>
+    <li><a href="#s9">Principio cosmológico y ecuación de Friedmann</a></li>
+    <li><a href="#s10">Densidad crítica, Ω y curvatura</a></li>
+    <li><a href="#s11">Geometrías, edades y destinos</a></li>
+    <li><a href="#s12">El espectro de potencias del CMB</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Einstein y la constante cosmológica</h2>
+    <p>Las ecuaciones pedían un universo dinámico; la época pedía uno estático.</p>
+  </div></div>
+
+  <p>No hubo cosmología física hasta que la <span class="hl">relatividad general</span> entregó las herramientas para estudiar la evolución del cosmos. Y apenas se aplicaron las ecuaciones de Einstein al universo completo, el resultado fue incómodo: el universo <strong>tenía que ser dinámico</strong> — expandiéndose o contrayéndose. Como la astronomía de la época creía en un universo estático (infinito en espacio y tiempo), Einstein agregó a mano un término, la <span class="hl">constante cosmológica</span>, para forzar una solución estática. Pocos años después se descubrió que el universo sí se expande. Ese ir y venir entre teoría y observación — dice la clase — es exactamente lo que hace avanzar a la ciencia.</p>
+
+  <div class="box physics">
+    <span class="tag">Recordatorio de relatividad general</span>
+    <p>La masa distorsiona el espacio y el tiempo, y esa distorsión es lo que llamamos gravedad. Cerca de un cuerpo masivo el espacio se "aprieta" y el tiempo corre más lento; lejos, el espacio se estira y el tiempo corre más rápido. Consecuencia directa: la luz que sale de un pozo gravitacional se corre al rojo (<strong>redshift gravitacional</strong>) — la longitud de onda crece a medida que la radiación se aleja de la fuente masiva. Esta idea reaparecerá en versión cosmológica: aquí será el espacio <em>en expansión</em> el que estire la luz.</p>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-04.jpg" alt="Diapositiva del redshift gravitacional: relojes a distinta altura y una onda de luz que se estira al subir">
+    <figcaption><span class="cap">Diapositiva · Redshift gravitacional</span>Dos relojes a distinta altura marcan tiempos distintos; la luz que sube desde la fuente estira su longitud de onda. La dilatación del tiempo y el corrimiento al rojo son dos caras de estar en un campo gravitacional.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Los tres pilares del Big Bang</h2>
+    <p>Tres hechos observacionales independientes que apoyan que el Big Bang ocurrió.</p>
+  </div></div>
+
+  <p>Es fácil tomarse el Big Bang como un chiste de serie de televisión; el objetivo de estas dos clases es mostrar la <strong>evidencia</strong>. Hay tres observables independientes:</p>
+  <ul>
+    <li><strong>La expansión del universo</strong> (ley de Hubble–Lemaître) — esta clase.</li>
+    <li><strong>La existencia del fondo cósmico de microondas</strong> (CMB) — esta clase.</li>
+    <li><strong>La nucleosíntesis primordial</strong> de hidrógeno y helio, y sus proporciones exactas — la clase 5.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c4/assets/slide-05.jpg" alt="Diapositiva con los tres pilares observacionales del modelo del Big Bang">
+    <figcaption><span class="cap">Diapositiva · Las tres evidencias</span>El Big Bang no es "una explosión": es el estado inicial extremadamente denso y caliente del universo cuando comenzó su expansión. Estos tres observables son la razón por la que el modelo es el más aceptado.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La ley de Hubble–Lemaître</h2>
+    <p>Dos mediciones por galaxia — distancia y corrimiento — y una correlación que cambió todo.</p>
+  </div></div>
+
+  <p>Un error histórico entregó todos los laureles a Edwin Hubble, cuando el sacerdote y astrónomo belga <strong>Georges Lemaître</strong> descubrió la expansión de manera independiente y simultánea (e incluso parece que hubo acciones deliberadas para silenciar su artículo). La Unión Astronómica Internacional corrigió el registro: hoy es oficialmente la <span class="hl">ley de Hubble–Lemaître</span>.</p>
+
+  <p>El diagrama original: cada punto es una galaxia, con su <strong>distancia</strong> en un eje y su <strong>corrimiento Doppler</strong> (expresado como velocidad, en km/s) en el otro. Casi todos los corrimientos son hacia el rojo — casi todas las galaxias parecen alejarse — y, pese a la dispersión de esas primeras mediciones, hay una <strong>correlación clara: más lejos, más rápido</strong>. La interpretación no es que todas las galaxias arranquen de la nuestra (no somos especiales): es que <strong>el universo se expande</strong> y, visto desde cualquier galaxia, todo lo demás se aleja.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="v \;=\; H_0\, d \qquad H_0 \approx 70\ \tfrac{\text{km/s}}{\text{Mpc}}"></span>
+    <small>La pendiente H₀ es la <strong>constante de Hubble</strong>: la tasa de expansión <em>actual</em> del universo. Una galaxia a 1 megaparsec parece alejarse a ~70 km/s; a 2 Mpc, a ~140 km/s. Es la misma tasa en todo el universo en este momento (aunque no es constante en el tiempo).</small>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-06.jpg" alt="Diapositiva con las fotos de Lemaître y Hubble y el diagrama original de Hubble de 1929">
+    <figcaption><span class="cap">Diapositiva · Lemaître, Hubble y el diagrama original</span>Velocidad aparente (km/s) contra distancia (hasta ~2×10⁶ pc). Unos pocos puntos negativos (corrimiento al azul) son galaxias vecinas dominadas por su movimiento local — Andrómeda entre ellas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Qué se expande (y qué no)</h2>
+    <p>El espacio crece; las galaxias no se mueven. Y usted no está creciendo.</p>
+  </div></div>
+
+  <h3>El experimento de la fotocopia ampliada</h3>
+  <p>¿Por qué "más lejos = más rápido"? Es <strong>geometría pura</strong>, y se puede comprobar en casa: tome una imagen cualquiera (una foto de galaxias, su perro, lo que sea), cópiela ampliada por un factor, y haga coincidir ambas copias en <em>cualquier</em> punto — ese punto es "usted observando". El desplazamiento de cada objeto entre las dos imágenes es <strong>mayor mientras más lejos está del punto de coincidencia</strong>. Si la imagen chica es el universo "antes" y la grande el universo "después", cada observador ve que todo se aleja, y lo lejano se aleja más rápido. Sin que nada se haya movido.</p>
+
+  <figure>
+    <img src="m3c4/assets/slide-08.jpg" alt="Diapositiva con dos imágenes del mismo campo de galaxias superpuestas y flechas que muestran el corrimiento aparente">
+    <figcaption><span class="cap">Diapositiva · Expansión = reescalamiento</span>Las flechas azules marcan el corrimiento aparente de cada galaxia al reescalar la imagen: crece con la distancia al punto de coincidencia. La ley de Hubble–Lemaître es el efecto geométrico de un espacio que se escala.</figcaption>
+  </figure>
+
+  <h3>No es una velocidad: se crea espacio</h3>
+  <p>Medimos el corrimiento con el efecto Doppler, y el Doppler habla de velocidades — pero aquí <strong>no es una velocidad real</strong>. Entre un instante y otro, cada galaxia "no se movió a ninguna parte": lo que creció fue el espacio entre ellas. En palabras de la clase: <em>no se crea materia ni energía — se crea espacio</em>, distancia que antes no existía. Y la pregunta "¿dentro de qué se expande el universo?" no tiene cabida: el universo no está contenido en un espacio mayor; el espacio es lo que hay entre los cuerpos, y eso es lo que crece.</p>
+
+  <h3>Las regiones desacopladas</h3>
+  <p>Entonces, ¿me estoy alejando de ustedes? ¿Estoy creciendo? No: <strong>la expansión es del universo a gran escala, no de las regiones gobernadas por su propia gravedad</strong>. Cuando una región acumula suficiente contenido (veremos el criterio: la densidad crítica), se <span class="hl">desacopla</span> de la expansión y pasa a vivir su propia dinámica, dictada por su gravedad y su movimiento interno. Nuestra galaxia se desacopló hace mucho; el Grupo Local también — por eso la Vía Láctea y Andrómeda no se alejan: van derechito a chocar. El universo es como un gran globo que crece, con "burbujas" pequeñas que ya no se expanden, mientras el espacio <em>entre</em> esas burbujas sigue creciendo.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>La expansión es un <strong>reescalamiento global de coordenadas</strong>, no una traslación de objetos: como cambiar el zoom de un canvas en lugar de mover cada elemento. Y las regiones desacopladas son como procesos con su propio reloj local que dejaron de sincronizarse con el clock global. El redshift cosmológico mide directamente el factor de escala: la señal (longitud de onda) se estira exactamente con el "zoom" del universo entre emisión y recepción.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Preguntas de la clase</span>
+    <p><strong>¿"Se crea" espacio no viola la termodinámica?</strong> No se crea materia ni energía, solo espacio. Y ojo: el universo <em>no es un sistema conservativo</em> — los fotones del CMB pierden energía constantemente por la expansión (su longitud de onda se estira). Volveremos sobre esto.</p>
+    <p><strong>¿La tasa de expansión es constante?</strong> En el tiempo, no. Pero en un momento dado, todo el universo se expande con la misma tasa — si viajáramos a una región que ni siquiera podemos ver, mediríamos la misma tasa que aquí.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La edad de Hubble: 1/H₀</h2>
+    <p>Pasar la película al revés: si la tasa fuera siempre la misma, ¿cuándo empezó todo?</p>
+  </div></div>
+
+  <p>Si el universo se expande, hacia atrás en el tiempo las galaxias estaban cada vez más juntas; antes eran estrellas apiladas, antes átomos, y en el extremo un estado <strong>tremendamente denso y caliente</strong>: el Big Bang. Primer cálculo de su edad: <em>supongamos</em> que la tasa de expansión siempre fue la actual. Entonces el tiempo transcurrido es simplemente el inverso de la constante de Hubble:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\tau_H \;=\; \frac{1}{H_0} \;=\; \frac{3\times10^{19}\ \text{km/Mpc}}{70\ \text{km/s/Mpc}} \;\approx\; 4.3\times10^{17}\ \text{s} \;\approx\; 13.6\ \text{Gyr}"></span>
+    <small>Todo el "truco" es conversión de unidades: H₀ viene en km/s por megaparsec, y 1 Mpc ≈ 3×10¹⁹ km. El resultado, ~13.6 mil millones de años, se llama <strong>tiempo de Hubble</strong>. Ojo: es una cota de referencia — veremos que un universo con contenido es <em>más joven</em> que esto, porque antes se expandía más rápido.</small>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-09.jpg" alt="Diapositiva: lo que se expande es el espacio; cono de expansión desde el Big Bang y cálculo de la edad de Hubble">
+    <figcaption><span class="cap">Diapositiva · El espacio se expande</span>"No hay movimiento alguno": la ley de Hubble–Lemaître se interpreta como velocidad por <em>analogía</em> con el efecto Doppler. Abajo, el cálculo de τ₀ = H₀⁻¹ ≈ 13.6 Gyr.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>El CMB: descubrimiento accidental</h2>
+    <p>Predicho en los años 40, encontrado en 1965 por dos ingenieros que no sabían qué era.</p>
+  </div></div>
+
+  <p>El segundo pilar. Cuando en los <strong>años 40</strong> se modeló cómo habría sido el universo post–Big Bang (Alpher, Herman y Gamow), se predijo que debía quedar un <span class="hl">fondo de radiación cósmica</span> — aunque lo buscaron en una frecuencia equivocada. En <strong>1965</strong>, <strong>Penzias y Wilson</strong>, trabajando con la antena de Holmdel de los laboratorios Bell, midieron una señal que llegaba igual desde <em>todas</em> las direcciones, no importa hacia dónde apuntaran. No tenían idea de qué era — el paper se titula, esencialmente, "una medición de exceso de temperatura de antena" (llegaron a culpar a las palomas que anidaban en la antena) — y aun así se llevaron el <strong>Premio Nobel 1978</strong>. Habían encontrado el CMB que otros andaban buscando.</p>
+
+  <div class="box dato">
+    <span class="tag">Ficha del CMB</span>
+    <p>Espectro de <strong>cuerpo negro</strong> casi perfecto con <strong>T = 2.725 ± 0.002 K</strong>. Es radiación remanente de cuando el universo tenía unos <strong>380.000 años</strong>, a redshift <strong>z ≈ 1100</strong> (la profesora lo redondea a 1000 para no olvidarlo). Y no fue un instante: la transición tomó su tiempo — es un proceso, no un flash.</p>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-10.jpg" alt="Diapositiva de Penzias y Wilson frente a la antena de Holmdel con la ficha del descubrimiento del CMB">
+    <figcaption><span class="cap">Diapositiva · Penzias, Wilson y la antena de Holmdel</span>El descubrimiento accidental más famoso de la astronomía. Dato curioso mencionado en clase: una pequeña fracción (~1%) del "ruido" de nieve de los televisores analógicos antiguos era CMB.</figcaption>
+  </figure>
+
+  <p>Tres misiones espaciales han mapeado el CMB con resolución creciente: <strong>COBE</strong> (1989, la primera en detectar estructura en la radiación), <strong>WMAP</strong> (2001) y <strong>Planck</strong> (2009). Las mismas estructuras persisten de mapa en mapa — solo que cada vez se ven con más detalle. Los colores de esos mapas son "de fantasía": marcan dónde la temperatura medida es una pizca más caliente o más fría.</p>
+
+  <figure>
+    <img src="m3c4/assets/slide-11.jpg" alt="Diapositiva con los mapas del CMB de COBE, WMAP y Planck y la línea de tiempo del universo temprano">
+    <figcaption><span class="cap">Diapositiva · COBE, WMAP y Planck</span>Tres generaciones de mapas del mismo cielo en microondas, y la línea de tiempo del universo temprano: plasma de quarks y gluones (~1 μs), nucleones, núcleos (10 s–20 min), átomos neutros (380.000 años). <small>Crédito: Astronomy / R. Kelly.</small></figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>La recombinación: el origen del CMB</h2>
+    <p>El momento en que el universo se volvió neutro y la luz quedó libre.</p>
+  </div></div>
+
+  <p>¿Por qué <em>tenía</em> que existir el CMB? Porque es el resultado natural de la evolución del contenido del universo. La secuencia, extrapolando el Big Bang hacia adelante:</p>
+
+  <ul>
+    <li><strong>Al comienzo:</strong> las mayores temperaturas y densidades posibles. La predicción es "de locos": las primeras partículas no tenían masa y todas viajaban a la velocidad de la luz, hasta que la fuerza primordial se dividió en fuerzas específicas. Al separarse la electromagnética de la nuclear débil aparece el <strong>bosón de Higgs</strong>, que entrega a las partículas la propiedad de tener masa — y con masa, ya no pueden viajar a c.</li>
+    <li><strong>~1 microsegundo:</strong> una sopa — plasma de <strong>quarks y gluones</strong>, más fotones, electrones… y hay que echarle también las partículas de materia oscura.</li>
+    <li><strong>Pocos microsegundos:</strong> los quarks se agrupan de a tres para formar <strong>nucleones</strong>: protones y neutrones.</li>
+    <li><strong>Entre 10 segundos y 20 minutos:</strong> protones y neutrones se unen en <strong>núcleos atómicos</strong> (helio; un protón solo ya es un núcleo de hidrógeno). Todavía no hay átomos: es un plasma de núcleos positivos, electrones negativos y fotones rebotando entre ellos.</li>
+    <li><strong>~380.000 años:</strong> la <span class="hl">recombinación</span> — por primera vez los núcleos capturan electrones y el universo se vuelve <strong>neutro</strong>. Los fotones, que hasta entonces vivían chocando con partículas cargadas (son los portadores de la fuerza electromagnética), <strong>quedan libres</strong> y salen a viajar. Ese es el nacimiento del CMB: el desacople entre radiación y materia.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c4/assets/slide-12.jpg" alt="Diapositiva de la recombinación: plasma cargado con fotones atrapados versus gas neutro con fotones libres">
+    <figcaption><span class="cap">Diapositiva · La "recombinación"</span>Izquierda: plasma cargado — los fotones chocan una y otra vez con protones y electrones. Derecha: gas neutro de hidrógeno — los fotones escapan. Pésimo nombre, dice la clase: nada se estaba "re-combinando"; era la <em>primera</em> vez que se combinaban. Mejor: el desacoplamiento. <small>Crédito: Addison Wesley.</small></figcaption>
+  </figure>
+
+  <h3>El umbral de los 13.6 eV</h3>
+  <p>¿Por qué justo entonces? Los fotones del universo nacieron como la radiación más energética concebible (rayos gamma) y la expansión los fue estirando y enfriando. Mientras su energía superó los <strong>13.6 electronvolts</strong> (longitud de onda 912 Å) que se necesitan para ionizar el hidrógeno, cada átomo que se formaba era destruido de inmediato: se formaba y se rompía, se formaba y se rompía. Cuando la radiación bajó de ese umbral, el hidrógeno quedó "tranquilito, neutro" y los fotones siguieron su camino. En ese momento los fotones del universo eran comparables a los de las estrellas O y B — los mismos ultravioleta que hoy mantienen ionizadas las regiones H II. Es exactamente la misma física.</p>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>El CMB se creó en todas partes</h2>
+    <p>El "cascarón" que nos rodea no es un lugar: es una selección de fotones.</p>
+  </div></div>
+
+  <p>Los diagramas del universo observable confunden: muestran el CMB como una esfera lejana que nos rodea, y uno concluye "el CMB se creó allá lejos". Falso. La recombinación fue una transición <strong>en todo el universo a la vez</strong> — aquí mismo, donde está la Tierra, se crearon fotones del CMB que salieron viajando en todas direcciones. Lo que representa esa esfera es otra cosa: de todos los fotones creados en todas partes, <strong>los que nos llegan justo ahora</strong> son los que partieron desde una distancia tal que su viaje duró exactamente la edad del universo desde la recombinación. Un observador en otra galaxia tiene <em>su propio</em> cascarón — y a él le están llegando ahora fotones que se crearon aquí.</p>
+
+  <figure>
+    <img src="m3c4/assets/slide-13.jpg" alt="Diapositiva: el CMB se formó en todo el universo; esferas de redshift y dos observadores con sus propios cascarones">
+    <figcaption><span class="cap">Diapositiva · La emisión es isotrópica</span>Izquierda: las esferas concéntricas de redshift (0 → 1100) con nosotros al centro — pura perspectiva. Derecha: la Tierra y un observador lejano, cada uno recibiendo su propio CMB tras ~15 mil millones de años de viaje de la luz. El Big Bang ocurrió en todas partes: este pedacito del universo también fue parte de él.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Principio cosmológico y ecuación de Friedmann</h2>
+    <p>Una suposición de simetría y la ecuación diferencial que gobierna la expansión.</p>
+  </div></div>
+
+  <h3>El principio cosmológico</h3>
+  <p>Hay algo que los cosmólogos deben asumir sin poder comprobarlo empíricamente — "casi un acto de fe", aunque en el fondo es minimizar variables: el <span class="hl">principio cosmológico</span> establece que el universo, a grandes escalas, es <strong>homogéneo</strong> (igual en todas partes) e <strong>isotrópico</strong> (igual en todas las direcciones). No son lo mismo: una pared de ladrillos es homogénea pero no isotrópica (tiene direcciones privilegiadas); un patrón de rayos radiales es isotrópico desde el centro pero no homogéneo. La consecuencia práctica es enorme: sin lugares ni orientaciones preferidas, <strong>la expansión se describe con un solo número</strong> — H, sin dependencia de posición ni dirección.</p>
+
+  <figure>
+    <img src="m3c4/assets/slide-14.jpg" alt="Diapositiva del principio cosmológico con ejemplos de homogeneidad e isotropía">
+    <figcaption><span class="cap">Diapositiva · Homogéneo e isotrópico</span>Ladrillos: homogéneo, no isotrópico. Rayos radiales: isotrópico, no homogéneo. Puntos aleatorios: ambas cosas — así es el universo a gran escala (a escalas menores, obvio que no: existen las galaxias).</figcaption>
+  </figure>
+
+  <h3>La ecuación de Friedmann</h3>
+  <p>De la relatividad general (más la hipótesis de las geodésicas) sale la ecuación que describe la historia de expansión — la misma donde Einstein metió su término "a dedo":</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="H^2 \;=\; \left(\frac{\dot a}{a}\right)^{\!2} \;=\; \frac{8\pi G}{3c^2}\,\varepsilon(t)\;-\;\frac{\kappa c^2}{R_0^2}\,\frac{1}{a(t)^2}"></span>
+    <small><strong>a(t)</strong> es el <strong>factor de escala</strong> del universo (su "tamaño" relativo; hoy a = 1) y <strong>ȧ</strong> su derivada temporal. La combinación ȧ/a es el <strong>parámetro de Hubble</strong> H(t); su valor actual es la constante de Hubble H₀ (el subíndice 0 siempre significa "hoy"). ε(t) es la densidad de energía de <em>todo</em> el contenido, y κ el término de curvatura.</small>
+  </div>
+
+  <p>El primer término del lado derecho es una constante (8πG/3c²) multiplicada por <strong>ε, el contenido del universo</strong>: "échenlo todo al saco" — protones, neutrones, electrones, neutrinos, fotones, ondas gravitacionales, materia oscura, todo. Se pasa de densidad de energía a densidad de masa con ε = ρc². El segundo término es la <strong>curvatura</strong>. Conclusión estructural: <strong>la historia de la expansión queda determinada por el contenido del universo y por su curvatura</strong>. Eso es lo que los cosmólogos necesitan medir, y hay dos caminos: el universo local (z ~ 0–1, como hizo Hubble) y el CMB (z ~ 1100). Uno de los problemas actuales más interesantes es que <em>ambos caminos no coinciden del todo</em>.</p>
+
+  <div class="box physics">
+    <span class="tag">La jerga: componentes calientes y frías</span>
+    <p>Los cosmólogos dividen el contenido en dos. <strong>Calientes (relativistas):</strong> todo lo que viaja a c o casi — esencialmente los fotones del CMB (lejos, la mayor cantidad de fotones del universo: los de todas las estrellas juntas son "una pistosis" al lado) y los neutrinos (tienen masa, pero tan pequeña que van casi a c). <strong>Frías (no relativistas):</strong> todo el resto — materia oscura, y los protones, neutrones y electrones en forma de estrellas, planetas, gas y polvo. Lo más rápido en esta categoría: galaxias en cúmulos, a ~1000 km/s.</p>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-16.jpg" alt="Diapositiva de la ecuación de Friedmann con la explicación del término de contenido">
+    <figcaption><span class="cap">Diapositiva · La ecuación de Friedmann</span>ε es la densidad de materia-radiación; con ε = ρc² se pasa de energía a masa y viceversa. Las mejores mediciones vienen del universo local y del CMB.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Densidad crítica, Ω y curvatura</h2>
+    <p>¿Cuánto contenido se necesita para que el universo sea plano? Cinco protones por metro cúbico.</p>
+  </div></div>
+
+  <p>Pregunta: ¿nuestro universo, como un todo, es curvo? A un universo <em>justo, pero justo</em> plano se le llama <span class="hl">universo crítico</span>: en él κ = 0 y el término de curvatura muere. Despejando la densidad necesaria con H₀ = 70:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\rho_c \;=\; \frac{3H_0^2}{8\pi G} \;\approx\; 7.9\times10^{-27}\ \tfrac{\text{kg}}{\text{m}^3} \;\approx\; 5\ \text{protones por m}^3"></span>
+    <small>La <strong>densidad crítica</strong>: la cantidad exacta de masa-energía por volumen para que el universo sea plano. Es un valor que cambia en el tiempo (depende de H); este es el de <em>hoy</em>.</small>
+  </div>
+
+  <p>Ahora, a contar. El censo del contenido (fotones, electrones, protones… todo el saco) da ρ₀ ~ 7×10⁻³⁰ kg/m³; incluyendo la materia oscura sube a ~2×10⁻²⁷ kg/m³. Contra los 8×10⁻²⁷ requeridos: <strong>falta un factor ~4</strong>. Se define entonces el <span class="hl">parámetro de densidad</span>:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\Omega_0 \;=\; \frac{\rho_0}{\rho_c} \;\approx\; \frac{1}{4}\ \text{(según este censo)}"></span>
+    <small>Ω₀ mide cuán lejos estamos de ser críticos. Ω₀ = 1: universo crítico/plano. Ω₀ &lt; 1: universo <strong>abierto</strong>, curvatura negativa. Ω₀ &gt; 1: universo <strong>cerrado</strong>, curvatura positiva. El conteo directo sugiere que vivimos en un universo abierto… la clase 5 mostrará que el CMB dice otra cosa.</small>
+  </div>
+
+  <h3>Visualizar las curvaturas</h3>
+  <p>La curvatura <em>del universo como un todo</em> no requiere un espacio mayor que lo contenga (extraño, sí). Las visualizaciones clásicas en 2D:</p>
+  <ul>
+    <li><strong>Positiva (cerrado):</strong> la esfera. Dos caminantes que parten paralelos hacia el Polo Norte terminan encontrándose. Los ángulos internos de un triángulo suman <strong>más</strong> de 180°. Dos rayos láser paralelos terminan convergiendo.</li>
+    <li><strong>Negativa (abierto):</strong> la silla de montar — curvada de una manera en una dirección y de otra en la perpendicular. Los triángulos suman <strong>menos</strong> de 180°. Rayos paralelos terminan divergiendo.</li>
+    <li><strong>Cero (plano/crítico):</strong> triángulos de 180° exactos; rayos paralelos se mantienen paralelos para siempre.</li>
+  </ul>
+
+  <figure>
+    <img src="m3c4/assets/slide-19.jpg" alt="Diapositiva del parámetro de densidad Omega y las tres curvaturas posibles con triángulos">
+    <figcaption><span class="cap">Diapositiva · Ω₀ y las tres geometrías</span>Curvatura cero (Ω₀ = 1), positiva (Ω₀ &gt; 1) y negativa (Ω₀ &lt; 1), con el triángulo de prueba sobre cada superficie. <small>Crédito: HowStuffWorks.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase: ¿es la misma densidad crítica del desacople?</span>
+    <p>Sí, totalmente: es el mismo criterio. Si un pedazo del universo alcanza la densidad crítica, se vuelve una región "cerrada" que se desacopla de la expansión — el caso de nuestra galaxia y nuestro cúmulo. Y nosotros estamos lejos, <em>lejísimos</em> por encima: la densidad crítica es 5 protones por metro cúbico y en esta sala hay trillones de trillones.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Geometrías, edades y destinos</h2>
+    <p>El contenido frena la expansión: cada Ω implica una historia y un final distintos.</p>
+  </div></div>
+
+  <p>Resolver la ecuación de Friedmann para cada caso entrega la tabla completa (edades calculadas respecto al tiempo de Hubble τ<sub>H</sub> = 1/H₀):</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Caso</th><th>Curvatura / geometría</th><th>Historia y destino</th><th>Edad del universo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ω₀ = 0</b> (vacío)</td><td>—</td><td>Sin masa ni energía: tasa de expansión constante para siempre. No existe, pero es la referencia.</td><td>τ₀ = τ<sub>H</sub></td></tr>
+      <tr><td><b>0 &lt; Ω₀ &lt; 1</b> (abierto)</td><td>Negativa (silla de montar)</td><td>Se expande por siempre, frenándose sin detenerse.</td><td>⅔ τ<sub>H</sub> &lt; τ₀ &lt; τ<sub>H</sub></td></tr>
+      <tr><td><b>Ω₀ = 1</b> (crítico)</td><td>Cero (plano)</td><td>El caso límite exacto: "un gramo más y es cerrado, un gramo menos y es abierto".</td><td>τ₀ = ⅔ τ<sub>H</sub></td></tr>
+      <tr><td><b>Ω₀ &gt; 1</b> (cerrado)</td><td>Positiva (esfera)</td><td>La expansión se frena, se detiene y se revierte: colapso final en un <strong>Big Crunch</strong>.</td><td>τ₀ &lt; ⅔ τ<sub>H</sub></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Fíjense en el patrón: <strong>todos los casos realistas son más jóvenes que el tiempo de Hubble</strong>. El contenido del universo solo puede <em>frenar</em> la expansión (gravedad atrae); por eso, hacia atrás, el universo se expandía más rápido que hoy y llegó al presente en menos tiempo del que sugiere la tasa actual. Este dato — que la materia solo desacelera — será la clave del gran giro de la clase 5.</p>
+
+  <figure>
+    <img src="m3c4/assets/slide-21.jpg" alt="Diapositiva de NASA con los tres conos de evolución para universo cerrado, crítico y abierto">
+    <figcaption><span class="cap">Diapositiva · Tres destinos</span>Pasado → presente → futuro para Ω₀ &gt; 1 (recolapsa en Big Crunch), Ω₀ = 1 (se frena asintóticamente) y Ω₀ &lt; 1 (expansión eterna). <small>Crédito: NASA.</small></figcaption>
+  </figure>
+
+  <p>¿Cómo saber en cuál vivimos? Dos estrategias: (1) <strong>contar</strong> — el censo de fotones, protones, electrones y materia oscura que ya hicimos; (2) <strong>mirar hacia atrás</strong> — al futuro no podemos mirar, pero la historia de expansión sí se puede reconstruir observando lejos, y cada caso tiene un pasado distinto. Eso se empezó a hacer en los años 80 y 90, y el resultado (clase 5) fue una sorpresa mayúscula.</p>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>El espectro de potencias del CMB</h2>
+    <p>Una transformada de Fourier del cielo entero — y una predicción que calza exacta.</p>
+  </div></div>
+
+  <p>El CMB no es perfectamente parejo: tiene regiones un cachito más calientes y otras un cachito más frías. Ese "cachito" es minúsculo: las variaciones son <strong>cinco órdenes de magnitud</strong> menores que la temperatura promedio (ΔT/T ~ 10⁻⁵). COBE fue la primera sonda en detectarlas. Y esas fluctuaciones diminutas son las semillas de <em>todas</em> las estructuras actuales — galaxias incluidas.</p>
+
+  <p>Para caracterizarlas se toma la <span class="hl">transformada de Fourier esférica</span> del mapa: en lugar de preguntar "¿qué hay en cada punto?", se pregunta "¿cuántas estructuras hay de cada tamaño angular?". El resultado es el <strong>espectro de potencias</strong>: pocas estructuras de ~90°, un <strong>peak dominante en ~1 grado</strong>, y picos secundarios menores hacia ~0.25°.</p>
+
+  <div class="box dato">
+    <span class="tag">La predicción</span>
+    <p>Entendiendo la física del universo en sus primeros 380.000 años (que es física <em>simple</em>: una sopa de partículas y fotones), se puede predecir el tamaño característico de las estructuras al momento de formarse el CMB: <strong>aproximadamente 1 grado en el cielo</strong>. Y es exactamente lo que se mide. La clase quedó aquí con un suspenso: "pero hay un problema con eso" — la resolución llega en la clase 5, y cambia todo el censo del universo.</p>
+  </div>
+
+  <figure>
+    <img src="m3c4/assets/slide-23.jpg" alt="Diapositiva del espectro de potencias del CMB con el pico principal en un grado">
+    <figcaption><span class="cap">Diapositiva · El espectro de potencias</span>"Importancia" de las estructuras versus su tamaño angular: bandas a ~90°, ~1° y ~0.25°, con el peak principal en ~1°. Arriba, los mapas filtrados a cada escala. <small>Crédito: WMAP.</small></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía informática</span>
+    <p>Es exactamente un <strong>análisis espectral de señal</strong>: el mapa del CMB es la señal (2D sobre la esfera), y el espectro de potencias es su descomposición en "frecuencias espaciales" (armónicos esféricos, el análogo de la FFT sobre S²). El peak en 1° es como encontrar la frecuencia dominante de una vibración: te dice cuál era el modo de oscilación principal de la sopa primordial — y su posición codifica la geometría del universo, porque la curvatura actúa como una "lente" que reescala todos los ángulos observados.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">✦</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Dos calculadoras: la edad de Hubble a partir de H₀, y el explorador de universos según Ω₀.</p>
+  </div></div>
+
+  <div class="widget" id="w-hubble">
+    <h4>Widget 1 · La edad de Hubble: τ = 1/H₀</h4>
+    <label>Constante de Hubble H₀ (km/s/Mpc): <span class="rngval" id="hb-val">70</span></label>
+    <input type="range" id="hb-h0" min="40" max="110" step="1" value="70">
+    <div class="presets">
+      <button type="button" data-h0="70">Clase: 70</button>
+      <button type="button" data-h0="67">Planck (CMB): ~67</button>
+      <button type="button" data-h0="73">Local (SNe/cefeidas): ~73</button>
+      <button type="button" data-h0="500">Hubble 1929: ~500</button>
+    </div>
+    <div class="wout" id="hb-out"></div>
+  </div>
+
+  <div class="widget" id="w-omega">
+    <h4>Widget 2 · Explorador de universos: dime tu Ω₀ y te diré tu destino</h4>
+    <label>Parámetro de densidad Ω₀ = ρ₀/ρ<sub>c</sub>: <span class="rngval" id="om-val">0.25</span></label>
+    <input type="range" id="om-omega" min="0" max="3" step="0.05" value="0.25">
+    <div class="presets">
+      <button type="button" data-om="0">Vacío (Ω₀ = 0)</button>
+      <button type="button" data-om="0.25">Censo de la clase (~0.25)</button>
+      <button type="button" data-om="1">Crítico (Ω₀ = 1)</button>
+      <button type="button" data-om="2">Cerrado (Ω₀ = 2)</button>
+    </div>
+    <div class="wout" id="om-out"></div>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">✎</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Idea esencial</th></tr></thead>
+    <tbody>
+      <tr><td><b>Constante cosmológica</b></td><td>Término que Einstein agregó a mano para forzar un universo estático; lo retiró al descubrirse la expansión (y reaparecerá en la clase 5 como energía oscura).</td></tr>
+      <tr><td><b>Tres pilares del Big Bang</b></td><td>Expansión del universo, existencia del CMB y nucleosíntesis primordial (proporciones de H y He).</td></tr>
+      <tr><td><b>Ley de Hubble–Lemaître</b></td><td>v = H₀·d, con H₀ ≈ 70 km/s/Mpc: pendiente del diagrama distancia–corrimiento; descubierta independientemente por ambos; renombrada por la IAU.</td></tr>
+      <tr><td><b>Expansión del espacio</b></td><td>No es movimiento: se crea espacio entre los cuerpos. "Más lejos = más rápido" es efecto geométrico de un reescalamiento global.</td></tr>
+      <tr><td><b>Regiones desacopladas</b></td><td>Zonas que superaron la densidad crítica local dejaron de expandirse y se rigen por su propia gravedad (la galaxia, el Grupo Local — por eso chocaremos con Andrómeda).</td></tr>
+      <tr><td><b>Tiempo de Hubble</b></td><td>τ<sub>H</sub> = 1/H₀ ≈ 13.6 Gyr: edad si la tasa hubiera sido siempre la actual; cota superior para universos con contenido.</td></tr>
+      <tr><td><b>CMB</b></td><td>Cuerpo negro a T = 2.725 ± 0.002 K, isotrópico; predicho en los 40, descubierto por accidente por Penzias y Wilson (1965, Nobel 1978).</td></tr>
+      <tr><td><b>Recombinación</b></td><td>A z ≈ 1100 (~380.000 años) el universo se vuelve neutro y los fotones quedan libres: nace el CMB. Mal nombre — mejor "desacople radiación-materia".</td></tr>
+      <tr><td><b>13.6 eV / 912 Å</b></td><td>Umbral de ionización del hidrógeno: mientras los fotones lo superaban, ningún átomo sobrevivía; al bajar de ahí, el H quedó neutro (misma física de las regiones H II).</td></tr>
+      <tr><td><b>El "cascarón" del CMB</b></td><td>El CMB se creó en todas partes; la esfera que "vemos" es solo el conjunto de fotones cuyo viaje termina justo ahora en nuestro detector.</td></tr>
+      <tr><td><b>Principio cosmológico</b></td><td>El universo es homogéneo e isotrópico a gran escala ⇒ la expansión se describe con un solo número H(t).</td></tr>
+      <tr><td><b>Ecuación de Friedmann</b></td><td>H² = (ȧ/a)² = (8πG/3c²)ε − κc²/R₀²·a⁻²: la expansión queda determinada por el contenido (ε) y la curvatura (κ).</td></tr>
+      <tr><td><b>Componentes calientes/frías</b></td><td>Relativistas (fotones del CMB, neutrinos) vs. no relativistas (materia oscura, bariones en estrellas/gas/polvo).</td></tr>
+      <tr><td><b>Densidad crítica</b></td><td>ρ<sub>c</sub> = 3H₀²/8πG ≈ 7.9×10⁻²⁷ kg/m³ ≈ 5 protones/m³; el censo da un factor ~4 menos.</td></tr>
+      <tr><td><b>Ω₀ y curvatura</b></td><td>Ω₀ &lt; 1 abierto (negativa, triángulos &lt; 180°), Ω₀ = 1 plano (180°), Ω₀ &gt; 1 cerrado (positiva, &gt; 180°, Big Crunch).</td></tr>
+      <tr><td><b>Espectro de potencias del CMB</b></td><td>Transformada de Fourier esférica de fluctuaciones de 10⁻⁵; peak dominante en ~1°, tal como se predice.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas: 3 de alternativas autocorregibles + 2 de respuesta escrita con solución propuesta.</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c4-examen-01.html">Examen 01<small>Einstein y los tres pilares</small></a></li>
+    <li><a href="m3c4-examen-02.html">Examen 02<small>La ley de Hubble–Lemaître</small></a></li>
+    <li><a href="m3c4-examen-03.html">Examen 03<small>El espacio que se expande</small></a></li>
+    <li><a href="m3c4-examen-04.html">Examen 04<small>La edad de Hubble</small></a></li>
+    <li><a href="m3c4-examen-05.html">Examen 05<small>El descubrimiento del CMB</small></a></li>
+    <li><a href="m3c4-examen-06.html">Examen 06<small>La recombinación</small></a></li>
+    <li><a href="m3c4-examen-07.html">Examen 07<small>El CMB en todas partes</small></a></li>
+    <li><a href="m3c4-examen-08.html">Examen 08<small>Friedmann y el principio cosmológico</small></a></li>
+    <li><a href="m3c4-examen-09.html">Examen 09<small>Densidad crítica y curvatura</small></a></li>
+    <li><a href="m3c4-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo III del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción del audio (<code>galaxias/m3/ff/galaxias-m3c4.md</code>) y screenshots de las diapositivas (<code>galaxias/m3/diapos/Clase 4/</code>; no se contó con el PDF original, por lo que algunas láminas podrían faltar).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática con errores de reconocimiento de voz. Correcciones aplicadas contrastando con las diapositivas: "Ratchet / rachid / rachiv / Rachet" es <b>redshift (z)</b>; "CM / CMV / CIV / CIEV / nonbin / el BPAC" es el <b>CMB</b>; "constante de Huyo / Ham / Japo / Hab" refiere a <b>Hubble</b> y su constante; "Pencens" es <b>Penzias</b>; "Cove / Kobe" es la sonda <b>COBE</b>; "13.6 giga años / gigamos" son <b>13.6 Gyr</b>; "10.000 parsec" del diagrama original corresponde a ~<b>2×10⁶ pc</b> según la lámina; "5 protones por metro cúbico ↔ 8×10⁻²⁷ kg/m³" es consistente con la lámina (ρ_c = 7.9×10⁻²⁷ kg/m³); "15112.10 a la 9 años / 15.000 por 10 a la 9" corresponde a ~<b>13.8×10⁹ años</b> de viaje de la luz del CMB; la predicción del CMB en los años 40 corresponde a <b>Alpher, Herman y Gamow</b> (nombres tomados de la diapositiva). Los valores modernos de H₀ del widget 1 (Planck ~67, local ~73) son material externo complementario. Ante dudas, priman las diapositivas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: edad de Hubble =====
+  var hbH0=document.getElementById('hb-h0'), hbVal=document.getElementById('hb-val'), hbOut=document.getElementById('hb-out');
+  var KM_PER_MPC=3.0857e19, SEC_PER_GYR=3.156e16;
+  function hbUpdate(){
+    var h0=+hbH0.value; hbVal.textContent=h0;
+    var tSec=KM_PER_MPC/h0;            // segundos
+    var tGyr=tSec/SEC_PER_GYR;
+    var comment;
+    if(h0>200) comment='El valor original de Hubble (errores de calibración de distancias): daría un universo más joven que la Tierra — uno de los grandes problemas de la época.';
+    else if(h0>=66 && h0<=74) comment='Rango de los valores medidos hoy. Que el método local (~73) y el CMB (~67) no coincidan es la famosa "tensión de Hubble".';
+    else comment='Recuerda: τ_H es la edad solo si la tasa fue siempre constante (universo vacío). Con contenido, el universo es más joven que esto.';
+    hbOut.innerHTML='<span class="k">Tiempo de Hubble:</span> τ_H = 1/H₀ = <b>'+tGyr.toFixed(1)+' mil millones de años</b>'+
+      '<br><span class="k">Universo crítico (⅔ τ_H):</span> <b>'+(tGyr*2/3).toFixed(1)+' Gyr</b>'+
+      '<br>'+comment;
+  }
+  hbH0.addEventListener('input',hbUpdate);
+  document.querySelectorAll('#w-hubble .presets button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=+b.dataset.h0;
+      if(v>110){ hbH0.max=520; } else if(+hbH0.value<=110){ hbH0.max=110; }
+      hbH0.value=v; hbUpdate();
+    });
+  });
+  hbUpdate();
+
+  // ===== Widget 2: explorador de Omega =====
+  var omS=document.getElementById('om-omega'), omVal=document.getElementById('om-val'), omOut=document.getElementById('om-out');
+  function omUpdate(){
+    var om=+omS.value; omVal.textContent=om.toFixed(2);
+    var geo, tri, destino, edad, protones=(om*5).toFixed(1);
+    if(om===0){
+      geo='Sin contenido: no aplica curvatura por materia.'; tri='—';
+      destino='Universo vacío: tasa de expansión constante para siempre. No existe, pero es la referencia.';
+      edad='τ₀ = τ_H (≈ 13.6 Gyr con H₀ = 70)';
+    } else if(om<0.98){
+      geo='ABIERTO — curvatura negativa (tipo silla de montar).'; tri='Los ángulos de un triángulo suman menos de 180°; rayos paralelos divergen.';
+      destino='Se expande por siempre, frenándose sin detenerse jamás.';
+      edad='⅔ τ_H < τ₀ < τ_H (entre ~9.1 y 13.6 Gyr)';
+    } else if(om<=1.02){
+      geo='CRÍTICO / PLANO — curvatura cero.'; tri='Los ángulos suman exactamente 180°; rayos paralelos se mantienen paralelos.';
+      destino='El caso límite exacto: un gramo más y es cerrado, un gramo menos y es abierto. Expansión que se frena asintóticamente.';
+      edad='τ₀ = ⅔ τ_H (≈ 9.1 Gyr con H₀ = 70)';
+    } else {
+      geo='CERRADO — curvatura positiva (tipo esfera).'; tri='Los ángulos suman más de 180°; rayos paralelos convergen (como caminantes al Polo Norte).';
+      destino='La expansión se frena, se detiene y se revierte: colapso final en un Big Crunch.';
+      edad='τ₀ < ⅔ τ_H (menos de ~9.1 Gyr)';
+    }
+    omOut.innerHTML='<span class="k">Densidad equivalente:</span> <b>'+protones+' protones/m³</b> (ρ_c ≈ 5 protones/m³)'+
+      '<br><span class="k">Geometría:</span> '+geo+' <small style="color:var(--muted)">'+tri+'</small>'+
+      '<br><span class="k">Destino:</span> '+destino+
+      '<br><span class="k">Edad:</span> '+edad+
+      '<br><small style="color:var(--muted)">Nota de la clase 5: al agregar la energía oscura este cuadro cambia — el censo de materia da Ω~0.3, pero el CMB exige un universo plano.</small>';
+  }
+  omS.addEventListener('input',omUpdate);
+  document.querySelectorAll('#w-omega .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ omS.value=b.dataset.om; omUpdate(); });
+  });
+  omUpdate();
+});
+</script>
+</body>
+</html>

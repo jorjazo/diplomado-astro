@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 02 — m3c4 · La ley de Hubble–Lemaître</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m3c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Galaxias · Módulo III · Clase 4</span>
+
+<h1>Examen 02 — La ley de Hubble–Lemaître</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,b,c">
+  <fieldset data-q="1"><legend>1. ¿Qué dos cantidades hay que medir de cada galaxia para construir el diagrama de Hubble?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Su masa y su luminosidad</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Su distancia y su corrimiento Doppler (redshift)</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Su temperatura y su tamaño angular</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Su edad y su metalicidad</label>
+    <p class="fb" hidden>Cada punto del diagrama es una galaxia con su distancia en un eje y su corrimiento (expresado como velocidad en km/s, o como redshift) en el otro. La correlación entre ambas es la ley de Hubble–Lemaître.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Por qué la Unión Astronómica Internacional renombró la "ley de Hubble" como "ley de Hubble–Lemaître"?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque Lemaître corrigió un error de cálculo de Hubble</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque Lemaître descubrió la expansión de manera independiente y simultánea, y su crédito fue silenciado por décadas</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque Lemaître construyó el telescopio con que se hicieron las mediciones</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque Hubble renunció al crédito en vida</label>
+    <p class="fb" hidden>El astrónomo y religioso belga Georges Lemaître llegó al mismo resultado de forma independiente; incluso parece que hubo acciones deliberadas para mantener callado su artículo. La IAU corrigió el registro histórico.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En el diagrama original de Hubble, unos pocos puntos tienen velocidad negativa (corrimiento al azul). ¿Qué son?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Errores de medición sin significado físico</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Galaxias que se mueven más rápido que la expansión del universo</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Galaxias cercanas cuyo movimiento local domina sobre la expansión (como Andrómeda, que se nos acerca)</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Cuásares a alto redshift</label>
+    <p class="fb" hidden>A distancias pequeñas la dinámica gravitacional local puede superar el efecto de la expansión: Andrómeda y la Vía Láctea, desacopladas de la expansión, van derechito a chocar.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica el experimento casero de "la fotocopia ampliada" y qué demuestra sobre la relación distancia–velocidad.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Se toma una imagen cualquiera, se copia ampliada por un factor (50%, factor 2, lo que sea) y se hacen coincidir ambas copias en <strong>cualquier</strong> punto — ese punto representa al observador. Al comparar las dos imágenes, cada objeto aparece desplazado respecto a su posición original, y el desplazamiento es <strong>mayor mientras más lejos está</strong> del punto de coincidencia. Si la imagen pequeña es el universo "antes" y la ampliada el universo "después", el corrimiento entre ambas equivale a la "velocidad" aparente de cada galaxia. Demuestra que la correlación distancia–velocidad de Hubble–Lemaître es un <strong>efecto puramente geométrico</strong> de un espacio que se reescala: no hace falta que nada se mueva, y cualquier punto que se elija como observador ve exactamente lo mismo (nadie es el centro).</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. ¿Por qué el hecho de que todas las galaxias parezcan alejarse de nosotros no implica que estemos en el centro del universo?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Porque la expansión es <strong>global y homogénea</strong>: desde cualquier galaxia, todas las demás parecen alejarse con la misma ley (más lejos = más rápido). Hubble y Lemaître descartaron la interpretación de que "todas arrancan de la nuestra" precisamente porque nuestra galaxia debiese ser como cualquier otra — un argumento de humildad copernicana que el experimento de la imagen ampliada confirma: al hacer coincidir las dos copias en <em>cualquier</em> punto, ese punto ve a todos los demás alejarse. La explicación correcta no es un movimiento desde un centro, sino que <strong>el espacio mismo se expande</strong> entre las galaxias, y el patrón es idéntico visto desde cualquier lugar.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 4, Módulo III (Astrofísica de Galaxias). <a href="m3c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

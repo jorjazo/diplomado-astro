@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmología II: energía oscura, inflación y los tres primeros minutos — Astrofísica de Galaxias, Módulo III · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo III — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo III · Clase 5</span>
+  <h1>Cosmología II: energía oscura, inflación y <em>los tres primeros minutos</em></h1>
+  <p class="sub">El CMB declara que el universo es plano — pero el censo de materia se queda en un 30%. Las supernovas tipo Ia revelan una expansión acelerada, entra en escena la energía oscura, la inflación resuelve los dos grandes problemas del Big Bang, y la nucleosíntesis primordial explica con precisión exquisita por qué el universo es 3/4 hidrógeno y 1/4 helio.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> III · Clase 5 (final del curso)</span>
+    <span><b>Tema:</b> Energía oscura, inflación y nucleosíntesis</span>
+    <span><b>Fuentes:</b> transcripción <code>ff/</code> + diapositivas (screenshots)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase 4 dejó dos cabos sueltos: el censo de materia sugiere un universo abierto, pero el espectro de potencias del CMB calza <em>exactamente</em> con la predicción para un universo plano. Esta clase final resuelve la contradicción por la vía dura: hay que agregar al inventario una componente que nadie tenía en mente — la energía oscura, un 70% del presupuesto cósmico — y encima modificar la historia inicial con un período inflacionario. El premio de consuelo es enorme: al final del camino, el modelo predice las abundancias de helio, deuterio y litio primordiales con una precisión que calza con lo observado. Sabemos, con evidencia, lo que pasó en los primeros minutos del universo.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El veredicto del CMB: universo plano</a></li>
+    <li><a href="#s2">El censo de Ω: falta un 70%</a></li>
+    <li><a href="#s3">Mirar lejos es mirar al pasado</a></li>
+    <li><a href="#s4">La escalera de distancias</a></li>
+    <li><a href="#s5">Medir la expansión: redshift y factor de escala</a></li>
+    <li><a href="#s6">Diagramas de Hubble del pasado</a></li>
+    <li><a href="#s7">1998: la expansión acelerada</a></li>
+    <li><a href="#s8">La energía oscura</a></li>
+    <li><a href="#s9">El presupuesto del universo</a></li>
+    <li><a href="#s10">Los dos problemas del Big Bang</a></li>
+    <li><a href="#s11">Inflación</a></li>
+    <li><a href="#s12">Nucleosíntesis primordial</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El veredicto del CMB: universo plano</h2>
+    <p>La geometría del universo actúa como una lente sobre las manchas del CMB.</p>
+  </div></div>
+
+  <p>El espectro de potencias del CMB no solo se mide: se <strong>predice</strong>. La física del universo hasta los 380.000 años es sorprendentemente simple — una sopa de partículas y fotones — y al poner las mediciones sobre la predicción, calzan de manera "increíblemente precisa" ("la primera vez que vi eso, ¿qué? Maravilloso, realmente"). La predicción clave: las estructuras dominantes del CMB deben tener un tamaño <em>físico</em> que, en un universo plano, se ve como <strong>~1 grado</strong> en el cielo.</p>
+
+  <p>Y aquí entra la geometría como lente. La luz del CMB ha viajado ~13.800 millones de años siguiendo la forma del espacio:</p>
+  <ul>
+    <li><strong>Universo cerrado</strong> (Ω₀ &gt; 1, curvatura positiva): los rayos convergen — como los caminantes al Polo Norte, "un abrazo y un besito" — y las manchas se verían <strong>más grandes</strong> de lo que son.</li>
+    <li><strong>Universo abierto</strong> (Ω₀ &lt; 1, curvatura negativa): los rayos divergen y las manchas se verían <strong>más pequeñas</strong>.</li>
+    <li><strong>Universo plano</strong> (Ω₀ = 1): las manchas se ven de su <strong>tamaño verdadero</strong>: 1 grado.</li>
+  </ul>
+
+  <p>Lo que se mide es exactamente 1 grado. Conclusión categórica de la clase: <span class="hl">¡¡el CMB nos dice que este universo es plano y crítico!!</span></p>
+
+  <figure>
+    <img src="m3c5/assets/slide-02.jpg" alt="Diapositiva: cómo la curvatura del universo cambia el tamaño aparente de las manchas del CMB">
+    <figcaption><span class="cap">Diapositiva · La geometría como lente</span>Tres universos, tres tamaños aparentes para las mismas manchas del CMB: cerrado (se ven más grandes), plano (tamaño verdadero) y abierto (más pequeñas). Es geometría básica: la luz sigue la forma del espacio.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El censo de Ω: falta un 70%</h2>
+    <p>Contándolo todo — fotones, estrellas, materia oscura — llegamos apenas al 30% de lo necesario.</p>
+  </div></div>
+
+  <p>El problema: si el CMB exige Ω₀ = 1, la contabilidad paso a paso se queda cortísima:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Componente</th><th>Aporte a Ω₀</th><th>Comentario</th></tr></thead>
+    <tbody>
+      <tr><td><b>Fotones del CMB + neutrinos</b></td><td>~10⁻⁴</td><td>Las componentes "calientes". El CMB era "grito y plata" al comienzo (rayos gamma); hoy, submilimétrico: sigue siendo el mayor <em>número</em> de fotones del universo, pero energéticamente casi nada.</td></tr>
+      <tr><td><b>Radiación de las estrellas</b></td><td>~10⁻⁶</td><td>Todos los fotones estelares juntos: dos órdenes de magnitud menos que el CMB.</td></tr>
+      <tr><td><b>Materia luminosa</b></td><td>~0.002</td><td>Galaxias: número de estrellas × masa de cada una.</td></tr>
+      <tr><td><b>+ curvas de rotación</b></td><td>~0.03</td><td>La materia oscura de los halos galácticos.</td></tr>
+      <tr><td><b>+ cúmulos y lentes gravitacionales</b></td><td>~0.3</td><td>La materia oscura entre galaxias, medida por dinámica de cúmulos y lensing.</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Total: <strong>~30% de lo necesario</strong> para un universo crítico. "Y el CMB nos dice: plano. Claramente algo estaba mal, algo tenía que solucionarse."</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-03.jpg" alt="Diapositiva: el CMB dice que el universo es plano, pero el censo de Omega da mucho menos que el valor crítico">
+    <figcaption><span class="cap">Diapositiva · La contradicción</span>"¡¡¡El CMB nos dice que este universo es plano y crítico!!!" versus "¡¡¡Ω₀ muy lejos de ser el valor crítico!!!". La resolución vendrá de un lado inesperado.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Mirar lejos es mirar al pasado</h2>
+    <p>Los telescopios son máquinas del tiempo — y los tres universos posibles tienen pasados distintos.</p>
+  </div></div>
+
+  <p>La luz viaja a velocidad finita: la imagen de una galaxia a millones de años luz la muestra como era hace esos millones de años. Eso convierte a la astronomía en la única ciencia que puede <strong>observar directamente el pasado</strong> — y aquí es la herramienta decisiva, porque los tres universos posibles (abierto, crítico, cerrado) tienen <em>historias de expansión distintas</em>. Al futuro no podemos mirar; al pasado sí: si construimos diagramas de Hubble de épocas cada vez más tempranas, reconstruimos cómo cambió la tasa de expansión y determinamos en qué universo vivimos.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-04.jpg" alt="Diapositiva: la luz de fuentes lejanas es una máquina del tiempo">
+    <figcaption><span class="cap">Diapositiva · La máquina del tiempo</span>Desde las primeras estrellas (~13.300 millones de años atrás) hasta los cúmulos cercanos: cada distancia es una época. El diagrama de Hubble local mide la expansión <em>actual</em>; para medir la del pasado hay que poblarlo con objetos lejanos.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La escalera de distancias</h2>
+    <p>Paralaje → cefeidas → supernovas tipo Ia: cada peldaño calibra al siguiente.</p>
+  </div></div>
+
+  <p>De las dos cantidades del diagrama de Hubble, la difícil es la <strong>distancia</strong>: una galaxia débil puede ser intrínsecamente débil y cercana, o lumínosísima y lejanísima — indistinguible sin más información. La solución es una <span class="hl">escalera de distancias</span> donde cada método calibra al siguiente:</p>
+
+  <ul>
+    <li><strong>Paralaje:</strong> método puramente <em>geométrico</em> — el primer peldaño, sin supuestos físicos. Alcanza estrellas y cúmulos cercanos (Proxima Centauri, Vega, Polaris).</li>
+    <li><strong>Cefeidas:</strong> estrellas muy luminosas (arriba en el diagrama HR) con una relación <strong>período–luminosidad</strong>: mides el período de pulsación, sabes la luminosidad, deduces la distancia. Calibradas con paralajes; llegan a las Nubes de Magallanes y Andrómeda.</li>
+    <li><strong>Supernovas tipo Ia:</strong> <em>no</em> son la muerte de una estrella masiva — son otro tipo de supernova (de ahí el nombre raro). Calibradas con cefeidas, sirven de candelas estándar hasta <strong>redshift ~2</strong>.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Publicidad justa: el método se calibró en Chile</span>
+    <p>El método calibrador de supernovas tipo Ia se desarrolló en Chile, con <strong>Mario Hamuy</strong> — entonces en el Observatorio de Cerro Tololo, luego académico del departamento — como uno de sus autores fundamentales. Su trabajo (el proyecto Calán/Tololo) fue la base de la calibración con que después se descubrió la aceleración… y el Nobel se lo llevaron otros.</p>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/slide-06.jpg" alt="Diapositiva de la escalera de distancias: paralaje, cefeidas y supernovas">
+    <figcaption><span class="cap">Diapositiva · La escalera de distancias</span>De 10 años luz a 13 mil millones: paralaje (hasta cientos de años luz), cefeidas (hasta millones), supernovas tipo Ia (hasta z ~ 2). Cada peldaño se apoya en el anterior — y hereda sus errores, por eso la calibración cuidadosa lo es todo.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Medir la expansión: redshift y factor de escala</h2>
+    <p>La parte fácil: un espectro basta, y z te dice directamente cuánto ha crecido el universo.</p>
+  </div></div>
+
+  <p>La otra coordenada del diagrama es fácil: se toma el espectro del objeto, se identifican líneas conocidas (por ejemplo el doblete del calcio) y se compara la longitud de onda observada con la de laboratorio:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="z \;=\; \frac{\lambda_{\text{obs}} - \lambda_{\text{emit}}}{\lambda_{\text{emit}}} \qquad\Longrightarrow\qquad 1+z \;=\; \frac{1}{a(t_{\text{emit}})}"></span>
+    <small>Como la longitud de onda se estira con el factor de escala (λ ∝ a), el redshift mide directamente <strong>cuánto ha crecido el universo desde que la luz partió</strong>. Normalizando a = 1 hoy: un objeto a z = 1 emitió su luz cuando el universo tenía la <em>mitad</em> de su tamaño actual; a z = 1100 (el CMB), una milésima parte.</small>
+  </div>
+
+  <figure>
+    <img src="m3c5/assets/slide-07.jpg" alt="Diapositiva: espectro emitido versus observado con corrimiento al rojo y las ecuaciones del redshift">
+    <figcaption><span class="cap">Diapositiva · Es más fácil que medir distancias</span>Espectro emitido vs. observado (aquí, un corrimiento del 5%). Un espectro, una identificación de líneas, una división: eso es todo. El eje "fácil" del diagrama de Hubble.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Diagramas de Hubble del pasado</h2>
+    <p>El experimento mental de los dos universos — y qué curvatura esperar de la línea de Hubble.</p>
+  </div></div>
+
+  <p>Experimento mental de la clase: la misma galaxia, a la misma distancia, en dos universos distintos. En el universo <strong>A</strong> (expansión rápida) su redshift es mayor; en el <strong>B</strong> (expansión lenta), menor. Llenando ambos universos de galaxias: el lento produce una relación distancia–redshift <strong>más empinada</strong>, el rápido una <strong>más plana</strong> (ojo: en los diagramas modernos los ejes están al revés que en el de Hubble — distancia en Y, redshift en X).</p>
+
+  <p>Ahora, la línea <em>local</em> de Hubble solo seguiría recta hacia el pasado si la tasa de expansión hubiera sido siempre la misma — y eso, sabemos, es el universo vacío. En los tres universos con contenido, <strong>la expansión solo puede frenarse</strong> (la materia atrae): el universo antes se expandía <em>más rápido</em>, y la curva a alto redshift debía doblarse en el sentido correspondiente. Todo el juego de los años 90 era medir <strong>con cuánto cuidado se doblaba</strong> esa línea, para distinguir universo crítico de abierto. Nadie dudaba del signo de la curvatura — solo de su magnitud.</p>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>1998: la expansión acelerada</h2>
+    <p>Los puntos se fueron para el otro lado. Ningún universo propuesto explicaba el diagrama.</p>
+  </div></div>
+
+  <p>Usando el método calibrado por Hamuy sobre supernovas a redshifts cada vez más altos, los primeros resultados llegaron en <strong>1998–1999</strong>… y los puntos <strong>se desviaron hacia el lado prohibido</strong>: las supernovas lejanas aparecían más débiles (más lejos) de lo esperado en cualquier universo que se frena. La expansión del universo <strong>no se está desacelerando: se está acelerando</strong>. Cada vez nos expandimos más rápido.</p>
+
+  <p>Ningún universo de los propuestos (abierto, crítico, cerrado — todos de pura materia) explica el diagrama moderno. Hubo que inventar algo, y a ese algo le llamaron <span class="hl">energía oscura</span> ("alguien vio demasiado Star Wars"). El ajuste del Dark Energy Survey lo dice con números: el modelo que funciona tiene <strong>~35% materia y ~65% energía oscura</strong>; el modelo de 100% materia queda descartado.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-10.jpg" alt="Diapositiva del diagrama de Hubble moderno con supernovas: universo acelerado con 35% materia y 65% energía oscura">
+    <figcaption><span class="cap">Diapositiva · El diagrama de Hubble actual</span>Distancias de supernovas tipo Ia versus redshift (hasta z ~ 1): la curva del universo acelerado (35% materia + 65% energía oscura) pasa por los datos; la del universo de 100% materia, no. <small>Crédito: NOIRLab / DES Collaboration.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El detalle que acomodó a los incómodos</span>
+    <p>Hubo quien dijo "¡obvio, típico!": un universo con energía oscura es <strong>más viejo</strong> que los tres universos de materia — y eso se necesitaba, porque los modelos de evolución estelar (isocronas de cúmulos globulares) daban edades incómodamente cercanas o superiores a la edad del universo predicha. La energía oscura estiró la cronología y deshizo la paradoja.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La energía oscura</h2>
+    <p>Una densidad de energía del vacío — la constante cosmológica de Einstein, resucitada.</p>
+  </div></div>
+
+  <p>La forma más simple de la energía oscura es, ni más ni menos, la <span class="hl">constante cosmológica</span> que Einstein puso para congelar el universo. No con su valor, pero sí con su forma: un término constante que entra en el ρ de la ecuación de Friedmann (ese ρ debe incluirlo <em>todo</em>). Y su interpretación es notable: una <strong>densidad de energía constante que es propiedad del vacío mismo</strong>.</p>
+
+  <div class="box physics">
+    <span class="tag">La reacción en cadena</span>
+    <p>Si cada centímetro cúbico de vacío trae consigo una cantidad fija de energía oscura, entonces: el universo se expande → se crea nuevo vacío → aparece más energía oscura → la expansión se acelera → se crea más vacío → … Una <strong>reacción en cadena</strong> en que la expansión se alimenta a sí misma. Eso es la expansión acelerada.</p>
+  </div>
+
+  <p>¿Es realmente constante? <strong>No lo sabemos.</strong> Los físicos han producido "todos los modelos habidos y por haber"; una familia conocida es la <span class="hl">quintaesencia</span> (quintessence), con variantes que terminan en expansión catastrófica (Big Rip), otras en que la energía oscura revierte su acción y colapsa el universo, y otras en que nada de eso pasa. Mientras no comprendamos su naturaleza, <strong>el destino del universo sigue abierto</strong>.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-11.jpg" alt="Diapositiva con los posibles futuros del universo según la naturaleza de la energía oscura">
+    <figcaption><span class="cap">Diapositiva · Futuros posibles</span>Constante cosmológica: expansión eterna acelerada. Quintaesencia: desde el Big Rip hasta un recolapso, pasando por el signo de interrogación. La respuesta a "¿con qué modelo se queda, profesora?" fue: "no hemos terminado la historia".</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Frontera activa: DESI 2025</span>
+    <p>Los resultados de la colaboración <strong>DESI</strong> (marzo 2025), combinados con CMB y supernovas, sugieren que la energía oscura <em>podría estar cambiando en el tiempo</em>: el mejor ajuste no coincide con la predicción de la constante cosmológica. La reacción de la clase: "yo no me creo nada todavía, de verdad — muy pronto". Rubin, James Webb y el resto de los grandes proyectos están tratando de restringir exactamente esto.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El presupuesto del universo</h2>
+    <p>72% energía oscura, 23% materia oscura, ~5% de lo que entendemos — y no siempre fue así.</p>
+  </div></div>
+
+  <p>El presupuesto actual: <strong>~72% energía oscura, ~23% materia oscura y ~5% materia ordinaria</strong> (átomos — lo único que entendemos y conocemos). De la materia oscura hay al menos candidatos (WIMPs y compañía, aunque "nos ha ido pésimo probando"); de la energía oscura, ni idea: es física que nadie tenía en mente y es la única que explica cómo se expande el universo hoy y cómo se expandió en el pasado.</p>
+
+  <p>Pero estas proporciones <strong>cambian con el tiempo</strong>, porque la energía oscura es propiedad del espacio: cuando el universo era pequeño, casi no aportaba. A los 380.000 años (z ~ 1100, la época del CMB) el presupuesto era otro: <strong>63% materia oscura, 15% fotones, 12% átomos, 10% neutrinos</strong> — los fotones y neutrinos pesaban mucho más porque sus longitudes de onda eran cortas y sus velocidades altísimas (y estos neutrinos son los del Big Bang: también existe un fondo cósmico de neutrinos). La energía oscura ni aparece en el diagrama.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-12.jpg" alt="Diapositiva con los gráficos de torta del contenido del universo hoy y a los 380.000 años">
+    <figcaption><span class="cap">Diapositiva · Sí conocemos su pasado</span>Hoy: 72% energía oscura, 23% materia oscura, 4.6% átomos. A los 380.000 años: 63% materia oscura, 15% fotones, 12% átomos, 10% neutrinos. Las componentes escalan distinto con la expansión: la radiación se diluye más rápido que la materia, y el vacío no se diluye jamás.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Los dos problemas del Big Bang</h2>
+    <p>Flatness Problem y Horizon Problem: la teoría, tal como la contamos, se cae.</p>
+  </div></div>
+
+  <p>Rebobinemos: creemos en el Big Bang por la expansión, el CMB y la nucleosíntesis. Y sin embargo, la teoría tal como la hemos presentado tiene <strong>dos fallas graves</strong>:</p>
+
+  <h3>El problema de la planitud (Flatness Problem)</h3>
+  <p>¿Por qué el universo es <em>justo</em> plano? El caso crítico es exclusivísimo — "un gramo más y es cerrado, un gramo menos y es abierto". ¿Por qué no un poco más de materia, un poco menos, harto más, harto menos? No hay razón para ese ajuste fino.</p>
+
+  <h3>El problema del horizonte (Horizon Problem)</h3>
+  <p>El CMB tiene la misma temperatura (2.725 K) en todas las direcciones, con desviaciones de una parte en 10⁵ — discrepancias recién en la quinta cifra significativa. Pero para que una región alcance temperatura uniforme debe estar <strong>causalmente conectada</strong>: debe haber tiempo para que la información (el equilibrio termodinámico) viaje de un lado a otro. La analogía de la clase: una casa con la pieza norte asoleada y la sur fría solo se uniformiza si se abren las puertas y el aire circula. Y aquí está el problema: al momento de formarse el CMB (con precisión: z = 1375, universo de 372.000 años, recombinación de ~70.000 años de duración), <strong>regiones opuestas del cielo jamás estuvieron en contacto</strong> — no importa qué historia de expansión se asuma. La cota máxima de regiones conectadas subtiende hoy <strong>~2 grados</strong> en el cielo: deberíamos ver un CMB de parches de ~2° con temperaturas dispares, y vemos uniformidad casi perfecta.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-19.jpg" alt="Diapositiva con la analogía de la casa: pieza norte calurosa y pieza sur fría separadas por una pared">
+    <figcaption><span class="cap">Diapositiva · La analogía de la casa</span>Norte al sol, sur a la sombra, una buena pared entre medio: temperaturas distintas para siempre. Solo con las puertas abiertas — regiones causalmente conectadas — se llega a una temperatura común. El universo del CMB tenía todas las puertas cerradas… y aun así la casa entera está a la misma temperatura.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Inflación</h2>
+    <p>Dos pájaros de un tiro: la propuesta de Alan Guth (años 80) y cómo comprobarla desde Chile.</p>
+  </div></div>
+
+  <p>La solución mata los dos problemas de un tiro: muy temprano en la vida del universo hubo un <span class="hl">período inflacionario</span> en que la tasa de expansión fue colosal. Según el diagrama de la clase, el universo pasó de <strong>~10⁻²⁶ metros a ~10²⁴ metros</strong> — unos <strong>50 órdenes de magnitud</strong> — en una fracción de instante (la era inflacionaria se ubica entre t ~ 10⁻³⁵ y 10⁻³³ segundos).</p>
+
+  <ul>
+    <li><strong>Resuelve el horizonte:</strong> antes de inflar, todo el universo observable actual era una región minúscula, causalmente conectada y termalizada — con la misma temperatura. La inflación separó regiones que <em>ya</em> se habían puesto de acuerdo: las regiones A y B que hoy vemos en bordes opuestos del cielo compartieron temperatura antes de ser lanzadas fuera del horizonte una de la otra.</li>
+    <li><strong>Resuelve la planitud:</strong> como el globo con la hormiga (radio 1 cm → 1 km → 10⁴⁸ m): infla cualquier superficie lo suficiente y localmente se ve plana. No es que el universo <em>sea</em> exactamente plano: es que observamos un pedazo tan pequeño del total que no podemos medir su curvatura — "salgan al patio de su casa y midan el radio terrestre: la Tierra es plana".</li>
+  </ul>
+
+  <figure>
+    <img src="m3c5/assets/slide-26.jpg" alt="Diapositiva de la solución de Alan Guth: el universo antes y después de la inflación">
+    <figcaption><span class="cap">Diapositiva · La propuesta de Guth</span>(a) Antes de inflación (10⁻²⁶ m): A y B en contacto, misma temperatura. (b) Después (10²⁴ m): A y B fuera del horizonte mutuo. (c) Hoy: A y B caen justo sobre la esfera desde donde recibimos el CMB. La lámina dice "Alan Gunth"; es <strong>Alan Guth</strong>. <small>Crédito: Pearson.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Actualización que la profesora aprendió de Ethan Siegel</span>
+    <p>Los diagramas clásicos ("línea de tiempo del universo" de NASA/WMAP) ponen el Big Bang primero y la inflación después. <strong>El entendimiento actual los da vuelta:</strong> primero fue la inflación, y el "Big Bang" — el estado denso y caliente — es lo que quedó cuando el período inflacionario terminó, con un universo ya de tamaño finito. La fuente recomendada: los artículos de <strong>Ethan Siegel</strong> (Starts With a Bang / "Ask Ethan") — "escribe excelente y se mantiene increíblemente al día" (la clase también recomienda no buscar su foto).</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">¿Cómo se comprueba? Polarización, desde el norte de Chile</span>
+    <p>La inflación no está comprobada, pero tiene predicciones concretas. Los fotones del CMB se polarizan al interactuar con los electrones libres del medio intergaláctico (medido hace ~20 años); sobre eso debería haber una <strong>modulación adicional, muy débil y con un patrón específico, remanente del período inflacionario</strong>. El <strong>Observatorio Simons</strong>, partiendo en el norte de Chile, busca exactamente esa señal. Si la inflación no es correcta, "estamos en problemas": planitud y homogeneidad quedan sin solución.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Nucleosíntesis primordial</h2>
+    <p>El tercer pilar: por qué el universo es ~3/4 hidrógeno y ~1/4 helio — y la ventana de los mil segundos.</p>
+  </div></div>
+
+  <h3>Reacciones reversibles y el enfriamiento</h3>
+  <p>En el universo temprano toda reacción era <strong>reversible</strong> (las flechitas para ambos lados de la química del colegio): tres quarks formaban un protón, llegaba un fotón "rayos gammasísimos" y ¡paf!, lo rompía. El universo vivía en ese ir y venir. Pero la expansión enfría los fotones sin pausa: lo que podían destruir en un momento, al rato ya no. Así se congelaron, en orden, los nucleones, luego los núcleos, y (400.000 años después) los átomos.</p>
+
+  <h3>El cuello de botella del neutrón</h3>
+  <p>Los protones, una vez formados, no tienen ningún problema. Los neutrones sí: <strong>un neutrón libre es inestable</strong> — se desintegra (n → p + e + ν) con vida media del orden de ~1000 segundos (dato de la clase; el valor de laboratorio es ~880 s). Para hacer helio (2 protones + 2 neutrones) se necesitan neutrones, así que hubo una <strong>ventana de oportunidad</strong>: se abrió cuando los fotones dejaron de destruir los neutrones que se formaban, y se cerró cuando los neutrones libres restantes "cometieron suicidio". Solo en esa ventana de ~mil segundos pudieron formarse los núcleos de helio — y por eso las proporciones primordiales son las que son.</p>
+
+  <div class="box physics">
+    <span class="tag">Los números finos (según las diapositivas)</span>
+    <p>En el primer microsegundo, protones y neutrones participaban en aniquilación/producción de pares; al enfriarse el plasma, la razón quedó en <strong>~1 neutrón por cada 5 protones</strong>, y siguió bajando por el decaimiento del neutrón libre (hasta ~1:7). Entre los <strong>2 y 3 minutos</strong> (T &lt; 10⁹ K) pudo formarse <strong>deuterio estable</strong> — el eslabón débil de la cadena D → ³He → ⁴He — y a los ~15 minutos la fusión ya no fue posible. Composición final: <strong>~25% helio y ~75% hidrógeno en masa</strong> (10% / 90% en número de núcleos), más trazas de deuterio, helio-3 y litio-7. La clase redondea "70/30"; el número fino de las láminas es 75/25.</p>
+  </div>
+
+  <h3>La predicción exquisita</h3>
+  <p>Aquí el modelo se luce. Conociendo un solo parámetro — η, la razón entre partículas (bariones) y fotones, que se obtiene <em>independientemente</em> del espectro de potencias del CMB (misión WMAP) — el modelo predice las abundancias de <strong>⁴He, deuterio, ³He y ⁷Li</strong>. Contra las observaciones: el helio calza tan bien "que ni se nota la diferencia"; el deuterio, sensible a η, calza perfecto; el helio-3 está dentro del rango; solo el litio-7 queda "un poquitito mal" — y es el elemento más escaso y el más fácil de crear y destruir en procesos estelares posteriores. Conclusión: <strong>entendemos la física del universo en sus primeros minutos</strong> — mucho antes del CMB.</p>
+
+  <figure>
+    <img src="m3c5/assets/slide-34.jpg" alt="Diapositiva de la nucleosíntesis primordial con las curvas de abundancia de helio, deuterio y litio versus eta">
+    <figcaption><span class="cap">Diapositiva · Predicción vs. observación</span>Las curvas: abundancias predichas de ⁴He, D/H, ³He/H y ⁷Li/H en función de η (fracción bariones/fotones). La línea vertical: el η medido por WMAP en el CMB. Las líneas horizontales: las abundancias observadas. Todo calza (salvo el litio, un poco). <small>Crédito: Einstein Online.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Bibliografía y cierre del curso</span>
+    <p><strong>"Los tres primeros minutos"</strong> de Steven Weinberg (Premio Nobel de Física 1979) relata exactamente este período — recomendación central de la clase (con la aclaración en vivo de que la ventana del helio son ~1000 s ≈ 17 minutos, no 3: "esto es lo que está mal; hay que chequear los números, pero la sucesión de eventos es correcta"). Dato de yapa de las láminas: la nucleosíntesis <em>no</em> requiere materia oscura — de lo cual se deduce que ésta no interactúa ni electromagnéticamente ni por fuerza nuclear fuerte. Y la última diapositiva, sin que nadie alcanzara a preguntar: una ilustración de <strong>multiversos</strong>, cada uno "haciendo lo que se le viene en gana" en términos de expansión. "Hasta aquí llega el curso, señoras y señores."</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">✦</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Dos calculadoras: qué significa un redshift, y cómo el cuello de botella del neutrón fija la fracción de helio.</p>
+  </div></div>
+
+  <div class="widget" id="w-z">
+    <h4>Widget 1 · Redshift ↔ factor de escala: 1 + z = 1/a</h4>
+    <label>Redshift z de la fuente: <span class="rngval" id="z-val">1.0</span></label>
+    <input type="range" id="z-slider" min="0" max="1100" step="0.1" value="1">
+    <div class="presets">
+      <button type="button" data-z="0.05">SN local (z = 0.05)</button>
+      <button type="button" data-z="1">SN lejana (z = 1)</button>
+      <button type="button" data-z="2">SN Ia más lejana (z = 2)</button>
+      <button type="button" data-z="7.6">Cuásar J0313−1806 (z = 7.6)</button>
+      <button type="button" data-z="1100">CMB (z ≈ 1100)</button>
+    </div>
+    <div class="wout" id="z-out"></div>
+  </div>
+
+  <div class="widget" id="w-he">
+    <h4>Widget 2 · El cuello de botella del neutrón: fracción de helio primordial</h4>
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 6px">Suponiendo que todos los neutrones disponibles terminan encerrados en núcleos de ⁴He (2p + 2n), la fracción de helio en masa depende solo de la razón neutrones/protones al momento de la fusión: Y = 2(n/p) / (1 + n/p).</p>
+    <label>Neutrones por cada 100 protones: <span class="rngval" id="he-val">14</span></label>
+    <input type="range" id="he-slider" min="1" max="50" step="1" value="14">
+    <div class="presets">
+      <button type="button" data-np="20">Congelamiento (~1:5)</button>
+      <button type="button" data-np="14">Tras el decaimiento (~1:7, valor real)</button>
+      <button type="button" data-np="33">Si el neutrón viviera más (~1:3)</button>
+      <button type="button" data-np="2">Si el neutrón decayera rapidísimo (~1:50)</button>
+    </div>
+    <div class="wout" id="he-out"></div>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">✎</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Idea esencial</th></tr></thead>
+    <tbody>
+      <tr><td><b>CMB como test de geometría</b></td><td>La curvatura curva los rayos: manchas más grandes (cerrado), más chicas (abierto) o de tamaño verdadero ~1° (plano). Se mide 1°: el universo es plano.</td></tr>
+      <tr><td><b>Censo de Ω₀</b></td><td>Fotones+neutrinos ~10⁻⁴, materia luminosa ~0.002, +curvas de rotación ~0.03, +cúmulos/lentes ~0.3. Falta el 70%.</td></tr>
+      <tr><td><b>Escalera de distancias</b></td><td>Paralaje (geométrico) → cefeidas (período–luminosidad) → SN Ia (hasta z~2). Cada peldaño calibra al siguiente. Calibración clave: Mario Hamuy, Chile.</td></tr>
+      <tr><td><b>1 + z = 1/a</b></td><td>El redshift mide directamente cuánto creció el universo desde que la luz partió; z = 1 ⇒ universo a mitad de tamaño.</td></tr>
+      <tr><td><b>Expansión acelerada</b></td><td>Descubierta en 1998 con SN Ia: los puntos se desvían al lado contrario del esperado. Nobel a la aceleración; el modelo ganador: ~35% materia, ~65% energía oscura.</td></tr>
+      <tr><td><b>Energía oscura</b></td><td>Densidad de energía del vacío (forma más simple: constante cosmológica). Reacción en cadena: expansión → más vacío → más energía oscura → más expansión.</td></tr>
+      <tr><td><b>Quintaesencia</b></td><td>Familia de modelos donde la energía oscura varía; futuros posibles: Big Rip, recolapso, o nada especial. DESI 2025 insinúa variación — aún sin veredicto.</td></tr>
+      <tr><td><b>Presupuesto cósmico</b></td><td>Hoy: 72% energía oscura, 23% materia oscura, ~5% átomos. A los 380.000 años: 63% MO, 15% fotones, 12% átomos, 10% neutrinos — las proporciones cambian.</td></tr>
+      <tr><td><b>Flatness Problem</b></td><td>¿Por qué el universo es <em>justo</em> plano, si el caso crítico es un valor exacto e inestable del contenido?</td></tr>
+      <tr><td><b>Horizon Problem</b></td><td>El CMB es uniforme a 10⁻⁵, pero las regiones que lo emitieron nunca estuvieron causalmente conectadas (cota: parches de ~2°).</td></tr>
+      <tr><td><b>Inflación</b></td><td>Expansión colosal (~50 órdenes de magnitud, t ~ 10⁻³⁵ s) propuesta por Guth en los 80: termaliza primero, separa después (horizonte) y aplana lo observable (planitud).</td></tr>
+      <tr><td><b>Orden actual</b></td><td>Los modelos actuales invierten los diagramas clásicos: primero inflación, después el "Big Bang" caliente (fuente: Ethan Siegel).</td></tr>
+      <tr><td><b>Observatorio Simons</b></td><td>En el norte de Chile: busca la modulación de polarización del CMB que sería la firma del período inflacionario.</td></tr>
+      <tr><td><b>Ventana del helio</b></td><td>Entre que los fotones dejaron de romper neutrones y que los neutrones libres decayeron (~10³ s): solo ahí se formó el ⁴He primordial.</td></tr>
+      <tr><td><b>Abundancias primordiales</b></td><td>~75% H / ~25% He en masa, más D, ³He y ⁷Li en trazas; predichas desde η (bariones/fotones, medido por WMAP) con precisión exquisita (salvo el litio).</td></tr>
+      <tr><td><b>Los tres primeros minutos</b></td><td>Libro de Steven Weinberg (Nobel 1979) que relata este período; recomendación bibliográfica de cierre del curso.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas: 3 de alternativas autocorregibles + 2 de respuesta escrita con solución propuesta.</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m3c5-examen-01.html">Examen 01<small>El CMB y la planitud</small></a></li>
+    <li><a href="m3c5-examen-02.html">Examen 02<small>El censo de Ω</small></a></li>
+    <li><a href="m3c5-examen-03.html">Examen 03<small>La escalera de distancias</small></a></li>
+    <li><a href="m3c5-examen-04.html">Examen 04<small>Redshift y factor de escala</small></a></li>
+    <li><a href="m3c5-examen-05.html">Examen 05<small>La expansión acelerada</small></a></li>
+    <li><a href="m3c5-examen-06.html">Examen 06<small>La energía oscura</small></a></li>
+    <li><a href="m3c5-examen-07.html">Examen 07<small>Los dos problemas del Big Bang</small></a></li>
+    <li><a href="m3c5-examen-08.html">Examen 08<small>Inflación</small></a></li>
+    <li><a href="m3c5-examen-09.html">Examen 09<small>Nucleosíntesis primordial</small></a></li>
+    <li><a href="m3c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo III del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción del audio (<code>galaxias/m3/ff/galaxias-m3c5.md</code>) y screenshots de las diapositivas (<code>galaxias/m3/diapos/Clase 5/</code>; no se contó con el PDF original, por lo que algunas láminas podrían faltar). Recomendaciones de la clase: <em>Los tres primeros minutos</em> (S. Weinberg) y los artículos de Ethan Siegel (Starts With a Bang).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática con errores de reconocimiento de voz. Correcciones aplicadas contrastando con las diapositivas: "CMV / CM / C P / 100 B / cien mil" es el <b>CMB</b>; "ratchet / rachid / rachismil / Matarachi K / Redship / reaches" es <b>redshift (z)</b>; "supernovas de tipo A" son <b>supernovas tipo Ia</b>; "Mario Amui" es <b>Mario Hamuy</b>; "Alan K" (y la errata "Alan Gunth" de la lámina) es <b>Alan Guth</b>; "Quintessence / Quientessence" es <b>quintaesencia</b>; "Big Range" es <b>Big Crunch</b>; "Ethan ... Ask Ethan" es <b>Ethan Siegel</b> (Starts With a Bang); "10 alarmas 35 segundos" es <b>10⁻³⁵ s</b>; "un cambio en 50, poquito" son <b>~50 órdenes de magnitud</b> (10⁻²⁶ m → 10²⁴ m según la lámina); "gramo más viejo/Big crashes" refiere a destinos de expansión. Sobre las proporciones primordiales: la clase dice "70% H y 30% He", las láminas precisan <b>75% H / 25% He en masa</b> (90/10 en número); la vida media del neutrón que la clase da como "~1000 segundos" es ~880 s en laboratorio (ambos valores del mismo orden; la ventana de ~10³ s es correcta). La transcripción dice que la época del CMB "coincide con la reionización": corresponde a la <b>recombinación</b> (la reionización es muy posterior). El valor w₀, wₐ del gráfico DESI y el tiempo de los "2 a 3 minutos" del deuterio provienen de las láminas. Ante dudas, priman las diapositivas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: redshift =====
+  var zS=document.getElementById('z-slider'), zVal=document.getElementById('z-val'), zOut=document.getElementById('z-out');
+  function zUpdate(){
+    var z=+zS.value; zVal.textContent=z;
+    var a=1/(1+z);
+    var laH=6563*(1+z); // H-alpha en angstroms
+    var laTxt;
+    if(laH<7000) laTxt=Math.round(laH)+' Å (aún en el óptico)';
+    else if(laH<25000) laTxt=(laH/10000).toFixed(2)+' μm (infrarrojo cercano)';
+    else if(laH<3e6) laTxt=(laH/10000).toFixed(1)+' μm (infrarrojo medio/lejano)';
+    else laTxt=(laH/1e7).toFixed(2)+' mm (milimétrico/microondas)';
+    var epoca;
+    if(z<0.1) epoca='Universo local: aquí midió Hubble la expansión actual.';
+    else if(z<=2) epoca='Territorio de las supernovas tipo Ia: donde se descubrió la aceleración.';
+    else if(z<20) epoca='Universo temprano: cuásares y primeras galaxias.';
+    else epoca='Época del CMB: el universo era una milésima de su tamaño actual, 380.000 años de edad.';
+    zOut.innerHTML='<span class="k">Factor de escala al emitirse la luz:</span> a = 1/(1+z) = <b>'+
+      (a>=0.01? a.toFixed(3) : a.toExponential(2))+'</b> (el universo era un '+ (a*100).toPrecision(2)+'% de su tamaño actual)'+
+      '<br><span class="k">Estiramiento de la luz:</span> toda longitud de onda se multiplica por <b>'+(1+z).toFixed(1)+'</b>'+
+      '<br><span class="k">Ejemplo (Hα, 6563 Å):</span> se observa en <b>'+laTxt+'</b>'+
+      '<br>'+epoca;
+  }
+  zS.addEventListener('input',zUpdate);
+  document.querySelectorAll('#w-z .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ zS.value=b.dataset.z; zUpdate(); });
+  });
+  zUpdate();
+
+  // ===== Widget 2: helio =====
+  var heS=document.getElementById('he-slider'), heVal=document.getElementById('he-val'), heOut=document.getElementById('he-out');
+  function heUpdate(){
+    var npr=+heS.value/100; heVal.textContent=heS.value;
+    var Y=2*npr/(1+npr); // fracción de masa en He (aprox mp≈mn)
+    var comment;
+    if(Math.abs(Y-0.25)<0.03) comment='¡El valor real! Con ~1 neutrón por cada 7 protones se obtiene el ~25% de helio en masa que observamos — la firma de la ventana de los ~1000 segundos.';
+    else if(Y>0.4) comment='Un universo así tendría muchísimo más helio: las estrellas y la química serían muy distintas. Habría pasado si el neutrón fuera estable o decayera mucho más lento.';
+    else if(Y<0.1) comment='Casi puro hidrógeno: pasaría si el neutrón decayera mucho más rápido y casi ninguno sobreviviera hasta la fusión.';
+    else comment='Compara con el valor real (~25% en masa, con n/p ~ 1:7): la abundancia de helio es un termómetro directo de la física de los primeros minutos.';
+    heOut.innerHTML='<span class="k">Razón n/p:</span> <b>1 : '+(1/npr).toFixed(1)+'</b>'+
+      '<br><span class="k">Fracción de helio en masa:</span> Y = 2(n/p)/(1+n/p) = <b>'+(Y*100).toFixed(1)+'%</b> (hidrógeno: '+((1-Y)*100).toFixed(1)+'%)'+
+      '<br>'+comment;
+  }
+  heS.addEventListener('input',heUpdate);
+  document.querySelectorAll('#w-he .presets button').forEach(function(b){
+    b.addEventListener('click',function(){ heS.value=b.dataset.np; heUpdate(); });
+  });
+  heUpdate();
+});
+</script>
+</body>
+</html>
