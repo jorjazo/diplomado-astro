@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 01 — m1c4 · Hubble y el diapasón</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Galaxias · Módulo I · Clase 4</span>
+<h1>Examen 01 — Hubble y el diapasón</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,c,a">
+  <fieldset data-q="1"><legend>1. ¿Cuál fue el gran aporte conceptual de Edwin Hubble sobre las "motitas de luz" que se veían en el cielo?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Demostrar que eran nebulosas de gas dentro de la Vía Láctea</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Darse cuenta de que eran sistemas externos, como nuestra Vía Láctea pero lejanos</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Descubrir que eran cúmulos globulares del halo galáctico</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Medir que eran estrellas individuales muy masivas</label>
+    <p class="fb" hidden>Hubble fue de los primeros en plantear que esas "motitas" eran galaxias en su propia naturaleza: sistemas externos como la Vía Láctea, pero mucho más lejanos.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La clasificación de Hubble se basa en la morfología en el rango óptico. ¿Por qué precisamente en ese rango?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque el gas de las galaxias solo emite en el óptico</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque la atmósfera bloquea todas las demás longitudes de onda</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque sus herramientas (ojo, telescopios y emulsiones fotográficas) eran sensibles al óptico</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque en el óptico se ve mejor la materia oscura</label>
+    <p class="fb" hidden>A comienzos del siglo XX se observaba con el ojo al telescopio o con placas fotográficas, ambos sensibles al rango óptico. Por eso su clasificación describe esencialmente la distribución de las estrellas.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En el diagrama de diapasón (tuning fork), ¿qué hay en el "mango" y qué en las dos "ramas"?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Mango: elípticas y lenticulares; ramas: espirales normales y espirales barradas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Mango: espirales; ramas: elípticas e irregulares</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Mango: irregulares; ramas: elípticas y lenticulares</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Mango: galaxias con barra; ramas: galaxias sin barra y enanas</label>
+    <p class="fb" hidden>El mango va de E0 a E7 y termina en las lenticulares (S0/SB0); de ahí el diagrama se bifurca en espirales normales (Sa, Sb, Sc) y barradas (SBa, SBb, SBc).</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. El profesor describe el trabajo de Hubble como "un poco de botánica". Explica qué significa eso y por qué una clasificación puramente por apariencia pudo hacerse antes de entender la física de las galaxias.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Hacer "botánica" significa <strong>clasificar por apariencia observable</strong> — agrupar objetos según rasgos visibles (forma, color, estructura) sin conocer aún los mecanismos que los producen, igual que los primeros naturalistas agrupaban plantas por sus hojas y flores antes de la genética. En tiempos de Hubble el conocimiento de qué era una galaxia era mínimo, así que lo único disponible era la morfología en placas fotográficas. Es un primer paso legítimo del método científico: una buena taxonomía ordena los datos y, si las clases resultan correlacionar con propiedades físicas (como ocurrió con la secuencia de Hubble), la clasificación se vuelve una herramienta predictiva aunque haya nacido puramente descriptiva.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Describe el contexto instrumental en que trabajó Hubble (telescopio, técnica de registro, época) y cómo ese contexto condicionó qué componente de las galaxias describe su clasificación.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Hubble trabajó a comienzos del siglo XX, principalmente con el telescopio de <strong>100 pulgadas (≈ 2,5 m) de Mount Wilson, California</strong>, en la época en que la fotografía astronómica recién se optimizaba: se observaba poniendo el ojo al telescopio o registrando en placas fotográficas. Tanto el ojo como las emulsiones de la época son sensibles al <strong>rango óptico</strong>, donde los principales emisores son las <strong>estrellas</strong> (emisores tipo cuerpo negro). Por eso la secuencia de Hubble describe esencialmente <strong>cómo se distribuyen las estrellas</strong> en cada galaxia — no el gas ni el polvo, que dominan en otras longitudes de onda (radio, infrarrojo, rayos X) inaccesibles con esa tecnología.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 4, Módulo I (Astrofísica de Galaxias). <a href="m1c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

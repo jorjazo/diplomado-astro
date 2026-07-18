@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El medio interestelar: líneas, polvo y las fases del gas — Astrofísica de Galaxias, Módulo I · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.ext{border-left:3px solid #5fae7e} .box.ext .tag{color:#7ed09e}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo I · Clase 3</span>
+  <h1>El medio interestelar: <em>líneas, polvo y las fases del gas</em></h1>
+  <p class="sub">Entre las estrellas de una galaxia hay gas y polvo: el <em>medio interestelar</em> (ISM). Esta clase construye la caja de herramientas para estudiarlo: por qué existen las líneas espectrales, cómo el polvo atenúa y enrojece, cuáles son las cinco fases del gas, cómo se ioniza y recombina el hidrógeno, y cómo el efecto Doppler nos revela el movimiento del gas.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 28 mar 2026</span>
+    <span><b>Tema:</b> El Medio Interestelar (ISM)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>na galaxia no es solo estrellas. Entre ellas vive el <span class="hl">medio interestelar</span>: gas (átomos, moléculas, iones) y polvo (granos sólidos), en proporción aproximada de <strong>1 parte de polvo por cada 100 de gas en masa</strong>. El problema es que ese material casi nunca se ve a simple vista: hay que leerlo en la radiación. La clase pasada vimos los mecanismos de emisión <em>continua</em> (cuerpo negro, bremsstrahlung, sincrotrón); hoy entra el protagonista que faltaba: las <span class="hl">líneas espectrales</span>. Con líneas podemos saber de qué está hecho el gas, en qué estado se encuentra (neutro, ionizado, molecular), a qué temperatura, e incluso <em>cómo se mueve</em>. Para alguien con formación de ingeniería, la idea central es familiar: cada especie química emite y absorbe en "frecuencias de resonancia" discretas, y el espectro es la firma que permite identificar los componentes del sistema y estimar su estado — como un análisis espectral de señales, pero aplicado a una galaxia entera.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase (orden pedagógico)</span>
+  <ol>
+    <li><a href="#s1">Panorama: la galaxia en todas las longitudes de onda</a></li>
+    <li><a href="#s2">Por qué existen las líneas: el átomo cuantizado</a></li>
+    <li><a href="#s3">Excitación y desexcitación: cómo el gas se enfría</a></li>
+    <li><a href="#s4">Absorción vs. emisión: leyendo espectros</a></li>
+    <li><a href="#s5">Espectros de galaxias: estrellas + gas</a></li>
+    <li><a href="#s6">La línea de 21 cm del hidrógeno neutro</a></li>
+    <li><a href="#s7">El polvo: qué es, dónde nace, cómo atenúa y enrojece</a></li>
+    <li><a href="#s8">Las cinco fases del gas</a></li>
+    <li><a href="#s9">Ionización, recombinación y regiones H II</a></li>
+    <li><a href="#s10">M82: supernovas y gas que escapa de la galaxia</a></li>
+    <li><a href="#s11">El efecto Doppler: cómo se mueve el gas</a></li>
+    <li><a href="#s12">El gas molecular, el CO y el ciclo ISM–CGM</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Panorama: la galaxia en todas las longitudes de onda</h2>
+    <p>Repaso del mapa maestro: cada banda del espectro revela un componente distinto del ISM.</p>
+  </div></div>
+
+  <p>La clase abre retomando el "mapa maestro" de la Vía Láctea observada en distintas bandas. La lectura es la siguiente: la emisión <strong>continua</strong> (que cubre un rango amplio de longitudes de onda) proviene de cuerpos negros (estrellas), de <span class="hl">cuerpo gris</span> (polvo: cuerpo negro con la ley de Planck modificada), de <span class="hl">bremsstrahlung</span> (free-free: gas caliente frenando electrones libres) y, en casos especiales como remanentes de supernova, de <span class="hl">sincrotrón</span>. Pero dos filas del mapa dicen otra cosa: "hidrógeno atómico" y "hidrógeno molecular" son emisión de <strong>línea</strong> — radiación concentrada en un rango angostísimo de longitud de onda. Explicar esas líneas es el objetivo de la primera mitad de la clase.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-05.jpg" alt="La Vía Láctea observada en diez bandas distintas, desde radio hasta rayos gamma, anotada con el componente que domina en cada una">
+    <figcaption><span class="cap">Diapositiva · Multiwavelength Milky Way (NASA)</span>La misma galaxia, diez "canales" distintos. Anotaciones de la clase: free-free (radio continuo), <strong>gas frío en la línea de H I</strong>, <strong>gas tibio en la línea de CO</strong>, polvo frío y caliente (infrarrojo), estrellas (cercano IR y óptico, donde además el polvo absorbe), gas muy caliente (rayos X) y extremadamente caliente (rayos gamma). Todo lo que no es estrella ni polvo es gas, gas y gas.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril (inferencia propia)</span>
+    <p>Es un <strong>banco de filtros</strong>: la galaxia emite una señal de banda anchísima y cada instrumento (radiotelescopio, telescopio IR, óptico, de rayos X) es un filtro pasabanda que aísla un mecanismo físico distinto. El continuo es como el piso de ruido de banda ancha; las líneas son tonos espectrales angostos que delatan resonancias del sistema.</p>
+  </div>
+
+  <h3>Las burbujas de Fermi</h3>
+  <p>Como ejemplo de continuo extremo, la profesora retoma las <span class="hl">burbujas de Fermi</span>: dos lóbulos gigantes de gas, perpendiculares al disco de la Vía Láctea, visibles en <strong>rayos gamma</strong>. Se cree que son reliquias de actividad pasada del <strong>agujero negro supermasivo</strong> del centro galáctico, que calentó gas hasta temperaturas altísimas. A las preguntas del curso respondió dos cosas: (a) en otras galaxias es muy difícil detectarlas porque el gas es tan tenue que la radiación es poquísima — es un límite de <em>sensibilidad instrumental</em>, no de física; y (b) salen perpendiculares al disco porque el <strong>gradiente de presión</strong> es mucho más abrupto en esa dirección: dentro del plano el gas sigue rodeado de alta presión, pero hacia afuera la presión cae rápido, y el gas caliente escapa por ahí, como si se apretara un globo por los costados.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-06.jpg" alt="Las burbujas de Fermi: dos lóbulos púrpura perpendiculares al disco azulado de la Vía Láctea, en rayos gamma">
+    <figcaption><span class="cap">Diapositiva · Las burbujas de Fermi (NASA)</span>Emisión <strong>continua en rayos γ</strong>: gas tan caliente que emite radiación termal a esas energías. Reliquia de episodios de actividad del agujero negro supermasivo central. Nótese la geometría: escapan por el eje menor del disco, donde el gradiente de presión es más pronunciado.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Por qué existen las líneas: el átomo cuantizado</h2>
+    <p>La mecánica cuántica discretiza las órbitas; los saltos entre niveles emiten o absorben fotones de energía exacta.</p>
+  </div></div>
+
+  <p>A diferencia del continuo, una <span class="hl">línea espectral</span> aparece en un rango muy pequeño de longitudes de onda. Para explicarla hace falta mecánica cuántica: a escala microscópica hay cantidades <strong>discretizadas</strong>. Un electrón alrededor de un núcleo <em>no puede</em> tener cualquier energía ni cualquier radio: solo existen ciertos <strong>orbitales</strong> permitidos. La profesora lo ilustró con una imagen macroscópica: es como si a uno le dijeran que solo puede pararse en este punto o en aquel otro, y en ningún lugar intermedio — absurdo en nuestra escala, real en la escala atómica. <strong>Bohr</strong> fue el primero en plantear esta discretización para el átomo de hidrógeno (un protón + un electrón), de manera puramente <em>empírica</em>; cuando después se desarrolló la teoría completa de la mecánica cuántica, los mismos resultados salieron desde primeros principios.</p>
+
+  <p>Las reglas del juego:</p>
+  <ul>
+    <li>El electrón salta entre orbitales <strong>absorbiendo o emitiendo un fotón</strong> cuya energía es <em>exactamente</em> la diferencia de energía entre los dos niveles. No sirve cualquier fotón.</li>
+    <li>Si el electrón no está en la capa más interna (<span class="katex-inline" data-tex="n=1"></span>, el estado base), el átomo está <strong>excitado</strong>. Los estados excitados tienen una <em>vida media</em>: el átomo tiende a desexcitarse espontáneamente, reemitiendo el fotón.</li>
+    <li>Si se entrega energía suficiente para arrancar el electrón por completo (no saltar a otro orbital, sino quedar libre), el átomo se <strong>ioniza</strong>.</li>
+  </ul>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="E_n=-\frac{13{,}6\ \text{eV}}{n^2}\qquad\qquad \frac{1}{\lambda}=R_H\left(\frac{1}{n_1^2}-\frac{1}{n_2^2}\right)"></span>
+    <small>Niveles de energía del hidrógeno y fórmula de Rydberg para la longitud de onda del fotón emitido al caer de <span class="katex-inline" data-tex="n_2"></span> a <span class="katex-inline" data-tex="n_1"></span> (<span class="katex-inline" data-tex="R_H\approx 1{,}097\times10^7\ \text{m}^{-1}"></span>). <em>Nota: la clase presentó el diagrama de niveles cualitativamente; estas fórmulas son el formalismo estándar detrás (inferencia/formalización propia).</em></small>
+  </div>
+
+  <h3>Las series del hidrógeno: Lyman, Balmer, Paschen</h3>
+  <p>Los saltos se agrupan en <strong>series</strong> según el orbital de llegada (o de partida): la serie de <span class="hl">Lyman</span> conecta con <span class="katex-inline" data-tex="n=1"></span>, la de <span class="hl">Balmer</span> con <span class="katex-inline" data-tex="n=2"></span>, la de <span class="hl">Paschen</span> con <span class="katex-inline" data-tex="n=3"></span> (luego Brackett, Pfund…). Dentro de una serie, las líneas se nombran con letras griegas: el primer salto es α, el siguiente β, luego γ… Los datos claves de la clase:</p>
+  <ul>
+    <li><strong>Lyman</strong> requiere los fotones más energéticos (sacar al electrón del nivel base cuesta más): se observa en el <strong>ultravioleta</strong>.</li>
+    <li><strong>Balmer</strong> cae en el <strong>óptico</strong> — por eso fue la primera serie identificada históricamente: nuestros primeros instrumentos trabajaban en luz visible.</li>
+    <li><strong>Paschen</strong> ya se corre al <strong>infrarrojo</strong>.</li>
+    <li>Dentro de cada serie, las diferencias de energía se van achicando (del 2 al 6 vs. del 2 al 7 casi no cambia), así que las líneas se van <em>agolpando</em> hacia un límite.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-17.jpg" alt="Diagrama de niveles del átomo de hidrógeno con las series de Lyman, Balmer, Paschen y Brackett, junto al espectro de emisión con las líneas agrupadas por serie">
+    <figcaption><span class="cap">Diapositiva · Transiciones electrónicas del H</span>Izquierda: los saltos agrupados por serie (Lyman → n=1, Balmer → n=2, Paschen → n=3, Brackett → n=4). Derecha: el espectro resultante — Lyman en torno a 100 nm (UV), Balmer en el visible, las demás hacia el IR; dentro de cada serie las líneas se agolpan hacia el límite. Ojo con el diagrama: los largos de flecha <em>no</em> son comparables entre series; hay que mirarlo serie por serie (advertencia explícita de la clase).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz de la clase</span>
+    <p>Una estudiante notó que en el diagrama la flecha "del 5 al 2" se ve tan larga como "del 2 al 1". La profesora aclaró: el diagrama <em>engaña</em>; cada nivel tiene energías distintas y las diferencias solo son comparables <strong>dentro de una misma serie</strong>. Para comparar entre series hay que hacerlo cuantitativamente. Y la analogía que le enseñaron alguna vez: es más difícil quitarle a la gallina los pollitos cercanos que los que andan lejos — cuesta más energía remover al electrón de los orbitales internos.</p>
+  </div>
+
+  <p>Las <strong>moléculas</strong> complican (y enriquecen) el cuadro: además de los niveles electrónicos, los núcleos ligados pueden <strong>rotar y vibrar</strong>, y esos estados también están cuantizados. Una molécula que cambia de estado rotacional también absorbe o emite fotones de energías específicas — típicamente mucho menores, en el radio/milimétrico. Esto será clave para el gas molecular (sección 12).</p>
+
+  <!-- WIDGET 1 -->
+  <div class="widget" id="w-rydberg">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora de líneas del hidrógeno (fórmula de Rydberg)</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Elige la serie (nivel inferior <span class="katex-inline" data-tex="n_1"></span>) y el nivel superior <span class="katex-inline" data-tex="n_2"></span>. Calcula la longitud de onda y energía del fotón, y te dice en qué región del espectro cae. Verifica lo que dijo la clase: Lyman → UV, Balmer → óptico, Paschen → IR, y cómo las líneas se agolpan al subir <span class="katex-inline" data-tex="n_2"></span>.</p>
+    <div class="wgrid">
+      <div>
+        <label>Nivel inferior n₁ (define la serie)</label>
+        <select id="ry-n1">
+          <option value="1">n₁ = 1 — serie de Lyman</option>
+          <option value="2" selected>n₁ = 2 — serie de Balmer</option>
+          <option value="3">n₁ = 3 — serie de Paschen</option>
+          <option value="4">n₁ = 4 — serie de Brackett</option>
+          <option value="5">n₁ = 5 — serie de Pfund</option>
+        </select>
+      </div>
+      <div>
+        <label>Nivel superior n₂ = <span class="rngval" id="ry-n2val">3</span></label>
+        <input type="range" id="ry-n2" min="2" max="20" step="1" value="3">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-n1="1" data-n2="2">Lyman α</button>
+      <button type="button" data-n1="2" data-n2="3">Balmer α (Hα)</button>
+      <button type="button" data-n1="2" data-n2="4">Balmer β (Hβ)</button>
+      <button type="button" data-n1="3" data-n2="4">Paschen α</button>
+      <button type="button" data-n1="2" data-n2="20">Límite de Balmer</button>
+    </div>
+    <output id="ry-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Excitación y desexcitación: cómo el gas se enfría</h2>
+    <p>Colisiones que excitan + fotones que escapan = un radiador que disipa la energía interna del gas.</p>
+  </div></div>
+
+  <p>Un fotón no es la única manera de excitar un átomo. Si una partícula rápida (otro átomo, un electrón libre) <strong>choca</strong> con él, la energía cinética del choque puede transferir el electrón a un orbital superior: es la <span class="hl">excitación colisional</span>. Luego el átomo se desexcita <em>radiativamente</em>, emitiendo un fotón que se lleva esa energía. Miren la contabilidad energética: energía que era <strong>cinética interna del gas</strong> (es decir, temperatura — la temperatura mide cuán rápido se mueven las partículas) termina convertida en <strong>fotones que escapan</strong>. El resultado neto: la nube <em>radió su temperatura</em>, se enfrió.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física</span>
+    <p>Excitación colisional + desexcitación radiativa = el <strong>mecanismo de enfriamiento</strong> del gas interestelar. Si la temperatura es suficientemente alta, los choques son suficientemente energéticos para excitar átomos y moléculas; cada fotón emitido es un paquetito de energía interna que abandona la nube. En ingeniería térmica sería un radiador: convierte energía interna del sistema en radiación hacia el ambiente.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Pregunta del curso</span>
+    <p>«¿Es como el efecto fotoeléctrico?» — Sí, es la misma física de cuantización: en el experimento clásico, mientras la radiación no tiene la energía correcta no pasa nada, y al alcanzar la energía suficiente se empiezan a liberar electrones. La diferencia de contexto: aquí hablamos de excitar niveles ligados (o ionizar átomos de gas), allá de liberar electrones de un metal.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Absorción vs. emisión: leyendo espectros</h2>
+    <p>La misma nube de gas produce líneas oscuras o brillantes según dónde esté el observador.</p>
+  </div></div>
+
+  <p>Armemos el experimento conceptual de la clase. Una estrella como el Sol emite un <strong>continuo</strong> (cuerpo negro de ~6.000 K) en todas las direcciones (isotrópicamente). En el camino hacia nosotros, la radiación atraviesa una <strong>nube de gas</strong> — supongamos que de hidrógeno puro. ¿Qué ve cada observador?</p>
+  <ul>
+    <li><strong>Observador con la estrella detrás de la nube:</strong> ve el continuo de la estrella con <span class="hl">líneas de absorción</span> superpuestas: faltan justamente los fotones con las energías de Lyman α, β, γ…, Balmer α, β…, porque el gas los absorbió para excitar sus electrones. Cada fotón absorbido "desaparece" de esa dirección y deja una marca oscura.</li>
+    <li><strong>Observador que mira la nube <em>sin</em> la estrella detrás:</strong> no hay continuo de fondo; solo ve los fotones que la nube reemite al desexcitarse. Como esa reemisión es <strong>isotrópica</strong> (en todas direcciones), este observador ve <em>exactamente las mismas líneas</em>, pero en <span class="hl">emisión</span>.</li>
+  </ul>
+  <p>Detalle fino de la clase: las líneas de absorción no son totalmente negras, porque parte de la reemisión isotrópica también sale hacia el observador original. Pero como lo absorbido se reparte en <em>todas</em> las direcciones, en la línea de visión de la estrella igual queda un déficit neto: la absorción se ve.</p>
+
+  <h3>De qué están hechas las estrellas</h3>
+  <p>Este esquema explica los espectros estelares: una estrella es esencialmente un cuerpo negro, pero sus <strong>últimas capas</strong> — la <span class="hl">fotósfera</span> — actúan como esa nube de gas envolvente que absorbe. Sobre el continuo aparecen líneas de absorción de los elementos presentes en la atmósfera estelar: las identificamos (estas son de hidrógeno, esas de carbono, aquellas de nitrógeno…) y así determinamos la <strong>composición química de las estrellas</strong> sin visitarlas jamás. En los espectros reales que mostró la clase (estrellas de 3.500 a 50.000 K, incluyendo el Sol y Vega), además se aprecia el continuo: la estrella de 50.000 K se ve débil en el óptico porque le pillamos el cuerpo negro "recién empezando a subir" (su peak está en el UV), el Sol se ve completo de lado a lado, y las más frías siguen subiendo hacia el infrarrojo.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril (inferencia propia)</span>
+    <p>El espectro estelar es <strong>continuo (portadora) + muescas de absorción (notch filters)</strong>: cada elemento de la fotósfera es un filtro rechaza-banda extremadamente selectivo, con frecuencias centrales tabuladas por la física atómica. Identificar composición es <em>fingerprinting</em> espectral: correlacionar las muescas observadas contra la biblioteca de líneas conocidas de cada elemento.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Espectros de galaxias: estrellas + gas</h2>
+    <p>El espectro de una galaxia es la suma de todas sus estrellas… más las líneas de emisión de su medio interestelar.</p>
+  </div></div>
+
+  <p>Cuando tomamos el espectro de una galaxia no vemos una estrella: vemos la <strong>combinación de todas las estrellas</strong> de la región observada. La profesora mostró espectros de su propia tesis doctoral:</p>
+  <ul>
+    <li><strong>Centro de Andrómeda (M31):</strong> espectro <em>rojo</em>, con muy poca emisión azul — el cuerpo negro "promedio" de una población estelar más bien vieja e intermedia (recordar de la clase 1: el bulbo tiene poblaciones viejas). Y una cantidad enorme de líneas de <strong>absorción</strong>: no son malos datos, cada subida y bajada es absorción real en las fotósferas de las estrellas.</li>
+    <li><strong>Galaxias con formación estelar (como la irregular NGC 3738):</strong> el continuo es más plano/azul (estrellas más jóvenes y calientes) y, además de las absorciones estelares, aparecen <span class="hl">líneas de emisión</span> delgadas e intensas. Esas líneas no vienen de las estrellas: vienen del <strong>medio interestelar</strong>, de gas excitado e ionizado. Su presencia va de la mano con la formación estelar (lo veremos en la sección 9).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-18.jpg" alt="La galaxia irregular NGC 3738 y su espectro: continuo con líneas de absorción estelares y líneas de emisión delgadas y prominentes del medio interestelar">
+    <figcaption><span class="cap">Diapositiva · El espectro de una galaxia con formación estelar</span>El <strong>continuo y las líneas de absorción</strong> provienen de las fotósferas de las estrellas; las <strong>líneas de emisión</strong> (los picos delgados, como el marcado en rojo: Hα) provienen del ISM circundante, gas ionizado por estrellas jóvenes. Una galaxia "grumosa" y azulada como esta está formando estrellas activamente.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Preguntas del curso</span>
+    <p>«¿Por qué la segunda galaxia tiene menos flujo que la primera?» — Puede ser simplemente que esté <strong>más lejos</strong>: el eje vertical es <em>flujo medido</em>, no luminosidad intrínseca. «¿Y eso que sobresale hacia abajo en Andrómeda?» — Todo eso es <strong>absorción</strong>; si fuera un cuerpo negro perfecto (la suma de todos los cuerpos negros de esas estrellas) sería una curva suavecita.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>La línea de 21 cm del hidrógeno neutro</h2>
+    <p>Una transición minúscula de energía, pero el trazador más poderoso del gas en el universo.</p>
+  </div></div>
+
+  <p>Hay otra cuantización del hidrógeno, mucho más sutil que los orbitales: la orientación relativa del <strong>spin del protón y del electrón</strong>. En el mundo cuántico solo hay dos opciones — <em>paralelos</em> o <em>antiparalelos</em> (nada de ejes inclinados como el de la Tierra). Spins paralelos es un estado levemente excitado; antiparalelos es el verdadero estado base. Cuando el átomo pasa de paralelo a antiparalelo emite un fotón de energía mínima, con longitud de onda de <span class="hl">21 centímetros</span> — literalmente el largo de una regla de estuche escolar. Es radio: se observa con <strong>radiotelescopios</strong>.</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\lambda_{\text{H I}} = 21{,}1\ \text{cm} \;\;\Longleftrightarrow\;\; \nu\approx 1420\ \text{MHz} \;\;\Longleftrightarrow\;\; E=h\nu\approx 5{,}9\ \mu\text{eV}"></span>
+    <small>La transición hiperfina del H neutro. Comparar con los ~10 eV de Lyman α: seis órdenes de magnitud menos energía. Los valores numéricos de frecuencia/energía son formalización propia; la clase dio la longitud de onda (~21 cm) y el carácter minúsculo del salto.</small>
+  </div>
+
+  <p>¿Por qué esta línea es tan importante? Porque el <strong>hidrógeno está en todas partes</strong> y porque la transición es tan barata energéticamente que <em>cualquier</em> choque mínimo con una partícula vecina vuelve a excitar el estado: excitación colisional de bajísima energía, desexcitación radiativa, y de nuevo. El gas neutro "transmite" en 21 cm de forma permanente, y con eso se puede <strong>mapear la fase gaseosa</strong> de las galaxias y su entorno.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-19.jpg" alt="El grupo de galaxias M81: a la izquierda la imagen óptica muestra tres galaxias separadas; a la derecha la imagen en la línea de 21 cm muestra gas por todas partes con puentes entre galaxias">
+    <figcaption><span class="cap">Diapositiva · El grupo de M81 en óptico vs. H I (crédito: U. Klein)</span>En el óptico (izquierda) vemos las <strong>estrellas</strong>: M81, M82 y NGC 3077 parecen islas separadas. En 21 cm (derecha) aparece el <strong>gas</strong>: asociado a cada galaxia, pero también en puentes y estructuras por todos lados entre ellas. El medio gaseoso es mucho más extendido que el cuerpo estelar — y delata las interacciones gravitacionales del grupo.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato clave</span>
+    <p>La emisión de 21 cm que mapeamos es del gas donde la <strong>excitación es colisional</strong> (choques de energía ínfima bastan) y la <strong>desexcitación es radiativa</strong> — el mismo esquema de la sección 3, en su versión de mínima energía. En la tabla de fases (sección 8), esta línea traza sobre todo el <em>medio neutro frío</em> (CNM).</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>El polvo: qué es, dónde nace, cómo atenúa y enrojece</h2>
+    <p>Granos sólidos de carbono y silicio que absorben el UV y el óptico, y reemiten en el infrarrojo.</p>
+  </div></div>
+
+  <p>El <span class="hl">polvo</span> son partículas <strong>sólidas macroscópicas</strong> — ya no átomos o moléculas individuales, sino aglomeraciones de ellos. Examinando su luz es muy difícil precisar la composición exacta (a diferencia del gas, cuyas líneas delatan cada especie), pero todo apunta a <strong>dos familias</strong>: granos donde el compuesto principal es <strong>carbono</strong> y granos de <strong>silicio</strong> (silicatos), más hidrógeno, oxígeno y otros. No es casualidad: carbono y silicio son excelentes formando cadenas largas — toda la química orgánica se basa en el carbono.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-08.jpg" alt="Diapositiva de resumen sobre el polvo: partículas sólidas macroscópicas, familias de carbono y silicio, difícil composición, absorbe el 30% de la luz estelar">
+    <figcaption><span class="cap">Diapositiva · El polvo</span>Resumen de la clase: partículas sólidas macroscópicas, dos familias (C y Si), composición difícil de precisar, y — a pesar de ser el 1% de la masa del ISM — absorbe ≈ <strong>30% de la luz estelar</strong> de nuestra galaxia en el UV/óptico, reemitiéndola en el infrarrojo.</figcaption>
+  </figure>
+
+  <h3>Dónde se forma: astroquímica</h3>
+  <p>El polvo <strong>no se forma en el ISM difuso</strong>: para que haya reacciones químicas los átomos deben encontrarse, y el medio interestelar es demasiado poco denso. Aquí no manda la gravedad sino la <strong>química</strong> — hay toda una rama, la <span class="hl">astroquímica</span>, dedicada a cómo las partículas del medio interestelar reaccionan y se transforman. Se necesitan regiones <strong>densas</strong> y de <strong>temperatura no muy alta</strong> (si hace demasiado calor, los choques violentos destruyen las moléculas). ¿Dónde se da eso? En los <span class="hl">vientos estelares</span>: material (partículas, no radiación) eyectado desde la superficie de las estrellas — en particular de estrellas tipo <strong>AGB</strong>, las gigantes frías de la esquina superior derecha del diagrama HR, con superficies de 2.000–3.000 K. También en novas y remanentes de supernovas. Suena paradójico fabricar polvo "cerca de estrellas", pero es donde coinciden densidad suficiente y temperatura tolerable.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-09.jpg" alt="Diapositiva sobre formación del polvo con la foto de un grano de forsterita de 2 micras">
+    <figcaption><span class="cap">Diapositiva · Dónde nace el polvo (crédito: NASA)</span>Un grano real de <strong>forsterita</strong> (Mg₂SiO₄, un silicato) de 2 micras. El polvo se forma en regiones densas — vientos de estrellas AGB, novas, remanentes de supernova — y no sobrevive en las fases más calientes del ISM.</figcaption>
+  </figure>
+
+  <h3>Atenúa y enrojece</h3>
+  <p>El efecto del polvo sobre la luz tiene nombre técnico: <span class="hl">atenúa</span> (llega menos radiación al otro lado) y <span class="hl">enrojece</span> (la luz que logra pasar es preferentemente la de longitudes de onda más largas). La demostración cualitativa es la nube Barnard 68; la cuantitativa, las curvas de extinción.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-10.jpg" alt="La nube Barnard 68 vista en óptico, donde es un agujero negro en el cielo, y en óptico-infrarrojo, donde deja pasar estrellas enrojecidas">
+    <figcaption><span class="cap">Diapositiva · Barnard 68 (crédito: ESO)</span>La misma nube de gas y polvo: en el <strong>óptico</strong> (izquierda) bloquea por completo las estrellas de fondo; agregando el <strong>infrarrojo cercano</strong> a 2.200 nm (derecha) las estrellas de atrás reaparecen, enrojecidas. Atenúa y enrojece, en una sola imagen.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-11.jpg" alt="Espectro de una estrella caliente original y tras pasar por polvo de tipo Vía Láctea, Nube Grande y Nube Pequeña de Magallanes: gran extinción en el ultravioleta">
+    <figcaption><span class="cap">Diapositiva · La extinción, cuantitativa (Popping, Puglisi &amp; Norman 2017)</span>El espectro original de una estrella muy caliente (~30.000 K: el cuerpo negro ni siquiera alcanza su peak en este rango UV–óptico) pasa por la <em>misma cantidad</em> de polvo de distintas naturalezas: tipo Vía Láctea, Nube Grande (LMC) y Nube Pequeña de Magallanes (SMC). En el óptico todos atenúan parecido; hacia el infrarrojo al polvo "casi le da lo mismo" y las curvas convergen; en el <strong>ultravioleta</strong> la extinción es salvaje y depende del tipo de polvo — con polvo tipo SMC, de 100 cuentas en el detector queda ~1.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril (inferencia propia)</span>
+    <p>La curva de extinción es la <strong>respuesta en frecuencia de un canal con pérdidas</strong>: atenuación fuerte y dependiente del material en alta frecuencia (UV), casi transparente en baja frecuencia (IR). "Enrojecer" = el canal es un filtro pasa-bajos; distintos polvos = distintas funciones de transferencia. Y el dato de 100 → 1 cuentas es −20 dB de atenuación en la banda UV.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Las cinco fases del gas</h2>
+    <p>De 10 K a 500.000 K: el ISM es un sistema multifase con densidades que varían órdenes de magnitud.</p>
+  </div></div>
+
+  <p>El gas del ISM existe en una variedad gigantesca de temperaturas y densidades, y se lo clasifica en <span class="hl">fases</span> según el estado en que se encuentra el hidrógeno (molecular H₂, atómico neutro H, o ionizado H⁺):</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Fase</th><th>Estado del H</th><th>n [cm⁻³]</th><th>T [K]</th><th>Masa [10⁹ M<sub>☉</sub>]</th><th>f (volumen)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Molecular</b></td><td>H₂</td><td>&gt; 300</td><td>~10</td><td>2,0</td><td>0,01</td></tr>
+      <tr><td><b>Neutro frío (CNM)</b></td><td>H</td><td>50</td><td>~80</td><td>3,0</td><td>0,04</td></tr>
+      <tr><td><b>Neutro tibio (WNM)</b></td><td>H</td><td>0,5</td><td>~8×10³</td><td>4,0</td><td>0,30</td></tr>
+      <tr><td><b>Ionizado tibio (WIM)</b></td><td>H⁺</td><td>0,3</td><td>~8×10³</td><td>1,0</td><td>0,15</td></tr>
+      <tr><td><b>Ionizado caliente (HIM)</b></td><td>H⁺</td><td>3×10⁻³</td><td>~5×10⁵</td><td>—</td><td>0,50</td></tr>
+    </tbody>
+  </table></div>
+  <p style="color:var(--muted);font-size:.9rem;margin-top:-10px">Valores para la Vía Láctea según la diapositiva (crédito: A. Parikka 2015). La profesora comentó que el valor de T del WNM le parece "demasiado elevado" — tomarlo como orden de magnitud.</p>
+
+  <p>Lecturas clave de la tabla, tal como las hizo la clase:</p>
+  <ul>
+    <li>Las <strong>masas son comparables</strong> entre fases (dos, tres, cuatro, uno ×10⁹ M<sub>☉</sub>)… pero las <strong>fracciones de volumen f</strong> son radicalmente distintas: el gas molecular, siendo el más denso, ocupa apenas el <strong>1% del volumen</strong>; el HIM, tenuísimo, llena la <strong>mitad de la galaxia</strong>.</li>
+    <li>La fase <strong>molecular</strong> es la más fría (pocos K sobre el cero absoluto) y la más densa. Es tan fría que las moléculas se mueven tan lento que los choques no las rompen: la molécula sobrevive. Es <em>la única fase donde ocurre formación estelar</em>: son las nubes con menor presión interna, susceptibles al colapso gravitacional.</li>
+    <li>El <strong>CNM</strong> (~80–200 K) es el que mapeamos con la <strong>línea de 21 cm</strong>.</li>
+    <li>Las dos fases <strong>ionizadas</strong> se distinguen por el mecanismo: el <strong>WIM</strong> está ionizado por <em>radiación de estrellas calientes</em>; el <strong>HIM</strong> por <em>colisiones</em> debidas a su propia temperatura altísima (sección 9).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-13.jpg" alt="Diagrama de fases temperatura-densidad del ISM junto a la tabla de fases con densidad, temperatura, masa y fracción de volumen">
+    <figcaption><span class="cap">Diapositiva · Las fases del ISM (P. Lesaffre 2018; tabla: A. Parikka 2015)</span>Izquierda: el diagrama T–ρ, con las fases del ISM (HIM, WNM, CNM, difuso, denso) a densidades entre 10⁻²⁸ y 10⁻¹⁸ g/cm³ — el aire que respiramos, a ~10⁻³ g/cm³, queda 15–25 órdenes de magnitud a la derecha. Derecha: la tabla de fases. Nótese el eje log-log: sin escalas logarítmicas este diagrama sería imposible de dibujar.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Discusión de la clase: "tibio" más caliente que el Sol</span>
+    <p>Un estudiante notó que todo lo que llaman "tibio" (8.000 K) es más caliente que la superficie del Sol (6.000 K). Respuesta: en astronomía <strong>caliente y frío son términos relativos</strong>, jerga de cada subárea — la gente de rayos X llama "frío" a cosas que siguen emitiendo en rayos X. Lo que importa es el orden: esto es más frío que esto otro. No hay escala absoluta en el uso cotidiano de estos términos.</p>
+  </div>
+
+  <!-- WIDGET 2 -->
+  <div class="widget" id="w-fases">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Explorador de fases del ISM</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Elige una fase y compárala con referencias de ingeniería: densidad de partículas vs. el aire, y una barra log de temperatura. Los datos son los de la tabla de la clase.</p>
+    <div class="presets" id="fase-btns">
+      <button type="button" data-f="0">Molecular (H₂)</button>
+      <button type="button" data-f="1">Neutro frío (CNM)</button>
+      <button type="button" data-f="2">Neutro tibio (WNM)</button>
+      <button type="button" data-f="3">Ionizado tibio (WIM)</button>
+      <button type="button" data-f="4">Ionizado caliente (HIM)</button>
+    </div>
+    <canvas id="fase-canvas" width="900" height="300"></canvas>
+    <output id="fase-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Ionización, recombinación y regiones H II</h2>
+    <p>Dos formas de arrancar el electrón, una sola forma de volver: recombinación con cascada de líneas.</p>
+  </div></div>
+
+  <h3>Dos maneras de ionizar</h3>
+  <p>Ionizar el hidrógeno significa arrancarle el electrón. Hay dos escenarios:</p>
+  <ol class="body">
+    <li><strong>Ionización colisional:</strong> un choque suficientemente energético entre partículas. Requiere gas tremendamente caliente. Es el mecanismo del <span class="hl">HIM</span> (Hot Ionized Medium).</li>
+    <li><strong>Ionización radiativa:</strong> el gas no es particularmente caliente, pero está expuesto a <strong>radiación ultravioleta</strong> muy energética que extrae el electrón. Es el mecanismo del <span class="hl">WIM</span> (Warm Ionized Medium), y se debe a la presencia de <em>estrellas calientes</em> en la vecindad.</li>
+  </ol>
+
+  <figure>
+    <img src="m1c3/assets/slide-14.jpg" alt="Esquema de ionización de un átomo por choque de partícula (1) o por absorción de un fotón energético (2)">
+    <figcaption><span class="cap">Diapositiva · Los dos caminos a la ionización</span>(1) Choque energético entre partículas → ionización colisional (HIM). (2) Absorción de un fotón γ energético → ionización radiativa (WIM). El resultado es el mismo: protón por un lado, electrón por el otro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-15.jpg" alt="El remanente de supernova de Casiopea A como ejemplo de HIM y la Nebulosa de Orión como ejemplo de WIM">
+    <figcaption><span class="cap">Diapositiva · HIM vs. WIM en imágenes</span>Izquierda: el <strong>remanente de Casiopea A</strong> (imagen en rayos X) — material eyectado a miles de km/s por la explosión de una estrella masiva, formando una burbuja a millones de grados, colisionalmente ionizada. Derecha: la <strong>Nebulosa de Orión</strong> (óptico) — gas mucho más frío, mantenido ionizado por la radiación UV de las estrellas recién formadas en su interior. Sobre los colores de la imagen de rayos X, la profesora fue honesta: cree que la paleta aísla elementos químicos del espectro, pero no está segura.</figcaption>
+  </figure>
+
+  <h3>La recombinación y sus líneas</h3>
+  <p>En esa sopa de protones y electrones libres, dos cargas opuestas eventualmente se encuentran, se atraen y se "abrazan": <span class="hl">recombinación</span> — se vuelve a formar un átomo neutro. El punto clave: el electrón típicamente <strong>no cae directo al estado base</strong>, sino a un estado excitado, y luego baja en cascada de orbital en orbital emitiendo fotones — es decir, <strong>líneas de emisión</strong> (las series de Lyman, Balmer, Paschen…). Y esto ocurre <em>sin importar cuál fue el mecanismo de ionización</em>. Una condición sí es necesaria: densidad suficiente. Si el gas es demasiado tenue, la probabilidad de encuentro protón-electrón se desploma y el gas simplemente permanece ionizado.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-16.jpg" alt="Esquema de ionización seguida de recombinación: el electrón cae primero a un estado excitado y luego decae al estado base emitiendo fotones">
+    <figcaption><span class="cap">Diapositiva · Recombinación</span>Si la densidad es suficiente, tras la ionización viene la recombinación: el electrón entra por un estado excitado y decae en cascada al estado base emitiendo <strong>líneas de recombinación</strong> — para el H, las series de Lyman, Balmer, Paschen, etc.</figcaption>
+  </figure>
+
+  <h3>Regiones H II: el ciclo sin fin alrededor de estrellas jóvenes</h3>
+  <p>Ahora todo se conecta. En una galaxia con formación estelar se puebla la <strong>secuencia principal completa</strong>: nacen estrellas de 3.000, 5.000, 10.000 K… y unas pocas de <strong>30.000–50.000 K</strong>. Solo estas últimas — la punta caliente — emiten cantidades copiosas de fotones UV capaces de ionizar el hidrógeno. Alrededor de las regiones de formación estelar queda además mucho gas denso (la materia prima sobrante), así que el ciclo se cierra: <em>fotón UV ioniza → protón y electrón se reencuentran → recombinación → cascada de líneas (Hα incluida) → el átomo neutro recibe otro fotón UV → …</em> Un círculo que no para <strong>hasta que las estrellas ionizantes mueren</strong>; entonces el gas queda neutro. Por eso estas regiones son <em>transientes</em>.</p>
+
+  <div class="box dato">
+    <span class="tag">Notación: H I vs. H II</span>
+    <p>Paréntesis de pizarra de la clase. En química, hidrógeno neutro = H (o H⁰) e ionizado = H⁺. En astronomía se usan números romanos: <strong>H I</strong> = neutro (ningún electrón perdido), <strong>H II</strong> = ionizado una vez (que para el H es lo máximo: queda el puro protón). Para elementos con más electrones se sigue subiendo: O III es oxígeno dos veces ionizado. De ahí el nombre <span class="hl">región H II</span>: burbuja de hidrógeno ionizado alrededor de estrellas jóvenes y calientes. La Nebulosa de Orión es el ejemplo clásico: la región más densa y compacta donde se formaron las estrellas está en un rincón; la radiación que escapa "cava" y mantiene ionizada una región mucho más extensa.</p>
+  </div>
+
+  <p>Consecuencia observacional de primer orden: <strong>cuando el espectro de una galaxia muestra líneas de emisión prominentes, en la mayoría de los casos hay formación estelar reciente</strong> — estrellas muy calientes ionizando su entorno, con la recombinación regalándonos Hα y compañía. Las preguntas del curso precisaron el cuadro: la nube molecular original es compacta; parte del gas se consume formando estrellas, el gas denso irradiado se convierte en PDR (regiones de fotodisociación, más complejas), y la región H II es el resto del gas más tenue de los alrededores, ionizado "porque le tocó la suerte" de tener estrellas O cerca.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril (inferencia propia)</span>
+    <p>La región H II funciona en <strong>régimen estacionario</strong>: tasa de fotoionización ≈ tasa de recombinación, como un tanque con caudal de entrada y salida balanceados. La línea Hα es el "indicador de caudal": su intensidad mide cuántas recombinaciones por segundo ocurren y, por lo tanto, cuántos fotones ionizantes están produciendo las estrellas — un sensor indirecto de la tasa de formación estelar.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>M82: supernovas y gas que escapa de la galaxia</h2>
+    <p>Cuando muchas burbujas de supernova se solapan, el gas caliente encuentra la salida: perpendicular al disco.</p>
+  </div></div>
+
+  <p>¿Qué pasa cuando el medio interestelar caliente se acumula? El caso extremo es <span class="hl">M82</span>, una galaxia pequeña del grupo de M81 que está siendo "vapuleada" gravitacionalmente por su vecina mayor. La perturbación disparó un episodio de formación estelar <strong>intensísimo</strong> en su centro (una región pequeña): allí explotan supernovas todo el tiempo, sus burbujas de gas a millones de grados se <strong>solapan</strong>, y se forman enormes regiones de alta presión y temperatura. Igual que en las burbujas de Fermi, al gas caliente "le gusta" escapar <strong>perpendicular al plano</strong>, por el eje menor, donde el gradiente de presión es más abrupto. No importa cuál fue el mecanismo que calentó el gas (agujero negro en las burbujas de Fermi, formación estelar violenta en M82): gas suficientemente caliente escapa por ahí.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-20.jpg" alt="M82 con su disco azulado de estrellas y los filamentos rojos de hidrógeno ionizado en Hα escapando perpendiculares al disco">
+    <figcaption><span class="cap">Diapositiva · M82 en Hα (crédito: NASA)</span>El rojo es un <strong>filtro Hα</strong>: banda angostísima centrada en la línea de Balmer α, ideal para aislar gas ionizado (el mismo tipo de filtro con que se observa el Sol de manera segura). Los filamentos rojos son gas ionizado <em>colisionalmente</em> por los remanentes de supernova, escapando perpendicular al disco.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-21.jpg" alt="M82 en rayos X: el disco estelar desaparece y solo se ve el gas a millones de grados escapando de la galaxia">
+    <figcaption><span class="cap">Diapositiva · M82 en rayos X (crédito: NASA)</span>Aquí "la galaxia desaparece": en rayos X no vemos las estrellas del disco sino solo el <strong>HIM</strong>, el gas a millones de grados que sale eyectado, más las explosiones de supernova recientes. Este gas es tan caliente que no es WIM: emite térmicamente en rayos X.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-22.jpg" alt="Imagen combinada de M82 con datos de Hubble, Chandra y Spitzer: óptico, rayos X e infrarrojo superpuestos">
+    <figcaption><span class="cap">Diapositiva · M82, imagen combinada (Hubble + Chandra + Spitzer)</span>Óptico, rayos X e infrarrojo superpuestos: el disco estelar, el viento caliente y el polvo, todo a la vez. La profesora bromeó con que después de tanto superponer "ya no se entiende nada" — recordatorio de que los colores de estas imágenes son elecciones de visualización, no colores reales.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>El efecto Doppler: cómo se mueve el gas</h2>
+    <p>Las líneas no solo dicen qué hay: dicen a qué velocidad se mueve. Corrimiento = dinámica; ancho = temperatura.</p>
+  </div></div>
+
+  <p>Tener líneas en un espectro (en emisión o en absorción) regala una segunda dimensión de información: el <strong>movimiento</strong>. El <span class="hl">efecto Doppler</span> es puramente ondulatorio — el clásico cambio de timbre de un motor que pasa: más agudo acercándose, más grave alejándose — y la luz, siendo onda, no es excepción. Lo que importa es la <strong>velocidad relativa</strong> entre emisor y receptor:</p>
+  <ul>
+    <li>Acercamiento → la radiación se corre <strong>al azul</strong> (longitudes de onda más cortas).</li>
+    <li>Alejamiento → se corre <strong>al rojo</strong> (más largas).</li>
+  </ul>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\frac{\Delta\lambda}{\lambda_0}=\frac{v}{c}\qquad (v\ll c)"></span>
+    <small>Para medir el corrimiento se necesita una <strong>línea</strong> de longitud de onda de laboratorio conocida (p. ej. 21 cm). Todas las líneas de una misma región se corren <em>proporcionalmente</em> lo mismo (Δλ depende de λ, pero Δλ/λ es igual para todas) — respuesta de la clase a una pregunta del curso.</small>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-25.jpg" alt="Infografía sobre la línea de HI y el efecto Doppler: nubes de hidrógeno de la Vía Láctea acercándose (azul) o alejándose (rojo) y las líneas de 21 cm corridas">
+    <figcaption><span class="cap">Diapositiva · La línea de H I como marcador galáctico (crédito: Pikaja)</span>El H I emite en 21 cm; si la nube se acerca la línea llega comprimida (azul), si se aleja llega estirada (rojo). Midiendo el corrimiento de la línea, nube por nube, se reconstruye la rotación de la Vía Láctea desde adentro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-26.jpg" alt="M33 en óptico, en óptico más HI, y su campo de velocidades: mitad azul acercándose, mitad roja alejándose — la rotación del disco">
+    <figcaption><span class="cap">Diapositiva · M33: campo de velocidades (crédito: A. Hamilton)</span>Izquierda: el óptico (estrellas). Centro: el gas H I, mucho <strong>más extendido</strong> que el cuerpo estelar (característica típica de las galaxias). Derecha: el <strong>campo de velocidades</strong> medido con la línea de 21 cm — un lado corrido al azul (se acerca), el otro al rojo (se aleja): la <strong>rotación del disco</strong>, mapeada píxel a píxel.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Preguntas del curso: corrimiento vs. redshift cosmológico vs. temperatura</span>
+    <p>Tres aclaraciones importantes que dejó la ronda de preguntas: (1) La rotación del material en una galaxia no sobrepasa <strong>200–300 km/s</strong>, así que los corrimientos Doppler dinámicos son pequeños. (2) El <strong>redshift cosmológico</strong> es otra cosa: no es movimiento real sino la <em>expansión del universo</em>, y sus corrimientos son "salvajes" — cuando el corrimiento es enorme, se sabe que es cosmológico; cuando es pequeño y ambas cosas se superponen, hay que modelar para separarlas. (3) La <strong>temperatura no corre la línea: la ensancha</strong>. Corrimiento = dinámica; ancho = agitación térmica. (Se anunció que la próxima clase parte por ahí.)</p>
+  </div>
+
+  <!-- WIDGET 3 -->
+  <div class="widget" id="w-doppler">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Doppler sobre una línea espectral</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Elige una línea de reposo y la velocidad radial de la nube (negativa = se acerca). Mira cuánto se corre la línea y hacia dónde. Nota lo pequeño que es el corrimiento a velocidades galácticas (≤ 300 km/s): por eso se necesita una línea angosta y bien conocida para medirlo.</p>
+    <div class="wgrid">
+      <div>
+        <label>Línea en reposo</label>
+        <select id="dp-line">
+          <option value="0.211061" data-name="H I 21 cm" data-unit="cm" data-scale="100" selected>H I — 21,106 cm (radio)</option>
+          <option value="6.5628e-7" data-name="Hα" data-unit="nm" data-scale="1e9">Hα — 656,28 nm (óptico)</option>
+          <option value="0.0026" data-name="CO (J=1→0)" data-unit="mm" data-scale="1000">CO — 2,6 mm (milimétrico)</option>
+        </select>
+      </div>
+      <div>
+        <label>Velocidad radial v = <span class="rngval" id="dp-vval">120</span> km/s</label>
+        <input type="range" id="dp-v" min="-300" max="300" step="5" value="120">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-v="-250">Lado que se acerca (−250)</button>
+      <button type="button" data-v="0">En reposo</button>
+      <button type="button" data-v="250">Lado que se aleja (+250)</button>
+    </div>
+    <canvas id="dp-canvas" width="900" height="220"></canvas>
+    <output id="dp-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>El gas molecular, el CO y el ciclo ISM–CGM</h2>
+    <p>La fase más fría casi no emite: se traza con monóxido de carbono. Y el gas no se queda quieto: circula entre la galaxia y su halo.</p>
+  </div></div>
+
+  <h3>H₂ no emite: se usa CO como trazador</h3>
+  <p>Queda una pregunta práctica: ¿cómo se mapea la fase <em>más fría</em>, la molecular, donde ocurre la formación estelar? Mala noticia: el <strong>hidrógeno molecular (H₂) casi no emite</strong> — es una molécula demasiado estable, le cuesta muchísimo radiar. La solución es usar un <span class="hl">trazador</span>: la molécula de <strong>monóxido de carbono (CO)</strong>, la siguiente más común, que sí emite con ganas. Cuando alguien muestra un mapa de "gas molecular", casi siempre es un mapa de CO usado como proxy del H₂.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-27.jpg" alt="Mapa de todo el cielo del gas molecular denso trazado por la molécula de CO, obtenido por Planck">
+    <figcaption><span class="cap">Diapositiva · El gas molecular denso trazado por CO (crédito: Planck)</span>Mapa de todo el cielo en la línea del CO: el gas molecular se concentra en el plano de la Vía Láctea, en nubes como las de Cefeo y Tauro. "H₂ no emite": lo que vemos es su acompañante, el CO.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-28.jpg" alt="Composición que muestra que el gas molecular denso es el sitio de la formación estelar en la galaxia Antena, la galaxia del Triángulo y la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva · Donde hay gas molecular denso, hay formación estelar</span>Regiones de formación estelar sobre mapas de gas molecular en sistemas muy distintos: la galaxia <strong>Antena</strong> (colisión de dos galaxias), la galaxia del <strong>Triángulo</strong> (espiral de bulbo poco desarrollado) y nuestra propia <strong>Vía Láctea</strong> (W43, W51, Carina, Águila…). El vínculo nube molecular ↔ formación estelar es universal.</figcaption>
+  </figure>
+
+  <h3>El ciclo ISM–CGM</h3>
+  <p>Cierre conceptual de la clase: el medio interestelar no es un sistema aislado. Alrededor de cada galaxia hay una región más extendida — una especie de "atmósfera" — llamada <span class="hl">medio circungaláctico</span> (CGM). Los vientos y jets (como los de M82) inyectan allí gas caliente, <strong>rico en elementos pesados recién sintetizados</strong> (viene de regiones de formación estelar y supernovas). Parte de ese gas se enfría y se cree que <em>vuelve a caer</em> al ISM. El ciclo completo: <em>nubes moleculares → formación estelar → supernovas y pérdida de masa → vientos/jets hacia el halo → enfriamiento → reingreso</em>. Cuánto material se pierde definitivamente y cuánto es retenido es un área de investigación muy activa hoy — es la clave de cómo las galaxias van sintetizando y reteniendo sus elementos pesados.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-29.jpg" alt="Esquema del ciclo entre el medio interestelar y el medio circungaláctico: nubes moleculares, formación estelar, supernovas, vientos, enfriamiento e ingreso desde el halo">
+    <figcaption><span class="cap">Diapositiva · El ciclo ISM–CGM (crédito: El Colegio Nacional)</span>El gas circula: formación estelar y supernovas en el ISM, salida por jets/vientos hacia el halo (CGM), enfriamiento y reingreso. Una galaxia es un sistema abierto con reciclaje de materia.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril (inferencia propia)</span>
+    <p>El ciclo ISM–CGM es un <strong>balance de masas con recirculación</strong>: un proceso (formación estelar) consume materia prima (gas molecular), genera subproductos calientes y enriquecidos (vientos de supernova), parte se pierde por la chimenea (escape al CGM/intergaláctico) y parte se condensa y realimenta el reactor. Modelar galaxias es, en buena medida, cerrar ese balance de masas y energía.</p>
+  </div>
+
+  <div class="box ext">
+    <span class="tag">Material externo (complementario)</span>
+    <p>Para reforzar esta clase con un texto introductorio en inglés: <a href="https://openstax.org/books/astronomy-2e/pages/20-thinking-ahead" target="_blank" rel="noopener">OpenStax <em>Astronomy 2e</em>, capítulo 20 — "Between the Stars: Gas and Dust in Space"</a> (nivel introductorio). Cubre el medio interestelar, el gas, el polvo (extinción y enrojecimiento) y el ciclo del material cósmico, con figuras muy afines a las de esta clase. No reemplaza el material del diplomado; es un complemento de lectura.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>ISM</b></td><td>Gas + polvo entre las estrellas (≈ 100:1 en masa)</td><td>La materia prima y el registro de la vida de una galaxia</td></tr>
+      <tr><td><b>Línea espectral</b></td><td>Radiación en un rango angostísimo de λ</td><td>Delata composición, estado y movimiento del gas</td></tr>
+      <tr><td><b>Cuantización</b></td><td>Orbitales con energías discretas (Bohr → mecánica cuántica)</td><td>Explica por qué existen las líneas</td></tr>
+      <tr><td><b>Series de Lyman / Balmer / Paschen</b></td><td>Saltos hacia n=1 (UV) / n=2 (óptico) / n=3 (IR)</td><td>Las "frecuencias de resonancia" del hidrógeno</td></tr>
+      <tr><td><b>Excitación colisional</b></td><td>Choque transfiere energía cinética al electrón</td><td>Con desexcitación radiativa: el gas se enfría</td></tr>
+      <tr><td><b>Absorción vs. emisión</b></td><td>Nube frente a continuo vs. nube sola</td><td>La geometría decide el tipo de línea observada</td></tr>
+      <tr><td><b>Fotósfera</b></td><td>Últimas capas de la estrella, donde se forman sus absorciones</td><td>Así sabemos de qué están hechas las estrellas</td></tr>
+      <tr><td><b>Línea de 21 cm (H I)</b></td><td>Transición de spins paralelos → antiparalelos (~5,9 μeV)</td><td>Mapea el gas neutro; se observa con radiotelescopios</td></tr>
+      <tr><td><b>Polvo</b></td><td>Granos sólidos de C o Si; ~30% de la luz estelar absorbida</td><td>Atenúa y enrojece; reemite en el IR</td></tr>
+      <tr><td><b>Astroquímica / vientos AGB</b></td><td>El polvo nace en regiones densas y no muy calientes</td><td>El polvo no se forma en el ISM difuso</td></tr>
+      <tr><td><b>Curva de extinción</b></td><td>VL vs. LMC vs. SMC: iguales en óptico/IR, brutales en UV</td><td>No todo el polvo es igual; el UV es el más castigado</td></tr>
+      <tr><td><b>Fases del ISM</b></td><td>Molecular · CNM · WNM · WIM · HIM</td><td>Masas comparables, volúmenes radicalmente distintos</td></tr>
+      <tr><td><b>Fase molecular</b></td><td>~10 K, n &gt; 300 cm⁻³, f ≈ 1%</td><td>La única fase donde se forman estrellas</td></tr>
+      <tr><td><b>HIM</b></td><td>~5×10⁵ K, colisionalmente ionizado, f ≈ 50%</td><td>Burbujas de supernova solapadas; emite en rayos X</td></tr>
+      <tr><td><b>WIM / regiones H II</b></td><td>~8.000 K, ionizado por radiación UV de estrellas O</td><td>Marcador de formación estelar reciente (Hα)</td></tr>
+      <tr><td><b>Recombinación</b></td><td>p + e → H excitado → cascada de líneas</td><td>Origen de las líneas de emisión; requiere densidad suficiente</td></tr>
+      <tr><td><b>H I / H II</b></td><td>Notación astronómica: neutro / ionizado</td><td>Números romanos = estado de ionización</td></tr>
+      <tr><td><b>Efecto Doppler</b></td><td>Δλ/λ = v/c; rotación galáctica ≤ 200–300 km/s</td><td>Corrimiento = dinámica; el ancho de línea = temperatura</td></tr>
+      <tr><td><b>CO como trazador</b></td><td>H₂ casi no emite; el CO sí</td><td>Único acceso práctico al gas molecular</td></tr>
+      <tr><td><b>CGM</b></td><td>Medio circungaláctico: la "atmósfera" de la galaxia</td><td>Ciclo de eyección, enfriamiento y reingreso del gas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c3-examen-01.html">Examen 01<small>Continuo, líneas y mecanismos</small></a></li>
+    <li><a href="m1c3-examen-02.html">Examen 02<small>El átomo de H y sus series</small></a></li>
+    <li><a href="m1c3-examen-03.html">Examen 03<small>Excitación y enfriamiento</small></a></li>
+    <li><a href="m1c3-examen-04.html">Examen 04<small>Absorción, emisión y espectros</small></a></li>
+    <li><a href="m1c3-examen-05.html">Examen 05<small>La línea de 21 cm</small></a></li>
+    <li><a href="m1c3-examen-06.html">Examen 06<small>El polvo interestelar</small></a></li>
+    <li><a href="m1c3-examen-07.html">Examen 07<small>Las fases del gas</small></a></li>
+    <li><a href="m1c3-examen-08.html">Examen 08<small>Ionización y regiones H II</small></a></li>
+    <li><a href="m1c3-examen-09.html">Examen 09<small>Doppler y dinámica del gas</small></a></li>
+    <li><a href="m1c3-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo I del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (Observatorio Cerro Calán, 28 mar 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m1/ff/Galaxias-m1c3-55a0ce88-46a6.md</code>) y las diapositivas de la clase (29 láminas, "El Medio Interestelar").</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía: "bremstrano/premstradum" → <em>bremsstrahlung</em>; "Lima/Ayman/Lyon" → <em>Lyman</em>; "Walmer/Palmer" → <em>Balmer</em>; "Passion/Pashen" → <em>Paschen</em>; "Gold Neutral Medium" → <em>Cold Neutral Medium</em>; "World Neutral" → <em>Warm Neutral Medium</em>; "H ro" → <em>H I</em>; "región H" → <em>región H II</em>. Las galaxias mencionadas como "M" se identificaron con las diapositivas (M31, M81, M82, M101, M33). Las fórmulas de Rydberg, la frecuencia de 1420 MHz y las analogías ingenieriles son formalización e inferencia propia coherente con la clase, no citas textuales. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: Rydberg =====
+  var RY = 1.0967758e7; // R_H (m^-1)
+  var H_EV = 4.135667696e-15, C_MS = 299792458;
+  var seriesName = {1:"Lyman",2:"Balmer",3:"Paschen",4:"Brackett",5:"Pfund"};
+  var greek = ["\u03b1","\u03b2","\u03b3","\u03b4","\u03b5","\u03b6","\u03b7","\u03b8"];
+  var ryN1=document.getElementById('ry-n1'), ryN2=document.getElementById('ry-n2'),
+      ryN2v=document.getElementById('ry-n2val'), ryOut=document.getElementById('ry-out');
+  function region(nm){
+    if(nm<380) return "ultravioleta";
+    if(nm<=750) return "visible (óptico)";
+    if(nm<3000) return "infrarrojo cercano";
+    return "infrarrojo";
+  }
+  function ryUpdate(){
+    var n1=+ryN1.value, n2=+ryN2.value;
+    if(n2<=n1){ n2=n1+1; ryN2.value=n2; }
+    ryN2.min=n1+1;
+    ryN2v.textContent=n2;
+    var invLam = RY*(1/(n1*n1)-1/(n2*n2));
+    var lam = 1/invLam;                    // m
+    var nm = lam*1e9;
+    var eV = H_EV*C_MS/lam;
+    var idx=n2-n1-1;
+    var letter = idx<greek.length ? greek[idx] : String(n2-n1);
+    ryOut.innerHTML="Transición n="+n2+" → n="+n1+" &nbsp;·&nbsp; serie de <b>"+seriesName[n1]+"</b>, línea <b>"+seriesName[n1]+" "+letter+"</b><br>"+
+      "<span class='k'>λ ≈ </span><b>"+(nm<1000?nm.toFixed(1)+" nm":(nm/1000).toFixed(2)+" μm")+"</b>"+
+      " &nbsp;·&nbsp; E ≈ <b>"+eV.toFixed(2)+" eV</b> &nbsp;·&nbsp; región: <b>"+region(nm)+"</b><br>"+
+      "<span style='font-size:.85rem;color:#9aa6bb'>Compara: la línea de 21 cm del H I tiene E ≈ 0,0000059 eV — "+(eV/5.9e-6).toExponential(1).replace('e+','×10^')+" veces menos energética que esta transición.</span>";
+  }
+  if(ryN1){
+    ryN1.addEventListener('change',function(){ ryUpdate(); });
+    ryN2.addEventListener('input',ryUpdate);
+    document.querySelectorAll('#w-rydberg .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ ryN1.value=b.dataset.n1; ryN2.min=(+b.dataset.n1)+1; ryN2.value=b.dataset.n2; ryUpdate(); });
+    });
+    ryUpdate();
+  }
+
+  // ===== Widget 2: fases del ISM =====
+  var fases=[
+    {n:"Molecular", h:"H\u2082", dens:300, T:10, M:"2,0", f:0.01, mec:"—", nota:"La única fase donde ocurre formación estelar. Tan fría que los choques no rompen las moléculas."},
+    {n:"Neutro frío (CNM)", h:"H", dens:50, T:80, M:"3,0", f:0.04, mec:"—", nota:"Se mapea con la línea de 21 cm del hidrógeno neutro."},
+    {n:"Neutro tibio (WNM)", h:"H", dens:0.5, T:8000, M:"4,0", f:0.30, mec:"—", nota:"«Tibio»… más caliente que la superficie del Sol. Términos relativos, jerga del área."},
+    {n:"Ionizado tibio (WIM)", h:"H\u207a", dens:0.3, T:8000, M:"1,0", f:0.15, mec:"radiativa (estrellas calientes)", nota:"Regiones H II: ionizado por fotones UV de estrellas O. Marcador de formación estelar."},
+    {n:"Ionizado caliente (HIM)", h:"H\u207a", dens:0.003, T:500000, M:"—", f:0.50, mec:"colisional (choques violentos)", nota:"Burbujas de supernova solapadas; emite en rayos X; llena la mitad del volumen."}
+  ];
+  var AIRE=2.5e19; // moléculas por cm3 aprox al nivel del mar
+  var fcv=document.getElementById('fase-canvas'), fout=document.getElementById('fase-out');
+  var faseSel=4;
+  function drawFases(){
+    if(!fcv) return;
+    var ctx=fcv.getContext('2d'), W=fcv.width, H=fcv.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=170,padR=30,padT=26,padB=34;
+    // ejes: barra log de temperatura 1..1e7 K y log densidad
+    var Tmin=0, Tmax=7; // log10
+    function X(lt){ return padL+(lt-Tmin)/(Tmax-Tmin)*(W-padL-padR); }
+    ctx.font="12px Spectral, serif"; ctx.fillStyle="#9aa6bb"; ctx.textAlign="center";
+    for(var e=0;e<=7;e++){
+      ctx.strokeStyle="#1a2438"; ctx.beginPath();
+      ctx.moveTo(X(e),padT); ctx.lineTo(X(e),H-padB); ctx.stroke();
+      ctx.fillText("10"+String(e).split('').map(function(d){return "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077"[+d];}).join(''), X(e), H-padB+16);
+    }
+    ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Temperatura [K] (escala log)", (padL+W-padR)/2, H-4);
+    var colors=["#5fae7e","#6fc7d6","#6f9cf0","#d9a74a","#e0382e"];
+    var rowH=(H-padT-padB)/fases.length;
+    fases.forEach(function(f,i){
+      var y=padT+rowH*i+rowH/2;
+      ctx.textAlign="right"; ctx.font=(i===faseSel?"600 ":"")+"13px Fraunces, serif";
+      ctx.fillStyle=(i===faseSel)?"#fff":"#9aa6bb";
+      ctx.fillText(f.n, padL-10, y+4);
+      var lt=Math.log10(f.T);
+      ctx.strokeStyle=colors[i]; ctx.lineWidth=(i===faseSel)?5:2;
+      ctx.beginPath(); ctx.moveTo(X(0),y); ctx.lineTo(X(lt),y); ctx.stroke();
+      ctx.fillStyle=colors[i];
+      ctx.beginPath(); ctx.arc(X(lt),y,(i===faseSel)?7:4,0,2*Math.PI); ctx.fill();
+    });
+  }
+  function faseUpdate(){
+    var f=fases[faseSel];
+    var ratio=AIRE/f.dens;
+    fout.innerHTML="<span class='k'>"+f.n+"</span> — hidrógeno como <b>"+f.h+"</b><br>"+
+      "n ≈ <b>"+f.dens+" cm⁻³</b> &nbsp;·&nbsp; T ≈ <b>"+f.T.toLocaleString('es')+" K</b> &nbsp;·&nbsp; masa ≈ <b>"+f.M+"</b> ×10⁹ M☉ &nbsp;·&nbsp; volumen: <b>"+(f.f*100)+"%</b> del ISM<br>"+
+      (f.mec!=="—"?"Mecanismo de ionización: <b>"+f.mec+"</b><br>":"")+
+      "<span style='font-size:.85rem;color:#9aa6bb'>Para calibrar: el aire a nivel del mar tiene ~2,5×10¹⁹ partículas/cm³ — esta fase es ~"+ratio.toExponential(1).replace('e+','×10^')+" veces más tenue. "+f.nota+"</span>";
+    drawFases();
+  }
+  if(fcv){
+    document.querySelectorAll('#fase-btns button').forEach(function(b){
+      b.addEventListener('click',function(){ faseSel=+b.dataset.f; faseUpdate(); });
+    });
+    faseUpdate();
+  }
+
+  // ===== Widget 3: Doppler =====
+  var C_KMS=299792.458;
+  var dpLine=document.getElementById('dp-line'), dpV=document.getElementById('dp-v'),
+      dpVv=document.getElementById('dp-vval'), dpOut=document.getElementById('dp-out'),
+      dcv=document.getElementById('dp-canvas');
+  function dpUpdate(){
+    var opt=dpLine.options[dpLine.selectedIndex];
+    var lam0=+dpLine.value, name=opt.dataset.name, unit=opt.dataset.unit, sc=+opt.dataset.scale;
+    var v=+dpV.value;
+    dpVv.textContent=v;
+    var dl=lam0*v/C_KMS, lamObs=lam0+dl;
+    var dir = v>0?"corrida al ROJO (se aleja)":(v<0?"corrida al AZUL (se acerca)":"sin corrimiento");
+    dpOut.innerHTML="Línea <b>"+name+"</b>: λ₀ = <b>"+(lam0*sc).toPrecision(6)+" "+unit+"</b><br>"+
+      "<span class='k'>Observada:</span> λ = <b>"+(lamObs*sc).toPrecision(6)+" "+unit+"</b> &nbsp;·&nbsp; Δλ = "+(dl*sc).toExponential(3)+" "+unit+"<br>"+
+      "Δλ/λ₀ = v/c = <b>"+(v/C_KMS).toExponential(3)+"</b> &nbsp;·&nbsp; "+dir;
+    // draw
+    if(dcv){
+      var ctx=dcv.getContext('2d'), W=dcv.width, H=dcv.height;
+      ctx.clearRect(0,0,W,H);
+      var pad=40, x0=W/2;
+      // eje
+      ctx.strokeStyle="#1a2438"; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(pad,H-40); ctx.lineTo(W-pad,H-40); ctx.stroke();
+      ctx.fillStyle="#9aa6bb"; ctx.font="12px Spectral, serif"; ctx.textAlign="center";
+      ctx.fillText("λ →", W-pad+14, H-36);
+      ctx.fillText("azul ←", pad+30, 22); ctx.fillText("→ rojo", W-pad-30, 22);
+      // línea en reposo (gris punteada)
+      ctx.strokeStyle="#4a5872"; ctx.setLineDash([5,4]); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(x0,H-40); ctx.lineTo(x0,34); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle="#7a86a0"; ctx.fillText("λ₀ (reposo)", x0, H-20);
+      // línea observada: exagerar corrimiento para visualización
+      var xObs=x0 + (v/300)*(W/2-pad-20);
+      var grad=v>0?"#f06a5e":(v<0?"#6f9cf0":"#ece8df");
+      ctx.strokeStyle=grad; ctx.lineWidth=4;
+      ctx.beginPath(); ctx.moveTo(xObs,H-40); ctx.lineTo(xObs,34); ctx.stroke();
+      ctx.fillStyle=grad;
+      ctx.fillText("observada", xObs, 14);
+      ctx.font="10px Spectral, serif"; ctx.fillStyle="#6b768c";
+      ctx.textAlign="left";
+      ctx.fillText("(corrimiento exagerado para poder verlo: a 300 km/s, Δλ/λ ≈ 0,1%)", pad, H-6);
+    }
+  }
+  if(dpLine){
+    dpLine.addEventListener('change',dpUpdate);
+    dpV.addEventListener('input',dpUpdate);
+    document.querySelectorAll('#w-doppler .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ dpV.value=b.dataset.v; dpUpdate(); });
+    });
+    dpUpdate();
+  }
+});
+</script>
+</body>
+</html>

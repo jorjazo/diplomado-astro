@@ -129,9 +129,21 @@ Directorio: `galaxias/`
 
 | Módulo | Clases registradas | Material disponible | Estado |
 | --- | --- | --- | --- |
-| Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5 | Compendio: `galaxias/m1/compendio.md`; compendio enriquecido: `galaxias/m1/compendio_enriquecido_openstax.md`; respuestas: `galaxias/m1/respuestas_preguntas_repaso.md`; exámenes: `galaxias/m1/examenes_practica/`; diapositivas en `galaxias/m1/diapos/`; transcripciones en `galaxias/m1/ff/` | En revisión |
+| Módulo 1 | 5 clases con diapositivas; transcripciones disponibles para clases 2 a 5; clases 1 a 5 resumidas en HTML (clase 1 solo desde diapositivas) | Apuntes HTML interactivos del módulo: `galaxias/m1/html/index.html` | Resumido |
 | Módulo 2 | 5 clases con transcripciones (`galaxias/m2/ff/`) y diapositivas (`galaxias/m2/diapos/`); clases 1 a 5 resumidas en HTML | Apuntes HTML interactivos del módulo: `galaxias/m2/html/index.html` | Resumido |
 | Módulo 3 | 5 clases con transcripciones (`galaxias/m3/ff/`) y diapositivas (`galaxias/m3/diapos/`; clases 4 y 5 solo como screenshots); clases 1 a 5 resumidas en HTML | Apuntes HTML interactivos del módulo: `galaxias/m3/html/index.html` | Resumido |
+
+#### Módulo 1 — Apuntes HTML interactivos
+
+Directorio: `galaxias/m1/html/` (índice: `galaxias/m1/html/index.html`)
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | ¿Qué es una galaxia? Anatomía de la Vía Láctea (solo diapositivas): galaxias visibles a ojo desnudo; imágenes en color (filtros B/V/I); paralaje y parsec (Hipparcos → Gaia); componentes (estrellas, ISM, materia oscura); disco, bulbo, halo y cúmulos globulares; burbujas de Fermi; núcleo galáctico en IR (Arches, Quintuplet, NSC) | `galaxias/m1/html/m1c1-apuntes.html` | `galaxias/m1/html/m1c1-examen-01.html` … `m1c1-examen-10.html` (10) | Resumida |
+| Clase 2 | ¿Qué vemos cuando vemos una galaxia? (visión multi-λ): espectro electromagnético y ventanas atmosféricas; componentes emisores; cuerpo negro (Planck, Wien, T⁴); diagrama HR; radiación termal vs. no termal; polvo y extinción; fases del ISM; líneas espectrales y 21 cm; SED de M82 | `galaxias/m1/html/m1c2-apuntes.html` | `galaxias/m1/html/m1c2-examen-01.html` … `m1c2-examen-10.html` (10) | Resumida |
+| Clase 3 | El medio interestelar: líneas, polvo y las fases del gas: emisión continua; líneas espectrales (Bohr, Lyman/Balmer/Paschen); excitación y enfriamiento; absorción vs. emisión; espectros de galaxias; 21 cm; polvo (extinción y enrojecimiento); cinco fases del gas; regiones H II; Doppler; CO como trazador de H₂; ciclo ISM–CGM | `galaxias/m1/html/m1c3-apuntes.html` | `galaxias/m1/html/m1c3-examen-01.html` … `m1c3-examen-10.html` (10) | Resumida |
+| Clase 4 | La secuencia de Hubble: clasificar para comprender: Hubble y Mount Wilson; diapasón (E0–E7, S0, Sa/Sb/Sc, SB); error evolutivo; barras, anillos y brazos; extensión a Sd e irregulares; correlaciones de masa, color, M/L, gas y rotación; dinámica disco vs. bulbo; espectros; limitaciones, ondas de densidad, M51 multibanda y formación jerárquica | `galaxias/m1/html/m1c4-apuntes.html` | `galaxias/m1/html/m1c4-examen-01.html` … `m1c4-examen-10.html` (10) | Resumida |
+| Clase 5 | Estrellas, galaxias y la materia que no vemos (cierre del módulo): repaso integrador (HR, color de galaxias, brazos como ondas, elípticas por mergers); cuatro fuerzas y partículas; curvas de rotación y discrepancia de masa; evidencia de materia oscura | `galaxias/m1/html/m1c5-apuntes.html` | `galaxias/m1/html/m1c5-examen-01.html` … `m1c5-examen-10.html` (10) | Resumida |
 
 #### Módulo 3 — Apuntes HTML interactivos
 

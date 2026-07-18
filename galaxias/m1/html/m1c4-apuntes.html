@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La secuencia de Hubble: clasificar para comprender — Astrofísica de Galaxias, Módulo I · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo I · Clase 4</span>
+  <h1>La secuencia de Hubble: <em>clasificar para comprender</em></h1>
+  <p class="sub">Hubble ordenó las galaxias por su apariencia — elípticas, lenticulares, espirales, irregulares — como quien hace botánica. Cien años después seguimos usando su diagrama, no porque su interpretación fuera correcta (no lo era), sino porque la posición en la secuencia <em>encapsula</em> masa, color, contenido de gas, formación estelar y hasta cómo se mueven las estrellas por dentro.</p>
+  <div class="meta">
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 11 abr 2026</span>
+    <span><b>Tema:</b> La secuencia de Hubble y las propiedades de las galaxias</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>n las clases anteriores aprendimos <em>de qué</em> están hechas las galaxias y cómo se ven en distintas longitudes de onda. Hoy empezamos a hablar de las galaxias <em>propiamente tales</em>: qué tipos existen y en qué se diferencian. La herramienta central es la <strong>secuencia de Hubble</strong>, una clasificación morfológica que nació de mirar placas fotográficas hace un siglo. Para alguien de ingeniería, la lección profunda es sobre <em>diseño de features</em>: una buena variable de clasificación es la que se <strong>correlaciona</strong> con muchas otras propiedades del sistema. La posición en la secuencia de Hubble es exactamente eso — un solo "índice" que comprime cuatro órdenes de magnitud en masa, un factor 5 en razón masa-luminosidad, todo el rango de contenido de gas y dos regímenes dinámicos distintos.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Recapitulación: qué vemos cuando vemos galaxias</a></li>
+    <li><a href="#s2">Edwin Hubble y el nacimiento de la astronomía extragaláctica</a></li>
+    <li><a href="#s3">El diagrama de diapasón: E, S0, S y SB</a></li>
+    <li><a href="#s4">"Tempranas" y "tardías": el error evolutivo</a></li>
+    <li><a href="#s5">Barras, anillos y brazos: estructuras resonantes</a></li>
+    <li><a href="#s6">La secuencia moderna: lineal y extendida</a></li>
+    <li><a href="#s7">Propiedades que correlacionan con la secuencia</a></li>
+    <li><a href="#s8">Absoluto vs. fraccional: la analogía de las pecas</a></li>
+    <li><a href="#s9">Dinámica interna: carrusel vs. enjambre</a></li>
+    <li><a href="#s10">Espectros a lo largo de la secuencia</a></li>
+    <li><a href="#s11">Más allá del diapasón (diapositivas)</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Recapitulación: qué vemos cuando vemos galaxias</h2>
+    <p>Estrellas compactas que dominan la emisión; medio interestelar difuso que parece envolverlo todo.</p>
+  </div></div>
+
+  <p>El profesor abre recapitulando las clases anteriores. Las <span class="hl">estrellas</span> son emisores muy parecidos a un <strong>cuerpo negro</strong>, con un rango relativamente limitado de temperaturas — y por lo tanto de longitudes de onda donde brillan, que coincide con el rango que nuestros ojos ven. Son <strong>los principales emisores de radiación</strong> de una galaxia, pero son objetos <em>muy compactos</em>: pequeños puntos de luz.</p>
+
+  <p>El <span class="hl">medio interestelar</span> (ISM), en cambio, es <strong>difuso y extendido</strong>. Por eso las imágenes en hidrógeno neutro (H&nbsp;I) — como la de M81 que vimos antes — impresionan: el gas parece envolver toda la galaxia. Pero es un efecto visual: el gas es una componente <em>menor</em> en masa para la mayoría de las galaxias; solo que, al estar desparramado, ocupa mucha área en la imagen. Según la longitud de onda que miremos, vemos cosas distintas: óptico → estrellas; radio/infrarrojo → gas frío y polvo; altas energías (rayos X, gamma) → gas extremadamente difuso y caliente.</p>
+
+  <div class="box physics">
+    <span class="tag">Astrofísica estelar que necesitaremos</span>
+    <p>Las diapositivas repasan dos hechos clave del diagrama Hertzsprung–Russell: (1) cada episodio de formación estelar puebla <em>toda</em> la secuencia principal, y (2) <strong>cuánto vive una estrella depende solo de su masa</strong>. Una estrella O de 25&nbsp;M<sub>☉</sub> vive ≈ 4 millones de años; una M de 0,5&nbsp;M<sub>☉</sub> vive ≈ 10<sup>12</sup> años — más que la edad actual del universo. Consecuencia: las estrellas masivas, azules y luminosas solo existen donde hubo formación estelar <em>reciente</em>; las de baja masa se van "apilando" episodio tras episodio. Este reloj es la clave para leer los colores de las galaxias.</p>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-06.jpg" alt="Tabla de tiempos de vida en secuencia principal según la masa estelar, desde 4 millones de años para 25 masas solares hasta 700.000 millones de años para 0,5 masas solares">
+    <figcaption><span class="cap">Diapositiva · El reloj estelar</span>Tiempo de vida en secuencia principal según la masa. Una estrella O vive ~4×10<sup>6</sup> años; una M, ~10<sup>12</sup>. Cuando una galaxia deja de formar estrellas, las azules "se apagan" primero y la población se enrojece — el fundamento físico de todo lo que sigue.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>Los colores de una galaxia funcionan como el <strong>espectro de frecuencias de una señal con componentes de distinta vida media</strong>: las estrellas azules son un transiente rápido (aparecen y desaparecen en millones de años), las rojas son la componente DC acumulada. Ver "azul" en una galaxia es como ver actividad de alta frecuencia en un espectrograma: te dice que <em>algo pasó hace poco</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Edwin Hubble y el nacimiento de la astronomía extragaláctica</h2>
+    <p>De "motitas de luz" a sistemas externos como la Vía Láctea.</p>
+  </div></div>
+
+  <p><span class="hl">Edwin Hubble</span> (1889–1953) dejó una impronta enorme: la secuencia de Hubble, la relación y la constante de Hubble, el telescopio espacial que lleva su nombre. Fue de las primeras personas en darse cuenta de que esas "motitas de luz" que se veían en el cielo <strong>no eran nebulosas de nuestra galaxia, sino galaxias completas</strong> — como la Vía Láctea, pero lejanas.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-07.jpg" alt="Retrato de Edwin Hubble y postal del telescopio de 100 pulgadas del observatorio Mount Wilson en California">
+    <figcaption><span class="cap">Diapositiva · El pionero y su instrumento</span>Edwin Hubble y el telescopio de 100 pulgadas (≈ 2,5 m) de Mount Wilson, California, con el que hizo gran parte de su trabajo a comienzos del siglo XX, cuando la fotografía astronómica recién se estaba optimizando.</figcaption>
+  </figure>
+
+  <p>Hubble trabajó cuando se observaba poniendo el ojo al telescopio o con placas fotográficas, ambas sensibles al <strong>rango óptico</strong>. Por eso su clasificación es <em>morfológica y óptica</em>: describe esencialmente <strong>cómo se distribuyen las estrellas</strong> en cada galaxia. Su método fue casi de <em>botánica</em>: agrupar por apariencia, sin conocer aún la física de fondo. El conocimiento de qué era una galaxia era mínimo en esa época — y aun así el sistema sobrevivió un siglo.</p>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El diagrama de diapasón: E, S0, S y SB</h2>
+    <p>Elípticas a un lado, espirales (con y sin barra) al otro, lenticulares en el mango.</p>
+  </div></div>
+
+  <figure>
+    <img src="m1c4/assets/slide-09.jpg" alt="Diagrama de diapasón de Hubble con elípticas E0 a E7, lenticulares S0, espirales normales Sa Sb Sc y espirales barradas SBa SBb SBc">
+    <figcaption><span class="cap">Diapositiva · El diapasón (tuning fork)</span>El mango: elípticas E0→E7 ordenadas por achatamiento, luego las lenticulares S0/SB0. Las dos ramas: espirales normales (Sa, Sb, Sc) arriba y barradas (SBa, SBb, SBc) abajo. Los colores del esquema no son casuales: amarillento en elípticas, azul creciente hacia las Sc.</figcaption>
+  </figure>
+
+  <h3>Elípticas (E0–E7): achatamiento medido con una elipse</h3>
+  <p>Las <span class="hl">galaxias elípticas</span> tienen colores amarillentos-anaranjados y morfología esferoidal. Se subclasifican ajustando una <strong>elipse</strong> a su imagen y midiendo los semiejes mayor (<span class="katex-inline" data-tex="a"></span>) y menor (<span class="katex-inline" data-tex="b"></span>):</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="n = 10\left(1-\frac{b}{a}\right)"></span>
+    <small>El número de la clase E<i>n</i>. Una galaxia aparentemente circular (<span class="katex-inline" data-tex="b=a"></span>) es E0; la más elongada observada es E7. <strong>No se observan elípticas más achatadas que E7.</strong></small>
+  </div>
+
+  <h3>Espirales (Sa/Sb/Sc): dos parámetros que van de la mano</h3>
+  <p>Al otro lado están las galaxias con <strong>disco</strong> y brazos espirales, divididas en <em>normales</em> (S) y <em>barradas</em> (SB). Las letras a, b, c dependen de dos parámetros correlacionados:</p>
+  <ul>
+    <li><strong>Prominencia del bulbo:</strong> el cociente de luminosidad bulbo/disco. Según las diapositivas: Sa ≈ 5–0,5 · Sb ≈ 1–0,1 · Sc ≈ 0,2–0. En una Sa el bulbo domina; en una Sc aporta casi nada (puede ser exactamente cero: galaxias sin bulbo).</li>
+    <li><strong>Enrollamiento de los brazos:</strong> el ángulo de apertura crece de Sa a Sc (Sa ≈ 0°–10° · Sb ≈ 5°–20° · Sc ≈ 10°–30°). En una Sa los brazos van muy pegados y enrollados; en una Sc son abiertos.</li>
+  </ul>
+
+  <h3>Lenticulares (S0): el eslabón del mango</h3>
+  <p>Entre elípticas y espirales están las <span class="hl">lenticulares</span> (S0): galaxias que <strong>sí tienen un disco estelar pero no desarrollan brazos espirales</strong>. Comparten con las elípticas su bajo contenido de gas, y con las espirales la existencia del disco. Ante la pregunta de una estudiante — ¿cómo se distingue una S0 de una elíptica vista de lado? — el profesor responde: <strong>estudiando cómo se distribuye la luz</strong>, porque las estrellas de un disco se distribuyen de manera distinta que en un esferoide.</p>
+
+  <div class="box prof">
+    <span class="tag">Del pizarrón del profesor</span>
+    <p>"Yo los dibujo así: una <strong>Sa</strong> tiene un bulbo grande con brazos bien enrollados; una <strong>Sc</strong> es puro disco con brazos abiertos." Y sobre las barras: los brazos pueden nacer directamente del bulbo (S), de una <strong>componente elongada central</strong> (SB), o incluso de un <strong>anillo</strong> conectado a la barra — la presencia de anillos suele ir de la mano de las barras.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>"Tempranas" y "tardías": el error evolutivo de Hubble</h2>
+    <p>Una interpretación equivocada cuyo vocabulario seguimos usando cien años después.</p>
+  </div></div>
+
+  <p>Hubble pensó que su diagrama era una <strong>secuencia evolutiva</strong>: que las galaxias nacían elípticas y terminaban espirales. Por eso llamó a las elípticas <span class="hl">galaxias tempranas</span> (<em>early-type</em>) y a las espirales <span class="hl">galaxias tardías</span> (<em>late-type</em>).</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-12.jpg" alt="Diagrama de diapasón con una flecha de galaxias tempranas a tardías tachada con una gran cruz roja">
+    <figcaption><span class="cap">Diapositiva · La flecha tachada</span>La dirección evolutiva que postuló Hubble, tachada: <strong>está totalmente errónea</strong>. En muchos casos los cambios morfológicos reales van incluso en sentido contrario. Pero la jerga "early/late-type" sobrevive en la literatura hasta hoy.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Cuidado con la jerga</span>
+    <p>Cuando leas <em>early-type galaxy</em> en un paper, significa "elíptica o lenticular"; <em>late-type</em> significa "espiral o irregular". <strong>No implica nada sobre evolución temporal.</strong> El profesor lamenta que se siga usando: no solo es inapropiado, sino en muchos casos contrario a lo que hoy se sabe sobre cómo cambian morfológicamente las galaxias (lo veremos más adelante en el curso).</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Barras, anillos y brazos: estructuras resonantes</h2>
+    <p>Por qué la distinción S/SB dejó de considerarse fundamental.</p>
+  </div></div>
+
+  <p>Para Hubble, la división entre espirales barradas y no barradas era importante. Hoy <strong>no se considera una propiedad de importancia física</strong> para clasificar galaxias, por varias razones que dio la clase:</p>
+  <ul>
+    <li>La mayoría de las galaxias espirales — se piensa hoy — <strong>tienen barra</strong>, solo que muchas son poco prominentes y el ojo no las distingue (aparecen al modelar la imagen como una componente elongada). La propia <strong>Vía Láctea es barrada</strong>.</li>
+    <li>La presencia de barra <strong>no dictamina nada de mayor trascendencia</strong> sobre las propiedades globales de la galaxia. En cambio, decir "es una Sa" o "es una Sc" sí encapsula mucha información.</li>
+  </ul>
+
+  <h3>¿Qué son entonces las barras y los brazos? Resonancias</h3>
+  <p>Barras, anillos y brazos espirales tienen que ver con la <strong>dinámica interna del disco</strong>: con cómo las órbitas estelares presentan <span class="hl">resonancias</span> que dan lugar a estructuras macroscópicas de larga vida. El profesor lo explica con dos analogías muy de ingeniería:</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería (dada en clase)</span>
+    <p><strong>El puente y el batallón:</strong> a un batallón se le ordena romper la marcha al cruzar un puente, porque todo sistema físico tiene frecuencias propias a las que "le gusta" oscilar. Si la excitación externa sincroniza con una de ellas, la respuesta crece sin control — puentes que hubo que cerrar recién inaugurados, edificios diseñados para evitar frecuencias presentes en el entorno. Es un problema clásico de diseño estructural.</p>
+    <p><strong>Los troyanos de Júpiter:</strong> los asteroides troyanos se acumulan en ángulos precisos antes y después de Júpiter (los puntos que se pueden calcular algebraicamente donde "al sistema dinámicamente le gusta estar"). Brazos, anillos y barras son lo mismo a escala galáctica: <strong>estructuras resonantes de los discos</strong>.</p>
+  </div>
+
+  <p>¿Qué significa que "entren en resonancia"? Que son estructuras que se forman y <strong>persisten</strong>: tienen tiempos de vida muy largos y cambian lentamente. Sin resonancias, un disco sería "suavecito", sin estructura. Y nótese la conexión con la secuencia: hacia el lado elíptico <em>no hay ni barras ni brazos</em> — para que el disco muestre estas resonancias hace falta disco (y gas, que abunda justamente hacia el lado tardío de la secuencia).</p>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>La secuencia moderna: lineal y extendida a las irregulares</h2>
+    <p>Sin la bifurcación S/SB, y con nuevos tipos más allá de Sc.</p>
+  </div></div>
+
+  <p>Si la barra no es fundamental, el diapasón se puede "aplanar" en una <strong>relación lineal</strong>. Además, Hubble solo llegó hasta las Sc; con el tiempo se descubrieron galaxias aún más "desparramadas": tipos <strong>Sd</strong> (bulbo casi ausente, galaxia casi completamente azul) y finalmente las <span class="hl">irregulares</span> (Irr), donde ni siquiera está claro dónde está el centro. La <strong>Gran Nube de Magallanes</strong> es un buen ejemplo: tiene algo de disco y de barra, pero es una cosa muy amorfa.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-13.jpg" alt="Versión moderna lineal de la secuencia de Hubble con fotografías reales desde elípticas hasta irregulares y la lista de propiedades que correlacionan">
+    <figcaption><span class="cap">Diapositiva · "Mi versión" de la secuencia (imágenes reales)</span>E → S0 → Sa → Sb → Sc → Irr con fotografías genuinas (la clase mencionó el sitio <em>Galaxy Zoo</em> para este tipo de montajes). Se aprecia el gradiente de color amarillo → azul y la respuesta a la gran pregunta: ¿por qué seguimos usándola? <strong>Porque entrega información astrofísica</strong> — aunque con bastante dispersión de galaxia a galaxia dentro de cada tipo.</figcaption>
+  </figure>
+
+  <p>En estas imágenes de colores realistas se ve el patrón central de la clase: al ir de Sa hacia Sc e Irr, <strong>los colores azules van apareciendo hasta dominar</strong>. El azul delata <em>estrellas recién formadas</em> (sección 1): más a la derecha en la secuencia, más formación estelar en los discos. También se nota que, en promedio, <strong>el tamaño disminuye</strong>: una Sc o una irregular típica es mucho más pequeña y menos masiva que una elíptica gigante.</p>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Propiedades que correlacionan con la secuencia</h2>
+    <p>La razón por la que el sistema de Hubble sigue vivo: es un buen "feature".</p>
+  </div></div>
+
+  <p>De un extremo al otro de la secuencia (E → Sc) correlacionan, según las diapositivas y la clase:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Propiedad</th><th>E → Sc</th><th>Comentario de la clase</th></tr></thead>
+    <tbody>
+      <tr><td><b>Masa estelar total</b></td><td>10<sup>12</sup> → 10<sup>8</sup> M<sub>☉</sub></td><td><strong>Cuatro órdenes de magnitud</strong> solo hasta Sc: si una galaxia tiene masa 1, otra tiene 10.000.</td></tr>
+      <tr><td><b>Color (B−V)</b></td><td>1,0 → 0,3</td><td>Poblaciones jóvenes son más azules. Ojo: la magnitud es el <em>logaritmo</em> del flujo, así que estos cambios son mucho mayores de lo que aparentan numéricamente.</td></tr>
+      <tr><td><b>Razón M/L</b></td><td>10 → 2</td><td>Cuánta masa hay por unidad de luminosidad en la población estelar. Las poblaciones jóvenes son mucho más luminosas por unidad de masa.</td></tr>
+      <tr><td><b>Contenido de gas</b></td><td>0% → &gt;40%</td><td>Y con él, la formación estelar. Las irregulares pueden llegar a ~80–90% de gas; la Vía Láctea tiene ~20% en ISM y ~80% en estrellas.</td></tr>
+      <tr><td><b>Rotación / mov. aleatorio</b></td><td>aumenta E → Sc</td><td>Cuánto material rota ordenadamente vs. cuánto se mueve al azar. Va de la mano de la razón bulbo/disco (sección 9).</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Por eso la secuencia sigue en uso: saber que una galaxia es "tipo Sc o Sd o irregular" ya te dice que es <em>pequeña, con mucho gas y alta tasa de formación estelar</em>. No lo dice todo — <strong>hay harta dispersión</strong> dentro de cada tipo — pero da una idea general inmediata. En cambio "con barra / sin barra" casi no agrega información.</p>
+
+  <div class="box physics">
+    <span class="tag">Red and dead</span>
+    <p>En la jerga astronómica, las elípticas son <span class="hl">"red and dead"</span> — rojas y muertas. Muertas en el sentido de que <strong>no forman estrellas</strong>… simplemente porque no tienen gas, que es la materia prima. La cadena lógica de la clase: más gas → más formación estelar → más estrellas azules jóvenes → color más azul y edad estelar promedio más baja.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>La secuencia de Hubble es una excelente <strong>reducción de dimensionalidad</strong>: un solo parámetro ordinal (la posición E→Irr) captura gran parte de la varianza de un espacio de propiedades multidimensional (masa, color, gas, dinámica…). Como una primera componente principal hecha "a ojo" en 1926. Su límite: la <em>dispersión residual</em> dentro de cada clase — el índice no es el estado completo del sistema.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Absoluto vs. fraccional: la analogía de las pecas</h2>
+    <p>Dos ejes que se confunden: qué tipo de galaxia es, y cuán grande es.</p>
+  </div></div>
+
+  <p>La clase dedicó un buen rato a un punto sutil: dentro de cada tipo de Hubble hay galaxias <em>pequeñas, intermedias y masivas</em>, y muchas propiedades escalan con el tamaño <strong>además</strong> de variar a lo largo de la secuencia. El profesor lo resolvió con una analogía memorable:</p>
+
+  <div class="box prof">
+    <span class="tag">La analogía de las pecas</span>
+    <p>Piensa en las galaxias como personas con pecas, donde las pecas son el gas. Un niño y un adulto <em>igual de pecosos</em> (misma densidad de pecas por cm²) no tienen la misma cantidad de pecas: <strong>el adulto tiene más porque tiene más piel</strong>. Las elípticas son los "poco pecosos" y las tardías los "muy pecosos" — pero dentro de cada grupo, la galaxia más grande siempre tiene más gas <em>en términos absolutos</em>.</p>
+  </div>
+
+  <p>Lo mismo con la <strong>formación estelar</strong>: una irregular azul diminuta tiene una tasa de formación estelar <em>fraccionalmente</em> altísima para su tamaño, pero en cantidad absoluta puede formar lo mismo que una espiral gigante donde la formación estelar casi no tiene impacto relativo. En números inventados de la clase: en una irregular puede estar involucrado en formar estrellas un ~20% de la masa; en una espiral masiva, un ~0,1% — y aun así la masiva puede ganar en valor absoluto. <strong>Los gráficos de la clase muestran cantidades absolutas, no fraccionales</strong>; por eso hay que leerlos con cuidado.</p>
+
+  <p>Consecuencia para la <span class="hl">edad estelar promedio</span>: si tomo un pedazo grande de galaxia y promedio la edad de sus estrellas, la formación reciente baja el promedio. Pero en una galaxia muy grande, el promedio también cuenta el enorme "stock" de estrellas viejas acumuladas — otra vez absoluto vs. relativo.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>Es la diferencia entre una métrica <strong>extensiva</strong> y una <strong>intensiva</strong> (termodinámica), o entre el <em>throughput total</em> de un sistema y su <em>throughput por unidad de recurso</em>. Normalizar o no normalizar por tamaño cambia completamente el ranking — el mismo cuidado que hay que tener al comparar benchmarks de sistemas de distinta escala.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Dinámica interna: carrusel vs. enjambre</h2>
+    <p>Dos tipos de movimiento sostienen a las galaxias contra su propia gravedad.</p>
+  </div></div>
+
+  <p>Recordemos el principio: <strong>lo que previene el colapso gravitacional es el movimiento</strong> (la energía cinética o "energía interna" del sistema). Este equilibrio opera <em>en todas las escalas</em>: en una región de gas de unos años luz (¿colapsa y forma estrellas o no?), en la galaxia completa, e incluso en un cúmulo de galaxias — si a todas las componentes "les dijéramos ¡paren!", todo caería hacia el centro. La formación estelar depende del equilibrio <em>local</em> de cada nube, no de cuánta energía cinética tenga la galaxia entera.</p>
+
+  <p>En las galaxias, ese movimiento viene en dos sabores, y la imagen del profesor es imbatible:</p>
+  <ul>
+    <li><strong>Los discos rotan como un carrusel de feria:</strong> todas las estrellas dando vueltas ordenadas, en órbitas casi circulares, todas para el mismo lado. (El que rota es el <em>disco</em>, no los brazos — los brazos son estructuras que se forman <em>en</em> el disco.)</li>
+    <li><strong>Los bulbos y esferoides son como un enjambre de abejas:</strong> las estrellas se mueven en todas direcciones (típicamente con algo de rotación también, pero domina la componente aleatoria — la "dispersión de velocidades").</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-11.jpg" alt="Esquema de órbitas casi circulares y coplanares en discos versus órbitas orientadas aleatoriamente en componentes esferoidales">
+    <figcaption><span class="cap">Diapositiva · Tipos de órbitas</span>Discos: órbitas casi circulares en un plano, rotación ordenada. Componentes esferoidales (bulbos, elípticas): órbitas orientadas aleatoriamente. La razón (movimiento de rotación)/(movimiento aleatorio) crece de E a Sc, de la mano de la razón bulbo/disco. Hay elípticas donde se mide <strong>rotación cero</strong>.</figcaption>
+  </figure>
+
+  <h3>Lo que importa es la masa encerrada</h3>
+  <p>Ante la pregunta de si las estrellas del bulbo orbitan el centro: dinámicamente, a un cuerpo <strong>lo que más le importa es el material que queda <em>hacia adentro</em> de su órbita</strong>. En un sistema perfectamente esférico y homogéneo esto es exacto (los <span class="hl">teoremas de Newton</span>: la cáscara exterior no ejerce fuerza neta); las galaxias no son perfectas, pero la aproximación domina. Como las galaxias son <strong>muy concentradas centralmente</strong> — la gran mayoría de la materia estelar está en la parte central — al pararse cada vez más afuera casi no se agrega masa encerrada. El profesor adelanta: <em>esta idea es la base para entender cómo se determinó la presencia de materia oscura</em> (lo veremos al estudiar cómo se mueven los objetos dentro de una galaxia).</p>
+
+  <div class="box dato">
+    <span class="tag">Detalles que dejó la conversación</span>
+    <p><strong>¿Y el agujero negro central?</strong> Los agujeros negros supermasivos son insignificantes en masa comparados con todas las estrellas de la galaxia.</p>
+    <p><strong>¿Órbitas caóticas en el bulbo?</strong> No: hay <em>familias de órbitas</em> (algunas "tipo tubo", como cornetas sobre cuya superficie se mueven las estrellas; otras pasan por el núcleo). El movimiento aleatorio no es caos, es una distribución de órbitas ordenadas con orientaciones diversas.</p>
+    <p><strong>¿Chocan las estrellas?</strong> Prácticamente nunca: las galaxias son <em>casi vacío</em> — estrellas compactísimas separadas por distancias enormes. La luz "continua" de una galaxia es un problema de <strong>resolución</strong>: no distinguimos las estrellas individuales y su luz se traslapa. En dinámica, "choque" significa perturbación significativa de la órbita (un <em>flyby</em>), no colisión física; solo en núcleos galácticos y núcleos de cúmulos globulares la densidad estelar permite interacciones fuertes.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Inferencia propia (formalismo estándar)</span>
+    <p>Lo que la clase llama "razón rotación/aleatorio" se formaliza como <span class="katex-inline" data-tex="V/\sigma"></span>: velocidad de rotación ordenada sobre dispersión de velocidades. Un disco frío tiene <span class="katex-inline" data-tex="V/\sigma \gg 1"></span>; un esferoide "caliente" dinámicamente, <span class="katex-inline" data-tex="V/\sigma \lesssim 1"></span>. Ambos aportan al soporte contra la gravedad; solo difiere el orden del movimiento. (Notación no usada explícitamente en la clase.)</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Espectros a lo largo de la secuencia</h2>
+    <p>Otra forma de "ver" la secuencia: tomar el espectro óptico de cada tipo.</p>
+  </div></div>
+
+  <p>Además de la morfología, podemos tomar un <strong>espectro</strong> de la galaxia (o de su parte central) y ver cómo cambia de E a Irr:</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-14.jpg" alt="Serie de espectros ópticos de galaxias E, S0, Sa, Sb, Sc e irregular junto a sus imágenes, mostrando cómo aparecen líneas de emisión y el continuo se vuelve azul hacia los tipos tardíos">
+    <figcaption><span class="cap">Diapositiva · Espectros vs. tipo de Hubble</span>De arriba (E) a abajo (Irr): el continuo pasa de curvo tipo cuerpo negro "frío" con líneas de absorción de estrellas viejas, a un continuo azul plano con líneas de emisión prominentes de regiones H II. La curva baja de cada panel se debe — según estimó el profesor con dudas — a efectos de la atmósfera (aparece igual en todos). Las imágenes no están a escala.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Elíptica (E):</strong> espectro con curvatura de cuerpo negro no particularmente caliente y <em>líneas de absorción</em> típicas de estrellas viejas. Sin líneas de emisión: no hay ISM ni formación estelar. Una S0 no es tan distinta.</li>
+    <li><strong>Sa:</strong> todavía poca formación estelar, pero el continuo empieza a aplanarse — se van "metiendo" estrellas en promedio más jóvenes (recordar: cada estrella es un cuerpo negro; la suma cambia de forma).</li>
+    <li><strong>Sb:</strong> aparecen claramente las <span class="hl">líneas de emisión</span> de las regiones <strong>H II</strong> — hidrógeno ionizado por estrellas recién nacidas — que ya estudiamos. Diagnóstico directo de formación estelar.</li>
+    <li><strong>Sc / Irr:</strong> continuo derechamente <em>muy azul</em> y líneas de emisión prominentísimas. Aún se alcanzan a ver absorciones estelares: el continuo viene de las fotósferas de las estrellas.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-15.jpg" alt="Espectro óptico de una región de formación estelar HII dominado por líneas de emisión como OII, Hbeta, OIII y Halfa sobre un continuo estelar débil">
+    <figcaption><span class="cap">Diapositiva · Espectro de una región H II</span>Espectro casi exclusivamente de una región de formación estelar: líneas de emisión ([O II], Hβ, [O III], Hα, [N II], [S II]…) sobre un continuo estelar minimizado. Las líneas de emisión <strong>siempre vienen de material difuso</strong>; el continuo débil es de las estrellas que "se cuelan" en la apertura.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Ojo con la escala vertical</span>
+    <p>Una estudiante notó que los espectros de tipos tardíos "se ven más bajos". Es un efecto de graficación: para mostrar lo prominentes que son las líneas de emisión, el continuo queda comprimido hacia abajo. Si se recortaran las líneas, se vería la estructura del continuo con sus absorciones estelares. La clase quedó en el "gancho" de la pregunta ¿<em>por qué</em> una galaxia con formación estelar es más azul? justo antes de la pausa.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Más allá del diapasón</h2>
+    <p>Temas presentes en las diapositivas de la clase (la transcripción disponible llega hasta la pausa).</p>
+  </div></div>
+
+  <div class="box next">
+    <span class="tag">Nota de fuente</span>
+    <p>La transcripción disponible cubre hasta la pausa de la clase (~1h 23m). Lo que sigue resume las <strong>diapositivas restantes del PDF de la clase</strong> (láminas 16–26), que muy probablemente se discutieron en la segunda parte. Se presenta como contenido de diapositivas, no como palabras textuales del profesor.</p>
+  </div>
+
+  <h3>Problemas de la clasificación de Hubble (lámina 16)</h3>
+  <ul>
+    <li>No todos sus parámetros reflejan propiedades físicas (la barra, el número de las E).</li>
+    <li>Depende de la <strong>orientación</strong> y de efectos de proyección: la elipticidad aparente de una E cambia según el ángulo de visión; una espiral de canto no muestra la estructura del disco.</li>
+    <li>Es <strong>subjetiva</strong> (depende de quién clasifica), cambia con la longitud de onda y la profundidad de las imágenes, y no contiene todos los tipos de galaxias existentes.</li>
+  </ul>
+
+  <h3>Galaxias fuera de la secuencia (lámina 17)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tipo</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td><b>Enanas</b></td><td>Irregulares (Irr–dIrr, 10²–10³ veces menos brillantes que la Vía Láctea) y enanas elípticas/esferoidales (dE, dSph, hasta 10⁶ veces menos brillantes).</td></tr>
+      <tr><td><b>Supergigantes cD</b></td><td>En los centros de los cúmulos de galaxias.</td></tr>
+      <tr><td><b>Bajo brillo superficial (LSB)</b></td><td>Galaxias tenues, típicamente pequeñas.</td></tr>
+      <tr><td><b>Activas (AGN)</b></td><td>Núcleos dominados por emisión no estelar (ej.: 3C273).</td></tr>
+      <tr><td><b>Interactuantes</b></td><td>"Mergers", galaxias en proceso de fusión (ej.: las Antenas).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>¿Qué son los brazos espirales? Ondas de densidad (láminas 18–19)</h3>
+  <p>Si los brazos fueran "materiales" (siempre las mismas estrellas), la <strong>rotación diferencial</strong> — las estrellas interiores tardan menos en dar la vuelta — los enrollaría por completo en unos cientos de millones de años, y en 15.000 millones de años no quedaría nada reconocible. Como los observamos, deben ser otra cosa: <span class="hl">ondas de densidad</span> que se desplazan por el disco. La analogía de la diapositiva: un <em>taco de tráfico</em> — los autos individuales (estrellas y nubes) entran y salen del taco, pero el taco (el brazo) persiste. La compresión del gas al entrar a la onda dispara <strong>formación estelar</strong>: por eso los brazos brillan azules; solo las estrellas longevas "sobreviven" para salir del brazo.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-19.jpg" alt="Esquema de onda de densidad comparada con un taco de tráfico: los autos pasan a través del atasco y las nubes de gas se comprimen al entrar a la onda formando estrellas">
+    <figcaption><span class="cap">Diapositiva · El brazo como taco de tráfico</span>Los autos individuales atraviesan el atasco; el atasco persiste. Nubes y estrellas entran a la onda de densidad, el gas se comprime, se forman estrellas — y solo las de vida larga alcanzan a salir del brazo. Los brazos están claramente ligados a la formación estelar.</figcaption>
+  </figure>
+
+  <h3>Espirales vs. elípticas en imágenes multibanda (láminas 20–22)</h3>
+  <p>La galaxia Whirlpool (M51) vista en UV, óptico e infrarrojo cercano: en el <strong>UV</strong> los brazos aparecen destacados y fragmentados (estrellas masivas de vida corta que ionizan su entorno; su compañera NGC 5195 casi desaparece); en el <strong>IR cercano</strong> los brazos y el disco se ven suaves y continuos (estrellas de baja masa, distribuidas homogéneamente). Los discos espirales tienen cantidades significativas de gas — el gas molecular frío es donde ocurre la formación estelar — y al morir las estrellas devuelven ~30–40% de su gas <em>enriquecido</em> al ISM. Las elípticas, en cambio, son "globos de estrellas" con poco o nada de ISM.</p>
+
+  <h3>Fusiones y formación jerárquica (láminas 23–26)</h3>
+  <p>Pero no todo es tan tranquilo como parece: hay elípticas con cáscaras y estructuras que delatan interacciones pasadas, y pares de galaxias deformándose mutuamente. Las <strong>fusiones galácticas</strong> observadas por el Hubble se comparan con <strong>simulaciones computacionales</strong> (Springel & White) que reproducen colas de marea y puentes. La lámina final adelanta el paradigma moderno de <span class="hl">formación jerárquica</span>: espirales que se fusionan → remanente elíptico → puede volver a formar un disco si se inyecta gas desde el medio intergaláctico → nuevas fusiones… La morfología no es un destino fijo sino un estado en una historia — exactamente lo contrario de la flecha evolutiva de Hubble.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-26.jpg" alt="Esquema de formación jerárquica de galaxias: fusiones sucesivas de espirales producen elípticas que pueden volver a formar discos con inyección de gas del medio intergaláctico">
+    <figcaption><span class="cap">Diapositiva · Formación jerárquica (crédito: Omar Almaini)</span>Del pasado al presente: fusiones sucesivas, remanentes esferoidales, e "inyección de gas desde el medio intergaláctico para nuevamente formar un disco". El adelanto de cómo se entiende hoy la evolución morfológica.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas de la clase.</p>
+  </div></div>
+
+  <!-- Widget 1: clasificador de elípticas -->
+  <div class="widget" id="w-eliptica">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Clasificador de elípticas: n = 10 (1 − b/a)</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Ajusta los semiejes de la elipse aparente y obtén la clase E<i>n</i>, tal como se hace con imágenes reales. Recuerda: no se observan elípticas más achatadas que E7 — y lo que mides es la forma <em>proyectada</em>, no la 3D.</p>
+    <div class="wgrid">
+      <div>
+        <label>Semieje mayor a = <span class="rngval" id="el-aval">100</span> (unidades arbitrarias)</label>
+        <input type="range" id="el-a" min="50" max="150" step="1" value="100">
+      </div>
+      <div>
+        <label>Semieje menor b = <span class="rngval" id="el-bval">70</span></label>
+        <input type="range" id="el-b" min="10" max="150" step="1" value="70">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-a="100" data-b="100">Circular (E0)</button>
+      <button type="button" data-a="100" data-b="60">Intermedia</button>
+      <button type="button" data-a="100" data-b="30">Máximo achatamiento (E7)</button>
+    </div>
+    <canvas id="el-canvas" width="900" height="300"></canvas>
+    <output id="el-out" class="wout"></output>
+  </div>
+
+  <!-- Widget 2: explorador de la secuencia -->
+  <div class="widget" id="w-secuencia">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Explorador de la secuencia de Hubble: propiedades correlacionadas</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Desliza a lo largo de la secuencia E → S0 → Sa → Sb → Sc → Irr y mira cómo cambian (valores típicos de las diapositivas; dentro de cada tipo hay mucha dispersión).</p>
+    <label>Posición en la secuencia: <span class="rngval" id="sq-tipo">Sb</span></label>
+    <input type="range" id="sq-pos" min="0" max="5" step="0.01" value="3">
+    <canvas id="sq-canvas" width="900" height="360"></canvas>
+    <output id="sq-out" class="wout"></output>
+  </div>
+
+  <!-- Widget 3: carrusel vs enjambre -->
+  <div class="widget" id="w-dinamica">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Carrusel vs. enjambre: rotación ordenada y movimiento aleatorio</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Cada punto es una estrella. Mueve el control para repartir el soporte del sistema entre rotación ordenada (disco, "carrusel de feria") y movimiento aleatorio (esferoide, "enjambre de abejas"). En ambos extremos hay el mismo movimiento total — solo cambia su <em>orden</em>.</p>
+    <label>Fracción de rotación ordenada = <span class="rngval" id="dy-fval">100%</span></label>
+    <input type="range" id="dy-f" min="0" max="1" step="0.01" value="1">
+    <div class="presets">
+      <button type="button" data-f="1">Disco puro (Sc)</button>
+      <button type="button" data-f="0.5">Bulbo + disco (Sa)</button>
+      <button type="button" data-f="0">Esferoide (E)</button>
+    </div>
+    <canvas id="dy-canvas" width="900" height="380"></canvas>
+    <output id="dy-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Secuencia de Hubble</b></td><td>Clasificación morfológica óptica: E → S0 → S/SB → (Irr)</td><td>Un solo índice que correlaciona con masa, color, gas, dinámica</td></tr>
+      <tr><td><b>Diagrama de diapasón</b></td><td>Mango (E, S0) + dos ramas (S y SB)</td><td>La forma original del sistema de Hubble</td></tr>
+      <tr><td><b>Clase E<i>n</i></b></td><td><span class="katex-inline" data-tex="n=10(1-b/a)"></span>, con a y b semiejes de la elipse aparente</td><td>Achatamiento de las elípticas; solo se observa E0–E7</td></tr>
+      <tr><td><b>Sa / Sb / Sc</b></td><td>Bulbo/disco: ~5–0,5 / ~1–0,1 / ~0,2–0 · apertura de brazos: 0–10° / 5–20° / 10–30°</td><td>Los dos parámetros (correlacionados) de las espirales</td></tr>
+      <tr><td><b>Lenticular (S0)</b></td><td>Disco estelar sin brazos espirales, poco gas</td><td>Eslabón entre elípticas y espirales</td></tr>
+      <tr><td><b>Temprana / tardía</b></td><td>Jerga heredada del error evolutivo de Hubble</td><td>Se sigue usando; no implica evolución real</td></tr>
+      <tr><td><b>Barra galáctica</b></td><td>Componente estelar elongada central; la mayoría de las espirales tiene una (la Vía Láctea incluida)</td><td>No es una propiedad físicamente determinante</td></tr>
+      <tr><td><b>Resonancia</b></td><td>Sincronización entre frecuencias propias del disco y perturbaciones</td><td>Origen dinámico de barras, anillos y brazos; estructuras de larga vida</td></tr>
+      <tr><td><b>Masa estelar en la secuencia</b></td><td>10<sup>12</sup> → 10<sup>8</sup> M<sub>☉</sub> (E → Sc)</td><td>Cuatro órdenes de magnitud</td></tr>
+      <tr><td><b>Color B−V</b></td><td>1,0 (E) → 0,3 (Sc); escala logarítmica (magnitudes)</td><td>Azul = formación estelar reciente</td></tr>
+      <tr><td><b>Razón M/L</b></td><td>10 (E) → 2 (Sc)</td><td>Poblaciones jóvenes son más luminosas por unidad de masa</td></tr>
+      <tr><td><b>Contenido de gas</b></td><td>≈0% (E) → &gt;40% (Sc); Irr hasta ~80–90%; Vía Láctea ~20%</td><td>Materia prima de la formación estelar</td></tr>
+      <tr><td><b>Red and dead</b></td><td>Apodo de las elípticas</td><td>Sin gas → sin formación estelar → rojas</td></tr>
+      <tr><td><b>Rotación vs. dispersión</b></td><td>Disco = carrusel; bulbo/esferoide = enjambre</td><td>Dos formas de soporte contra la gravedad; crece E → Sc</td></tr>
+      <tr><td><b>Teoremas de Newton</b></td><td>En un sistema esférico homogéneo, solo importa la masa encerrada</td><td>Base para medir masas — y descubrir la materia oscura</td></tr>
+      <tr><td><b>Choque (dinámica)</b></td><td>Perturbación orbital significativa (flyby), no colisión física</td><td>Las estrellas casi nunca interactúan; galaxias ≈ vacío</td></tr>
+      <tr><td><b>Espectros en la secuencia</b></td><td>E: absorciones de estrellas viejas → Irr: continuo azul + emisión de H II</td><td>La secuencia también se ve espectroscópicamente</td></tr>
+      <tr><td><b>Región H II</b></td><td>Hidrógeno ionizado por estrellas recién nacidas; líneas de emisión</td><td>Diagnóstico directo de formación estelar</td></tr>
+      <tr><td><b>Onda de densidad</b></td><td>Los brazos como "taco de tráfico" que persiste (diapositivas)</td><td>Resuelve el problema del enrollamiento por rotación diferencial</td></tr>
+      <tr><td><b>Formación jerárquica</b></td><td>Fusiones sucesivas + reinyección de gas (diapositivas)</td><td>La visión moderna, opuesta a la flecha de Hubble</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c4-examen-01.html">Examen 01<small>Hubble y el diapasón</small></a></li>
+    <li><a href="m1c4-examen-02.html">Examen 02<small>Elípticas y lenticulares</small></a></li>
+    <li><a href="m1c4-examen-03.html">Examen 03<small>Espirales: bulbo, disco y brazos</small></a></li>
+    <li><a href="m1c4-examen-04.html">Examen 04<small>Barras y resonancias</small></a></li>
+    <li><a href="m1c4-examen-05.html">Examen 05<small>Propiedades correlacionadas</small></a></li>
+    <li><a href="m1c4-examen-06.html">Examen 06<small>Gas, formación estelar y escalas</small></a></li>
+    <li><a href="m1c4-examen-07.html">Examen 07<small>Dinámica interna</small></a></li>
+    <li><a href="m1c4-examen-08.html">Examen 08<small>Espectros y poblaciones</small></a></li>
+    <li><a href="m1c4-examen-09.html">Examen 09<small>Más allá del diapasón</small></a></li>
+    <li><a href="m1c4-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo I del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (11 abr 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m1/ff/Galaxias-m1c4-b3547c3f-e2cf.md</code>) y las diapositivas de la clase (26 láminas, "Secuencia de Hubble"). La sección 11 se basa solo en las diapositivas: la transcripción disponible cubre hasta la pausa de la clase.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que contiene errores de reconocimiento de voz que fueron corregidos contrastando con las diapositivas (p. ej. "secuencia de jamón" → <em>diapasón</em>; "calaxitas/caraxias" → galaxias; "Galaxy Zo" → Galaxy Zoo; "el grupo 81" → M81; "eficaz" → "el gas"; "panel de abejas" → enjambre de abejas). Los valores numéricos (razones bulbo/disco, ángulos de apertura, rangos de masa, color, M/L y gas) provienen de las diapositivas. Las cajas "Analogía de ingeniería" no marcadas como "dada en clase" y la notación V/σ son inferencias propias para conectar con la formación del estudiante. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: clasificador de elípticas =====
+  var elA=document.getElementById('el-a'), elB=document.getElementById('el-b'),
+      elAv=document.getElementById('el-aval'), elBv=document.getElementById('el-bval'),
+      elCv=document.getElementById('el-canvas'), elOut=document.getElementById('el-out');
+  function elUpdate(){
+    var a=+elA.value, b=+elB.value;
+    // por convención a = semieje mayor: si b > a, intercambiamos para el cálculo
+    var A=Math.max(a,b), B=Math.min(a,b);
+    elAv.textContent=a; elBv.textContent=b;
+    var n=10*(1-B/A);
+    var clase=Math.round(n);
+    var ctx=elCv.getContext('2d'), W=elCv.width, H=elCv.height;
+    ctx.clearRect(0,0,W,H);
+    // fondo de estrellas
+    ctx.fillStyle="rgba(255,255,255,.25)";
+    for(var i=0;i<60;i++){ ctx.fillRect((i*137)%W,(i*211)%H,1.4,1.4); }
+    var cx=W/2, cy=H/2, scale=1.15;
+    // galaxia difusa (gradiente radial deformado)
+    var rx=A*scale, ry=B*scale;
+    var g=ctx.createRadialGradient(0,0,0,0,0,1);
+    g.addColorStop(0,"rgba(255,235,190,.95)");
+    g.addColorStop(.35,"rgba(240,205,150,.55)");
+    g.addColorStop(.75,"rgba(210,175,130,.18)");
+    g.addColorStop(1,"rgba(200,170,130,0)");
+    ctx.save(); ctx.translate(cx,cy); ctx.scale(rx,ry);
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(0,0,1,0,2*Math.PI); ctx.fill();
+    ctx.restore();
+    // elipse ajustada
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=1.6; ctx.setLineDash([6,5]);
+    ctx.beginPath(); ctx.ellipse(cx,cy,rx,ry,0,0,2*Math.PI); ctx.stroke();
+    ctx.setLineDash([]);
+    // semiejes
+    ctx.strokeStyle="#e0382e"; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+rx,cy); ctx.stroke();
+    ctx.strokeStyle="#d9a74a";
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx,cy-ry); ctx.stroke();
+    ctx.font="13px Fraunces, serif";
+    ctx.fillStyle="#f06a5e"; ctx.fillText("a", cx+rx/2, cy+16);
+    ctx.fillStyle="#d9a74a"; ctx.fillText("b", cx+8, cy-ry/2);
+    var warn = n>7 ? " · <span style='color:var(--red-soft)'>¡más achatada que E7: no se observa como elíptica!</span>" : "";
+    elOut.innerHTML="b/a = <b>"+(B/A).toFixed(2)+"</b> &nbsp;·&nbsp; n = 10(1−b/a) = <b>"+n.toFixed(1)+"</b><br>"+
+      "<span class='k'>Clase:</span> <b>E"+Math.min(clase,7)+"</b>"+(n>7?" (fuera de rango)":"")+warn;
+  }
+  if(elA){
+    elA.addEventListener('input',elUpdate); elB.addEventListener('input',elUpdate);
+    document.querySelectorAll('#w-eliptica .presets button').forEach(function(bt){
+      bt.addEventListener('click',function(){ elA.value=bt.dataset.a; elB.value=bt.dataset.b; elUpdate(); });
+    });
+    elUpdate();
+  }
+
+  // ===== Widget 2: explorador de la secuencia =====
+  var sqPos=document.getElementById('sq-pos'), sqTipo=document.getElementById('sq-tipo'),
+      sqCv=document.getElementById('sq-canvas'), sqOut=document.getElementById('sq-out');
+  // nodos: E, S0, Sa, Sb, Sc, Irr — valores típicos de las diapositivas (log masa, B-V, M/L, % gas, rot/aleatorio 0-1)
+  var nodos=[
+    {t:"E",   m:12.0, bv:1.00, ml:10, gas:0,  rot:0.05, d:"Esferoidal, red and dead, órbitas aleatorias"},
+    {t:"S0",  m:11.5, bv:0.95, ml:9,  gas:2,  rot:0.25, d:"Disco sin brazos, muy poco gas"},
+    {t:"Sa",  m:11.0, bv:0.80, ml:7,  gas:8,  rot:0.45, d:"Bulbo prominente, brazos enrollados"},
+    {t:"Sb",  m:10.3, bv:0.60, ml:5,  gas:20, rot:0.65, d:"Intermedia (la Vía Láctea anda cerca, con barra)"},
+    {t:"Sc",  m:9.0,  bv:0.35, ml:2,  gas:40, rot:0.85, d:"Bulbo mínimo, brazos abiertos, mucha formación estelar"},
+    {t:"Irr", m:8.3,  bv:0.25, ml:1.5,gas:75, rot:0.6,  d:"Amorfa, pequeña, dominada por gas (hasta ~80–90%)"}
+  ];
+  function lerp(a,b,f){return a+(b-a)*f;}
+  function sqUpdate(){
+    var p=+sqPos.value, i=Math.min(Math.floor(p),4), f=p-i;
+    var A=nodos[i], B=nodos[i+1];
+    var m=lerp(A.m,B.m,f), bv=lerp(A.bv,B.bv,f), ml=lerp(A.ml,B.ml,f),
+        gas=lerp(A.gas,B.gas,f), rot=lerp(A.rot,B.rot,f);
+    var cerca = f<0.5 ? A : B;
+    sqTipo.textContent=cerca.t;
+    var ctx=sqCv.getContext('2d'), W=sqCv.width, H=sqCv.height;
+    ctx.clearRect(0,0,W,H);
+    var barras=[
+      {lab:"Masa estelar (log M☉)", val:(m-8)/(12-8), txt:"10^"+m.toFixed(1)+" M☉", col:"#d9a74a"},
+      {lab:"Color B−V", val:(bv-0.2)/(1.05-0.2), txt:bv.toFixed(2)+(bv>0.7?" (rojiza)":bv>0.45?" (intermedia)":" (azul)"), col:"#f06a5e"},
+      {lab:"Razón M/L", val:(ml-1)/(10-1), txt:ml.toFixed(1), col:"#8b7fe0"},
+      {lab:"Contenido de gas", val:gas/90, txt:gas.toFixed(0)+" %", col:"#6fc7d6"},
+      {lab:"Rotación / mov. aleatorio", val:rot, txt:(rot*100).toFixed(0)+" % del soporte es rotación", col:"#6f9cf0"}
+    ];
+    ctx.font="14px Spectral, serif";
+    barras.forEach(function(bx,k){
+      var y=30+k*66;
+      ctx.fillStyle="#9aa6bb"; ctx.fillText(bx.lab, 12, y);
+      ctx.fillStyle="#0e1626"; ctx.fillRect(12,y+8,W-24,22);
+      ctx.fillStyle=bx.col; ctx.fillRect(12,y+8,(W-24)*Math.max(0.01,Math.min(1,bx.val)),22);
+      ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+      ctx.fillText(bx.txt, 18, y+24);
+      ctx.font="14px Spectral, serif";
+    });
+    sqOut.innerHTML="<span class='k'>Tipo más cercano:</span> <b>"+cerca.t+"</b> — "+cerca.d+
+      "<br><small style='color:var(--muted)'>Valores ilustrativos interpolados entre los rangos de las diapositivas; dentro de cada tipo hay mucha dispersión real.</small>";
+  }
+  if(sqPos){ sqPos.addEventListener('input',sqUpdate); sqUpdate(); }
+
+  // ===== Widget 3: carrusel vs enjambre =====
+  var dyF=document.getElementById('dy-f'), dyFv=document.getElementById('dy-fval'),
+      dyCv=document.getElementById('dy-canvas'), dyOut=document.getElementById('dy-out');
+  var stars=[];
+  (function(){
+    // órbitas: cada estrella tiene radio, fase, inclinación aleatoria (para modo enjambre)
+    for(var i=0;i<220;i++){
+      var r=25+Math.random()*140;
+      stars.push({
+        r:r, ph:Math.random()*2*Math.PI,
+        w: 1.35/Math.sqrt(r),                 // rotación diferencial ~ kepleriana
+        incl:Math.acos(2*Math.random()-1),    // orientación aleatoria del plano orbital
+        node:Math.random()*2*Math.PI,
+        dir: Math.random()<0.5?1:-1
+      });
+    }
+  })();
+  var t0=performance.now();
+  function dyDraw(now){
+    if(!dyCv) return;
+    var f=+dyF.value;
+    dyFv.textContent=Math.round(f*100)+"%";
+    var ctx=dyCv.getContext('2d'), W=dyCv.width, H=dyCv.height;
+    ctx.fillStyle="rgba(5,7,13,.5)"; ctx.fillRect(0,0,W,H);
+    var cx=W/2, cy=H/2, t=(now-t0)/1000;
+    // proyección: disco visto inclinado 55°
+    var tilt=0.5;
+    stars.forEach(function(s){
+      var ang=s.ph+s.w*t;
+      // posición en modo disco (plano xy, todos mismo sentido)
+      var xd=s.r*Math.cos(ang), yd=s.r*Math.sin(ang)*tilt, zd=0;
+      // posición en modo enjambre (plano orbital aleatorio, sentidos mezclados)
+      var a2=s.ph+s.dir*s.w*t;
+      var x1=s.r*Math.cos(a2), y1=s.r*Math.sin(a2);
+      // rotar plano: inclinación + nodo
+      var xs=x1*Math.cos(s.node)-y1*Math.cos(s.incl)*Math.sin(s.node);
+      var ys=(x1*Math.sin(s.node)+y1*Math.cos(s.incl)*Math.cos(s.node))*tilt + y1*Math.sin(s.incl)*0.6;
+      // mezcla
+      var x=cx+xd*f+xs*(1-f), y=cy+yd*f+ys*(1-f);
+      var col = f>0.5 ? "rgba(140,180,255," : "rgba(255,210,150,";
+      ctx.fillStyle=col+(0.55+0.45*Math.random())+")";
+      ctx.beginPath(); ctx.arc(x,y,1.7,0,2*Math.PI); ctx.fill();
+    });
+    // centro
+    ctx.fillStyle="rgba(255,240,210,.9)";
+    ctx.beginPath(); ctx.arc(cx,cy,3.2,0,2*Math.PI); ctx.fill();
+    requestAnimationFrame(dyDraw);
+  }
+  function dyMsg(){
+    var f=+dyF.value;
+    var msg = f>0.8 ? "Disco: rotación ordenada, órbitas casi circulares — el <b>carrusel de feria</b>. Nadie choca porque todos van al mismo lado, pero además ¡las estrellas casi no pueden encontrarse: la galaxia es casi vacío!"
+      : f>0.35 ? "Mezcla: una componente rota ordenada (disco) y otra se mueve en todas direcciones (bulbo). Así es una espiral tipo Sa/Sb."
+      : "Esferoide: movimiento esencialmente aleatorio — el <b>enjambre de abejas</b>. Todo ese movimiento también cuenta como soporte contra la gravedad; hay elípticas con rotación medida cero.";
+    dyOut.innerHTML=msg;
+  }
+  if(dyF){
+    dyF.addEventListener('input',dyMsg);
+    document.querySelectorAll('#w-dinamica .presets button').forEach(function(bt){
+      bt.addEventListener('click',function(){ dyF.value=bt.dataset.f; dyMsg(); });
+    });
+    dyMsg();
+    requestAnimationFrame(dyDraw);
+  }
+});
+</script>
+</body>
+</html>

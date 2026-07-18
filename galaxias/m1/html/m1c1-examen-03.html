@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 03 — m1c1 · Paralaje y el parsec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Galaxias · Módulo I · Clase 1</span>
+<h1>Examen 03 — Paralaje y el parsec</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,d,c">
+  <fieldset data-q="1"><legend>1. Según la diapositiva, el método de paralaje mide distancias a estrellas usando como base de triangulación:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">El diámetro de la Tierra</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La distancia Tierra–Sol (1 Unidad Astronómica = 149.600.000 km)</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La distancia al centro de la galaxia</label>
+    <label class="opt"><input type="radio" name="q1" value="d">La distancia Tierra–Luna</label>
+    <p class="fb" hidden>"El conocimiento de la distancia Tierra-Sol (= 1 UA) permite calcular distancias a estrellas mediante la determinación de paralajes."</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Un parsec equivale a:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">1 año luz exacto</label>
+    <label class="opt"><input type="radio" name="q2" value="b">149.600.000 km</label>
+    <label class="opt"><input type="radio" name="q2" value="c">1.000 UA</label>
+    <label class="opt"><input type="radio" name="q2" value="d">≈ 206.265 UA ≈ 3,2616 años luz</label>
+    <p class="fb" hidden>Es la distancia a la que la paralaje vale 1 segundo de arco: d = 1 UA · 180 · 3600/π ≈ 206.265 UA ≈ 3,2616 ly ≡ 1 parsec.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Si la paralaje de una estrella es p = 0,5 segundos de arco, su distancia es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">0,5 parsec</label>
+    <label class="opt"><input type="radio" name="q3" value="b">5 parsecs</label>
+    <label class="opt"><input type="radio" name="q3" value="c">2 parsecs</label>
+    <label class="opt"><input type="radio" name="q3" value="d">0,2 parsecs</label>
+    <p class="fb" hidden>d[pc] = 1/p[″] = 1/0,5 = 2 pc. Relación inversa: a mayor distancia, menor ángulo de paralaje.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica con un diagrama mental (o dibujado) por qué una estrella cercana parece desplazarse contra el fondo de estrellas lejanas a lo largo del año, y cómo de ese desplazamiento angular se obtiene la distancia.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La Tierra orbita el Sol, así que nuestro punto de observación se desplaza hasta 2 UA entre extremos opuestos de la órbita (enero vs. julio). Una estrella cercana, vista desde esos dos puntos, se proyecta en <strong>direcciones ligeramente distintas</strong> contra el telón de estrellas mucho más lejanas (que apenas se mueven): en un año traza una pequeña elipse. La mitad del vaivén angular máximo es la paralaje <em>p</em>. Geometría del triángulo rectángulo: tan p = 1 UA / d, y como p es minúsculo, d ≈ 1 UA / p (p en radianes), que en unidades prácticas se reduce a <strong>d[pc] = 1/p[″]</strong>. Es triangulación pura, como en topografía o visión estéreo: base conocida + ángulo medido → distancia.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La paralaje decrece como 1/d. Discute qué implica esto para el error relativo de las distancias medidas y por qué el método "se agota" más allá de cierta distancia.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El instrumento tiene una <strong>incertidumbre angular fija</strong> σ<sub>p</sub> (su "piso de ruido"). Como p = 1/d, el error relativo de la distancia crece linealmente con ella: σ<sub>d</sub>/d ≈ σ<sub>p</sub>/p = σ<sub>p</sub>·d. Duplicar la distancia duplica el error porcentual: la señal (el ángulo) cae mientras el ruido queda constante — la relación señal/ruido se degrada como 1/d. Por eso cada instrumento tiene un alcance útil (Hipparcos ~100 pc, Gaia ~10.000 pc con 10 % de error, según el gráfico de la clase) y más allá la paralaje se vuelve indistinguible del ruido: hay que encadenar otros métodos de distancia calibrados sobre las paralajes cercanas (la "escalera de distancias").</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 1, Módulo I (Astrofísica de Galaxias). <a href="m1c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

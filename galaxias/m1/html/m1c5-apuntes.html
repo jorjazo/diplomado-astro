@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estrellas, galaxias y la materia que no vemos — Astrofísica de Galaxias, Módulo I · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.ext{border-left:3px solid #5fd07e} .box.ext .tag{color:#7fe09e}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo I · Clase 5 · Cierre del módulo</span>
+  <h1>Estrellas, galaxias y la <em>materia que no vemos</em></h1>
+  <p class="sub">La clase que cierra el Módulo I amarra dos cabos: primero, cómo la vida y muerte de las estrellas explica los colores, los brazos espirales y la evolución de las galaxias; y después, el gran misterio que esa misma dinámica destapa — por cada kilo de materia conocida, el universo esconde unos <em>cinco kilos de materia oscura</em> cuya naturaleza aún no conocemos.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Módulo:</b> I · Clase 5 (última del módulo)</span>
+    <span><b>Fecha:</b> 11 abr 2026</span>
+    <span><b>Tema:</b> Poblaciones estelares, evolución de galaxias y materia oscura</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>sta clase tiene dos mitades. En la primera, la profesora reordena el material del módulo: para entender galaxias hay que entender estrellas, así que repasa el diagrama HR y de ahí deduce por qué una galaxia azul "acaba de" formar estrellas, por qué los brazos espirales son ondas y no objetos, y por qué las elípticas parecen ser el choque de dos espirales. En la segunda mitad ("El Universo Microscópico") baja al nivel de las partículas y las cuatro fuerzas para plantear la pregunta que cierra el módulo: cuando <em>pesamos</em> las galaxias usando su movimiento, la cuenta no cuadra. Para alguien de ingeniería, es un problema de <em>identificación de sistemas</em>: el modelo (masa visible + gravedad) no reproduce la señal medida (curvas de rotación), y la discrepancia es un factor 5.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase (orden pedagógico)</span>
+  <ol>
+    <li><a href="#s1">El diagrama HR: dónde viven y mueren las estrellas</a></li>
+    <li><a href="#s2">El color de una galaxia es un reloj</a></li>
+    <li><a href="#s3">Caballitos de feria y enjambres: la dinámica</a></li>
+    <li><a href="#s4">Brazos espirales: ondas de densidad</a></li>
+    <li><a href="#s5">Lo que no cabe en la secuencia de Hubble</a></li>
+    <li><a href="#s6">Fusiones: cómo evolucionan las galaxias</a></li>
+    <li><a href="#s7">El universo microscópico: fuerzas y partículas</a></li>
+    <li><a href="#s8">Pesar con el movimiento: de Kepler a Zwicky</a></li>
+    <li><a href="#s9">Vera Rubin y las curvas de rotación planas</a></li>
+    <li><a href="#s10">La caza de los MACHOs: microlentes</a></li>
+    <li><a href="#s11">WIMPs y axiones: la materia oscura hoy</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El diagrama HR: dónde viven y mueren las estrellas</h2>
+    <p>"Para entender galaxias, hay que entender a las estrellas."</p>
+  </div></div>
+
+  <p>El <span class="hl">diagrama HR</span> (Hertzsprung–Russell) grafica luminosidad versus temperatura de las estrellas. La clase lo usa como herramienta, no como fin (se ve en detalle en el curso de estrellas). Lo esencial:</p>
+  <ul>
+    <li>Las estrellas pasan <strong>~95% de su vida en la secuencia principal</strong>: nacen en un punto de esa diagonal, <em>se quedan ahí sin moverse</em>, y solo la abandonan al morir.</li>
+    <li>Al nacer un brote de formación estelar se puebla <strong>toda</strong> la secuencia: estrellas frías (~3.000 K), poco masivas y poco luminosas en un extremo; estrellas intermedias como el Sol; y estrellas muy masivas, muy calientes (~30.000 K) y muy luminosas en el otro.</li>
+    <li>Ojo con las escalas: entre 3.000 y 30.000 K hay solo <strong>1 orden de magnitud en temperatura</strong>, pero el rango de luminosidades cubre <strong>~11 órdenes de magnitud</strong>. Ambos ejes son logarítmicos — "a los astrónomos les encantan los logaritmos".</li>
+  </ul>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="L = 4\pi R^2 \,\sigma T^4"></span>
+    <small><strong>Ley de Stefan–Boltzmann</strong> (en la clase, "una de las leyes de cuerpo negro"): la luminosidad crece con la temperatura a la cuarta potencia. Por eso un factor 10 en <span class="katex-inline" data-tex="T"></span> se amplifica brutalmente en <span class="katex-inline" data-tex="L"></span> (y el radio también varía a lo largo de la secuencia).</small>
+  </div>
+
+  <h3>Las estrellas mueren "desde arriba"</h3>
+  <p>Cuánto vive una estrella también correlaciona con su lugar en la secuencia. Las más masivas —el chiste de la profesora: <em>"son como estrellas de rock: se lo toman todo, se lo fuman todo y mueren jóvenes"</em>— viven apenas <strong>unos pocos millones de años</strong> y explotan como <span class="hl">supernovas</span>. Las de tipo solar viven ~10 mil millones de años (el Sol va como en la mitad) y terminan como <span class="hl">nebulosa planetaria</span> + <span class="hl">enana blanca</span> — un "cadáver" sin generación interna de energía, que la profesora ni siquiera pondría en el diagrama. Y las más pequeñas viven <strong>más que la edad actual del universo</strong>: ninguna ha muerto todavía, jamás.</p>
+
+  <div class="box dato">
+    <span class="tag">Números de la clase</span>
+    <p>Ejemplos citados sobre la secuencia principal: masas de ~85, 40, 25 y 9 M<sub>☉</sub> en el extremo alto. Una estrella de <strong>25 M<sub>☉</sub></strong> ronda las <strong>80.000 L<sub>☉</sub></strong>; el <strong>Sol</strong> (tipo G, ~6.000 K) tiene 1 L<sub>☉</sub>; una estrella de <strong>0,5 M<sub>☉</sub></strong> apenas ~3% de la luminosidad solar. El rango de masas es "angosto" (factor ~200), pero el de luminosidades es gigantesco.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Intuición física: por qué masa alta = vida corta</span>
+    <p>Es el <strong>equilibrio hidrostático</strong> (en la transcripción aparece garblado como "equilibrio hidrogenión"): la presión interna debe sostener el peso de la estrella. Más masa ⇒ más peso ⇒ el núcleo necesita temperatura y tasa de fusión mucho mayores ⇒ quema su combustible a un ritmo desproporcionado. Aunque tiene más combustible, lo gasta muchísimo más rápido: la luminosidad crece más rápido que la masa, así que la vida <span class="katex-inline" data-tex="t \sim M/L"></span> <em>cae</em> con la masa. Salir de la secuencia principal ocurre justo cuando se agota el hidrógeno del núcleo.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase: Acrux vs Antares</span>
+    <p>Dos estrellas brillantes de nuestro cielo, una azul (Acrux) y una roja (Antares). El brillo <em>aparente</em> con que las vemos es una combinación de <strong>luminosidad intrínseca y distancia</strong> — no basta el color para saber cuál es "más potente". Las flechas y líneas sobre el diagrama HR muestran la <strong>evolución post-secuencia principal</strong>, que también es más rápida cuanto más masiva la estrella.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El diagrama HR es un <em>scatter plot log-log</em> donde la física se lee en las pendientes. Y la muerte escalonada de estrellas es un sistema con <strong>constantes de tiempo que abarcan ~5 órdenes de magnitud</strong> (10⁶ a &gt;10¹⁰ años): como un banco de condensadores con RC muy distintos, las componentes "rápidas" (masivas, azules) se descargan primero y las "lentas" (enanas rojas) quedan casi como DC de fondo.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El color de una galaxia es un reloj</h2>
+    <p>Pelar el plátano: qué nos dice el color sobre la historia de formación estelar.</p>
+  </div></div>
+
+  <p>Con el diagrama HR en mano, los colores de las galaxias (vistos en clases anteriores) por fin "hacen sentido":</p>
+  <ul>
+    <li>Una galaxia (o región) <strong>azulosa</strong> tiene estrellas de altísima masa, temperatura y luminosidad. Como esas estrellas viven pocos millones de años, su sola presencia grita <span class="hl">formación estelar actual</span>: hubo un brote hace muy poco.</li>
+    <li>Esas mismas estrellas emiten sobre todo en el <strong>ultravioleta</strong> (propiedad del cuerpo negro caliente) y por eso <strong>ionizan su entorno</strong>, creando <span class="hl">regiones HII</span>: burbujas de hidrógeno ionizado en torno a los sitios de formación estelar.</li>
+    <li>Una galaxia <strong>amarillenta/rojiza</strong> hace mucho que no forma estrellas: solo queda "el concho" — las estrellas de baja masa, frías y longevas.</li>
+  </ul>
+
+  <h3>La analogía del plátano y la razón masa/luminosidad</h3>
+  <p>Tras un brote, las estrellas van muriendo <em>desde arriba hacia abajo</em> de la secuencia principal — al principio rapidísimo, después cada vez más lento. La profesora lo llama <span class="hl">"pelar el plátano"</span>. La consecuencia cuantitativa: al morir las masivas (poca masa total, pero luminosidad desproporcionada), la población queda apenas menos masiva pero <strong>muchísimo</strong> menos luminosa. Es decir, la razón <span class="katex-inline" data-tex="M/L"></span> de la población estelar <strong>aumenta con la edad</strong>: por cada "kilo de estrella" hay cada vez menos luz. Esto explica lo dicho en clases anteriores: la razón masa–luminosidad cambia sistemáticamente a lo largo de la secuencia de Hubble, hacia galaxias con menos formación estelar.</p>
+
+  <p>Además, como el universo es demasiado joven para haber matado a las enanas más pequeñas, esas estrellas son un <strong>pozo que solo se llena</strong>: cada brote nuevo agrega estrellas pequeñas que se van acumulando, mientras las de arriba desaparecen. Las estrellas azules, en cambio, solo hablan del presente: duran tan poco que son un <em>sensor de formación estelar reciente</em> (últimos pocos millones de años).</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El color integrado de una galaxia funciona como la <strong>respuesta al impulso</strong> de un sistema: un brote de formación estelar es un impulso, y la luz azul es un término transitorio de decaimiento rápido mientras la luz roja es el término de decaimiento lentísimo. Medir el color hoy equivale a estimar cuánto tiempo pasó desde el último impulso — una <em>deconvolución</em> de la historia de formación estelar.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Caballitos de feria y enjambres: la dinámica</h2>
+    <p>Discos: rotación ordenada con oscilaciones. Esferoides: movimiento aleatorio.</p>
+  </div></div>
+
+  <p>En una galaxia con disco bien formado, el material (estrellas y medio interestelar) se mueve como <span class="hl">caballito de carrusel</span>: el movimiento es esencialmente <strong>circular</strong>, pero con oscilaciones en todas las coordenadas — sube y baja respecto del plano, entra y sale radialmente, y su velocidad angular también tiene periodicidad. En la realidad esas ondulaciones son de período mucho más largo que en el juego mecánico, pero la imagen es exacta.</p>
+
+  <p>Las <span class="hl">componentes esferoidales</span> — los bulbos de las espirales y las galaxias elípticas enteras — se mueven distinto: no es que no roten nada, pero domina la <strong>dispersión</strong>: órbitas mucho más aleatorias, como un enjambre. Y el punto clave que conecta con todo el módulo: <em>no importa el tipo de movimiento</em>, ambos cuentan como <strong>energía cinética</strong> del sistema, que es lo que evita el colapso gravitacional. Por eso "cantidad de movimiento circular" es un eje que ordena la secuencia de Hubble: mientras más desarrollado el disco, más rotación ordenada; casi sin disco, casi puro movimiento aleatorio.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es la diferencia entre <strong>flujo laminar ordenado</strong> (disco: velocidad media alta, poca varianza) y <strong>agitación térmica</strong> (esferoide: velocidad media ~0, varianza alta). El "presupuesto" que sostiene al sistema contra la gravedad es el segundo momento del campo de velocidades, ya venga de la media (rotación) o de la varianza (dispersión). Adelanto útil: esa distinción es justo lo que permite <em>pesar</em> sistemas con el movimiento (sección 8).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Brazos espirales: ondas de densidad</h2>
+    <p>El brazo no es un objeto: es un taco de tráfico por el que el material pasa.</p>
+  </div></div>
+
+  <h3>Por qué los brazos no pueden ser "material enrollado"</h3>
+  <p>La primera hipótesis histórica: si el disco rota, material inicialmente radial se iría enrollando como espiral. El problema es de <strong>escalas de tiempo</strong>: sabemos cuánto tarda el material en dar una vuelta y sabemos (por la edad de sus estrellas) que las galaxias son antiguas. El Sol, por ejemplo, ya dio <strong>~30 vueltas</strong> a la galaxia según la clase. Con tantas vueltas, los brazos deberían estar enrolladísimos, casi borrados — y no lo están. La hipótesis muere.</p>
+
+  <h3>La respuesta moderna: ondas de densidad</h3>
+  <p>Hoy se sabe que los brazos son <span class="hl">ondas de densidad</span>: regiones de alta densidad del disco, perturbaciones que se propagan como las ondas al tirar una piedra a una laguna. Dos analogías de la clase:</p>
+  <ul>
+    <li><strong>El taco en la carretera:</strong> los autos entran a la zona congestionada, pasan un rato apretados y salen. El taco existe y se mueve, pero ningún auto "pertenece" al taco.</li>
+    <li><strong>La ola del mar:</strong> la ola avanza, pero el agua (o el bañista) solo sube y baja al pasar la ola. Aquí, en vez de subir y bajar, el material <em>se comprime</em> al pasar el brazo.</li>
+  </ul>
+  <p>El material del disco entra al brazo, se apila mientras está dentro y luego lo abandona. Y ojo con la sutileza: <strong>ambas cosas se mueven</strong> — el material orbita y el brazo también avanza azimutalmente (generalmente en el mismo sentido, con su propia velocidad). Por eso dónde y cómo se dan las <em>resonancias</em> es un problema complejo.</p>
+
+  <h3>Por qué la formación estelar delinea los brazos</h3>
+  <p>Al entrar al brazo, las nubes de gas se <strong>comprimen</strong>; las más frías colapsan gravitacionalmente y forman estrellas. Las estrellas masivas resultantes ionizan burbujas (regiones HII) y <strong>mueren antes de alcanzar a salir del brazo</strong> — por eso las regiones HII delinean los brazos con tanta precisión. Las regiones HII son <em>transientes</em>: viven lo que viven sus estrellas, unos pocos millones de años. Las estrellas longevas, en cambio, salen del brazo y siguen orbitando.</p>
+
+  <p>La evidencia multibanda (mostrada con una espiral vista por telescopio espacial): en <strong>ultravioleta</strong> se ven grumos que calzan con los brazos — formación estelar recién ocurrida; en el <strong>visible</strong>, estrellas tipo Sol; en <strong>infrarrojo</strong>, la población vieja, distribuida <em>suavemente</em> por todo el disco (los brazos se notan apenas, porque afectan a todo el material, pero sin grumos). Parte del material estelar además se <strong>devuelve</strong>: las estrellas masivas liberan material ahí mismo en el brazo; la mayoría lo devuelve mucho después, donde le toque morir.</p>
+
+  <div class="box prof">
+    <span class="tag">¿Y nosotros?</span>
+    <p>El Sol está hoy en un <span class="hl">espolón</span> (un brazo "no logrado", también onda de densidad — hay galaxias de "gran diseño" con brazos perfectos y otras más desordenadas). No nacimos ahí: con ~30 vueltas dadas, hemos entrado y salido de brazos muchísimas veces. El Sol orbita a <strong>~220 km/s</strong> y da una vuelta cada <strong>~200 millones de años</strong>. Incluso hay galaxias con <em>discos gruesos</em> — herencias de vidas anteriores — que rotan en sentido contrario al disco delgado.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Lo que no cabe en la secuencia de Hubble</h2>
+    <p>Enanas, gigantes cD, núcleos activos y choques de galaxias.</p>
+  </div></div>
+
+  <p>¿Qué galaxias faltan en la clasificación de Hubble? Hubble trabajaba con <strong>placas fotográficas</strong> (los inicios de la fotografía astronómica) y desde el hemisferio norte: no podía ver objetos débiles ni las Nubes de Magallanes. Su secuencia quedó hecha con las galaxias grandes y brillantes (tipo Andrómeda). Hubo que extenderla hacia los tipos Sd e irregulares, y con tecnología moderna aparecieron los extremos:</p>
+
+  <ul>
+    <li><strong>Galaxias enanas:</strong> la clase muestra una enana del grupo de Leo — "un puñado de estrellas" de aspecto paupérrimo. ¿Qué más necesita para contar como galaxia? <span class="hl">Materia oscura</span> (¡el tema de la segunda mitad!). Se piensa que algunas son <em>núcleos de ex-galaxias</em> desmanteladas por una galaxia mayor; se estudia si <strong>Omega Centauri</strong> sería un ex-núcleo así. Es difícil separar los escenarios, porque una fusión también puede desarmar la materia oscura del satélite.</li>
+    <li><strong>Galaxias cD:</strong> las más grandes de todas. Rarezas que crecieron en el <strong>centro de cúmulos de galaxias</strong> tragándose a muchas vecinas — a veces todavía se les ven adentro galaxias a medio digerir.</li>
+    <li><strong>Núcleos activos (AGN):</strong> galaxias con <span class="hl">agujeros negros supermasivos activos</span> — el área de investigación de la profesora. El agujero negro traga material y el proceso brilla tanto que <strong>encandila</strong>: no se ve la galaxia anfitriona, solo el núcleo. Algunas muestran un <span class="hl">jet</span>: material expulsado desde las inmediaciones a velocidades ultrarrelativistas (cercanas a la de la luz). No todas las galaxias tienen agujero supermasivo bien desarrollado: en galaxias pequeñas y desparramadas el pozo de potencial no está centralizado; cuando la galaxia adquiere masa y morfología centralmente concentrada, el agujero se instala en la región más densa y puede crecer.</li>
+    <li><strong>Galaxias en colisión:</strong> el ejemplo de <strong>las Antenas</strong> ("parece espiral pero con patas y cachos"): dos galaxias masivas chocando, ambas con mucho medio interestelar — azul, polvo, formación estelar, "un desparramo" que no se puede ubicar en ninguna parte de la secuencia.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">Ojo con las elípticas "de verdad"</span>
+    <p>Mirando imágenes reales: hay elípticas que son globos suaves de luz… pero otras muestran <strong>polvo en absorción</strong> (o sea, no tienen ausencia total de medio interestelar), frentes de choque, brazos raros. Esas "heridas de guerra" son la pista de la sección siguiente.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Fusiones: cómo evolucionan las galaxias</h2>
+    <p>Las elípticas como choque de espirales; los bulbos como fusiones pasadas; nuestro futuro con Andrómeda.</p>
+  </div></div>
+
+  <p>La gravedad <strong>solo atrae</strong>, así que las interacciones entre galaxias son inevitables: lo más común es que una grande se trague una satélite pequeña, pero a veces chocan <strong>dos masivas comparables</strong> y "queda la tendalada". Las simulaciones de computador de estos choques reproducen notablemente bien las galaxias interactuantes reales, y la gran lección es:</p>
+
+  <div class="box physics">
+    <span class="tag">Idea central</span>
+    <p><strong>Las elípticas parecen ser el resultado de la fusión de galaxias espirales masivas.</strong> La evolución va <em>al revés</em> de lo que sugería el "diapasón" de Hubble: no de elíptica a espiral, sino de espirales que se fusionan a elípticas. Las elípticas con polvo y estructuras raras son fusiones <em>recientes</em> (aún con heridas de guerra); las suaves, fusiones antiguas.</p>
+  </div>
+
+  <p>¿De dónde salen las estrellas de la elíptica resultante? De dos fuentes: las que traían las progenitoras, y las nacidas durante la fusión — si había gas abundante, el choque gatilla <strong>episodios gigantescos de formación estelar</strong> que en gran medida <em>agotan el gas</em>. Resultado: una elíptica con casi nada de gas. (Y sí: también puede haber fusiones entre elípticas; las elípticas son menos comunes que las espirales en parte porque hace falta la "mala suerte" de un choque mayor.)</p>
+
+  <h3>El ciclo de vida: disco → fusión → esferoide → gas → disco…</h3>
+  <p>El esquema de la clase: las galaxias tempranas son esencialmente <strong>discos</strong> formados del hidrógeno y helio que quedó del Big Bang. Crecen no solo por fusiones: reciben continuamente <strong>inyección de gas desde el medio intergaláctico</strong>. Una fusión mayor produce una componente esferoidal; nueva inyección de gas puede reconstruir un disco alrededor — y eso, sorprendentemente, puede convertir una elíptica <em>de vuelta</em> en una espiral. En ese cuadro, <strong>muchos bulbos no son otra cosa que el recuerdo de una fusión previa</strong>: por eso su dinámica es aleatoria (sección 3), mientras el disco posterior, nacido del gas acretado, rota ordenadamente.</p>
+
+  <p>Reconstruir la historia de una galaxia concreta ("arqueología galáctica") es difícil: las fusiones desparraman todo, mezclan "los míos, los tuyos y los nuestros" (poblaciones de ambas progenitoras más las nacidas en la fusión). Una moraleja llamativa: <em>las estrellas de una galaxia no tienen por qué haber nacido en ella</em>.</p>
+
+  <h3>Nuestro futuro: Andrómeda</h3>
+  <p>Las Nubes de Magallanes son pequeñas: acretarlas no nos hará gran daño. Pero <strong>vamos derecho a colisionar con Andrómeda</strong> — dos galaxias masivas comparables, capaces de hacerse daño. Eso sí, ambas son tipo Sa/Sb con poco gas, así que el espectáculo será menos vistoso que las Antenas; tras un período de arcos y colas, terminaremos como un <strong>globo de estrellas</strong>.</p>
+
+  <div class="box prof">
+    <span class="tag">¿Y la expansión del universo?</span>
+    <p>Pregunta de la clase: ¿no contradicen las fusiones a la expansión? No. Toda región que alcanzó la <span class="hl">densidad crítica</span> se <strong>desacopla de la expansión</strong> y se mueve por su propia gravedad: tú no te expandes, la Tierra no, el sistema solar no, la galaxia no, y el <strong>Grupo Local</strong> tampoco — por eso Andrómeda se nos acerca. Lo que se expande es el universo a escalas aún mayores, entre los grandes cúmulos. Antes el universo era más compacto y había <em>más</em> fusiones que hoy; siguen ocurriendo, pero menos.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>El universo microscópico: fuerzas y partículas</h2>
+    <p>Inventario de qué existe: cuatro fuerzas, quarks, leptones y bosones.</p>
+  </div></div>
+
+  <p>La segunda mitad de la clase parte de cero: ¿cuáles son las componentes básicas del universo? Primero, las <span class="hl">cuatro fuerzas fundamentales</span>:</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-04.jpg" alt="Las cuatro fuerzas del universo: gravedad, electromagnetismo, nuclear débil y nuclear fuerte">
+    <figcaption><span class="cap">Diapositiva · ¿Qué fuerzas existen en el universo?</span>Solo cuatro. Dos de ellas (<strong>nuclear débil</strong> y <strong>nuclear fuerte</strong>) operan únicamente dentro de los núcleos atómicos — "casi ni nos enteramos". El <strong>electromagnetismo</strong> gobierna desde el átomo hacia arriba: química, biología, materiales ("hasta enamorarse es electromagnetismo"). La <strong>gravedad</strong> opera sobre todo lo que tiene masa.</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Fuerza</th><th>Sobre qué actúa</th><th>Mediador</th><th>Dónde manda</th></tr></thead>
+    <tbody>
+      <tr><td><b>Nuclear fuerte</b></td><td>Quarks / nucleones</td><td>Gluones</td><td>Dentro del núcleo; le "da dos cachetadas" a la repulsión eléctrica y mantiene el núcleo armado</td></tr>
+      <tr><td><b>Nuclear débil</b></td><td>Partículas del núcleo</td><td>Bosones W, Z (masivos)</td><td>Núcleo; hoy unificada con el EM como fuerza <em>electrodébil</em></td></tr>
+      <tr><td><b>Electromagnetismo</b></td><td>Partículas con carga</td><td>Fotón (sin masa)</td><td>Del átomo a la vida diaria: química, biología, materiales</td></tr>
+      <tr><td><b>Gravedad</b></td><td>Partículas con masa</td><td>Gravitón (no detectado)</td><td>Escalas astronómicas: planetas, estrellas, galaxias</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Detalle importante para lo que viene: <strong>los fotones no tienen masa</strong> (cualquier partícula que viaje a la velocidad de la luz no puede tenerla, dice la relatividad). Que los <strong>neutrinos</strong> sí tienen algo de masa es un descubrimiento relativamente reciente. Y de la gravedad ya detectamos su expresión <em>ondulatoria</em> — las <span class="hl">ondas gravitacionales</span>, predichas por Einstein y detectadas justo 100 años después de publicada la relatividad general (tema del módulo 3) — pero no su partícula, el <span class="hl">gravitón</span>.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-05.jpg" alt="De qué está hecha la materia: de los objetos cotidianos a células, átomos, núcleos, protones, neutrones y quarks">
+    <figcaption><span class="cap">Diapositiva · ¿De qué está hecha la materia?</span>Bajando de nivel: materia (orgánica o inorgánica) → átomos → núcleo (protones y neutrones) + electrones → <strong>quarks</strong>. Hasta donde sabemos, quarks y electrones son partículas elementales — el "mínimo minimórum". Crédito: BBC.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-06.jpg" alt="Póster del modelo estándar: fermiones (leptones y quarks), bosones y propiedades de las interacciones">
+    <figcaption><span class="cap">Diapositiva · El modelo estándar</span>Los <strong>fermiones</strong> arman la materia: 6 leptones (electrón, muón, tau y sus neutrinos) y 6 quarks (con cargas "raras" de ⅔ y −⅓). Juntando 3 quarks se hacen <strong>bariones</strong> (protón, neutrón, y rarezas como lambda u omega); con 2, <strong>mesones</strong> (piones…). Los <strong>bosones</strong> acarrean las fuerzas: fotón, gluones, W/Z. Hay cientos de partículas, la mayoría tremendamente inestables (un neutrón fuera del núcleo se desarma en protón + electrón + antineutrino).</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>La "visión particulista" de las fuerzas — dos cargas que intercambian fotones para "saber" que la otra está ahí — es literalmente un modelo de <strong>paso de mensajes</strong>: las interacciones no son acción a distancia instantánea sino intercambio de portadores con velocidad finita. La tabla de interacciones del póster es una <em>matriz de compatibilidad</em>: qué partícula "escucha" a qué fuerza. La materia oscura, veremos, es la que casi no escucha ningún canal.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Pesar con el movimiento: de Kepler a Zwicky</h2>
+    <p>Órbitas, equilibrio y la primera alarma: el cúmulo de Coma se mueve demasiado rápido.</p>
+  </div></div>
+
+  <h3>Movimiento versus colapso</h3>
+  <p>¿Por qué la Tierra no cae al Sol si la gravedad la atrae? Porque <strong>está en movimiento</strong>: está en órbita. Con poca velocidad, caería en espiral; con demasiada, se iría para siempre (como muchos cometas que pasan una vez y chao). Mantenerse estable exige la velocidad <em>justa</em> que contrarreste la atracción del sistema — el mismo balance "movimiento versus colapso" de todo el módulo.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-09.jpg" alt="Dos esquemas: cuerpo con poca velocidad cae en espiral hacia el Sol; cuerpo con demasiada velocidad escapa">
+    <figcaption><span class="cap">Diapositiva · La velocidad justa</span>Poca velocidad ⇒ el sistema colapsa. Demasiada ⇒ se desarma. La órbita estable es el equilibrio entre ambas — y por eso el movimiento <em>codifica</em> la masa que atrae.</figcaption>
+  </figure>
+
+  <p>La consecuencia es de oro puro: <strong>si sabemos cómo se mueve un cuerpo (distancia y rapidez), sabemos cuánta masa lo atrae</strong>. Así "pesamos" el Sol con la órbita de la Tierra. En una circular:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\frac{v^2}{r}=\frac{G\,M(<r)}{r^2}\quad\Longrightarrow\quad M(<r)=\frac{v^2\,r}{G}"></span>
+    <small>La masa <em>interior</em> a la órbita se lee directamente de la velocidad y el radio. Es la balanza de los astrónomos — y es una inferencia del apunte a partir de la física newtoniana citada en clase (Newton + cálculo diferencial permitieron derivar las leyes de Kepler "desde primeros principios"; Kepler las había sacado a mano, con décadas de observaciones).</small>
+  </div>
+
+  <h3>Sistemas keplerianos</h3>
+  <p>Un <span class="hl">sistema kepleriano</span> es uno donde casi toda la masa está en el cuerpo central — el sistema solar es el caso extremo: <strong>~99,8% de la masa está en el Sol</strong>. Entonces <span class="katex-inline" data-tex="M(<r)"></span> es constante y la velocidad cae como <span class="katex-inline" data-tex="v\propto 1/\sqrt{r}"></span>: Mercurio corre a ~47 km/s ("pasado del límite urbano si fueran km/h", bromea la clase), la Tierra a ~30, y los planetas gigantes andan lentísimo.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-13.jpg" alt="Arriba: caída kepleriana de la rapidez orbital de los planetas con la distancia. Abajo: curvas de rotación planas de galaxias reales">
+    <figcaption><span class="cap">Diapositiva · Kepleriano vs galaxias reales</span>Arriba: los planetas siguen la caída kepleriana <span class="katex-inline" data-tex="v\propto r^{-1/2}"></span>. Abajo: galaxias reales (NGC 7541, NGC 2998, NGC 801, UGC 2885) muestran <strong>curvas de rotación planas</strong> — la velocidad no cae hacia afuera. Este contraste es el corazón del problema.</figcaption>
+  </figure>
+
+  <h3>1937: Fritz Zwicky y el cúmulo de Coma</h3>
+  <p>Recién sabíamos que existían las galaxias y que se "apatotan" en cúmulos. Zwicky estudió el <strong>cúmulo de Coma</strong> con una contabilidad de dos columnas: (1) sumó la luz de las galaxias para estimar cuántas estrellas (cuánta masa) había; (2) midió con el efecto Doppler a qué velocidad se movían las galaxias. Conclusión: <strong>van demasiado rápido</strong> — la autogravedad de la masa visible no basta para retenerlas. "Esa cosa tiene que estar desarmándose."</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-11.jpg" alt="Cúmulo de galaxias Abell 1689 con el texto sobre el resultado de Zwicky de 1937 en el cúmulo de Coma">
+    <figcaption><span class="cap">Diapositiva · Zwicky, 1937</span>La materia asociada a la luz del cúmulo de Coma no explicaba lo rápido que se movían sus galaxias: Coma debía estar desarmándose. (La imagen es del cúmulo Abell 1689, elegido por fotogénico.) El resultado se interpretó como "no entendemos los cúmulos" — quizá eran transientes — y quedó olvidado por décadas.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Zwicky hizo <strong>validación cruzada de dos estimadores independientes</strong> de la misma cantidad: masa fotométrica (sumar luz) vs masa dinámica (medir velocidades). Cuando dos sensores discrepan por un factor grande y sostenido, o un sensor está mal calibrado… o el modelo del sistema está incompleto. Tardamos 40 años en tomarnos en serio la segunda opción.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Vera Rubin y las curvas de rotación planas</h2>
+    <p>Los años 70: las galaxias individuales tampoco se mueven como su luz predice.</p>
+  </div></div>
+
+  <p>En los años 70, <span class="hl">Vera Rubin</span> — pionera en más de un sentido: le negaron postgrados "por ser mujer" antes de que al fin la admitieran en un doctorado, y hoy el <strong>Observatorio Rubin</strong> en el norte de Chile lleva su nombre — estudió cómo rotan las galaxias <em>individuales</em>. Su hallazgo: <strong>las partes externas giran demasiado rápido</strong>.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-12.jpg" alt="Texto sobre Zwicky olvidado y Vera Rubin en los 70; imágenes de una galaxia espiral y del sistema solar como sistemas centralmente concentrados">
+    <figcaption><span class="cap">Diapositiva · El planteo</span>Las galaxias son sistemas <strong>altamente concentrados en masa hacia su centro</strong> — no tanto como el sistema solar, pero no tan distintos (la densidad de luz cae abruptamente hacia afuera; en fotos no se nota, en imágenes digitales sí). Entonces, ¿qué dinámica esperamos para su disco? Respuesta ingenua: cuasi-kepleriana en las afueras.</figcaption>
+  </figure>
+
+  <p>La lógica de la expectativa: lejos del centro, casi toda la masa (luminosa) ya quedó adentro, así que <span class="katex-inline" data-tex="M(<r)"></span> es casi constante y la velocidad debería decaer <em>cuasi-keplerianamente</em>. La subida inicial de la curva sí se entiende: al salir del bulbo denso uno va "metiendo" mucha masa al interior. Pero lo que se observa es que la curva <strong>no baja</strong>:</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-15.jpg" alt="Curva de rotación de Andrómeda: la curva observada se mantiene plana mientras la esperada cae; texto sobre el factor 5 de materia faltante">
+    <figcaption><span class="cap">Diapositiva · Observado vs esperado (M31/Andrómeda)</span>La <strong>curva observada</strong> (blanca) sigue plana en ~200+ km/s donde la <strong>curva esperada</strong> (roja, calculada de la distribución de estrellas) ya cae. El movimiento de estrellas y gas exige más materia que la detectable por su luz — y en los cúmulos pasa lo mismo. <strong>Lo que falta es ~5 veces la materia luminosa</strong>, incluso contando el medio interestelar.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El tamaño del problema</span>
+    <p>Por cada kilo de estrellas — más básico aún: por cada kilo de <em>quarks y electrones</em> — se necesitan <strong>~5 kilos de otra cosa que no se ve</strong>. En la parte interna (donde vive el Sol) la discrepancia es tolerable; en las afueras ya no se puede explicar de ninguna manera. Y la materia oscura no solo explica movimientos: es <strong>ingrediente principal de la evolución del universo como un todo</strong> — sin ella no se reproduce cómo evolucionó el cosmos.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Una curva de rotación plana implica <span class="katex-inline" data-tex="v^2 r/G = M(<r) \propto r"></span>: la masa encerrada <em>sigue creciendo linealmente</em> con el radio justo donde la luz dice que ya no hay nada. Es como medir la respuesta en frecuencia de un circuito y descubrir que hay una componente que el esquemático no muestra: el residuo del ajuste no es ruido, es <strong>un elemento faltante del modelo</strong> — un halo extendido de materia que no emite.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>La caza de los MACHOs: microlentes gravitacionales</h2>
+    <p>Primera hipótesis: cuerpos astrofísicos apagados. Cómo se buscaron y por qué se descartaron.</p>
+  </div></div>
+
+  <p>¿Qué puede ser la materia faltante? Estrella no: brillaría. Tienen que ser objetos que casi no emitan: <strong>planetas, agujeros negros o enanas marrones</strong> — "estrellas fallidas" que nacen como estrellas pero sin masa suficiente para encender reacciones nucleares. Habría que vivir dentro de un <em>halo</em> repleto de ellos: se los bautizó <span class="hl">MACHOs</span> (<em>MAssive Compact Halo Objects</em>), porque deben habitar el halo externo de la galaxia para explicar cómo se mueve la periferia.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-16.jpg" alt="Comparación de tamaños entre Sirio, el Sol y objetos tenues como Júpiter, la enana roja Wolf 359 y un agujero negro; definición de MACHOs">
+    <figcaption><span class="cap">Diapositiva · Los candidatos</span>Objetos que brillen poco (estrellas <strong>no</strong>): enanas rojas, planetas o agujeros negros. Sol y Sirio: demasiado brillantes para pasar piola; Júpiter, Wolf 359 o un agujero negro: prácticamente invisibles con la tecnología de los años 80.</figcaption>
+  </figure>
+
+  <h3>El truco: esperar eventos de microlente</h3>
+  <p>En los 80 no había telescopios capaces de ver estos objetos directamente. La detección tenía que ser indirecta, y la clave la da la <span class="hl">relatividad general</span> (más en el módulo 3): <strong>toda masa curva el espacio</strong>, y la luz sigue esa curvatura (no porque tenga masa — no la tiene — sino porque el espacio mismo está curvado). Si un MACHO se cruza casi exactamente entre nosotros y una estrella de fondo, rayos que no nos habrían llegado se curvan y arriban: la estrella se ve <strong>transitoriamente más brillante</strong>. Eso es un <span class="hl">evento de microlente</span>.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-17.jpg" alt="Esquema: la línea de visión desde la Tierra a una estrella de la Nube Grande de Magallanes es cruzada por un MACHO del halo">
+    <figcaption><span class="cap">Diapositiva · La geometría del experimento</span>Se monitorean estrellas de la <strong>Nube Grande de Magallanes</strong>; si el halo está lleno de MACHOs (moviéndose a ~200 km/s, como corresponde a la curva de rotación plana de nuestra galaxia — el Sol mismo va a 220 km/s), deberían cruzarse frente a las estrellas de fondo con frecuencia calculable. El efecto es significativo cuando el MACHO pasa cerca del punto medio de la línea visual.</figcaption>
+  </figure>
+
+  <p>El evento tiene forma característica: el espacio "plano" → el MACHO acarrea su deformación → el brillo sube, alcanza un máximo y vuelve a la normalidad cuando la lente sigue de largo. Con la velocidad y las distancias conocidas, hasta la <em>duración</em> del evento era predecible.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-19.jpg" alt="Resultados de MACHO, OGLE y EROS, con la curva de luz de un evento de microlente de OGLE con amplificación cerca del año 2001">
+    <figcaption><span class="cap">Diapositiva · Los resultados</span><strong>MACHO</strong>: 12 millones de estrellas de la Nube Grande por 6 años. <strong>OGLE</strong>: 33 millones en las Nubes + 170 millones hacia el bulbo galáctico por 8 años. <strong>EROS</strong>: 8 millones. "Se tiró toda la carne a la parrilla"… y los eventos detectados fueron <strong>poquísimos</strong>. Abajo: un evento real de OGLE — la estrella igual en 1999, amplificada en 2001, con una subida y bajada de ~200 días.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La conclusión negativa (que es un resultado)</span>
+    <p>La galaxia <strong>no</strong> está embebida en un mar de cuerpos astrofísicos compactos y débiles. La materia oscura <strong>no es de naturaleza astrofísica</strong>. La pelota (la papa caliente) pasó a los físicos de partículas.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Las campañas MACHO/OGLE/EROS son <em>detección de anomalías en series de tiempo a escala masiva</em>: fotometría de decenas de millones de estrellas durante años, buscando un pulso de forma conocida (plantilla de amplificación) sobre fondo ruidoso. Diseño experimental con tasa de eventos esperada calculada a priori — y el veredicto vino de comparar tasa observada vs esperada, no de un evento individual.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>WIMPs y axiones: la materia oscura hoy</h2>
+    <p>Si no es un cuerpo celeste, quizá es una partícula. Requisitos, candidatos y búsquedas.</p>
+  </div></div>
+
+  <p>¿Qué exige el cargo? Una partícula fundamental aún no detectada que sea <strong>abundante</strong>, <strong>masiva</strong>, y que <strong>no interactúe ni electromagnéticamente ni por fuerza nuclear fuerte</strong>. Lo primero porque no la vemos emitir ni absorber radiación bajo ninguna circunstancia; lo segundo porque, si sintiera la fuerza fuerte, la <em>síntesis del hidrógeno y el helio tras el Big Bang</em> habría sido totalmente distinta.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-21.jpg" alt="Resumen: una partícula elemental podría formar la materia oscura; candidatos WIMPs y axiones; estado de las búsquedas">
+    <figcaption><span class="cap">Diapositiva · Los dos mejores candidatos</span><strong>WIMPs</strong> (p. ej. neutralinos o gravitinos), predichos por la teoría SUSY — no detectados, y el LHC pone en duda la validez de SUSY. <strong>Axiones</strong>, predichos a fines de los 70 por la fuerza nuclear fuerte: extremadamente livianos, ¡pero habría más de 10 billones por centímetro cúbico! Tampoco detectados. <strong>No hemos detectado directamente la materia oscura ni conocemos su naturaleza.</strong></figcaption>
+  </figure>
+
+  <h3>WIMPs y supersimetría</h3>
+  <p>Para sorpresa de la profesora, no fueron partículas "sacadas del sombrero": ya estaban propuestas por otras razones. La <span class="hl">supersimetría</span> (SUSY) postula que en el universo temprano cada partícula conocida tenía una <em>superpartícula</em> con los roles invertidos: los fermiones tenían compañeros bosones (squarks, selectrón, smuón, stau) y los bosones compañeros fermiones masivos (gluino, fotino, wino, zino, higgsino). Casi todas habrían muerto tempranamente por inestables — excepto las más livianas, como el <strong>neutralino</strong>, con las características justas para ser materia oscura. El problema: el <strong>LHC</strong> (el gran acelerador en la frontera franco-suiza) lleva años operando sin encontrar nada que sostenga a SUSY.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-22.jpg" alt="Esquema de supersimetría: fermiones y bosones con sus superparejas gluino, photino, wino, zino, higgsino">
+    <figcaption><span class="cap">Diapositiva · SUSY</span>Cada partícula y su superpareja de alta masa. Solo las más livianas (o combinaciones, como el neutralino) habrían sobrevivido a los primeros instantes del universo. Crédito: New Scientist.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-23.jpg" alt="Detector LUX-ZEPLIN y gráfico de exclusión de sección eficaz vs masa del WIMP">
+    <figcaption><span class="cap">Diapositiva · ¿Cómo detectar WIMPs?</span>Experimentos con gases y líquidos nobles: <strong>XENON, LUX, LUX-ZEPLIN</strong> — tanques ultra-puros esperando el retroceso de un núcleo golpeado por un WIMP. El gráfico muestra la "caja" de parámetros (masa vs sección eficaz) aún permitida: las zonas roja y amarilla ya están descartadas.</figcaption>
+  </figure>
+
+  <h3>Axiones</h3>
+  <p>Predichos a fines de los 70 en relación con la fuerza nuclear fuerte. Serían livianísimos pero absurdamente numerosos (&gt;10 billones por cm³ según las ecuaciones). Se buscan mediante el <span class="hl">efecto Primakov</span>: en un campo magnético muy intenso, un axión debería transformarse en fotón y viceversa. Experimentos tipo "luz a través de la pared" (láser + imán superconductor + detector, como <strong>OSQAR</strong> y en <strong>DESY</strong>) los persiguen; el Sol debería emanar cantidades gigantescas de axiones desde su núcleo, y una posible detección con el satélite <strong>XMM-Newton</strong> (2014) fue desestimada en 2015.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-24.jpg" alt="Esquema del efecto Primakov: un láser atraviesa un campo magnético, los fotones se detienen en una pared y axiones la cruzan y se reconvierten en fotones">
+    <figcaption><span class="cap">Diapositiva · ¿Cómo detectar axiones?</span>"Luz brillando a través de una pared": el fotón se convierte en axión en el primer campo magnético, cruza la pared opaca (los fotones no pueden), y se reconvierte en fotón en el segundo campo. Si aparece luz al otro lado, hay axiones.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">El cierre del módulo</span>
+    <p>Llevamos ~40 años sin saber de qué está hecha <strong>la mayor parte de la materia del universo</strong> — 5 partes de materia oscura por cada 1 de materia conocida. Vera Rubin murió sin saberlo. "¿Para qué sirve la astronomía? Para saber de qué está hecho el universo… porque parece que no tenemos idea." Y la profesora promete más humildad cósmica para el <strong>módulo 3</strong>: la <em>energía oscura</em>.</p>
+  </div>
+
+  <div class="box ext">
+    <span class="tag">Material externo (complemento, no reemplazo)</span>
+    <p>Para reforzar por tu cuenta: <a href="https://openstax.org/books/astronomy-2e/pages/25-4-the-mass-of-the-galaxy" target="_blank" rel="noopener">OpenStax Astronomy 2e, §25.4 "The Mass of the Galaxy"</a> (materia oscura en la Vía Láctea, introductorio) y <a href="https://openstax.org/books/astronomy-2e/pages/28-4-the-challenge-of-dark-matter" target="_blank" rel="noopener">§28.4 "The Challenge of Dark Matter"</a> (Zwicky, curvas de rotación, MACHOs y candidatos de partícula, introductorio-intermedio). La animación de curvas de rotación mostrada en clase está en <a href="https://www.youtube.com/watch?v=cfAoe66HuS0" target="_blank" rel="noopener">YouTube (enlace citado en la diapositiva 14)</a>.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con las ideas centrales de la clase.</p>
+  </div></div>
+
+  <!-- Widget 1 -->
+  <div class="widget" id="w-vida">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>Vida y luminosidad en la secuencia principal</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Mueve la masa y mira cómo cambian la luminosidad y la vida de la estrella. Usa las relaciones aproximadas <span class="katex-inline" data-tex="L\propto M^{3.5}"></span> y <span class="katex-inline" data-tex="t\approx 10\,\text{Ga}\cdot(M/M_\odot)^{-2.5}"></span> (leyes de escala estándar, material externo: la clase dio los valores puntuales, no la fórmula).</p>
+    <div class="wgrid">
+      <div>
+        <label>Masa M = <span class="rngval" id="v-mval">1.0</span> M<sub>☉</sub> (escala log)</label>
+        <input type="range" id="v-m" min="-0.31" max="1.93" step="0.005" value="0">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-m="0.5">0,5 M☉</button>
+          <button type="button" data-m="1">Sol</button>
+          <button type="button" data-m="9">9 M☉</button>
+          <button type="button" data-m="25">25 M☉</button>
+          <button type="button" data-m="85">85 M☉</button>
+        </div>
+      </div>
+    </div>
+    <output id="v-out" class="wout"></output>
+  </div>
+
+  <!-- Widget 2 -->
+  <div class="widget" id="w-rot">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Curva de rotación: ¿kepleriana o plana?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una galaxia con bulbo + disco de estrellas produce la curva <span style="color:#f06a5e">roja</span> ("esperada", cae cuasi-keplerianamente). Agrega un halo de materia oscura y observa cómo la curva total (<span style="color:#6fc7d6">celeste</span>) se aplana, como la curva observada en M31. La masa encerrada <span class="katex-inline" data-tex="M(<r)=v^2 r/G"></span> se muestra abajo.</p>
+    <div class="wgrid">
+      <div>
+        <label>Masa estelar (bulbo+disco) = <span class="rngval" id="r-msval">8</span> ×10¹⁰ M<sub>☉</sub></label>
+        <input type="range" id="r-ms" min="1" max="20" step="0.5" value="8">
+      </div>
+      <div>
+        <label>Halo oscuro: v<sub>∞</sub> = <span class="rngval" id="r-vhval">200</span> km/s (0 = sin halo)</label>
+        <input type="range" id="r-vh" min="0" max="300" step="5" value="200">
+      </div>
+    </div>
+    <canvas id="r-canvas" width="900" height="430"></canvas>
+    <output id="r-out" class="wout"></output>
+  </div>
+
+  <!-- Widget 3 -->
+  <div class="widget" id="w-lente">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Evento de microlente: la curva de luz</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Un MACHO cruza frente a una estrella de fondo. El parámetro de impacto <span class="katex-inline" data-tex="u_0"></span> (qué tan al medio pasa) controla la amplificación máxima; la escala temporal <span class="katex-inline" data-tex="t_E"></span> controla la duración. La amplificación es <span class="katex-inline" data-tex="A(u)=\tfrac{u^2+2}{u\sqrt{u^2+4}}"></span> (fórmula estándar de microlente puntual — material externo; la clase mostró la curva de OGLE, con ~200 días de amplificación).</p>
+    <div class="wgrid">
+      <div>
+        <label>Parámetro de impacto u₀ = <span class="rngval" id="l-uval">0.30</span></label>
+        <input type="range" id="l-u" min="0.05" max="1.5" step="0.01" value="0.3">
+      </div>
+      <div>
+        <label>Escala temporal t<sub>E</sub> = <span class="rngval" id="l-tval">50</span> días</label>
+        <input type="range" id="l-t" min="10" max="150" step="1" value="50">
+      </div>
+    </div>
+    <canvas id="l-canvas" width="900" height="380"></canvas>
+    <output id="l-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Secuencia principal</b></td><td>~95% de la vida; la estrella no se mueve del punto donde nació</td><td>Base para leer colores y edades de galaxias</td></tr>
+      <tr><td><b>Rango de la SP</b></td><td>1 orden de magnitud en T (3.000–30.000 K), ~11 en L</td><td>Las masivas opacan a todas las demás</td></tr>
+      <tr><td><b>Vidas estelares</b></td><td>Masivas: pocos Ma; Sol: ~10 Ga; enanas: &gt; edad del universo</td><td>El color azul es un sensor de FE reciente</td></tr>
+      <tr><td><b>"Pelar el plátano"</b></td><td>Las estrellas mueren de arriba hacia abajo de la SP</td><td>La razón M/L crece con la edad de la población</td></tr>
+      <tr><td><b>Región HII</b></td><td>Burbuja de H ionizado por estrellas masivas (UV); transiente</td><td>Delinea los brazos espirales</td></tr>
+      <tr><td><b>Disco vs esferoide</b></td><td>Rotación ordenada ("caballito de feria") vs dispersión aleatoria</td><td>Ambos aportan la energía cinética que evita el colapso</td></tr>
+      <tr><td><b>Onda de densidad</b></td><td>Brazo espiral = región de alta densidad que el material atraviesa</td><td>Mata la hipótesis del enrollamiento; gatilla FE por compresión</td></tr>
+      <tr><td><b>Galaxias cD</b></td><td>Las más grandes; crecen en centros de cúmulos tragándose vecinas</td><td>Extremo alto fuera de la secuencia de Hubble</td></tr>
+      <tr><td><b>AGN</b></td><td>Agujero negro supermasivo tragando material; puede tener jet relativista</td><td>El núcleo encandila y opaca a la galaxia entera</td></tr>
+      <tr><td><b>Fusiones</b></td><td>Elípticas ≈ fusión de espirales masivas; bulbos = fusiones previas</td><td>La evolución va "al revés" del diapasón de Hubble</td></tr>
+      <tr><td><b>Densidad crítica</b></td><td>Umbral de desacople de la expansión</td><td>Grupo Local ligado ⇒ chocamos con Andrómeda</td></tr>
+      <tr><td><b>Cuatro fuerzas</b></td><td>Fuerte, débil (núcleo), EM (cargas), gravedad (masa)</td><td>La materia oscura no siente ni EM ni la fuerte</td></tr>
+      <tr><td><b>Quarks y electrones</b></td><td>Los ladrillos elementales de la materia conocida</td><td>Bariones = 3 quarks; mesones = 2</td></tr>
+      <tr><td><b>Sistema kepleriano</b></td><td>Casi toda la masa central (Sol: 99,8%); v ∝ r<sup>−1/2</sup></td><td>La expectativa que las galaxias violan</td></tr>
+      <tr><td><b>Masa dinámica</b></td><td><span class="katex-inline" data-tex="M(<r)=v^2r/G"></span></td><td>La "balanza" de Zwicky y Rubin</td></tr>
+      <tr><td><b>Zwicky (1937)</b></td><td>Cúmulo de Coma: velocidades demasiado altas para su luz</td><td>Primera evidencia de materia faltante (olvidada 40 años)</td></tr>
+      <tr><td><b>Curva de rotación plana</b></td><td>v(r) ≈ constante (~200 km/s) en las afueras</td><td>M(&lt;r) ∝ r donde casi no hay luz ⇒ halo oscuro</td></tr>
+      <tr><td><b>Factor 5</b></td><td>Materia oscura ≈ 5 × materia luminosa</td><td>La mayor parte de la materia no es como nosotros</td></tr>
+      <tr><td><b>MACHOs</b></td><td>Massive Compact Halo Objects (enanas rojas/marrones, planetas, BH)</td><td>Descartados: poquísimos eventos de microlente</td></tr>
+      <tr><td><b>Microlente</b></td><td>Amplificación transitoria del brillo por curvatura del espacio</td><td>Método de MACHO (12M ★, 6a), OGLE (33M+170M, 8a), EROS (8M)</td></tr>
+      <tr><td><b>WIMPs</b></td><td>Neutralinos/gravitinos de SUSY; buscados en XENON/LUX/LZ y LHC</td><td>Candidato masivo; SUSY en duda por el LHC</td></tr>
+      <tr><td><b>Axiones</b></td><td>Livianísimos, &gt;10 billones/cm³; efecto Primakov (axión↔fotón)</td><td>Candidato liviano; OSQAR, DESY, XMM-Newton (2014, desestimada)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c5-examen-01.html">Examen 01<small>Diagrama HR y vidas estelares</small></a></li>
+    <li><a href="m1c5-examen-02.html">Examen 02<small>Colores y poblaciones estelares</small></a></li>
+    <li><a href="m1c5-examen-03.html">Examen 03<small>Discos, esferoides y ondas de densidad</small></a></li>
+    <li><a href="m1c5-examen-04.html">Examen 04<small>Formación estelar y multibanda</small></a></li>
+    <li><a href="m1c5-examen-05.html">Examen 05<small>Más allá de la secuencia de Hubble</small></a></li>
+    <li><a href="m1c5-examen-06.html">Examen 06<small>Fusiones y evolución</small></a></li>
+    <li><a href="m1c5-examen-07.html">Examen 07<small>Fuerzas y modelo estándar</small></a></li>
+    <li><a href="m1c5-examen-08.html">Examen 08<small>De Kepler a Zwicky</small></a></li>
+    <li><a href="m1c5-examen-09.html">Examen 09<small>Curvas de rotación y MACHOs</small></a></li>
+    <li><a href="m1c5-examen-10.html">Examen 10<small>WIMPs, axiones e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo I del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (11 abr 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m1/ff/Galaxias-m1c5-4e868bad-6607.md</code>) y las diapositivas de la clase (<code>m1c5/assets/slide-01…26.jpg</code>). Las diapositivas cubren la parte de "El Universo Microscópico" y materia oscura; la primera mitad de la clase (diagrama HR, brazos espirales, fusiones) se apoyó en diapositivas de clases anteriores del módulo, por lo que esas secciones se sustentan solo en la transcripción.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se corrigieron términos contrastando con las diapositivas: "equilibrio hidrogenión" → equilibrio <em>hidrostático</em>; "ley de Boltzmann" → ley de <em>Stefan–Boltzmann</em>; "secuencia de How/Hab" → secuencia de <em>Hubble</em>; "galaxias tipo Cuad" → galaxias <em>cD</em>; "región H" → región <em>HII</em>; "el Tonople" → efecto <em>Doppler</em>; "ÑUS, Paulino, Clavitino" → <em>neutralinos o gravitinos</em> (según diapositiva 21). La transcripción dice que el Sol pasará "12 millones de años" en la secuencia principal: es un error evidente de dictado; el valor correcto es ~10–12 <em>mil</em> millones de años. El nombre de la galaxia enana citada ("Leo B") es incierto en el audio (probablemente una de las enanas de Leo). Las relaciones de escala de los widgets 1 y 3 son fórmulas estándar externas, no dictadas en clase. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else{
+    var s=document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: vida en la secuencia principal =====
+  var vM=document.getElementById('v-m'), vMval=document.getElementById('v-mval'), vOut=document.getElementById('v-out');
+  function fmtYears(gyr){
+    if(gyr>=1) return gyr.toFixed(1).replace('.',',')+" mil millones de años";
+    var myr=gyr*1000;
+    if(myr>=1) return myr.toFixed(1).replace('.',',')+" millones de años";
+    return Math.round(myr*1000).toLocaleString('es')+" mil años";
+  }
+  function starKind(m){
+    if(m<0.6) return "enana roja, fría (~3.000–4.000 K): vivirá más que la edad actual del universo";
+    if(m<1.5) return "estrella tipo solar (G), ~6.000 K";
+    if(m<8) return "estrella intermedia; morirá como nebulosa planetaria + enana blanca";
+    return "estrella masiva, azul y caliente: morirá como supernova en pocos millones de años";
+  }
+  function vUpdate(){
+    var m=Math.pow(10,+vM.value);
+    vMval.textContent=m<10?m.toFixed(2).replace('.',','):m.toFixed(0);
+    var L=Math.pow(m,3.5);
+    var t=10*Math.pow(m,-2.5); // Gyr
+    var Ltxt = L>=1000 ? Math.round(L).toLocaleString('es') : (L>=1? L.toFixed(1).replace('.',',') : L.toFixed(3).replace('.',','));
+    vOut.innerHTML="<span class='k'>Luminosidad:</span> L ≈ <b>"+Ltxt+" L<sub>☉</sub></b> &nbsp;·&nbsp; "+
+      "<span class='k'>Vida en la SP:</span> t ≈ <b>"+fmtYears(t)+"</b><br>"+
+      starKind(m)+"<br><span style='color:var(--muted);font-size:.85rem'>Compara con la clase: 25 M☉ → ~80.000 L☉ y pocos millones de años; el universo tiene ~13,8 mil millones de años.</span>";
+  }
+  if(vM){
+    vM.addEventListener('input',vUpdate);
+    document.querySelectorAll('#w-vida .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ vM.value=Math.log10(+b.dataset.m); vUpdate(); });
+    });
+    vUpdate();
+  }
+
+  // ===== Widget 2: curva de rotación =====
+  var rMs=document.getElementById('r-ms'), rVh=document.getElementById('r-vh'),
+      rMsval=document.getElementById('r-msval'), rVhval=document.getElementById('r-vhval'),
+      rcv=document.getElementById('r-canvas'), rOut=document.getElementById('r-out');
+  var Gk=4.30091e-6; // kpc (km/s)^2 / Msun
+  function mStars(r, Mtot){ // masa estelar encerrada (bulbo ~1 kpc + disco exponencial rd=3 kpc)
+    var Mb=0.25*Mtot, Md=0.75*Mtot, rb=1.0, rd=3.0;
+    var mb = r<rb ? Mb*Math.pow(r/rb,3) : Mb;
+    var x=r/rd;
+    var md = Md*(1-(1+x)*Math.exp(-x));
+    return mb+md;
+  }
+  function mHalo(r, vinf){ // halo isotermo con rc=2 kpc: v^2 = vinf^2 (1 - (rc/r) atan(r/rc))
+    var rc=2.0;
+    if(r<=0) return 0;
+    var v2=vinf*vinf*(1-(rc/r)*Math.atan(r/rc));
+    return v2*r/Gk;
+  }
+  function drawRot(){
+    if(!rcv) return;
+    var Mtot=+rMs.value*1e10, vinf=+rVh.value;
+    rMsval.textContent=(+rMs.value).toLocaleString('es'); rVhval.textContent=vinf;
+    var ctx=rcv.getContext('2d'), W=rcv.width, H=rcv.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=64,padR=18,padT=18,padB=44, rMax=40, vMax=350;
+    function X(r){return padL+r/rMax*(W-padL-padR);}
+    function Y(v){return padT+(1-v/vMax)*(H-padT-padB);}
+    // grid
+    ctx.strokeStyle="#1a2438";ctx.fillStyle="#9aa6bb";ctx.lineWidth=1;
+    ctx.font="12px Spectral, serif";ctx.textAlign="center";
+    for(var r=0;r<=rMax;r+=5){ctx.beginPath();ctx.moveTo(X(r),padT);ctx.lineTo(X(r),H-padB);ctx.stroke();ctx.fillText(r,X(r),H-padB+16);}
+    ctx.textAlign="right";
+    for(var v=0;v<=vMax;v+=50){ctx.beginPath();ctx.moveTo(padL,Y(v));ctx.lineTo(W-padR,Y(v));ctx.stroke();ctx.fillText(v,padL-8,Y(v)+4);}
+    ctx.fillStyle="#ece8df";ctx.textAlign="center";ctx.font="13px Fraunces, serif";
+    ctx.fillText("distancia al centro (kpc)",(padL+W-padR)/2,H-6);
+    ctx.save();ctx.translate(16,(padT+H-padB)/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText("rapidez orbital (km/s)",0,0);ctx.restore();
+    // curves
+    function plot(fn,color){
+      ctx.strokeStyle=color;ctx.lineWidth=2.4;ctx.beginPath();var st=false;
+      for(var px=0;px<=W-padL-padR;px++){
+        var rr=px/(W-padL-padR)*rMax; if(rr<0.05) continue;
+        var vv=fn(rr); if(!isFinite(vv)) continue;
+        var xx=X(rr),yy=Y(Math.min(vv,vMax));
+        if(!st){ctx.moveTo(xx,yy);st=true;}else ctx.lineTo(xx,yy);
+      }
+      ctx.stroke();
+    }
+    plot(function(r){return Math.sqrt(Gk*mStars(r,Mtot)/r);},"#f06a5e");
+    plot(function(r){return Math.sqrt(Gk*(mStars(r,Mtot)+mHalo(r,vinf))/r);},"#6fc7d6");
+    // legend
+    ctx.font="12.5px Fraunces, serif";ctx.textAlign="left";
+    ctx.fillStyle="#f06a5e";ctx.fillText("— solo estrellas (esperada)",padL+10,padT+16);
+    ctx.fillStyle="#6fc7d6";ctx.fillText("— estrellas + halo oscuro (observada)",padL+10,padT+34);
+    // outputs at r=30 kpc
+    var r0=30;
+    var vs=Math.sqrt(Gk*mStars(r0,Mtot)/r0);
+    var vt=Math.sqrt(Gk*(mStars(r0,Mtot)+mHalo(r0,vinf))/r0);
+    var Ms=mStars(r0,Mtot), Mt=Ms+mHalo(r0,vinf);
+    rOut.innerHTML="En r = 30 kpc: &nbsp;v<sub>estrellas</sub> ≈ <b>"+Math.round(vs)+" km/s</b> · v<sub>total</sub> ≈ <b>"+Math.round(vt)+" km/s</b><br>"+
+      "<span class='k'>Masa dinámica M(&lt;30 kpc) = v²r/G:</span> luminosa ≈ <b>"+(Ms/1e10).toFixed(1).replace('.',',')+"</b> ×10¹⁰ M☉ · total ≈ <b>"+(Mt/1e10).toFixed(1).replace('.',',')+"</b> ×10¹⁰ M☉"+
+      (vinf>0?" &nbsp;·&nbsp; razón ≈ <b>"+(Mt/Ms).toFixed(1).replace('.',',')+"×</b>":"");
+  }
+  if(rMs){
+    [rMs,rVh].forEach(function(el){el.addEventListener('input',drawRot);});
+    drawRot();
+  }
+
+  // ===== Widget 3: microlente =====
+  var lU=document.getElementById('l-u'), lT=document.getElementById('l-t'),
+      lUval=document.getElementById('l-uval'), lTval=document.getElementById('l-tval'),
+      lcv=document.getElementById('l-canvas'), lOut=document.getElementById('l-out');
+  function ampl(u){ return (u*u+2)/(u*Math.sqrt(u*u+4)); }
+  function drawLens(){
+    if(!lcv) return;
+    var u0=+lU.value, tE=+lT.value;
+    lUval.textContent=u0.toFixed(2).replace('.',','); lTval.textContent=tE;
+    var ctx=lcv.getContext('2d'), W=lcv.width, H=lcv.height;
+    ctx.clearRect(0,0,W,H);
+    var padL=64,padR=18,padT=18,padB=44, tMax=400; // días desde -400 a +400
+    var Amax=Math.max(ampl(u0)*1.15, 1.6);
+    function X(t){return padL+(t+tMax)/(2*tMax)*(W-padL-padR);}
+    function Y(A){return padT+(1-(A-0.9)/(Amax-0.9))*(H-padT-padB);}
+    ctx.strokeStyle="#1a2438";ctx.fillStyle="#9aa6bb";ctx.lineWidth=1;
+    ctx.font="12px Spectral, serif";ctx.textAlign="center";
+    for(var t=-400;t<=400;t+=100){ctx.beginPath();ctx.moveTo(X(t),padT);ctx.lineTo(X(t),H-padB);ctx.stroke();ctx.fillText(t,X(t),H-padB+16);}
+    ctx.textAlign="right";
+    var step=Amax>4?1:0.5;
+    for(var A=1;A<=Amax;A+=step){ctx.beginPath();ctx.moveTo(padL,Y(A));ctx.lineTo(W-padR,Y(A));ctx.stroke();ctx.fillText(A.toFixed(1).replace('.',','),padL-8,Y(A)+4);}
+    ctx.fillStyle="#ece8df";ctx.textAlign="center";ctx.font="13px Fraunces, serif";
+    ctx.fillText("tiempo (días)",(padL+W-padR)/2,H-6);
+    ctx.save();ctx.translate(16,(padT+H-padB)/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText("amplificación A",0,0);ctx.restore();
+    ctx.strokeStyle="#d9a74a";ctx.lineWidth=2.4;ctx.beginPath();var st=false;
+    for(var px=0;px<=W-padL-padR;px++){
+      var tt=-tMax+px/(W-padL-padR)*2*tMax;
+      var u=Math.sqrt(u0*u0+(tt/tE)*(tt/tE));
+      var A2=ampl(u);
+      var xx=X(tt),yy=Y(Math.min(A2,Amax));
+      if(!st){ctx.moveTo(xx,yy);st=true;}else ctx.lineTo(xx,yy);
+    }
+    ctx.stroke();
+    var Apk=ampl(u0);
+    var dmag=2.5*Math.log10(Apk);
+    // duración aproximada con A > 1.06 (u < 2)
+    var dur = u0<2 ? 2*tE*Math.sqrt(4-u0*u0) : 0;
+    lOut.innerHTML="<span class='k'>Amplificación máxima:</span> A ≈ <b>"+Apk.toFixed(2).replace('.',',')+"</b> (Δm ≈ "+dmag.toFixed(2).replace('.',',')+" mag)"+
+      "<br><span class='k'>Duración perceptible (u&lt;2):</span> ≈ <b>"+Math.round(dur)+" días</b> — el evento de OGLE de la clase duró ~200 días";
+  }
+  if(lU){
+    [lU,lT].forEach(function(el){el.addEventListener('input',drawLens);});
+    drawLens();
+  }
+});
+</script>
+</body>
+</html>

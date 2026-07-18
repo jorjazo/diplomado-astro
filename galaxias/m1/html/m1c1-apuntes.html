@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué es una galaxia? Anatomía de la Vía Láctea — Astrofísica de Galaxias, Módulo I · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.wgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid,.wgrid3{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo I · Clase 1</span>
+  <h1>¿Qué es una galaxia? <em>Anatomía de la Vía Láctea</em></h1>
+  <p class="sub">La clase inaugural del curso parte de una pregunta engañosamente simple — ¿han visto alguna vez una galaxia? — y termina desarmando la nuestra pieza por pieza: disco, bulbo, halo, cúmulos, corrientes estelares, burbujas de rayos gamma y un agujero negro supermasivo al centro. En el camino, dos paréntesis instrumentales: cómo se construyen las imágenes astronómicas "en color" y cómo se miden distancias con paralaje.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Tema:</b> Qué es una galaxia · Componentes de la Vía Láctea</span>
+    <span><b>Fuente:</b> Solo diapositivas (sin transcripción)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">¿</span>Han visto alguna vez una galaxia? La respuesta es sí, aunque no lo sepan: cada vez que miran la franja lechosa de la <strong>Vía Láctea</strong> en un cielo oscuro están mirando nuestra propia galaxia <em>desde adentro</em>, y desde el hemisferio sur también se ven a ojo desnudo las dos <strong>Nubes de Magallanes</strong>, galaxias satélites vecinas. Con ese gancho, la clase define qué es una galaxia por sus <em>componentes</em> — estrellas, material entre las estrellas y materia oscura — y luego recorre la arquitectura de la Vía Láctea. Para alguien con formación de ingeniería, es una clase de <em>ingeniería inversa</em>: reconstruir el plano de un sistema gigantesco desde un único punto de medición interior, con instrumentos que además hay que entender (filtros, composición de color, paralaje) para no malinterpretar los datos.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">¿Han visto alguna vez una galaxia?</a></li>
+    <li><a href="#s2">Paréntesis 1: imágenes en color</a></li>
+    <li><a href="#s3">Paréntesis 2: paralaje, parsec y Gaia</a></li>
+    <li><a href="#s4">Componentes de una galaxia</a></li>
+    <li><a href="#s5">La Vía Láctea: plano general</a></li>
+    <li><a href="#s6">El disco: fábrica de estrellas</a></li>
+    <li><a href="#s7">El bulbo</a></li>
+    <li><a href="#s8">El halo estelar y el canibalismo galáctico</a></li>
+    <li><a href="#s9">Las burbujas de Fermi</a></li>
+    <li><a href="#s10">Viaje al núcleo</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>¿Han visto alguna vez una galaxia?</h2>
+    <p>Sí: la nuestra desde adentro, y dos satélites a ojo desnudo desde el sur.</p>
+  </div></div>
+
+  <p>La clase abre con esta pregunta y tres respuestas visuales. La primera es la <span class="hl">Vía Láctea</span> misma: esa banda difusa que cruza el cielo nocturno es el disco de nuestra galaxia visto <em>de canto</em>, desde nuestra posición dentro de él. La segunda es una galaxia externa "de libro": la <strong>galaxia Molinillo</strong> (NGC 5457, M101), una espiral vista de frente donde se distinguen el núcleo amarillento y los brazos azulados salpicados de regiones rosadas de formación estelar.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-04.jpg" alt="Galaxia Molinillo NGC 5457 (M101), espiral vista de frente con núcleo amarillo y brazos azules con regiones rosadas">
+    <figcaption><span class="cap">Diapositiva 4 · Una galaxia externa</span>La galaxia <strong>Molinillo</strong> (NGC 5457 = M101). Nótese el contraste de colores: bulbo central amarillento (estrellas viejas) versus brazos azulados con nudos rosados (estrellas jóvenes y regiones de gas ionizado). Ese patrón de colores reaparecerá durante toda la clase como huella de las <em>poblaciones estelares</em>.</figcaption>
+  </figure>
+
+  <p>La tercera respuesta es privilegio del hemisferio sur: las <span class="hl">Nubes de Magallanes</span>, dos galaxias satélites de la Vía Láctea visibles a simple vista como manchones tenues, aquí fotografiadas sobre el observatorio Paranal.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-05.jpg" alt="Cielo sobre Paranal con la Nube Grande y la Nube Chica de Magallanes señaladas junto a la banda de la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva 5 · Galaxias a ojo desnudo</span>Nube Grande y Nube Chica de Magallanes sobre Paranal (crédito: ESO, Y. Beletsky), junto a la banda de la Vía Láctea. Tres galaxias en una sola foto tomada desde el suelo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c1/assets/slide-06.jpg" alt="Acercamiento a la Nube Grande y la Nube Chica de Magallanes, que se ven notablemente más rojizas que en la foto anterior">
+    <figcaption><span class="cap">Diapositiva 6 · La pregunta trampa</span>Las mismas Nubes de Magallanes en primer plano. La diapositiva pregunta: <em>¿por qué se ven más rojizas que en la imagen anterior?</em> La respuesta no es física sino instrumental — y motiva el primer paréntesis de la clase.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La pregunta de la diapositiva 6</span>
+    <p>¿Por qué las Nubes se ven más rojizas en una foto que en la otra? Porque una imagen astronómica "en color" <strong>no es una fotografía directa</strong>: depende de qué filtros se usaron, cuánto se expuso cada uno y cómo se combinaron y estiraron los tonos. Dos composiciones legítimas del mismo objeto pueden verse muy distintas. Eso es exactamente lo que desarrolla la sección siguiente.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Paréntesis 1: cómo se construyen las imágenes en color</h2>
+    <p>Filtros B, V, I → canales R, G, B → decisiones de contraste. El color astronómico es una composición.</p>
+  </div></div>
+
+  <p>Los detectores astronómicos (CCD) son esencialmente <strong>monocromáticos</strong>: cuentan fotones, no colores. Para obtener color se toman varias imágenes del mismo objeto a través de distintos <span class="hl">filtros</span> — por ejemplo <strong>B</strong> (azul, ~440 nm), <strong>V</strong> (visual/verde, ~550 nm) e <strong>I</strong> (infrarrojo cercano, ~800 nm) — y luego se asigna cada exposición a un canal de color (azul, verde, rojo) para componer la imagen final.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-07.jpg" alt="Tres imágenes en blanco y negro del Quinteto de Stephan tomadas con los filtros B, V e I">
+    <figcaption><span class="cap">Diapositiva 7 · La materia prima</span>El <strong>Quinteto de Stephan</strong> (grupo de galaxias) fotografiado por el Hubble en tres filtros: B, V e I. Cada imagen es en escala de grises; el "color" todavía no existe. Crédito: STScI, OPO, Zolt Levay.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c1/assets/slide-08.jpg" alt="Captura de Photoshop mostrando las tres exposiciones coloreadas de rojo, verde y azul en capas separadas">
+    <figcaption><span class="cap">Diapositiva 8 · La cocina del color</span>Las tres exposiciones (filtros F814W, F606W, F438W de la cámara WFC3) se colorean de rojo, verde y azul y se apilan como capas — literalmente en un software de edición, con curvas de ajuste por canal. El color final es una <em>reconstrucción</em>, no una captura directa.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c1/assets/slide-09.jpg" alt="Dos versiones de la misma imagen compuesta del Quinteto de Stephan con distinto contraste y rango de tonos">
+    <figcaption><span class="cap">Diapositiva 9 · Mismos datos, distinta imagen</span>La misma composición mostrada con diferencias en <strong>contraste y rango de tonos</strong>. Ninguna es "falsa": son dos elecciones de visualización de los mismos datos. De aquí sale la respuesta a por qué las Nubes de Magallanes se veían más rojizas en una foto que en otra.</figcaption>
+  </figure>
+
+  <p>El punto se completa comparando la misma galaxia observada en <em>rangos de longitud de onda</em> distintos: la espiral M74 vista por Hubble (óptico) y por Webb (infrarrojo) parece casi otro objeto — en el infrarrojo el polvo deja de ocultar y pasa a <em>brillar</em>, revelando el esqueleto de gas y polvo de los brazos.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-10.jpg" alt="La galaxia NGC 628 (M74) vista por Hubble en óptico, por la combinación Hubble y Webb, y por Webb en infrarrojo">
+    <figcaption><span class="cap">Diapositiva 10 · El color depende de la banda</span>NGC 628 (M74) en óptico (Hubble), combinación, e infrarrojo (Webb). Crédito: ESA. La "apariencia" de una galaxia depende tanto del instrumento y la banda como del objeto mismo.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Una imagen astronómica en color es un <strong>pipeline de visualización de datos multicanal</strong>: tres (o más) señales monocromáticas → asignación de canales → mapeo de rango dinámico (curvas, estiramiento logarítmico) → render. Igual que en un mapa de calor, la paleta y el escalado son <em>decisiones del analista</em>. Moraleja de metrología: antes de interpretar "colores", pregunta siempre qué filtros y qué estiramiento se usaron — es leer la ficha de calibración antes de leer el dato.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 1 ============ -->
+<section id="w-rgb">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Inferencia propia, ilustra las diapositivas 7–9</span>
+    <h4>Componedor RGB: arma tu propia imagen astronómica</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Una "galaxia" sintética con tres zonas físicas (bulbo viejo, brazos jóvenes, regiones HII) fue "observada" en tres filtros: I, V y B. Ajusta la ganancia de cada canal y el contraste global, y mira cómo cambia el color aparente <em>sin que cambie el objeto</em> — exactamente lo que pasaba entre las dos fotos de las Nubes de Magallanes.</p>
+    <div class="wgrid3">
+      <div>
+        <label>Canal <b style="color:#f06a5e">R</b> ← filtro I (infrarrojo): ×<span class="rngval" id="rgb-rv">1.0</span></label>
+        <input type="range" id="rgb-r" min="0" max="2" step="0.05" value="1">
+      </div>
+      <div>
+        <label>Canal <b style="color:#7fd08a">G</b> ← filtro V (visual): ×<span class="rngval" id="rgb-gv">1.0</span></label>
+        <input type="range" id="rgb-g" min="0" max="2" step="0.05" value="1">
+      </div>
+      <div>
+        <label>Canal <b style="color:#6f9cf0">B</b> ← filtro B (azul): ×<span class="rngval" id="rgb-bv">1.0</span></label>
+        <input type="range" id="rgb-b" min="0" max="2" step="0.05" value="1">
+      </div>
+    </div>
+    <label>Contraste (gamma) = <span class="rngval" id="rgb-cv">1.0</span></label>
+    <input type="range" id="rgb-c" min="0.4" max="2.2" step="0.05" value="1">
+    <div class="presets">
+      <button type="button" data-p="1,1,1,1">Balanceado</button>
+      <button type="button" data-p="1.6,1,0.6,1">"Rojiza" (más I)</button>
+      <button type="button" data-p="0.7,1,1.7,1">"Azulada" (más B)</button>
+      <button type="button" data-p="1,1,1,0.55">Alto contraste</button>
+      <button type="button" data-p="1,0,0,1">Solo canal R</button>
+    </div>
+    <canvas id="rgb-canvas" width="900" height="330"></canvas>
+    <output id="rgb-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Paréntesis 2: paralaje, el parsec y Gaia</h2>
+    <p>Cómo se mide "lejos": triangulación con la órbita terrestre como base.</p>
+  </div></div>
+
+  <p>Para hablar de la estructura de la galaxia hay que poder medir <strong>distancias</strong>. El método fundamental es la <span class="hl">paralaje</span>: al orbitar el Sol, la Tierra se desplaza; una estrella cercana parece moverse contra el fondo de estrellas lejanas, describiendo una pequeña elipse anual. La mitad de ese vaivén angular es el ángulo de paralaje <em>p</em>. Conociendo la base de la triangulación — la distancia Tierra–Sol, <strong>1 Unidad Astronómica = 149.600.000 km</strong> — la trigonometría entrega la distancia.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-11.jpg" alt="Esquema geométrico de la paralaje con la órbita de la Tierra como base, y las fórmulas que definen el parsec">
+    <figcaption><span class="cap">Diapositiva 11 · Geometría de la paralaje</span>La estrella cercana se proyecta en posiciones distintas del fondo según la época del año. Con la base de 1 UA y el ángulo <em>p</em>, la distancia sale de <em>tan p = 1 UA / d</em>. De ahí nace la unidad natural de distancia: el <strong>parsec</strong>.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\tan p = \frac{1\,\text{UA}}{d}\;\;\xrightarrow{\;p\ \text{pequeño}\;}\;\; d\,[\text{pc}] = \frac{1}{p\,['']}"></span>
+    <small>Para <span class="katex-inline" data-tex="p = 1''"></span> (un segundo de arco), la diapositiva desarrolla: <span class="katex-inline" data-tex="d = 1\,\text{UA}\cdot 180\cdot\tfrac{3600}{\pi} \approx 206\,265\ \text{UA} \approx 3{,}2616\ \text{años luz} \equiv 1\ \text{parsec}"></span>. El nombre viene de <em>par</em>allax + <em>sec</em>ond: la distancia a la que la paralaje vale exactamente 1″.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es <strong>triangulación con línea base</strong>, como en topografía o visión estéreo: la resolución en profundidad se degrada con la distancia porque el ángulo cae como <span class="katex-inline" data-tex="1/d"></span>. La aproximación de ángulo pequeño (<span class="katex-inline" data-tex="\tan p \approx p"></span> en radianes) es válida siempre en este régimen: 1″ ≈ 4,85×10⁻⁶ rad. Medir 1″ es resolver el grosor de una moneda a unos 4 km — el problema es de <em>relación señal/ruido angular</em>, no de concepto.</p>
+  </div>
+
+  <p>El salto de calidad moderno es el satélite <span class="hl">Gaia</span>: según el gráfico de la clase, ha medido posiciones, distancias y movimientos de <strong>más de mil millones de estrellas</strong> de la Vía Láctea, con distancias confiables (error ~10 %) hasta <strong>10.000 parsecs</strong> — un cuarto del disco galáctico. Su predecesor <strong>Hipparcos</strong> llegaba solo a ~100 pc y ~100.000 estrellas: dos órdenes de magnitud menos de alcance y cuatro de catálogo.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-12.jpg" alt="Infografía de Nature comparando el alcance de Gaia (10.000 parsecs) con el de Hipparcos (100 parsecs) sobre un mapa de la galaxia">
+    <figcaption><span class="cap">Diapositiva 12 · Gaia vs. Hipparcos</span>Infografía (Nature): el círculo pequeño es el alcance de Hipparcos (~100 pc); el grande, el de Gaia (10.000 pc con precisión del 10 %; movimientos propios finos hasta 20.000 pc). La diapositiva incluye además un enlace a video (YouTube: Q_SnUBqXTEs).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ WIDGET 2 ============ -->
+<section id="w-plx">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Basado en la fórmula de la diapositiva 11</span>
+    <h4>Calculadora de paralaje: del ángulo a la distancia</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Mueve el ángulo de paralaje (escala logarítmica, como corresponde a un rango de 4 órdenes de magnitud) y obtén la distancia en parsecs, años luz y UA. Los botones marcan casos reales; observa cuándo la medición queda fuera del alcance de Hipparcos o incluso de Gaia.</p>
+    <div class="wgrid">
+      <div>
+        <label>Paralaje p = <span class="rngval" id="plx-pv">0.100</span> segundos de arco</label>
+        <input type="range" id="plx-p" min="-4" max="0" step="0.01" value="-1">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-lp="-0.117">α Centauri (0,76″)</button>
+          <button type="button" data-lp="-1">0,1″ (límite útil Hipparcos)</button>
+          <button type="button" data-lp="-2.61">Centro galáctico (~8 kpc)</button>
+          <button type="button" data-lp="-4">0,0001″ (límite Gaia)</button>
+        </div>
+      </div>
+    </div>
+    <output id="plx-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Componentes de una galaxia</h2>
+    <p>La definición operativa de la clase: tres ingredientes, uno de ellos un misterio.</p>
+  </div></div>
+
+  <p>Con las herramientas listas, la clase responde la pregunta del título con una lista de <strong>componentes</strong> (diapositiva 13, textual):</p>
+  <ol class="body">
+    <li><strong>Estrellas y sus sistemas planetarios</strong>: material <span class="hl">gravitacionalmente colapsado</span>.</li>
+    <li><strong>Lo que hay entre las estrellas</strong>: podríamos hablar de <em>"material suelto"</em> — gas y polvo aún no colapsado (el medio interestelar).</li>
+    <li><strong>Materia oscura</strong>: <em>"aquí no tenemos mayor idea"</em> — sabemos que está por sus efectos gravitacionales, pero no qué es.</li>
+  </ol>
+
+  <p>El mecanismo que conecta el ingrediente 2 con el 1 es el <span class="hl">colapso gravitacional</span>: una nube de gas interestelar suficientemente densa y fría se contrae bajo su propio peso hasta formar estrellas. Es la máquina que convierte "material suelto" en material colapsado, y reaparecerá al hablar del disco.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-14.jpg" alt="Ilustración de una nube interestelar contrayéndose con flechas apuntando hacia el centro">
+    <figcaption><span class="cap">Diapositiva 14 · Colapso gravitacional</span>Nube interestelar en contracción (ilustración, Pearson Education). Cuando la autogravedad le gana a la presión interna, la nube colapsa y fragmenta: así nacen las estrellas y sus sistemas planetarios.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física — inferencia propia</span>
+    <p>El colapso es una competencia entre dos términos: la <strong>presión térmica</strong> (∝ temperatura) que sostiene la nube y la <strong>autogravedad</strong> (∝ masa/tamaño) que la comprime. Por eso las estrellas nacen en nubes <em>densas y frías</em>: frío = poca presión de soporte, denso = mucha gravedad. En el lenguaje de sistemas dinámicos, la nube uniforme es un equilibrio inestable; una perturbación de densidad crece en forma desbocada (inestabilidad de Jeans, que el curso formalizará más adelante).</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Materia oscura: honestidad científica</span>
+    <p>Nótese el tono de la diapositiva: para las estrellas hay mecanismo (colapso), para el gas hay inventario, pero para la materia oscura la clase declara abiertamente que <em>no tenemos mayor idea</em> de su naturaleza. Es el componente dominante en masa de las galaxias y a la vez el peor entendido — un tema que el curso retomará.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>La Vía Láctea: plano general</h2>
+    <p>Una espiral barrada de ~120.000 años luz vista desde adentro.</p>
+  </div></div>
+
+  <p>El resto de la clase aplica la definición a <strong>nuestra</strong> galaxia. Primero, la vista real: el panorama de 360° del cielo completo muestra el disco de canto, con el bulbo brillante hacia el centro (constelación de Sagitario), franjas oscuras de polvo, y las Nubes de Magallanes abajo a la derecha.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-16.jpg" alt="Panorama de 360 grados de la Vía Láctea mostrando el disco de canto, el bulbo central y las Nubes de Magallanes">
+    <figcaption><span class="cap">Diapositiva 16 · La Vía Láctea de canto</span>Panorama del cielo completo (crédito: ESO, Serge Brunier, Frédéric Tapissier). Vivimos dentro del disco: lo vemos como una banda que rodea todo el cielo, con el polvo dibujando vetas oscuras contra el fondo de estrellas.</figcaption>
+  </figure>
+
+  <p>Luego, el plano reconstruido "desde arriba": la Vía Láctea es una espiral con <strong>barra central</strong> y brazos mayores. El Sol no está en el centro: vive en una espuela menor (Orion Spur), a unos dos tercios del radio del disco.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-17.jpg" alt="Esquema artístico de la Vía Láctea vista desde arriba con los brazos espirales etiquetados y la posición del Sol">
+    <figcaption><span class="cap">Diapositiva 17 · El plano de la galaxia</span>Esquema (NASA/Adler/U. Chicago/Wesleyan/JPL-Caltech) con la barra central y los brazos etiquetados: Scutum-Centaurus, Sagittarius, Perseus, Norma, Outer Arm — y la posición del Sol en el Orion Spur, a ~27.000 años luz del centro. Este plano es una <em>reconstrucción</em>: nadie ha fotografiado la galaxia desde afuera.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Reconstruir este mapa es un problema de <strong>estimación de estado con observabilidad limitada</strong>: un único sensor (nosotros) embebido en el sistema, midiendo direcciones con precisión pero distancias con error creciente. Por eso el esquema de la diapositiva es un modelo — mezcla de conteos estelares, paralajes de Gaia, y radioastronomía — y por eso detalles como el número exacto de brazos siguen revisándose.</p>
+  </div>
+
+  <figure>
+    <img src="m1c1/assets/slide-19.jpg" alt="Esquema de la Vía Láctea de perfil con sus componentes etiquetados: disco, bulbo, halo estelar, cúmulos globulares y abiertos, corrientes estelares, burbujas de rayos gamma y Nubes de Magallanes">
+    <figcaption><span class="cap">Diapositiva 19 · El diagrama maestro de la clase</span>La Vía Láctea de perfil con todos sus componentes: <strong>disco</strong>, <strong>bulbo</strong>, <strong>halo estelar</strong> con cúmulos globulares, cúmulos abiertos y nebulosas en el disco, corrientes estelares (Sagitario, Helmi, Magallánica), la <strong>burbuja de rayos gamma</strong> y las Nubes de Magallanes. Barra de escala: 10.000 años luz. Las secciones siguientes recorren este diagrama pieza por pieza.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ WIDGET 3 ============ -->
+<section id="w-esc">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Con los tamaños citados en las diapositivas 19–26</span>
+    <h4>Escalas de la Vía Láctea en eje logarítmico</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Las estructuras de la clase abarcan más de 5 órdenes de magnitud en tamaño: imposible dibujarlas a escala lineal. Selecciona estructuras y compáralas en un eje log — la herramienta natural del ingeniero para rangos así.</p>
+    <div class="presets" id="esc-btns"></div>
+    <canvas id="esc-canvas" width="900" height="360"></canvas>
+    <output id="esc-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>El disco: la fábrica de estrellas</h2>
+    <p>~1.000 años luz de grosor, ~120.000 de diámetro, 4 brazos mayores y rotación.</p>
+  </div></div>
+
+  <p>Según la diapositiva 21, el <span class="hl">disco</span> es la componente más característica de la Vía Láctea: <strong>~1.000 años luz de grosor</strong> y <strong>~120.000 años luz de diámetro</strong> — una razón de aspecto ~1:100, como un DVD. Presenta una ligera ondulación (<em>warp</em>), no poco común en galaxias de este tipo, y tiene <strong>4 brazos espirales mayores</strong>: Perseus, Centauro, Sagitario y Carina, y Norma. Su dinámica es esencialmente de <strong>rotación</strong> ordenada.</p>
+
+  <p>La clase distingue dos subcomponentes:</p>
+  <ul>
+    <li><strong>Disco delgado:</strong> estrellas <em>jóvenes</em> y de mayor contenido de metales, más polvo y gas, a partir del cual se forman nuevas estrellas.</li>
+    <li><strong>Disco grueso:</strong> mucho menos masivo, con mucho menos gas, menos polvo y estrellas más viejas.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">Posible errata en la diapositiva</span>
+    <p>La diapositiva 21 dice que el disco delgado tiene estrellas jóvenes y de mayor metalicidad "(Población II)". Por la convención estándar — y por la propia diapositiva 20, que asigna Población II a las estrellas <em>viejas y pobres en metales</em> del bulbo — lo consistente es que las estrellas jóvenes y ricas en metales del disco delgado sean <strong>Población I</strong>. Lo marcamos como probable errata de la lámina.</p>
+  </div>
+
+  <h3>Formación estelar: nubes moleculares, regiones HII y cúmulos abiertos</h3>
+  <p>El disco es donde ocurre la <span class="hl">formación estelar activa</span> (diapositiva 22). La secuencia que describe la clase:</p>
+  <ol class="body">
+    <li>Las estrellas se forman por <strong>colapso gravitacional</strong> de nubes de gas densas y frías: las <span class="hl">nubes moleculares</span>.</li>
+    <li>Las estrellas recién formadas calientan e ionizan su vecindad, creando nebulosas brillantes: las <span class="hl">regiones HII</span> (hidrógeno ionizado).</li>
+    <li>Por un tiempo las estrellas hermanas permanecen ligadas gravitacionalmente en un <span class="hl">cúmulo abierto</span>; luego el cúmulo se desintegra y las estrellas pueblan el disco de forma independiente.</li>
+  </ol>
+
+  <figure>
+    <img src="m1c1/assets/slide-23.jpg" alt="La Nebulosa de Orión, región HII con gas rosado y violeta iluminado por estrellas jóvenes">
+    <figcaption><span class="cap">Diapositiva 23 · Región HII de manual</span>La <strong>Nebulosa de Orión</strong> (crédito: NASA): gas ionizado por estrellas masivas recién nacidas. Es el ejemplo cercano por excelencia del paso 2 de la cadena de formación estelar — y visible a simple vista bajo la "espada" de Orión.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>El disco funciona como una <strong>línea de producción con reciclaje</strong>: materia prima (gas frío) → ensamblaje (colapso) → productos (estrellas) que devuelven parte del material enriquecido al medio. El cúmulo abierto que se desintegra es un <em>lote</em> de producción que se dispersa en el inventario general. Que el disco delgado concentre el gas y las estrellas jóvenes es la firma de que ahí está la línea activa.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>El bulbo</h2>
+    <p>Estrellas viejas, pobres en metales, en órbitas desordenadas.</p>
+  </div></div>
+
+  <p>El <span class="hl">bulbo</span> (diapositiva 20) es la concentración central de estrellas, de <strong>forma achatada</strong>. Sus propiedades definen un contraste sistemático con el disco:</p>
+  <ul>
+    <li>La mayoría de sus estrellas son de <span class="hl">Población II</span>: <strong>bajo contenido de metales</strong> y formadas hace <strong>miles de millones de años</strong>.</li>
+    <li>Se presume que se originó de nubes de gas formadas <strong>relativamente poco después del Big Bang</strong>.</li>
+    <li>Su dinámica corresponde esencialmente a <strong>órbitas aleatoriamente orientadas</strong> — no a rotación ordenada como el disco.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Intuición física — inferencia propia</span>
+    <p>"Metales" en astronomía significa <em>todo elemento más pesado que el helio</em>. Como los metales se fabrican dentro de las estrellas y se dispersan cuando estas mueren, la metalicidad funciona como un <strong>timestamp químico</strong>: gas primitivo → estrellas pobres en metales (Población II); gas reciclado por generaciones previas → estrellas ricas en metales (Población I). Y la dinámica es otro fósil: órbitas aleatorias ("soportadas por dispersión") delatan un origen violento o muy temprano, mientras que la rotación ordenada del disco delata un colapso con conservación de momento angular. Composición + cinemática = arqueología galáctica.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>El halo estelar y el canibalismo galáctico</h2>
+    <p>Cúmulos globulares casi tan viejos como el universo, y corrientes de estrellas: cicatrices de fusiones.</p>
+  </div></div>
+
+  <p>El <span class="hl">halo estelar</span> (diapositiva 24) es la envoltura difusa que se extiende <strong>más allá de 100.000 años luz</strong> del centro. Contiene <strong>cúmulos globulares, estrellas viejas y corrientes estelares</strong>.</p>
+
+  <p>Los <span class="hl">cúmulos globulares</span> son conjuntos de <strong>miles a cientos de miles de estrellas</strong>, llamados así por su forma casi esférica. Están formados por estrellas muy antiguas (Población II): se calcula que tienen entre <strong>11.000 y 13.000 millones de años</strong> — casi la edad del universo.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-25.jpg" alt="El cúmulo globular NGC 6254 (M10), una esfera densa de miles de estrellas">
+    <figcaption><span class="cap">Diapositiva 25 · Un cúmulo globular</span>NGC 6254 (M10): decenas de miles de estrellas viejas empaquetadas en una esfera. Los cúmulos globulares orbitan en el halo, fuera del disco, y son de los objetos más antiguos de la galaxia.</figcaption>
+  </figure>
+
+  <h3>De la formación in situ al canibalismo</h3>
+  <p>La diapositiva 24 relata un cambio de paradigma: antes predominaba la idea de que las estrellas del halo se formaron <em>in situ</em> (donde están). El tiempo demostró la enorme importancia de los procesos de <span class="hl">acreción y fusión de galaxias satélites</span> que se integran a la Vía Láctea. Estos mecanismos de <strong>"canibalismo"</strong> aún pueden observarse en las <span class="hl">corrientes de estrellas</span> (stellar streams) — sistemas desmembrados por la interacción con nuestra galaxia, como las corrientes de Sagitario, Helmi y la Magallánica del diagrama maestro. Más aún: <strong>algunos cúmulos globulares parecen ser el núcleo de una galaxia enana</strong> acretada por la Vía Láctea.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Una corriente estelar es la <em>respuesta al impulso</em> del sistema: una galaxia enana que cae es estirada por fuerzas de marea y sus estrellas quedan dispersas a lo largo de la órbita, como el rastro de datos de un evento pasado. Leer corrientes para reconstruir fusiones es <strong>análisis forense de señales</strong>: del estado actual (posiciones y velocidades, hoy medibles con Gaia) se infiere la historia de entrada del sistema.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Las burbujas de Fermi</h2>
+    <p>Dos lóbulos de rayos gamma de 25.000 años luz: el eco del agujero negro central.</p>
+  </div></div>
+
+  <p>Las <span class="hl">burbujas de Fermi</span> (diapositivas 26–27) son <strong>dos estructuras elipsoidales</strong> que se extienden <strong>~25.000 años luz cada una</strong> hacia los lados norte y sur del plano galáctico. Fueron descubiertas el año <strong>2010</strong> por el telescopio espacial de rayos gamma <strong>Fermi</strong> — de ahí el nombre.</p>
+
+  <p>El escenario actual de consenso: las burbujas aparecieron por la acción de un <strong>"viento" nuclear</strong> debido a la actividad del <span class="hl">agujero negro supermasivo</span> existente en nuestra galaxia. Son la <em>reliquia de pasados episodios de actividad</em> de ese agujero negro: hoy está relativamente tranquilo, pero las burbujas prueban que no siempre lo estuvo.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-27.jpg" alt="Mapa del cielo en rayos gamma mostrando los dos lóbulos violáceos de las burbujas de Fermi sobre y bajo el plano de la Vía Láctea">
+    <figcaption><span class="cap">Diapositiva 27 · Las burbujas de Fermi</span>Los dos lóbulos (violeta) emergiendo del plano galáctico (azul), en un mapa de rayos gamma (crédito: NASA). Cada lóbulo mide ~25.000 años luz — comparable al radio de la órbita del Sol en la galaxia. Nótese que "ver" esto requirió un telescopio de rayos gamma: otra vez, el instrumento define lo observable.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física — inferencia propia</span>
+    <p>Cuando el agujero negro central acreta gas, parte de la energía liberada sale como radiación y vientos que inflan cavidades en el gas circundante — como una burbuja inflada desde un compresor central. La escala (25.000 ly) y la simetría norte-sur respecto al plano del disco delatan la fuente puntual central: el gas escapa por donde encuentra menos resistencia, perpendicular al disco. La nota de la diapositiva sobre el "Agujero Negro Superlativo" debe leerse como <em>supermasivo</em> (Sagitario A*, ~4 millones de masas solares — dato externo, no de la lámina).</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Viaje al núcleo</h2>
+    <p>Cúmulos masivos, regiones HII y el Cúmulo Estelar Nuclear alrededor del centro.</p>
+  </div></div>
+
+  <p>La clase cierra acercándose al <strong>centro galáctico</strong>, en dirección a Sagitario. La diapositiva 18 sitúa la perspectiva: la eclíptica (con solsticios y equinoccios marcados) proyectada contra el núcleo — mirar hacia Sagitario en el cielo es mirar hacia el corazón de la galaxia.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-28.jpg" alt="Imagen infrarroja profunda del centro galáctico con recuadros ampliando los cúmulos Arches y Quintuplet, una región HII y el Cúmulo Estelar Nuclear">
+    <figcaption><span class="cap">Diapositiva 28 · Vista hacia el núcleo</span>Imagen del centro galáctico (crédito: ESO, Nogueras-Lara) con cuatro zooms: los cúmulos masivos <strong>Arches</strong> y <strong>Quintuplet</strong>, una <strong>región HII</strong>, y el <strong>NSC — Cúmulo Estelar Nuclear</strong> de la Vía Láctea, la densísima concentración de estrellas que rodea al agujero negro supermasivo. Observar esto exige infrarrojo: el polvo del disco bloquea la luz visible hacia el centro.</figcaption>
+  </figure>
+
+  <p>La última lámina invita a un <strong>"Viaje al Núcleo de nuestra Galaxia"</strong> con un video de ESO: <a href="https://www.eso.org/public/videos/eso1151d/" target="_blank" rel="noopener">eso.org/public/videos/eso1151d</a> — un zoom continuo desde el cielo completo hasta las estrellas orbitando el agujero negro central. Muy recomendado como cierre visual de la clase (material externo enlazado por la propia diapositiva; nivel introductorio).</p>
+
+  <div class="box next">
+    <span class="tag">Síntesis de la clase</span>
+    <p>Una galaxia es <strong>estrellas + material suelto + materia oscura</strong>, organizados — en el caso de la Vía Láctea — en disco (rotación, gas, formación estelar, Población I), bulbo y halo (órbitas desordenadas, estrellas viejas de Población II), con cicatrices de fusiones (corrientes estelares) y un agujero negro supermasivo central cuyos episodios de actividad dejaron las burbujas de Fermi. Y dos advertencias metodológicas que valen para todo el curso: el color de una imagen astronómica es una <em>composición</em>, y toda distancia cuelga en última instancia de la <em>paralaje</em>.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Galaxia (componentes)</b></td><td>Estrellas y sistemas planetarios + material suelto + materia oscura</td><td>Definición operativa de la clase</td></tr>
+      <tr><td><b>Colapso gravitacional</b></td><td>Contracción de una nube densa y fría bajo su propio peso</td><td>Convierte gas en estrellas</td></tr>
+      <tr><td><b>Filtros B, V, I</b></td><td>Exposiciones monocromáticas → canales RGB</td><td>El color astronómico es una composición con decisiones humanas</td></tr>
+      <tr><td><b>Unidad Astronómica</b></td><td>1 UA = 149.600.000 km (distancia Tierra–Sol)</td><td>Base de la triangulación por paralaje</td></tr>
+      <tr><td><b>Paralaje</b></td><td><span class="katex-inline" data-tex="\tan p = 1\,\text{UA}/d"></span>; d[pc] = 1/p[″]</td><td>El método fundamental de distancias</td></tr>
+      <tr><td><b>Parsec</b></td><td>206.265 UA ≈ 3,2616 años luz (paralaje de 1″)</td><td>Unidad natural de distancia galáctica</td></tr>
+      <tr><td><b>Gaia / Hipparcos</b></td><td>&gt;10⁹ estrellas, 10 kpc al 10 % / 10⁵ estrellas, 100 pc</td><td>Salto de 2 órdenes de magnitud en alcance</td></tr>
+      <tr><td><b>Disco</b></td><td>~1.000 ly grosor, ~120.000 ly diámetro; warp; 4 brazos; rotación</td><td>Componente más característica; fábrica de estrellas</td></tr>
+      <tr><td><b>Disco delgado / grueso</b></td><td>Joven, metálico, con gas / menos masivo, viejo, sin gas</td><td>Dos historias de formación superpuestas</td></tr>
+      <tr><td><b>Nube molecular → región HII → cúmulo abierto</b></td><td>Cadena de formación estelar del disco</td><td>El ciclo de vida de un lote de estrellas</td></tr>
+      <tr><td><b>Bulbo</b></td><td>Achatado; Población II; pobre en metales; órbitas aleatorias</td><td>Componente viejo, origen poco post-Big Bang</td></tr>
+      <tr><td><b>Poblaciones I / II</b></td><td>Jóvenes ricas en metales / viejas pobres en metales</td><td>Timestamp químico de la historia galáctica</td></tr>
+      <tr><td><b>Halo estelar</b></td><td>&gt;100.000 ly; cúmulos globulares, estrellas viejas, corrientes</td><td>Archivo de la historia de acreción</td></tr>
+      <tr><td><b>Cúmulos globulares</b></td><td>10³–10⁵ estrellas; casi esféricos; 11–13 mil millones de años</td><td>De los objetos más antiguos; algunos son núcleos de enanas acretadas</td></tr>
+      <tr><td><b>Canibalismo / corrientes estelares</b></td><td>Acreción y fusión de satélites (Sagitario, Helmi, Magallánica)</td><td>Cambio de paradigma: el halo se construyó en parte por fusiones</td></tr>
+      <tr><td><b>Burbujas de Fermi</b></td><td>2 lóbulos de ~25.000 ly c/u; descubiertas 2010 (rayos gamma)</td><td>Reliquia de actividad del agujero negro supermasivo</td></tr>
+      <tr><td><b>Núcleo: NSC, Arches, Quintuplet</b></td><td>Cúmulo Estelar Nuclear y cúmulos masivos centrales</td><td>El entorno extremo alrededor del agujero negro central</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c1-examen-01.html">Examen 01<small>¿Qué es una galaxia? Primeras vistas</small></a></li>
+    <li><a href="m1c1-examen-02.html">Examen 02<small>Imágenes astronómicas en color</small></a></li>
+    <li><a href="m1c1-examen-03.html">Examen 03<small>Paralaje y el parsec</small></a></li>
+    <li><a href="m1c1-examen-04.html">Examen 04<small>Gaia y las distancias</small></a></li>
+    <li><a href="m1c1-examen-05.html">Examen 05<small>Componentes y colapso gravitacional</small></a></li>
+    <li><a href="m1c1-examen-06.html">Examen 06<small>El disco de la Vía Láctea</small></a></li>
+    <li><a href="m1c1-examen-07.html">Examen 07<small>Bulbo y poblaciones estelares</small></a></li>
+    <li><a href="m1c1-examen-08.html">Examen 08<small>Halo, cúmulos globulares y canibalismo</small></a></li>
+    <li><a href="m1c1-examen-09.html">Examen 09<small>Burbujas de Fermi y el núcleo</small></a></li>
+    <li><a href="m1c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo I del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (Observatorio Cerro Calán). Elaborado a partir de las 29 diapositivas de la clase (<code>galaxias/m1/html/m1c1/assets/</code>). Créditos de imágenes según cada lámina: ESO (Y. Beletsky; S. Brunier y F. Tapissier; Nogueras-Lara), NASA, STScI/OPO/Zolt Levay, NASA/Adler/U. Chicago/Wesleyan/JPL-Caltech, The Oikofuge, Nature, Pearson Education.</p>
+  <p class="disc"><b>Aviso importante.</b> Esta clase <strong>no cuenta con transcripción de audio</strong>: estos apuntes se basan únicamente en las diapositivas, complementadas con explicación pedagógica propia. Las cajas marcadas como <em>"inferencia propia"</em>, las analogías ingenieriles y los widgets interactivos son elaboración del apunte, no contenido literal de la clase; los datos numéricos y afirmaciones principales provienen del texto de las láminas. Se señalan dos probables erratas de las diapositivas: "(Población II)" para el disco delgado joven (debería ser Población I) y "Agujero Negro Superlativo" (debería ser supermasivo). Ante cualquier duda, priman las diapositivas originales y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: componedor RGB =====
+  var rgbR=document.getElementById('rgb-r'), rgbG=document.getElementById('rgb-g'), rgbB=document.getElementById('rgb-b'),
+      rgbC=document.getElementById('rgb-c'),
+      rgbRv=document.getElementById('rgb-rv'), rgbGv=document.getElementById('rgb-gv'), rgbBv=document.getElementById('rgb-bv'),
+      rgbCv=document.getElementById('rgb-cv'),
+      rgbCanvas=document.getElementById('rgb-canvas'), rgbOut=document.getElementById('rgb-out');
+
+  // "Galaxia" sintética: intensidad de cada zona en los filtros I, V, B (0..1)
+  // bulbo viejo: brilla en I; brazos jóvenes: brillan en B; regiones HII: V y B.
+  function galaxyChannels(x, y, W, H){
+    var cx=W*0.5, cy=H*0.52;
+    var dx=(x-cx)/(W*0.30), dy=(y-cy)/(H*0.42);
+    var r=Math.sqrt(dx*dx+dy*dy);
+    var theta=Math.atan2(dy,dx);
+    // bulbo
+    var bulge=Math.exp(-r*r*7);
+    // brazos espirales: modulación de 2 brazos
+    var arm=Math.exp(-Math.pow(r-0.55,2)*8)*(0.55+0.45*Math.cos(2*theta-4.2*r));
+    if(arm<0) arm=0;
+    // regiones HII: nudos sobre los brazos
+    var knots=0;
+    var seeds=[[0.62,0.4],[0.5,2.5],[0.68,4.4],[0.42,5.5],[0.58,1.5]];
+    for(var i=0;i<seeds.length;i++){
+      var kr=seeds[i][0], kt=seeds[i][1];
+      var kx=kr*Math.cos(kt), ky=kr*Math.sin(kt);
+      var d2=(dx-kx)*(dx-kx)+(dy-ky)*(dy-ky);
+      knots+=Math.exp(-d2*160);
+    }
+    var Ich = bulge*1.0 + arm*0.35 + knots*0.15;
+    var Vch = bulge*0.55 + arm*0.55 + knots*0.55;
+    var Bch = bulge*0.22 + arm*0.75 + knots*0.95;
+    return [Ich, Vch, Bch];
+  }
+  var galCache=null;
+  function drawRGB(){
+    if(!rgbCanvas) return;
+    var gr=+rgbR.value, gg=+rgbG.value, gb=+rgbB.value, gamma=+rgbC.value;
+    rgbRv.textContent=gr.toFixed(2); rgbGv.textContent=gg.toFixed(2); rgbBv.textContent=gb.toFixed(2);
+    rgbCv.textContent=gamma.toFixed(2);
+    var ctx=rgbCanvas.getContext('2d'), W=rgbCanvas.width, H=rgbCanvas.height;
+    if(!galCache){
+      galCache=new Float32Array(W*H*3);
+      for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+        var ch=galaxyChannels(x,y,W,H), k=(y*W+x)*3;
+        galCache[k]=ch[0]; galCache[k+1]=ch[1]; galCache[k+2]=ch[2];
+      }
+    }
+    var img=ctx.createImageData(W,H);
+    for(var i=0;i<W*H;i++){
+      var k=i*3, p=i*4;
+      var R=Math.pow(Math.min(1,galCache[k]*gr),gamma)*255;
+      var G=Math.pow(Math.min(1,galCache[k+1]*gg),gamma)*255;
+      var B=Math.pow(Math.min(1,galCache[k+2]*gb),gamma)*255;
+      img.data[p]=R; img.data[p+1]=G; img.data[p+2]=B; img.data[p+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+    var dom = (gr>=gg&&gr>=gb)?"rojiza (domina el filtro I: bulbo y estrellas viejas resaltan)":
+              (gb>=gg&&gb>=gr)?"azulada (domina el filtro B: brazos y regiones jóvenes resaltan)":
+              "equilibrada (los tres filtros pesan parecido)";
+    rgbOut.innerHTML="<span class='k'>Composición actual:</span> "+dom+"<br>"+
+      "Mismo objeto, distinta imagen — igual que las dos fotos de las Nubes de Magallanes (diapositivas 5 y 6).";
+  }
+  if(rgbCanvas){
+    [rgbR,rgbG,rgbB,rgbC].forEach(function(el){el.addEventListener('input',drawRGB);});
+    document.querySelectorAll('#w-rgb .presets button').forEach(function(b){
+      b.addEventListener('click',function(){
+        var p=b.dataset.p.split(',');
+        rgbR.value=p[0]; rgbG.value=p[1]; rgbB.value=p[2]; rgbC.value=p[3];
+        drawRGB();
+      });
+    });
+    drawRGB();
+  }
+
+  // ===== Widget 2: paralaje =====
+  var plxP=document.getElementById('plx-p'), plxPv=document.getElementById('plx-pv'), plxOut=document.getElementById('plx-out');
+  var PC_LY=3.2616, PC_AU=206265;
+  function plxUpdate(){
+    var lp=+plxP.value, p=Math.pow(10,lp);
+    plxPv.textContent=p<0.001?p.toExponential(1):p.toFixed(3);
+    var d=1/p; // pc
+    var note = d<=100 ? "Al alcance de <b>Hipparcos</b> (y de Gaia)." :
+               d<=10000 ? "Fuera del alcance de Hipparcos (~100 pc); <b>Gaia</b> lo mide con ~10 % de precisión." :
+               "Más allá incluso del límite de distancias de <b>Gaia</b> (~10.000 pc): aquí hacen falta otros métodos.";
+    plxOut.innerHTML="Paralaje p = <b>"+(p<0.001?p.toExponential(2):p.toFixed(4))+"″</b><br>"+
+      "<span class='k'>Distancia:</span> d = 1/p ≈ <b>"+(d>=1000?d.toLocaleString('es',{maximumFractionDigits:0}):d.toFixed(2))+" pc</b>"+
+      " ≈ "+(d*PC_LY).toLocaleString('es',{maximumFractionDigits:0})+" años luz ≈ "+(d*PC_AU).toExponential(2)+" UA<br>"+note;
+  }
+  if(plxP){
+    plxP.addEventListener('input',plxUpdate);
+    document.querySelectorAll('#w-plx .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ plxP.value=b.dataset.lp; plxUpdate(); });
+    });
+    plxUpdate();
+  }
+
+  // ===== Widget 3: escalas log =====
+  var escItems=[
+    {n:"Grosor del disco", v:1000, c:"#6f9cf0", on:true},
+    {n:"Burbuja de Fermi (c/u)", v:25000, c:"#aa9ff0", on:true},
+    {n:"Sol → centro galáctico", v:27000, c:"#d9a74a", on:true},
+    {n:"Radio del halo (>100 mil ly)", v:100000, c:"#6fc7d6", on:true},
+    {n:"Diámetro del disco", v:120000, c:"#f06a5e", on:true},
+    {n:"1 parsec", v:3.2616, c:"#7fd08a", on:false},
+    {n:"Alcance Hipparcos (~100 pc)", v:326, c:"#c9b8ff", on:false},
+    {n:"Alcance Gaia (~10 kpc)", v:32616, c:"#ffd9a0", on:false}
+  ];
+  var escBtns=document.getElementById('esc-btns'), escCv=document.getElementById('esc-canvas'), escOut=document.getElementById('esc-out');
+  function drawEsc(){
+    if(!escCv) return;
+    var ctx=escCv.getContext('2d'), W=escCv.width, H=escCv.height;
+    ctx.clearRect(0,0,W,H);
+    var active=escItems.filter(function(it){return it.on;});
+    var padL=250, padR=30, padT=24, padB=40;
+    var lmin=0, lmax=5.4; // log10 años luz
+    function X(v){ return padL + (Math.log10(v)-lmin)/(lmax-lmin)*(W-padL-padR); }
+    // grid: décadas
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.font="12px Spectral, serif"; ctx.textAlign="center";
+    for(var e=0;e<=5;e++){
+      var xx=X(Math.pow(10,e));
+      ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,H-padB);ctx.stroke();
+      ctx.fillText("10"+String.fromCharCode(8304+((e===1)?185:(e===2)?178:(e===3)?179:e))+" ly".replace("⁰"," "), xx, H-padB+16);
+    }
+    ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Tamaño / distancia en años luz (eje logarítmico)", (padL+W-padR)/2, H-6);
+    // bars
+    var bh=Math.min(34,(H-padT-padB-10)/Math.max(active.length,1)-8);
+    active.forEach(function(it,i){
+      var y=padT+8+i*(bh+10);
+      ctx.fillStyle=it.c;
+      var x1=X(it.v);
+      ctx.globalAlpha=0.85;
+      ctx.fillRect(padL, y, Math.max(2,x1-padL), bh);
+      ctx.globalAlpha=1;
+      ctx.fillStyle="#ece8df"; ctx.textAlign="right"; ctx.font="13px Spectral, serif";
+      ctx.fillText(it.n, padL-10, y+bh/2+4);
+      ctx.textAlign="left"; ctx.fillStyle=it.c; ctx.font="12px Fraunces, serif";
+      var lbl=it.v>=1000?it.v.toLocaleString('es')+" ly":it.v+" ly";
+      ctx.fillText(lbl, Math.min(x1+6,W-70), y+bh/2+4);
+    });
+    var big=active.length?active.reduce(function(a,b){return a.v>b.v?a:b;}):null;
+    var small=active.length?active.reduce(function(a,b){return a.v<b.v?a:b;}):null;
+    escOut.innerHTML = active.length<2 ? "Activa al menos dos estructuras para comparar." :
+      "<span class='k'>Razón mayor/menor:</span> "+big.n+" / "+small.n+" = <b>×"+
+      (big.v/small.v).toLocaleString('es',{maximumFractionDigits:0})+"</b> ("+
+      (Math.log10(big.v/small.v)).toFixed(1)+" órdenes de magnitud). En eje lineal, la barra menor sería invisible.";
+  }
+  if(escBtns){
+    escItems.forEach(function(it,i){
+      var b=document.createElement('button');
+      b.type="button"; b.textContent=it.n;
+      function paint(){ b.style.borderColor=it.on?it.c:"var(--line)"; b.style.color=it.on?it.c:"var(--muted)"; }
+      b.addEventListener('click',function(){ it.on=!it.on; paint(); drawEsc(); });
+      paint();
+      escBtns.appendChild(b);
+    });
+    drawEsc();
+  }
+});
+</script>
+</body>
+</html>

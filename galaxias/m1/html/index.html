@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrofísica de Galaxias — Módulo I — Apuntes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1.5px 1.5px at 42% 64%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%,rgba(255,255,255,.35),transparent),
+    radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),
+    linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 90px}
+a{color:var(--red-soft);text-decoration:none}a:hover{text-decoration:underline}
+.hero{padding:54px 0 30px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-family:"Fraunces",serif;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.02;margin:.28em 0 .15em;font-weight:600;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);max-width:62ch}
+.card{display:block;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px;margin:14px 0;transition:.15s}
+.card:hover{border-color:var(--red);transform:translateY(-2px);text-decoration:none}
+.card h2{font-family:"Fraunces",serif;font-size:1.28rem;margin:.1em 0 .25em;color:var(--ink);font-weight:600}
+.card h2 b{color:var(--red-soft)}
+.card p{margin:.2em 0 .5em;color:var(--muted);font-size:.95rem}
+.card .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.card .links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink)}
+.card .links a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none}
+.note{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0;color:var(--muted);font-size:.92rem;background:#0b112066}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="kick">Astrofísica de Galaxias · Módulo I</span>
+    <h1>Apuntes <em>HTML</em> interactivos</h1>
+    <p class="sub">Material de estudio generado a partir de las diapositivas de cada clase y, para las clases 2 a 5, las transcripciones de audio. Cada clase incluye apuntes con widgets interactivos y 10 exámenes de práctica autocorregibles.</p>
+  </div>
+
+  <p class="note"><strong>Clase 1:</strong> no existe transcripción de audio; los apuntes se basan únicamente en las diapositivas. Las clases 2–5 contrastan transcripción con diapositivas; donde la transcripción termina antes del final de la clase, las secciones restantes se reconstruyen desde las láminas y quedan marcadas como tales.</p>
+
+  <a class="card" href="m1c1-apuntes.html">
+    <h2>Clase 1 — <b>¿Qué es una galaxia? Anatomía de la Vía Láctea</b></h2>
+    <p>Galaxias visibles a ojo desnudo; imágenes astronómicas en color (filtros B/V/I); paralaje y el parsec (Hipparcos → Gaia); componentes de una galaxia (estrellas, ISM, materia oscura); disco, bulbo, halo y cúmulos globulares; burbujas de Fermi; núcleo galáctico en IR (Arches, Quintuplet, NSC). <em>Solo diapositivas.</em></p>
+    <div class="links">
+      <a href="m1c1-apuntes.html">Apuntes</a>
+      <a href="m1c1-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <a class="card" href="m1c2-apuntes.html">
+    <h2>Clase 2 — <b>¿Qué vemos cuando vemos una galaxia?</b></h2>
+    <p>Visión multi-λ de la Vía Láctea; espectro electromagnético y ventanas atmosféricas; componentes emisores (estrellas e ISM); cuerpo negro (Planck, Wien, T⁴); diagrama HR y colores estelares; radiación termal vs. no termal; polvo interestelar y extinción; fases del ISM; líneas espectrales y 21 cm; SED de M82 como síntesis.</p>
+    <div class="links">
+      <a href="m1c2-apuntes.html">Apuntes</a>
+      <a href="m1c2-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <a class="card" href="m1c3-apuntes.html">
+    <h2>Clase 3 — <b>El medio interestelar: líneas, polvo y las fases del gas</b></h2>
+    <p>Repaso de emisión continua; líneas espectrales (Bohr, Lyman/Balmer/Paschen); excitación y enfriamiento; absorción vs. emisión; espectros de galaxias; línea de 21 cm; polvo (carbono, silicio, extinción); cinco fases del gas (molecular, CNM, WNM, WIM, HIM); regiones H II; Doppler y campos de velocidad; CO como trazador de H₂; ciclo ISM–CGM.</p>
+    <div class="links">
+      <a href="m1c3-apuntes.html">Apuntes</a>
+      <a href="m1c3-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <a class="card" href="m1c4-apuntes.html">
+    <h2>Clase 4 — <b>La secuencia de Hubble: clasificar para comprender</b></h2>
+    <p>Hubble y Mount Wilson; diagrama de diapasón (E0–E7, S0, Sa/Sb/Sc, SB); error evolutivo de Hubble; barras, anillos y brazos como resonancias; extensión a Sd e irregulares; correlaciones de masa, color, M/L, gas y rotación; dinámica disco vs. bulbo; espectros a lo largo de la secuencia; limitaciones de la clasificación, ondas de densidad, M51 multibanda y formación jerárquica.</p>
+    <div class="links">
+      <a href="m1c4-apuntes.html">Apuntes</a>
+      <a href="m1c4-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <a class="card" href="m1c5-apuntes.html">
+    <h2>Clase 5 — <b>Estrellas, galaxias y la materia que no vemos</b></h2>
+    <p>Cierre del módulo. Repaso integrador: diagrama HR, color de galaxias, brazos espirales como ondas, elípticas por mergers; las cuatro fuerzas y partículas elementales; curvas de rotación y la discrepancia de masa (~factor 5); evidencia de materia oscura. Widgets: curva de rotación, presupuesto de masa y escalas logarítmicas.</p>
+    <div class="links">
+      <a href="m1c5-apuntes.html">Apuntes</a>
+      <a href="m1c5-apuntes.html#examenes">Exámenes (10)</a>
+    </div>
+  </a>
+
+  <footer>
+    Diplomado en Fundamentos de Astronomía, U. de Chile · Curso de Astrofísica de Galaxias, Módulo I. Apuntes elaborados a partir de diapositivas y transcripciones (clases 2–5; pueden contener errores de reconocimiento de voz). Clase 1: solo diapositivas.
+  </footer>
+</div>
+</body>
+</html>

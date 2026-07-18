@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué vemos cuando vemos una galaxia? — Astrofísica de Galaxias, Módulo I · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Galaxias · Módulo I · Clase 2</span>
+  <h1>¿Qué vemos cuando vemos <em>una galaxia</em>?</h1>
+  <p class="sub">La visión multi-longitud de onda: la misma Vía Láctea fotografiada desde el radio hasta los rayos gamma muestra diez "galaxias" distintas. Al final de la clase sabremos decodificar cada imagen: <em>estrellas</em> en el óptico e infrarrojo cercano, <em>polvo</em> en el infrarrojo medio y lejano, <em>gas</em> — frío, tibio, caliente y extremadamente caliente — en el radio, los rayos X y los rayos gamma.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Galaxias</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 28 mar 2026</span>
+    <span><b>Tema:</b> Visión multi-λ de una galaxia</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">C</span>uando miras la foto de una galaxia, la primera pregunta que debes hacerte no es "¿qué galaxia es?" sino <strong>¿en qué longitud de onda está tomada esta imagen?</strong> La respuesta cambia por completo lo que estás viendo. Esta clase construye, pieza por pieza, el diccionario que traduce <em>longitud de onda observada → componente física de la galaxia</em>. La herramienta central es sorprendentemente simple: casi toda la radiación del universo es <em>termal</em> — un cuerpo a temperatura <span class="katex-inline" data-tex="T"></span> emite con un máximo en una longitud de onda que depende solo de <span class="katex-inline" data-tex="T"></span>. Para alguien con formación de ingeniería: el espectro electromagnético funciona como un <em>termómetro remoto</em>, y cada banda de observación es un canal que muestrea un rango de temperaturas distinto del sistema.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Una galaxia, diez imágenes</a></li>
+    <li><a href="#s2">Radiación electromagnética y el ojo</a></li>
+    <li><a href="#s3">La atmósfera: qué llega al suelo</a></li>
+    <li><a href="#s4">Qué compone una galaxia (y qué brilla)</a></li>
+    <li><a href="#s5">Cuerpo negro: Planck, Wien y T⁴</a></li>
+    <li><a href="#s6">Estrellas: diagrama HR y colores</a></li>
+    <li><a href="#s7">El rango acotado de las estrellas</a></li>
+    <li><a href="#s8">Radiación termal y no termal</a></li>
+    <li><a href="#s9">El polvo interestelar</a></li>
+    <li><a href="#s10">Fases del ISM: ¿y los líquidos?</a></li>
+    <li><a href="#s11">Decodificando la Vía Láctea</a></li>
+    <li><a href="#s12">Líneas espectrales y los 21 cm</a></li>
+    <li><a href="#s13">Síntesis: la SED de M82</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Una galaxia, diez imágenes</h2>
+    <p>La Vía Láctea fotografiada en todo el espectro electromagnético.</p>
+  </div></div>
+
+  <p>La clase abre con una imagen famosa (portada de un libro de galaxias, elaborada por la NASA): <span class="hl">la Vía Láctea vista en diez longitudes de onda distintas</span>, de arriba hacia abajo: radio continuo, hidrógeno atómico, otro radio continuo, hidrógeno molecular, infrarrojo (tres franjas), óptico, rayos X y rayos gamma. La franja óptica es lo único que verían nuestros ojos en un lugar muy oscuro; todas las demás son invisibles para nosotros.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-03.jpg" alt="Diez imágenes panorámicas de la Vía Láctea en distintas longitudes de onda, desde radio continuo hasta rayos gamma (NASA, Multiwavelength Milky Way)">
+    <figcaption><span class="cap">Diapositiva · Multiwavelength Milky Way</span>La misma galaxia — la nuestra — en diez bandas. Cada franja revela una componente física distinta. La meta declarada de la clase: <strong>al terminar, entender qué estamos viendo en cada una</strong>. En la sección 11 volveremos a esta imagen con el diccionario completo. <small style="color:var(--muted)">Crédito: NASA.</small></figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es exactamente un problema de <strong>análisis multiespectral</strong>: el mismo sistema físico medido con diez sensores, cada uno sensible a una banda de frecuencia distinta. Ninguna banda cuenta la historia completa; el estado del sistema se reconstruye <em>fusionando canales</em>. La pregunta de la clase es: ¿qué "sensor" ve qué subsistema, y por qué?</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Radiación electromagnética y el ojo humano</h2>
+    <p>Un rango de 22 órdenes de magnitud… del que percibimos menos de un octava.</p>
+  </div></div>
+
+  <p>Radiación electromagnética, ondas electromagnéticas o simplemente <em>luz</em>: distintos nombres para lo mismo. El espectro va desde los <strong>rayos gamma</strong> (longitudes de onda de femtómetros, 10<sup>−15</sup> m) hasta ondas de radio de frecuencia extremadamente baja (megámetros, 10<sup>6</sup> m u onda aún más larga): unos <strong>22 órdenes de magnitud</strong> en longitud de onda. Nuestros ojos perciben solo la ventanita del <span class="hl">rango visible</span>: aproximadamente de <strong>400 a 750 nm</strong> según la diapositiva (el profesor lo estira "de ~300 a ~700 nm"; la frontera exacta es difusa). Dentro de ese rango sí discriminamos longitud de onda — eso es lo que llamamos <em>color</em> — pero fuera de él somos ciegos.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-04.jpg" alt="Espectro electromagnético completo con zoom en la banda visible de 400 a 750 nm, mostrando longitud de onda y frecuencia en escala logarítmica">
+    <figcaption><span class="cap">Diapositiva · El espectro electromagnético</span>Ejes en <strong>escala logarítmica</strong>: longitud de onda de 10<sup>−15</sup> a 10<sup>7</sup> m y frecuencia de 10<sup>23</sup> a 10<sup>2</sup> Hz. El zoom superior muestra el rango visible: una franja mínima (~400–750 nm) de todo el espectro. Nota del profesor: los "rayos cósmicos" del extremo izquierdo son partículas, no radiación electromagnética — no deberían estar en este diagrama.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="c=\lambda\,\nu \qquad\qquad E_{\text{fotón}}=h\,\nu=\frac{h\,c}{\lambda}"></span>
+    <small>Relaciones básicas: longitud de onda y frecuencia son inversas (c = 3×10⁸ m/s), y la energía por fotón crece hacia longitudes de onda cortas (h = constante de Planck). Gamma = fotones muy energéticos; radio = fotones muy poco energéticos.</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Anécdota de la clase</span>
+    <p>Los ojos tienen dos tipos de detectores: <strong>conos</strong> (sensibles al color) y <strong>bastones</strong> (sensibles a la intensidad). Perros y gatos casi no tienen visión de color — se comenta en clase que los perros distinguirían algo los amarillos, quizá por eso el entusiasmo con las pelotas de tenis. Un detector astronómico enfrenta el mismo diseño: ¿mido intensidad total o resuelvo en longitud de onda?</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La atmósfera: qué llega al suelo</h2>
+    <p>Ventanas transparentes y muros opacos — y por qué eso decide dónde poner los telescopios.</p>
+  </div></div>
+
+  <p>No toda la radiación del espacio llega a la superficie terrestre. La atmósfera es <strong>opaca a los rayos gamma, los rayos X y gran parte del ultravioleta</strong> — algo muy conveniente: si no, estaríamos "literalmente fritos". En el <strong>visible es casi totalmente transparente</strong>; hacia el infrarrojo se vuelve progresivamente opaca, con algunas <em>ventanas</em>; y en <strong>radio hay una ventana enorme y transparente</strong>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-05.jpg" alt="Diagrama de la opacidad de la atmósfera terrestre: gamma, X y UV bloqueados; visible transparente; infrarrojo parcialmente absorbido; radio transparente; radio de onda muy larga bloqueado">
+    <figcaption><span class="cap">Diapositiva · Opacidad atmosférica</span>Desde el suelo se observa: el <strong>visible</strong>, algunas <strong>ventanas del infrarrojo</strong> y el <strong>radio</strong>. Todo lo demás — gamma, X, UV, infrarrojo medio/lejano — exige ir al espacio: los observatorios de esas bandas van a bordo de satélites (p. ej. el telescopio <strong>James Webb</strong>, que opera en el infrarrojo desde el espacio).</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>La atmósfera es un <strong>filtro pasabanda</strong> con dos ventanas principales (óptico y radio) y varias sub-bandas estrechas en el IR. El "presupuesto de enlace" de cualquier observación incluye esta función de transferencia del canal: si tu señal cae en una banda de rechazo, no hay ganancia de antena que la recupere — hay que mover el receptor fuera del canal (al espacio).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Qué compone una galaxia (y qué brilla)</h2>
+    <p>De las tres componentes de la clase 1, una es invisible por definición.</p>
+  </div></div>
+
+  <p>Recordatorio de la clase 1: una galaxia se compone de <strong>(1) estrellas y sus sistemas planetarios, (2) lo que hay entre las estrellas</strong> — el <span class="hl">medio interestelar</span> o <strong>ISM</strong> (<em>InterStellar Medium</em>) — <strong>y (3) materia oscura</strong>. Al preguntar <em>qué vemos</em>, la materia oscura sale de la ecuación de inmediato: es oscura <strong>a toda longitud de onda</strong> — no emite, no absorbe, no interactúa con la radiación electromagnética. Y los planetas son tan débiles que detectarlos directamente es casi imposible (quienes buscan exoplanetas sueñan con hacerlo).</p>
+
+  <p>La consecuencia es una simplificación enorme: <strong>si aprendemos cómo emiten las estrellas y cómo emite el medio interestelar, sabemos cómo emite una galaxia completa.</strong> Ese es el programa del resto de la clase.</p>
+
+  <div class="box physics">
+    <span class="tag">Idea fuerza</span>
+    <p>Luz de galaxia = luz de estrellas + luz del ISM. Dos mecanismos de emisión por aprender, y toda imagen astronómica de una galaxia queda explicada.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Cuerpo negro: Planck, Wien y la cuarta potencia</h2>
+    <p>Cómo emite un cuerpo compacto por el solo hecho de tener temperatura.</p>
+  </div></div>
+
+  <p>Las estrellas emiten <span class="hl">radiación de cuerpo negro</span>: la emisión de un cuerpo <em>debido a su temperatura</em>, válida cuando el cuerpo es <strong>compacto</strong> (denso). En la clase se conecta con el colapso gravitacional visto antes: los cuerpos colapsados gravitacionalmente — como las estrellas — están garantizados de emitir (aproximadamente) como cuerpo negro. Fue <strong>Planck</strong> quien derivó la forma de la curva: la <em>ley de Planck</em> dice cuánta intensidad se emite en cada longitud de onda, dada la temperatura.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-08.jpg" alt="Curvas de cuerpo negro para 3000, 6000 y 12000 K con la banda de luz visible marcada; a mayor temperatura la curva crece y su máximo se corre al azul">
+    <figcaption><span class="cap">Diapositiva · Emisión de cuerpo negro</span>Tres curvas de Planck con <strong>factores 2 de cambio en temperatura</strong>: 3.000 → 6.000 → 12.000 K. La curva de 6.000 K se parece a la emisión del Sol (temperatura superficial ~6.000 K), con el máximo justo en la banda visible. Nótese cómo el área bajo la curva (la luminosidad) explota al subir T, y el máximo se corre hacia longitudes de onda cortas.</figcaption>
+  </figure>
+
+  <p>La ley de Planck implica dos propiedades que la clase destaca una y otra vez:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="F=\sigma\,T^{4}\qquad\text{(Stefan–Boltzmann: la energía total crece como }T^4\text{)}"></span>
+    <small>Duplicar la temperatura multiplica la emisión por 2⁴ = <strong>16</strong>. Basta subir un poco T para que la radiación se dispare. (Precisión sobre la transcripción: en el audio se dice "la temperatura aumenta exponencialmente"; lo correcto es un crecimiento como <em>potencia cuarta</em> de T, tal como el propio profesor lo cuantifica.)</small>
+  </div>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="\lambda_{\max}=\frac{b}{T},\qquad b\simeq 2{,}898\times10^{-3}\ \text{m·K}\qquad\text{(Ley de Wien)}"></span>
+    <small>El máximo de emisión se desplaza a longitudes de onda <strong>más cortas</strong> (más azules) cuanto más caliente el cuerpo. La constante b es material de referencia externo (no se escribió en clase); la relación inversa λ–T sí es contenido de clase.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-11.jpg" alt="Izquierda: curvas de Planck con la línea de la ley de Wien uniendo los máximos; derecha: fotografía en color realista de las 25 estrellas más brillantes del cielo">
+    <figcaption><span class="cap">Diapositiva · Ley de Wien y los colores reales de las estrellas</span>Izquierda: la línea gris que une los máximos de las curvas es la ley de Wien (dibujada "artísticamente con Photoshop" por el propio profesor, según confiesa en clase). Derecha: las 25 estrellas más brillantes del cielo en color realista — de Betelgeuse y Aldebarán (rojizas, frías) a las azules (calientes), pasando por Capella y Rigel (intermedias). El color <em>es</em> un termómetro. <small style="color:var(--muted)">Crédito foto: T. Jittasaiyapan.</small></figcaption>
+  </figure>
+
+  <h3>¿Y los rayos gamma del núcleo estelar?</h3>
+  <p>Pregunta de un asistente: si en el núcleo de una estrella los fotones nacen como rayos gamma, ¿por qué no vemos rayos gamma escapando? Respuesta del profesor: esos fotones <strong>viajan desde el centro hasta la superficie perdiendo energía</strong> en el camino (interactuando con la materia), y al llegar a la fotósfera su distribución corresponde exactamente a la temperatura superficial (miles de K, no millones). La radiación que escapa es la del cuerpo negro a la temperatura de la <em>superficie</em>. El detalle de esa "migración" de fotones se verá en el curso de estrellas.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>La curva de Planck es la <strong>densidad espectral de potencia</strong> de un emisor térmico ideal, con un único parámetro T. La ley de Wien es la "frecuencia del pico" y Stefan–Boltzmann la "potencia total integrada". Identificar la temperatura de una fuente a partir del pico de su espectro es un problema clásico de estimación de parámetros con una señal de forma conocida.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 1 ============ -->
+<section id="w-planck">
+  <div class="widget">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>La curva de Planck: mueve la temperatura</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Reproduce la diapositiva de la clase: curva de intensidad vs. longitud de onda (0–3000 nm), con la banda visible marcada. Observa la ley de Wien (el pico se corre) y la potencia T⁴ (compara el área con la del Sol).</p>
+    <div class="wgrid">
+      <div>
+        <label>Temperatura T = <span class="rngval" id="pl-Tval">5.800</span> K</label>
+        <input type="range" id="pl-T" min="2500" max="15000" step="50" value="5800">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-t="3000">3.000 K (fría)</button>
+          <button type="button" data-t="5800">Sol (~5.800 K)</button>
+          <button type="button" data-t="12000">12.000 K</button>
+          <button type="button" data-t="15000">15.000 K</button>
+        </div>
+      </div>
+    </div>
+    <canvas id="pl-canvas" width="900" height="420"></canvas>
+    <output id="pl-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Estrellas: diagrama HR, secuencia principal y colores</h2>
+    <p>Dónde viven las estrellas en el plano temperatura–luminosidad.</p>
+  </div></div>
+
+  <p>El <span class="hl">diagrama HR</span> (Hertzsprung–Russell) grafica <strong>temperatura superficial vs. luminosidad</strong> de las estrellas (ambos ejes logarítmicos; la temperatura crece hacia la <em>izquierda</em>, por convención histórica). Las estrellas pasan la mayor parte de su vida en la <span class="hl">secuencia principal</span>, la diagonal que cruza el diagrama de punta a punta. Nuestro Sol está en ella, como la gran mayoría de las estrellas.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-09.jpg" alt="Diagrama de Hertzsprung-Russell con la secuencia principal en diagonal, gigantes y supergigantes arriba a la derecha, y enanas blancas abajo a la izquierda">
+    <figcaption><span class="cap">Diapositiva · Diagrama HR</span>La diagonal poblada es la <strong>secuencia principal</strong>: la etapa "adulta" de la vida estelar. Arriba a la derecha, gigantes y supergigantes (Betelgeuse, Antares, Aldebarán); abajo a la izquierda, las enanas blancas. Metáfora de la clase: salir de la secuencia principal es "irse al hogar de ancianos" — ocurre solo cuando la estrella está por morir. <small style="color:var(--muted)">Crédito: Liverpool John Moores University / NSO.</small></figcaption>
+  </figure>
+
+  <p>Lo que importa para esta clase es el <strong>rango de temperaturas superficiales</strong> de la secuencia principal. Regla mnemotécnica del profesor: <span class="hl">de 3.000 K (las más frías) a 30.000 K (las más calientes)</span> — un factor 10 que conviene memorizar. Combinado con el cuerpo negro:</p>
+
+  <ul>
+    <li><strong>Estrella de ~3.000 K:</strong> poco luminosa, máximo de emisión en el <em>infrarrojo cercano</em> (~1 μm). Se ve rojiza.</li>
+    <li><strong>Estrella tipo Sol (~6.000 K):</strong> máximo en pleno rango visible. No es coincidencia que nuestros ojos evolucionaran justo ahí, donde el Sol emite máximamente.</li>
+    <li><strong>Estrella de 12.000–30.000 K:</strong> muchísimo más luminosa, máximo en el <em>ultravioleta</em>. Se ve azul (la "cola" visible de su curva de Planck).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-12.jpg" alt="Espectro electromagnético con flechas que ubican el pico de emisión de Acrux (estrella azul, UV) y Antares (estrella roja, infrarrojo cercano)">
+    <figcaption><span class="cap">Diapositiva · Dos extremos estelares</span><strong>Acrux</strong> (azul, caliente) pica cerca del UV; <strong>Antares</strong> (roja, fría) pica en el infrarrojo cercano. Ambas siguen siendo visibles al ojo porque la curva de Planck emite en todas las longitudes de onda — lo que cambia es <em>dónde está el máximo</em>.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>El rango acotado de las estrellas — y los extremos</h2>
+    <p>Del UV al infrarrojo cercano hay estrellas. Más allá, casi todo es medio interestelar.</p>
+  </div></div>
+
+  <p>Conclusión central: como las superficies estelares van de 3.000 a 30.000 K, las estrellas — <em>lejos</em> los objetos más luminosos de una galaxia — emiten significativamente <strong>solo entre el ultravioleta y el infrarrojo cercano (~1–3 μm)</strong>. La ley de Planck predice emisión en toda longitud de onda, pero lejos del pico la cantidad es insignificante. Por lo tanto: <span class="hl">cualquier imagen de una galaxia fuera de ese rango no muestra estrellas: muestra el medio interestelar</span> (con pocas excepciones).</p>
+
+  <h3>Excepciones hacia lo más caliente (λ más corta)</h3>
+  <figure>
+    <img src="m1c2/assets/slide-13.jpg" alt="Espectro electromagnético con flecha hacia longitudes de onda cortas: objetos colapsados (enanas blancas hasta 100.000 K, escasas) y no colapsados (gas caliente de 10.000 a 10 millones de K)">
+    <figcaption><span class="cap">Diapositiva · Objetos aún más calientes</span><strong>A. Colapsados:</strong> enanas blancas de hasta 100.000 K (escasas). <strong>B. No colapsados:</strong> gas caliente de ~10.000 hasta 10.000.000 K (regiones HII, remanentes de supernova).</figcaption>
+  </figure>
+
+  <p>Las <span class="hl">enanas blancas</span> son lo que queda cuando muere una estrella como el Sol: el núcleo desnudo, un <em>remanente</em> — el profesor prefiere decir <strong>"cadáver de estrella"</strong> — que ya no produce energía por fusión. Recién formadas pueden tener <strong>~100.000 K</strong> en superficie (¡pico en el UV extremo / rayos X blandos!), pero como nada repone la energía radiada, se enfrían y apagan lentamente. Son escasas comparadas con las estrellas normales. Lo mismo aplica a <strong>púlsares / estrellas de neutrones</strong> (cadáveres de estrellas más masivas, preguntados por un asistente): recién formados son calientes y energéticos, pero son poquísimos y se enfrían. ¿Son estrellas? Para el profesor, no: <em>ya no producen energía por fusión nuclear en el núcleo</em>, que es lo que define a una estrella.</p>
+
+  <h3>Excepciones hacia lo más frío (λ más larga)</h3>
+  <figure>
+    <img src="m1c2/assets/slide-14.jpg" alt="Espectro electromagnético con flecha hacia longitudes de onda largas: objetos colapsados fríos (enanas café y planetas hasta 50 K, débiles) y no colapsados (polvo de 20 a 200 K y gas de 10 a 100 K)">
+    <figcaption><span class="cap">Diapositiva · Objetos aún más fríos</span><strong>A. Colapsados:</strong> enanas café y planetas, de hasta ~50 K (en general muy débiles). <strong>B. No colapsados:</strong> partículas de "polvo" de 20 a 200 K, y gas de 10 a 100 K.</figcaption>
+  </figure>
+
+  <p>Las <span class="hl">enanas café</span> son "estrellas fallidas": objetos que nunca lograron encender la fusión. Temperaturas bajo 3.000 K — típicamente ~1.000 K o unos cientos. Los <strong>planetas</strong> llegan hasta ~50 K. Pero aquí Stefan–Boltzmann juega en contra: al ir la emisión como <span class="katex-inline" data-tex="T^4"></span>, estos cuerpos fríos son <strong>tremendamente débiles</strong> y casi no aportan luz a la galaxia. La emisión dominante a longitudes de onda largas viene del <strong>medio interestelar</strong>: polvo (20–200 K) y gas frío (10–100 K — ¡apenas 10 grados sobre el cero absoluto!).</p>
+
+  <div class="box physics">
+    <span class="tag">Balance de la galaxia</span>
+    <p>Óptico + IR cercano ⇒ estrellas. λ más corta (UV extremo, X, gamma) ⇒ gas caliente del ISM (+ raras enanas blancas jóvenes). λ más larga (IR medio/lejano, radio) ⇒ polvo y gas frío del ISM (+ débiles enanas café y planetas). Mientras hay <em>cientos de miles de millones</em> de estrellas en secuencia principal, los cadáveres calientes son un puñado: no cambian el balance.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Radiación termal y no termal</h2>
+    <p>Cuerpo negro, Bremsstrahlung y sincrotrón: tres mecanismos, una jerarquía.</p>
+  </div></div>
+
+  <p>Terminología: cuando la radiación se produce <em>a causa de la temperatura</em> de un cuerpo, hablamos de <span class="hl">radiación termal</span>. La clase distingue dos casos según la densidad del emisor:</p>
+
+  <ul>
+    <li><strong>Cuerpo colapsado (denso/compacto):</strong> emite (aproximadamente) como <span class="hl">cuerpo negro</span>. Es el caso de las estrellas.</li>
+    <li><strong>Cuerpo no colapsado (gas difuso):</strong> el mecanismo termal es <span class="hl">Bremsstrahlung</span> (del alemán, "radiación de frenado"), también llamado <strong>free-free</strong>. Es como emite el gas suelto del ISM, esté a 10.000 o a 10 millones de K.</li>
+  </ul>
+
+  <p>Existe también <strong>radiación no termal</strong> — producida por mecanismos que no dependen de la temperatura. El ejemplo mencionado es la emisión <span class="hl">sincrotrón</span>, que requiere <strong>campos magnéticos</strong> (electrones espiralando en ellos). Se menciona por completitud: el mensaje de la clase es que <strong>la mayor parte de la radiación del universo es de origen termal</strong>, y que <strong>la mayoría de la energía radiante que recibimos es emisión de cuerpo negro proveniente de las estrellas</strong>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-16.jpg" alt="Termómetro cósmico del observatorio Chandra: relación entre temperatura (de 1 K a 10 mil millones de K) y la banda del espectro donde pica la radiación termal (de radio a rayos gamma)">
+    <figcaption><span class="cap">Diapositiva · El termómetro cósmico</span>Síntesis de la ley de Wien en un solo gráfico: temperatura del cuerpo (1 K a 10<sup>10</sup> K — "10 billion" en notación estadounidense, donde 1 billion = 10⁹) ↔ banda donde aparece su radiación termal. Un cuerpo a ~10.000 K emite en el visible; a millones de K, en rayos X; a decenas de K, en microondas/radio. <small style="color:var(--muted)">Crédito: Chandra Observatory.</small></figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Matiz del profesor</span>
+    <p>Se dice "Kelvin", no "grados Kelvin" — la escala es absoluta. Y ojo con los billones: en el diagrama (norteamericano) <em>billion</em> = 10⁹; nuestro billón = 10¹². El gas más caliente discutido en clase alcanza ~10⁹–10¹⁰ K en los extremos del diagrama, y el gas que domina los rayos X galácticos está entre 10 y 100 millones de K.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 2 ============ -->
+<section id="w-wien">
+  <div class="widget">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Termómetro cósmico: temperatura → banda del espectro</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">La ley de Wien como instrumento: elige una temperatura (escala logarítmica, como el diagrama de Chandra) y obtén dónde pica la emisión termal y qué objeto de la clase corresponde. También compara la potencia emitida por unidad de superficie con la del Sol (∝ T⁴).</p>
+    <div class="wgrid">
+      <div>
+        <label>log₁₀ T = <span class="rngval" id="wn-lTval">3.76</span> → T = <span class="rngval" id="wn-Tval">5.800 K</span></label>
+        <input type="range" id="wn-lT" min="0.5" max="9" step="0.01" value="3.76">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="presets" style="margin-top:0">
+          <button type="button" data-lt="1">Gas frío (10 K)</button>
+          <button type="button" data-lt="2">Polvo (100 K)</button>
+          <button type="button" data-lt="3">Enana café (1.000 K)</button>
+          <button type="button" data-lt="3.48">Estrella fría (3.000 K)</button>
+          <button type="button" data-lt="3.76">Sol (5.800 K)</button>
+          <button type="button" data-lt="4.48">Estrella caliente (30.000 K)</button>
+          <button type="button" data-lt="5">Enana blanca joven (100.000 K)</button>
+          <button type="button" data-lt="7">Gas de rayos X (10⁷ K)</button>
+        </div>
+      </div>
+    </div>
+    <output id="wn-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El polvo interestelar</h2>
+    <p>El 1% en masa del ISM que, sin embargo, domina lo que (no) vemos.</p>
+  </div></div>
+
+  <p>El <span class="hl">polvo</span> son <strong>partículas sólidas</strong> del medio interestelar, de tamaños del orden de la <strong>micra o menores</strong> (granos formados por muchísimas moléculas; se piensa que hay dos familias, una dominada por <strong>carbono</strong> y otra por <strong>silicio</strong>). Determinar sus propiedades en detalle es difícil: salvo granos recolectados dentro del Sistema Solar, todo se infiere de la luz que recibimos.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-17.jpg" alt="Tres paneles: galaxia con franjas de polvo, nube oscura de polvo en una región interestelar, y micrografía electrónica de un grano de polvo interplanetario de 2 micras">
+    <figcaption><span class="cap">Diapositiva · El polvo del ISM</span>Izquierda: el polvo dibuja las franjas oscuras del disco de una galaxia. Centro: nubes de gas y polvo en nuestra galaxia. Derecha: grano de polvo recolectado en el Sistema Solar (2 μm — grande para lo que es el polvo). Dato clave: en masa, la razón <strong>polvo : gas ≈ 1 : 100</strong> — el gas domina por lejos el ISM, pero el polvo se nota más.</figcaption>
+  </figure>
+
+  <p>¿Por qué se nota tanto si es el 1%? Porque el polvo <strong>absorbe la radiación</strong>: lo vemos "por ausencia de luz", tapando lo que hay detrás (esas manchas y franjas negras). Y la propiedad crucial: <span class="hl">absorbe preferentemente las longitudes de onda cortas</span>. Las estrellas azules detrás de una nube se absorben más que las rojas.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-18.jpg" alt="Barnard 68 en dos versiones: imagen óptica multicolor donde la nube es totalmente negra, e imagen óptica-infrarroja donde se ven estrellas enrojecidas a través de la nube">
+    <figcaption><span class="cap">Diapositiva · Barnard 68: el experimento perfecto</span>La misma nube de gas y polvo con dos combinaciones de filtros. Izquierda (óptico: 440, 557, 768 nm): la nube es <strong>negra</strong> — el polvo absorbe toda la luz de las estrellas de fondo. Derecha (440, 768 y <strong>2200 nm</strong> infrarrojo): a λ larga el polvo absorbe mucho menos y las estrellas de fondo <strong>aparecen</strong>, enrojecidas porque al filtro de 2200 nm se le asignó el color rojo. <small style="color:var(--muted)">Crédito: ESO.</small></figcaption>
+  </figure>
+
+  <p>Consecuencia práctica: nosotros estamos <em>embebidos</em> en el plano del disco galáctico, así que el polvo nos bloquea la visión óptica a través del disco. Por eso <strong>el centro de la Vía Láctea se estudia en el infrarrojo</strong>, la única banda donde su radiación logra llegarnos.</p>
+
+  <h3>El polvo también emite: el "cuerpo gris"</h3>
+  <p>El polvo no puede absorber indefinidamente — se calentaría hasta desintegrarse. Está en <strong>equilibrio térmico</strong>: re-emite la energía que absorbe, de forma <em>cercana</em> al cuerpo negro pero no exacta (los granos son demasiado pequeños para una interacción radiación–materia perfecta): se le llama <span class="hl">cuerpo gris</span>. Con temperaturas de 20–200 K, el polvo emite en el <strong>infrarrojo medio y lejano</strong>: a ~20 μm vemos polvo caliente; a ~100 μm, el polvo de todo el plano galáctico re-emitiendo lo que absorbió en el óptico/UV.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>El polvo es un <strong>atenuador dependiente de frecuencia</strong> (un filtro pasa-bajos en frecuencia óptica: deja pasar λ largas, bloquea λ cortas) que además <em>re-emite</em> la potencia absorbida en otra banda — como un componente con pérdidas que disipa calor y lo re-irradia en el infrarrojo. Balance de energía: potencia absorbida (UV/óptico) = potencia re-emitida (IR). Nada se pierde; cambia de banda.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 3 ============ -->
+<section id="w-dust">
+  <div class="widget">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>Extinción por polvo: ¿cuánta luz atraviesa la nube?</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Modelo simplificado (inferencia propia, no fórmula de la clase): la opacidad del polvo crece hacia λ corta como τ(λ) ≈ τ₅₅₀·(550 nm/λ), y la fracción transmitida es e<sup>−τ</sup>. Elige la densidad de la nube y la longitud de onda de observación — reproduce cualitativamente el experimento de Barnard 68.</p>
+    <div class="wgrid">
+      <div>
+        <label>Espesor óptico de la nube a 550 nm: τ₅₅₀ = <span class="rngval" id="du-tval">6.0</span></label>
+        <input type="range" id="du-t" min="0.2" max="15" step="0.1" value="6">
+      </div>
+      <div>
+        <label>Longitud de onda observada: λ = <span class="rngval" id="du-lval">550</span> nm</label>
+        <input type="range" id="du-l" min="300" max="2500" step="10" value="550">
+      </div>
+    </div>
+    <div class="presets">
+      <button type="button" data-l="440">440 nm (azul)</button>
+      <button type="button" data-l="557">557 nm (verde)</button>
+      <button type="button" data-l="768">768 nm (rojo)</button>
+      <button type="button" data-l="2200">2200 nm (IR, Barnard 68)</button>
+    </div>
+    <output id="du-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Fases del ISM: ¿y por qué no hay líquidos?</h2>
+    <p>Gas y sólido, sí. Líquido, no: el estado líquido exige condiciones demasiado acotadas.</p>
+  </div></div>
+
+  <p>Pregunta que el profesor confiesa haberse hecho de estudiante: si el ISM tiene fase gaseosa (gas) y fase sólida (polvo), <strong>¿por qué no hay líquidos?</strong> La respuesta está en los diagramas de fase: el estado líquido de cualquier sustancia existe solo en un rango de presión y temperatura <strong>sumamente acotado</strong>. El agua es líquida en apenas 100 grados de rango (0–100 °C a 1 atm) — "pestañaste y no viste el agua líquida", comparado con el rango cósmico de temperaturas. En ese sentido, la Tierra es un lugar muy especial.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-19.jpg" alt="Diagrama de fases del hidrógeno: presión vs temperatura, con una pequeña región azul de hidrógeno líquido entre el punto triple y el punto crítico">
+    <figcaption><span class="cap">Diapositiva · Diagrama de fases del hidrógeno</span>La región de <strong>H₂ líquido</strong> (azul) es minúscula: temperaturas de ~14–33 K y presiones considerables. A las densidades bajísimas y temperaturas del ISM, el hidrógeno solo puede ser gas (o, a altas presiones planetarias, otras fases exóticas). En clase se muestra también el diagrama de fases del agua, "para entretenerse un rato" con la cantidad de fases del hielo.</figcaption>
+  </figure>
+
+  <p>El estado del ISM se describe entonces con un diagrama <strong>temperatura vs. densidad</strong>. Las llamadas <span class="hl">fases del medio interestelar</span> son regiones características de ese plano:</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-21.jpg" alt="Diagrama log-log de temperatura versus densidad mostrando las fases del ISM (HIM caliente ionizado, WNM tibio neutro, CNM frío neutro, difuso, denso), las estrellas y el Sol, con las densidades del aire y el agua como referencia">
+    <figcaption><span class="cap">Diapositiva · Fases del ISM (Lesaffre 2018)</span>Plano log T – log ρ. Arriba a la derecha, el <strong>Sol</strong> y la franja de estrellas (densos y calientes). El ISM ocupa la esquina opuesta: <strong>HIM</strong> (Hot Ionized Medium, caliente ionizado, ~10⁶ K), <strong>WNM</strong> (Warm Neutral Medium, tibio neutro, ~10⁴ K), <strong>CNM</strong> (Cold Neutral Medium, frío neutro, ~10² K), medio difuso y medio denso (~10 K). Las flechas de referencia: <strong>aire</strong> y <strong>agua</strong> — incluso lo "denso" del ISM es incomparablemente más tenue que nuestro aire.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Órdenes de magnitud</span>
+    <p>El Sol es un caso extremo de denso y caliente, pero su <em>densidad promedio</em> es del orden de la del agua (la densidad crece muchísimo hacia el núcleo; las capas externas son gaseosas y tenues). El aire que respiramos, siendo un gas "liviano", es <strong>tremendamente denso comparado con el ISM</strong>: nota en el diagrama que hay ~15–20 órdenes de magnitud entre el aire (~10⁻³ g/cm³) y el medio interestelar (~10⁻²⁴ g/cm³). El "vacío" de laboratorio más perfecto es una multitud al lado del ISM.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Puente a próximas clases</span>
+    <p>Un asistente pregunta si a 10 millones de K empieza la formación de estrellas. Al revés: <strong>para formar estrellas se necesita gas muy frío</strong> (y denso). El tema queda anunciado para más adelante en el curso.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Decodificando la Vía Láctea multi-λ</h2>
+    <p>Volvemos a la imagen inicial — ahora con el diccionario completo.</p>
+  </div></div>
+
+  <p>Con todo lo anterior, la imagen de la sección 1 se puede "rellenar" banda por banda. Es el clímax pedagógico de la clase:</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-22.jpg" alt="Las diez franjas de la Vía Láctea multiwavelength anotadas: Free-Free en radio continuo, gas frío en línea de hidrógeno atómico, gas tibio en línea de hidrógeno molecular, polvo frío y caliente en infrarrojo, estrellas en infrarrojo cercano y óptico, gas muy caliente en rayos X y extremadamente caliente en rayos gamma">
+    <figcaption><span class="cap">Diapositiva · La Vía Láctea, decodificada</span>Cada franja anotada con su componente: <strong>★</strong> = estrellas (óptico e IR cercano), <strong>P</strong> = polvo (frío/caliente, IR), <strong>G</strong> = gas (frío/tibio/muy caliente/extremadamente caliente), <strong>Free-Free</strong> = Bremsstrahlung del gas, y <strong>(línea)</strong> = líneas de emisión del hidrógeno atómico y molecular.</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Banda</th><th>Qué vemos</th><th>Mecanismo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Radio continuo (408 MHz, 2,5 GHz)</b></td><td>Gas ionizado difuso</td><td>Free-free (Bremsstrahlung), según la anotación de la diapositiva</td></tr>
+      <tr><td><b>Hidrógeno atómico (radio)</b></td><td>Gas frío</td><td><strong>Línea</strong> de emisión (21 cm)</td></tr>
+      <tr><td><b>Hidrógeno molecular (radio)</b></td><td>Gas tibio</td><td><strong>Línea</strong> de emisión</td></tr>
+      <tr><td><b>Infrarrojo (lejano, ~100 μm)</b></td><td>Polvo frío del plano galáctico re-emitiendo</td><td>Cuerpo gris (≈ termal)</td></tr>
+      <tr><td><b>Infrarrojo medio (~20 μm)</b></td><td>Polvo caliente</td><td>Cuerpo gris (≈ termal)</td></tr>
+      <tr><td><b>Infrarrojo cercano (hasta ~3 μm)</b></td><td><strong>Estrellas</strong> — con mucha menos absorción por polvo que en el óptico (se ve el bulbo central)</td><td>Cuerpo negro</td></tr>
+      <tr><td><b>Óptico</b></td><td><strong>Estrellas</strong> — cruzadas por parches negros de polvo que absorbe</td><td>Cuerpo negro</td></tr>
+      <tr><td><b>Rayos X</b></td><td>Gas muy caliente (10–100 millones K) + algunos cuerpos puntuales (remanentes de supernova)</td><td>Bremsstrahlung</td></tr>
+      <tr><td><b>Rayos gamma</b></td><td>Gas extremadamente caliente + fuentes raras (p. ej. estrellas de neutrones)</td><td>Bremsstrahlung / procesos energéticos</td></tr>
+      <tr><td><b>Ultravioleta</b></td><td>(No hay imagen.) Las estrellas más calientes emitirían aquí, pero el polvo absorbe tan eficientemente que se vería casi todo negro</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box prof">
+    <span class="tag">Detalle fino de la clase</span>
+    <p>Solo las imágenes ópticas, del IR cercano (y una más) están construidas con tres filtros y colores "informativos"; <strong>las demás franjas usan colores ficticios</strong> que codifican pura intensidad (podrían ser escala de grises). Por eso una misma fuente puede verse blanca en una franja y de otro color en otra: no compares colores <em>entre</em> franjas, compara estructuras.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Líneas espectrales y la línea de 21 cm</h2>
+    <p>El otro modo de emisión del gas: transiciones cuánticas discretas.</p>
+  </div></div>
+
+  <div class="box dato">
+    <span class="tag">Nota de fuentes</span>
+    <p>La transcripción disponible de la clase termina en el descanso, justo cuando el profesor anuncia: <em>"ahora les voy a explicar qué diablos es una línea de emisión"</em>. Esta sección se reconstruye a partir de las <strong>diapositivas 23–28</strong> de la clase (más contexto estándar donde se indica); tómala como material de diapositivas, no como transcripción literal.</p>
+  </div>
+
+  <p>En la tabla anterior, dos franjas de radio no son continuo sino <span class="hl">líneas de emisión</span>: el hidrógeno atómico y el molecular. Una línea espectral es emisión (o absorción) a una longitud de onda <em>discreta</em>, y para entenderla "vamos a necesitar Mecánica Cuántica" (título de la diapositiva): en el <strong>modelo de Bohr</strong>, los electrones ocupan niveles de energía discretos, y al saltar de un nivel a otro emiten o absorben un fotón de energía exacta <span class="katex-inline" data-tex="E=h\nu"></span>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-24.jpg" alt="Transiciones electrónicas del átomo de hidrógeno agrupadas en series (Lyman, Balmer, Paschen, Brackett) y el espectro de emisión resultante con sus series">
+    <figcaption><span class="cap">Diapositiva · Transiciones del hidrógeno</span>Las transiciones hacia n=1 (serie de Lyman, UV), n=2 (Balmer, óptico), n=3 (Paschen, IR), n=4 (Brackett, IR): cada flecha es una línea espectral a una longitud de onda fija. El espectro del H es un "código de barras" único del elemento.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-25.jpg" alt="Esquema de Kirchhoff: una fuente de espectro continuo vista directamente, a través de una nube de gas (espectro continuo con líneas oscuras) y la nube vista de lado (espectro de líneas brillantes)">
+    <figcaption><span class="cap">Diapositiva · Continuo, absorción y emisión</span>La misma nube de gas produce tres espectros según la geometría: la fuente directa da un <strong>continuo</strong>; la fuente vista <em>a través</em> de la nube da un continuo con <strong>líneas oscuras</strong> (absorción); la nube vista de lado da <strong>líneas brillantes</strong> (emisión). Las líneas son la huella digital química del gas.</figcaption>
+  </figure>
+
+  <p>Las diapositivas conectan esto con las estrellas: los espectros estelares se clasifican en <strong>tipos espectrales O B A F G K M</strong>, ordenados por temperatura de ~50.000 K (O) a ~3.500 K (M) — el Sol es tipo G (~6.000 K), Vega tipo A (~10.000 K) — cada uno con líneas de absorción características. Y con las galaxias: el espectro óptico de una galaxia cercana (M31, M101, NGC 3783) es la <em>suma</em> de las luces de sus estrellas y su gas, con líneas de absorción y emisión superpuestas al continuo.</p>
+
+  <h3>La línea de 21 cm del hidrógeno neutro</h3>
+  <figure>
+    <img src="m1c2/assets/slide-28.jpg" alt="Esquema del cambio de espín del hidrógeno neutro que produce el fotón de 21 cm, junto a la comparación del grupo M81 en imagen óptica versus imagen HI donde el gas se extiende mucho más allá y conecta las galaxias">
+    <figcaption><span class="cap">Diapositiva · La línea de 21 cm (crédito: U. Klein)</span>Izquierda: cuando el espín del electrón pasa de paralelo a antiparalelo respecto al del protón (configuración de menor energía), el átomo de H emite un fotón de <strong>λ = 21 cm</strong> (radio). Derecha: el grupo de galaxias M81/M82/NGC 3077 en el óptico (estrellas) vs. en HI (gas neutro): el gas se extiende <strong>mucho más allá</strong> de las estrellas y forma puentes entre las galaxias — evidencia de interacción invisible en el óptico.</figcaption>
+  </figure>
+
+  <p>Esta línea es la herramienta reina para mapear el <strong>gas frío neutro</strong> de las galaxias: atraviesa el polvo sin inmutarse (λ larguísima) y se observa desde el suelo (ventana de radio). Es la franja "hidrógeno atómico" de la imagen multi-λ de la Vía Láctea.</p>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>El continuo termal es "ruido de banda ancha" cuya envolvente delata la temperatura; las líneas espectrales son <strong>tonos puros en frecuencias conocidas</strong> — como portadoras de referencia. Por eso son tan valiosas: permiten identificar la sustancia (frecuencia patrón) y, midiendo su corrimiento Doppler, la velocidad del gas. La de 21 cm es además una transición "prohibida" (rarísima por átomo, ~10⁷ años de vida media — dato externo), detectable solo porque hay cantidades astronómicas de hidrógeno.</p>
+  </div>
+</section>
+
+<!-- ============ S13 ============ -->
+<section id="s13">
+  <div class="shead"><span class="num">13</span><div>
+    <h2>Síntesis: la SED de la galaxia M82</h2>
+    <p>Todas las componentes de la clase, sumadas en un solo espectro real.</p>
+  </div></div>
+
+  <div class="box dato">
+    <span class="tag">Nota de fuentes</span>
+    <p>Esta diapositiva (29) tampoco está cubierta por la transcripción disponible; la descripción sigue lo que muestra la propia lámina.</p>
+  </div>
+
+  <p>La <span class="hl">Distribución Espectral de Energía</span> (SED, <em>Spectral Energy Distribution</em>) de una galaxia es su emisión total en función de la longitud de onda — el "espectro de banda anchísima" que integra todo lo visto en la clase. La de M82 (una galaxia cercana con formación estelar intensa) se descompone exactamente en las piezas que aprendimos:</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-29.jpg" alt="Distribución espectral de energía de la galaxia M82 descompuesta en componentes: estrellas OB, estrellas no ionizantes, regiones HII, polvo PDR y sincrotrón, con el total escapando como curva gris">
+    <figcaption><span class="cap">Diapositiva · SED de M82</span>Curva gris = total observado. Componentes: <strong>estrellas OB</strong> (azul, cuerpo negro caliente picando en UV), <strong>estrellas no ionizantes</strong> (naranjo, cuerpo negro más frío, óptico/IR cercano), <strong>regiones HII</strong> (celeste, gas ionizado: free-free y líneas), <strong>polvo PDR</strong> (rojo, cuerpo gris picando en el IR lejano ~100 μm), y <strong>sincrotrón</strong> (verde, no termal, dominando el radio). La galaxia entera = suma de estrellas + gas + polvo, cada uno dueño de su banda.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre</span>
+    <p>La pregunta inicial — ¿qué vemos cuando vemos una galaxia? — queda respondida con un diccionario de tres entradas: <strong>estrellas</strong> (cuerpo negro, UV→IR cercano), <strong>polvo</strong> (absorbe λ corta, re-emite como cuerpo gris en IR), <strong>gas</strong> (Bremsstrahlung y líneas, desde el radio hasta los rayos gamma según su temperatura). La clase 3, dictada la misma mañana, continúa desde aquí.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Rango visible</b></td><td>~400–750 nm</td><td>Única banda que percibe el ojo; el "color" es discriminación de λ</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>Óptico, radio y sub-bandas del IR</td><td>Gamma/X/UV/IR lejano exigen telescopios espaciales</td></tr>
+      <tr><td><b>Componentes de una galaxia</b></td><td>Estrellas (+planetas), ISM, materia oscura</td><td>La materia oscura no interactúa con la luz: solo brillan estrellas e ISM</td></tr>
+      <tr><td><b>Cuerpo negro</b></td><td>Emisión termal de un cuerpo compacto (ley de Planck)</td><td>Describe cómo emiten las estrellas</td></tr>
+      <tr><td><b>Stefan–Boltzmann</b></td><td>Emisión ∝ T⁴</td><td>Doble temperatura ⇒ 16× más radiación; los cuerpos fríos son débiles</td></tr>
+      <tr><td><b>Ley de Wien</b></td><td>λ<sub>max</sub> = b/T (pico ↔ temperatura)</td><td>El espectro como termómetro remoto; color estelar = temperatura</td></tr>
+      <tr><td><b>Secuencia principal</b></td><td>Diagonal del diagrama HR; 3.000–30.000 K</td><td>Etapa principal de la vida estelar; acota dónde emiten las estrellas (UV→IR cercano)</td></tr>
+      <tr><td><b>Enana blanca</b></td><td>Remanente ("cadáver") estelar, hasta ~100.000 K, se enfría</td><td>Excepción caliente, pero escasa; no produce energía por fusión</td></tr>
+      <tr><td><b>Enana café</b></td><td>Estrella fallida, &lt;3.000 K (típicamente ~1.000 K)</td><td>Excepción fría; muy débil por la ley T⁴</td></tr>
+      <tr><td><b>Radiación termal</b></td><td>Producida por la temperatura del cuerpo</td><td>Mecanismo dominante de la radiación en el universo</td></tr>
+      <tr><td><b>Bremsstrahlung (free-free)</b></td><td>Emisión termal de gas difuso (no colapsado)</td><td>Explica el radio continuo, rayos X y gamma del ISM</td></tr>
+      <tr><td><b>Sincrotrón</b></td><td>Emisión no termal; requiere campos magnéticos</td><td>Mencionada por completitud; visible en la SED en radio</td></tr>
+      <tr><td><b>Polvo interestelar</b></td><td>Granos sólidos ≲1 μm (familias C y Si); polvo:gas = 1:100 en masa</td><td>Absorbe preferentemente λ corta; re-emite como cuerpo gris en IR</td></tr>
+      <tr><td><b>Barnard 68</b></td><td>Nube de gas y polvo: negra en óptico, transparente a 2.200 nm</td><td>Demostración experimental de la extinción selectiva</td></tr>
+      <tr><td><b>Fases del ISM</b></td><td>HIM (~10⁶ K), WNM (~10⁴ K), CNM (~10² K), denso (~10 K)</td><td>Gas de 10 K a 10⁷ K, densidades bajísimas; sin fase líquida</td></tr>
+      <tr><td><b>Línea espectral</b></td><td>Transición cuántica discreta (E = hν)</td><td>Huella digital química; series del H (Lyman, Balmer…)</td></tr>
+      <tr><td><b>Línea de 21 cm</b></td><td>Cambio de espín del H neutro (radio)</td><td>Mapea el gas frío; atraviesa el polvo; el gas se extiende más allá de las estrellas</td></tr>
+      <tr><td><b>Tipos espectrales</b></td><td>O B A F G K M (50.000 → 3.500 K)</td><td>Clasificación estelar por temperatura/líneas; el Sol es G</td></tr>
+      <tr><td><b>SED</b></td><td>Distribución espectral de energía de una galaxia</td><td>Suma de estrellas + gas + polvo (+ sincrotrón); cada componente domina su banda</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c2-examen-01.html">Examen 01<small>Espectro EM y atmósfera</small></a></li>
+    <li><a href="m1c2-examen-02.html">Examen 02<small>Componentes y cuerpo negro</small></a></li>
+    <li><a href="m1c2-examen-03.html">Examen 03<small>Planck, Wien y T⁴</small></a></li>
+    <li><a href="m1c2-examen-04.html">Examen 04<small>Diagrama HR y colores</small></a></li>
+    <li><a href="m1c2-examen-05.html">Examen 05<small>Cadáveres y objetos fríos</small></a></li>
+    <li><a href="m1c2-examen-06.html">Examen 06<small>Termal vs no termal</small></a></li>
+    <li><a href="m1c2-examen-07.html">Examen 07<small>El polvo interestelar</small></a></li>
+    <li><a href="m1c2-examen-08.html">Examen 08<small>Fases del ISM</small></a></li>
+    <li><a href="m1c2-examen-09.html">Examen 09<small>Líneas y los 21 cm</small></a></li>
+    <li><a href="m1c2-examen-10.html">Examen 10<small>Integrador multi-λ</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo I del curso de Astrofísica de Galaxias, Diplomado en Fundamentos de Astronomía, U. de Chile (28 mar 2026). Elaborado a partir de la transcripción del audio (<code>galaxias/m1/ff/Galaxias-m1c2-4f350371-79c9.md</code>) y las 29 diapositivas de la clase (<code>m1c2/assets/</code>).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz; se contrastaron términos con las diapositivas y se corrigieron donde correspondía (p. ej. "Bremstrahl/menstrual" → <em>Bremsstrahlung</em>, "ley de B" → ley de Wien, "región de Barnard / la NAR" → Barnard 68, "3000 y 30 voltios" → 3.000 y 30.000 K, "diagrama de base de Laos" → diagrama de fases del agua). La transcripción disponible termina en el descanso de mitad de clase: las secciones 12 y 13 (líneas espectrales, 21 cm, SED de M82) se reconstruyeron desde las diapositivas y se marcan como tales. Los widgets usan fórmulas estándar (Planck, Wien, Stefan–Boltzmann) con constantes de referencia externas; el modelo de extinción del widget 3 es una simplificación propia con fines ilustrativos. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Constantes físicas =====
+  var H=6.62607015e-34, C=2.99792458e8, KB=1.380649e-23, WIEN=2.897771955e-3;
+
+  function bandName(lm){ // lm en metros
+    var nm=lm*1e9;
+    if(nm<0.01) return "rayos gamma";
+    if(nm<10) return "rayos X";
+    if(nm<380) return "ultravioleta";
+    if(nm<750) return "visible";
+    if(nm<3000) return "infrarrojo cercano";
+    if(nm<3e4) return "infrarrojo medio";
+    if(nm<1e6) return "infrarrojo lejano";
+    if(nm<1e8) return "microondas / sub-mm";
+    return "radio";
+  }
+  function fmtLambda(lm){
+    var nm=lm*1e9;
+    if(nm<0.01) return (nm*1000).toPrecision(3)+" pm";
+    if(nm<1000) return nm.toPrecision(3)+" nm";
+    if(nm<1e6) return (nm/1000).toPrecision(3)+" μm";
+    if(nm<1e9) return (nm/1e6).toPrecision(3)+" mm";
+    return (nm/1e9).toPrecision(3)+" m";
+  }
+
+  // ===== Widget 1: curva de Planck =====
+  var plT=document.getElementById('pl-T'), plTv=document.getElementById('pl-Tval'),
+      plCv=document.getElementById('pl-canvas'), plOut=document.getElementById('pl-out');
+  function planck(lam, T){ // lam en m -> B_lambda (unidades arbitrarias consistentes)
+    var x=H*C/(lam*KB*T);
+    if(x>700) return 0;
+    return (2*H*C*C)/(Math.pow(lam,5)*(Math.exp(x)-1));
+  }
+  function drawPlanck(){
+    if(!plCv) return;
+    var T=+plT.value;
+    plTv.textContent=T.toLocaleString('es');
+    var ctx=plCv.getContext('2d'), W=plCv.width, Hh=plCv.height;
+    ctx.clearRect(0,0,W,Hh);
+    var padL=56, padR=16, padT=16, padB=44;
+    var lamMax=3000e-9; // eje X: 0–3000 nm
+    // normalización: pico de la curva a 15000 K (T máxima del slider) para escala comparable
+    var refPeak=planck(WIEN/15000, 15000);
+    // pero para ver bien curvas frías usamos normalización por curva actual con indicador de área
+    var curPeak=planck(Math.min(Math.max(WIEN/T, 1e-10), lamMax), T);
+    for(var p=1;p<=600;p++){ var lm=p/600*lamMax; var v=planck(lm,T); if(v>curPeak) curPeak=v; }
+    function X(lm){ return padL + lm/lamMax*(W-padL-padR); }
+    function Y(v){ return padT + (1-v/curPeak)*(Hh-padT-padB); }
+    // banda visible
+    var vx1=X(400e-9), vx2=X(750e-9);
+    var grad=ctx.createLinearGradient(vx1,0,vx2,0);
+    grad.addColorStop(0,"#5b4ce0"); grad.addColorStop(.25,"#3fa9f5"); grad.addColorStop(.5,"#57d977");
+    grad.addColorStop(.7,"#f5e13f"); grad.addColorStop(.85,"#f59a3f"); grad.addColorStop(1,"#e0382e");
+    ctx.globalAlpha=.30; ctx.fillStyle=grad; ctx.fillRect(vx1,padT,vx2-vx1,Hh-padT-padB); ctx.globalAlpha=1;
+    // grid + ejes
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.lineWidth=1;
+    ctx.font="12px Spectral, serif"; ctx.textAlign="center";
+    for(var nm=0;nm<=3000;nm+=500){
+      var xx=X(nm*1e-9);
+      ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,Hh-padB);ctx.stroke();
+      ctx.fillText(nm, xx, Hh-padB+16);
+    }
+    ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Longitud de onda (nm)", (padL+W-padR)/2, Hh-6);
+    ctx.save(); ctx.translate(16,(padT+Hh-padB)/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText("Intensidad (normalizada)", 0,0); ctx.restore();
+    ctx.fillStyle="#9aa6bb"; ctx.font="12px Spectral, serif";
+    ctx.fillText("Luz visible", (vx1+vx2)/2, padT+14);
+    // curva
+    ctx.strokeStyle="#6fc7d6"; ctx.lineWidth=2.4; ctx.beginPath();
+    for(var px=0;px<=(W-padL-padR);px++){
+      var lm=px/(W-padL-padR)*lamMax;
+      var v=lm>0?planck(lm,T):0;
+      var xx=padL+px, yy=Y(v);
+      if(px===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);
+    }
+    ctx.stroke();
+    // marca del pico (Wien)
+    var lpk=WIEN/T;
+    if(lpk<lamMax){
+      var xpk=X(lpk);
+      ctx.strokeStyle="#e0382e"; ctx.setLineDash([5,4]); ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(xpk,padT); ctx.lineTo(xpk,Hh-padB); ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle="#f06a5e"; ctx.textAlign="left";
+      ctx.fillText("λmax", xpk+5, padT+14);
+    }
+    // salida
+    var ratio=Math.pow(T/5800,4);
+    plOut.innerHTML="Ley de Wien: λ<sub>max</sub> = <b>"+fmtLambda(lpk)+"</b> → banda: <b>"+bandName(lpk)+"</b><br>"+
+      "<span class='k'>Stefan–Boltzmann:</span> emite <b>"+(ratio>=1?ratio.toPrecision(3)+"×":"1/"+(1/ratio).toPrecision(3))+"</b> "+
+      (ratio>=1?"más":"de lo")+" que una superficie a 5.800 K (∝ T⁴)";
+  }
+  if(plT){
+    plT.addEventListener('input',drawPlanck);
+    document.querySelectorAll('#w-planck .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ plT.value=b.dataset.t; drawPlanck(); });
+    });
+    drawPlanck();
+  }
+
+  // ===== Widget 2: termómetro de Wien =====
+  var wnL=document.getElementById('wn-lT'), wnLv=document.getElementById('wn-lTval'),
+      wnTv=document.getElementById('wn-Tval'), wnOut=document.getElementById('wn-out');
+  function objName(T){
+    if(T<30) return "gas frío del ISM (10–100 K)";
+    if(T<250) return "polvo interestelar (20–200 K)";
+    if(T<2500) return "enana café / planeta caliente";
+    if(T<10000) return "estrella de secuencia principal (fría a tipo solar)";
+    if(T<40000) return "estrella caliente de secuencia principal";
+    if(T<5e5) return "enana blanca joven (~100.000 K)";
+    if(T<3e6) return "gas caliente del ISM";
+    return "gas de rayos X / gamma (regiones HII calientes, remanentes de SN)";
+  }
+  function wnUpdate(){
+    var lt=+wnL.value, T=Math.pow(10,lt);
+    wnLv.textContent=lt.toFixed(2);
+    wnTv.textContent=(T>=1e6? T.toExponential(2):Math.round(T).toLocaleString('es'))+" K";
+    var lpk=WIEN/T, ratio=Math.pow(T/5800,4);
+    wnOut.innerHTML="λ<sub>max</sub> = <b>"+fmtLambda(lpk)+"</b> → banda: <b>"+bandName(lpk)+"</b><br>"+
+      "<span class='k'>Objeto típico de la clase:</span> "+objName(T)+"<br>"+
+      "Potencia por m² vs. Sol (T⁴): <b>"+(ratio>=1?ratio.toExponential(2)+"×":"10^"+(Math.log10(ratio)).toFixed(1)+"×")+"</b>";
+  }
+  if(wnL){
+    wnL.addEventListener('input',wnUpdate);
+    document.querySelectorAll('#w-wien .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ wnL.value=b.dataset.lt; wnUpdate(); });
+    });
+    wnUpdate();
+  }
+
+  // ===== Widget 3: extinción por polvo =====
+  var duT=document.getElementById('du-t'), duL=document.getElementById('du-l'),
+      duTv=document.getElementById('du-tval'), duLv=document.getElementById('du-lval'),
+      duOut=document.getElementById('du-out');
+  function duUpdate(){
+    var t550=+duT.value, lam=+duL.value;
+    duTv.textContent=t550.toFixed(1); duLv.textContent=lam;
+    var tau=t550*550/lam;
+    var trans=Math.exp(-tau);
+    var mag=1.086*tau; // A_lambda en magnitudes ≈ 1.086 τ
+    var pct=trans*100;
+    var desc = pct<0.1 ? "la nube se ve negra (caso Barnard 68 en el óptico)"
+             : pct<10 ? "solo lo más brillante asoma, muy enrojecido"
+             : pct<60 ? "las estrellas de fondo se ven atenuadas y enrojecidas"
+             : "la nube es casi transparente (caso Barnard 68 a 2.200 nm)";
+    duOut.innerHTML="Espesor óptico a "+lam+" nm: τ = <b>"+tau.toFixed(2)+"</b> &nbsp;·&nbsp; extinción ≈ <b>"+mag.toFixed(1)+" mag</b><br>"+
+      "<span class='k'>Luz transmitida:</span> e<sup>−τ</sup> = <b>"+(pct>=0.01?pct.toPrecision(3)+" %":pct.toExponential(1)+" %")+"</b><br>"+desc;
+  }
+  if(duT){
+    duT.addEventListener('input',duUpdate); duL.addEventListener('input',duUpdate);
+    document.querySelectorAll('#w-dust .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ duL.value=b.dataset.l; duUpdate(); });
+    });
+    duUpdate();
+  }
+});
+</script>
+</body>
+</html>

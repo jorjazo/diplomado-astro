@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 09 — m1c2 · Líneas espectrales y la línea de 21 cm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Galaxias · Módulo I · Clase 2</span>
+<h1>Examen 09 — Líneas espectrales y la línea de 21 cm</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Basado en las diapositivas 23–28 de la clase. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,d,a">
+  <fieldset data-q="1"><legend>1. En el modelo de Bohr, una línea de emisión se produce cuando:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">El núcleo del átomo se fisiona</label>
+    <label class="opt"><input type="radio" name="q1" value="b">El átomo se calienta por encima de 10.000 K</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Un electrón salta de un nivel de energía a otro inferior, emitiendo un fotón de energía exacta E = hν</label>
+    <label class="opt"><input type="radio" name="q1" value="d">El átomo colisiona con un grano de polvo</label>
+    <p class="fb" hidden>Los niveles de energía son discretos (mecánica cuántica), por eso el fotón emitido tiene una longitud de onda exacta: una "línea".</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La línea de 21 cm del hidrógeno neutro se origina en:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">La serie de Balmer</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La recombinación del hidrógeno ionizado</label>
+    <label class="opt"><input type="radio" name="q2" value="c">La vibración de la molécula H₂</label>
+    <label class="opt"><input type="radio" name="q2" value="d">El cambio de orientación relativa del espín del electrón respecto al del protón</label>
+    <p class="fb" hidden>Espines paralelos = configuración de mayor energía; al pasar a antiparalelos, se emite un fotón de radio con λ = 21 cm.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En la comparación del grupo M81 (imagen óptica vs. imagen HI), el gas neutro:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Se extiende mucho más allá de las estrellas y forma puentes entre las galaxias</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Coincide exactamente con la distribución de estrellas</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Solo aparece en el núcleo de cada galaxia</label>
+    <label class="opt"><input type="radio" name="q3" value="d">No se detecta en absoluto</label>
+    <p class="fb" hidden>El HI revela estructura invisible en el óptico: colas y puentes de gas que delatan la interacción gravitacional entre M81, M82 y NGC 3077.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Según el esquema clásico de la diapositiva (fuente + nube de gas), la misma nube puede producir un espectro de líneas de absorción o de líneas de emisión. Explica las tres configuraciones geométricas y qué espectro se observa en cada una.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">(1) <strong>Fuente vista directamente</strong> (sin nube en el camino): se observa el <strong>espectro continuo</strong> del cuerpo caliente y compacto. (2) <strong>Fuente vista a través de la nube</strong>: el gas absorbe los fotones cuyas energías coinciden con sus transiciones atómicas, y el resultado es un <strong>continuo con líneas oscuras de absorción</strong> (así se ven las fotósferas estelares filtradas por sus capas externas). (3) <strong>Nube vista de lado</strong>, sin la fuente detrás: el gas re-emite en sus transiciones y se observa un <strong>espectro de líneas brillantes de emisión</strong> sobre fondo oscuro. La misma física (niveles discretos) produce absorción o emisión según la geometría fuente–nube–observador.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Desde la perspectiva de señales: ¿por qué las líneas espectrales son tan valiosas para estudiar el gas de las galaxias, comparadas con la emisión continua? Menciona al menos dos usos.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El continuo termal es como <strong>ruido de banda ancha</strong>: su envolvente informa la temperatura, pero poco más. Una línea espectral, en cambio, es un <strong>tono puro en una frecuencia patrón conocida de laboratorio</strong>. Usos: (1) <strong>Identificación química</strong>: el conjunto de líneas es la huella digital del elemento o molécula (series del H: Lyman, Balmer, Paschen…) — permite saber <em>qué</em> hay en la nube. (2) <strong>Cinemática por efecto Doppler</strong>: midiendo el corrimiento de la línea respecto a su frecuencia de reposo se obtiene la velocidad del gas (rotación de la galaxia, flujos, interacciones). (3) Además, líneas como la de 21 cm viajan por bandas donde el polvo no absorbe, permitiendo mapear gas invisible en el óptico (como los puentes del grupo M81). Es la diferencia entre estimar la temperatura de un sistema por su espectro de ruido y disponer de una portadora de referencia para medir corrimientos con precisión.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 2, Módulo I (Astrofísica de Galaxias). <a href="m1c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>
