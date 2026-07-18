@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mecánica Celeste — Astrofísica de Planetas, Módulo I · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.ext{border-left:3px solid #5fd07e} .box.ext .tag{color:#7fe09e}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo I · Clase 2</span>
+  <h1>Mecánica <em>Celeste</em></h1>
+  <p class="sub">De las elipses de Kepler a la defensa planetaria: la <strong>gravedad</strong> como arquitecta del Sistema Solar, el zoológico de <em>cuerpos menores</em> que ella ordena (asteroides, cometas, transneptunianos) y las <em>fuerzas sutiles</em> —fotones incluidos— que terminan decidiendo si un asteroide nos visita o no.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Patricio Rojo</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 20 mar 2026</span>
+    <span><b>Tema:</b> Gravitación, órbitas y cuerpos menores</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>na sola fórmula, <span class="hl">la ley de gravitación universal</span>, basta para coreografiar todo lo que da vueltas en el Sistema Solar: planetas, asteroides, cometas, sondas espaciales. Esta clase recorre esa coreografía en tres actos. Primero, las <strong>reglas del movimiento</strong>: las tres leyes empíricas de Kepler y el modelo analítico de Newton que las explica. Segundo, el <strong>censo de los cuerpos que obedecen esas reglas</strong>: la definición de planeta de 2006, los planetas enanos y la fauna de pequeños cuerpos —cinturón de asteroides, troyanos, cometas, objetos transneptunianos, un hipotético Planeta 9 y hasta visitantes de otras estrellas. Tercero, las <strong>consecuencias prácticas</strong>: cómo robarle energía a un planeta para viajar barato (gravedad asistida), con qué frecuencia nos cae algo encima (impactos, Apophis, DART) y por qué la luz misma —presión de radiación, Poynting–Robertson, Yarkovsky, YORP— introduce la incertidumbre que la gravedad no tiene.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La gravedad: una fuerza, todo el sistema</a></li>
+    <li><a href="#s2">Las tres leyes de Kepler</a></li>
+    <li><a href="#s3">Newton: el modelo analítico y la órbita</a></li>
+    <li><a href="#s4">¿Qué es un planeta? La definición de 2006</a></li>
+    <li><a href="#s5">Asteroides: cinturón, resonancias y troyanos</a></li>
+    <li><a href="#s6">Cometas: Kuiper, Oort y la misión Rosetta</a></li>
+    <li><a href="#s7">Gravedad asistida: viajar robando energía</a></li>
+    <li><a href="#s8">Transneptunianos y el Planeta 9</a></li>
+    <li><a href="#s9">Visitantes interestelares</a></li>
+    <li><a href="#s10">Impactos: cuándo y cuánto</a></li>
+    <li><a href="#s11">PHAs, Apophis y defensa planetaria</a></li>
+    <li><a href="#s12">Fuerzas no gravitacionales: el empuje de la luz</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La gravedad: una fuerza, todo el sistema</h2>
+    <p>La misma atracción que siente un paracaidista gobierna a los planetas.</p>
+  </div></div>
+
+  <p>El punto de partida de la clase es engañosamente simple: <strong>una única ley</strong> describe la atracción entre cualquier par de masas del universo. Es atractiva (el signo menos), apunta a lo largo de la línea que une los cuerpos (el vector unitario <span class="katex-inline" data-tex="\hat r"></span>) y decae con el <strong>cuadrado de la distancia</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\vec F = -\,\frac{G\,M\,m}{r^{2}}\,\hat r"></div>
+    <small><span class="katex-inline" data-tex="G = 6{,}674\times10^{-11}\ \mathrm{N\,m^2/kg^2}"></span> es la constante de gravitación universal; <span class="katex-inline" data-tex="M"></span> y <span class="katex-inline" data-tex="m"></span> las masas, <span class="katex-inline" data-tex="r"></span> la distancia entre sus centros.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-03.jpg" alt="Diapositiva Fuerza de gravedad con la fórmula F = -GMm/r² r̂ junto a un paracaidista">
+    <figcaption><span class="cap">Diapositiva · Fuerza de gravedad</span>La misma ecuación vale para el paracaidista y para Neptuno. No tiene ninguna escala privilegiada: por eso ordena por igual sistemas de metros y de miles de millones de kilómetros.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Para un ingeniero, la ley <span class="katex-inline" data-tex="1/r^2"></span> es vieja conocida: es la misma <strong>ley del cuadrado inverso</strong> de la intensidad de una señal que se propaga en 3D (una antena isotrópica, la iluminancia de una ampolleta). En ambos casos la razón geométrica es idéntica: algo que se conserva (flujo, «líneas de campo») se reparte sobre una esfera de área <span class="katex-inline" data-tex="4\pi r^2"></span>. Gravedad y enlaces de radio comparten el mismo <em>path loss</em>.</p>
+  </div>
+
+  <p>La clase apoya esta idea con animaciones del sistema solar interior, medio y exterior (Minor Planet Center): al ver <em>miles</em> de asteroides y cometas moviéndose durante años, todos respetando la misma ley, la fórmula deja de ser abstracta y se vuelve una maquinaria visible.</p>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Las tres leyes de Kepler</h2>
+    <p>Tres regularidades empíricas destiladas de décadas de datos observacionales.</p>
+  </div></div>
+
+  <p>Antes de Newton, <strong>Johannes Kepler</strong> (1571–1630) encontró tres patrones en las posiciones planetarias medidas por Tycho Brahe. Son <em>leyes empíricas</em>: describen «qué pasa» sin explicar «por qué». En lenguaje moderno:</p>
+
+  <ul>
+    <li><strong>1.ª ley:</strong> las órbitas son <span class="hl">elipses</span>, con el Sol en uno de los focos.</li>
+    <li><strong>2.ª ley:</strong> la línea Sol–planeta <span class="hl">barre áreas iguales en tiempos iguales</span>.</li>
+    <li><strong>3.ª ley:</strong> «el cubo de la distancia es igual al cuadrado del período»: <span class="katex-inline" data-tex="P^2 = a^3"></span> (con <span class="katex-inline" data-tex="P"></span> en años y <span class="katex-inline" data-tex="a"></span> en unidades astronómicas).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-07.jpg" alt="Diapositiva primera ley de Kepler con diagrama de elementos orbitales">
+    <figcaption><span class="cap">Diapositiva · 1.ª ley y elementos orbitales</span>Las órbitas son elipses alrededor del Sol. El diagrama muestra cómo se orienta una órbita en el espacio: inclinación <span class="katex-inline" data-tex="i"></span>, longitud del nodo ascendente <span class="katex-inline" data-tex="\Omega"></span>, argumento del perihelio <span class="katex-inline" data-tex="\omega"></span> y anomalía verdadera. Junto con el semieje mayor <span class="katex-inline" data-tex="a"></span> y la excentricidad <span class="katex-inline" data-tex="e"></span>, esos ángulos son los <strong>elementos orbitales</strong> que fijan por completo una órbita.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-08.jpg" alt="Diapositiva segunda ley de Kepler: se barre la misma área en el mismo tiempo">
+    <figcaption><span class="cap">Diapositiva · 2.ª ley</span>Los sectores sombreados tienen la <strong>misma área</strong> y se recorren en el <strong>mismo tiempo</strong>: cerca del Sol el planeta va rápido (sector corto y ancho), lejos va lento (sector largo y delgado).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física de la 2.ª ley</span>
+    <p>La segunda ley es, en el fondo, <strong>conservación del momento angular</strong>: como la gravedad apunta siempre hacia el Sol, no ejerce torque, y <span class="katex-inline" data-tex="L = m\,v_\perp\, r"></span> se mantiene constante. Si <span class="katex-inline" data-tex="r"></span> baja, <span class="katex-inline" data-tex="v_\perp"></span> sube — la patinadora que recoge los brazos y gira más rápido. Un cometa en el perihelio es la patinadora con los brazos pegados al cuerpo.</p>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-11.jpg" alt="Diapositiva tercera ley de Kepler con gráfico log-log de período vs semieje mayor">
+    <figcaption><span class="cap">Diapositiva · 3.ª ley en escala log-log</span>De Mercurio a Plutón, todos los planetas caen sobre una <strong>recta</strong> en el plano log <span class="katex-inline" data-tex="a"></span> – log <span class="katex-inline" data-tex="P"></span>. Una ley de potencia <span class="katex-inline" data-tex="P^2 = a^3"></span> se ve como recta de pendiente 3/2 en escalas logarítmicas: la herramienta favorita del ingeniero para reconocer leyes de potencia en datos.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-kepler">
+    <span class="tagband">Widget interactivo</span>
+    <h4>3.ª ley de Kepler: convierte distancia ↔ período</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el semieje mayor <em>a</em> (UA) y la masa central (masas solares). Calcula el período con la versión newtoniana <span class="katex-inline" data-tex="P^2 = 4\pi^2 a^3/G M"></span>.</p>
+    <div class="presets" id="kep-presets">
+      <button data-a="1" data-m="1">Tierra</button>
+      <button data-a="5.2" data-m="1">Júpiter</button>
+      <button data-a="39.5" data-m="1">Plutón</button>
+      <button data-a="17.8" data-m="1">Cometa Halley</button>
+      <button data-a="67.8" data-m="1">Eris</button>
+      <button data-a="600" data-m="1">¿Planeta 9?</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="kep-a">Semieje mayor a (UA)</label><input type="number" id="kep-a" step="any" value="1"></div>
+      <div><label for="kep-m">Masa central (M☉)</label><input type="number" id="kep-m" step="any" value="1"></div>
+    </div>
+    <output id="kep-out"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Newton: el modelo analítico y la órbita</h2>
+    <p>De tres reglas empíricas a un teorema: la gravitación explica a Kepler.</p>
+  </div></div>
+
+  <p><strong>Isaac Newton</strong> (1643–1727) proporcionó el <span class="hl">modelo analítico</span> para las leyes observacionales de Kepler: aplicando <span class="katex-inline" data-tex="\vec F = m\vec a"></span> con la fuerza <span class="katex-inline" data-tex="GMm/r^2"></span>, las tres leyes <em>se deducen</em> matemáticamente. Las órbitas resultan ser cónicas (elipses si están ligadas), el momento angular se conserva (2.ª ley) y la tercera ley aparece con una corrección importante: <strong>la masa</strong>.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\left(\frac{P}{2\pi}\right)^{2} = \frac{a^{3}}{G\,(M_{\mathrm{Sol}} + M_{\mathrm{Planeta}})}"></div>
+    <small>La forma «limpia» <span class="katex-inline" data-tex="P^2=a^3"></span> funciona porque <span class="katex-inline" data-tex="M_{\mathrm{Sol}} \gg M_{\mathrm{Planeta}}"></span> y porque años y UA «esconden» las constantes. La versión de Newton convierte la 3.ª ley en una <strong>balanza</strong>: midiendo <span class="katex-inline" data-tex="P"></span> y <span class="katex-inline" data-tex="a"></span> de cualquier cosa que orbite, se pesa el cuerpo central. Así se pesan planetas, estrellas y hasta el agujero negro del centro galáctico.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-10.jpg" alt="Diapositiva con la forma newtoniana de la tercera ley de Kepler">
+    <figcaption><span class="cap">Diapositiva · 3.ª ley, versión Newton</span>El paso de «receta empírica» a «consecuencia de un modelo» es el corazón del método científico: el modelo no solo reproduce los datos, sino que predice cosas nuevas (la masa del cuerpo central) y define su rango de validez.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Kepler vs. Newton es la diferencia entre un <strong>ajuste empírico</strong> (curva que describe los datos) y un <strong>modelo de caja blanca</strong> (ecuaciones diferenciales con parámetros físicos). El ajuste interpola; el modelo <em>extrapola</em> y permite diseñar: sin la forma newtoniana no se podría planificar una trayectoria de nave espacial ni inferir la masa de un cuerpo que jamás hemos visitado.</p>
+  </div>
+
+  <h3>Velocidad a lo largo de la órbita: la ecuación vis-viva</h3>
+  <p>De la conservación de la energía en el problema de dos cuerpos sale una fórmula muy útil (no aparece explícita en las diapositivas, pero condensa las leyes 1 y 2; la marcamos como <em>inferencia propia</em> de apoyo):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="v^{2} = G M \left(\frac{2}{r} - \frac{1}{a}\right)"></div>
+    <small>Con <span class="katex-inline" data-tex="r"></span> la distancia actual al Sol y <span class="katex-inline" data-tex="a"></span> el semieje mayor. En el perihelio (<span class="katex-inline" data-tex="r"></span> mínimo) la velocidad es máxima; en el afelio, mínima. Si <span class="katex-inline" data-tex="a\to\infty"></span> (órbita parabólica/hiperbólica) la energía deja de ser negativa: el cuerpo <strong>no está ligado</strong> — exactamente el caso de los visitantes interestelares de la sección 9.</small>
+  </div>
+
+  <div class="widget" id="w-visviva">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Velocidad orbital con vis-viva: perihelio vs afelio</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Define una órbita con semieje mayor <em>a</em> y excentricidad <em>e</em>. El widget calcula perihelio <span class="katex-inline" data-tex="q=a(1-e)"></span>, afelio <span class="katex-inline" data-tex="Q=a(1+e)"></span> y la velocidad en cada punto (2.ª ley de Kepler en números).</p>
+    <div class="presets" id="vv-presets">
+      <button data-a="1" data-e="0.017">Tierra</button>
+      <button data-a="17.8" data-e="0.967">Cometa Halley</button>
+      <button data-a="0.922" data-e="0.191">Apophis</button>
+      <button data-a="67.8" data-e="0.44">Eris</button>
+      <button data-a="39.5" data-e="0.25">Plutón</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="vv-a">Semieje mayor a (UA)</label><input type="number" id="vv-a" step="any" value="17.8"></div>
+      <div><label for="vv-e">Excentricidad e (0–0.99)</label><input type="number" id="vv-e" step="any" min="0" max="0.99" value="0.967"></div>
+    </div>
+    <output id="vv-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>¿Qué es un planeta? La definición de 2006</h2>
+    <p>Tres criterios que clasifican todo lo que orbita al Sol en tres categorías.</p>
+  </div></div>
+
+  <figure>
+    <img src="m1c2/assets/slide-14.jpg" alt="Diapositiva Sistema Solar con los ocho planetas a escala">
+    <figcaption><span class="cap">Diapositiva · Sistema Solar</span>Los ocho planetas: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno. Que sean exactamente ocho es una decisión <em>de definición</em> tomada en 2006.</figcaption>
+  </figure>
+
+  <p>Desde 2006 (asamblea de la IAU en Praga), un <span class="hl">planeta</span> del Sistema Solar debe cumplir <strong>tres criterios</strong>:</p>
+  <ul>
+    <li><strong>Orbita al Sol</strong> (no a otro cuerpo: las lunas quedan fuera).</li>
+    <li><strong>Tiene suficiente masa</strong> para que su autogravedad venza la rigidez del material y lo lleve a una forma de equilibrio (hidrostático): es decir, <strong>es esférico</strong>.</li>
+    <li><strong>Ha limpiado el vecindario</strong> alrededor de su órbita: domina gravitacionalmente su zona.</li>
+  </ul>
+
+  <p>Los tres criterios generan una clasificación completa: quien cumple los tres es <strong>planeta</strong>; quien cumple los dos primeros pero no limpió su órbita es <span class="hl">planeta enano</span> (Plutón, Eris, Ceres, Haumea, Makemake); quien solo cumple el primero es un <span class="hl">pequeño cuerpo</span> del Sistema Solar (asteroides, cometas, la mayoría de los transneptunianos).</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-16.jpg" alt="Diapositiva definición de planeta con caricatura de Plutón triste">
+    <figcaption><span class="cap">Diapositiva · Plutón y la definición</span>Plutón cumple los dos primeros criterios (orbita al Sol y es esférico) pero <strong>no ha limpiado su vecindario</strong>: comparte zona con miles de objetos del cinturón de Kuiper. De ahí la caricatura.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-18.jpg" alt="Diapositiva con la clasificación: planetas, planetas enanos y pequeños cuerpos según los criterios que cumplen">
+    <figcaption><span class="cap">Diapositiva · La clasificación completa</span>El esquema de la clase: cada criterio que se deja de cumplir baja una categoría — planeta → planeta enano → pequeño cuerpo. Una definición operativa, tipo árbol de decisión.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Contexto del curso</span>
+    <p>En la parte final de la clase (registrada en la transcripción) el profesor recuerda que <strong>Eris</strong> fue el objeto que «llegó a romper la fiesta»: al descubrirse (2005) un cuerpo transneptuniano comparable a Plutón, mantener a Plutón como planeta habría obligado a admitir decenas de nuevos planetas. La definición de 2006 zanjó el problema creando la categoría «planeta enano».</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué «masa suficiente» = esfera?</span>
+    <p>En un cuerpo chico (un asteroide de 10 km) la resistencia del material —fuerzas electromagnéticas entre átomos— le gana a la autogravedad, y el objeto conserva forma de papa. Al crecer la masa, la presión gravitacional supera la rigidez de la roca y el cuerpo «fluye» hasta la única forma en que un fluido autogravitante está en equilibrio: la <strong>esfera</strong>. El umbral ronda los cientos de kilómetros de diámetro, dependiendo del material.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Asteroides: cinturón, resonancias y troyanos</h2>
+    <p>Entre Marte y Júpiter vive una población estructurada, no un enjambre al azar.</p>
+  </div></div>
+
+  <p>El <span class="hl">cinturón principal de asteroides</span> ocupa la franja entre ~2,1 y ~3,3 UA, entre las órbitas de Marte y Júpiter. Visto en el plano semieje mayor–inclinación, el cinturón no es una nube uniforme: tiene <strong>huecos verticales</strong> y <strong>grumos</strong>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-21.jpg" alt="Diapositiva del cinturón de asteroides con familias, huecos de Kirkwood y el asteroide 30231 patorojo">
+    <figcaption><span class="cap">Diapositiva · Cinturón de asteroides</span>Inclinación vs. semieje mayor. Las líneas discontinuas marcan las resonancias 5:2 y 7:3 con Júpiter (huecos de Kirkwood); los grumos con nombre (Vesta, Eunomia, Koronis, Themis…) son <strong>familias</strong> de fragmentos de colisiones. Guiño de la clase: el asteroide <strong>30231 «patorojo»</strong>, bautizado en honor al docente (Patricio Rojo), vive en este gráfico.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Resonancias: el columpio orbital</span>
+    <p>Un asteroide cuyo período es una fracción entera simple del de Júpiter (2:1, 5:2, 7:3…) recibe el tirón del gigante <em>siempre en el mismo punto de su órbita</em>. Es como empujar un columpio en fase: perturbaciones diminutas se acumulan hasta expulsarlo de esa zona. Para un ingeniero: <strong>forzamiento periódico en resonancia</strong> ⇒ crecimiento secular de la amplitud. Así se vacían los huecos de Kirkwood.</p>
+  </div>
+
+  <p>Además del cinturón, hay asteroides que <strong>comparten órbita con Júpiter</strong>: los <span class="hl">troyanos</span>, agrupados en torno a los puntos de Lagrange <strong>L4 y L5</strong> (60° por delante y por detrás del planeta). El nombre viene de la guerra de Troya: cada grupo lleva nombres del bando griego o troyano.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-23.jpg" alt="Diapositiva con los cinco puntos de Lagrange L1 a L5 del sistema Sol-Tierra">
+    <figcaption><span class="cap">Diapositiva · Puntos de Lagrange</span>Los cinco puntos donde la gravedad de los dos cuerpos grandes y la fuerza centrífuga se equilibran para un tercer cuerpo pequeño. <strong>L4 y L5 son estables</strong> (ahí se acumulan los troyanos); L1–L3 son sillas de montar inestables, útiles para naves (SOHO en L1, JWST en L2) pero que requieren correcciones de rumbo.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Cometas: Kuiper, Oort y la misión Rosetta</h2>
+    <p>Hielo primitivo que viene de los dos congeladores del Sistema Solar.</p>
+  </div></div>
+
+  <p>Un <span class="hl">cometa</span> es, en esencia, una bola de hielo y polvo de unos pocos kilómetros. Su espectáculo aparece al acercarse al Sol: el hielo <strong>sublima</strong> y forma una estructura enorme y jerárquica.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-26.jpg" alt="Diapositiva con la estructura de un cometa: núcleo, coma, envoltura de hidrógeno, cola de iones y cola de polvo">
+    <figcaption><span class="cap">Diapositiva · Anatomía de un cometa</span>Núcleo de ~10 km; <strong>coma</strong> de ~10⁶ km; envoltura de hidrógeno; <strong>cola de iones</strong> (recta, empujada por el viento solar, siempre anti-solar) y <strong>cola de polvo</strong> (curvada, hasta ~10⁸ km). Nótense los órdenes de magnitud: el núcleo es 10 000 veces más chico que su propia coma.</figcaption>
+  </figure>
+
+  <p>¿De dónde vienen? La mayoría vive <strong>más allá de los planetas</strong>, en dos reservorios:</p>
+  <ul>
+    <li><strong>Cinturón de Kuiper</strong> (~30–50 UA): disco más allá de Neptuno; origen de los cometas de <em>período corto</em>.</li>
+    <li><strong>Nube de Oort</strong> (5 000–100 000 UA): cascarón esférico en el borde gravitacional del Sistema Solar; origen de los cometas de <em>período largo</em>, que llegan desde cualquier dirección.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-27.jpg" alt="Diapositiva con la nube de Oort y el cinturón de Kuiper a escala">
+    <figcaption><span class="cap">Diapositiva · Los dos congeladores</span>El cinturón de Kuiper es un disco; la nube de Oort, un cascarón esférico miles de veces más lejano (5 000–100 000 UA). Como referencia logarítmica: Neptuno está a 30 UA; la nube de Oort empieza ~170 veces más lejos.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Por qué importan</span>
+    <p>Los cometas pasan casi toda su vida lejos del Sol, a temperaturas bajísimas: son <strong>material primitivo congelado</strong>, testigos casi intactos de la formación del Sistema Solar (transcripción: «los cometas son muy interesantes para traer información del pasado»). Analizarlos es hacer arqueología de hace 4 600 millones de años.</p>
+  </div>
+
+  <p>El ejemplo estrella de la clase es la <span class="hl">misión Rosetta</span> (ESA): perseguir, orbitar y aterrizar (módulo Philae) en el cometa <strong>67P/Churyumov-Gerasimenko</strong>. El problema de ingeniería: el cometa viene con una energía orbital enorme comparada con la de la Tierra, y alcanzarlo a punta de combustible sería carísimo. La solución conecta con la sección siguiente.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-29.jpg" alt="Diapositiva con la trayectoria de la misión Rosetta de la ESA">
+    <figcaption><span class="cap">Diapositiva · El viaje de Rosetta (2004–2014)</span>Diez años de vuelo: tres pasadas por la Tierra, una por Marte, dos asteroides visitados (Steins, Lutetia), hibernación en el espacio profundo y encuentro final con 67P. Cada «vuelta» es una maniobra de gravedad asistida.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Gravedad asistida: viajar robando energía</h2>
+    <p>La técnica que abarata todas las misiones interplanetarias modernas.</p>
+  </div></div>
+
+  <p>La <span class="hl">gravedad asistida</span> consiste en pasar cerca de un planeta para <strong>quitarle (o darle) energía orbital</strong>. En la interacción gravitacional, la nave sale con más velocidad respecto al Sol y el planeta pierde exactamente esa energía… pero como su masa es ~10²⁰ veces mayor, «no se da ni cuenta» (transcripción). Es una colisión elástica sin contacto: la misma física de una pelota que rebota contra un camión en movimiento y sale disparada.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-31.jpg" alt="Diapositiva con las trayectorias de gravedad asistida de Cassini y Messenger">
+    <figcaption><span class="cap">Diapositiva · Cassini y MESSENGER</span>Cassini (izq.): lanzada en oct 1997, dos pasadas por Venus, una por la Tierra y una por Júpiter antes de llegar a Saturno en jul 2004 — <strong>7 años de viaje</strong>. MESSENGER (der.): para <em>frenar</em> hacia Mercurio usó pasadas por la Tierra, Venus y el propio Mercurio. La gravedad asistida sirve para acelerar y también para frenar.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">El truco en números (inferencia propia)</span>
+    <p>En el marco del planeta, la rapidez de la nave entra y sale igual (interacción elástica). Pero al volver al marco del Sol se le suma la velocidad del planeta: en el caso ideal de «rebote» frontal, la nave sale con <span class="katex-inline" data-tex="v' \approx v + 2V_{\mathrm{planeta}}"></span>. Con Júpiter (<span class="katex-inline" data-tex="V\approx13"></span> km/s) el regalo puede superar los 20 km/s de <em>delta-v</em> gratis — más de lo que da un cohete completo.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">De la clase: máquinas sí, humanos no</span>
+    <p>El costo de la gravedad asistida es el <strong>tiempo</strong>: Cassini tardó 7 años en llegar a Saturno; «podríamos llegar en dos meses, pero a un costo gigantesco de combustible». Para robots el trato es perfecto («los robots no necesitan psicólogo»); para humanos habría que acortar el viaje quemando mucho más combustible, con el riesgo adicional que este implica.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Diseñar una trayectoria con múltiples <em>flybys</em> es un problema de <strong>optimización combinatoria con ventanas de lanzamiento</strong>: minimizar delta-v (combustible) sujeto a restricciones de tiempo y alineación planetaria. Es el mismo tipo de trade-off costo/latencia que se resuelve en logística o en scheduling — con la efeméride planetaria como calendario de recursos.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Transneptunianos y el Planeta 9</h2>
+    <p>Más allá de Neptuno el censo sigue abierto — y hay una anomalía sin explicar.</p>
+  </div></div>
+
+  <p>Los <span class="hl">objetos transneptunianos</span> (TNOs) son todos los cuerpos con órbitas más allá de Neptuno. La clasificación es principalmente <em>posicional/dinámica</em>: <strong>plutinos</strong> (en resonancia 3:2 con Neptuno, como Plutón), <strong>cinturón de Kuiper clásico</strong>, <strong>disco disperso</strong> (órbitas excéntricas e inclinadas, como Eris) y <strong>centauros</strong> (entre Júpiter y Neptuno, población de transición).</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-32.jpg" alt="Diapositiva con el diagrama de objetos transneptunianos: plutinos, cinturón de Kuiper clásico, disco disperso y centauros">
+    <figcaption><span class="cap">Diapositiva · El mapa transneptuniano</span>Inclinación vs. semieje mayor más allá de Saturno: centauros (amarillo), plutinos (con Plutón), cinturón de Kuiper clásico (azul), disco disperso (Eris, arriba a la derecha). El mismo tipo de gráfico que el cinturón de asteroides: la dinámica organiza las poblaciones.</figcaption>
+  </figure>
+
+  <h3>La anomalía: ¿un noveno planeta?</h3>
+  <p>Los TNOs <em>extremos</em> más grandes (Sedna, 2012 VP113, 2004 VN112…) deberían tener sus perihelios orientados al azar. Pero no: <strong>apuntan todos hacia el mismo lado del cielo</strong>, dejando un sector vacío. Esa agrupación se explicaría si un <strong>cuerpo masivo</strong> orbitara en el lado opuesto, «pastoreando» gravitacionalmente esas órbitas.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-33.jpg" alt="Diapositiva Planeta IX con las órbitas agrupadas de TNOs extremos y la órbita propuesta del Planeta 9">
+    <figcaption><span class="cap">Diapositiva · Planeta IX</span>Las órbitas moradas (Sedna y compañía) se agrupan en un lado; la órbita naranja es el hipotético <strong>Planeta 9</strong>. Según la clase: masa esperada <strong>entre la de la Tierra y la de Neptuno</strong> (algo mayor ya lo habríamos detectado), período de cientos a miles de años. Sigue sin ser observado directamente: es una <em>hipótesis</em> con evidencia dinámica.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El argumento del Planeta 9 es <strong>detección por anomalía estadística</strong>: nadie vio el objeto, pero la distribución observada (perihelios agrupados) tiene probabilidad muy baja bajo la hipótesis nula (azar). Es el mismo razonamiento con que se descubrió Neptuno (residuos en la órbita de Urano) o con que se detectan fallas en un sistema por sus síntomas correlacionados. El riesgo también es clásico: sesgo de observación — quizás miramos más ese sector del cielo.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Visitantes interestelares</h2>
+    <p>Cuerpos que no son del Sistema Solar: entran, saludan y se van para siempre.</p>
+  </div></div>
+
+  <p>Todos los cometas «nuestros» —de Kuiper o de Oort— tienen <strong>órbitas cerradas</strong> (elipses, <span class="katex-inline" data-tex="e&lt;1"></span>): son periódicos, vuelven. Pero a veces se detecta un objeto en <span class="hl">órbita hiperbólica</span> (<span class="katex-inline" data-tex="e&gt;1"></span>, energía orbital positiva): no está ligado al Sol, viene de fuera del Sistema Solar y <strong>no volverá</strong>. Son los <strong>visitantes interestelares</strong>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-34.jpg" alt="Diapositiva de visitantes interestelares con la trayectoria de 'Oumuamua y su representación artística">
+    <figcaption><span class="cap">Diapositiva · 'Oumuamua (1I/2017 U1)</span>El primer visitante interestelar detectado (2017). Su trayectoria hiperbólica atraviesa el plano de los planetas y escapa. La imagen alargada es una <em>concepción artística</em>: nunca se resolvió su forma; se infirió de sus variaciones de brillo.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La firma de un forastero</span>
+    <p>En términos de vis-viva: si la velocidad a distancia <span class="katex-inline" data-tex="r"></span> supera la <strong>velocidad de escape</strong> <span class="katex-inline" data-tex="v_{esc}=\sqrt{2GM_\odot/r}"></span>, la energía total es positiva y la cónica es una hipérbola. Medir posición y velocidad unas pocas veces basta para saber si el objeto es «de la casa» o va de paso: es un problema de estimación de estado con seis incógnitas (los elementos orbitales).</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Impactos: cuándo y cuánto</h2>
+    <p>Una ley de potencia gobierna la estadística: chico y frecuente, grande y raro.</p>
+  </div></div>
+
+  <p>Con miles de cuerpos cruzando el vecindario terrestre, los <strong>impactos</strong> no son una posibilidad: son una certeza estadística. La evidencia está en los cráteres de la Luna y de la Tierra. La pregunta correcta no es «¿va a caer algo?» sino «¿de qué tamaño y cada cuánto?». La respuesta es una <span class="hl">ley de potencia</span>: la frecuencia de impacto cae rápidamente con el tamaño del proyectil.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-37.jpg" alt="Diapositiva con el gráfico frecuencia de impacto vs energía liberada y diámetro del asteroide, con Tunguska y Chicxulub marcados">
+    <figcaption><span class="cap">Diapositiva · Frecuencia vs energía</span>Ambos ejes logarítmicos: diámetro (4 m a 9 km) contra intervalo entre impactos (1 año a 100 millones de años). Tunguska es el «evento del milenio»; <strong>Chicxulub</strong> (extinción de los dinosaurios) ocurre cada ~10⁸ años. La línea punteada marca el umbral de catástrofe global (~10⁶ megatones). Las analogías de la clase, a la derecha: en todo momento hay «2 lavadoras y 1 000 pelotas» a punto de caer; cada 50 años, «un camión de Chuquicamata»; cada 100 000 años, «una cancha de fútbol».</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>~20 cm (pelotas, a diario):</strong> se destruyen en la atmósfera; nadie las nota.</li>
+    <li><strong>~4 m (todos los años):</strong> bólidos brillantes; rara vez llega algo a superficie.</li>
+    <li><strong>Decenas de metros (cada siglo):</strong> <em>Tunguska</em> (1908, ~20 megatones) y <em>Chelyabinsk</em> (2013, ~500 kilotones), ambos en Rusia. Como referencia de la clase: la bomba de Hiroshima fue de <strong>16 kilotones</strong>.</li>
+    <li><strong>~10 km (cada ~100 millones de años):</strong> <em>Chicxulub</em>, «un Santiago cayendo del cielo»: catástrofe global, extinción masiva. El último fue hace ~66 millones de años.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-41.jpg" alt="Diapositiva del evento K-T con el mapa del cráter de Chicxulub en Yucatán y su topografía">
+    <figcaption><span class="cap">Diapositiva · El evento K-T</span>El cráter de <strong>Chicxulub</strong>, península de Yucatán (México), identificado a fines del siglo XX: la cicatriz del impacto que cerró el Cretácico. El proyectil medía ~10 km; el polvo inyectado en la atmósfera alteró el clima por años y terminó con los dinosaurios (y ~75% de las especies).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">De la clase: por qué explotan al caer</span>
+    <p>La fricción atmosférica calienta el proyectil a cientos de grados. Si contiene <strong>volátiles</strong> (hielo de agua), el cambio de fase sólido→gas multiplica el volumen bruscamente: el objeto <em>explota en el aire</em> (airburst, como Tunguska y Chelyabinsk). Un cuerpo de hierro o roca compacta, en cambio, aguanta y llega al suelo. Detalle contraintuitivo: una explosión <strong>en la atmósfera</strong> puede ser más dañina que una en superficie, porque su onda expansiva se propaga en los 360°, sin que el suelo absorba la mitad de la energía.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">De la clase: ¿por qué dos veces Rusia?</span>
+    <p>Que Tunguska y Chelyabinsk cayeran ambos en Rusia parece «ganarse la lotería dos veces». La sospecha discutida en clase: ambos provendrían de una <strong>misma población/familia de asteroides</strong> cuya geometría orbital favorece esas latitudes. Es una pista, no una certeza; con las órbitas mejor medidas quizás algún día se pueda pronosticar de qué familia vendrá el próximo.</p>
+  </div>
+
+  <div class="widget" id="w-impact">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Energía de impacto: diámetro → megatones → frecuencia</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Energía cinética <span class="katex-inline" data-tex="E=\tfrac12 m v^2"></span> con <span class="katex-inline" data-tex="m=\tfrac{\pi}{6}\rho d^3"></span>. La frecuencia es una estimación de la ley de potencia del gráfico de la clase (aproximada).</p>
+    <div class="presets" id="im-presets">
+      <button data-d="0.2" data-rho="3000" data-v="20">Pelota (20 cm)</button>
+      <button data-d="4" data-rho="3000" data-v="20">Anual (4 m)</button>
+      <button data-d="19" data-rho="3300" data-v="19">Chelyabinsk</button>
+      <button data-d="60" data-rho="3000" data-v="20">Tunguska</button>
+      <button data-d="370" data-rho="3200" data-v="20">Apophis</button>
+      <button data-d="10000" data-rho="3000" data-v="20">Chicxulub</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="im-d">Diámetro d (m)</label><input type="number" id="im-d" step="any" value="60"></div>
+      <div><label for="im-rho">Densidad ρ (kg/m³)</label>
+        <select id="im-rho">
+          <option value="1000">Hielo (~1000)</option>
+          <option value="3000" selected>Roca (~3000)</option>
+          <option value="3300">Condrita (~3300)</option>
+          <option value="3200">Apophis (~3200)</option>
+          <option value="8000">Hierro (~8000)</option>
+        </select></div>
+      <div><label for="im-v">Velocidad v (km/s)</label><input type="number" id="im-v" step="any" value="20"></div>
+    </div>
+    <output id="im-out"></output>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>PHAs, Apophis y defensa planetaria</h2>
+    <p>Monitorear con tiempo es la única defensa que funciona.</p>
+  </div></div>
+
+  <p>Los <span class="hl">PHA</span> (<em>Potentially Hazardous Asteroids</em>, asteroides potencialmente peligrosos) se definen por un criterio arbitrario pero práctico: todo objeto cuya órbita se acerque a menos de <strong>~20 veces la distancia Tierra–Luna</strong> entra a una lista de monitoreo permanente. No significa que vayan a impactar: significa que <em>vale la pena vigilarlos</em>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-42.jpg" alt="Diapositiva de impactos con los datos de Apophis: 200-500 m, pasa en 2029 diez veces más cerca que la Luna">
+    <figcaption><span class="cap">Diapositiva · Apophis</span>El caso estelar: <strong>Apophis</strong> (~200–500 m; la transcripción redondea a «medio kilómetro»). El <strong>13 de abril de 2029</strong> pasará a ~1/10 de la distancia Tierra–Luna (~38 000 km, bajo los satélites geoestacionarios). <strong>No hay riesgo de impacto en 2029</strong>; si algún día impactara, liberaría ~3×10⁴ Hiroshimas, comparable a 4 terremotos de magnitud 9.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">De la clase: fiesta astronómica en 2029</span>
+    <p>Lejos de ser una amenaza, la pasada de 2029 tiene «a los astrónomos vueltos locos» de entusiasmo: un asteroide de cientos de metros observable con detalle desde la Tierra, algo irrepetible. La transcripción menciona además una probabilidad residual baja (~1%) de impacto en horizontes de siglos, asociada a pasadas futuras — y la sección 12 explica de dónde viene esa incertidumbre (spoiler: no es la gravedad).</p>
+  </div>
+
+  <h3>¿Y si uno viene de verdad? Desviar, no destruir</h3>
+  <ul>
+    <li><strong>Fragmentarlo al estilo Hollywood no sirve:</strong> si todos los pedazos siguen viniendo, la energía total depositada en la Tierra es <em>la misma</em>; solo se reparte en muchos impactos.</li>
+    <li><strong>La estrategia real es el desvío temprano:</strong> empujar «un poquito» (impactador cinético, motor, espejo que sublime material). Una fracción de grado de cambio en la órbita, aplicada con décadas de anticipación, se amplifica hasta convertir un impacto en un paso inofensivo.</li>
+    <li><strong>Sin tiempo no hay defensa:</strong> si se descubre un impactador a menos de ~1 año, «no hay absolutamente nada que hacer». Por eso el monitoreo (la lista PHA) es la primera línea de defensa.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">El apalancamiento del tiempo (inferencia propia)</span>
+    <p>Un cambio de velocidad <span class="katex-inline" data-tex="\Delta v"></span> aplicado hoy desplaza la posición futura aproximadamente como <span class="katex-inline" data-tex="\Delta x \approx \Delta v \cdot t"></span> (y en órbitas incluso crece más rápido, porque cambia el período). Con <span class="katex-inline" data-tex="\Delta v = 1"></span> mm/s y 20 años de plazo: <span class="katex-inline" data-tex="\Delta x \approx 630"></span> km — del orden del radio de la zona de impacto. Empujón diminuto + palanca temporal larga = defensa viable.</p>
+  </div>
+
+  <div class="box ext">
+    <span class="tag">Material externo: resultado de DART</span>
+    <p>En clase se mencionó la misión <strong>DART</strong> (NASA, 2022) como prueba de concepto de impactador cinético contra <strong>Dimorphos</strong>, la luna del asteroide binario Didymos (el docente no recordaba el resultado). Dato externo verificado: DART <strong>sí funcionó</strong> — acortó el período orbital de Dimorphos en ~32–33 minutos, muy por encima del mínimo de éxito (73 s). Fue elegir un binario precisamente para medir el efecto con facilidad (cambio del período de la «lunita») sin alterar la órbita del sistema alrededor del Sol. Fuente: NASA/JHUAPL, resultados publicados en <em>Nature</em> (2023). Nivel: introductorio.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Fuerzas no gravitacionales: el empuje de la luz</h2>
+    <p>El fotón tiene momento: para cuerpos chicos, la luz también es dinámica orbital.</p>
+  </div></div>
+
+  <p>«Gravedad principalmente, pero <strong>no únicamente</strong>» — así cierra la clase. El fotón no tiene masa, pero sí <strong>momento</strong>: la luz empuja. Para la Tierra o Júpiter el efecto es despreciable, pero para cuerpos pequeños se vuelve decisivo. Cuatro efectos, ordenados por el tamaño del cuerpo que afectan:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Efecto</th><th>Tamaño típico</th><th>Qué hace</th></tr></thead>
+    <tbody>
+      <tr><td><b>Presión de radiación</b></td><td>&lt; 1 mm (polvo)</td><td>Empuja <strong>hacia afuera</strong>: el flujo de fotones solares barre las partículas submilimétricas</td></tr>
+      <tr><td><b>Poynting–Robertson</b></td><td>~µm–cm</td><td><strong>Frena</strong> la partícula en órbita y la hace caer en espiral <strong>hacia el Sol</strong></td></tr>
+      <tr><td><b>Yarkovsky</b></td><td>~m–km</td><td>Acelera o frena el cuerpo según su <strong>rotación</strong> e inercia térmica: deriva lenta del semieje mayor</td></tr>
+      <tr><td><b>YORP</b></td><td>~m–km, forma irregular</td><td>Aplica <strong>torque</strong>: cambia la velocidad y el eje de rotación, lo que a su vez modula a Yarkovsky</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <img src="m1c2/assets/slide-45.jpg" alt="Diapositiva del efecto Poynting-Robertson con los diagramas de emisión en el marco de la partícula y del Sol">
+    <figcaption><span class="cap">Diapositiva · Poynting–Robertson</span>(a) En el marco de la partícula, la luz solar parece llegar <em>levemente de frente</em> (aberración) — la analogía de la clase: la lluvia vista desde un auto en movimiento cae «en ángulo». (b) La partícula absorbe y re-emite isotrópicamente <em>en su marco</em>, pero vista desde afuera esa re-emisión lleva un componente contra el movimiento: <strong>frena</strong>, y al frenar cae hacia adentro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-46.jpg" alt="Diapositiva del efecto Yarkovsky con el diagrama de emisión térmica asimétrica de un cuerpo rotante">
+    <figcaption><span class="cap">Diapositiva · Efecto Yarkovsky</span>Por la <strong>inercia térmica</strong>, la «tarde» del asteroide (el lado que acaba de pasar por el mediodía) está más caliente que la «mañana» — igual que en la Tierra la hora más calurosa no es mediodía sino las 16–17 h. Ese lado caliente emite más fotones, y cada fotón se lleva momento: hay un empuje neto tangencial que <strong>acelera o frena según el sentido de rotación</strong>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-47.jpg" alt="Diapositiva del efecto YORP con la luz solar produciendo torque sobre un asteroide irregular">
+    <figcaption><span class="cap">Diapositiva · Efecto YORP</span>En un cuerpo <em>irregular</em>, la luz que se refleja y re-emite en cada «faceta» sale en direcciones distintas: el resultado neto es un <strong>torque</strong> que acelera o frena la rotación según la orientación de cada roca de la superficie. Y como Yarkovsky depende de la rotación, YORP modula a Yarkovsky.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La conexión con Apophis</span>
+    <p>La órbita gravitacional de Apophis se puede propagar «con ultra precisión hasta mil años» — la gravedad es determinista. La <strong>incertidumbre real</strong> de si nos rozará en horizontes de siglos viene del <strong>efecto Yarkovsky</strong>: la deriva térmica depende de la rotación (que YORP va cambiando) y de la disposición de cada roca de su superficie. Es un caso de libro de <em>presupuesto de error</em>: el término dominante no es el modelo principal, sino una perturbación de segundo orden difícil de caracterizar.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Piénselo como <strong>ruido y deriva en un integrador</strong>: la gravedad es la dinámica nominal (integrable, predecible); las fuerzas de radiación son perturbaciones pequeñas pero <em>seculares</em> — con sesgo constante que se acumula con el tiempo, como el drift de un giroscopio. En horizontes cortos son invisibles; en horizontes de siglos dominan el error de predicción.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje final de la clase: <strong>la gravedad manda, pero no gobierna sola</strong> — el fotón mueve el polvo, arrastra partículas, deriva asteroides y decide incertidumbres de defensa planetaria. La próxima clase del módulo: <strong>la Tierra como planeta</strong>, y luego superficies y atmósferas planetarias.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Gravitación universal</b></td><td><span class="katex-inline" data-tex="\vec F=-\frac{GMm}{r^2}\hat r"></span></td><td>Una sola ley ordena todo el Sistema Solar; sin escala privilegiada</td></tr>
+      <tr><td><b>1.ª ley de Kepler</b></td><td>Órbitas elípticas, Sol en un foco</td><td>Geometría de toda órbita ligada</td></tr>
+      <tr><td><b>2.ª ley de Kepler</b></td><td>Áreas iguales en tiempos iguales</td><td>Conservación del momento angular: rápido en perihelio</td></tr>
+      <tr><td><b>3.ª ley de Kepler</b></td><td><span class="katex-inline" data-tex="P^2=a^3"></span> (años, UA); Newton: <span class="katex-inline" data-tex="(P/2\pi)^2=\frac{a^3}{G(M_{Sol}+M_p)}"></span></td><td>Convierte distancia↔período y sirve de balanza de masas</td></tr>
+      <tr><td><b>Definición de planeta (2006)</b></td><td>Orbita al Sol + esférico + limpió su vecindario</td><td>Genera 3 categorías: planeta, planeta enano, pequeño cuerpo</td></tr>
+      <tr><td><b>Cinturón de asteroides</b></td><td>~2,1–3,3 UA; huecos de Kirkwood (5:2, 7:3)</td><td>Las resonancias con Júpiter esculpen la población</td></tr>
+      <tr><td><b>Troyanos / L4, L5</b></td><td>Asteroides en los puntos de Lagrange estables</td><td>Equilibrio de 3 cuerpos; comparten órbita con Júpiter</td></tr>
+      <tr><td><b>Cometa</b></td><td>Núcleo ~10 km; coma ~10⁶ km; colas ~10⁸ km</td><td>Material primitivo congelado; Rosetta/67P lo visitó</td></tr>
+      <tr><td><b>Kuiper vs Oort</b></td><td>Disco a 30–50 UA vs cascarón a 5 000–100 000 UA</td><td>Reservorios de cometas de período corto y largo</td></tr>
+      <tr><td><b>Gravedad asistida</b></td><td>Flyby que roba energía orbital al planeta</td><td>Delta-v gratis: Cassini (7 años a Saturno), Rosetta, MESSENGER</td></tr>
+      <tr><td><b>TNO</b></td><td>Objeto más allá de Neptuno (plutinos, disco disperso…)</td><td>Censo abierto; Eris forzó la redefinición de planeta</td></tr>
+      <tr><td><b>Planeta 9</b></td><td>Hipotético; masa entre Tierra y Neptuno</td><td>Explicaría el agrupamiento de perihelios de TNOs extremos</td></tr>
+      <tr><td><b>Visitante interestelar</b></td><td>Órbita hiperbólica (<span class="katex-inline" data-tex="e&gt;1"></span>): 'Oumuamua</td><td>No ligado al Sol: entra y no vuelve</td></tr>
+      <tr><td><b>Ley tamaño–frecuencia</b></td><td>4 m/año · Tunguska/siglo–milenio · 10 km/10⁸ años</td><td>Estadística de impactos; umbral global ~10⁶ Mt</td></tr>
+      <tr><td><b>PHA / Apophis</b></td><td>Acercamiento &lt; ~20 distancias lunares; Apophis 2029 a ~1/10 d. lunar</td><td>Lista de monitoreo; defensa = desvío con décadas de anticipación</td></tr>
+      <tr><td><b>DART</b></td><td>Impactador cinético contra Dimorphos (2022)</td><td>Prueba de concepto de desvío; −33 min de período (dato externo)</td></tr>
+      <tr><td><b>Presión de radiación</b></td><td>Fotones empujan partículas &lt; 1 mm hacia afuera</td><td>El fotón tiene momento: la luz es una fuerza</td></tr>
+      <tr><td><b>Poynting–Robertson</b></td><td>Aberración de la luz frena partículas en órbita</td><td>El polvo cae en espiral hacia el Sol</td></tr>
+      <tr><td><b>Yarkovsky / YORP</b></td><td>Emisión térmica asimétrica: deriva orbital / torque rotacional</td><td>Fuente dominante de incertidumbre en órbitas de asteroides (Apophis)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c2-examen-01.html">Examen 01<small>Gravedad y leyes de Kepler</small></a></li>
+    <li><a href="m1c2-examen-02.html">Examen 02<small>3.ª ley y órbitas</small></a></li>
+    <li><a href="m1c2-examen-03.html">Examen 03<small>Definición de planeta</small></a></li>
+    <li><a href="m1c2-examen-04.html">Examen 04<small>Asteroides y troyanos</small></a></li>
+    <li><a href="m1c2-examen-05.html">Examen 05<small>Cometas y reservorios</small></a></li>
+    <li><a href="m1c2-examen-06.html">Examen 06<small>Gravedad asistida</small></a></li>
+    <li><a href="m1c2-examen-07.html">Examen 07<small>TNOs y Planeta 9</small></a></li>
+    <li><a href="m1c2-examen-08.html">Examen 08<small>Impactos</small></a></li>
+    <li><a href="m1c2-examen-09.html">Examen 09<small>PHAs y defensa</small></a></li>
+    <li><a href="m1c2-examen-10.html">Examen 10<small>Fuerzas no gravitacionales</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo I del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Patricio Rojo, 20 mar 2026). Elaborado a partir de las diapositivas <code>Modulo_I_Clase_2_Mec_nica_Celeste.pdf</code> (48 láminas) y las transcripciones del audio <code>planetas/m1/ff/Planetas-m1c21-a748e479-bebb.md</code> y <code>planetas/m1/ff/Planetas-m1c22-df94dccb-3b24.md</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción parcial.</b> El audio disponible cubre <strong>solo la parte final de la clase</strong> (cometas y gravedad asistida, transneptunianos, Planeta 9, visitantes interestelares, impactos, PHAs/Apophis/DART y fuerzas no gravitacionales); la primera parte (gravitación, leyes de Kepler, definición de planeta, cinturón de asteroides) no quedó grabada. Esas secciones se reconstruyeron a partir de las diapositivas, complementadas con explicaciones estándar del tema (marcadas como inferencia propia o material externo cuando corresponde). La segunda transcripción continúa además con temas de la clase siguiente (fotones, luminosidad, magnitudes), que no se incluyen aquí.</p>
+  <p class="disc"><b>Correcciones al reconocimiento de voz.</b> La transcripción automática contiene errores que se corrigieron contrastando con las diapositivas: «elis» → <em>Eris</em>; «galetas» → <em>planetas</em> («sistema de 9 planetas»); «Pluto» → <em>Plutón</em>; «Apofis» → <em>Apophis</em>; «Yakov», «Yalkovsky», «Yerkovsky», «Kharkovsky» → <em>Yarkovsky</em>; «york» → <em>YORP</em>; «Poyntin/Pointyng Robertson» → <em>Poynting–Robertson</em>; «camión chuki» → <em>camión de Chuquicamata</em> (camión minero, analogía de tamaño); «bacos» → <em>impactos</em>; «3x10⁴ Hiroshimas» de la diapositiva prima sobre el «30.000 Hiroshimas» del audio (son equivalentes). La cifra «200 gigatones» mencionada en el audio para Chicxulub es ambigua frente al gráfico de la diapositiva (~10⁸ megatones); se privilegió el gráfico. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var G = 6.674e-11;            // m^3 kg^-1 s^-2
+var MSUN = 1.989e30;          // kg
+var AU = 1.496e11;            // m
+var YR = 3.1557e7;            // s
+var MT = 4.184e15;            // J por megatón de TNT
+var HIRO = 16e3 * 4.184e9;    // J: 16 kilotones (referencia usada en clase)
+
+// ---- Widget 1: tercera ley de Kepler ----
+(function(){
+  var a = document.getElementById('kep-a');
+  var m = document.getElementById('kep-m');
+  var out = document.getElementById('kep-out');
+  function calc(){
+    var aV = parseFloat(a.value), mV = parseFloat(m.value);
+    if(!(aV>0) || !(mV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var aM = aV*AU, M = mV*MSUN;
+    var P_s = Math.sqrt(4*Math.PI*Math.PI*Math.pow(aM,3)/(G*M));
+    var P_yr = P_s/YR, P_d = P_s/86400;
+    var txt = P_yr >= 1 ? ("<b>"+(P_yr>=1000?Math.round(P_yr).toLocaleString('es-CL'):P_yr.toFixed(2))+"</b> años")
+                        : ("<b>"+P_d.toFixed(2)+"</b> días ("+P_yr.toExponential(2)+" años)");
+    out.innerHTML = "Período orbital <span class='k'>P</span> = "+txt+"<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Chequeo con P²(años) = a³(UA)/M(M☉): "+
+      Math.sqrt(Math.pow(aV,3)/mV).toFixed(2)+" años. En log-log, este punto cae sobre la recta de pendiente 3/2.</span>";
+  }
+  a.addEventListener('input', calc); m.addEventListener('input', calc);
+  document.querySelectorAll('#kep-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ a.value=b.dataset.a; m.value=b.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: vis-viva ----
+(function(){
+  var a = document.getElementById('vv-a');
+  var e = document.getElementById('vv-e');
+  var out = document.getElementById('vv-out');
+  function vAt(r_m, a_m){ return Math.sqrt(G*MSUN*(2/r_m - 1/a_m)); }
+  function calc(){
+    var aV = parseFloat(a.value), eV = parseFloat(e.value);
+    if(!(aV>0) || !(eV>=0) || eV>=1){ out.innerHTML = "Ingresa a &gt; 0 y 0 ≤ e &lt; 1."; return; }
+    var q = aV*(1-eV), Q = aV*(1+eV);
+    var vq = vAt(q*AU, aV*AU)/1000, vQ = vAt(Q*AU, aV*AU)/1000;
+    var P = Math.sqrt(Math.pow(aV,3));
+    out.innerHTML =
+      "Perihelio <span class='k'>q</span> = <b>"+q.toFixed(3)+"</b> UA → v = <b>"+vq.toFixed(1)+"</b> km/s<br>"+
+      "Afelio <span class='k'>Q</span> = <b>"+Q.toFixed(2)+"</b> UA → v = <b>"+vQ.toFixed(2)+"</b> km/s<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Período ≈ "+(P>=1000?Math.round(P).toLocaleString('es-CL'):P.toFixed(2))+" años · razón de velocidades v_peri/v_afe = "+(vq/vQ).toFixed(1)+"× — la 2.ª ley de Kepler en acción.</span>";
+  }
+  a.addEventListener('input', calc); e.addEventListener('input', calc);
+  document.querySelectorAll('#vv-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ a.value=b.dataset.a; e.value=b.dataset.e; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: energía de impacto ----
+(function(){
+  var d = document.getElementById('im-d');
+  var rho = document.getElementById('im-rho');
+  var v = document.getElementById('im-v');
+  var out = document.getElementById('im-out');
+  function fmt(x){
+    if(x>=1e6) return x.toExponential(2).replace('e+','×10^');
+    if(x>=1000) return Math.round(x).toLocaleString('es-CL');
+    if(x>=1) return x.toFixed(1);
+    return x.toExponential(2).replace('e-','×10^-');
+  }
+  function calc(){
+    var dV = parseFloat(d.value), rV = parseFloat(rho.value), vV = parseFloat(v.value);
+    if(!(dV>0) || !(vV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var m = Math.PI/6 * rV * Math.pow(dV,3);           // kg
+    var E = 0.5 * m * Math.pow(vV*1000,2);             // J
+    var mt = E/MT, hiro = E/HIRO;
+    // Ley de potencia aproximada del gráfico de la clase: 4 m → 1 año; ~9 km → 1e8 años (pendiente ≈ 2.4)
+    var T = Math.pow(dV/4, 2.4);
+    var Ttxt = T<1 ? "varios por año" : T<2 ? "≈ 1 por año" : "cada ≈ "+(T>=1000?Math.round(T).toLocaleString('es-CL'):T.toFixed(0))+" años";
+    var glob = mt>=1e6 ? " · <span style='color:var(--red-soft)'>sobre el umbral de catástrofe global (~10⁶ Mt)</span>" :
+               mt>=1 ? " · efecto perceptible a escala planetaria (> 1 Mt)" : "";
+    out.innerHTML =
+      "Masa ≈ <b>"+fmt(m/1000)+"</b> toneladas · Energía ≈ <b>"+fmt(mt)+"</b> megatones de TNT<br>"+
+      "≈ <b>"+fmt(hiro)+"</b> bombas de Hiroshima (16 kt, referencia de la clase)"+glob+"<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Frecuencia estimada (ley de potencia del gráfico, aproximada): "+Ttxt+".</span>";
+  }
+  [d,rho,v].forEach(function(el){ el.addEventListener('input', calc); el.addEventListener('change', calc); });
+  document.querySelectorAll('#im-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ d.value=b.dataset.d; rho.value=b.dataset.rho; v.value=b.dataset.v; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

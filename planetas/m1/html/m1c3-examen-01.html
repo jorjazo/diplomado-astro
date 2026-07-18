@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 01 — m1c3 · Procesos geológicos y agua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo I · Clase 3</span>
+<h1>Examen 01 — Procesos geológicos y agua</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. Los cuatro grandes procesos geológicos presentados en clase son:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Terremotos, mareas, volcanismo y erosión</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Tectonismo, subducción, sismos y glaciación</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Tectonismo, volcanismo, cráteres y erosión</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Convección, radiactividad, acreción y diferenciación</label>
+    <p class="fb" hidden>Tectonismo, volcanismo, cráteres (impactos) y erosión (fluvial, pluvial, eólica…). Esta lista será la vara para examinar las superficies de los demás planetas.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Por qué los terremotos NO figuran como un quinto proceso geológico?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque solo ocurren en la Tierra</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque son un producto de otros procesos (tectonismo, volcanismo e incluso impactos), no un proceso en sí</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque no modifican la superficie</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque son demasiado breves para tener efecto geológico</label>
+    <p class="fb" hidden>Un terremoto es consecuencia: lo generan el choque de placas, la actividad volcánica o incluso un impacto cercano. Por eso la taxonomía lo trata como producto.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Sobre el agua de la Tierra, la figura de «todas las esferas de agua» muestra que:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El agua representa unos ¾ del volumen del planeta</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El agua dulce de lagos y ríos es la mayor parte del agua total</label>
+    <label class="opt"><input type="radio" name="q3" value="c">La masa de agua supera a la masa de roca</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Toda el agua es una capa delgadísima: los ¾ son solo de superficie, no de volumen</label>
+    <p class="fb" hidden>Los «tres cuartos de agua» son cobertura superficial. En volumen, toda el agua cabe en una esfera pequeña comparada con el planeta; el agua de lagos y ríos es apenas un puntito.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. La esfera pequeña de la figura del agua incluye glaciares y agua subterránea, y aun así se llama «agua dulce». ¿Qué fracción queda para lagos y ríos, y qué contraste destaca el profesor entre la insignificancia volumétrica del agua y su rol en el planeta?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Dentro de la esfera de agua dulce (que ya es mucho menor que la de agua total), los lagos y ríos son apenas un <strong>puntito casi invisible</strong> a escala planetaria. El contraste que destaca el profesor: siendo una capa despreciable en volumen y masa frente a la parte sólida, el agua es <strong>vital</strong> — para el fenómeno vida, y además (como se ve después en la clase) tiene consecuencias geológicas: la interacción con el agua contribuye a que la placa oceánica sea más densa y subduzca siempre bajo la continental. Pequeña en cantidad, enorme en consecuencias.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La clase 3 abre una «trilogía» dentro del curso de planetas. Describe el plan de las tres clases y explica por qué tiene sentido pedagógico empezar por la Tierra.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El plan: (1) esta clase, <strong>la Tierra como un planeta más</strong> — superficie, interior, calor; (2) la próxima, un <strong>paseo geológico por el Sistema Solar</strong> (las superficies y sólidos de los planetas); (3) la última, las <strong>atmósferas</strong> (los gases). Empezar por la Tierra tiene sentido porque es el único planeta donde podemos medir todo <em>in situ</em> (redes sísmicas, GPS, muestras de roca): es el laboratorio de calibración. Los conceptos que se establecen aquí — procesos geológicos, tectonismo, calor interno, enfriamiento ∝ tamaño — son las herramientas con las que después se interpretan mundos donde solo tenemos observación remota.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 3, Módulo I (Astrofísica de Planetas). <a href="m1c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 04 — m1c3 · Magnetismo e isócronas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c3-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Planetas · Módulo I · Clase 3</span>
+<h1>Examen 04 — Magnetismo e isócronas</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,d,c">
+  <fieldset data-q="1"><legend>1. La temperatura de Curie es aquella:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">A la que la roca se funde por completo</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Sobre la cual los dipolos magnéticos pueden reorientarse libremente, y bajo la cual quedan fijos</label>
+    <label class="opt"><input type="radio" name="q1" value="c">A la que el núcleo externo se solidifica</label>
+    <label class="opt"><input type="radio" name="q1" value="d">A la que se invierte el campo magnético terrestre</label>
+    <p class="fb" hidden>Cercana pero no igual a la de solidificación. El magma sobre la T. de Curie se alinea con el campo terrestre; al enfriarse bajo ella, los minerales magnéticos «congelan» esa orientación.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La sorpresa al muestrear el fondo marino cerca de las dorsales fue que:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">La roca no tenía ninguna magnetización</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Toda la roca apuntaba al norte actual</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Las bandas magnéticas eran perfectamente equidistantes</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Había bandas alternadas norte/sur, simétricas respecto a la dorsal</label>
+    <p class="fb" hidden>Bandas de polaridad normal e invertida, no equiespaciadas (el proceso es caótico) pero simétricas a cada lado de la dorsal, y coincidentes entre dorsales de océanos distintos: el campo se ha invertido muchas veces.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Según la clase, una inversión del campo magnético terrestre:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Ocurre en segundos y causa extinciones masivas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Ocurre con un período regular de 50 millones de años</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Dura del orden de mil años, ocurre de forma caótica y no está asociada a extinciones</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Solo ha ocurrido una vez en la historia del planeta</label>
+    <p class="fb" hidden>La transición toma ~1000 años; el registro muestra períodos cortos, largos y rachas sin inversión (caótico, impredecible). No hay extinciones asociadas — aunque ninguna especie previa dependía de satélites y brújulas como nosotros.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica la cadena completa por la cual una roca volcánica funciona como «memoria magnética»: desde el magma en la dorsal hasta la lectura de la muestra millones de años después. Usa la analogía de grabación magnética si te ayuda.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">(1) El material sube del manto a la dorsal como magma, <strong>sobre la temperatura de Curie</strong>: sus dipolos magnéticos (espines) son libres de rotar. (2) En ese estado se <strong>alinean con el campo magnético terrestre</strong> vigente, como brújulas microscópicas — el campo global es lo que permite que del orden micro se pase a una magnetización macro coherente. (3) La roca se enfría bajo la temperatura de Curie: los minerales magnéticos <strong>congelan la orientación</strong> (los no magnéticos quedan con dominios desordenados, magnetización neta cero). (4) La placa se aleja de la dorsal a cm/año llevándose el registro. (5) Millones de años después, se extrae una muestra, se mide su orientación remanente (lectura) y se data con métodos radiométricos. Es exactamente una <strong>cinta magnética</strong>: escribir = alinear dominios bajo un campo mientras el material lo permite; leer = medir la remanencia. La dorsal es el cabezal de escritura y la placa, la cinta que avanza.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. ¿Qué es una isócrona del fondo oceánico y cómo permite afirmar el profesor que las animaciones de continentes moviéndose «son datos, no simulaciones»? ¿Hasta qué momento del pasado llega esta reconstrucción y por qué no más atrás?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Una <strong>isócrona</strong> es una línea que une puntos del fondo oceánico con la <em>misma edad</em> (0 Ma en el eje de la dorsal, 10 Ma, 20 Ma… hacia los lados), construida datando las bandas magnéticas con métodos radiométricos. Para reconstruir el pasado se procede al revés: se quita la franja de 0 Ma y se juntan los bordes, luego la de 10, la de 20… <strong>deshaciendo</strong> la expansión registrada. Cada fotograma de la animación sale de mediciones de edad reales, no de un modelo supuesto. La reconstrucción es nítida al menos hasta <strong>Pangea, ~200 millones de años atrás</strong>: más atrás la pista se pierde porque el fondo oceánico más antiguo ya fue <strong>subducido</strong> (no existe corteza oceánica mayor a ~180–200 Ma) y la evidencia de configuraciones anteriores se destruyó.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 3, Módulo I (Astrofísica de Planetas). <a href="m1c3-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

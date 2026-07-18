@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrofísica de Planetas — Módulo I · Apuntes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.4),transparent),radial-gradient(1.6px 1.6px at 42% 64%,rgba(255,255,255,.45),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b 50%,#080b14);background-attachment:fixed}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+.hero{padding:64px 0 30px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.kick{font-family:"Fraunces",serif;display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-family:"Fraunces",serif;font-size:clamp(2.2rem,6vw,3.8rem);line-height:1;margin:.3em 0 .15em;font-weight:600;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+.card{border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px;transition:.15s;text-decoration:none;color:var(--ink);display:block}
+.card:hover{border-color:var(--red);transform:translateY(-2px)}
+.card .cn{font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.card h2{font-family:"Fraunces",serif;font-size:1.45rem;margin:.2em 0 .25em;font-weight:600}
+.card p{margin:.1em 0 .6em;color:var(--muted);font-size:.96rem}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink);text-decoration:none}
+.links a:hover{border-color:var(--red);color:var(--red-soft)}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <span class="kick">Astrofísica de Planetas · Diplomado U. de Chile</span>
+    <h1>Módulo I — <em>Apuntes HTML</em></h1>
+    <p class="sub">El Sistema Solar: de los modelos históricos del cosmos a la mecánica celeste, la Tierra como laboratorio planetario, las superficies rocosas y las atmósferas. Material de estudio interactivo generado a partir de las transcripciones de clase y las diapositivas. Cada clase incluye apuntes navegables, widgets y 10 exámenes de práctica autocorregibles.</p>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="m1c1-apuntes.html">
+      <span class="cn">Clase 1</span>
+      <h2>Un nuevo universo</h2>
+      <p>Dos milenios de modelos del cosmos, de la bóveda celeste a la mecánica de Newton. El hilo conductor es el movimiento retrógrado de los planetas: el dato que forzó los epiciclos de Ptolomeo, que Copérnico explicó poniendo al Sol en el centro y que Galileo zanjó con el telescopio (fases de Venus, lunas de Júpiter). Cierra con las tres leyes empíricas de Kepler —sobre los datos de precisión de Tycho Brahe— y su unificación por Newton con la gravitación universal. Sin transcripción de audio: apuntes construidos desde las diapositivas.</p>
+      <div class="links">
+        <a href="m1c1-apuntes.html">Apuntes</a>
+        <a href="m1c1-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c2-apuntes.html">
+      <span class="cn">Clase 2</span>
+      <h2>Mecánica celeste</h2>
+      <p>La gravedad como arquitecta del Sistema Solar: gravitación universal y leyes de Kepler como marco analítico, la definición de planeta de 2006 y el censo de cuerpos menores (asteroides y troyanos, cometas y sus reservorios de Kuiper y Oort, objetos transneptunianos, la hipótesis del Planeta 9 y los visitantes interestelares). Incluye la gravedad asistida como técnica de navegación (Cassini, Rosetta), la estadística de impactos (Tunguska, Chelyabinsk, Chicxulub), los asteroides potencialmente peligrosos (Apophis, DART) y las fuerzas no gravitacionales (presión de radiación, Poynting–Robertson, Yarkovsky, YORP).</p>
+      <div class="links">
+        <a href="m1c2-apuntes.html">Apuntes</a>
+        <a href="m1c2-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c3-apuntes.html">
+      <span class="cn">Clase 3</span>
+      <h2>Planeta Tierra</h2>
+      <p>Nuestra casa vista como un planeta más y laboratorio de calibración de la ciencia planetaria: los cuatro grandes procesos geológicos (impactos, volcanismo, tectonismo, erosión), la historia de las placas tectónicas —de idea ridiculizada a teoría demostrada con magnetismo fósil—, cómo la sismología radiografía el interior, de dónde sale el calor interno (diferenciación, acreción, radiactividad y mareas) y por qué los planetas se enfrían al ritmo de su radio.</p>
+      <div class="links">
+        <a href="m1c3-apuntes.html">Apuntes</a>
+        <a href="m1c3-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c4-apuntes.html">
+      <span class="cn">Clase 4</span>
+      <h2>Planetas rocosos</h2>
+      <p>Tour por las superficies de los cuerpos rocosos aplicando los cuatro procesos geológicos de la Tierra a Mercurio (resonancia spin-órbita 3:2, escarpes de contracción), Venus (superficie joven, rotación retrógrada), la Luna (libración, fases) y Marte (la historia de su agua, de los canales de Lowell a los blueberries y la pérdida de su dínamo). El recorrido por las lunas revela océanos subterráneos (Europa, Encélado), el volcanismo de Ío sostenido por la resonancia de Laplace, los lagos de metano de Titán y rarezas como Jápeto, Miranda y Tritón.</p>
+      <div class="links">
+        <a href="m1c4-apuntes.html">Apuntes</a>
+        <a href="m1c4-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c5-apuntes.html">
+      <span class="cn">Clase 5</span>
+      <h2>Atmósferas planetarias</h2>
+      <p>Del balance entre energía solar recibida y radiación emitida sale la temperatura de equilibrio de un planeta —función del albedo y la distancia, no del radio. Los cuerpos con atmósfera están más calientes por el efecto invernadero, que en Venus alcanza +400 K y en la Tierra está siendo perturbado por el CO₂ fósil. Cierra con la circulación general terrestre (las tres celdas que explican selvas y desiertos) y las atmósferas de Venus, Marte, los gigantes de gas, Titán y su ciclo de metano, Tritón y Plutón, incluida la excepción de Neptuno, que emite el doble de lo que recibe.</p>
+      <div class="links">
+        <a href="m1c5-apuntes.html">Apuntes</a>
+        <a href="m1c5-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <p>Diplomado en Fundamentos de Astronomía · Universidad de Chile · 2026. Apuntes elaborados como material de estudio a partir de transcripciones (que pueden contener errores de reconocimiento de voz) y diapositivas oficiales del curso. La clase 1 no cuenta con transcripción de audio y sus apuntes se construyeron únicamente desde las diapositivas.</p>
+  </footer>
+</main>
+</body>
+</html>

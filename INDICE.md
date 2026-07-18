@@ -38,6 +38,20 @@ Respuestas a preguntas de repaso: `planetas/m1/respuestas_preguntas_repaso.md`
 
 Exámenes de práctica: `planetas/m1/examenes_practica/`
 
+#### Módulo 1 — Apuntes HTML interactivos
+
+Directorio: `planetas/m1/html/` (índice: `planetas/m1/html/index.html`)
+
+Notas sobre las fuentes: la clase 1 no tiene transcripción de audio (apuntes construidos solo desde las diapositivas); el audio de la clase 2 cubre solo la parte final (desde cometas/gravedad asistida); la sesión de la clase 3 fue compartida con el curso de Observación.
+
+| Clase | Tema | Apuntes HTML | Exámenes | Estado |
+| --- | --- | --- | --- | --- |
+| Clase 1 | Un nuevo universo: historia de los modelos del cosmos, de la bóveda celeste y las «estrellas paseadoras» a la mecánica de Newton; el movimiento retrógrado como hilo conductor (epiciclos de Ptolomeo → heliocentrismo de Copérnico → telescopio de Galileo: fases de Venus y lunas de Júpiter), Aristarco y Tycho Brahe, las tres leyes de Kepler y su unificación por Newton (cálculo, mecánica clásica, gravitación universal) | `planetas/m1/html/m1c1-apuntes.html` | `planetas/m1/html/m1c1-examen-01.html` … `m1c1-examen-10.html` (10) | Resumida |
+| Clase 2 | Mecánica celeste: gravitación universal y leyes de Kepler como marco analítico; definición de planeta de 2006 y censo de cuerpos menores (asteroides y troyanos, cometas y sus reservorios de Kuiper y Oort, objetos transneptunianos, hipótesis del Planeta 9, visitantes interestelares); gravedad asistida (Cassini, Rosetta); estadística de impactos (Tunguska, Chelyabinsk, Chicxulub), asteroides potencialmente peligrosos (Apophis 2029, DART) y fuerzas no gravitacionales (presión de radiación, Poynting–Robertson, Yarkovsky, YORP) | `planetas/m1/html/m1c2-apuntes.html` | `planetas/m1/html/m1c2-examen-01.html` … `m1c2-examen-10.html` (10) | Resumida |
+| Clase 3 | Planeta Tierra: la Tierra como laboratorio de calibración de la ciencia planetaria; los cuatro grandes procesos geológicos (impactos, volcanismo, tectonismo, erosión); historia de la tectónica de placas (de Wegener al magnetismo fósil); sismología e interior terrestre; fuentes de calor interno (diferenciación, acreción, radiactividad, mareas) y enfriamiento planetario según el radio | `planetas/m1/html/m1c3-apuntes.html` | `planetas/m1/html/m1c3-examen-01.html` … `m1c3-examen-10.html` (10) | Resumida |
+| Clase 4 | Planetas rocosos: tour por las superficies aplicando los cuatro procesos geológicos a Mercurio (resonancia spin-órbita 3:2, escarpes de contracción), Venus (superficie joven, rotación retrógrada), la Luna (libración, fases) y Marte (historia del agua, de los canales de Lowell a los blueberries y la pérdida del dínamo); lunas con océanos subterráneos (Europa, Encélado), volcanismo de Ío y resonancia de Laplace, lagos de metano de Titán, Jápeto, Miranda y Tritón; interiores homogéneos vs. diferenciados | `planetas/m1/html/m1c4-apuntes.html` | `planetas/m1/html/m1c4-examen-01.html` … `m1c4-examen-10.html` (10) | Resumida |
+| Clase 5 | Atmósferas planetarias: equilibrio termal y temperatura de equilibrio (función del albedo y la distancia, no del radio); efecto invernadero (+400 K en Venus, perturbación antropogénica por CO₂ en la Tierra); circulación general terrestre (tres celdas, selvas y desiertos); atmósferas de Venus, Marte, gigantes de gas, Titán y su ciclo de metano, Tritón y Plutón; la excepción de Neptuno, que emite el doble de lo que recibe | `planetas/m1/html/m1c5-apuntes.html` | `planetas/m1/html/m1c5-examen-01.html` … `m1c5-examen-10.html` (10) | Resumida |
+
 | Clase | Fecha | Profesor/a | Tema | Material disponible | Objetivos de aprendizaje | Recursos recomendados | Estado |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Clase 2, parte 1 | 20 Mar 2026, 18:32 | Pendiente | Cometas, objetos transneptunianos, planeta 9, visitantes interestelares y gravedad asistida | Transcripción: `planetas/m1/ff/Planetas-m1c21-a748e479-bebb.md` | Entender poblaciones menores del Sistema Solar, objetos transneptunianos y uso de asistencia gravitatoria en misiones espaciales. | Pendiente | En revisión |

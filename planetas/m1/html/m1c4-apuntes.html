@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planetas Rocosos — Astrofísica de Planetas, Módulo I · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.widget canvas{display:block;width:100%;max-width:520px;margin:10px auto;border:1px solid var(--line);
+  border-radius:10px;background:#04060c}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo I · Clase 4</span>
+  <h1>Planetas <em>Rocosos</em></h1>
+  <p class="sub">Un tour por las <strong>superficies</strong> de los cuerpos rocosos del Sistema Solar: Mercurio, Venus, la Luna, Marte y las lunas de los gigantes. Los mismos cuatro procesos geológicos de la Tierra, más algunos que la Tierra <em>no tiene</em>: contracción global, criotectonismo y meteorización espacial. Y una palabra que se repite en todas partes: <strong>resonancia</strong>.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Patricio Rojo</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 10 abr 2026</span>
+    <span><b>Tema:</b> Superficies de cuerpos rocosos</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a clase pasada estudiamos la Tierra como planeta y sus cuatro procesos geológicos: <strong>impactos, volcanismo, tectonismo y erosión</strong>. Esta clase aplica ese mismo lente al resto del Sistema Solar: ¿por qué ninguna otra superficie se parece a la nuestra? El recorrido va de adentro hacia afuera y deja un patrón claro: cada cuerpo es un <em>experimento natural</em> donde algunos procesos se apagaron (Mercurio sin tectónica, Venus sin campo magnético, Marte sin atmósfera protectora) y otros aparecieron (arrugamiento global, océanos bajo hielo, volcanes de roca fundida en una luna diminuta). La herramienta unificadora es la física de siempre: momento angular, fuerzas de marea y, sobre todo, <span class="hl">resonancias orbitales</span>, esos estados de acoplamiento de los que un cuerpo ya no puede escapar.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El tour y la caja de herramientas geológica</a></li>
+    <li><a href="#s2">Mercurio: resonancia 3:2 y un planeta arrugado</a></li>
+    <li><a href="#s3">Venus: el gemelo que no fue</a></li>
+    <li><a href="#s4">La Luna: síncrona, pero no estática</a></li>
+    <li><a href="#s5">Marte I: de los canales de Lowell a los arándanos</a></li>
+    <li><a href="#s6">Marte II: ¿dónde se fue el agua?</a></li>
+    <li><a href="#s7">Lunas de Júpiter: el gradiente de las mareas</a></li>
+    <li><a href="#s8">Satélites de Saturno: géiseres, lagos y rarezas</a></li>
+    <li><a href="#s9">Miranda, Tritón y Plutón: los confines</a></li>
+    <li><a href="#s10">Interiores: homogéneos y diferenciados</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El tour y la caja de herramientas geológica</h2>
+    <p>Dos familias de mundos y cuatro procesos para leer cualquier superficie.</p>
+  </div></div>
+
+  <p>El Sistema Solar a escala (en tamaños, no en distancias) muestra dos grupos nítidos: los <span class="hl">planetas interiores</span> —sólidos, pequeños, separados por el cinturón de asteroides— y los <strong>gigantes gaseosos</strong>. Esta clase se concentra en los sólidos: los cuatro planetas rocosos y las lunas de los gigantes, que también son cuerpos rocosos (o de hielo, que a estas temperaturas se comporta como roca).</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-02.jpg" alt="Los mundos más grandes del Sistema Solar a escala de tamaños">
+    <figcaption><span class="cap">Diapositiva · Mundos a escala</span>Todos los cuerpos mayores de 400 km de diámetro, a escala de tamaño (no de distancia). Se distinguen de inmediato los dos grupos: rocosos pequeños y gigantes gaseosos, más una multitud de lunas y cuerpos menores entre medio.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-06.jpg" alt="Comparación de superficies: Tierra, Venus, Marte, Ganímedes, Titán, Mercurio, Calisto, Ío, Luna, Europa">
+    <figcaption><span class="cap">Diapositiva · Superficies comparadas</span>Tierra, Venus y Marte junto a las lunas mayores. A primera vista, ninguna superficie se parece a la terrestre: no hay océanos ni continentes visibles en ningún otro cuerpo. La pregunta de la clase es <em>por qué</em> cada historia superficial fue distinta.</figcaption>
+  </figure>
+
+  <h3>Los cuatro procesos (más los que la Tierra no tiene)</h3>
+  <ul>
+    <li><strong>Impactos:</strong> cráteres; el proceso universal, presente en todos los cuerpos.</li>
+    <li><strong>Volcanismo:</strong> salida de material interno fundido (roca… o hielo derretido: <em>criovolcanismo</em>).</li>
+    <li><strong>Tectonismo:</strong> movimiento de placas; requiere escalas grandes y es lentísimo de medir (GPS de precisión en el piso).</li>
+    <li><strong>Erosión:</strong> requiere un fluido (atmósfera o agua); donde no hay atmósfera, casi no hay erosión.</li>
+  </ul>
+  <p>El tour agrega procesos nuevos que la Tierra no exhibe: el <span class="hl">arrugamiento por contracción global</span> (Mercurio), el <span class="hl">criotectonismo</span> sobre océanos subterráneos (Europa) y la <span class="hl">meteorización espacial</span> (<em>space weathering</em>): partículas del Sol que chocan y reaccionan químicamente con superficies sin atmósfera, cambiando sus colores.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería · el cráter como reloj</span>
+    <p>Contar cráteres es un <strong>proceso de conteo tipo Poisson</strong>: el flujo de impactos es aproximadamente constante en el tiempo, así que la densidad de cráteres acumulados es proporcional a la <em>edad de exposición</em> de la superficie. Una superficie saturada de cráteres (Calisto, la Luna) es vieja; una casi limpia (Europa, Venus) fue «repavimentada» hace poco. Es el mismo principio que estimar el tiempo de servicio de una pieza contando picaduras de corrosión.</p>
+  </div>
+
+  <div class="widget" id="w-crater">
+    <span class="tagband">Widget interactivo</span>
+    <h4>El reloj geológico de cráteres</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Modelo ilustrativo (inferencia propia, no de la clase): si el flujo de impactos es constante, la edad de la superficie escala con la densidad de cráteres. Mueve el deslizador o elige un cuerpo.</p>
+    <div class="presets" id="cr-presets">
+      <button data-v="0.05">Europa (activa)</button>
+      <button data-v="0.12">Venus (repavimentada)</button>
+      <button data-v="0.5">Marte (mixta)</button>
+      <button data-v="1">Luna / Calisto (saturada)</button>
+    </div>
+    <label for="cr-d">Densidad de cráteres relativa (0 = recién repavimentada, 1 = saturada)</label>
+    <input type="range" id="cr-d" min="0.01" max="1" step="0.01" value="0.5">
+    <output id="cr-out"></output>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Mercurio: resonancia 3:2 y un planeta arrugado</h2>
+    <p>Un núcleo enorme, una rotación atrapada y cicatrices de contracción global.</p>
+  </div></div>
+
+  <p>Por fuera, Mercurio parece la Luna: mismos colores, mismo tipo de roca, superficie saturada de cráteres. Pero su <strong>densidad media</strong> es mucho más alta, señal de un <span class="hl">núcleo metálico gigantesco</span>: hoy se estima en cerca del <strong>80% del radio del planeta</strong>. Incluso se cree que tiene una interfaz <em>líquida</em> entre núcleo y manto, como el núcleo externo terrestre. ¿Cómo lo sabemos sin sismógrafos? Porque la capa externa «bailotea» levemente sobre el núcleo mientras rota, y ese bamboleo sí es medible. Para el detalle fino harían falta estaciones <em>sismográficas</em> que no tenemos.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-07.jpg" alt="Interior de Mercurio (corteza, manto, núcleo) y esquema de la resonancia spin-órbita 3:2">
+    <figcaption><span class="cap">Diapositiva · Mercurio por dentro</span>Corteza delgada, manto y un núcleo que domina el volumen. Abajo: el esquema de la resonancia 3:2 — el planeta completa 3 rotaciones (marcadas en la órbita numerada) por cada 2 órbitas alrededor del Sol.</figcaption>
+  </figure>
+
+  <h3>La resonancia spin-órbita 3:2</h3>
+  <p>Mercurio orbita el Sol en <strong>88 días terrestres</strong> y rota sobre su eje en <strong>58 días terrestres</strong> (dato de clase; el valor fino es 58,6). La gracia está en el cociente: <span class="katex-inline" data-tex="3\times 58.6 \approx 2\times 88"></span>. El planeta <strong>rota exactamente 3 veces cada 2 órbitas</strong>. Por fuerzas de marea uno habría esperado que terminara <em>síncrono</em> (dándole siempre la misma cara al Sol, como la Luna a la Tierra): el Sol es enormemente más masivo y las mareas disipan energía empujando hacia ese estado de mínima disipación. Pero en el camino, Mercurio quedó <span class="hl">atrapado en la resonancia 3:2</span> — un estado gravitacionalmente estable del que ya no puede salir: en cada perihelio el planeta presenta al Sol la misma orientación alternada, y ese acoplamiento lo mantiene fijo.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{P_{\text{rot}}}{P_{\text{orb}}}=\frac{2}{3}\qquad\Longrightarrow\qquad \frac{1}{P_{\text{sol}}}=\frac{1}{P_{\text{rot}}}-\frac{1}{P_{\text{orb}}}\ \Rightarrow\ P_{\text{sol}}=176\ \text{días}"></div>
+    <small>El «día solar» (de mediodía a mediodía) resulta de componer rotación y traslación: en Mercurio dura 176 días terrestres — <strong>2 años mercurianos</strong>. La fórmula del día solar es inferencia propia consistente con los números de clase (88 y 58 días).</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería · resonancia como enganche de fase</span>
+    <p>Una resonancia spin-órbita es el análogo mecánico de un <strong>PLL (phase-locked loop)</strong>: un oscilador (la rotación) queda enganchado a una referencia (la órbita) en una razón entera de frecuencias, y pequeñas perturbaciones son corregidas por el torque gravitacional sobre la deformación de marea. Igual que un PLL puede engancharse en un armónico y no en la fundamental, Mercurio se enganchó en 3:2 y no en 1:1. En exoplanetas ni siquiera podemos medir la rotación: se <em>asume</em> sincronía para cuerpos cercanos a su estrella, pero Mercurio es el contraejemplo en nuestra propia casa.</p>
+  </div>
+
+  <div class="widget" id="w-merc">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Resonancia spin-órbita 3:2 de Mercurio</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve el deslizador (o pulsa ▶) para avanzar el tiempo. La flecha muestra hacia dónde apunta una «montañita» fija en la superficie. Observa: tras <strong>2 órbitas</strong> completó exactamente <strong>3 rotaciones</strong> y solo <strong>1 día solar</strong>.</p>
+    <canvas id="mc-cv" width="520" height="300"></canvas>
+    <div class="wgrid">
+      <div><label for="mc-t">Tiempo (días terrestres): <span id="mc-tv">0</span></label>
+      <input type="range" id="mc-t" min="0" max="176" step="0.5" value="0"></div>
+      <div style="align-self:end"><button class="btn" id="mc-play" type="button" style="background:var(--red);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-family:'Fraunces',serif;font-weight:600;cursor:pointer">▶ Animar</button></div>
+    </div>
+    <output id="mc-out"></output>
+  </div>
+
+  <h3>Las cicatrices de un planeta que se encogió</h3>
+  <p>En los acercamientos (misión <strong>MESSENGER</strong>) se ven cráteres, sí, pero también largas «cordilleras» de decenas de kilómetros. No pueden ser tectonismo —esas escalas de 10–20 km son demasiado pequeñas para placas— ni erosión (no hay atmósfera). Son <span class="hl">escarpes de contracción</span>: el núcleo metálico y el manto rocoso tienen composiciones distintas y se contrajeron de forma <em>diferencial</em> al enfriarse. La cáscara externa, ya rígida, quedó grande para el interior encogido y se <strong>arrugó</strong>. Las cicatrices, repartidas por todo el planeta, dan cuenta de una contracción global de <strong>1 a 2 km</strong>. Es un proceso terminado, no activo — y un proceso que la Tierra no tiene.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-09.jpg" alt="Superficie de Mercurio con escarpes y esquema de contracción diferencial del planeta">
+    <figcaption><span class="cap">Diapositiva · Contracción global</span>Izquierda: escarpes lobulados atravesando cráteres. Derecha: el esquema — al enfriarse, el interior se contrae más que la cáscara y la superficie se arruga. En clase se comparó con una fruta que se seca: el «arrugamiento» no es un nombre técnico, pero describe exactamente el mecanismo.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato de clase</span>
+    <p>El Sol no genera impactos en Mercurio, pero sí explica su composición: en esa zona tan caliente del disco protoplanetario los volátiles no condensaron, quedando los <strong>elementos pesados</strong> — por eso el núcleo relativo tan grande. También impide retener atmósfera. Los porqués se ven en el Módulo 2 (formación).</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Venus: el gemelo que no fue</h2>
+    <p>Unimodal, joven, sin campo magnético y girando al revés, lentísimo.</p>
+  </div></div>
+
+  <p>Sobre el papel, Venus debería ser el gemelo de la Tierra: está al <strong>70% de la distancia Tierra–Sol (0,7 UA)</strong> y tiene el <strong>95% del radio terrestre</strong>. La frase de la clase: <em>«si no hubiéramos tenido un Venus en nuestro Sistema Solar, no lo habríamos podido imaginar»</em>. Gran parte de lo exótico es atmosférico (próxima clase), pero la superficie ya da sorpresas.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-12.jpg" alt="Venus: casi mellizo de la Tierra, distribución unimodal de alturas, volcanismo extensivo, sin campo magnético, rotación retrógrada de 243 días">
+    <figcaption><span class="cap">Diapositiva · Ficha de Venus</span>Casi mellizo (0,7 UA, 0,95 R⊕), distribución <strong>unimodal</strong> de alturas, superficie joven (no más de un par de cientos de millones de años), volcanismo extensivo, sin campo magnético, rotación lenta (243 días) y <strong>retrógrada</strong>. La imagen es radar (Magallanes): en luz visible solo se ven nubes.</figcaption>
+  </figure>
+
+  <h3>Unimodal vs. bimodal: la firma de los océanos que no hubo</h3>
+  <p>Si graficas «área del planeta» versus «altura», la Tierra es <span class="hl">bimodal</span>: un máximo para los fondos oceánicos y otro para los continentes — la firma de tener <em>dos tipos de corteza</em> (oceánica y continental), producto de una tectónica lubricada por océanos. Venus es <span class="hl">unimodal</span>: un solo tipo de corteza. Hay <em>indicios</em> de tectonismo (patrones de «puzzle»), pero medirlo directamente es imposible sin GPS en superficie.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · el Everest y el anti-Everest</span>
+    <p>Cuando dos placas continentales chocan, la corteza se engruesa <em>hacia arriba y hacia abajo</em>: bajo el Everest hay un «anti-Everest» de raíz cortical (si solo se apilara hacia arriba quedaría un vacío por debajo). En Venus, con un solo tipo de placa, las zonas de choque engruesan y las de separación adelgazan la corteza — sin las zonas de subducción marcadas que tiene la Tierra.</p>
+  </div>
+
+  <h3>Superficie joven y la hipótesis del borrón y cuenta nueva</h3>
+  <p>Los planetas tienen todos ~<strong>4.500 millones de años</strong> (en el audio se transcribió «45 millones»; el valor correcto es 4.500 millones). Pero la superficie de Venus no parece más vieja que <strong>un par de cientos de millones de años</strong> — un 5% de la edad del planeta. En la Tierra encontramos rocas de 4.000 millones de años (Brasil, Australia); en Venus, nada tan antiguo. Una explicación posible (el profesor la presenta como <em>hipótesis con detractores</em> que a él le encanta): la <span class="hl">repavimentación catastrófica</span> (<em>catastrophic resurfacing</em>). La corteza unimodal acumula zonas gruesas y delgadas hasta que la irregularidad colapsa, el manto sale a la superficie y el planeta entero queda cubierto de lava: borrón y cuenta nueva, con el reloj de cráteres reiniciado en cero.</p>
+
+  <h3>Sin dínamo y girando al revés: el comodín del impacto</h3>
+  <p>Venus debe tener parte líquida en su interior (como la Tierra), pero <strong>no tiene campo magnético</strong>: rota tan lento que no hay suficiente convección organizada para el efecto dínamo. Un día venusino dura <strong>243 días terrestres</strong> y la rotación es <span class="hl">retrógrada</span>: su vector de momento angular de rotación apunta <em>opuesto</em> al de la órbita. Todos los planetas orbitan en el mismo sentido (vectores orbitales casi paralelos — herencia del disco de formación); las rotaciones también, salvo excepciones como Venus.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · momento angular y torques</span>
+    <p>El momento angular de rotación solo cambia si hay <strong>torque</strong>. Un planeta sin luna no tiene con qué frenarse o voltearse… salvo un <strong>impacto</strong>. Por eso el impacto es «el comodín»: con masa y ángulo adecuados puede explicar casi cualquier estado de rotación. Para Venus (vector de rotación invertido y casi nulo) la explicación estándar es un gran impacto pasado — que, a diferencia del de la Tierra, no dejó luna. La Tierra sí tiene torque permanente: el de las mareas lunares, que alarga nuestro día poco a poco (clase anterior).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La Luna: síncrona, pero no estática</h2>
+    <p>Nacida de un impacto, acoplada por mareas, y con tres «peros» observables.</p>
+  </div></div>
+
+  <p>¿Por qué la Luna tuvo que nacer de un <strong>gran impacto</strong> y no ser simplemente <em>capturada</em>? Por conservación de momento angular: un cuerpo que llega desde afuera con cierta energía y momento angular, si nada se los quita, <strong>vuelve a salir</strong>. Para quedar en órbita necesita frenar — como las misiones a Marte, que rozan la atmósfera marciana (<em>aerobraking</em>) y disipan energía en calor. Un cuerpo tan grande como la Luna (~1/6 del radio terrestre) no tiene cómo deshacerse de tanto momento angular: se necesitarían cadenas improbables de intercambios con otros cuerpos previos. El impacto, en cambio, tiene grados de libertad de sobra (masa, ángulo, velocidad) y además la <strong>composición de las rocas lunares</strong> es consistente con la mezcla de los dos cuerpos que chocaron.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-14.jpg" alt="Simulación SPH del gran impacto que formó la Luna">
+    <figcaption><span class="cap">Diapositiva · El gran impacto</span>Simulación numérica (SPH): un cuerpo del tamaño de Marte impacta a la proto-Tierra; el material expulsado se agrega en órbita hasta formar la Luna. Hoy estas simulaciones se contrastan con la composición medida de las rocas lunares.</figcaption>
+  </figure>
+
+  <h3>Rotación síncrona… con tres variaciones</h3>
+  <p>La Luna rota a la misma velocidad angular con que se traslada (rotación <span class="hl">síncrona</span>, forzada por las mareas terrestres): 360° de rotación en una órbita, por eso muestra siempre la misma cara. Pero hay tres «peros» observables:</p>
+  <ul>
+    <li><strong>No es siempre exactamente la misma cara.</strong> La órbita es <em>excéntrica</em>: por la 2.ª ley de Kepler la Luna se mueve más rápido en el perigeo y más lento en el apogeo, mientras su rotación es constante. Ese desfase deja «asomarse» un poco más allá del borde (libración en longitud). La inclinación de ~5° agrega el asomo en latitud.</li>
+    <li><strong>No es siempre el mismo tamaño.</strong> La misma excentricidad cambia la distancia: la Luna llena del perigeo se ve mayor que la del apogeo — aunque a ojo desnudo, sin una referencia al lado, la diferencia es invisible.</li>
+    <li><strong>No es siempre la misma iluminación:</strong> las fases, que dependen de la geometría Sol–Tierra–Luna, no de la rotación.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-16.jpg" alt="Libración: la Luna no muestra exactamente la misma cara; esquema perigeo/apogeo">
+    <figcaption><span class="cap">Diapositiva · Libración</span>Dos fotos de la Luna en fechas distintas: los mares cercanos al borde (Crisium, Marginis, Smythii) aparecen y desaparecen del limbo. El esquema muestra la órbita excéntrica con perigeo y apogeo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-17.jpg" alt="Composición de lunas llenas a lo largo de meses mostrando el cambio de tamaño aparente">
+    <figcaption><span class="cap">Diapositiva · Todas lunas llenas</span>Composición de lunas llenas durante meses: el tamaño aparente varía con la distancia. Ojo: aquí faltan las fases — son todas llenas a propósito, para aislar el efecto del tamaño.</figcaption>
+  </figure>
+
+  <h3>Dos relojes que no coinciden: órbita y fases</h3>
+  <p>El período orbital (volver al mismo punto de la órbita) y el período de fases (de luna nueva a luna nueva) <strong>no pueden ser iguales</strong>: mientras la Luna completa su vuelta, la Tierra avanzó en su órbita alrededor del Sol, así que la alineación Sol–Tierra–Luna se corre. Como complemento externo: el período sidéreo es 27,3 días y el sinódico (fases) 29,5 días. La famosa <span class="hl">superluna</span> es cuando dos <em>instantes</em> — el perigeo y la luna llena exacta — casi coinciden. «La mayor del siglo» solo significa que la coincidencia fue la más fina; la diferencia visual entre superlunas de años distintos es imperceptible.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-19.jpg" alt="Diagrama de las fases de la Luna respecto de la iluminación solar">
+    <figcaption><span class="cap">Diapositiva · Fases</span>Las fases dependen de dónde estamos parados: desde afuera, la Luna siempre tiene una mitad iluminada y una oscura; desde adentro de la órbita vemos fracciones cambiantes de esa mitad iluminada.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería · libración como modulación</span>
+    <p>La libración es una <strong>modulación de fase</strong> superpuesta a una portadora: la rotación es constante (portadora), la velocidad orbital oscila con la anomalía (señal moduladora), y el observador ve el residuo — un bamboleo periódico de ±8° aprox. Es el mismo análisis de un <em>jitter</em> determinístico en un reloj. Gracias a él vemos, acumulado, cerca del 59% de la superficie lunar (dato externo complementario).</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Marte I: de los canales de Lowell a los arándanos</h2>
+    <p>La primera «detección» de vida extraterrestre y la evidencia real de agua pasada.</p>
+  </div></div>
+
+  <p>Antes de la fotografía astronómica, el astrónomo <em>dibujaba</em> lo que veía por el ocular — con toda la subjetividad que eso implica. El grupo de <strong>Percival Lowell</strong> (~1901; en el audio quedó «Percival Lowe») produjo mapas de Marte sorprendentemente certeros en sus manchas… pero cruzados por <strong>líneas rectas</strong> que interpretaron como <span class="hl">canales artificiales</span>: ningún proceso geológico natural traza rectas de esa escala, así que la conclusión «lógica» fue vida inteligente. Es quizá la primera vez que se postula vida extraterrestre a partir de una <em>observación científica</em> y no de un mito — y alimentó medio siglo de imaginario (la carrera espacial incluida). Las líneas eran artefactos: imagen borrosa, interpretación sobreajustada, quizá hasta reflejos en la pupila.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-21.jpg" alt="Comparación entre imágenes del Hubble y los mapas con canales de Lowell/Antoniadi">
+    <figcaption><span class="cap">Diapositiva · Los «canales»</span>Izquierda: Marte por el Hubble. Centro: globos basados en los mapas de la época, con la red de líneas rectas. Las manchas reales coinciden bien; las líneas eran una ilusión — pero si el Hubble devolviera líneas así de rectas, la inferencia de artificialidad habría sido razonable.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería · el sesgo del observador</span>
+    <p>Los canales de Lowell son un caso clásico de <strong>sobreajuste perceptual con bajo SNR</strong>: ante una imagen en el límite de resolución, el cerebro «completa» estructura que no está en los datos. La fotografía eliminó al intérprete del lazo — el equivalente a reemplazar la inspección visual por un registro instrumental reproducible.</p>
+  </div>
+
+  <h3>El planeta mejor estudiado (después de casa)</h3>
+  <p>Marte es hoy el segundo planeta mejor estudiado <em>in situ</em>: decenas de misiones exitosas, más de diez activas. Ya <strong>Mariner 9</strong> (1972) mostró algo que la Luna no tiene: <span class="hl">flujos catastróficos</span> — cauces enormes tallados por un fluido. ¿Agua? En 1972 solo se podía decir «un líquido». La confirmación llegó con los <strong>Mars Rovers (2004+)</strong>: Spirit y Opportunity encontraron los <span class="hl">arándanos marcianos</span> (<em>blueberries</em>) — esférulas del tamaño, color y forma de un arándano. Su mineralogía (el profesor la describe como un tipo de arcilla; en la literatura son concreciones de hematita) <strong>solo se forma con agua líquida</strong>, y más aún, con un pH acotado: sin traer muestras, ¡pudimos estimar el pH del agua marciana antigua! La forma redondeada es la de las piedras de río. A eso se suman deltas fósiles inequívocos: desde 2004, <strong>nadie discute que hubo agua líquida en Marte</strong>.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-23.jpg" alt="Imágenes de Mariner 9 mostrando flujos catastróficos en Marte">
+    <figcaption><span class="cap">Diapositiva · Mariner 9 (1972)</span>Cauces y flujos catastróficos: algo fluyó por aquí y erosionó la superficie. Esto no existe en la Luna. En 1972 la evidencia hablaba de «un líquido»; hoy sabemos que fue H₂O.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-24.jpg" alt="Rover Opportunity y las esférulas blueberries sobre roca marciana">
+    <figcaption><span class="cap">Diapositiva · Los «blueberries» (2004+)</span>Las esférulas encontradas por los rovers: tamaño, color y forma de arándano. Su mineral solo se crea con agua líquida en un rango de pH — y su redondez recuerda a las piedras de río. Química forense a 200 millones de kilómetros.</figcaption>
+  </figure>
+
+  <h3>¿Cuánta agua? Océano vs. ríos y lagos</h3>
+  <p>La pelea abierta no es <em>si</em> hubo agua sino <strong>cuánta</strong>: ¿un gran océano boreal o solo ríos y lagos? La clase señala que va ganando el Marte «seco», de ríos y lagos — no un planeta tan húmedo como la Tierra. La diferencia importa para la habitabilidad pasada.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-26.jpg" alt="Dos escenarios de Marte húmedo: gran océano o solo ríos y lagos; lago en cráter">
+    <figcaption><span class="cap">Diapositiva · ¿Océano o lagos?</span>Arriba: topografía con el posible océano boreal (azul). Abajo: recreación de un lago en un cráter (tipo Jezero). No está clara la cantidad total de agua; la evidencia actual favorece el escenario de ríos y lagos.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Marte II: ¿dónde se fue el agua?</h2>
+    <p>Una cadena causal: enfriamiento → sin dínamo → sin escudo → escape del hidrógeno.</p>
+  </div></div>
+
+  <p>La historia del agua marciana es una <strong>cadena causal</strong> elegante. Marte es más chico que la Tierra, y los cuerpos chicos se enfrían más rápido (la taza se enfría antes que la tetera: más superficie por unidad de volumen). Al enfriarse el interior, se apaga la convección del núcleo líquido → <strong>desaparece el campo magnético</strong> → las <span class="hl">partículas cargadas del viento solar</span> (protones, núcleos de hidrógeno) dejan de ser desviadas y entran de lleno a la atmósfera.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-27.jpg" alt="Esquema de la magnetósfera desviando el viento solar">
+    <figcaption><span class="cap">Diapositiva · El escudo magnético</span>Un campo magnético global desvía las partículas cargadas del Sol. Cuando el dínamo de Marte se apagó, ese escudo desapareció — y comenzó el desmantelamiento de su agua atmosférica.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física · el billar selectivo</span>
+    <p>Un protón solar rompe la molécula de H₂O. Luego, chocando: contra el <strong>H</strong> (masas comparables) es como chocar contra un compañero — sale disparado y <em>escapa</em>; contra el <strong>O</strong> (16 veces más masivo) es como lanzarse contra un auto — ni se inmuta. Resultado: Marte pierde selectivamente el hidrógeno, y el oxígeno sobrante <strong>oxida la superficie</strong>. El rojo de Marte es, literalmente, óxido: la lápida de su agua.</p>
+  </div>
+
+  <h3>El agua de hoy: polo sur, laderas y protección planetaria</h3>
+  <p>No toda el agua se fue. En el <strong>polo sur</strong> hay un gran depósito congelado: suficiente para cubrir el planeta con un océano global de <strong>~20 metros</strong>. Suena mucho, pero el océano terrestre promedia ~4.000 metros: es poco en comparación. ¿Y agua <em>líquida</em> hoy? En laderas de cráteres hay ventisqueros (mezclas de H₂O y CO₂ congelados) donde aparecen y desaparecen <strong>manchas oscuras estacionales</strong>. Algunos grupos sostienen que requieren agua líquida subsuperficial; otros, que no. La espectroscopía no resuelve: el píxel es demasiado grande (baja resolución espacial ⇒ identificación ambigua de minerales).</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-29.jpg" alt="Laderas de cráter marciano con vetas oscuras estacionales">
+    <figcaption><span class="cap">Diapositiva · ¿Líquida hoy?</span>Vetas oscuras que aparecen y desaparecen con las estaciones en laderas de cráteres. ¿Necesitan agua líquida para formarse? El debate sigue abierto — y por eso mismo son zonas que <em>no</em> queremos pisar.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Comentario del profesor · no llevar un resfrío a Marte</span>
+    <p>Si hay agua líquida, puede haber vida <em>ahora</em>. Llegar con una bacteria terrestre podría «dejarla embarrada» — contaminar irreversiblemente el experimento natural. Los rovers se esterilizan, pero siempre resiste algún microbio; la única garantía sería hornear el rover a ~1000 °C por horas, lo que multiplicaría el presupuesto. Por ahora esas zonas interesantes se miran de lejos: <strong>protección planetaria</strong>.</p>
+  </div>
+
+  <h3>Exploración: drones, plantas nucleares y láseres</h3>
+  <p>Cada misión sube la apuesta tecnológica: ya voló un <strong>dron</strong> en la tenue atmósfera marciana (Ingenuity), y los rovers nuevos cambiaron paneles solares por <strong>generadores nucleares</strong> con energía de sobra — por ejemplo para un <span class="hl">láser que vaporiza roca</span>: en gas es fácil identificar elementos por sus líneas espectrales; en sólido no. Solución: convertir el sólido en gas y mirar el destello con una cámara espectroscópica. La clase también menciona las <strong>manchas de leopardo</strong> (<em>leopard spots</em>) halladas por el último rover: patrones que en la Tierra son evidencia de metabolismo bacteriano. Podría ser lo más cercano a una bioseñal marciana — la próxima década puede traer noticias grandes: hoy tenemos <em>un</em> planeta con vida confirmada y <em>ninguno</em> con vida descartada.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-30.jpg" alt="Perseverance, el dron Ingenuity y rovers de distintas generaciones">
+    <figcaption><span class="cap">Diapositiva · Exploración continua</span>Brazo robótico de Perseverance, el dron Ingenuity, y la evolución de los rovers: de paneles solares a generadores nucleares. Cada misión también ensaya tecnología para la eventual exploración humana.</figcaption>
+  </figure>
+
+  <p>Marte tiene además <strong>dos satélites pequeños</strong>: <span class="hl">Deimos se aleja</span> y <span class="hl">Fobos decae</span> — las dos caras de la fuerza de marea vistas la clase pasada. Fobos terminará impactando o desintegrándose.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-31.jpg" alt="Deimos y Fobos, las dos lunas irregulares de Marte">
+    <figcaption><span class="cap">Diapositiva · Deimos y Fobos</span>Dos lunas irregulares (probables asteroides capturados). La marea aleja a Deimos y hace decaer a Fobos: el mismo mecanismo que aleja a nuestra Luna, con el signo opuesto según la órbita esté sobre o bajo la rotación del planeta.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Lunas de Júpiter: el gradiente de las mareas</h2>
+    <p>Cuatro mundos galileanos, de la calma craterizada al volcán permanente.</p>
+  </div></div>
+
+  <p>Del cinturón de asteroides hacia afuera, el H₂O deja de ser escaso (los porqués, en el Módulo 2): abundan las <strong>lunas de hielo</strong>. En Júpiter, cuatro son lo bastante grandes para ser esféricas — las <span class="hl">galileanas</span> — y son <strong>radicalmente distintas entre sí</strong>. El orden importa: de afuera hacia adentro se ponen cada vez más «interesantes».</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-34.jpg" alt="Las cuatro lunas galileanas con acercamientos de sus superficies y gráfico de masas relativas">
+    <figcaption><span class="cap">Diapositiva · Las galileanas</span>Ío, Europa, Ganímedes y Calisto con acercamientos de superficie: cuatro texturas incompatibles entre sí. El gráfico de torta muestra que estas 4 concentran el 99,997% de la masa satelital de Júpiter.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Calisto</strong> (la más externa): luna de hielo «común y corriente», saturada de cráteres — superficie vieja, sin actividad.</li>
+    <li><strong>Ganímedes</strong>: la luna más grande del Sistema Solar; ya muestra manchas y terrenos renovados — algo de temperatura hubo (para «volcanismo» de hielo basta derretirlo, no se necesita magma).</li>
+    <li><strong>Europa</strong>: superficie llena de grietas que se cruzan y recruzan, casi sin cráteres — un mundo <em>activo</em>.</li>
+    <li><strong>Ío</strong> (la más interna): volcánicamente activa con <strong>roca fundida</strong>, volcanes en erupción por montones, sin nada de agua.</li>
+  </ul>
+
+  <h3>Europa: criotectonismo sobre un océano</h3>
+  <p>Las grietas de Europa son tectonismo… pero <span class="hl">criotectonismo</span>: una cáscara de hielo (~10 km) flotando sobre un <strong>océano líquido global</strong> (~100 km). En agua, las celdas de convección pueden reorganizarse sin restricción — por eso las grietas se rompen y contra-rompen en todas direcciones, a diferencia del tectonismo de roca, estable por eones (Hawái lleva toda su historia moviéndose en el mismo sentido). Los cráteres no sobreviven: la superficie se recicla. Y el volumen de agua de Europa <strong>supera toda el agua de la Tierra</strong>, en un cuerpo más chico que la Luna. Agua entre 0 y 100 °C, posibles fuentes termales en el fondo… y la pregunta obvia: <span class="hl">¿vida?</span> Otro lugar que no queremos tocar todavía.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-38.jpg" alt="Acercamiento a la superficie fracturada de Europa">
+    <figcaption><span class="cap">Diapositiva · La superficie de Europa</span>Grietas cortadas por grietas más nuevas, bloques rotados como témpanos: la firma de una cáscara de hielo arrastrada por corrientes del océano de abajo. Nótese la casi total ausencia de cráteres.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-41.jpg" alt="Corte esquemático de Europa: hielo, océano y fondo rocoso">
+    <figcaption><span class="cap">Diapositiva · El océano subterráneo</span>Corte: ~10 km de hielo, ~100 km de océano sobre el interior rocoso, con plumas, diapiros y bloques volcados. El recuadro inferior muestra el interior diferenciado con su capa azul de agua.</figcaption>
+  </figure>
+
+  <p>Se cree que Europa tiene <strong>géiseres</strong> (detecciones con mucho ruido de fondo, no 100% confirmadas). La misión <strong>Europa Clipper</strong> — ya en camino, llegando hacia 2030 — mapeará la superficie completa, medirá el espesor exacto de hielo y océano, y va equipada mitad con instrumentos de imagen remota, mitad con instrumentos de muestreo por si puede atravesar un géiser y analizar lo que sale.</p>
+
+  <h3>Ío y la resonancia de Laplace: el papá que amasa</h3>
+  <p>¿Cómo mantienen calor interno unas lunas más pequeñas que la nuestra (que es fría y muerta)? Las tres interiores están en <span class="hl">resonancia orbital 4:2:1</span>: por cada órbita de Ganímedes, Europa da 2 y Ío da 4. Una resonancia de <em>tres cuerpos</em>, mucho más rígida que una de dos: ninguna puede escapar. Júpiter «amasa» a Ío con fuerzas de marea — la aprieta y suelta constantemente, disipando energía como calor interno. Ío querría alejarse a una órbita tranquila, pero para eso tendría que mover también a Europa y a Ganímedes, y Ganímedes, el hermano grande, no se deja empujar. El resultado es un <strong>gradiente térmico de marea</strong>: Ío perdió toda su agua (se evaporó y escapó) y mantiene roca fundida; Europa alcanzó a derretir su capa de agua; Ganímedes apenas; Calisto nada.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-46.jpg" alt="Ío en infrarrojo mostrando puntos calientes volcánicos y erupción en el limbo">
+    <figcaption><span class="cap">Diapositiva · Ío, el mundo volcán</span>Arriba: mapa térmico con volcanes activos por todos lados. Abajo: pluma volcánica en el limbo. Todo ese calor sale del amasado de marea de Júpiter, sostenido por la resonancia.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-47.jpg" alt="Esquema de la resonancia de Laplace 4:2:1 entre Ío, Europa y Ganímedes">
+    <figcaption><span class="cap">Diapositiva · Resonancia de Laplace</span>Ío 1:1, Europa 2:1, Ganímedes 4:1 (períodos relativos). Una resonancia de tres cuerpos: el acoplamiento gravitacional les impide abandonar la configuración — y a Ío, escapar del maltrato de marea.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato de clase · magnetósfera compartida</span>
+    <p>Estas lunas viven <em>dentro</em> del campo magnético gigante de Júpiter, que las protege del viento solar. Ío, con sus volcanes, inyecta tantos iones que afecta visiblemente la magnetósfera joviana. Y ojo: el magnetismo solo desvía <strong>partículas cargadas</strong> — no habría podido retener moléculas neutras de agua en Ío.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Satélites de Saturno: géiseres, lagos y rarezas</h2>
+    <p>Más lunas ⇒ más anillos. Y un catálogo de mundos únicos.</p>
+  </div></div>
+
+  <p>Saturno tiene más lunas que Júpiter — <strong>siete esféricas</strong> — y esa abundancia explica sus anillos: las partículas de los anillos (desde polvo hasta «microbuses») serían inestables si no fuera por las lunas que las mantienen alineadas; las <strong>divisiones de los anillos</strong> corresponden a resonancias con lunas. Más lunas, más anillos.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-49.jpg" alt="Familia de satélites de Saturno alrededor del planeta y sus anillos">
+    <figcaption><span class="cap">Diapositiva · La familia de Saturno</span>De Pan y Atlas hasta Titán y Jápeto. Titán desbanda la escala: es gigante, la segunda luna más grande del Sistema Solar (la clase dudó si era la mayor; ese título es de Ganímedes, por poco).</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Encélado:</strong> las «rayas de tigre» azuladas resultaron ser <span class="hl">géiseres reales</span> (misión Cassini, que los fotografió pero no iba preparada para muestrearlos). Debajo: otro <strong>océano global</strong>, más delgado que el de Europa.</li>
+    <li><strong>Titán:</strong> atmósfera densísima y opaca (detalle la próxima clase). La sonda <strong>Huygens</strong> aterrizó y describió la zona como «lodosa». Tiene <span class="hl">lagos de metano y etano</span> a −170 °C: junto con la Tierra, el <strong>único cuerpo del Sistema Solar con líquidos estables en superficie</strong>. A esa temperatura el agua no puede ser líquida — el rol del agua lo juegan los hidrocarburos.</li>
+    <li><strong>Jápeto:</strong> una <strong>cordillera ecuatorial</strong> que lo circunda («como si lo hubieran partido y pegado a la rápida») — quizá contracción con preponderancia ecuatorial por rotación alta pasada; hay varias hipótesis. Además, dos hemisferios de color opuesto: <span class="hl">meteorización espacial</span> (space weathering): partículas solares que interactúan química y mecánicamente con la superficie descubierta.</li>
+    <li><strong>Mimas:</strong> la «Estrella de la Muerte» (cráter Herschel).</li>
+    <li><strong>Hiperión:</strong> el mayor de los irregulares, con densidad <strong>la mitad de la del agua</strong>: una piedra pómez gigante llena de vacíos. Por ahora, único en su tipo.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-50.jpg" alt="Encélado: rayas de tigre, géiseres retroiluminados y comparación de tamaño con Gran Bretaña">
+    <figcaption><span class="cap">Diapositiva · Encélado</span>Las fracturas del polo sur («rayas de tigre»), los géiseres retroiluminados vistos por Cassini, y el tamaño real: una luna diminuta comparada con Gran Bretaña — con un océano global adentro.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-51.jpg" alt="Titán difuso, superficie fotografiada por Huygens y lagos de metano en radar">
+    <figcaption><span class="cap">Diapositiva · Titán</span>Izquierda: Titán borroso por su atmósfera. Centro: la única imagen desde la superficie (Huygens): piedras redondeadas en terreno «lodoso». Derecha: lagos de metano/etano en radar (azul).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-52.jpg" alt="Jápeto con su cordillera ecuatorial">
+    <figcaption><span class="cap">Diapositiva · Jápeto</span>La cordillera ecuatorial perfectamente alineada con el ecuador — probablemente ligada a la historia de rotación — y el contraste de albedo entre hemisferios, atribuido a meteorización espacial.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-54.jpg" alt="Hiperión, luna porosa de baja densidad">
+    <figcaption><span class="cap">Diapositiva · Hiperión</span>Densidad ≈ 0,5 g/cm³: la mitad del agua. El interior debe estar lleno de cavernas y vacíos — una esponja de hielo y roca. El profesor bromea: ahí viven los gusanos espaciales.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Miranda, Tritón y Plutón: los confines</h2>
+    <p>Un acantilado de 20 km, piel de melón y misterios sin proceso conocido.</p>
+  </div></div>
+
+  <p>En Urano destaca <strong>Miranda</strong> (su único satélite regular esférico mostrado en clase): parece armada «a la rápida», con parches rayados que no calzan… y el <span class="hl">mayor acantilado del Sistema Solar</span>: <strong>Verona Rupes, ~20 km de caída vertical</strong> — dos Everest apilados. Con la gravedad diminuta de Miranda, caerías <strong>12 minutos</strong> y llegarías abajo a unos <strong>200 km/h</strong>: el profesor sugiere que un buen sistema de airbags bastaría (turismo aventura del futuro).</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-56.jpg" alt="Miranda y el acantilado Verona Rupes">
+    <figcaption><span class="cap">Diapositiva · Miranda y Verona Rupes</span>El satélite «mal pegado» de Urano y su acantilado de 20 km: 12 minutos de caída libre, velocidad máxima ~200 km/h. La textura de parches sugiere una historia de reensamblaje o convección interna abortada.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-fall">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Salto desde Verona Rupes: caída libre comparada</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Sin atmósfera, la caída es cinemática pura: <span class="katex-inline" data-tex="t=\sqrt{2h/g}"></span>, <span class="katex-inline" data-tex="v=g\,t"></span>. Elige el cuerpo y la altura del salto.</p>
+    <div class="presets" id="fl-presets">
+      <button data-g="0.079" data-n="Miranda">Miranda</button>
+      <button data-g="1.62" data-n="Luna">Luna</button>
+      <button data-g="3.71" data-n="Marte">Marte</button>
+      <button data-g="9.81" data-n="Tierra (sin aire)">Tierra*</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="fl-g">Gravedad superficial g (m/s²)</label><input type="number" id="fl-g" step="any" value="0.079"></div>
+      <div><label for="fl-h">Altura de caída h (m)</label><input type="number" id="fl-h" step="any" value="20000"></div>
+    </div>
+    <output id="fl-out"></output>
+    <p style="margin:.6em 0 0;color:var(--muted);font-size:.8rem">*En la Tierra real el roce del aire impone una velocidad terminal (~200 km/h para un cuerpo humano): el cálculo sin atmósfera solo vale para cuerpos sin aire.</p>
+  </div>
+
+  <p>En Neptuno, <strong>Tritón</strong> exhibe el «proceso geológico del melón calameño» (broma del profesor): una textura de <span class="hl">piel de melón</span> (<em>cantaloupe terrain</em>) que aparece en una zona y no en otra, posiblemente ligada a las temperaturas extremas de allá afuera. Con solo un puñado de imágenes (Voyager 2), no se puede estudiar mucho más.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-57.jpg" alt="Tritón con su textura de piel de melón">
+    <figcaption><span class="cap">Diapositiva · Tritón</span>La textura «cantaloupe» en parte de la superficie y el casquete polar. Casi todo lo que sabemos viene de tres imágenes de Voyager 2: soñar es gratis, estudiar cuesta datos.</figcaption>
+  </figure>
+
+  <p><strong>Plutón</strong> tiene un satélite enorme en proporción: <span class="hl">Caronte</span>. Cuando <strong>New Horizons</strong> llegó (2015) con imágenes de alta resolución, los científicos quedaron descolocados: superficies planas que de pronto se llenan de irregularidades, bloques de hielo que parecen «flotados» — no hay proceso geológico conocido que explique cómodamente lo que se ve. Los misterios siguen abiertos.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-59.jpg" alt="Plutón y Caronte fotografiados por New Horizons">
+    <figcaption><span class="cap">Diapositiva · Plutón y Caronte</span>El par Plutón–Caronte por New Horizons, con el acercamiento a los bloques de hielo caóticos del borde de Sputnik Planitia. Un sistema casi binario: Caronte es enorme relativo a Plutón.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Interiores: homogéneos y diferenciados</h2>
+    <p>Sin sismógrafos, la gravedad es el único estetoscopio.</p>
+  </div></div>
+
+  <p>De los interiores sabemos poco: sismología solo tenemos en la Tierra y Marte (misión InSight). Para el resto, se mide el campo gravitacional del cuerpo (cómo desvía a las sondas) y de ahí se infiere si es <span class="hl">homogéneo</span> o <span class="hl">diferenciado</span>. La <strong>diferenciación</strong> — lo pesado al centro, lo liviano arriba — requiere que el cuerpo haya estado fundido: por eso los cuerpos chicos, que se enfrían rápido, tienden a ser homogéneos. La Luna, relativamente grande pero sin fuentes de calor extra, quedó poco diferenciada (núcleo pequeño); Europa, más chica, está bien diferenciada — porque compite con ventaja: el calor de marea de Júpiter le dio «más temperatura por más tiempo».</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-61.jpg" alt="Cortes de interiores: Luna, galileanas, Marte, Mercurio y Titán con razones núcleo/planeta">
+    <figcaption><span class="cap">Diapositiva · Interiores comparados</span>Razón núcleo/radio: Luna 0,25 — Marte 0,5 — Mercurio 0,8. Las galileanas muestran el gradiente de diferenciación, con la capa azul de agua en Europa. El tamaño no lo es todo: importa la historia térmica.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central del tour: <strong>los mismos procesos físicos, dosis distintas</strong>. Tamaño (historia térmica), distancia al Sol (composición), mareas y resonancias (calor extra y estados atrapados) explican la diversidad de superficies. La próxima clase completa el cuadro con el <strong>tour por las atmósferas</strong> — donde Venus pasa de raro a extremo — y el Módulo 2 responde de dónde vino tanta agua.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Procesos geológicos</b></td><td>Impactos, volcanismo, tectonismo, erosión</td><td>El lente para leer cualquier superficie; cada cuerpo activa un subconjunto</td></tr>
+      <tr><td><b>Resonancia 3:2 de Mercurio</b></td><td>3 rotaciones cada 2 órbitas (58 d / 88 d)</td><td>Estado atrapado que impide la sincronía; advertencia para exoplanetas</td></tr>
+      <tr><td><b>Escarpes de contracción</b></td><td>Arrugas globales de 1–2 km en Mercurio</td><td>Contracción diferencial núcleo/manto al enfriarse; proceso que la Tierra no tiene</td></tr>
+      <tr><td><b>Distribución de alturas</b></td><td>Tierra: bimodal · Venus: unimodal</td><td>Firma de dos tipos de corteza (con océanos) vs. uno solo</td></tr>
+      <tr><td><b>Repavimentación catastrófica</b></td><td>Hipótesis: Venus se cubre de lava episódicamente</td><td>Explicaría su superficie de solo ~200–300 Ma (5% de su edad)</td></tr>
+      <tr><td><b>Rotación retrógrada de Venus</b></td><td>243 días, vector opuesto a la órbita</td><td>Requiere torque: el «comodín» del gran impacto; sin rotación no hay dínamo</td></tr>
+      <tr><td><b>Gran impacto lunar</b></td><td>Cuerpo tamaño Marte contra la proto-Tierra</td><td>La captura es imposible sin frenar (momento angular); composición consistente</td></tr>
+      <tr><td><b>Libración</b></td><td>Excentricidad + inclinación (5°) vs. rotación constante</td><td>La Luna síncrona no muestra siempre exactamente la misma cara ni tamaño</td></tr>
+      <tr><td><b>Superluna</b></td><td>Coincidencia de perigeo + instante de luna llena</td><td>Los dos períodos (orbital y de fases) difieren; la coincidencia es cuestión de grado</td></tr>
+      <tr><td><b>Blueberries (2004)</b></td><td>Esférulas cuya mineralogía exige agua líquida y pH acotado</td><td>Cerraron el debate: hubo agua líquida en Marte; queda la pelea océano vs. lagos</td></tr>
+      <tr><td><b>Pérdida de agua de Marte</b></td><td>Enfrió → sin dínamo → viento solar rompe H₂O → escapa el H</td><td>El O sobrante oxida el planeta: Marte es rojo por eso; queda hielo (~20 m globales) en el polo sur</td></tr>
+      <tr><td><b>Criotectonismo</b></td><td>Cáscara de hielo sobre océano líquido (Europa)</td><td>Grietas que se cruzan sin dirección estable; Europa tiene más agua que la Tierra</td></tr>
+      <tr><td><b>Resonancia de Laplace</b></td><td>Ío:Europa:Ganímedes = 4:2:1</td><td>Sostiene el calentamiento de marea: Ío fundida, Europa con océano, gradiente hacia afuera</td></tr>
+      <tr><td><b>Titán</b></td><td>Lagos de metano/etano a −170 °C</td><td>Único cuerpo además de la Tierra con líquido estable en superficie</td></tr>
+      <tr><td><b>Meteorización espacial</b></td><td>Partículas solares alteran superficies sin atmósfera</td><td>Explica los dos colores de Jápeto; en la Tierra la atmósfera nos blinda</td></tr>
+      <tr><td><b>Verona Rupes (Miranda)</b></td><td>Acantilado de ~20 km; caída de 12 min a ~200 km/h</td><td>Gravedad diminuta ⇒ dinámica exótica; g define la experiencia de cada mundo</td></tr>
+      <tr><td><b>Diferenciación</b></td><td>Pesado al centro; requiere fusión. R<sub>c</sub>/R<sub>p</sub>: Luna 0,25 · Marte 0,5 · Mercurio 0,8</td><td>Se infiere por gravedad; la historia térmica (tamaño + mareas) decide</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c4-examen-01.html">Examen 01<small>Mercurio: interior y superficie</small></a></li>
+    <li><a href="m1c4-examen-02.html">Examen 02<small>Resonancia 3:2</small></a></li>
+    <li><a href="m1c4-examen-03.html">Examen 03<small>Venus</small></a></li>
+    <li><a href="m1c4-examen-04.html">Examen 04<small>La Luna</small></a></li>
+    <li><a href="m1c4-examen-05.html">Examen 05<small>Marte: historia del agua</small></a></li>
+    <li><a href="m1c4-examen-06.html">Examen 06<small>Marte: agua hoy y exploración</small></a></li>
+    <li><a href="m1c4-examen-07.html">Examen 07<small>Europa y las galileanas</small></a></li>
+    <li><a href="m1c4-examen-08.html">Examen 08<small>Ío y la resonancia de Laplace</small></a></li>
+    <li><a href="m1c4-examen-09.html">Examen 09<small>Satélites de Saturno</small></a></li>
+    <li><a href="m1c4-examen-10.html">Examen 10<small>Confines e interiores</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo I del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Patricio Rojo, 10 abr 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m1/ff/Planetas-m1c4-3aa05af0-41e9.md</code>) y las diapositivas <code>Modulo_I_Clase_4_Planetas_Rocosos.pdf</code> («Planetas Rocosos»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía: «simográficas» → sismográficas; «Chunicamata» → Chuquicamata; «45 millones» → 4.500 millones de años; «Percival Lowe» → Percival Lowell; «Ho» → H₂O; «gasers/gazers» → géiseres; «Marco» → Marte; «Iu/hío» → Ío; «cinturón Deterioro/tiroides» → cinturón de asteroides; «titanio» → Titán; «space watering» → <em>space weathering</em> (meteorización espacial); «resurfamiento» → repavimentación (resurfacing) catastrófica. Además: la clase dudó si Titán era la luna más grande del Sistema Solar — es la segunda, tras Ganímedes; las «blueberries» se describen en clase como arcilla, la literatura las identifica como concreciones de hematita (se indican ambas). Los períodos sidéreo/sinódico de la Luna (27,3/29,5 días) y la fórmula del día solar de Mercurio se agregaron como complemento externo. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: reloj de cráteres ----
+(function(){
+  var d = document.getElementById('cr-d');
+  var out = document.getElementById('cr-out');
+  function calc(){
+    var x = parseFloat(d.value);
+    // Modelo ilustrativo: edad ∝ densidad, saturación ≈ 4.400 Ma (edad de las superficies más viejas)
+    var age = x*4400;
+    var txt, desc;
+    if(age < 200){ desc = "superficie recién repavimentada: actividad geológica reciente (tipo Europa)"; }
+    else if(age < 800){ desc = "superficie joven: hubo renovación hace «poco» (tipo Venus)"; }
+    else if(age < 3000){ desc = "superficie mixta: zonas renovadas y zonas antiguas (tipo Marte)"; }
+    else { desc = "superficie saturada: sin renovación desde el bombardeo temprano (tipo Luna/Calisto)"; }
+    txt = "Edad estimada de exposición ≈ <b>"+Math.round(age)+"</b> millones de años<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+desc+". Modelo lineal ilustrativo: el flujo real de impactos fue mucho mayor en los primeros ~700 Ma.</span>";
+    out.innerHTML = txt;
+  }
+  d.addEventListener('input', calc);
+  document.querySelectorAll('#cr-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ d.value=b.dataset.v; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: resonancia 3:2 de Mercurio ----
+(function(){
+  var cv = document.getElementById('mc-cv'), ctx = cv.getContext('2d');
+  var slider = document.getElementById('mc-t');
+  var tv = document.getElementById('mc-tv');
+  var out = document.getElementById('mc-out');
+  var btn = document.getElementById('mc-play');
+  var P_ORB = 88, P_ROT = 176/3; // ≈58.67 días
+  var playing = false, raf = null;
+
+  function draw(t){
+    var W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,W,H);
+    var cx = W/2, cy = H/2, R = Math.min(W,H)*0.36;
+    // órbita
+    ctx.strokeStyle = "#26324a"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,2*Math.PI); ctx.stroke();
+    // Sol
+    var g = ctx.createRadialGradient(cx,cy,2,cx,cy,16);
+    g.addColorStop(0,"#ffe9a0"); g.addColorStop(1,"#d9a74a00");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx,cy,16,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = "#ffdf80"; ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
+    // Mercurio
+    var thO = 2*Math.PI*t/P_ORB - Math.PI/2;       // ángulo orbital
+    var thR = 2*Math.PI*t/P_ROT - Math.PI/2;       // ángulo de rotación (montañita)
+    var px = cx + R*Math.cos(thO), py = cy + R*Math.sin(thO);
+    ctx.fillStyle = "#b9a894"; ctx.beginPath(); ctx.arc(px,py,11,0,2*Math.PI); ctx.fill();
+    ctx.strokeStyle = "#26324a"; ctx.stroke();
+    // flecha de la montañita
+    var ax = px + 22*Math.cos(thR), ay = py + 22*Math.sin(thR);
+    ctx.strokeStyle = "#e0382e"; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(ax,ay); ctx.stroke();
+    ctx.fillStyle = "#e0382e";
+    ctx.beginPath();
+    ctx.arc(ax,ay,3.4,0,2*Math.PI); ctx.fill();
+    // etiquetas
+    ctx.fillStyle = "#9aa6bb"; ctx.font = "12px Spectral, serif";
+    ctx.fillText("Sol", cx+10, cy-10);
+    ctx.fillStyle = "#ece8df";
+    ctx.fillText("Mercurio", px+14, py+22);
+  }
+  function update(){
+    var t = parseFloat(slider.value);
+    tv.textContent = t.toFixed(0);
+    draw(t);
+    var orbs = t/P_ORB, rots = t/P_ROT, sol = t/176;
+    out.innerHTML = "Órbitas: <b>"+orbs.toFixed(2)+"</b> · Rotaciones: <b>"+rots.toFixed(2)+"</b> · Días solares: <b>"+sol.toFixed(2)+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Razón rotaciones/órbitas = "+(orbs>0?(rots/orbs).toFixed(3):"—")+" (→ 1,5 = 3:2). En t = 176 d: 2 órbitas, 3 rotaciones, 1 día solar.</span>";
+  }
+  function step(){
+    if(!playing) return;
+    var t = parseFloat(slider.value) + 0.55;
+    if(t > 176){ t = 176; playing = false; btn.textContent = "▶ Animar"; }
+    slider.value = t; update();
+    if(playing) raf = requestAnimationFrame(step);
+  }
+  btn.addEventListener('click', function(){
+    if(playing){ playing = false; btn.textContent = "▶ Animar"; cancelAnimationFrame(raf); return; }
+    if(parseFloat(slider.value) >= 176) slider.value = 0;
+    playing = true; btn.textContent = "⏸ Pausar"; raf = requestAnimationFrame(step);
+  });
+  slider.addEventListener('input', function(){ playing = false; btn.textContent = "▶ Animar"; update(); });
+  update();
+})();
+
+// ---- Widget 3: caída libre en Verona Rupes ----
+(function(){
+  var gEl = document.getElementById('fl-g');
+  var hEl = document.getElementById('fl-h');
+  var out = document.getElementById('fl-out');
+  var name = "Miranda";
+  function calc(){
+    var g = parseFloat(gEl.value), h = parseFloat(hEl.value);
+    if(!(g>0)||!(h>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var t = Math.sqrt(2*h/g);
+    var v = g*t;
+    var tTxt = t>=120 ? (t/60).toFixed(1)+" minutos" : t.toFixed(1)+" segundos";
+    out.innerHTML = "En <span class='k'>"+name+"</span> (g = "+g+" m/s²), caer "+(h/1000).toFixed(1)+" km toma <b>"+tTxt+"</b><br>"+
+      "Velocidad de impacto: <b>"+(v*3.6).toFixed(0)+" km/h</b> ("+v.toFixed(1)+" m/s)"+
+      "<br><span style='color:var(--muted);font-size:.9rem'>"+(v*3.6<250?"Como dice el profesor: con un buen sistema de airbags, sobrevivible.":"A esta velocidad ya no bastan los airbags.")+"</span>";
+  }
+  gEl.addEventListener('input', function(){ name = "cuerpo personalizado"; calc(); });
+  hEl.addEventListener('input', calc);
+  document.querySelectorAll('#fl-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ gEl.value = b.dataset.g; name = b.dataset.n; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

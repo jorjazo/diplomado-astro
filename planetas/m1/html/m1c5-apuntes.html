@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atmósferas Planetarias — Astrofísica de Planetas, Módulo I · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.scalebar{position:relative;height:64px;background:#070d18;border:1px solid var(--line);border-radius:10px;margin-top:10px;overflow:hidden}
+.scalebar .pl{position:absolute;top:8px;transform:translateX(-50%);text-align:center;font-family:"Fraunces",serif;font-size:.68rem;color:var(--muted)}
+.scalebar .pl i{display:block;width:9px;height:9px;border-radius:50%;margin:4px auto 0;font-style:normal}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo I · Clase 5</span>
+  <h1>Atmósferas <em>Planetarias</em></h1>
+  <p class="sub">Por qué una atmósfera se mueve, qué temperatura «debería» tener un planeta y por qué las atmósferas <em>hacen trampa</em>: <strong>equilibrio termal</strong>, <strong>albedo</strong>, <strong>efecto invernadero</strong> y un recorrido por los climas de la Tierra, Venus, Marte, los gigantes de gas, Titán y Plutón.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Patricio Rojo</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 17 abr 2026</span>
+    <span><b>Tema:</b> Atmósferas del Sistema Solar</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>na atmósfera es un sistema <strong>dinámico</strong>: vientos, huracanes, tormentas. Y no hay movimiento sin una <span class="hl">fuente de energía</span>. Esta clase parte de la pregunta más simple posible —¿cuánta energía entra y cuánta sale?— y con ese único balance construye casi todo: la <strong>temperatura de equilibrio</strong> de un planeta, el rol del <strong>albedo</strong>, el <strong>efecto invernadero</strong> que explica por qué Venus hierve a 740 K, y la <strong>circulación general</strong> que dibuja los desiertos y selvas de la Tierra. El cierre es un safari por las atmósferas del Sistema Solar: del casi-vacío marciano de 6 milibares a las 92 atmósferas de Venus, de las bandas de Júpiter al hexágono de Saturno, y hasta la neblina de Plutón. Para una cabeza de ingeniería, es una clase de <em>balance de energía en régimen permanente</em>, con perturbaciones, retroalimentaciones y un sistema que siempre encuentra su punto de operación.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Energía para mover una atmósfera</a></li>
+    <li><a href="#s2">Equilibrio termal: el balance de energía</a></li>
+    <li><a href="#s3">Albedo: la fracción reflejada</a></li>
+    <li><a href="#s4">Predicción vs. medición: el gráfico log-log</a></li>
+    <li><a href="#s5">El efecto invernadero</a></li>
+    <li><a href="#s6">Carbono, civilización y equilibrio</a></li>
+    <li><a href="#s7">Vientos: presión, Coriolis y equilibrio</a></li>
+    <li><a href="#s8">Circulación general: tres celdas, todos los climas</a></li>
+    <li><a href="#s9">Tierra: perfil vertical y estratopausa</a></li>
+    <li><a href="#s10">Venus: el invernadero desbocado</a></li>
+    <li><a href="#s11">Marte: polvo, viento débil y metano</a></li>
+    <li><a href="#s12">Gigantes de gas: bandas, tormentas e interiores</a></li>
+    <li><a href="#s13">Urano y Neptuno: el que rompe el equilibrio</a></li>
+    <li><a href="#s14">Titán, Tritón y Plutón</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Energía para mover una atmósfera</h2>
+    <p>Sin fuente de energía no hay dinámica. ¿De dónde sale?</p>
+  </div></div>
+
+  <p>La atmósfera terrestre casi nunca está quieta: vientos que avanzan, huracanes, frentes. Todo ese <strong>dinamismo requiere energía</strong>. La clase pasada (superficies e interiores) se listaron las fuentes que calientan el <em>interior</em> de un planeta: <span class="hl">mareas</span>, <span class="hl">acreción/impactos</span>, <span class="hl">desintegración nuclear</span> y <span class="hl">diferenciación</span> (lo denso baja, lo liviano sube, y ese reacomodo libera energía).</p>
+
+  <div class="box prof">
+    <span class="tag">Fisión, no fusión</span>
+    <p>Un punto que se repasó con la audiencia: la fuente nuclear en planetas es la <strong>fisión</strong> (desintegración espontánea de elementos inestables como el uranio, sin necesidad de estímulo externo), no la fusión. La <strong>fusión</strong> es más eficiente pero requiere temperaturas enormes: es el mecanismo de las <em>estrellas</em>, imposible en un planeta.</p>
+  </div>
+
+  <p>Para la <strong>atmósfera</strong>, en cambio, esas fuentes internas son casi despreciables. Un volcán calienta el aire, la geotermia aporta algo, pero comparado con lo que llega desde arriba es <em>órdenes de magnitud</em> menor. La dinámica atmosférica se alimenta <strong>principalmente de la radiación solar</strong>.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es el clásico análisis de <strong>órdenes de magnitud</strong> antes de modelar: en el balance térmico de la atmósfera, el flujo geotérmico (~0,1 W/m²) es ruido frente a la insolación (~10² W/m² absorbidos). Antes de escribir ecuaciones, identifica el término dominante y desprecia el resto.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Equilibrio termal: el balance de energía</h2>
+    <p>Lo que entra por segundo debe ser igual a lo que sale por segundo.</p>
+  </div></div>
+
+  <p>El concepto central de la clase es el <span class="hl">equilibrio termal</span> (o radiativo): en escalas de tiempo largas —miles de millones de años— la energía que un planeta <strong>recibe por segundo</strong> tiene que ser <strong>igual</strong> a la que <strong>emite por segundo</strong>. Si no fueran iguales, la temperatura del planeta subiría o bajaría sin freno. Puede haber días más fríos o calientes, pero el promedio de largo plazo exige balance.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{E_{\text{recibida}}}{s} = \frac{E_{\text{emitida}}}{s} \qquad\Longrightarrow\qquad F_{\text{estrella}}\cdot f_{\text{absorbida}}\cdot a_{\text{planeta}} = L_{\text{planeta}}"></div>
+    <small>Lo recibido es el flujo de la estrella a la distancia del planeta, por la fracción que efectivamente se absorbe, por el área que intercepta. Lo emitido es la luminosidad del planeta como cuerpo negro.</small>
+  </div>
+
+  <h3>Desarmando cada término</h3>
+  <ul>
+    <li><strong>El área que intercepta luz es un círculo, no una esfera:</strong> lo que importa es la <em>sección eficaz</em> <span class="katex-inline" data-tex="\pi R_p^2"></span>. Un cono, un disco o una esfera del mismo radio aparente reciben la misma energía.</li>
+    <li><strong>La fracción absorbida es <span class="katex-inline" data-tex="(1-A)"></span></strong>, donde <span class="katex-inline" data-tex="A"></span> es el <span class="hl">albedo</span>: la fracción <em>reflejada</em>.</li>
+    <li><strong>El flujo de la estrella a distancia <span class="katex-inline" data-tex="d"></span></strong> es su luminosidad de cuerpo negro <span class="katex-inline" data-tex="\sigma T^4_{\text{estrella}}\,4\pi R^2_{\text{estrella}}"></span> repartida sobre la esfera <span class="katex-inline" data-tex="4\pi d^2"></span>. Recordatorio: <span class="katex-inline" data-tex="\sigma T^4"></span> es el área bajo la curva del cuerpo negro, integrada en todas las longitudes de onda (ley de Stefan–Boltzmann).</li>
+    <li><strong>Lo emitido:</strong> el planeta también radia como cuerpo negro, por toda su superficie: <span class="katex-inline" data-tex="\sigma T^4_{\text{planeta}}\,4\pi R_p^2"></span>.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\sigma T^4_{\text{estrella}}\,4\pi R^2_{\text{estrella}}\;\frac{1}{4\pi d^2}\,(1-A)\,\pi R_p^2 \;=\; \sigma T^4_{\text{planeta}}\,4\pi R_p^2"></div>
+    <small>Cancelando términos queda la temperatura de equilibrio del planeta.</small>
+  </div>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="T_{\text{planeta}} = T_{\text{estrella}}\,\sqrt{\frac{R_{\text{estrella}}}{d}\cdot\frac{\sqrt{1-A}}{2}} \qquad\Longleftrightarrow\qquad T^4_{\text{planeta}} = \frac{1-A}{4}\left(\frac{R_{\text{estrella}}}{d}\right)^{2} T^4_{\text{estrella}}"></div>
+    <small>Depende de la temperatura y radio de la estrella, de la distancia y del albedo. Nada más.</small>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-10.jpg" alt="Derivación de la temperatura de equilibrio a partir del balance de energía">
+    <figcaption><span class="cap">Diapositiva · Del balance a la temperatura</span>La cadena completa: equilibrio termal → flujo estelar × fracción absorbida × sección eficaz = luminosidad del planeta → temperatura de equilibrio. F: flujo; A: albedo (fracción reflejada); R: radio; d: distancia a la estrella.</figcaption>
+  </figure>
+
+  <h3>Qué dice (y qué no dice) la fórmula</h3>
+  <ul>
+    <li>Si <span class="katex-inline" data-tex="A=1"></span> (refleja el 100%), la temperatura da cero: no absorbe nada.</li>
+    <li>Si <span class="katex-inline" data-tex="d"></span> disminuye, la temperatura sube (te acercas a la estrella).</li>
+    <li>Lo más llamativo: <strong>el radio del planeta no aparece</strong>. El <span class="katex-inline" data-tex="\pi R_p^2"></span> que recibe se cancela con el <span class="katex-inline" data-tex="4\pi R_p^2"></span> que emite (salvo el factor 4, que queda en la fórmula). Un planeta grande y uno chico a la misma distancia y con el mismo albedo tienen la <em>misma</em> temperatura de equilibrio.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es un <strong>balance de energía en régimen permanente</strong>, idéntico al de un equipo electrónico disipando calor: potencia de entrada = potencia disipada define la temperatura de operación. Como la emisión crece como <span class="katex-inline" data-tex="T^4"></span>, el sistema tiene una <em>retroalimentación negativa</em> fuerte: si entra más energía, el planeta se calienta un poco y radia mucho más, encontrando un nuevo punto de equilibrio. El exponente 4 hace al «controlador» muy rígido.</p>
+  </div>
+
+  <div class="widget" id="w-teq">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora de temperatura de equilibrio T<sub>eq</sub>(A, d)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">La fórmula de la clase con el Sol como estrella (T<sub>☉</sub> = 5772 K, R<sub>☉</sub> = 6,96×10⁵ km). Mueve el albedo y la distancia, y compara con la temperatura superficial medida de cada planeta.</p>
+    <div class="presets" id="teq-presets">
+      <button data-a="0.12" data-d="0.39" data-ts="440" data-n="Mercurio">Mercurio</button>
+      <button data-a="0.75" data-d="0.72" data-ts="740" data-n="Venus">Venus</button>
+      <button data-a="0.31" data-d="1" data-ts="288" data-n="Tierra">Tierra</button>
+      <button data-a="0.11" data-d="1" data-ts="250" data-n="Luna">Luna</button>
+      <button data-a="0.25" data-d="1.52" data-ts="215" data-n="Marte">Marte</button>
+      <button data-a="0.34" data-d="5.2" data-ts="165" data-n="Júpiter">Júpiter</button>
+      <button data-a="0.29" data-d="30.1" data-ts="72" data-n="Neptuno">Neptuno</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="teq-a">Albedo A (0–1): <b id="teq-a-val">0.31</b></label><input type="range" id="teq-a" min="0" max="0.99" step="0.01" value="0.31"></div>
+      <div><label for="teq-d">Distancia d (UA)</label><input type="number" id="teq-d" step="any" value="1" min="0.01"></div>
+      <div><label for="teq-ts">T superficial medida (K) — opcional</label><input type="number" id="teq-ts" step="any" value="288"></div>
+    </div>
+    <output id="teq-out"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Albedo: la fracción reflejada</h2>
+    <p>El mismo Sol, temperaturas muy distintas según el «color» del suelo.</p>
+  </div></div>
+
+  <p>El <span class="hl">albedo</span> <span class="katex-inline" data-tex="A"></span> es la fracción de la radiación incidente que se <strong>refleja</strong>; su complemento <span class="katex-inline" data-tex="(1-A)"></span> es la fracción absorbida. Los ejemplos de la clase:</p>
+
+  <ul>
+    <li><strong>Nieve fresca: 80–95%.</strong> Por eso molesta el reflejo y hay que usar lentes: es casi «tener un sol bajo el suelo».</li>
+    <li><strong>La Luna: 6–8%.</strong> El polvo lunar es <em>negro</em>: se traga más del 90% de la luz. Ese 6–8% reflejado es todo lo que nos ilumina en luna llena.</li>
+    <li><strong>Asfalto: 5–10%.</strong> Absorbe casi todo, por eso quema en verano (hubo pilotos de asfalto claro en Los Ángeles para reducir la temperatura urbana).</li>
+    <li><strong>Techos:</strong> oscuro 8–18% vs. claro 35–50%: la diferencia entre uno y «dos soles» sobre tu cabeza.</li>
+    <li><strong>Océanos: 10–60%</strong> (depende de la altura del Sol); bosques 10–20%; pasto 25–30%.</li>
+    <li><strong>La Tierra completa, promediando todo: <span class="hl">31%</span></strong> reflejado, ~70% absorbido.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c5/assets/slide-11.jpg" alt="Valores de albedo de distintas superficies: nieve, bosque, asfalto, océano, Luna">
+    <figcaption><span class="cap">Diapositiva · Albedo</span>Fracción reflejada por distintas superficies. Nótese el contraste: nieve ~90% vs. Luna ~7% vs. asfalto ~5–10%. El promedio terrestre es 31%.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Predicción vs. medición: el gráfico log-log</h2>
+    <p>Los planetas sin atmósfera calzan. Los con atmósfera, no.</p>
+  </div></div>
+
+  <p>La fórmula de equilibrio se puede graficar: temperatura del planeta versus distancia al Sol, con una línea por cada valor de albedo (A = 0, 0.3, 0.7, 0.9). Sobre esas líneas se marcan, para cada cuerpo, una <strong>cruz</strong> (la temperatura <em>predicha</em> con su albedo real) y un <strong>diamante</strong> (la temperatura <em>medida</em> en superficie, «con termómetro»).</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-12.jpg" alt="Gráfico log-log de temperatura versus distancia al Sol con curvas de albedo">
+    <figcaption><span class="cap">Diapositiva · Equilibrio termal</span>Ambos ejes en escala logarítmica. Las líneas son la fórmula para distintos albedos; cruces = predicción, diamantes = temperatura superficial medida. Mercurio, la Luna y (casi) Marte calzan; Venus, la Tierra y los gigantes no.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Paréntesis: escalas logarítmicas</span>
+    <p>En una regla lineal, un centímetro vale lo mismo en cualquier parte. En una <strong>escala logarítmica</strong>, la misma distancia sobre el papel representa un <em>factor</em> constante (×10, por ejemplo), no una diferencia constante. Por eso permite graficar en una sola figura cosas separadas por órdenes de magnitud: la distancia Venus–Tierra y la distancia Urano–Neptuno «se ven» comparables, aunque la segunda es enormemente mayor. Para un ingeniero: es el mismo motivo por el que los diagramas de Bode usan décadas.</p>
+  </div>
+
+  <div class="widget" id="w-log">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Regla lineal vs. regla logarítmica</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Las distancias de los planetas al Sol (en UA), dibujadas en ambas escalas. En lineal, los rocosos se aplastan contra el origen; en log, todos respiran.</p>
+    <label style="margin-top:4px">Escala lineal (0–31 UA)</label>
+    <div class="scalebar" id="bar-lin"></div>
+    <label style="margin-top:10px">Escala logarítmica (0,3–31 UA)</label>
+    <div class="scalebar" id="bar-log"></div>
+  </div>
+
+  <h3>El patrón de los que no calzan</h3>
+  <p>¿Qué tienen en común Mercurio, la Luna y Marte (calzan) frente a Venus, la Tierra y los gigantes (no calzan)? <strong>La atmósfera.</strong> Los cuerpos sin atmósfera obedecen la fórmula; los con atmósfera están sistemáticamente <em>más calientes en superficie</em> que lo predicho. Marte, con su atmósfera tenue, apenas se desvía.</p>
+
+  <div class="box dato">
+    <span class="tag">La «trampa» del profesor</span>
+    <p>El equilibrio termal <strong>sigue siendo cierto</strong> para todos: visto desde afuera, lo que el planeta emite al espacio sí iguala lo que absorbe. La trampa está en <em>dónde</em> se mide la temperatura: la fórmula predice la temperatura efectiva en el <strong>tope de la atmósfera</strong>, pero los diamantes son temperaturas de <strong>superficie</strong>. Lo que hace la atmósfera es <em>redistribuir</em> la energía en altura: en vez de un perfil isotermo, deja «temperaturas chicas arriba y grandes abajo». La misma energía total, repartida de otra forma. Ese mecanismo es el efecto invernadero.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El efecto invernadero</h2>
+    <p>Entra en el visible, no puede salir en el infrarrojo.</p>
+  </div></div>
+
+  <p>El mecanismo tiene dos mitades espectrales. <strong>De bajada:</strong> el espectro del Sol (pico en el visible, ~5500 K) atraviesa la atmósfera relativamente bien: se transmite un 70–75%. Lo que llega calienta la superficie. <strong>De subida:</strong> la superficie, mucho más fría (~250–300 K), re-emite como cuerpo negro pero con pico en el <strong>infrarrojo</strong> (recordar Wien: más frío → pico más rojo). Y en el infrarrojo la atmósfera es casi opaca: solo se transmite un 15–30%, por unas pocas «ventanas».</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-14.jpg" alt="Espectro solar en el tope de la atmósfera y a nivel del mar con bandas de absorción">
+    <figcaption><span class="cap">Diapositiva · Lo que baja</span>Amarillo: el Sol en el tope de la atmósfera (parecido, no igual, a un cuerpo negro de 5250 °C). Rojo: lo que llega a nivel del mar. La diferencia es absorción atmosférica: O₃ en el UV, y bandas de H₂O y CO₂ hacia el infrarrojo.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-17.jpg" alt="Radiación solar entrante y térmica saliente con absorción total y por componente">
+    <figcaption><span class="cap">Diapositiva · Lo que baja y lo que sube</span>Panel superior: la curva roja (Sol, entra) y la azul (planeta, sale). Panel medio: absorción total. Panel inferior: los responsables por separado — el <strong>vapor de agua</strong> domina, el CO₂ tapa bandas específicas, más O₂/O₃, metano, óxido nitroso y dispersión de Rayleigh.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">La analogía del lavamanos semitapado</span>
+    <p>Un lavamanos con el desagüe <em>libre</em>: el agua que entra sale de inmediato, el nivel no sube. Con el desagüe <em>semitapado</em>: el nivel sube hasta que la presión extra de la columna de agua fuerza un caudal de salida igual al de entrada, y ahí se estabiliza. La atmósfera semitapada en el infrarrojo hace lo mismo con la energía: la superficie se calienta (el «nivel» sube), el cuerpo negro saliente se corre hacia el azul, hasta que lo que logra escapar por las ventanas espectrales <strong>iguala</strong> lo que entra. El equilibrio se restablece, pero con la superficie más caliente. En ingeniería: es un estanque con válvula de salida parcialmente cerrada; el estado estacionario existe, pero con mayor nivel (temperatura) de operación.</p>
+  </div>
+
+  <h3>Agua vs. CO₂: la ventana y el tapón</h3>
+  <p>El <strong>mayor gas invernadero de nuestra atmósfera es el vapor de agua</strong>, por lejos (es también la razón de que ALMA busque lugares secos: el agua absorbe muchísimo). Pero el agua siempre estuvo ahí: la vida evolucionó <em>con</em> ese efecto invernadero como condición de borde, y el agua además se autorregula (más temperatura → más evaporación → más nubes → más albedo → menos energía absorbida: retroalimentación negativa). El problema es que la absorción del <strong>CO₂ cae justo en la ventana que el agua dejaba libre</strong>, cerca del pico del cuerpo negro saliente — una coincidencia de mecánica cuántica (las bandas dependen de las transiciones moleculares y no hay forma de moverlas). El CO₂ que liberamos está tapando la única salida.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-19.jpg" alt="Presupuestos de energía comparados de Venus y la Tierra con efecto invernadero">
+    <figcaption><span class="cap">Diapositiva · Venus vs. Tierra</span>Presupuestos de energía: Venus absorbe solo 130 W/m² (¡su albedo de nubes es enorme!) pero su invernadero de 96% CO₂ le agrega <strong>+285 °C</strong>, llevando la superficie a ~460 °C. La Tierra absorbe 242 W/m² y su invernadero suave (~0,02% CO₂ + H₂O) agrega ~+31 °C sobre los −15 °C de equilibrio. Sin invernadero la Tierra estaría a ~255 K; la clase citó ~278 K como referencia sin atmósfera.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-inv">
+    <span class="tagband">Widget interactivo</span>
+    <h4>El lavamanos radiativo: ¿cuánto sube la temperatura si tapo el desagüe?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Modelo de juguete (inferencia propia, no visto con esta fórmula en clase): una capa atmosférica que absorbe una fracción ε del infrarrojo saliente da <span style="font-family:serif">T<sub>sup</sub> = T<sub>eq</sub>·(1−ε/2)<sup>−1/4</sup></span>. Ajusta ε y mira el «nivel del lavamanos».</p>
+    <div class="presets" id="inv-presets">
+      <button data-teq="255" data-e="0.78" data-n="Tierra">Tierra (T_eq 255 K)</button>
+      <button data-teq="232" data-e="1.99" data-n="Venus">Venus (T_eq 232 K)</button>
+      <button data-teq="210" data-e="0.14" data-n="Marte">Marte (T_eq 210 K)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="inv-teq">T de equilibrio (K)</label><input type="number" id="inv-teq" step="any" value="255"></div>
+      <div><label for="inv-e">Opacidad IR efectiva ε: <b id="inv-e-val">0.78</b></label><input type="range" id="inv-e" min="0" max="1.99" step="0.01" value="0.78"></div>
+    </div>
+    <output id="inv-out"></output>
+    <p style="margin:.6em 0 0;color:var(--muted);font-size:.82rem">Con ε→2 se simula el caso multicapa extremo tipo Venus (una sola capa satura en ε=1, que da +19% de temperatura). El modelo real de Venus necesita decenas de capas ópticas: por eso llega a 740 K.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Carbono, civilización y equilibrio</h2>
+    <p>Biomasa vs. carbono fósil, y una hipótesis sobre por qué no vemos extraterrestres.</p>
+  </div></div>
+
+  <p>¿Por qué aparece el CO₂? Por <strong>combustión</strong>: al liberar carbono en una atmósfera llena de oxígeno, el CO₂ se forma solo. El carbono es una molécula «sociable»: le gusta juntarse con otras y esas uniones <strong>almacenan energía química</strong> (romper un CH₄ libera el carbono y la energía que lo unía). Un árbol es una fábrica que, vía <strong>fotosíntesis</strong> (energía solar), captura CO₂ del aire y usa el carbono como ladrillo estructural.</p>
+
+  <ul>
+    <li><strong>Quemar biomasa</strong> (leña, la fogata del primate) devuelve a la atmósfera carbono que <em>estuvo ahí hace poco</em>: es un ciclo cerrado atmósfera → árbol → fogata → atmósfera.</li>
+    <li><strong>Quemar carbono fósil</strong> (petróleo —principalmente algas antiguas enterradas en procesos anaeróbicos—, carbón de mina, gas) inyecta carbono que estaba <em>fuera de circulación</em> hace millones de años. Ese es el carbono que rompe el equilibrio.</li>
+    <li>Mantener el carbono capturado (casas y muebles de madera, bosques en pie) lo saca de la atmósfera; las plantaciones de crecimiento rápido capturan más rápido que el bosque nativo, pero a costa de biodiversidad — todo está acoplado.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">Especulación de la clase: la prueba de fuego de las civilizaciones</span>
+    <p>La energía almacenada (leña, fósiles) es la energía <em>fácil</em>; usar el fotón del día (solar, eólica) es tecnológicamente mucho más difícil. Como el carbono es un elemento común en cualquier química planetaria, se especula que <strong>toda civilización</strong> pasará por esta etapa de contaminar con carbono su propia atmósfera. Quizás sea una «prueba de fuego» que pocas superan — y hasta una posible respuesta a por qué no vemos extraterrestres. También se comentó por qué es tan difícil <em>modelar</em> el calentamiento global: geografía, volcanes, nubes... predecir el grado exacto por año es casi imposible, pero el mecanismo físico del forzamiento por CO₂ es sólido.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Vientos: presión, Coriolis y equilibrio</h2>
+    <p>Por qué el viento en equilibrio no va de la alta a la baja presión, sino en círculos.</p>
+  </div></div>
+
+  <p>El movimiento horizontal del aire está gobernado por tres términos: el <span class="hl">gradiente de presión</span> (empuja de alta a baja presión), la <span class="hl">fuerza de Coriolis</span> (pseudo-fuerza por la rotación del planeta, desvía a la izquierda o derecha según el hemisferio) y la <span class="hl">fuerza centrífuga</span>.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-22.jpg" alt="Diagrama del balance entre gradiente de presión y fuerza de Coriolis que produce viento geostrófico">
+    <figcaption><span class="cap">Diapositiva · Viento en equilibrio</span>El aire parte moviéndose hacia la baja presión (izquierda), Coriolis lo va desviando (centro), hasta el equilibrio (derecha): gradiente de presión y Coriolis se cancelan y el viento corre <strong>paralelo a las isobaras</strong> (líneas de igual presión).</figcaption>
+  </figure>
+
+  <p>Resultado: el viento en equilibrio (geostrófico) <strong>no cae hacia el centro de baja presión</strong>: gira <em>alrededor</em> de los centros de alta y baja, siguiendo las isobaras. Cuando veas un mapa del tiempo con una «A» y una «B», imagina los vientos dando vueltas en torno a ellas; el sentido (horario/antihorario) depende del hemisferio y de si es alta o baja.</p>
+
+  <div class="box dato">
+    <span class="tag">El mito del lavamanos de Los Simpson</span>
+    <p>¿El agua gira al revés en cada hemisferio? <em>Técnicamente</em> Coriolis actúa, pero en una taza de baño las irregularidades de la superficie dominan por completo: el efecto solo es relevante a escalas grandes (huracanes, sistemas sinópticos). Buen ejemplo de comparar magnitudes de términos antes de atribuir causas.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Circulación general: tres celdas, todos los climas</h2>
+    <p>Un modelo simplísimo que explica el Amazonas, el Sahara y el desierto de Atacama.</p>
+  </div></div>
+
+  <p>La receta de la <span class="hl">circulación general</span>: el ecuador se calienta más → el aire caliente <strong>sube</strong> (convección); los polos se enfrían → el aire <strong>baja</strong>. Sin rotación habría una sola celda gigante de ecuador a polo. Pero <strong>Coriolis rompe esa celda en tres</strong> por hemisferio (Hadley, Ferrel y polar), creando patrones globales y corrientes de chorro.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-25.jpg" alt="Modelo de tres celdas de circulación general con vientos alisios y del oeste">
+    <figcaption><span class="cap">Diapositiva · Tres celdas por hemisferio</span>Celda de Hadley (0–30°), celda intermedia y celda polar, con los vientos superficiales resultantes: alisios hacia el ecuador, <em>westerlies</em> en latitudes medias, estes polares.</figcaption>
+  </figure>
+
+  <h3>De las celdas a los mapas</h3>
+  <p>La clave es el <strong>vapor de agua</strong>: aire que sube se enfría → el vapor condensa → nubes y lluvia. Aire que baja ya llovió arriba → llega <em>seco</em>.</p>
+  <ul>
+    <li><strong>Zona de subida ecuatorial:</strong> lluvia constante → selvas (Amazonas, África central, sudeste asiático).</li>
+    <li><strong>Zona de bajada (~30°):</strong> aire seco → ahí están casi todos los desiertos: Sahara, Atacama, Australia. Australia «nunca va a ser una selva»: lo fija Coriolis y la geografía.</li>
+    <li><strong>Chile:</strong> en el norte los vientos superficiales llegan desde Argentina y se secan al bajar los Andes → desierto; en el sur llegan desde el océano cargados de agua → lluvia en el sur de Chile y sombra seca en la Patagonia argentina.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">Consecuencia: hay bosques irremplazables</span>
+    <p>El Amazonas está donde está por la posición de la celda, no por accidente: si se deforesta, no hay «otro lugar» donde vaya a crecer un pulmón equivalente (habría que esperar a que la tectónica mueva el continente). Eso da sentido a proteger esas zonas específicas y, según se comentó, a instrumentos como los bonos de carbono.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Tierra: perfil vertical y estratopausa</h2>
+    <p>Quién calienta desde abajo, quién desde arriba y quién a media altura.</p>
+  </div></div>
+
+  <p>Ficha de la Tierra según la clase: <strong>3 celdas</strong> de circulación general por hemisferio, presión superficial de <strong>1 bar</strong>, nubes de <strong>H₂O</strong>, perfil de temperatura <em>con estratopausa</em>, auroras, y en proceso de <strong>calentamiento global</strong>.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-28.jpg" alt="Perfil vertical de temperatura de la atmósfera terrestre con troposfera, estratosfera, mesosfera y termosfera">
+    <figcaption><span class="cap">Diapositiva · Perfil T(z) de la Tierra</span>Temperatura vs. altura: baja en la troposfera (~10 km), sube en la estratosfera hasta la estratopausa (~50 km), vuelve a bajar en la mesosfera y sube arriba en la termosfera. Cada quiebre delata una fuente de calor distinta.</figcaption>
+  </figure>
+
+  <p>Lectura física del perfil, como en la clase:</p>
+  <ul>
+    <li><strong>Troposfera (T baja con la altura):</strong> el suelo calienta desde abajo — es el <em>efecto invernadero</em> el que absorbe la radiación saliente cerca de la superficie. Más arriba, más frío: lo que uno vive en la montaña.</li>
+    <li><strong>Bump a media altura (estratosfera):</strong> el <span class="hl">ozono</span> absorbe el ultravioleta solar y calienta esa capa. Ese máximo local es la estratopausa. (De paso: el agujero de ozono lo causan los CFC de los aerosoles, y aparece en los polos por los patrones de circulación y los jets.)</li>
+    <li><strong>Termosfera (T sube arriba):</strong> el Sol calienta directamente desde arriba; ahí también interactúan las partículas del viento solar que producen <strong>auroras</strong>.</li>
+    <li>El vapor de agua vive <em>abajo</em>: por eso los observatorios (ALMA, sitios altos y secos) se instalan sobre la mayor parte del agua.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El perfil T(z) es como un diagnóstico de un sistema térmico multicapa: cada cambio de pendiente indica dónde se está inyectando calor. Tres fuentes (superficie/invernadero, ozono/UV, termosfera/Sol) → tres regímenes con sus «pausas» entre medio. Un planeta sin absorbente a media altura (Venus, Marte) simplemente no tiene ese bump.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Venus: el invernadero desbocado</h2>
+    <p>+400 grados de efecto invernadero, 92 bares, nubes de ácido sulfúrico.</p>
+  </div></div>
+
+  <p>Venus muestra que el efecto invernadero <strong>no tiene límite suave</strong>: su temperatura de equilibrio sería ~340 K con nuestros números (232 K con su albedo real de nubes), pero la superficie está a <strong>740 K</strong> — el invernadero de una atmósfera de 96% CO₂ le suma del orden de <strong>+400 grados</strong>. «Si tapo todo, me voy al chancho».</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-31.jpg" alt="Venus y las propiedades de su atmósfera">
+    <figcaption><span class="cap">Diapositiva · Venus</span>Está al interior de la zona habitable. Sin campo magnético (rota lentísimo), el <strong>viento solar barrió el hidrógeno</strong>: sin H no hay H₂O, sin agua no hay océanos que capturen CO₂. Nubes de H₂SO₄ que rotan a ~100 m/s (superrotación; la superficie rota a ~1 m/s). Presión superficial: 92 bares.</figcaption>
+  </figure>
+
+  <p>La cadena causal contada en clase: la falta de campo magnético dejó a Venus sin escudo contra el viento solar → el <strong>hidrógeno</strong>, liviano, escapó → sin H no se forma H₂O → sin océanos no hay quien capture el CO₂ (los océanos son grandes capturadores de gases invernadero) → el CO₂ se acumuló y el invernadero se desbocó. Pista química: sus nubes son de <strong>H₂SO₄</strong> (un H por cada dos O... lo inverso del H₂O: química empobrecida en hidrógeno).</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-32.jpg" alt="Perfil de temperatura y presión de la atmósfera de Venus">
+    <figcaption><span class="cap">Diapositiva · Perfil de Venus</span>Sin absorbente UV a media altura → <strong>sin estratopausa</strong>: solo la rama de invernadero abajo y la solar arriba. Y un detalle notable: a la altura donde la presión es 1 bar (~50 km), la temperatura es como la terrestre.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La zona «habitable» de Venus</span>
+    <p>A ~50 km de altura hay una franja con <strong>1 bar y temperatura terrestre</strong>: un colono no necesitaría traje presurizado ni aislamiento térmico, «solo» protección anticorrosiva contra el ácido sulfúrico. La clase recomendó una novela de ciencia ficción con una colonia flotante en Venus retratada de forma realista (el título no quedó registrado con claridad en el audio).</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Marte: polvo, viento débil y metano</h2>
+    <p>6 milibares: una atmósfera rápida pero sin momentum, con tormentas globales.</p>
+  </div></div>
+
+  <p>Marte tiene solo <strong>6 mbar</strong> de presión superficial (~170 veces menos que la Tierra; la clase citó «unas 200 veces»). Una atmósfera tan tenue <strong>no tiene inercia térmica</strong>: se calienta al iluminarla y se enfría apenas se va el Sol. Resultado: <strong>~60 K de diferencia entre día y noche</strong>, fuertes gradientes de presión y <span class="hl">grandes vientos cerca del terminador</span> (la línea que separa día y noche). Sus nubes son de <strong>CO₂</strong> (hielo seco) y de hielo de agua.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-34.jpg" alt="Tormenta de polvo global en Marte vista por Hubble en 2001">
+    <figcaption><span class="cap">Diapositiva · Tormentas de polvo</span>Junio vs. septiembre de 2001 (HST): el planeta entero desaparece bajo una tormenta de polvo global. El polvo absorbe calor → más viento → levanta más polvo: una tormenta <strong>autoalimentada</strong>, como las del Sahara pero a escala planetaria.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Vientos rápidos que no empujan (y «El marciano»)</span>
+    <p>Velocidad no es momentum: a 6 mbar hay pocas moléculas chocándote. Un río a 10 m/s te arrastra; aire terrestre a 10 m/s te despeina; aire marciano a 10 m/s casi ni se siente. Por eso la escena inicial de <em>El marciano</em> (la tormenta que derriba equipos) es lo único falso de la película: el resto es muy realista. Los <em>dust devils</em> (torbellinos de polvo) sí son reales y dejan huellas oscuras fotografiadas en la superficie: el polvo es tan liviano que cualquier cosa lo levanta.</p>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-41.jpg" alt="Ciclo estacional de metano en Marte y sus posibles fuentes biológicas o geológicas">
+    <figcaption><span class="cap">Diapositiva · El misterio del metano</span>El metano marciano sube en verano y baja en invierno. Posibles fuentes: <strong>biológica</strong> (arqueas productoras de metano, como en la panza de vacas y canguros terrestres) o <strong>geológica</strong> (agua líquida + roca caliente). Ninguna confirmada: en Marte hoy no conocemos ni H₂O líquida ni biología.</figcaption>
+  </figure>
+
+  <p>El punto fino: el CH₄ es frágil — los fotones solares lo destruyen en ~100 años (escala citada en clase). Que suba y baje <em>estacionalmente</em> significa que <strong>algo lo está reponiendo hoy</strong>. La bajada rápida también requiere explicación (el Sol lo rompe, pero no tan rápido). Es indicio de biología <em>o</em> de química desconocida: en cualquier caso, interesante. El perfil térmico de Marte, como el de Venus, <strong>no tiene estratopausa</strong> (no hay capa de ozono que caliente a media altura).</p>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Gigantes de gas: bandas, tormentas e interiores</h2>
+    <p>¿Viento respecto a qué? Y por qué los colores son nubes, no atmósfera.</p>
+  </div></div>
+
+  <p>Primera sutileza: en un planeta sin superficie, ¿respecto a qué mides el viento? Se usa la rotación del <strong>campo magnético</strong>, que se asume anclado al núcleo. Con ese estándar, Júpiter y Saturno muestran <span class="hl">vientos zonales</span>: bandas alternadas corriendo hacia el este y el oeste.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-44.jpg" alt="Perfiles de viento zonal de Júpiter y Saturno">
+    <figcaption><span class="cap">Diapositiva · Vientos zonales</span>Júpiter: bandas alternantes de ±100 m/s. Saturno: un chorro ecuatorial que llega a ~400 m/s. Las bandas de viento no son lo raro (salen de la dinámica con Coriolis); lo notable es la alternancia este/oeste.</figcaption>
+  </figure>
+
+  <p><strong>Los colores son nubes, no atmósfera.</strong> Entre banda y banda también hay gas, solo que transparente. Lo visible es <em>condensación</em>: a cada altura le corresponde una temperatura, y a cada temperatura condensa una especie distinta — por eso las bandas de colores se corresponden con alturas. En Júpiter: nubes de <strong>amoníaco</strong> (más altas, cafés claras), <strong>hidrosulfuro de amonio</strong> (más rojas), y <strong>agua</strong> (blancas) escondidas debajo. En Urano/Neptuno, arriba de todo, nubes azules de <strong>metano</strong>. Muchos signos de interrogación en los diagramas: sabemos poco, se han explorado poco.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-57.jpg" alt="Perfiles de temperatura de los cuatro gigantes con las capas de nubes de cada especie">
+    <figcaption><span class="cap">Diapositiva · Perfiles y capas de nubes</span>Los cuatro gigantes tienen perfiles exteriores similares. La alineación nube–temperatura no es coincidencia: cada especie (CH₄, NH₃, NH₄SH, H₂O) condensa a su temperatura, definiendo la altura de su capa.</figcaption>
+  </figure>
+
+  <h3>Tormentas con personalidad</h3>
+  <ul>
+    <li><strong>Gran Mancha Roja (Júpiter):</strong> un óvalo estable por siglos, «demasiado estable», y <em>caliente</em>. No tiene ojo: no es un hoyo en la atmósfera, es nubes. Los huracanes con ojo requieren una condición de borde cercana (como la superficie terrestre bajo nuestra atmósfera delgada; el ojo del desagüe de la tina se forma recién cuando queda poca agua).</li>
+    <li><strong>Saturno:</strong> sí tiene huracanes con ojo, tormentas eléctricas que duran <em>meses</em> y son más grandes que la Tierra, y el famoso <strong>hexágono polar</strong>: una <span class="hl">onda estacionaria</span>, reproducible en laboratorio con las condiciones de borde adecuadas. El transporte de energía por ondas parece más notorio en Saturno que en Júpiter.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c5/assets/slide-49.jpg" alt="Hexágono polar y huracán con ojo en Saturno">
+    <figcaption><span class="cap">Diapositiva · Saturno</span>Izquierda: el hexágono polar (onda estacionaria). Centro: huracán con ojo. Un planeta que parece «tranquilo» pero guarda estructuras únicas del Sistema Solar.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-58.jpg" alt="Interiores comparados de Júpiter, Saturno, Urano y Neptuno">
+    <figcaption><span class="cap">Diapositiva · Interiores variados</span>Hacia adentro: hidrógeno molecular → <strong>hidrógeno metálico</strong> (la presión aprieta tanto que los electrones dejan de pertenecer a un átomo: conductor, como define un ingeniero eléctrico a un metal) → núcleo de elementos pesados del tamaño de la Tierra. Ese núcleo fue el requisito para atrapar todo el gas: la Tierra no llegó a ser un Júpiter porque no formó su núcleo a tiempo (se verá en formación).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">¿Dónde «termina» el planeta?</span>
+    <p>Pregunta de la audiencia: si todo es gas, ¿dónde empieza la atmósfera y dónde el planeta? Respuesta: la distinción es difusa — la atmósfera <em>es</em> parte del planeta; lo visible son las nubes y todo lo demás (visible e invisible) es planeta. Las «superficies» que se citan son convenciones (por ejemplo, el nivel de 1 bar).</p>
+  </div>
+</section>
+
+<!-- ============ S13 ============ -->
+<section id="s13">
+  <div class="shead"><span class="num">13</span><div>
+    <h2>Urano y Neptuno: el que rompe el equilibrio</h2>
+    <p>El planeta «fome» y el planeta que emite el doble de lo que recibe.</p>
+  </div></div>
+
+  <p><strong>Urano</strong> está inclinado ~90°: rota «de lado», con estaciones extremas (un polo en día perpetuo, el otro en noche). Y sin embargo <strong>no muestra gradiente térmico significativo</strong> ni estructura: sin bandas, sin tormentas notorias, convección de gran escala sin remolinos. Promete y no cumple: cualquier manchita oscura es noticia. <strong>Neptuno</strong>, más lejos y con menos fotones, es paradójicamente <em>mucho más activo</em>: bandas, tormentas, manchas. Ambos son principalmente <strong>hidrógeno</strong> con compuestos hidrogenados (CH₄, NH₃...) y tienen casi la misma temperatura exterior pese a la gran diferencia de distancia.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-55.jpg" alt="Vientos zonales de Urano y Neptuno, retrógrados en promedio">
+    <figcaption><span class="cap">Diapositiva · Vientos de Urano y Neptuno</span>Perfiles de viento zonal: en Neptuno alcanzan cientos de m/s y en promedio van «detrás del planeta» (retrógrados respecto a la rotación).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La excepción al equilibrio termal</span>
+    <p><strong>Neptuno emite el doble de la energía que recibe</strong>: por cada joule solar que absorbe, radia dos. Es la excepción anunciada al principio de la clase: tiene una <strong>fuente interna de energía</strong> cuyo mecanismo exacto sigue en discusión. Eso probablemente explica su actividad pese a la lejanía.</p>
+  </div>
+</section>
+
+<!-- ============ S14 ============ -->
+<section id="s14">
+  <div class="shead"><span class="num">14</span><div>
+    <h2>Titán, Tritón y Plutón</h2>
+    <p>Una luna con ciclo «hidrológico» de metano y una atmósfera que se niega a colapsar.</p>
+  </div></div>
+
+  <p><strong>Titán</strong> (luna de Saturno): 100 K en superficie, <strong>1,5 bar</strong> de presión —más que la Tierra siendo más chica— porque su atmósfera es densísima (~5× la densidad de la terrestre), opaca en casi todo el visible-IR. Tiene un <span class="hl">ciclo de metano/etano</span> análogo al ciclo del agua terrestre: se evapora, condensa, llueve y forma <strong>lagos</strong> (solo en la zona norte; se ven grandes en los mapas por la deformación de la proyección). Es el único cuerpo fuera de la Tierra con un ciclo así.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-53.jpg" alt="Mapa de lagos de Titán y perfil de su atmósfera con neblina de tolinas y nubes de metano">
+    <figcaption><span class="cap">Diapositiva · Titán</span>Izquierda: mapa con los lagos de metano/etano del norte (Kraken Mare). Derecha: perfil con neblina de tolinas, nubes de CH₄–N₂, lluvia, ríos y sedimentos orgánicos. En una atmósfera tan densa y gravedad tan baja, «podríamos volar con alas a pura fuerza humana».</figcaption>
+  </figure>
+
+  <p><strong>Tritón</strong> (luna de Neptuno, la retrógrada de la clase anterior) también tiene atmósfera: se le han visto <strong>nubes tenues</strong>. Y <strong>Plutón</strong>: New Horizons fotografió su atmósfera a contraluz (metida en el «eclipse» del Sol detrás de Plutón, con el instrumento LORRI). Por su órbita muy excéntrica, los modelos predecían que al alejarse del Sol la atmósfera debía <strong>colapsar</strong> (congelarse sobre la superficie)... pero misteriosamente no ha colapsado.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-61.jpg" alt="Atmósfera de Plutón vista a contraluz por New Horizons">
+    <figcaption><span class="cap">Diapositiva · Plutón</span>El anillo brillante es la neblina de la atmósfera de Plutón iluminada por detrás (New Horizons/LORRI). Los modelos predecían colapso; la observación dice otra cosa: los modelos están incompletos.</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Cierre del módulo</span>
+    <p>La clase (y el Módulo I) cierra con <em>Wanderers</em>, el cortometraje de Erik Wernquist narrado por Carl Sagan: turismo en los anillos de Saturno, zeppelines en Marte (atardeceres azules en el planeta rojo), vuelo a pura ala en Titán, minería de asteroides. Un futuro posible <strong>si</strong> pasamos la prueba del calentamiento: allá afuera el aire y el agua son escasos, y la abundancia terrestre nos malacostumbró. Aprender a no desperdiciar recursos es el prerrequisito del Sistema Solar.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Equilibrio termal</b></td><td><span class="katex-inline" data-tex="E_{\text{rec}}/s = E_{\text{emit}}/s"></span></td><td>Sin balance, la temperatura sube o baja sin freno en escalas largas</td></tr>
+      <tr><td><b>Sección eficaz</b></td><td>El planeta intercepta luz como círculo: <span class="katex-inline" data-tex="\pi R_p^2"></span></td><td>Cono, disco o esfera del mismo radio reciben lo mismo</td></tr>
+      <tr><td><b>Albedo A</b></td><td>Fracción reflejada (nieve ~0.9, Luna ~0.07, Tierra 0.31)</td><td>Define la fracción absorbida <span class="katex-inline" data-tex="(1-A)"></span> del balance</td></tr>
+      <tr><td><b>T de equilibrio</b></td><td><span class="katex-inline" data-tex="T_p = T_\star\sqrt{\tfrac{R_\star}{d}\cdot\tfrac{\sqrt{1-A}}{2}}"></span></td><td>No depende del radio del planeta; falla en superficie si hay atmósfera</td></tr>
+      <tr><td><b>Efecto invernadero</b></td><td>Atmósfera transparente al visible, opaca al IR saliente</td><td>Redistribuye energía: superficie más caliente que el tope (lavamanos semitapado)</td></tr>
+      <tr><td><b>H₂O vs CO₂</b></td><td>El agua es el mayor gas invernadero; el CO₂ tapa su «ventana»</td><td>La banda del CO₂ cae en el pico del cuerpo negro saliente</td></tr>
+      <tr><td><b>Biomasa vs fósil</b></td><td>Carbono reciente en ciclo vs. carbono enterrado hace millones de años</td><td>Solo el fósil agrega carbono «nuevo» a la atmósfera</td></tr>
+      <tr><td><b>Viento geostrófico</b></td><td>Gradiente de presión ⟂ Coriolis: viento por las isobaras</td><td>Los vientos giran en torno a altas/bajas, no hacia ellas</td></tr>
+      <tr><td><b>Circulación de 3 celdas</b></td><td>Convección ecuador–polo partida por Coriolis</td><td>Explica selvas (subida) y desiertos (~30°, bajada)</td></tr>
+      <tr><td><b>Estratopausa</b></td><td>Máximo de T a ~50 km por el ozono (absorbe UV)</td><td>La Tierra la tiene; Venus y Marte no</td></tr>
+      <tr><td><b>Venus</b></td><td>92 bar, 96% CO₂, nubes H₂SO₄, superrotación 100 m/s</td><td>Invernadero desbocado: +~400 K sobre el equilibrio (740 K)</td></tr>
+      <tr><td><b>Marte</b></td><td>6 mbar, nubes CO₂, ΔT día/noche ~60 K, tormentas de polvo globales</td><td>Sin inercia térmica; vientos veloces pero sin momentum; ciclo de metano</td></tr>
+      <tr><td><b>Vientos de gigantes</b></td><td>Se miden respecto a la rotación del campo magnético</td><td>No hay superficie de referencia; bandas zonales este/oeste</td></tr>
+      <tr><td><b>Nubes = condensación</b></td><td>Cada especie condensa a su temperatura → a su altura</td><td>Los colores de Júpiter son capas de NH₃, NH₄SH y H₂O</td></tr>
+      <tr><td><b>Hidrógeno metálico</b></td><td>H tan comprimido que los electrones quedan libres (conductor)</td><td>Interior de Júpiter/Saturno; núcleo de pesados ~tamaño Tierra</td></tr>
+      <tr><td><b>Neptuno</b></td><td>Emite ~2× lo que recibe del Sol</td><td>La excepción al equilibrio termal: fuente interna en discusión</td></tr>
+      <tr><td><b>Titán</b></td><td>1,5 bar, 100 K, ciclo de metano/etano con lagos</td><td>Único ciclo tipo «hidrológico» fuera de la Tierra</td></tr>
+      <tr><td><b>Plutón</b></td><td>Atmósfera vista a contraluz por New Horizons</td><td>Debía colapsar según los modelos y no lo ha hecho</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c5-examen-01.html">Examen 01<small>Energía y equilibrio termal</small></a></li>
+    <li><a href="m1c5-examen-02.html">Examen 02<small>Temperatura de equilibrio</small></a></li>
+    <li><a href="m1c5-examen-03.html">Examen 03<small>Albedo y escalas log</small></a></li>
+    <li><a href="m1c5-examen-04.html">Examen 04<small>Efecto invernadero I</small></a></li>
+    <li><a href="m1c5-examen-05.html">Examen 05<small>Invernadero II y carbono</small></a></li>
+    <li><a href="m1c5-examen-06.html">Examen 06<small>Vientos y circulación</small></a></li>
+    <li><a href="m1c5-examen-07.html">Examen 07<small>Tierra y Venus</small></a></li>
+    <li><a href="m1c5-examen-08.html">Examen 08<small>Marte</small></a></li>
+    <li><a href="m1c5-examen-09.html">Examen 09<small>Gigantes de gas</small></a></li>
+    <li><a href="m1c5-examen-10.html">Examen 10<small>Titán, hielos e integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo I del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Patricio Rojo, 17 abr 2026). Elaborado a partir de la transcripción del audio (<code>planetas/m1/ff/Planetas-m1c5-2f8e8d06-5c41.md</code>) y las diapositivas <code>Modulo_I_Clase_5_Atm_sferas_Planetarias.pdf</code> («Atmósferas Planetarias»).</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: «equilibrio kermal/termal» → equilibrio termal; «CO», «CH», «HO», «HSO» → CO₂, CH₄, H₂O, H₂SO₄; «coriones/coriol/colonia/coriona» → fuerza de Coriolis; «radioplaneta» → radio del planeta; «sigma te la cuarto» → σT⁴ (Stefan–Boltzmann); «Neurisius» → New Horizons; «6 milibares/milimales» → 6 mbar; «penus 400 grados» → Venus, +400 K de invernadero; «gases escasos en Neptuno, van detrás del planeta» → vientos retrógrados; «Titania» → Titán; «el marciano» → la película/novela <em>The Martian</em>; «Wanderers» de Erik Wernquist (voz de Carl Sagan). La cita «Tierra sería de 278 K si no» proviene de la diapositiva; el valor usual con albedo actual es ~255 K. El título de la novela de ciencia ficción sobre Venus no quedó claro en el audio y se omitió. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var TSUN = 5772;        // K
+var RSUN_AU = 0.00465047; // radio solar en UA
+
+// ---- Widget 1: temperatura de equilibrio ----
+(function(){
+  var a = document.getElementById('teq-a');
+  var aval = document.getElementById('teq-a-val');
+  var d = document.getElementById('teq-d');
+  var ts = document.getElementById('teq-ts');
+  var out = document.getElementById('teq-out');
+  var name = 'Tierra';
+  function calc(){
+    var A = parseFloat(a.value), dV = parseFloat(d.value), tsV = parseFloat(ts.value);
+    aval.textContent = A.toFixed(2);
+    if(!(dV>0)){ out.innerHTML = "Ingresa una distancia positiva."; return; }
+    var T = TSUN * Math.sqrt( (RSUN_AU/dV) * Math.sqrt(1-A)/2 );
+    var html = "T de equilibrio <span class='k'>T<sub>eq</sub></span> = <b>"+T.toFixed(0)+"</b> K ("+(T-273.15).toFixed(0)+" °C)";
+    if(tsV>0){
+      var dT = tsV - T;
+      var msg = Math.abs(dT) < 15 ? "calza con la predicción: cuerpo sin atmósfera relevante" :
+                dT >= 15 ? "la superficie está <b>"+dT.toFixed(0)+" K</b> por sobre el equilibrio: efecto invernadero"
+                         : "la superficie medida está bajo la predicción (revisa albedo/distancia)";
+      html += "<br><span style='color:var(--muted);font-size:.9rem'>T superficial medida ("+name+"): "+tsV.toFixed(0)+" K → "+msg+".</span>";
+    }
+    out.innerHTML = html;
+  }
+  [a,d,ts].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#teq-presets button').forEach(function(b){
+    b.addEventListener('click', function(){
+      a.value=b.dataset.a; d.value=b.dataset.d; ts.value=b.dataset.ts; name=b.dataset.n; calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 2: escala lineal vs log ----
+(function(){
+  var planets = [
+    {n:"Me", d:0.39, c:"#9aa6bb"}, {n:"V", d:0.72, c:"#d9a74a"}, {n:"T", d:1, c:"#6fc7d6"},
+    {n:"Ma", d:1.52, c:"#e0382e"}, {n:"J", d:5.2, c:"#f0c98e"}, {n:"S", d:9.6, c:"#e8d9a0"},
+    {n:"U", d:19.2, c:"#9fd6dd"}, {n:"N", d:30.1, c:"#7f9fe0"}
+  ];
+  function draw(id, isLog){
+    var bar = document.getElementById(id);
+    var min = isLog ? Math.log10(0.3) : 0;
+    var max = isLog ? Math.log10(31) : 31;
+    planets.forEach(function(p){
+      var x = isLog ? (Math.log10(p.d)-min)/(max-min) : (p.d-min)/(max-min);
+      var el = document.createElement('span');
+      el.className = 'pl';
+      el.style.left = (4 + x*92) + '%';
+      el.innerHTML = p.n + '<i style="background:'+p.c+'"></i>';
+      bar.appendChild(el);
+    });
+  }
+  draw('bar-lin', false);
+  draw('bar-log', true);
+})();
+
+// ---- Widget 3: invernadero de una capa ----
+(function(){
+  var teq = document.getElementById('inv-teq');
+  var e = document.getElementById('inv-e');
+  var ev = document.getElementById('inv-e-val');
+  var out = document.getElementById('inv-out');
+  function calc(){
+    var T = parseFloat(teq.value), eps = parseFloat(e.value);
+    ev.textContent = eps.toFixed(2);
+    if(!(T>0)){ out.innerHTML = "Ingresa una temperatura positiva."; return; }
+    var Ts = T * Math.pow(1 - eps/2, -0.25);
+    var dT = Ts - T;
+    var pct = Math.min(100, Math.max(2, (dT/500)*100));
+    out.innerHTML = "T superficial <span class='k'>T<sub>sup</sub></span> = <b>"+Ts.toFixed(0)+"</b> K &nbsp;(+"+dT.toFixed(0)+" K sobre el equilibrio)"+
+      "<div style='margin-top:9px;height:12px;border-radius:6px;background:#0e1626;overflow:hidden'>"+
+      "<div style='height:100%;width:"+pct+"%;background:linear-gradient(90deg,var(--cyan),var(--gold),var(--red))'></div></div>"+
+      "<span style='color:var(--muted);font-size:.85rem'>El «nivel del lavamanos»: mientras más tapado el desagüe IR (ε), más sube el nivel para que lo que sale iguale lo que entra.</span>";
+  }
+  [teq,e].forEach(function(el){ el.addEventListener('input', calc); });
+  document.querySelectorAll('#inv-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ teq.value=b.dataset.teq; e.value=b.dataset.e; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

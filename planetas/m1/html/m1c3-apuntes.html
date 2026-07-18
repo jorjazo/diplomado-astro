@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planeta Tierra — Astrofísica de Planetas, Módulo I · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo I · Clase 3</span>
+  <h1>Planeta <em>Tierra</em></h1>
+  <p class="sub">Nuestra casa vista como <em>un planeta más</em>: los cuatro grandes procesos geológicos, la historia de las <strong>placas tectónicas</strong>, cómo la <strong>sismología</strong> radiografía el interior, de dónde sale el <strong>calor interno</strong> — diferenciación, acreción, radiactividad y mareas — y por qué los planetas se <strong>enfrían</strong> al ritmo de su radio.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Patricio Rojo</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 27 mar 2026</span>
+    <span><b>Tema:</b> La Tierra como planeta: superficie, interior y calor</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a Tierra es el planeta que mejor conocemos, y por eso es el <span class="hl">laboratorio de calibración</span> de toda la ciencia planetaria: lo que aprendamos aquí — tectónica, sismología, calor interno, mareas — será la vara para medir a Mercurio, Venus o Marte en las clases siguientes. La clase cuenta dos historias entrelazadas. La primera es <strong>detectivesca</strong>: cómo una idea ridiculizada durante 40 años (los continentes se mueven) terminó demostrada con magnetismo fósil y mapas del fondo marino. La segunda es <strong>termodinámica</strong>: un planeta es, en el fondo, una máquina térmica que recibió energía al formarse, la sigue generando por radiactividad y mareas, y la pierde inevitablemente por radiación — a un ritmo que depende de su tamaño.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La Tierra como planeta: agua y 4 procesos geológicos</a></li>
+    <li><a href="#s2">Un planeta dinámico: terremotos y placas</a></li>
+    <li><a href="#s3">De Ortelius a Wegener: una idea ridiculizada</a></li>
+    <li><a href="#s4">1950: la tecnología que zanjó el debate</a></li>
+    <li><a href="#s5">El campo magnético invertible: la cinta grabada del fondo marino</a></li>
+    <li><a href="#s6">Subducción, litósfera y astenósfera</a></li>
+    <li><a href="#s7">Radiografiar el interior: densidad y gravedad</a></li>
+    <li><a href="#s8">Sismología: ondas P, ondas S y el núcleo líquido</a></li>
+    <li><a href="#s9">Calor interior: las cuatro fuentes</a></li>
+    <li><a href="#s10">Mareas: fuerza diferencial, torque y órbitas síncronas</a></li>
+    <li><a href="#s11">Enfriamiento: la tetera planetaria</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La Tierra como planeta: agua y 4 procesos geológicos</h2>
+    <p>El «planeta azul» es, en volumen, una bola de roca casi seca.</p>
+  </div></div>
+
+  <p>Esta clase abre una trilogía: hoy la Tierra como planeta, la próxima un paseo geológico por las superficies del Sistema Solar, y la última las atmósferas. El punto de partida son los <span class="hl">cuatro grandes procesos geológicos</span> que esculpen cualquier superficie planetaria: <strong>tectonismo</strong>, <strong>volcanismo</strong>, <strong>cráteres</strong> (impactos) y <strong>erosión</strong> (fluvial, pluvial, eólica…). Este catálogo será la lista de verificación con la que examinaremos a los demás planetas.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-03.jpg" alt="Esfera de toda el agua de la Tierra comparada con el volumen del planeta">
+    <figcaption><span class="cap">Diapositiva · Toda el agua en una esfera</span>Si se junta <strong>toda</strong> el agua del planeta (océanos, glaciares, agua subterránea) cabe en la esfera grande; el agua dulce es la esfera pequeña, y la de lagos y ríos apenas un puntito. Eso de que la Tierra es «¾ de agua» es solo <em>superficie</em>: en volumen y masa, la parte sólida domina por completo.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato que reordena la intuición</span>
+    <p>El agua es una <strong>capa delgadísima</strong> comparada con el volumen del planeta — y sin embargo es vital para el fenómeno vida y, como veremos, hasta para decidir qué placa tectónica se hunde bajo cuál. Pequeña en masa, gigante en consecuencias.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Precisión del profesor</span>
+    <p>Ojo con la taxonomía: los <strong>terremotos no son un proceso geológico</strong> en sí mismos, sino un <em>producto</em> del tectonismo y el volcanismo (incluso un impacto cercano produce un sismo). Y volcanismo va separado de tectonismo justamente porque hay volcanes <em>sin</em> borde de placa, como Hawái — lo veremos con los <em>hotspots</em>.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Un planeta dinámico: terremotos y placas</h2>
+    <p>Los epicentros dibujan solos el mapa de las placas tectónicas.</p>
+  </div></div>
+
+  <p>La parte sólida de la Tierra no es estática — en Chile lo vivimos regularmente. Si se grafican los terremotos recientes sobre el mapa, los epicentros no caen al azar: se <strong>alinean en franjas delgadas</strong> que delimitan las <span class="hl">placas tectónicas</span>. El «anillo de fuego» del Pacífico salta a la vista.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-04.jpg" alt="Mapa mundial de terremotos de magnitud mayor a 2.5 en los últimos 30 días">
+    <figcaption><span class="cap">Diapositiva · Planeta dinámico</span>Terremotos de magnitud &gt; 2,5 en apenas <strong>30 días</strong>. Con datos de 2000–2024 las franjas se vuelven líneas casi continuas: los bordes de placa. La nitidez actual es fruto de la <em>precisión de medición</em> — los mapas de los años 50 mostraban las mismas franjas pero con mucha más dispersión.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-06.jpg" alt="Mapa de las placas tectónicas principales con flechas de movimiento relativo">
+    <figcaption><span class="cap">Diapositiva · Las placas</span>El mosaico de placas: Pacífica, Nazca, Sudamericana, Africana, Euroasiática… Las flechas indican el movimiento relativo. Chile vive sobre el choque Nazca–Sudamericana: por eso los Andes y por eso los terremotos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Localizar un epicentro es un problema de <strong>multilateración</strong>, el mismo principio del GPS: varias estaciones miden <em>tiempos de llegada</em> de la onda y la diferencia entre ellos fija la posición de la fuente. El «scatter» de los mapas antiguos era ruido de medición temporal; mejores relojes y más estaciones → líneas finas. Es un caso clásico de cómo la <em>precisión instrumental</em> transforma un dato borroso en una estructura nítida.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>De Ortelius a Wegener: una idea ridiculizada</h2>
+    <p>Antes de 1912 la Tierra era «estática». Y hasta 1950 nadie le creyó a Wegener.</p>
+  </div></div>
+
+  <p>La idea de que los continentes encajan como un <strong>rompecabezas</strong> es antigua: <span class="hl">Abraham Ortelius</span> la postuló en <strong>1596</strong> (Renacimiento), sugiriendo que América y África fueron «separadas violentamente por terremotos e inundaciones» — sin mecanismo, sin más evidencia que el calce visual, en una época en que el mito de la Atlántida aún circulaba como explicación de cataclismos.</p>
+
+  <p>En <strong>1912</strong>, <span class="hl">Alfred Wegener</span> retomó la idea con evidencia nueva: <strong>fósiles de animales y plantas idénticos a ambos lados del océano</strong>, imposibles de explicar si los continentes siempre estuvieron separados. Pero seguía sin proponer un <em>mecanismo</em> físico que moviera continentes, y fue <strong>ridiculizado por los geólogos durante décadas</strong> — una batalla comparable, cuenta el profesor, a la del heliocentrismo contra el geocentrismo.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-09.jpg" alt="Mapa de Gondwana con franjas de fósiles de Cynognathus, Mesosaurus, Lystrosaurus y Glossopteris cruzando continentes">
+    <figcaption><span class="cap">Diapositiva · La evidencia de Wegener</span>Franjas de fósiles que cruzan continentes hoy separados por océanos: el reptil de agua dulce <em>Mesosaurus</em> (Sudamérica–África), el terrestre <em>Cynognathus</em>, <em>Lystrosaurus</em> (África–India–Antártida) y el helecho <em>Glossopteris</em> en todos los continentes australes. Solo tiene sentido si esas masas estuvieron <strong>unidas</strong>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Wegener tenía <strong>correlación sin modelo causal</strong>: datos consistentes con la hipótesis, pero ningún mecanismo plausible. La comunidad científica (con razón metodológica, aunque resultado injusto) exigía el mecanismo. La lección: una hipótesis correcta puede quedar bloqueada décadas hasta que la <em>instrumentación</em> alcance para producir la evidencia decisiva.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>1950: la tecnología que zanjó el debate</h2>
+    <p>Sismología de posguerra, submarinos y el descubrimiento de la dorsal.</p>
+  </div></div>
+
+  <p>Hubo que esperar hasta los años <strong>1950</strong> — posguerra, Guerra Fría — para que la tecnología produjera las evidencias. Y con motivaciones nada geológicas: la sismología de precisión se desarrolló para <strong>detectar pruebas nucleares</strong> (un bombazo se mide sísmicamente a distancia), y los <strong>submarinos</strong> necesitaban mapas del fondo oceánico, que hasta entonces era un «azul liso» en las cartas.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-10.jpg" alt="Primer mapa global de sismicidad de Rothé, 1954">
+    <figcaption><span class="cap">Diapositiva · Rothé 1954</span>El <strong>primer mapa global de terremotos</strong> (Rothé, 1954). Comparado con los mapas modernos tiene mucha dispersión — límite de la precisión temporal de la época — pero las franjas ya se insinúan.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-13.jpg" alt="Relieve tridimensional de la dorsal mesoatlántica">
+    <figcaption><span class="cap">Diapositiva · La dorsal atlántica</span>Al mapear el fondo del Atlántico apareció una <strong>cordillera submarina</strong> en pleno centro del océano: la dorsal mesoatlántica. El fondo marino tenía una rugosidad comparable a la superficie — montañas, valles, hendiduras — y esa cordillera resultó ser la <em>fábrica</em> de fondo oceánico nuevo.</figcaption>
+  </figure>
+
+  <p>Las piezas que entre 1950 y 1960 cerraron el caso fueron cuatro, y las veremos una a una: el <strong>mapeo de terremotos y volcanes</strong>, el <strong>fondo marino joven</strong>, el <strong>campo magnético invertible</strong> grabado en la roca, y finalmente el <strong>desarrollo de la teoría de subducción</strong>.</p>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>El campo magnético invertible: la cinta grabada del fondo marino</h2>
+    <p>La roca volcánica es una memoria magnética no volátil.</p>
+  </div></div>
+
+  <h3>Temperatura de Curie: cómo una roca «graba» el campo</h3>
+  <p>Átomos y moléculas tienen una dirección magnética privilegiada (el espín, el dipolo). Mientras el material está <strong>caliente y libre</strong> — magma sobre la <span class="hl">temperatura de Curie</span> — esos dipolos pueden rotar y se <strong>alinean con el campo magnético terrestre</strong>, como brújulas microscópicas. Al enfriarse bajo la temperatura de Curie (cercana pero <em>no igual</em> a la de solidificación), los minerales magnéticos <strong>congelan esa orientación</strong>: la roca queda grabada con la dirección del campo que había cuando nació.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es literalmente el principio de la <strong>grabación magnética</strong>: cinta, disco duro. Escribir = alinear dominios con un campo mientras el material «puede moverse»; leer = medir la orientación remanente años después. El fondo marino es una cinta que la dorsal va escribiendo a centímetros por año, y que conserva el registro por <em>cientos de millones de años</em>. Un material no magnético equivale a dominios desordenados: magnetización neta cero.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-14.jpg" alt="Bandas de polaridad magnética simétricas alrededor de la dorsal de Juan de Fuca">
+    <figcaption><span class="cap">Diapositiva · Bandas magnéticas</span>Alrededor de la dorsal de Juan de Fuca, la roca muestra <strong>bandas alternadas</strong> de polaridad normal (hacia el norte actual) e invertida, <strong>simétricas respecto a la dorsal</strong>: banda ancha a la izquierda ↔ banda ancha a la derecha. La roca nueva sale por el eje, se graba con el campo del momento, y se aleja hacia ambos lados como dos cintas espejo.</figcaption>
+  </figure>
+
+  <p>La sorpresa histórica: al muestrear el fondo, algunas rocas apuntaban <em>al sur</em>. Tras descartar errores de muestreo (la primera reacción fue culpar al que tomó la muestra), quedó claro que <strong>el campo magnético terrestre se ha invertido muchas veces</strong>: el norte magnético estuvo en el sur geográfico. Las bandas no son equiespaciadas — el proceso es caótico — pero sí simétricas respecto a cada dorsal, y las mismas secuencias aparecen en dorsales de océanos distintos.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-15.jpg" alt="Simulación del campo magnético terrestre 500 años antes, durante y después de una inversión">
+    <figcaption><span class="cap">Diapositiva · Simulación de una inversión</span>El campo terrestre no es un imán limpio: de cerca es una «madeja» caótica de líneas de campo, generada por convección en el núcleo externo líquido. Las simulaciones muestran que ese caos puede <strong>invertir norte y sur</strong> en una transición que dura del orden de <strong>mil años</strong> (paneles: −500, 0, +500 años).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Datos de clase</span>
+    <p>Las inversiones <strong>no están asociadas a extinciones</strong> en el registro fósil. Eso sí: ninguna especie previa dependía de satélites y navegación magnética como nosotros. Además, el polo norte magnético <strong>se mueve</strong> (las brújulas finas traían tablas de corrección por fecha) y no coincide exactamente con el geográfico. Predecir una inversión antes de que empiece: hoy imposible, es «más difícil que predecir un terremoto».</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-16.jpg" alt="Escala temporal de inversiones magnéticas de los últimos 170 millones de años">
+    <figcaption><span class="cap">Diapositiva · El código de barras geológico</span>Escala de inversiones de los últimos ~170 Ma (Cox, 1982): negro = polaridad actual, blanco = invertida. Hay períodos cortos, largos y rachas sin inversión. Datando las rocas (métodos radiométricos, análogos al carbono-14) cada franja queda fechada: el código de barras se convierte en un <strong>calendario</strong>.</figcaption>
+  </figure>
+
+  <h3>De las bandas a las películas de continentes</h3>
+  <p>Con el calendario magnético se construye el mapa de <strong>edad del fondo oceánico</strong>: joven junto a las dorsales, viejo lejos de ellas. Las líneas de igual edad son <span class="hl">isócronas</span>. Y aquí viene lo elegante: quitando isócronas una a una (la de 0 Ma, la de 10, la de 20…) se «rebobina» el movimiento de los continentes. Las animaciones de continentes derivando <strong>no son simulaciones especulativas: son datos deshechos hacia atrás</strong>, nítidos al menos hasta Pangea, hace unos <strong>200 millones de años</strong> (más atrás la pista se borra, porque el fondo antiguo ya fue subducido).</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-17.jpg" alt="Mapa de geocronología del fondo marino con edades en millones de años">
+    <figcaption><span class="cap">Diapositiva · Edad del fondo marino</span>Geocronología del fondo oceánico: rojo = corteza recién creada en la dorsal, azul = hasta ~180 Ma. Nótese que <strong>no existe fondo oceánico más viejo que ~180–200 Ma</strong>: todo lo anterior ya volvió al manto por subducción. Los continentes, en cambio, conservan rocas de 4000 Ma.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-27.jpg" alt="Reconstrucción del Atlántico hace 180 millones de años según PALEOMAP">
+    <figcaption><span class="cap">Diapositiva · Rebobinando 180 Ma</span>Reconstrucción del Atlántico hace 180 Ma (C.R. Scotese, PALEOMAP): deshaciendo isócronas, América encaja contra África y Europa. El «puzle» de Ortelius, ahora con datos y fechas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Subducción, litósfera y astenósfera</h2>
+    <p>¿A dónde va la superficie antigua? Hacia abajo. Y por qué gana siempre la placa oceánica.</p>
+  </div></div>
+
+  <p>Si en las dorsales se crea superficie nueva y el planeta no crece, la superficie vieja tiene que <strong>destruirse en otra parte</strong>. Esa es la <span class="hl">teoría de subducción</span>, establecida entre los años 50 y 60: cuando dos placas chocan, una se hunde bajo la otra. La fricción y el arrugamiento producen <strong>volcanes, cordilleras y terremotos</strong> — exactamente lo que vemos en Chile.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-29.jpg" alt="Esquemas de subducción de una placa bajo otra">
+    <figcaption><span class="cap">Diapositiva · Subducción</span>La placa que se hunde re-funde material y alimenta volcanes; la placa superior se arruga en cordillera. En el choque <strong>oceánica vs. continental siempre subduce la oceánica</strong>: es más densa (la interacción con el agua y los sedimentos la compacta).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-30.jpg" alt="Estructura interna de la Tierra y convección del manto bajo la litósfera">
+    <figcaption><span class="cap">Diapositiva · Litósfera sobre astenósfera</span>El motor: <strong>convección sólida y lenta del manto</strong> (no burbujea como una tetera; fluye a escala de millones de años). La <strong>litósfera</strong> rígida — corteza más la parte superior del manto — se arrastra sobre la <strong>astenósfera</strong> que convecta.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Dos taxonomías que no hay que mezclar</span>
+    <p><strong>Corteza / manto / núcleo</strong> es una división por <em>composición</em> (qué material hay en cada capa). <strong>Litósfera / astenósfera</strong> es una división por <em>dinámica</em> (qué se comporta rígido y qué fluye). No coinciden: la litósfera incluye la corteza <em>y</em> parte del manto superior. En ingeniería diríamos: una clasificación por material, otra por comportamiento reológico.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-31.jpg" alt="Tipos de bordes de placa: convergente, divergente, transformante, rift continental y hot spot">
+    <figcaption><span class="cap">Diapositiva · El catálogo de bordes</span>Divergente (dorsal oceánica), convergente (fosa + arco volcánico), transformante, rift continental (como el de Etiopía, donde el continente se está partiendo y hay que reconstruir un puente cada cierto tiempo), y el <strong>hot spot</strong> en medio de placa.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-32.jpg" alt="Mapa de velocidades relativas de las placas en centímetros por año">
+    <figcaption><span class="cap">Diapositiva · Velocidades: cm por año</span>Las placas se mueven a <strong>centímetros por año — la velocidad a la que crecen las uñas</strong>. Medirlo exige instrumentos GPS anclados al suelo: por eso en la Tierra podemos <em>medir</em> tectonismo, pero en otros planetas solo <em>sospecharlo</em>.</figcaption>
+  </figure>
+
+  <h3>Consecuencias que se ven en el mapa</h3>
+  <ul>
+    <li><strong>Andes vs. Apalaches:</strong> los Andes son jóvenes y puntiagudos (Nazca empuja hoy); los Apalaches son las «lomitas» erosionadas de una cordillera que fue andina, del antiguo choque América–Europa. Mientras más reciente el relieve, más agudo; la erosión lija.</li>
+    <li><strong>Chile no tiene roca antigua:</strong> aquí la superficie «está naciendo» todo el rato. Rocas de ~4000 millones de años se encuentran en interiores estables como Brasil o Australia.</li>
+    <li><strong>Hotspots:</strong> volcanes sin borde de placa (Hawái, Isla de Pascua), alimentados por plumas de calor que suben casi directo del núcleo. La placa se mueve sobre el punto caliente fijo → cadena de islas alineadas, activas solo en el extremo (la Isla Grande de Hawái); las viejas se erosionan hasta casi desaparecer. Isla de Pascua muestra además que los puntos calientes pueden <em>apagarse</em>.</li>
+  </ul>
+
+  <div class="widget" id="w-placas">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Deriva continental: de cm/año a millones de años</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Las placas se mueven a la velocidad de tus uñas. Integra ese ritmo en tiempo geológico y verás nacer un océano.</p>
+    <div class="presets" id="pl-presets">
+      <button data-v="2.5" data-t="180">Atlántico (~2,5 cm/año, 180 Ma)</button>
+      <button data-v="10" data-t="50">India → Asia (~10 cm/año, 50 Ma)</button>
+      <button data-v="7" data-t="1">Nazca, 1 Ma</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="pl-v">Velocidad de la placa (cm/año)</label><input type="number" id="pl-v" step="any" value="2.5"></div>
+      <div><label for="pl-t">Tiempo transcurrido (millones de años)</label><input type="number" id="pl-t" step="any" value="180"></div>
+    </div>
+    <output id="pl-out"></output>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Radiografiar el interior: densidad y gravedad</h2>
+    <p>¿Cómo sabemos que hay dos núcleos si recién en 1950 confirmamos las placas?</p>
+  </div></div>
+
+  <figure>
+    <img src="m1c3/assets/slide-34.jpg" alt="Corte del interior terrestre: corteza, manto, núcleo externo y núcleo interno">
+    <figcaption><span class="cap">Diapositiva · Interior terrestre</span>Corteza (8–40 km), manto (~2900 km), núcleo externo y núcleo interno (~1300 km de radio). Tres herramientas para «ver» sin excavar: <strong>densidad</strong>, <strong>sismología</strong> y <strong>campo gravitacional</strong>.</figcaption>
+  </figure>
+
+  <h3>Densidad media vs. densidad superficial</h3>
+  <p>La comparación más simple: la Luna y Mercurio tienen <em>el mismo tipo de roca</em> en superficie, pero la <strong>densidad media de Mercurio es muchísimo mayor</strong>. Conclusión inmediata: Mercurio esconde un interior más masivo — un gran núcleo metálico — que la Luna no tiene. Para la densidad media necesito <strong>volumen</strong> (geometría: medir bien tamaños y distancias) y <strong>masa</strong>.</p>
+
+  <p>¿Y cómo se pesa un planeta? No hay balanza posible: se usa la <strong>dinámica</strong>. La tercera ley de Kepler completa relaciona el período y el tamaño de una órbita con la masa central:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\left(\frac{P}{2\pi}\right)^{2} = \frac{a^{3}}{G\,(M_1 + M_2)}"></div>
+    <small>Con el período <span class="katex-inline" data-tex="P"></span> y el semieje <span class="katex-inline" data-tex="a"></span> de la órbita de la Tierra se despeja la masa del Sol (la de la Tierra es despreciable en la suma); con las lunas se pesa un planeta; con la legión de satélites artificiales, la Tierra queda pesada con altísima precisión. Regla práctica: <strong>el movimiento del cuerpo chico pesa al cuerpo grande</strong>.</small>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Paréntesis metrológico del profesor</span>
+    <p>Toda medición de masa remite a un estándar: el <strong>kilogramo patrón</strong> de París, protegido bajo campanas porque el polvo lo engorda y limpiarlo lo adelgaza. Hoy el kilogramo ya no es ese cilindro: se redefine con constantes atómicas, «unidades que no cambian». Buen recordatorio de que hasta la astrofísica cuelga de la metrología.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-36.jpg" alt="Mapa de anomalías del campo gravitacional terrestre">
+    <figcaption><span class="cap">Diapositiva · Anomalías gravitacionales</span>El campo gravitacional no es uniforme: los Andes y el Himalaya muestran <strong>exceso de atracción</strong> (masa extra apilada por el choque de placas). Mapear anomalías es otra ventana al contenido bajo la superficie.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Sismología: ondas P, ondas S y el núcleo líquido</h2>
+    <p>La gran herramienta. Cada terremoto es un «ping» que atraviesa el planeta.</p>
+  </div></div>
+
+  <figure>
+    <img src="m1c3/assets/slide-37.jpg" alt="Esquema de ondas P de compresión y ondas S de cizalla">
+    <figcaption><span class="cap">Diapositiva · Dos tipos de onda</span><strong>Ondas P</strong>: compresión en la dirección de propagación (rápidas, llegan <em>primero</em>). <strong>Ondas S</strong>: cizalla, movimiento perpendicular a la propagación (más lentas). En un temblor uno puede sentir ambas: el «empujón» y luego el vaivén — y cómo se sienten depende de si la onda llega desde abajo o de costado.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">La física del filtro de ondas S</span>
+    <p>Todo material se resiste a la <em>compresión</em>: gases, líquidos y sólidos empujan de vuelta → las ondas P viajan por todo. Pero la <em>cizalla</em> exige resistencia al deslizamiento: si estiro un gas o un líquido, las moléculas simplemente se van, no hay fuerza restauradora transversal. <strong>Los fluidos no transmiten ondas S.</strong> Ese detalle convierte a las ondas S en un detector de líquidos a 3000 km de profundidad.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-38.jpg" alt="Geometría del ángulo delta entre epicentro, centro de la Tierra y estación sismográfica">
+    <figcaption><span class="cap">Diapositiva · La geometría del problema</span>El ángulo <span class="katex-inline" data-tex="\Delta"></span> se mide entre el epicentro, el centro de la Tierra y la estación (90° = un cuarto de planeta; 180° = las antípodas). Con miles de estaciones, todo <span class="katex-inline" data-tex="\Delta"></span> queda cubierto por <em>algún</em> sismógrafo — tras filtrar el ruido de gente caminando, viento y demás.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-40.jpg" alt="Curvas de tiempo de viaje versus ángulo delta y nomenclatura de fases sísmicas P, S, K, L, I, J">
+    <figcaption><span class="cap">Diapositiva · Tiempo de viaje vs. Δ</span>Millones de registros (este gráfico acumula ~2,5 millones de observaciones) de tiempo de llegada contra <span class="katex-inline" data-tex="\Delta"></span>. Cada rama es una <strong>fase</strong>: una combinación de trayectos y rebotes. Nomenclatura por capa: manto <strong>P o S</strong>, núcleo externo <strong>K o L</strong>, núcleo interno <strong>I o J</strong> (compresión o cizalla respectivamente). Una onda PKP cruzó el manto, el núcleo externo y volvió por el manto, siempre como compresión.</figcaption>
+  </figure>
+
+  <p>En cada interfaz entre capas la onda se <strong>refleja y se transmite</strong> (como en una guía de ondas o una línea de transmisión con cambio de impedancia), e incluso puede convertirse de P a S y viceversa. El primer modelo con solo manto + núcleo no ajustaba los datos: hizo falta un <strong>segundo núcleo</strong>. Y el resultado más famoso es un perro que no ladró:</p>
+
+  <div class="box dato">
+    <span class="tag">El resultado estrella</span>
+    <p><strong>La onda L no aparece jamás</strong>, en ningún terremoto, en ninguna estación: no existe cizalla atravesando el núcleo externo ⇒ <strong>el núcleo externo es líquido</strong>. Esa enorme masa de «roca líquida» convectando es justo lo que genera y enreda el campo magnético — y lo que de vez en cuando lo invierte. La onda J (cizalla en el núcleo <em>interno</em>, que es sólido) era esperablemente difícil de ver: recién se anunció su detección alrededor de 2010 y algo.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-44.jpg" alt="Perfil de densidad del modelo PREM desde el centro hasta la superficie">
+    <figcaption><span class="cap">Diapositiva · PREM: el perfil de densidad</span>Invirtiendo millones de tiempos de viaje (la velocidad de cada onda depende de la densidad y rigidez del medio) se obtiene el <strong>Preliminary Reference Earth Model</strong>: densidad vs. radio. Las <strong>discontinuidades bruscas son cambios de material</strong> (océano→corteza→manto→núcleo externo→interno); las pendientes suaves son solo compresión por el peso de lo de arriba.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>PREM es un problema de <strong>inversión tomográfica</strong>: de los tiempos de viaje (integrales de camino sobre un campo de velocidades desconocido) se reconstruye el perfil interior. Es la misma matemática que una tomografía médica, con terremotos como fuentes no controladas y sismógrafos como detectores. Con suficientes datos hasta se abandona la simetría esférica y se mapean irregularidades 3D — como las zonas donde el núcleo externo «sube» y alimenta hotspots.</p>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-46.jpg" alt="Sismómetros en la Luna, esquema del interior de Marte con InSight y cráter de impacto nuevo">
+    <figcaption><span class="cap">Diapositiva · Sismología extraterrestre</span>Por ahora solo hay sismómetros en <strong>Tierra, Luna y Marte</strong>. En Marte (InSight) se detectó un sismo y <em>después</em>, buscando, se encontró el cráter fresco que lo causó: el interior marciano ya no es activo, así que la fuente fue el impacto. Sin red de instrumentos in situ, el tectonismo de otros planetas queda en sospecha, no en certeza.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Calor interior: las cuatro fuentes</h2>
+    <p>Un ejercicio de clase: proponer fuentes de energía y descartar las que no aportan.</p>
+  </div></div>
+
+  <p>¿De dónde sale el calor que mantiene líquido el núcleo externo? En clase se armó la lista entre todos y luego se fue podando. Sobrevivieron <strong>cuatro fuentes</strong>:</p>
+
+  <ul>
+    <li><strong>Diferenciación:</strong> como agua y aceite, el material denso se hunde y el liviano flota. Ese reacomodo libera energía potencial gravitatoria que se deposita <em>abajo</em>, como calor.</li>
+    <li><strong>Acreción (impactos):</strong> el planeta se formó chocando cuerpos; toda esa energía cinética terminó como calor. Hoy sigue cayendo «uno que otro».</li>
+    <li><strong>Radiactividad (fisión):</strong> átomos inestables repartidos por el planeta decaen y liberan calor, cada uno a su ritmo (el carbono-14 en siglos; otros en miles de millones de años). No hace falta que estén concentrados — eso solo pasa en una bomba, que es material radiactivo purificado. La <em>fusión</em> requiere ~10 millones de K: existe en estrellas, no en planetas.</li>
+    <li><strong>Mareas:</strong> la deformación cíclica por la fuerza de marea disipa energía por fricción (sección siguiente).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-51.jpg" alt="Diapositiva de calor interior: diferenciación, acreción, radiactividad y mareas, con palafitos de Chiloé">
+    <figcaption><span class="cap">Diapositiva · Las cuatro fuentes</span>Diferenciación (esquema del océano de magma que se ordena por densidad), acreción (impacto), radiactividad (átomo) y mareas (los palafitos de Chiloé, testigos cotidianos del sube y baja del mar).</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Las descartadas (y por qué)</span>
+    <p><strong>Compresión gravitatoria:</strong> requiere cambio de volumen; pudo aportar en el pasado, hoy la Tierra no se está contrayendo. <strong>Reacciones químicas:</strong> liberan energía que <em>antes</em> alguien guardó en las moléculas (fotosíntesis → leña, algas → petróleo); su aporte al interior es despreciable. <strong>Radiación solar:</strong> calienta la superficie, no el núcleo — «pamplinas» para el calor interno. <strong>Fusión nuclear:</strong> no ocurre en planetas.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Intuición sobre diferenciación</span>
+    <p>Si intercambio una parcela densa de arriba con una liviana de abajo (mismo volumen), la que baja libera más energía potencial que la que consume la que sube. El balance neto es <strong>transporte de energía hacia abajo</strong> en cada reacomodo. En un planeta joven, fundido, este «ordenamiento por densidad» — hierro al centro, silicatos afuera — fue una fuente de calor enorme, y de paso explica la estructura en capas por <em>composición</em>.</p>
+  </div>
+
+  <p>El estado térmico actual es una <strong>pelea entre fuentes y pérdidas</strong>: la radiactividad sigue activa, la acreción es esporádica, la diferenciación casi terminó — y en la Tierra hoy está <em>ganando el enfriamiento</em>.</p>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Mareas: fuerza diferencial, torque y órbitas síncronas</h2>
+    <p>La gravedad decae con la distancia; esa diferencia estira los cuerpos y disipa calor.</p>
+  </div></div>
+
+  <p>La fuerza de gravedad es <span class="katex-inline" data-tex="F = GMm/r^2"></span>: el lado del planeta que mira a la Luna siente <em>más</em> atracción que el centro, y el lado opuesto siente <em>menos</em>. En el sistema de referencia del planeta, el resultado neto es un <strong>estiramiento a lo largo del eje que apunta a la Luna</strong>: dos bulbos, uno de cada lado — por eso hay <em>dos</em> mareas altas al día, no una.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F_{\text{marea}} \;\propto\; \frac{\partial}{\partial r}\!\left(\frac{GM}{r^{2}}\right)\cdot R \;=\; -\,\frac{2\,G M\,R}{r^{3}}"></div>
+    <small>La marea es la <em>diferencia</em> de gravedad a lo ancho del cuerpo (radio <span class="katex-inline" data-tex="R"></span>): escala como <span class="katex-inline" data-tex="1/r^{3}"></span>, no <span class="katex-inline" data-tex="1/r^{2}"></span>. Por eso la Luna, pequeña pero cercana, produce en la Tierra más marea que el Sol, gigantesco pero lejano. <em>(Formalización propia del argumento de clase; la diapositiva muestra el diagrama de flechas diferenciales.)</em></small>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-52.jpg" alt="Esquema de los bulbos de marea del océano frente a la Luna">
+    <figcaption><span class="cap">Diapositiva · Los dos bulbos</span>El océano se estira hacia la Luna y en sentido contrario. La marea deforma <strong>también a la roca</strong>: en la Tierra el bulbo líquido sube ~90 cm y el sólido ~50 cm; la «marea» que vemos en la playa es la <em>diferencia</em> entre ambos. No se necesita océano para tener fuerza de marea.</figcaption>
+  </figure>
+
+  <h3>El torque del bulbo: frenar días y alejar lunas</h3>
+  <p>La Tierra rota más rápido (24 h) de lo que la Luna traslada (28 días), así que el bulbo se «adelanta» y la gravedad lunar tira de él generando un <strong>torque constante</strong>. Consecuencias simétricas: el planeta que rota más rápido que la traslación de su satélite <strong>se frena</strong> (pierde momento angular) y el satélite <strong>gana momento angular: su órbita se expande</strong> — la Luna se aleja. Si la traslación fuera más rápida que la rotación, todo al revés: la órbita decae y el planeta se acelera.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-57.jpg" alt="Esquema de torque de marea y analogía de patinadores para el momento angular">
+    <figcaption><span class="cap">Diapositiva · Torque y órbita síncrona</span>La pelea termina cuando rotación y traslación se igualan: el bulbo queda alineado, el torque se apaga. Eso es una <strong>órbita síncrona</strong>: el cuerpo muestra siempre la misma cara — exactamente lo que ya le pasó a la Luna con la Tierra.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Datos de clase</span>
+    <p>La marea quiere que el día terrestre dure <strong>28 días</strong> (sincronizado con la Luna)… pero no alcanzará: la Luna se habrá alejado antes. Y como la Luna ya está sincronizada, su «Everest lunar» no sube y baja: <strong>la Luna casi no disipa calor de marea hoy</strong>. En la Tierra, en cambio, cada punto pasa por el bulbo dos veces al día: compresión y descompresión continua → <strong>fricción → calor interno</strong>.</p>
+  </div>
+
+  <div class="widget" id="w-marea">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Fuerza de marea ∝ M/r³: ¿quién estira más?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Compara la aceleración de marea que distintos cuerpos producen sobre la Tierra. Nota cómo el exponente 3 castiga la distancia: el Sol tiene 27 millones de veces la masa de la Luna, pero pierde.</p>
+    <div class="presets" id="ma-presets">
+      <button data-m="7.35e22" data-r="3.84e5" data-n="Luna">Luna</button>
+      <button data-m="1.989e30" data-r="1.496e8" data-n="Sol">Sol</button>
+      <button data-m="1.9e27" data-r="5.9e8" data-n="Júpiter (mínima)">Júpiter cercano</button>
+      <button data-m="7.35e22" data-r="1.92e5" data-n="Luna a mitad de distancia">Luna ×½ dist.</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="ma-m">Masa del cuerpo perturbador (kg)</label><input type="number" id="ma-m" step="any" value="7.35e22"></div>
+      <div><label for="ma-r">Distancia a la Tierra (km)</label><input type="number" id="ma-r" step="any" value="3.84e5"></div>
+    </div>
+    <output id="ma-out"></output>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Enfriamiento: la tetera planetaria</h2>
+    <p>Solo hay una forma de perder energía en el vacío: fotones. Y el tamaño manda.</p>
+  </div></div>
+
+  <p>Contra las cuatro fuentes pelea un único sumidero. Rodeado de vacío, un planeta <strong>solo puede deshacerse de energía radiándola</strong>: fotones. (Cada satélite que lanzamos se lleva un poquito de energía, pero es anecdótico.) El argumento de escala de la clase es de los que un ingeniero debe amar:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\underbrace{E}_{\propto\,R^{3}} \Big/ \underbrace{\frac{dE}{dt}}_{\propto\,R^{2}} \;=\; \tau \;\propto\; \frac{R^{3}}{R^{2}} \;=\; R"></div>
+    <small>La energía almacenada crece con el <strong>volumen</strong> (<span class="katex-inline" data-tex="R^3"></span>); la pérdida por radiación crece con el <strong>área</strong> (<span class="katex-inline" data-tex="R^2"></span>). El cociente es un <em>tiempo característico de enfriamiento</em> proporcional al radio: <strong>cuerpos más grandes se enfrían más lento</strong>. Como un estanque: si tengo 10 litros y vacío 2 por segundo, me quedan 5 segundos de agua.</small>
+  </div>
+
+  <figure>
+    <img src="m1c3/assets/slide-58.jpg" alt="Diapositiva de enfriamiento: la razón E/(dE/dt) es proporcional al radio, con la tetera y taza de La Bella y la Bestia">
+    <figcaption><span class="cap">Diapositiva · Teteras y tazas</span>«Se produce exclusivamente a través de radiación; más rápido para cuerpos más pequeños.» La tetera (Sra. Potts) se mantiene caliente más tiempo que la taza (Chip). La Tierra, más grande que la Luna, conserva su calor interno; la Luna ya se enfrió.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es el mismo razonamiento que una <strong>constante de tiempo térmica</strong> <span class="katex-inline" data-tex="\tau = C/G"></span> (capacidad térmica sobre conductancia al ambiente) en un circuito RC térmico, y el mismo argumento área/volumen que explica por qué los chips pequeños disipan bien y los datacenters necesitan refrigeración, o por qué los animales pequeños pierden calor más rápido. Análisis dimensional puro: sin resolver ninguna ecuación diferencial ya sabemos <em>quién</em> se enfría primero.</p>
+  </div>
+
+  <p>Este balance — fuentes de calor vs. enfriamiento <span class="katex-inline" data-tex="\propto R"></span> — es la clave de la próxima clase: veremos planetas que <em>ya se enfriaron</em> (interiores muertos, sin tectonismo, superficies fósiles llenas de cráteres) y planetas que <em>aún no</em>, y cómo eso se lee directamente en sus superficies.</p>
+
+  <div class="widget" id="w-enfria">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Tiempo de enfriamiento ∝ R: compara dos cuerpos</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige dos cuerpos y compara sus escalas de enfriamiento relativas (modelo de clase: τ ∝ R, sin considerar composición ni fuentes internas).</p>
+    <div class="wgrid">
+      <div><label for="en-a">Cuerpo A</label>
+        <select id="en-a">
+          <option value="6371" selected>Tierra (R = 6371 km)</option>
+          <option value="1737">Luna (R = 1737 km)</option>
+          <option value="3390">Marte (R = 3390 km)</option>
+          <option value="2440">Mercurio (R = 2440 km)</option>
+          <option value="6052">Venus (R = 6052 km)</option>
+        </select></div>
+      <div><label for="en-b">Cuerpo B</label>
+        <select id="en-b">
+          <option value="6371">Tierra (R = 6371 km)</option>
+          <option value="1737" selected>Luna (R = 1737 km)</option>
+          <option value="3390">Marte (R = 3390 km)</option>
+          <option value="2440">Mercurio (R = 2440 km)</option>
+          <option value="6052">Venus (R = 6052 km)</option>
+        </select></div>
+    </div>
+    <output id="en-out"></output>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Nota · Sesión compartida con Observación</span>
+    <p>Esta sesión fue compartida con el curso de <strong>Instrumentación y Métodos de Observación</strong>: tras el bloque de planetas hubo presentaciones de estudiantes y una clase corta de observación (coordenadas celestes: ascensión recta y declinación, eclíptica, monturas ecuatoriales vs. altazimutales, tiempo sideral local). Ese material pertenece al curso de Observación y no se desarrolla en estos apuntes, que cubren el contenido de <em>Astrofísica de Planetas</em> según las diapositivas «Planeta Tierra».</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>4 procesos geológicos</b></td><td>Tectonismo, volcanismo, cráteres, erosión</td><td>Checklist para leer cualquier superficie planetaria; terremotos son <em>producto</em>, no proceso</td></tr>
+      <tr><td><b>Placas tectónicas</b></td><td>Ortelius 1596 → Wegener 1912 → evidencias 1950s</td><td>Idea correcta bloqueada 40 años por falta de mecanismo e instrumentos</td></tr>
+      <tr><td><b>Temperatura de Curie</b></td><td>Umbral bajo el cual el mineral congela su magnetización</td><td>La roca de la dorsal «graba» el campo magnético del momento en que se enfrió</td></tr>
+      <tr><td><b>Inversiones magnéticas</b></td><td>Bandas simétricas a la dorsal; transición ~1000 años</td><td>Prueban expansión del fondo y campo caótico; datadas → isócronas</td></tr>
+      <tr><td><b>Isócronas</b></td><td>Líneas de igual edad del fondo oceánico</td><td>Rebobinan el movimiento continental con datos hasta Pangea (~200 Ma)</td></tr>
+      <tr><td><b>Subducción</b></td><td>La placa más densa (oceánica) se hunde bajo la otra</td><td>Destruye superficie vieja; genera volcanes, cordilleras y terremotos</td></tr>
+      <tr><td><b>Litósfera / astenósfera</b></td><td>División <em>dinámica</em> (rígido / convecta), ≠ corteza-manto-núcleo (composición)</td><td>Las placas = litósfera arrastrada por convección sólida del manto</td></tr>
+      <tr><td><b>Hotspot</b></td><td>Pluma de calor casi directa del núcleo (Hawái, Pascua)</td><td>Volcanismo sin borde de placa; cadenas de islas = placa móvil sobre punto fijo</td></tr>
+      <tr><td><b>3.ª ley de Kepler</b></td><td><span class="katex-inline" data-tex="(P/2\pi)^2 = a^3/G(M_1{+}M_2)"></span></td><td>Pesar cuerpos con el movimiento de sus satélites (masa → densidad media)</td></tr>
+      <tr><td><b>Ondas P / S</b></td><td>Compresión (rápida) / cizalla (lenta)</td><td>Los fluidos no transmiten S: la ausencia de onda L ⇒ núcleo externo líquido</td></tr>
+      <tr><td><b>PREM</b></td><td>Perfil densidad–radio invertido de tiempos de viaje</td><td>Discontinuidades = cambios de material (manto / núcleos)</td></tr>
+      <tr><td><b>Fuentes de calor interno</b></td><td>Diferenciación, acreción, radiactividad (fisión), mareas</td><td>Descartadas: compresión actual, química, luz solar, fusión</td></tr>
+      <tr><td><b>Fuerza de marea</b></td><td>Diferencial de gravedad: <span class="katex-inline" data-tex="\propto M R/r^3"></span></td><td>Dos bulbos; deforma roca (~50 cm) y océano (~90 cm); disipa calor por fricción</td></tr>
+      <tr><td><b>Órbita síncrona</b></td><td>Rotación = traslación; torque de marea se anula</td><td>La Luna ya muestra una sola cara (y casi no disipa calor de marea)</td></tr>
+      <tr><td><b>Enfriamiento ∝ R</b></td><td><span class="katex-inline" data-tex="\tau = E/\dot{E} \propto R^3/R^2 = R"></span>, solo por radiación</td><td>Cuerpos chicos mueren térmicamente antes; clave para comparar planetas</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c3-examen-01.html">Examen 01<small>Procesos geológicos y agua</small></a></li>
+    <li><a href="m1c3-examen-02.html">Examen 02<small>Ortelius y Wegener</small></a></li>
+    <li><a href="m1c3-examen-03.html">Examen 03<small>Evidencias de 1950</small></a></li>
+    <li><a href="m1c3-examen-04.html">Examen 04<small>Magnetismo e isócronas</small></a></li>
+    <li><a href="m1c3-examen-05.html">Examen 05<small>Subducción y litósfera</small></a></li>
+    <li><a href="m1c3-examen-06.html">Examen 06<small>Bordes, velocidades, hotspots</small></a></li>
+    <li><a href="m1c3-examen-07.html">Examen 07<small>Densidad, masa y gravedad</small></a></li>
+    <li><a href="m1c3-examen-08.html">Examen 08<small>Sismología</small></a></li>
+    <li><a href="m1c3-examen-09.html">Examen 09<small>Calor interno</small></a></li>
+    <li><a href="m1c3-examen-10.html">Examen 10<small>Mareas y enfriamiento</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo I del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Patricio Rojo, 27 mar 2026). Elaborado a partir de las transcripciones del audio (<code>planetas/m1/ff/Planetas-y-Observaci-n-m1c31-…</code> y <code>…-m1c32-…</code>) y las diapositivas <code>Modulo_I_Clase_3_Planeta_Tierra.pdf</code>.</p>
+  <p class="disc"><b>Sesión compartida.</b> Esta sesión fue compartida con el curso de Instrumentación y Métodos de Observación: la segunda parte del audio incluye presentaciones de estudiantes y contenido de observación (coordenadas celestes, monturas, tiempo sideral) que <em>no</em> forma parte de estos apuntes de Planetas.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía: «Alfred Beckener» → <strong>Alfred Wegener</strong>; «temperatura Curí / courie» → <strong>temperatura de Curie</strong>; «ondas de sisaye / cisalle» → <strong>ondas de cizalla</strong> (ondas S); «Pangea, que son como 200 años» → <strong>~200 millones de años</strong>; la velocidad «17.2 cm/año» leída del mapa corresponde a un máximo local (la mayoría de las placas se mueve a 2–11 cm/año). Las magnitudes de marea sólida/líquida (~50/90 cm) se citan tal como se dieron en clase. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: deriva continental ----
+(function(){
+  var v = document.getElementById('pl-v');
+  var t = document.getElementById('pl-t');
+  var out = document.getElementById('pl-out');
+  function calc(){
+    var vV = parseFloat(v.value), tV = parseFloat(t.value);
+    if(!(vV>0) || !(tV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var km = vV * 1e-5 * tV * 1e6; // cm/año * Ma -> km
+    var atl = km/5000; // ancho aprox del Atlántico sur ~5000 km (por lado de referencia)
+    var cmp = km>=5000 ? "suficiente para abrir un océano como el Atlántico" :
+              km>=1000 ? "una distancia continental: nacen cordilleras y mares" :
+              km>=100  ? "ya es geografía: se nota en cualquier mapa" :
+                         "apenas un paseo, pero imparable";
+    out.innerHTML = "Desplazamiento = <b>"+(km>=1?km.toFixed(0):km.toFixed(2))+"</b> km "+
+      "<span class='k'>("+(km/5000*100).toFixed(1)+"% del ancho del Atlántico ≈ 5000 km)</span><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+cmp+". A "+vV+" cm/año — el ritmo de tus uñas — el tiempo geológico hace el resto.</span>";
+  }
+  v.addEventListener('input', calc); t.addEventListener('input', calc);
+  document.querySelectorAll('#pl-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ v.value=b.dataset.v; t.value=b.dataset.t; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: fuerza de marea M/r^3 ----
+(function(){
+  var G = 6.674e-11, RT = 6.371e6; // radio terrestre m
+  var MLUNA = 7.35e22, DLUNA = 3.84e8; // referencia
+  var m = document.getElementById('ma-m');
+  var r = document.getElementById('ma-r');
+  var out = document.getElementById('ma-out');
+  function calc(){
+    var mV = parseFloat(m.value);
+    var rV = parseFloat(r.value)*1e3; // km -> m
+    if(!(mV>0) || !(rV>0)){ out.innerHTML = "Ingresa valores positivos."; return; }
+    var a = 2*G*mV*RT/Math.pow(rV,3);        // m/s^2
+    var aLuna = 2*G*MLUNA*RT/Math.pow(DLUNA,3);
+    var rel = a/aLuna;
+    out.innerHTML = "Aceleración de marea ≈ <b>"+a.toExponential(2)+"</b> m/s² "+
+      "<span class='k'>= "+rel.toFixed(2)+"× la marea lunar actual</span><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Referencia: Luna ≈ "+aLuna.toExponential(2)+" m/s²; el Sol produce ≈ 0,46× la marea lunar pese a tener 2,7×10⁷ veces su masa — el 1/r³ manda.</span>";
+  }
+  m.addEventListener('input', calc); r.addEventListener('input', calc);
+  document.querySelectorAll('#ma-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ m.value=b.dataset.m; r.value=parseFloat(b.dataset.r); calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: enfriamiento tau ∝ R ----
+(function(){
+  var a = document.getElementById('en-a');
+  var b = document.getElementById('en-b');
+  var out = document.getElementById('en-out');
+  function name(sel){ return sel.options[sel.selectedIndex].text.split(' (')[0]; }
+  function calc(){
+    var rA = parseFloat(a.value), rB = parseFloat(b.value);
+    var rel = rA/rB;
+    var frase;
+    if(Math.abs(rel-1)<0.02){ frase = "Tamaños similares: escalas de enfriamiento comparables."; }
+    else if(rel>1){ frase = name(a)+" retiene su calor interno ~"+rel.toFixed(1)+" veces más tiempo que "+name(b)+" (modelo τ ∝ R)."; }
+    else { frase = name(b)+" retiene su calor interno ~"+(1/rel).toFixed(1)+" veces más tiempo que "+name(a)+" (modelo τ ∝ R)."; }
+    out.innerHTML = "τ<sub>A</sub>/τ<sub>B</sub> = R<sub>A</sub>/R<sub>B</sub> = <b>"+rel.toFixed(2)+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>"+frase+" Por eso la Luna y Mercurio son mundos térmicamente «muertos» y la Tierra sigue geológicamente viva.</span>";
+  }
+  a.addEventListener('change', calc); b.addEventListener('change', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

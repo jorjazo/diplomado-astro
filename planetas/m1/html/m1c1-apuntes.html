@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un nuevo universo — Astrofísica de Planetas, Módulo I · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget .presets button.on{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.widget canvas{display:block;width:100%;height:auto;background:#05070d;border:1px solid var(--line);border-radius:10px;margin-top:10px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Planetas · Módulo I · Clase 1</span>
+  <h1>Un nuevo <em>universo</em></h1>
+  <p class="sub">De la <strong>bóveda celeste</strong> que gira sobre nuestras cabezas a la <strong>mecánica de Newton</strong>: dos milenios de modelos del cosmos, empujados por un problema de ingeniería observacional — las <em>estrellas paseadoras</em> que a veces caminan <em>en reversa</em>.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Patricio Rojo</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Tema:</b> Historia de los modelos del Sistema Solar</span>
+    <span><b>Fuente:</b> Solo diapositivas (sin transcripción)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">S</span>i miras el cielo una noche completa, verás que toda la bóveda estrellada <span class="hl">rota en bloque</span>, como si fuera una esfera rígida girando en torno a un eje. Pero unos pocos puntos brillantes no respetan ese patrón: se <em>pasean</em> entre las constelaciones y, de vez en cuando, retroceden. Los griegos los llamaron <em>planētēs</em> — «paseadores», «errantes». Explicar ese movimiento anómalo tomó dos mil años y obligó a cambiar de modelo varias veces: esferas concéntricas, epiciclos, heliocentrismo, elipses y finalmente una ley de fuerza universal. Esta clase recorre esa cadena — Aristóteles, Aristarco, Ptolomeo, Copérnico, Bruno, Tycho, Galileo, Kepler, Newton — como lo que realmente fue: un ciclo iterativo de <strong>modelo → predicción → dato → revisión</strong>, la misma lógica con que hoy depuramos cualquier sistema.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La bóveda celeste en rotación</a></li>
+    <li><a href="#s2">Estrellas paseadoras: nace la palabra «planeta»</a></li>
+    <li><a href="#s3">El problema: la retrogradación</a></li>
+    <li><a href="#s4">Modelo geocéntrico: esferas y epiciclos</a></li>
+    <li><a href="#s5">Aristarco: el heliocentrismo que no prendió</a></li>
+    <li><a href="#s6">Copérnico y el costo de cambiar de modelo</a></li>
+    <li><a href="#s7">Tycho y Galileo: datos y telescopio</a></li>
+    <li><a href="#s8">Kepler: las tres leyes</a></li>
+    <li><a href="#s9">Newton: la mecánica celeste</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La bóveda celeste en rotación</h2>
+    <p>¿Dónde estamos? La primera respuesta viene de mirar el cielo con paciencia.</p>
+  </div></div>
+
+  <p>La pregunta que abre la clase es <span class="hl">¿dónde estamos?</span> Sin telescopios ni satélites, la única fuente de datos es el cielo nocturno. Y la primera observación robusta que cualquier civilización puede hacer es que las estrellas <strong>no se mueven unas respecto de otras</strong>: las constelaciones mantienen su forma, pero el conjunto completo gira durante la noche en torno a un punto fijo (el polo celeste). Una fotografía de larga exposición lo muestra sin ambigüedad: cada estrella dibuja un arco de círculo concéntrico.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-03.jpg" alt="Fotografías de larga exposición mostrando trazas circulares de estrellas alrededor del polo celeste">
+    <figcaption><span class="cap">Diapositiva · Bóveda en rotación</span>Trazas estelares en exposiciones largas: todas las estrellas describen círculos concéntricos alrededor del polo celeste. El cielo se comporta como una esfera rígida que rota — o, como sabemos hoy, somos nosotros los que rotamos.</figcaption>
+  </figure>
+
+  <p>De ahí nace el modelo más antiguo y natural: la <span class="hl">bóveda (o esfera) celeste</span>, una esfera gigante con las estrellas «pegadas» que gira alrededor de la Tierra una vez al día. Sobre esa esfera se definen los elementos de referencia que la astronomía sigue usando: el <strong>ecuador celeste</strong> (proyección del ecuador terrestre), la <strong>eclíptica</strong> (el camino anual del Sol entre las estrellas) y el <strong>equinoccio vernal</strong> (uno de los dos puntos donde ambas se cruzan).</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-04.jpg" alt="Esfera celeste con la Tierra al centro, mostrando ecuador celeste, eclíptica y equinoccio vernal">
+    <figcaption><span class="cap">Diapositiva · La bóveda celeste</span>La esfera celeste con la Tierra al centro: ecuador celeste, eclíptica (línea verde, camino del Sol) y equinoccio vernal. Aunque el modelo físico es obsoleto, sigue siendo el <em>sistema de coordenadas</em> estándar de la astronomía.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>La esfera celeste es un <strong>marco de referencia</strong>, no una afirmación física. Es exactamente lo que hace un ingeniero al elegir coordenadas cómodas para un problema: para apuntar un telescopio (o una antena) no importa la distancia a la estrella, solo su <em>dirección</em>, y dos ángulos sobre una esfera unitaria bastan. El modelo «falso» sobrevivió como sistema de coordenadas porque resuelve bien ese problema de interfaz.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Estrellas paseadoras: nace la palabra «planeta»</h2>
+    <p>Cinco puntos de luz que no respetan el patrón de la bóveda rígida.</p>
+  </div></div>
+
+  <p>Sobre el fondo de estrellas «fijas» hay cinco objetos brillantes visibles a ojo desnudo — Mercurio, Venus, Marte, Júpiter y Saturno — que <strong>cambian de posición</strong> de noche en noche respecto a las constelaciones. Los griegos los llamaron <span class="hl">estrellas paseadoras</span>:</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-05.jpg" alt="Diapositiva con la cadena etimológica: paseadores, planētēs en griego, planetas">
+    <figcaption><span class="cap">Diapositiva · Etimología</span>Paseadores → <em>πλανης</em> (<em>planētēs</em>) → Planetas. La palabra «planeta» significa literalmente «errante»: registra la observación, no la naturaleza del objeto.</figcaption>
+  </figure>
+
+  <p>En el modelo antiguo, la solución fue darle a cada paseador <strong>su propia esfera</strong>: capas concéntricas anidadas alrededor de la Tierra, cada una girando a su propio ritmo — Luna, Mercurio, Venus, Sol, Marte, Júpiter, Saturno y, al final, la esfera de las estrellas fijas.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-06.jpg" alt="Grabado antiguo del sistema de esferas planetarias y esquema moderno de esferas concéntricas">
+    <figcaption><span class="cap">Diapositiva · Cada uno en su esfera</span>Arriba: grabado clásico del sistema de esferas planetarias. Abajo: esquema moderno de las capas concéntricas (Luna, Tierra, Venus, Sol, Marte...). Un modelo por capas, elegante y fácil de calcular... hasta que los datos lo contradicen.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición primero</span>
+    <p>Nota lo razonable del modelo: si el cielo <em>parece</em> una esfera que gira y unos pocos objetos se desvían suavemente, la corrección mínima es agregar esferas adicionales con velocidades propias. Es el equivalente antiguo de <strong>agregar términos a un modelo</strong> para absorber residuos. El problema aparece cuando los residuos tienen estructura que ningún término «razonable» captura.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El problema: la retrogradación</h2>
+    <p>A veces los paseadores caminan en reversa. Ese residuo mató al modelo simple.</p>
+  </div></div>
+
+  <p>Si sigues a Marte durante meses, ves que avanza hacia el este entre las estrellas... hasta que <strong>frena, retrocede hacia el oeste durante unas semanas y luego retoma su marcha</strong>, dibujando un lazo en el cielo. Es el <span class="hl">movimiento retrógrado</span>, y es un dato durísimo para cualquier modelo de esferas que giran de manera uniforme: una esfera rígida no puede hacer que un punto pegado a ella retroceda.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-07.jpg" alt="Composición fotográfica del movimiento retrógrado de Marte en 2003">
+    <figcaption><span class="cap">Diapositiva · «A veces... en reversa»</span>Composición fotográfica real del movimiento retrógrado de Marte (2003): la posición del planeta fotografiada noche tras noche dibuja un lazo sobre el fondo de estrellas.</figcaption>
+  </figure>
+
+  <p>Hoy sabemos que la retrogradación es un <strong>efecto de paralaje dinámico</strong>: la Tierra, más rápida en su órbita interior, «adelanta» a Marte como un auto que sobrepasa a otro en la carretera — visto desde el auto rápido, el lento parece ir hacia atrás contra el paisaje lejano. No hace falta que Marte retroceda: basta con que <em>nosotros</em> nos movamos. El widget siguiente lo muestra en vivo.</p>
+
+  <div class="widget" id="w-retro">
+    <span class="tagband">Widget interactivo · inferencia propia (no está en las diapositivas)</span>
+    <h4>Simulador de retrogradación: dos órbitas, un espejismo</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">A la izquierda, la vista heliocéntrica (Tierra en azul, planeta en rojo). A la derecha, la <em>longitud aparente</em> del planeta vista desde la Tierra: cuando la curva baja, el planeta parece retroceder. La línea gris une Tierra → planeta.</p>
+    <div class="presets" id="retro-presets">
+      <button data-a="1.524" data-p="1.881" class="on">Marte</button>
+      <button data-a="5.203" data-p="11.86">Júpiter</button>
+      <button data-a="9.537" data-p="29.45">Saturno</button>
+    </div>
+    <canvas id="retro-cv" width="920" height="380"></canvas>
+    <div class="wgrid" style="margin-top:10px">
+      <div><label for="retro-speed">Velocidad de simulación</label><input type="range" id="retro-speed" min="0.2" max="3" step="0.1" value="1"></div>
+      <div style="align-self:end"><button class="btnw" id="retro-play" style="background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-family:'Fraunces',serif;font-weight:600;cursor:pointer">Pausar</button></div>
+    </div>
+    <div class="wout" id="retro-out"></div>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>La retrogradación es un problema de <strong>marco de referencia</strong>: la señal medida (dirección aparente) es la composición de dos movimientos, el del objeto y el del sensor. Igual que el Doppler visto desde una plataforma móvil, si olvidas restar el movimiento propio del observador, el dato parece absurdo. Geocentrismo = intentar modelar la señal sin corregir el movimiento del sensor.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Modelo geocéntrico: esferas, epiciclos y el Almagesto</h2>
+    <p>El parche que funcionó 1400 años: círculos sobre círculos.</p>
+  </div></div>
+
+  <p>El modelo geocéntrico se consolida en la <strong>Antigua Grecia</strong>: Anaximandro y Filolao proponen las primeras cosmologías, y <strong>Platón y Aristóteles (~400 a.C.)</strong> fijan el dogma: la Tierra es una <em>esfera inmóvil en el centro del universo</em>. No era terquedad: había argumentos observacionales a favor.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-11.jpg" alt="Diapositiva del modelo geocéntrico con los argumentos que lo apoyaban: falta de paralaje, brillo de Venus, movimiento de nubes y pájaros">
+    <figcaption><span class="cap">Diapositiva · Modelo geocéntrico</span>El geocentrismo estaba <em>apoyado por evidencia</em>: (1) la falta de paralaje estelar, (2) el brillo de Venus, (3) el movimiento de nubes y pájaros (si la Tierra girara, deberían «quedarse atrás»). El diagrama de la derecha ilustra el argumento del paralaje: si la Tierra se moviera de 1 a 2, el ángulo hacia una estrella cercana debería cambiar.</figcaption>
+  </figure>
+
+  <h3>Los tres argumentos pro-geocentrismo</h3>
+  <ul>
+    <li><strong>Falta de paralaje:</strong> si la Tierra orbitara el Sol, las estrellas cercanas deberían desplazarse aparentemente respecto de las lejanas a lo largo del año. Nadie lo medía. La explicación correcta — las estrellas están <em>absurdamente</em> lejos y el paralaje es de fracciones de segundo de arco — recién se confirmó en 1838.</li>
+    <li><strong>Brillo de Venus:</strong> en un modelo heliocéntrico simple la distancia Tierra–Venus varía muchísimo, y se esperaba un cambio de brillo enorme que no se observaba a ojo desnudo (la resolución del enigma requiere las fases, invisibles sin telescopio).</li>
+    <li><strong>Nubes y pájaros:</strong> si la Tierra rotara, ¿por qué lo que flota en el aire no se queda atrás? Faltaban dos mil años para el concepto de inercia y de arrastre del aire con la superficie.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">Lectura pedagógica de las diapositivas</span>
+    <p>El punto de la clase no es burlarse del geocentrismo, sino mostrar que fue una <strong>teoría científica razonable para sus datos</strong>: hacía predicciones, se contrastaba con observaciones y sus rivales fallaban tests observacionales (¡el paralaje!). El heliocentrismo de Aristarco no perdió por censura, sino por parecer <em>menos</em> compatible con los datos disponibles.</p>
+  </div>
+
+  <p>Para acomodar la retrogradación, el geocentrismo adopta los <span class="hl">epiciclos</span>: cada planeta gira en un círculo pequeño (epiciclo) cuyo centro viaja sobre un círculo mayor centrado en la Tierra (deferente). La combinación de ambos giros reproduce los lazos retrógrados.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-08.jpg" alt="Esquema de deferentes y epiciclos para cada planeta con sus períodos">
+    <figcaption><span class="cap">Diapositiva · Solución: epiciclos</span>Cada planeta con su deferente y su epiciclo (con períodos anotados: Saturno 378 días, Júpiter 399, Marte 780...). Esos períodos de los epiciclos son en realidad los <em>períodos sinódicos</em>: el tiempo entre «sobrepasos» de la Tierra a cada planeta. El modelo absorbía el efecto sin entender la causa.</figcaption>
+  </figure>
+
+  <p>La versión definitiva la escribe <strong>Ptolomeo (siglo II)</strong> en el <span class="hl">Almagesto</span> («el más grande»), el tratado astronómico más influyente de la historia: epiciclos, deferentes y esferas <em>des-centradas</em> (la Tierra ligeramente fuera del centro) que ajustaban las observaciones con precisión notable para la época.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-13.jpg" alt="Página de un ejemplar antiguo con el diagrama del sistema ptolemaico">
+    <figcaption><span class="cap">Diapositiva · Ptolomeo y el Almagesto</span>El modelo de Aristarco «no tuvo tracción»; el de Ptolomeo (s. II) dominó ~1400 años. El diagrama muestra la maquinaria: deferentes, epiciclos y centros desplazados — parámetros de ajuste sobre parámetros de ajuste.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril · inferencia propia</span>
+    <p>Un sistema de epiciclos es literalmente una <strong>serie de Fourier geométrica</strong>: sumar círculos que giran a distintas frecuencias permite aproximar casi cualquier trayectoria periódica con precisión arbitraria. Por eso el modelo ptolemaico «funcionaba»: era un ajuste con suficientes grados de libertad, no una explicación. Moraleja de modelamiento: <em>ajustar bien no es entender</em> — un modelo sobreparametrizado predice sin explicar y colapsa fuera de su dominio de calibración.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Aristarco: el heliocentrismo que no prendió</h2>
+    <p>Siglo III a.C.: geometría, eclipses y una conclusión demasiado adelantada.</p>
+  </div></div>
+
+  <p><strong>Aristarco de Samos (~300 a.C.)</strong> hizo algo muy moderno: usar <strong>geometría y mediciones</strong> para estimar tamaños y distancias del sistema Tierra–Luna–Sol, y sacar la conclusión que la física sugería aunque incomodara:</p>
+
+  <ul>
+    <li><strong>Con las fases de la Luna:</strong> cuando vemos la Luna exactamente medio iluminada (cuarto), el triángulo Sol–Luna–Tierra tiene un ángulo recto en la Luna. Midiendo el ángulo Luna–Tierra–Sol se despeja la razón de distancias. Aristarco obtuvo que el Sol está <span class="hl">~19 veces más lejos que la Luna</span>.</li>
+    <li><strong>Con los eclipses lunares:</strong> cronometrando el paso de la Luna por la sombra de la Tierra, estimó que la Tierra es <span class="hl">~3 veces el tamaño de la Luna</span>.</li>
+    <li><strong>Consecuencia:</strong> como Sol y Luna se ven del mismo tamaño angular pero el Sol está 19× más lejos, el Sol debe ser 19× más grande que la Luna — mucho mayor que la Tierra. ¿Y lo enorme orbita a lo pequeño? Más natural que la Tierra orbite al Sol. Y si no vemos paralaje estelar, es porque <strong>el universo es mucho más grande</strong> de lo asumido.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-12.jpg" alt="Manuscrito griego con el diagrama de Aristarco sobre tamaños relativos de Sol, Tierra y Luna">
+    <figcaption><span class="cap">Diapositiva · Modelo heliocéntrico de Aristarco</span>Copia medieval del cálculo de Aristarco (relaciones de tamaño Sol–Tierra–Luna). Sus números estaban lejos de los reales (el Sol está ~390× más lejos que la Luna, no 19×), pero el <em>método</em> era impecable; falló la precisión del instrumento, no la lógica.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-arist">
+    <span class="tagband">Widget interactivo · inferencia propia (no está en las diapositivas)</span>
+    <h4>El experimento de Aristarco y la sensibilidad de la medición</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">En cuarto lunar, la razón de distancias es <span class="katex-inline" data-tex="d_{\odot}/d_{L} = 1/\cos\theta"></span>, donde <span class="katex-inline" data-tex="\theta"></span> es el ángulo Luna–Tierra–Sol. Mueve el ángulo y observa cómo cerca de 90° la razón <em>explota</em>: una medición casi imposible de hacer bien a ojo desnudo.</p>
+    <label for="ar-theta">Ángulo medido θ (grados): <b id="ar-thetav" style="color:var(--gold)">87.0°</b></label>
+    <input type="range" id="ar-theta" min="80" max="89.9" step="0.05" value="87">
+    <div class="presets">
+      <button id="ar-b-arist">Aristarco: 87°</button>
+      <button id="ar-b-real">Valor real: 89.85°</button>
+    </div>
+    <div class="wout" id="ar-out"></div>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril · propagación de errores</span>
+    <p>Derivando, <span class="katex-inline" data-tex="\frac{dR}{R} = \tan\theta \, d\theta"></span>: cerca de 90° la sensibilidad <span class="katex-inline" data-tex="\tan\theta"></span> diverge. Con θ = 87° un error de apenas 3° cambia el resultado de 19× a 390×: un factor 20 de error con un instrumento «casi correcto». Es el caso clásico de <strong>mal condicionamiento</strong>: el diseño del experimento amplifica el ruido del sensor. Aristarco no midió mal por descuido — eligió (sin saberlo) un observable numéricamente hostil.</p>
+  </div>
+
+  <p>Pese a su elegancia, el modelo de Aristarco <strong>no tuvo tracción</strong>: chocaba con la falta de paralaje, con la física aristotélica y con el sentido común. El geocentrismo de Ptolomeo se quedó con el trono por 1400 años.</p>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Copérnico y el costo de cambiar de modelo</h2>
+    <p>Un canónigo polaco resucita el heliocentrismo; Bruno paga el precio de extrapolarlo.</p>
+  </div></div>
+
+  <p><strong>Nicolás Copérnico (1473–1543)</strong>, canónigo católico, replantea el heliocentrismo con un argumento de <em>simplicidad</em>: poner el Sol al centro elimina la maquinaria de epiciclos mayores y explica la retrogradación de forma natural (es la Tierra la que adelanta). Su libro, <span class="hl">De Revolutionibus Orbium Coelestium</span>, se publica en 1543, <strong>mientras Copérnico moría</strong> — prudencia editorial ante un clima teológico hostil.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-14.jpg" alt="Retrato de Copérnico y diagrama heliocéntrico de De Revolutionibus">
+    <figcaption><span class="cap">Diapositiva · Copérnico</span>El diagrama de <em>De Revolutionibus</em>: el Sol (<em>Sol</em>) al centro, los planetas en orden — incluida la Tierra (<em>Telluris</em>) con la Luna — y la esfera de las estrellas fijas inmóvil por fuera. Sistema «más simple», aunque aún con órbitas circulares.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Ojo con el mito</span>
+    <p>El Copérnico circular <strong>no era más preciso</strong> que Ptolomeo para predecir posiciones: al insistir en círculos perfectos, también necesitaba correcciones. Su ventaja era estructural (menos mecanismos ad hoc, orden natural de los planetas por período). La precisión llegaría con las elipses de Kepler. Distinguir <em>simplicidad estructural</em> de <em>error de ajuste</em> es una lección de selección de modelos aún vigente.</p>
+  </div>
+
+  <p>El contexto era peligroso: la disputa entre <strong>católicos y protestantes</strong> y la <strong>Inquisición</strong> hacían costoso desafiar la cosmología oficial. El caso extremo es <strong>Giordano Bruno (1548–1600)</strong>, que fue <em>más allá del heliocentrismo</em>: propuso que las estrellas son soles con sus propios mundos y que podría existir <strong>vida extraterrestre</strong>. Fue quemado en la hoguera en 1600 (por un conjunto de herejías teológicas, entre las cuales estaba su cosmología).</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-16.jpg" alt="Retrato de Giordano Bruno junto a una ilustración de un mundo extraterrestre">
+    <figcaption><span class="cap">Diapositiva · Giordano Bruno</span>Bruno (1548–1600): pluralidad de mundos y vida extraterrestre, cuatro siglos antes de los exoplanetas. La diapositiva lo pone como bisagra entre la cosmología antigua y la pregunta que da nombre al curso de planetas.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Tycho y Galileo: mejores datos, nuevo instrumento</h2>
+    <p>Sin datos de calidad no hay modelo que avance; sin telescopio no hay datos nuevos.</p>
+  </div></div>
+
+  <h3>Tycho Brahe (1546–1601): la máquina de medir</h3>
+  <p>Tycho no aceptó ni Ptolomeo ni Copérnico: propuso un modelo <span class="hl">geo-heliocéntrico</span> (los planetas orbitan al Sol, y el Sol orbita a la Tierra), compatible con la falta de paralaje. Su aporte imperecedero fue otro: <strong>mejorar radicalmente la calidad de las observaciones</strong>, con instrumentos gigantes de medición angular (pre-telescopio) y décadas de registros sistemáticos — la base de datos que Kepler explotaría.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-17.jpg" alt="Retrato de Tycho Brahe, su cuadrante mural y su modelo geo-heliocéntrico">
+    <figcaption><span class="cap">Diapositiva · Tycho Brahe</span>El cuadrante mural de Uraniborg (izquierda), Tycho y su modelo geo-heliocéntrico (los planetas alrededor del Sol; el Sol alrededor de la Tierra). Un compromiso teórico, pero un salto de precisión observacional de casi un orden de magnitud.</figcaption>
+  </figure>
+
+  <h3>Galileo Galilei (1564–1642): el telescopio cambia el juego</h3>
+  <p>Galileo fue el <strong>primero en usar el telescopio</strong> para la astronomía, y con él encontró lo que la clase llama <span class="hl">pruebas heliocéntricas infalibles</span>:</p>
+  <ul>
+    <li><strong>Las fases de Venus:</strong> Venus muestra el ciclo completo de fases (como la Luna) y su tamaño aparente cambia de forma correlacionada. Eso solo es geométricamente posible si Venus orbita <em>al Sol</em>, no a la Tierra. Además resuelve el viejo enigma del brillo: fase y distancia se compensan.</li>
+    <li><strong>Las lunas de Júpiter:</strong> cuatro puntos que noche a noche cambian de posición <em>alrededor de Júpiter</em>. Demostración directa de que existen centros de órbita distintos de la Tierra.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-19.jpg" alt="Secuencia de fases de Venus junto al retrato de Galileo">
+    <figcaption><span class="cap">Diapositiva · Pruebas infalibles</span>Arriba: la secuencia de fases y tamaños aparentes de Venus. En el modelo ptolemaico Venus nunca podría verse casi «llena»; en el heliocéntrico, la secuencia observada es exactamente la predicha.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c1/assets/slide-20.jpg" alt="Cuaderno de Galileo de enero de 1610 con las posiciones de las lunas de Júpiter">
+    <figcaption><span class="cap">Diapositiva · El cuaderno de enero de 1610</span>El registro original de Galileo: noche tras noche, los «astros mediceos» (Ío, Europa, Ganímedes, Calisto) cambian de configuración en torno a Júpiter. Un mini-sistema solar observable en tiempo real.</figcaption>
+  </figure>
+
+  <p>Galileo además <strong>desarrolla los comienzos de la mecánica</strong>: planos inclinados (caída y aceleración), y el <em>principio de relatividad</em> — dentro de un barco que navega a velocidad constante, una piedra que cae del mástil cae al pie del mástil, no «atrás». Con eso desmonta el argumento geocéntrico de las nubes y los pájaros: todo lo que comparte el movimiento de la Tierra se mueve con ella.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-21.jpg" alt="Plano inclinado de Galileo y esquema del barco con la relatividad del movimiento">
+    <figcaption><span class="cap">Diapositiva · Comienzos de la mecánica</span>El plano inclinado (arriba) y el barco de la relatividad galileana (abajo): el objeto soltado en t₁ cae verticalmente <em>en el marco del barco</em>. La inercia elimina la última objeción «de sentido común» contra la Tierra en movimiento.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>El telescopio es un caso de libro de <strong>mejora de SNR y resolución del sensor</strong> habilitando ciencia nueva: las fases de Venus y las lunas de Júpiter siempre estuvieron ahí, bajo el umbral de detección del ojo (resolución angular ~1 minuto de arco). Cada salto instrumental posterior (fotografía, CCD, óptica adaptativa, interferometría) repitió el mismo patrón: datos nuevos → modelos nuevos.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Kepler: las tres leyes del movimiento planetario</h2>
+    <p>Del dato a la ley empírica: elipses, áreas y la relación período–distancia.</p>
+  </div></div>
+
+  <p><strong>Johannes Kepler (1571–1630)</strong>, astrónomo (y astrólogo) <em>teórico</em>, hereda los datos de Tycho y hace lo que hoy llamaríamos ajuste de modelos: tras años de pelear con la órbita de Marte, abandona el círculo — sagrado desde los griegos — y <strong>formula el modelo matemático</strong> que funciona:</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-22.jpg" alt="Retrato de Johannes Kepler y su modelo de sólidos platónicos">
+    <figcaption><span class="cap">Diapositiva · Kepler</span>Kepler y su primer modelo (los sólidos platónicos anidados, luego descartado). El personaje clave: un teórico dispuesto a dejar caer su hipótesis favorita cuando los datos de Tycho la contradicen por 8 minutos de arco.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>1.ª ley:</strong> los planetas orbitan en <span class="hl">elipses</span>, con el Sol en uno de los focos.</li>
+    <li><strong>2.ª ley:</strong> el radio Sol–planeta barre <span class="hl">áreas iguales en tiempos iguales</span> — el planeta acelera cerca del Sol (perihelio) y frena lejos (afelio). Es, en lenguaje moderno, conservación del momento angular.</li>
+    <li><strong>3.ª ley:</strong> <span class="katex-inline" data-tex="P^2 = a^3"></span> con <span class="katex-inline" data-tex="P"></span> en años y <span class="katex-inline" data-tex="a"></span> en unidades astronómicas: el cuadrado del período es proporcional al cubo de la distancia media.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-23.jpg" alt="Diapositiva con las tres leyes de Kepler, una órbita elíptica y el barrido de áreas iguales">
+    <figcaption><span class="cap">Diapositiva · Leyes de Kepler</span>Las tres leyes tal como aparecen en la clase: elipses en torno al Sol, misma área en mismo tiempo (sectores turquesa) y Período² = distancia³. Nótese que son leyes <em>empíricas</em>: describen el «cómo» sin explicar el «porqué».</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\left(\frac{P}{1\,\text{año}}\right)^{2} = \left(\frac{a}{1\,\text{UA}}\right)^{3}"></div>
+    <small>Forma original de la 3.ª ley (válida cuando la masa central domina, como en el Sistema Solar). En escala log-log, <span class="katex-inline" data-tex="\log P = \tfrac{3}{2}\log a"></span>: todos los planetas caen sobre una recta de pendiente 3/2 — una ley de potencia detectable a simple vista en el gráfico correcto.</small>
+  </div>
+
+  <div class="widget" id="w-kepler">
+    <span class="tagband">Widget interactivo · inferencia propia (no está en las diapositivas)</span>
+    <h4>Tercera ley: verifica P² = a³ con el Sistema Solar</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige un planeta o ingresa una distancia cualquiera: el widget calcula el período y muestra el cociente <span class="katex-inline" data-tex="P^2/a^3"></span>, que debe valer ~1 para todo el Sistema Solar.</p>
+    <div class="presets" id="kep-presets">
+      <button data-a="0.387" data-n="Mercurio">Mercurio</button>
+      <button data-a="0.723" data-n="Venus">Venus</button>
+      <button data-a="1" data-n="Tierra">Tierra</button>
+      <button data-a="1.524" data-n="Marte">Marte</button>
+      <button data-a="5.203" data-n="Júpiter">Júpiter</button>
+      <button data-a="9.537" data-n="Saturno">Saturno</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="kep-a">Semieje mayor a (UA)</label><input type="number" id="kep-a" step="any" value="1.524"></div>
+    </div>
+    <output id="kep-out"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Newton: la mecánica celeste</h2>
+    <p>De tres leyes empíricas a una sola causa: la gravitación universal.</p>
+  </div></div>
+
+  <p><strong>Isaac Newton (1642–1726)</strong> — nacido el año en que muere Galileo — cierra el arco de la clase. Para explicar el movimiento planetario tuvo que construir las herramientas desde cero:</p>
+  <ul>
+    <li><strong>Desarrolla el cálculo</strong> (derivadas e integrales): el lenguaje matemático del cambio continuo.</li>
+    <li><strong>Cimenta la mecánica clásica:</strong> <span class="katex-inline" data-tex="\sum \vec{F} = m\vec{a}"></span>, formalizando la inercia que Galileo había intuido.</li>
+    <li><strong>Plantea la fuerza de gravedad</strong> universal: la misma causa para la manzana que cae y la Luna que orbita.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\vec{F}_G = -\,\frac{G\, m_1 m_2}{r^2}\,\hat{r}"></div>
+    <small>Fuerza atractiva entre dos masas cualesquiera, proporcional al producto de masas e inversa al cuadrado de la distancia. De aquí se <em>deducen</em> las tres leyes de Kepler: las elipses (1.ª), la conservación del momento angular (2.ª) y <span class="katex-inline" data-tex="P^2 = \frac{4\pi^2}{G(M_1+M_2)}a^3"></span> (3.ª, ahora con las masas explícitas — la versión que en el Módulo II se usará para pesar exoplanetas).</small>
+  </div>
+
+  <figure>
+    <img src="m1c1/assets/slide-25.jpg" alt="Retrato de Newton con las ecuaciones del cálculo, la segunda ley y la gravitación universal">
+    <figcaption><span class="cap">Diapositiva · Mecánica celeste</span>Newton y sus cuatro pilares tal como los resume la diapositiva: la derivada como límite, el teorema fundamental del cálculo, <span class="katex-inline" data-tex="\sum F = ma"></span> y <span class="katex-inline" data-tex="\vec{F}_G = \frac{G m_1 m_2}{r^2}\hat{r}"></span>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué esto es «un nuevo universo»</span>
+    <p>Con Newton el cielo deja de ser un reino aparte con reglas propias (esferas perfectas, círculos sagrados) y pasa a ser <strong>el mismo sistema físico que el laboratorio</strong>: una sola ley, válida en todas partes, con capacidad predictiva (mareas, cometas, y siglos después, el descubrimiento de Neptuno «con lápiz y papel»). Ese es el nuevo universo del título: uno <em>calculable</em>.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>La secuencia de la clase — observación a ojo desnudo → modelo geocéntrico → crisis por retrogradación → heliocentrismo → leyes empíricas → ley dinámica — es el molde del resto del curso: el Módulo I explora el Sistema Solar que esta historia reveló, y los módulos siguientes aplican exactamente esta mecánica (Kepler + Newton) para detectar y pesar planetas alrededor de otras estrellas.</p>
+  </div>
+
+  <h3>Bibliografía complementaria sugerida en clase</h3>
+  <figure>
+    <img src="m1c1/assets/slide-26.jpg" alt="Diapositiva de bibliografía complementaria: A More Perfect Heaven y Galileo's Daughter, de Dava Sobel">
+    <figcaption><span class="cap">Diapositiva · Bibliografía complementaria</span><em>A More Perfect Heaven</em> (Dava Sobel, 2011), sobre Copérnico y la publicación de <em>De Revolutionibus</em>, y <em>Galileo's Daughter</em> (Dava Sobel, 1999), sobre Galileo y su época. Divulgación histórica de nivel introductorio, ideal como lectura lateral.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Material externo · OpenStax</span>
+    <p>Para profundizar con un texto introductorio y gratuito: <a href="https://openstax.org/books/astronomy-2e/pages/2-thinking-ahead" target="_blank" rel="noopener">capítulo 2, <em>Observing the Sky: The Birth of Astronomy</em></a> (esfera celeste, astronomía antigua, nacimiento de la astronomía moderna) y <a href="https://openstax.org/books/astronomy-2e/pages/3-thinking-ahead" target="_blank" rel="noopener">capítulo 3, <em>Orbits and Gravity</em></a> (leyes de Kepler, síntesis de Newton). De Fraknoi, Morrison y Wolff, <em>Astronomy 2e</em>, OpenStax, Rice University, 2022 — licencia CC BY-NC-SA 4.0.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Bóveda celeste</b></td><td>Esfera aparente que rota en bloque con las estrellas fijas</td><td>Primer modelo del cosmos; sobrevive como sistema de coordenadas (ecuador celeste, eclíptica, equinoccio vernal)</td></tr>
+      <tr><td><b>Planeta (<em>planētēs</em>)</b></td><td>«Paseador» / «errante»: astro que se mueve entre las estrellas fijas</td><td>Los 5 visibles a ojo desnudo son la anomalía que motiva toda la historia</td></tr>
+      <tr><td><b>Retrogradación</b></td><td>Lazo aparente hacia el oeste en la trayectoria de un planeta</td><td>El «residuo» que ningún modelo de esferas simples explicaba; hoy: efecto del sobrepaso orbital de la Tierra</td></tr>
+      <tr><td><b>Epiciclo y deferente</b></td><td>Círculo pequeño girando sobre un círculo mayor centrado en la Tierra</td><td>Parche ptolemaico que reproduce la retrogradación; análogo geométrico de una serie de Fourier</td></tr>
+      <tr><td><b>Modelo geocéntrico</b></td><td>Tierra esférica e inmóvil al centro (Platón, Aristóteles, Ptolomeo — <em>Almagesto</em>, s. II)</td><td>Dominó ~1400 años apoyado en evidencia: sin paralaje, brillo de Venus, nubes y pájaros</td></tr>
+      <tr><td><b>Aristarco de Samos</b></td><td>Heliocentrismo temprano (~300 a.C.); Sol 19× más lejos que la Luna, Tierra 3× la Luna</td><td>Método geométrico correcto, medición mal condicionada; «no tuvo tracción»</td></tr>
+      <tr><td><b>Paralaje estelar</b></td><td>Cambio aparente de posición de una estrella por el movimiento de la Tierra</td><td>Su ausencia aparente fue el gran argumento anti-heliocéntrico; implica un universo enorme</td></tr>
+      <tr><td><b>Copérnico</b></td><td><em>De Revolutionibus</em> (1543): Sol al centro, sistema más simple</td><td>Explica la retrogradación sin epiciclos mayores; publicado a su muerte por el clima teológico</td></tr>
+      <tr><td><b>Giordano Bruno</b></td><td>1548–1600; estrellas = soles, pluralidad de mundos, vida extraterrestre</td><td>Extrapolación visionaria del heliocentrismo; ejecutado en 1600</td></tr>
+      <tr><td><b>Tycho Brahe</b></td><td>1546–1601; modelo geo-heliocéntrico y observaciones de precisión récord</td><td>Sus datos de décadas son el insumo de Kepler</td></tr>
+      <tr><td><b>Galileo</b></td><td>1564–1642; primero en usar telescopio; fases de Venus, lunas de Júpiter, inicios de la mecánica</td><td>«Pruebas heliocéntricas infalibles» + inercia que derriba el argumento de nubes y pájaros</td></tr>
+      <tr><td><b>Leyes de Kepler</b></td><td>I: elipses con el Sol en un foco · II: áreas iguales en tiempos iguales · III: <span class="katex-inline" data-tex="P^2=a^3"></span></td><td>Leyes empíricas exactas del movimiento planetario; base de toda la detección de exoplanetas</td></tr>
+      <tr><td><b>Newton</b></td><td>1642–1726; cálculo, <span class="katex-inline" data-tex="\sum F=ma"></span>, gravitación universal <span class="katex-inline" data-tex="F_G=Gm_1m_2/r^2"></span></td><td>Deduce las leyes de Kepler de una sola causa: el universo se vuelve calculable</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c1-examen-01.html">Examen 01<small>La bóveda celeste</small></a></li>
+    <li><a href="m1c1-examen-02.html">Examen 02<small>Estrellas paseadoras</small></a></li>
+    <li><a href="m1c1-examen-03.html">Examen 03<small>Retrogradación</small></a></li>
+    <li><a href="m1c1-examen-04.html">Examen 04<small>Geocentrismo y epiciclos</small></a></li>
+    <li><a href="m1c1-examen-05.html">Examen 05<small>Aristarco</small></a></li>
+    <li><a href="m1c1-examen-06.html">Examen 06<small>Copérnico y Bruno</small></a></li>
+    <li><a href="m1c1-examen-07.html">Examen 07<small>Tycho y Galileo</small></a></li>
+    <li><a href="m1c1-examen-08.html">Examen 08<small>Leyes de Kepler</small></a></li>
+    <li><a href="m1c1-examen-09.html">Examen 09<small>Newton</small></a></li>
+    <li><a href="m1c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo I del curso de Astrofísica de Planetas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Patricio Rojo). Elaborado a partir de las diapositivas <code>planetas/m1/diapos/Modulo_I_Clase_1_Un_nuevo_universo.pdf</code> («Un nuevo universo», 27 láminas). Referencias externas: OpenStax <em>Astronomy 2e</em> (caps. 2 y 3), marcadas como material externo.</p>
+  <p class="disc"><b>Aviso: esta clase no tiene transcripción de audio.</b> Estos apuntes se construyeron exclusivamente a partir de las diapositivas de la clase y del contexto general del módulo; no existe transcripción disponible que permita recuperar las explicaciones orales del docente. El texto expansivo (intuiciones, ejemplos numéricos, conexiones con ingeniería y los widgets) es elaboración propia a partir del contenido de las láminas, y está señalado como «inferencia propia» donde corresponde. El material de OpenStax está marcado como externo, con atribución (Fraknoi, Morrison y Wolff, <em>Astronomy 2e</em>, OpenStax, 2022, CC BY-NC-SA 4.0). Ante cualquier duda, priman las diapositivas originales.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: simulador de retrogradación ----
+(function(){
+  var cv = document.getElementById('retro-cv');
+  var ctx = cv.getContext('2d');
+  var out = document.getElementById('retro-out');
+  var speedEl = document.getElementById('retro-speed');
+  var playBtn = document.getElementById('retro-play');
+  var planet = {a:1.524, p:1.881, name:'Marte'};
+  var t = 0, playing = true, trail = [];
+
+  function pos(a, P, t){ var th = 2*Math.PI*t/P; return {x:a*Math.cos(th), y:a*Math.sin(th)}; }
+  function appLon(t){
+    var e = pos(1,1,t), m = pos(planet.a, planet.p, t);
+    return Math.atan2(m.y-e.y, m.x-e.x);
+  }
+  function draw(){
+    var W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,W,H);
+    // ---- panel izquierdo: órbitas ----
+    var cx = 210, cy = H/2, scale = 165/planet.a;
+    ctx.strokeStyle = '#26324a';
+    [1, planet.a].forEach(function(r){
+      ctx.beginPath(); ctx.arc(cx,cy,r*scale,0,2*Math.PI); ctx.stroke();
+    });
+    // Sol
+    ctx.fillStyle = '#d9a74a';
+    ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
+    var e = pos(1,1,t), m = pos(planet.a, planet.p, t);
+    var ex = cx+e.x*scale, ey = cy-e.y*scale, mx = cx+m.x*scale, my = cy-m.y*scale;
+    // línea de visión
+    ctx.strokeStyle = '#55617c';
+    ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(ex,ey);
+    var dx = mx-ex, dy = my-ey, L = Math.hypot(dx,dy);
+    ctx.lineTo(ex+dx/L*420, ey+dy/L*420); ctx.stroke();
+    ctx.setLineDash([]);
+    // Tierra y planeta
+    ctx.fillStyle = '#6fc7d6'; ctx.beginPath(); ctx.arc(ex,ey,6,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = '#e0382e'; ctx.beginPath(); ctx.arc(mx,my,6,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = '#9aa6bb'; ctx.font = '12px Spectral, serif';
+    ctx.fillText('Tierra', ex+9, ey+4); ctx.fillText(planet.name, mx+9, my+4);
+    // ---- panel derecho: longitud aparente vs tiempo ----
+    var x0 = 460, x1 = W-20, y0 = 40, y1 = H-40;
+    ctx.strokeStyle = '#26324a'; ctx.strokeRect(x0, y0, x1-x0, y1-y0);
+    ctx.fillStyle = '#9aa6bb';
+    ctx.fillText('longitud aparente del planeta vista desde la Tierra', x0+8, y0-8);
+    ctx.fillText('tiempo →', x1-60, y1+16);
+    var span = 4*planet.p >= 8 ? 2.2*planet.p : 4; // años visibles
+    ctx.lineWidth = 1.6;
+    var prev = null, lastRetro = false;
+    for(var i=0;i<trail.length;i++){
+      var pt = trail[i];
+      var px = x0 + (x1-x0)*(1 - (t-pt.t)/span);
+      if(px < x0) continue;
+      var py = y1 - (y1-y0)*((pt.lon+Math.PI)/(2*Math.PI));
+      if(prev && Math.abs(py-prev.py) < (y1-y0)*.5){
+        ctx.strokeStyle = pt.retro ? '#e0382e' : '#6fc7d6';
+        ctx.beginPath(); ctx.moveTo(prev.px, prev.py); ctx.lineTo(px, py); ctx.stroke();
+      }
+      prev = {px:px, py:py};
+      lastRetro = pt.retro;
+    }
+    ctx.lineWidth = 1;
+    out.innerHTML = 'Planeta: <b>'+planet.name+'</b> (a = '+planet.a+' UA, P = '+planet.p+' años) · t = '+t.toFixed(2)+' años · Estado: '+
+      (lastRetro ? '<span style="color:var(--red-soft)">RETRÓGRADO (parece ir hacia atrás)</span>' : '<span class="k">prógrado</span>');
+  }
+  function step(){
+    if(playing){
+      var dt = 0.004*parseFloat(speedEl.value)*(planet.p>5 ? 3 : 1);
+      var lonA = appLon(t), lonB = appLon(t+dt);
+      var dlon = lonB-lonA;
+      if(dlon > Math.PI) dlon -= 2*Math.PI;
+      if(dlon < -Math.PI) dlon += 2*Math.PI;
+      t += dt;
+      trail.push({t:t, lon:lonB, retro: dlon < 0});
+      if(trail.length > 4000) trail.shift();
+      draw();
+    }
+    requestAnimationFrame(step);
+  }
+  playBtn.addEventListener('click', function(){
+    playing = !playing; playBtn.textContent = playing ? 'Pausar' : 'Reanudar';
+  });
+  document.querySelectorAll('#retro-presets button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#retro-presets button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      planet = {a:parseFloat(b.dataset.a), p:parseFloat(b.dataset.p), name:b.textContent};
+      t = 0; trail = [];
+    });
+  });
+  step();
+})();
+
+// ---- Widget 2: Aristarco y la sensibilidad ----
+(function(){
+  var sl = document.getElementById('ar-theta');
+  var lab = document.getElementById('ar-thetav');
+  var out = document.getElementById('ar-out');
+  function calc(){
+    var th = parseFloat(sl.value);
+    lab.textContent = th.toFixed(2)+'°';
+    var rad = th*Math.PI/180;
+    var R = 1/Math.cos(rad);
+    var sens = Math.tan(rad)*Math.PI/180; // dR/R por grado
+    var note = th < 86 ? 'ángulo muy alejado del real: subestima mucho la distancia al Sol' :
+               th < 89 ? 'zona de Aristarco: el resultado ya es muy sensible al error de medición' :
+                         'cerca del valor real (89.85°): la razón se dispara y cada centésima de grado importa';
+    out.innerHTML = 'Razón de distancias <span class="k">d☉/d<sub>Luna</sub></span> = <b>'+
+      (R>=100 ? R.toFixed(0) : R.toFixed(1))+'×</b><br>'+
+      '<span style="color:var(--muted);font-size:.9rem">Sensibilidad: un error de 1° cambia el resultado en ~'+(sens*100).toFixed(0)+'%. '+note+'.<br>'+
+      'Referencias: Aristarco midió 87° ⇒ ~19×. El valor real es 89.85° ⇒ ~390×.</span>';
+  }
+  sl.addEventListener('input', calc);
+  document.getElementById('ar-b-arist').addEventListener('click', function(){ sl.value = 87; calc(); });
+  document.getElementById('ar-b-real').addEventListener('click', function(){ sl.value = 89.85; calc(); });
+  calc();
+})();
+
+// ---- Widget 3: tercera ley de Kepler (forma original) ----
+(function(){
+  var a = document.getElementById('kep-a');
+  var out = document.getElementById('kep-out');
+  var name = 'Marte';
+  function calc(){
+    var aV = parseFloat(a.value);
+    if(!(aV>0)){ out.innerHTML = 'Ingresa un valor positivo.'; return; }
+    var P = Math.pow(aV, 1.5);
+    var ratio = (P*P)/(aV*aV*aV);
+    out.innerHTML = (name ? name+': ' : '')+'a = <b>'+aV+'</b> UA ⇒ Período <span class="k">P</span> = <b>'+
+      (P>=1 ? P.toFixed(2)+'</b> años' : (P*365.25).toFixed(1)+'</b> días')+
+      ' · Cociente P²/a³ = <b>'+ratio.toFixed(3)+'</b><br>'+
+      '<span style="color:var(--muted);font-size:.9rem">En log-log: log P = 1.5 · log a. Todos los planetas del Sistema Solar caen sobre esa recta de pendiente 3/2.</span>';
+  }
+  a.addEventListener('input', function(){ name=''; calc(); });
+  document.querySelectorAll('#kep-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ a.value = b.dataset.a; name = b.dataset.n; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
