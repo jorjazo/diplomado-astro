@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Espectro Electromagnético — Instrumentación y Observación, Módulo I · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.box.warn{border-left:3px solid var(--gold);background:linear-gradient(180deg,#141221,#0d0d18)}
+.box.warn .tag{color:var(--gold)}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.spectrum-bar{display:flex;height:38px;border-radius:9px;overflow:hidden;border:1px solid var(--line);margin:14px 0 4px}
+.spectrum-bar div{flex:1;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:#0a0f1b;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo I · Clase 2</span>
+  <h1>El Espectro <em>Electromagnético</em></h1>
+  <p class="sub">La luz visible es apenas una rendija diminuta de algo mucho más grande: un continuo de ondas electromagnéticas que va de las ondas de <strong>radio</strong> (kilómetros de longitud de onda) a los <strong>rayos gamma</strong> (más pequeños que un núcleo atómico). En esta clase recorremos ese continuo, aprendemos a movernos entre longitud de onda, frecuencia y energía con una sola relación (<em>c = λν</em>), y conocemos la herramienta que conecta la luz con la temperatura: el <strong>cuerpo negro</strong>, con la ley de Wien y una primera mirada a Stefan–Boltzmann.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Módulo:</b> I · Clase 2</span>
+    <span><b>Tema:</b> Espectro electromagnético y cuerpo negro</span>
+    <span><b>Diapositivas:</b> Modulo_I_Clase_2_Espectro_Electromagn_tico.pdf</span>
+  </div>
+</div>
+
+<div class="box warn">
+  <span class="tag">Aviso: apuntes reconstruidos</span>
+  <p>Esta clase <strong>no cuenta con transcripción de audio</strong> y el PDF de diapositivas disponible en el repositorio es un archivo <em>placeholder</em> (no contiene las láminas reales). Estos apuntes se reconstruyeron a partir del temario de la clase, de las referencias que hace la clase siguiente del módulo («la clase pasada» cubrió el cuerpo negro y los gráficos de longitud de onda vs. flujo) y del material homólogo del Módulo II del mismo curso, adaptado al nivel introductorio del Módulo I. Trátalos como material de estudio de apoyo, no como registro fiel de la clase.</p>
+</div>
+
+<p class="lead"><span class="drop">C</span>uando decimos «luz» solemos pensar en lo que ven nuestros ojos. Pero el ojo humano es un detector con un <span class="hl">ancho de banda ridículamente angosto</span>: capta longitudes de onda entre ~400 y ~700 nanómetros, menos de una octava en un espectro que abarca más de <strong>veinte órdenes de magnitud</strong>. Las ondas de radio, el microondas de tu cocina, el calor infrarrojo que emite tu cuerpo, el ultravioleta que te quema en la playa, los rayos X del dentista y los rayos gamma de las explosiones más violentas del universo son, físicamente, <em>exactamente lo mismo</em>: ondas electromagnéticas viajando a la velocidad de la luz, distinguidas solo por su longitud de onda. Entender ese continuo —y cómo la temperatura de un cuerpo decide en qué parte de él brilla— es el fundamento de toda la astronomía observacional.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La luz como onda: λ, ν y c = λν</a></li>
+    <li><a href="#s2">El espectro completo: de radio a gamma</a></li>
+    <li><a href="#s3">La escala logarítmica: pensar en décadas</a></li>
+    <li><a href="#s4">La energía del fotón: E = hν</a></li>
+    <li><a href="#s5">Cuerpo negro: la curva de Planck intuitiva</a></li>
+    <li><a href="#s6">Ley de Wien: temperatura ↔ color</a></li>
+    <li><a href="#s7">Stefan–Boltzmann: L ∝ T⁴ (introducción)</a></li>
+    <li><a href="#s8">Ventanas atmosféricas (anticipo)</a></li>
+    <li><a href="#s9">Bandas y sensores: mirada de ingeniería</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La luz como onda: λ, ν y c = λν</h2>
+    <p>Tres cantidades, una sola relación: conocer una es conocer las tres.</p>
+  </div></div>
+
+  <p>Una onda electromagnética es una oscilación acoplada de campos eléctrico y magnético que se propaga por el vacío. Como toda onda, se describe con dos cantidades complementarias:</p>
+  <ul>
+    <li><strong>Longitud de onda</strong> <span class="katex-inline" data-tex="\lambda"></span> (lambda): la distancia entre dos crestas consecutivas. Se mide en metros —o, según la banda, en kilómetros, milímetros, micrones o nanómetros.</li>
+    <li><strong>Frecuencia</strong> <span class="katex-inline" data-tex="\nu"></span> (nu): cuántas crestas pasan por un punto fijo cada segundo. Se mide en hertz (Hz = 1/s).</li>
+  </ul>
+
+  <p>En el vacío, <em>toda</em> onda electromagnética viaja a la misma velocidad: la velocidad de la luz <span class="katex-inline" data-tex="c \approx 3\times10^{8}"></span> m/s. Eso amarra a λ y ν en una relación de proporcionalidad inversa:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="c = \lambda\,\nu \qquad\Longrightarrow\qquad \nu = \frac{c}{\lambda}, \quad \lambda = \frac{c}{\nu}"></div>
+    <small>Si la longitud de onda es larga, la frecuencia es baja; si es corta, la frecuencia es alta. El producto es <em>siempre</em> <span class="katex-inline" data-tex="3\times10^{8}"></span> m/s. Ejemplo rápido: luz verde de λ = 500 nm = <span class="katex-inline" data-tex="5\times10^{-7}"></span> m ⇒ <span class="katex-inline" data-tex="\nu = 3\times10^{8}/5\times10^{-7} = 6\times10^{14}"></span> Hz: seiscientos billones de oscilaciones por segundo.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es la misma relación <span class="katex-inline" data-tex="v = \lambda f"></span> de cualquier curso de ondas o de líneas de transmisión, con la velocidad fijada en <span class="katex-inline" data-tex="c"></span>. Y la misma intuición de RF: una portadora de 100 MHz (radio FM) tiene λ = 3 m —por eso las antenas de FM miden del orden de metros—, mientras que WiFi a 2,4 GHz tiene λ = 12,5 cm. <strong>El tamaño del hardware escala con la longitud de onda</strong>: regla que en astronomía reaparece a cada rato (antenas de radio gigantes, detectores ópticos microscópicos).</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué siempre c?</span>
+    <p>La velocidad de la luz no se mete «a mano»: sale de las ecuaciones de Maxwell como <span class="katex-inline" data-tex="c = 1/\sqrt{\mu_0\varepsilon_0}"></span>, una combinación de dos propiedades eléctricas y magnéticas del vacío medibles en laboratorio. Da igual si la onda es de radio o de rayos gamma: el medio (el vacío) es el mismo, la velocidad es la misma. Lo único que cambia entre «tipos de luz» es λ (y con ella ν).</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>El espectro completo: de radio a gamma</h2>
+    <p>Un solo continuo físico, dividido en bandas con nombres históricos.</p>
+  </div></div>
+
+  <p>El <span class="hl">espectro electromagnético</span> es el catálogo completo de longitudes de onda posibles. Los nombres de las bandas —radio, microondas, infrarrojo, visible, ultravioleta, rayos X, rayos gamma— son divisiones <strong>convencionales y algo arbitrarias</strong>, como los <em>bins</em> de un histograma: la física subyacente es continua. Un buen truco para memorizar el espectro es asociar cada banda con un <strong>tamaño familiar</strong> comparable a su longitud de onda:</p>
+
+  <div class="spectrum-bar" aria-hidden="true">
+    <div style="background:#b06a4a">Radio</div>
+    <div style="background:#c58a4e">Micro</div>
+    <div style="background:#d9a74a">IR</div>
+    <div style="background:linear-gradient(90deg,#e0382e,#d9a74a,#5fd07e,#6fc7d6,#8b7fe0)">Visible</div>
+    <div style="background:#8b7fe0">UV</div>
+    <div style="background:#6fc7d6">X</div>
+    <div style="background:#9aa6bb">γ</div>
+  </div>
+  <p style="color:var(--muted);font-size:.85rem;margin:.2em 0 1em">← longitud de onda larga (km) · frecuencia baja · fotones «blandos» ······ longitud de onda corta (&lt;pm) · frecuencia alta · fotones energéticos →</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Banda</th><th>Longitud de onda típica</th><th>Tamaño comparable</th><th>Ejemplo de fuente astronómica</th></tr></thead>
+    <tbody>
+      <tr><td><b>Radio</b></td><td>&gt; 30 cm (hasta km)</td><td>Edificios, montañas</td><td>Hidrógeno neutro (línea de 21 cm), púlsares, radiogalaxias</td></tr>
+      <tr><td><b>Microondas</b></td><td>1 mm – 30 cm</td><td>Insectos, granos de arroz</td><td>Fondo cósmico de microondas, nubes moleculares (ALMA)</td></tr>
+      <tr><td><b>Infrarrojo</b></td><td>0,7 µm – 1 mm</td><td>Células, bacterias</td><td>Polvo tibio, estrellas frías, planetas (JWST)</td></tr>
+      <tr><td><b>Visible</b></td><td>400 – 700 nm</td><td>Virus grandes</td><td>Estrellas tipo Sol, galaxias en luz «normal»</td></tr>
+      <tr><td><b>Ultravioleta</b></td><td>10 – 400 nm</td><td>Moléculas grandes</td><td>Estrellas calientes y jóvenes (Hubble en UV)</td></tr>
+      <tr><td><b>Rayos X</b></td><td>0,01 – 10 nm</td><td>Átomos</td><td>Gas a millones de K, discos de acreción (Chandra)</td></tr>
+      <tr><td><b>Rayos gamma</b></td><td>&lt; 0,01 nm</td><td>Núcleos atómicos</td><td>Explosiones de rayos gamma, púlsares extremos (Fermi)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box dato">
+    <span class="tag">Del arcoíris de Newton a Herschel y más allá</span>
+    <p>El visible fue lo primero en «descomponerse» (Newton y el prisma). En 1800, <strong>William Herschel</strong> puso un termómetro <em>más allá del rojo</em> del arcoíris solar y midió calentamiento: había luz invisible, el <strong>infrarrojo</strong>. Al año siguiente Ritter encontró el <strong>ultravioleta</strong> al otro extremo. Radio (Hertz, 1887), rayos X (Röntgen, 1895) y gamma (Villard, 1900) completaron el catálogo: cada «descubrimiento» fue en realidad abrir una ventana nueva sobre el mismo continuo. <em>(Contexto histórico externo, complementario al temario de la clase.)</em></p>
+  </div>
+
+  <div class="widget" id="w-spec">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Explorador del espectro electromagnético</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve el deslizador (escala logarítmica: cada paso es un factor 10 en longitud de onda) y mira cómo cambian juntas la longitud de onda, la frecuencia, la energía del fotón y la banda del espectro.</p>
+    <label for="spec-slider">log₁₀( λ / 1 m ) — de rayos gamma (izquierda) a radio (derecha)</label>
+    <input type="range" id="spec-slider" min="-14" max="4" step="0.1" value="-6.3">
+    <div class="presets" id="spec-presets">
+      <button data-l="-12">Rayo gamma (1 pm)</button>
+      <button data-l="-9">Rayo X (1 nm)</button>
+      <button data-l="-6.3">Visible (500 nm)</button>
+      <button data-l="-5">IR (10 µm)</button>
+      <button data-l="-3">Microondas (1 mm)</button>
+      <button data-l="0.48">Radio FM (3 m)</button>
+    </div>
+    <output id="spec-out"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>La escala logarítmica: pensar en décadas</h2>
+    <p>Cuando el rango es de 10²⁰, sumar no sirve: hay que multiplicar.</p>
+  </div></div>
+
+  <p>Entre una onda de radio de 1 km y un rayo gamma de <span class="katex-inline" data-tex="10^{-14}"></span> m hay un factor de <span class="katex-inline" data-tex="10^{17}"></span>: diecisiete <span class="hl">órdenes de magnitud</span>. Ningún eje lineal puede mostrar eso —el visible entero sería invisible en el dibujo—. Por eso el espectro <em>siempre</em> se grafica en <strong>escala logarítmica</strong>: cada paso del eje no suma una cantidad fija, sino que <strong>multiplica por 10</strong> (una «década»).</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\text{décadas entre } \lambda_1 \text{ y } \lambda_2 = \log_{10}\!\left(\frac{\lambda_2}{\lambda_1}\right)"></div>
+    <small>Ejemplo: de 1 mm a 1 m hay <span class="katex-inline" data-tex="\log_{10}(1000) = 3"></span> décadas. De la radio FM (ν ≈ 10⁸ Hz) a la luz visible (ν ≈ 6×10¹⁴ Hz) hay casi <strong>7 décadas en frecuencia</strong> — la misma distancia multiplicativa que de 1 peso a 10 millones de pesos.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es la misma lógica de los <strong>decibeles</strong> en señales (cada 10 dB = ×10 en potencia) y de las <strong>octavas</strong> en audio (cada octava = ×2 en frecuencia). Un diagrama de Bode y el espectro electromagnético son primos hermanos: ambos comprimen rangos multiplicativos gigantes en un eje manejable. La astronomía usa escalas log en todas partes: en el espectro, en los flujos (magnitudes) y en los tamaños del universo.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Referencia de la clase siguiente</span>
+    <p>En la clase 3 del módulo, el profesor recuerda que «la clase pasada» se mostraron los <strong>gráficos de longitud de onda vs. flujo</strong> del cuerpo negro, donde la longitud de onda «crece por un lado y decrece por el otro» y la parte visible es solo una zona dentro de todo el eje. Ese gráfico —flujo por longitud de onda sobre un eje log— es el protagonista de las secciones que siguen.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La energía del fotón: E = hν</h2>
+    <p>La luz también viene en paquetes, y cada banda tiene fotones de energía distinta.</p>
+  </div></div>
+
+  <p>La luz no es solo onda: su energía llega en <strong>paquetes discretos</strong> llamados <span class="hl">fotones</span> (idea de Planck y Einstein, base de la mecánica cuántica). La energía de cada paquete depende únicamente de la frecuencia:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = h\,\nu = \frac{h\,c}{\lambda}, \qquad h \approx 6{,}63\times10^{-34}\ \mathrm{J\,s}"></div>
+    <small>A mayor frecuencia (menor longitud de onda), fotones más energéticos. Un fotón visible de 500 nm carga ~<span class="katex-inline" data-tex="4\times10^{-19}"></span> J ≈ 2,5 eV; un fotón de radio, mil millones de veces menos; un rayo gamma, millones de veces más. Esta jerarquía explica por qué los rayos X atraviesan tejidos e ionizan átomos mientras que las ondas de radio pasan de largo inofensivas: lo que importa es la <strong>energía por fotón</strong>, no la potencia total de la señal.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Onda y partícula a la vez</span>
+    <p>Las dos descripciones no compiten: se usan según convenga. En <strong>radio</strong>, los fotones individuales son tan poco energéticos que llegan de a billones y lo natural es tratar la señal como onda continua (medir voltajes, fases). En <strong>rayos X y gamma</strong>, cada fotón es tan energético que los detectores los <em>cuentan de a uno</em>. El visible queda al medio: se puede hacer ambas cosas.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Piénsalo como cuantización de una señal: en radio la «resolución» de los paquetes es tan fina que la señal parece analógica; en gamma cada evento es un pulso discreto contable, como interrupciones en un microcontrolador. El diseño del detector cambia de «medir amplitud de onda» a «contar eventos» según la banda —lo veremos con calma en el Módulo II.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Cuerpo negro: la curva de Planck intuitiva</h2>
+    <p>Todo cuerpo con temperatura brilla. La forma de su espectro depende solo de T.</p>
+  </div></div>
+
+  <p>Un <span class="hl">cuerpo negro</span> es la idealización de un objeto en <strong>equilibrio térmico</strong>: absorbe toda la radiación que le llega y emite radiación propia en <em>todas</em> las longitudes de onda, con una distribución que depende de <strong>una sola variable: su temperatura</strong>. Las estrellas se aproximan muy bien a un cuerpo negro; tú también —a ~300 K, brillas en el infrarrojo (por eso te ve una cámara térmica).</p>
+
+  <p>El gráfico clave de la clase es <strong>flujo vs. longitud de onda</strong>. La curva de Planck tiene una forma característica de «montaña asimétrica»:</p>
+  <ul>
+    <li>A longitudes de onda <strong>muy cortas</strong>, la emisión cae bruscamente a cero (los fotones serían demasiado energéticos para la temperatura del cuerpo: no hay energía térmica suficiente para producirlos).</li>
+    <li>A longitudes de onda <strong>muy largas</strong>, la emisión decae suavemente (fotones fáciles de producir, pero cada uno carga poquísima energía).</li>
+    <li>En el medio hay un <strong>máximo</strong>: la longitud de onda donde el cuerpo emite más. Su posición depende solo de T.</li>
+  </ul>
+
+  <p>Y dos comportamientos al variar la temperatura, que conviene grabarse:</p>
+  <ul>
+    <li>Un cuerpo <strong>más caliente emite más en todas las longitudes de onda</strong> — las curvas de distinta T no se cruzan nunca.</li>
+    <li>El <strong>pico se corre hacia longitudes de onda más cortas</strong> (hacia el azul) al subir T — eso es la ley de Wien, siguiente sección.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué existe el máximo? (Planck sin fórmulas)</span>
+    <p>La física clásica predecía que la emisión debía crecer sin límite hacia el ultravioleta (la famosa «catástrofe ultravioleta»). Planck resolvió el problema postulando que la energía se emite en <strong>paquetes de tamaño <span class="katex-inline" data-tex="h\nu"></span></strong>: producir fotones muy energéticos requiere «juntar» mucha energía térmica de una vez, algo exponencialmente improbable a temperatura fija. El resultado es la competencia entre dos tendencias —más modos disponibles a alta frecuencia, pero paquetes cada vez más caros— y de esa competencia nace el máximo de la curva.</p>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Advertencia de la clase (vía clase 3): el «color» de una estrella</span>
+    <p>Que una estrella se vea <strong>roja</strong> no significa que emita <em>solo</em> rojo: el cuerpo negro emite en todas las longitudes de onda. Significa que en su curva <strong>hay más rojo que azul</strong> —el pico está corrido hacia el rojo—. El color es un resumen del <em>balance</em> de la curva, no un filtro estricto. (La excepción donde sí hay separación física de colores es el arcoíris, donde la refracción en las gotas manda cada longitud de onda en una dirección distinta.)</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Ley de Wien: temperatura ↔ color</h2>
+    <p>La posición del pico convierte el color de un objeto en un termómetro.</p>
+  </div></div>
+
+  <p>La <span class="hl">ley de desplazamiento de Wien</span> cuantifica el corrimiento del pico: el producto de la longitud de onda del máximo por la temperatura es una constante.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\lambda_{\text{max}}\; T \approx 2{,}9\times10^{-3}\ \mathrm{m\cdot K} \qquad\Longrightarrow\qquad \lambda_{\text{max}} = \frac{2{,}9\times10^{-3}}{T}"></div>
+    <small>Con T en kelvin y λ en metros (a veces se redondea a <span class="katex-inline" data-tex="3\times10^{-3}"></span> m·K). Es una <strong>proporcionalidad inversa</strong>: doble temperatura, pico en la mitad de la longitud de onda. Sol (5800 K) → pico en ~500 nm, pleno visible. Tu cuerpo (310 K) → pico en ~9,4 µm, infrarrojo medio. El fondo cósmico de microondas (2,7 K) → pico en ~1 mm, microondas.</small>
+  </div>
+
+  <p>Esto convierte el espectro en un <strong>termómetro remoto</strong>: midiendo dónde está el máximo de emisión de una estrella, sabemos su temperatura superficial sin acercarnos jamás. Las estrellas azules son <em>calientes</em> (&gt;10 000 K), las rojas son <em>frías</em> (~3000 K) —al revés de la convención cotidiana de grifería.</p>
+
+  <div class="box dato">
+    <span class="tag">Temperatura de color: la paradoja de las ampolletas</span>
+    <p>En iluminación, una ampolleta «cálida» es de <strong>3000 K</strong> y una «fría» de <strong>6500 K</strong>: los nombres comerciales están invertidos respecto de la física. La «luz cálida» (amarillenta-rojiza) corresponde a un cuerpo negro <em>más frío</em>, y la «luz fría» (azulada) a uno <em>más caliente</em>. El número de kelvin en la caja de la ampolleta es literalmente la temperatura del cuerpo negro cuyo color imita: la ley de Wien aplicada al pasillo del supermercado.</p>
+  </div>
+
+  <div class="widget" id="w-wien">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora de Wien: temperatura → pico de emisión</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la temperatura de un cuerpo negro y obtén la longitud de onda de su máximo de emisión, la banda del espectro donde cae y la frecuencia correspondiente.</p>
+    <div class="presets" id="wien-presets">
+      <button data-t="2.7">CMB (2,7 K)</button>
+      <button data-t="310">Tu cuerpo (310 K)</button>
+      <button data-t="3000">Estrella roja / ampolleta (3000 K)</button>
+      <button data-t="5778">Sol (5778 K)</button>
+      <button data-t="10000">Estrella azul (10⁴ K)</button>
+      <button data-t="1000000">Gas en rayos X (10⁶ K)</button>
+    </div>
+    <label for="wien-t">Temperatura T (K)</label>
+    <input type="number" id="wien-t" step="any" value="5778" min="0.0001">
+    <output id="wien-out"></output>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Stefan–Boltzmann: L ∝ T⁴ (introducción)</h2>
+    <p>Wien dice dónde está el pico; Stefan–Boltzmann dice cuánta energía total sale.</p>
+  </div></div>
+
+  <p>Si en vez de mirar <em>dónde</em> emite el cuerpo negro sumamos <em>todo</em> lo que emite (el área bajo la curva de Planck, integrada en todas las longitudes de onda), obtenemos la <span class="hl">ley de Stefan–Boltzmann</span>: la potencia emitida por unidad de superficie crece con la <strong>cuarta potencia</strong> de la temperatura.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F_{\text{sup}} = \sigma\,T^4, \qquad L = 4\pi R^2\,\sigma\,T^4"></div>
+    <small><span class="katex-inline" data-tex="\sigma \approx 5{,}67\times10^{-8}\ \mathrm{W\,m^{-2}\,K^{-4}}"></span>. La primera forma es el flujo que sale de cada m² de superficie; la segunda, la <strong>luminosidad</strong> total de una esfera de radio R (una estrella). El exponente 4 es brutal: <strong>duplicar T multiplica la emisión por 16</strong>; subirla ×10, por 10 000. Por eso las estrellas calientes son desproporcionadamente luminosas, y por eso dos estrellas de igual temperatura pueden diferir en luminosidad solo por su tamaño.</small>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Un análisis de sensibilidad rápido: como <span class="katex-inline" data-tex="L \propto T^4"></span>, un error relativo en la temperatura se amplifica ×4 en la luminosidad (<span class="katex-inline" data-tex="\Delta L/L = 4\,\Delta T/T"></span>): medir T con 5% de error implica ~20% de error en L. La misma ley gobierna la disipación radiativa de calor en satélites y en cualquier superficie caliente en el vacío, donde no hay convección y radiar es la única salida.</p>
+  </div>
+
+  <div class="widget" id="w-sb">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Stefan–Boltzmann: radio y temperatura → luminosidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa el radio (en radios solares) y la temperatura de una estrella y obtén su luminosidad en watts y en luminosidades solares. Nota cómo domina la cuarta potencia de T.</p>
+    <div class="presets" id="sb-presets">
+      <button data-r="1" data-t="5778">Sol</button>
+      <button data-r="1" data-t="11556">Sol al doble de T</button>
+      <button data-r="0.5" data-t="11556">T doble, radio mitad</button>
+      <button data-r="700" data-t="3500">Supergigante roja</button>
+      <button data-r="0.012" data-t="10000">Enana blanca caliente</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="sb-r">Radio R (R☉)</label><input type="number" id="sb-r" step="any" value="1"></div>
+      <div><label for="sb-t">Temperatura T (K)</label><input type="number" id="sb-t" step="any" value="5778"></div>
+    </div>
+    <output id="sb-out"></output>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Ventanas atmosféricas (anticipo)</h2>
+    <p>El universo emite en todo el espectro, pero la atmósfera decide qué llega al suelo.</p>
+  </div></div>
+
+  <p>De todo ese continuo, la atmósfera terrestre deja pasar solo algunos tramos —las <span class="hl">ventanas atmosféricas</span>—. El resto lo absorbe o dispersa antes de llegar al suelo:</p>
+  <ul>
+    <li><strong>Ventana óptica:</strong> el visible pasa casi completo (con distorsiones que estudiaremos después). No es casualidad que nuestros ojos evolucionaran justo ahí.</li>
+    <li><strong>Ventana de radio:</strong> la atmósfera es muy transparente en radio; por eso los radiotelescopios funcionan a nivel del suelo, de día y hasta nublado.</li>
+    <li><strong>Infrarrojo:</strong> bloqueado a trozos por el <strong>vapor de agua</strong> y el CO₂ (las moléculas rotan y vibran absorbiendo IR). Quedan «ventanitas» accesibles desde sitios <em>altos y secos</em> —de ahí ALMA a 5000 m en Chajnantor.</li>
+    <li><strong>UV, rayos X y gamma:</strong> absorbidos por completo en la alta atmósfera (afortunadamente para la vida). Solo se observan <strong>desde el espacio</strong>: Hubble (UV), Chandra (X), Fermi (gamma).</li>
+  </ul>
+
+  <div class="box next">
+    <span class="tag">Lo que viene</span>
+    <p>Este mapa de ventanas es un anticipo: la clase 3 del módulo profundiza en la <strong>atmósfera y las líneas espectrales</strong> (por qué los átomos y moléculas absorben en longitudes de onda precisas), y el Módulo II retoma las ventanas para decidir <strong>qué telescopio se construye dónde</strong> —en un cerro, en un avión, o en órbita.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Bandas y sensores: mirada de ingeniería</h2>
+    <p>Cada banda del espectro es un canal distinto, y cada canal exige su propio detector.</p>
+  </div></div>
+
+  <p>Para cerrar, dos analogías que ordenan todo lo anterior desde la ingeniería:</p>
+
+  <h3>El espectro como conjunto de canales</h3>
+  <p>Observar el universo en una sola banda es como escuchar una sola emisora: recibes información real, pero parcial. Cada banda es un <strong>canal de comunicación</strong> con su propio contenido físico: el radio trae el gas frío, el infrarrojo el polvo tibio y las estrellas nacientes, el visible las estrellas «adultas», los rayos X el gas a millones de grados. La astronomía moderna es <strong>multibanda</strong> por necesidad: la Vía Láctea fotografiada en radio, IR, visible y rayos X parece cuatro objetos distintos, y solo el conjunto cuenta la historia completa.</p>
+
+  <h3>Un sensor por banda</h3>
+  <p>Como la energía del fotón cambia veinte órdenes de magnitud a lo largo del espectro, <strong>no existe el detector universal</strong>. La tecnología cambia de familia banda a banda:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Banda</th><th>Detector típico</th><th>Principio (versión ingeniería)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Radio</b></td><td>Antenas + receptores</td><td>La onda induce voltajes medibles: amplificar y correlacionar, como en RF</td></tr>
+      <tr><td><b>IR</b></td><td>Fotodetectores de aleaciones especiales, criogenizados</td><td>Fotones poco energéticos: hay que enfriar el sensor para que su propio calor no lo ciegue</td></tr>
+      <tr><td><b>Visible</b></td><td>CCD / CMOS de silicio</td><td>Efecto fotoeléctrico: cada píxel acumula carga proporcional a la luz, como la cámara de tu teléfono</td></tr>
+      <tr><td><b>Rayos X / γ</b></td><td>Contadores de fotones, centelladores</td><td>Cada fotón es un evento discreto: se cuenta y se le mide la energía uno a uno</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>El patrón es idéntico al de la instrumentación industrial: un termopar, una galga y un micrófono miden fenómenos distintos con transductores distintos, y nadie espera usar el mismo chip para los tres. En astronomía el «fenómeno» es siempre luz, pero con energías por fotón tan dispares que el problema de transducción cambia por completo entre bandas. Elegir banda es elegir física <em>y</em> elegir hardware.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Longitud de onda λ</b></td><td>Distancia entre crestas (m, nm, µm…)</td><td>La etiqueta que distingue los «tipos de luz»</td></tr>
+      <tr><td><b>Frecuencia ν</b></td><td>Oscilaciones por segundo (Hz)</td><td>Inversa a λ; preferida en radioastronomía</td></tr>
+      <tr><td><b>c = λν</b></td><td><span class="katex-inline" data-tex="c \approx 3\times10^{8}"></span> m/s, igual para todas las bandas</td><td>Conocer λ o ν es conocer la otra</td></tr>
+      <tr><td><b>Espectro EM</b></td><td>Continuo radio → microondas → IR → visible → UV → X → gamma</td><td>Las bandas son divisiones convencionales de una sola física</td></tr>
+      <tr><td><b>Visible</b></td><td>~400–700 nm</td><td>Rendija diminuta: menos de una octava del espectro</td></tr>
+      <tr><td><b>Escala logarítmica</b></td><td>Cada paso = ×10 (una década)</td><td>Única forma de graficar &gt;17 órdenes de magnitud</td></tr>
+      <tr><td><b>Fotón</b></td><td><span class="katex-inline" data-tex="E = h\nu = hc/\lambda"></span></td><td>Energía por paquete: decide qué detector se necesita</td></tr>
+      <tr><td><b>Cuerpo negro</b></td><td>Emisor térmico ideal; curva de Planck depende solo de T</td><td>Modelo base del espectro de las estrellas</td></tr>
+      <tr><td><b>Curva de Planck</b></td><td>Montaña asimétrica con un máximo; curvas de distinta T no se cruzan</td><td>Más caliente ⇒ más emisión en todas las λ</td></tr>
+      <tr><td><b>Ley de Wien</b></td><td><span class="katex-inline" data-tex="\lambda_{\text{max}}\,T \approx 2{,}9\times10^{-3}"></span> m·K</td><td>Termómetro remoto: color ↔ temperatura</td></tr>
+      <tr><td><b>Temperatura de color</b></td><td>T del cuerpo negro que imita el color (3000 K «cálida», 6500 K «fría»)</td><td>Wien aplicada; convención comercial invertida</td></tr>
+      <tr><td><b>Stefan–Boltzmann</b></td><td><span class="katex-inline" data-tex="L = 4\pi R^2\sigma T^4"></span>, σ ≈ 5,67×10⁻⁸</td><td>Duplicar T ⇒ ×16 en emisión; T domina la luminosidad</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>Óptica y radio pasan; IR a trozos; UV/X/γ solo desde el espacio</td><td>Deciden dónde se construye cada telescopio</td></tr>
+      <tr><td><b>Universo multibanda</b></td><td>Cada banda revela física distinta</td><td>Un objeto = muchas imágenes complementarias</td></tr>
+      <tr><td><b>Sensor por banda</b></td><td>Antenas / IR criogénico / CCD / contadores de fotones</td><td>No existe detector universal: la energía del fotón manda</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c2-examen-01.html">Examen 01<small>La luz y c = λν</small></a></li>
+    <li><a href="m1c2-examen-02.html">Examen 02<small>Bandas del espectro</small></a></li>
+    <li><a href="m1c2-examen-03.html">Examen 03<small>Escala logarítmica</small></a></li>
+    <li><a href="m1c2-examen-04.html">Examen 04<small>Energía del fotón</small></a></li>
+    <li><a href="m1c2-examen-05.html">Examen 05<small>Cuerpo negro</small></a></li>
+    <li><a href="m1c2-examen-06.html">Examen 06<small>Ley de Wien</small></a></li>
+    <li><a href="m1c2-examen-07.html">Examen 07<small>Stefan–Boltzmann</small></a></li>
+    <li><a href="m1c2-examen-08.html">Examen 08<small>Ventanas atmosféricas</small></a></li>
+    <li><a href="m1c2-examen-09.html">Examen 09<small>Bandas y sensores</small></a></li>
+    <li><a href="m1c2-examen-10.html">Examen 10<small>Repaso integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo I del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (tema: espectro electromagnético; diapositivas <code>Modulo_I_Clase_2_Espectro_Electromagn_tico.pdf</code>). Estructura y nivel guiados por el material homólogo del Módulo II del curso (<code>observación/m2/html/m2c2-apuntes.html</code>).</p>
+  <p class="disc"><b>Aviso importante: sin transcripción.</b> Esta clase <strong>no cuenta con transcripción de audio</strong> y el PDF de diapositivas disponible en el repositorio es un <em>placeholder</em> sin contenido real. Estos apuntes fueron <strong>reconstruidos</strong> a partir del temario de la clase, de las referencias explícitas que hace la transcripción de la clase 3 del módulo (que menciona que «la clase pasada» cubrió el cuerpo negro, los gráficos de longitud de onda vs. flujo y la interpretación del color de las estrellas) y de material estándar del curso adaptado al nivel introductorio del Módulo I. El contenido histórico (Herschel, Ritter) y los valores numéricos de referencia (constante de Wien 2,898×10⁻³ m·K; σ ≈ 5,67×10⁻⁸ W m⁻² K⁻⁴) provienen de fuentes académicas externas. Puede haber diferencias con lo efectivamente dictado en la clase: ante cualquier discrepancia, primar las diapositivas oficiales y los apuntes del docente.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+var C_LIGHT = 2.99792458e8;   // m/s
+var H_PLANCK = 6.62607015e-34; // J s
+var EV = 1.602176634e-19;      // J
+var WIEN_B = 2.898e-3;         // m·K
+var SIGMA  = 5.670374e-8;      // W m^-2 K^-4
+var RSUN   = 6.957e8;          // m
+var LSUN   = 3.828e26;         // W
+
+function band(lambda_m){
+  var nm = lambda_m*1e9;
+  if(nm < 0.01) return "rayos gamma";
+  if(nm < 10) return "rayos X";
+  if(nm < 400) return "ultravioleta";
+  if(nm < 700) return "visible";
+  if(nm < 1e6) return "infrarrojo";
+  if(nm < 3e8) return "microondas";
+  return "radio";
+}
+function sizeAnalog(lambda_m){
+  if(lambda_m < 1e-11) return "núcleos atómicos";
+  if(lambda_m < 1e-9) return "átomos";
+  if(lambda_m < 1e-7) return "moléculas grandes / virus";
+  if(lambda_m < 1e-4) return "células, bacterias";
+  if(lambda_m < 1e-1) return "insectos, granos";
+  if(lambda_m < 1e2) return "personas, edificios";
+  return "cerros, ciudades";
+}
+function fmtLambda(m){
+  if(m < 1e-9) return (m*1e12).toFixed(2)+" pm";
+  if(m < 1e-6) return (m*1e9).toFixed(1)+" nm";
+  if(m < 1e-3) return (m*1e6).toFixed(2)+" µm";
+  if(m < 1)    return (m*1e3).toFixed(2)+" mm";
+  if(m < 1e3)  return m.toFixed(2)+" m";
+  return (m/1e3).toFixed(2)+" km";
+}
+function fmtNu(hz){
+  if(hz >= 1e12) return hz.toExponential(2)+" Hz";
+  if(hz >= 1e9) return (hz/1e9).toFixed(2)+" GHz";
+  if(hz >= 1e6) return (hz/1e6).toFixed(2)+" MHz";
+  if(hz >= 1e3) return (hz/1e3).toFixed(2)+" kHz";
+  return hz.toFixed(1)+" Hz";
+}
+
+// ---- Widget 1: explorador del espectro ----
+(function(){
+  var sl=document.getElementById('spec-slider'), out=document.getElementById('spec-out');
+  function calc(){
+    var lam=Math.pow(10, parseFloat(sl.value));
+    var nu=C_LIGHT/lam;
+    var E=H_PLANCK*nu;
+    var Eev=E/EV;
+    var Estr = Eev>=1e3 ? (Eev/1e3).toFixed(2)+" keV" : (Eev>=0.01 ? Eev.toFixed(2)+" eV" : Eev.toExponential(2)+" eV");
+    var Twien = WIEN_B/lam;
+    var Tstr = Twien>=1 ? (Twien>=1e4 ? Twien.toExponential(2) : Twien.toFixed(0))+" K" : Twien.toExponential(2)+" K";
+    out.innerHTML="Longitud de onda <span class='k'>λ</span> = <b>"+fmtLambda(lam)+"</b> · Frecuencia <span class='k'>ν</span> = <b>"+fmtNu(nu)+"</b><br>"+
+      "Energía del fotón <span class='k'>E = hν</span> = <b>"+Estr+"</b> · Banda: <b>"+band(lam)+"</b><br>"+
+      "Tamaño comparable: <b>"+sizeAnalog(lam)+"</b> · T de cuerpo negro con pico aquí (Wien): <b>"+Tstr+"</b>";
+  }
+  sl.addEventListener('input',calc);
+  document.querySelectorAll('#spec-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ sl.value=b.dataset.l; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: Wien ----
+(function(){
+  var t=document.getElementById('wien-t'), out=document.getElementById('wien-out');
+  function calc(){
+    var T=parseFloat(t.value);
+    if(!(T>0)){ out.innerHTML="Ingresa una temperatura positiva."; return; }
+    var lam=WIEN_B/T;
+    var nu=C_LIGHT/lam;
+    out.innerHTML="Pico de emisión <span class='k'>λ_max</span> = <b>"+fmtLambda(lam)+"</b> · <span class='k'>ν</span> ≈ <b>"+fmtNu(nu)+"</b><br>"+
+      "Banda: <b>"+band(lam)+"</b>"+
+      "<span style='color:var(--muted);font-size:.9rem'> · con la constante redondeada 3×10⁻³ m·K daría "+fmtLambda(3e-3/T)+".</span>";
+  }
+  t.addEventListener('input',calc);
+  document.querySelectorAll('#wien-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ t.value=b.dataset.t; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: Stefan-Boltzmann ----
+(function(){
+  var r=document.getElementById('sb-r'), t=document.getElementById('sb-t'), out=document.getElementById('sb-out');
+  function calc(){
+    var R=parseFloat(r.value)*RSUN, T=parseFloat(t.value);
+    if(!(R>0)||!(T>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var L=4*Math.PI*R*R*SIGMA*Math.pow(T,4);
+    var Fsup=SIGMA*Math.pow(T,4);
+    out.innerHTML="Luminosidad <span class='k'>L = 4πR²σT⁴</span> = <b>"+L.toExponential(3)+"</b> W = <b>"+(L/LSUN).toPrecision(4)+"</b> L☉<br>"+
+      "Flujo en la superficie <span class='k'>σT⁴</span> = <b>"+Fsup.toExponential(3)+"</b> W/m²"+
+      "<span style='color:var(--muted);font-size:.9rem'> · recuerda: duplicar T multiplica la emisión por 16.</span>";
+  }
+  r.addEventListener('input',calc); t.addEventListener('input',calc);
+  document.querySelectorAll('#sb-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ r.value=b.dataset.r; t.value=b.dataset.t; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

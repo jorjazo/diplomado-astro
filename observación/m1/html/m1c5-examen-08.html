@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 08 — m1c5 · Umbra, penumbra y Luna roja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo I · Clase 5</span>
+<h1>Examen 08 — Umbra, penumbra y Luna roja</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="a,c,d">
+  <fieldset data-q="1"><legend>1. La diferencia entre umbra y penumbra es:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">En la penumbra llegan algunos fotones del Sol (disco parcialmente tapado); en la umbra no llega ningún fotón solar directo</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La umbra es la sombra de día y la penumbra la de noche</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La penumbra solo existe en eclipses lunares</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Son sinónimos: dos nombres para la misma zona</label>
+    <p class="fb" hidden>«En la zona de penumbra llegan algunos de los fotones, y la umbra es donde no llega ninguno»: eso define las dos zonas del cono de sombra.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Por qué el ojo humano prácticamente no nota la fase penumbral de un eclipse lunar?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque la penumbra dura menos de un segundo</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque la Luna se esconde bajo el horizonte en esa fase</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque la caída de flujo es pequeña (~10 %) y gradual, y el ojo es insensible a cambios lentos de brillo</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque la penumbra solo afecta longitudes de onda infrarrojas</label>
+    <p class="fb" hidden>«El ojo humano no es sensible a que el flujo que llega de la Luna bajó un 10 %… sobre todo porque es lento el cambio». Lo evidente es la entrada a la umbra.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Durante la totalidad de un eclipse lunar, la Luna se ve roja porque:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">La superficie lunar contiene óxido de hierro que brilla al enfriarse</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El ojo humano pierde la visión de colores azules de noche</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Refleja la luz roja de Marte</label>
+    <label class="opt"><input type="radio" name="q3" value="d">La iluminan los fotones solares que entran rozando el borde de la Tierra, refractados y teñidos por nuestra atmósfera del color de atardeceres y amaneceres</label>
+    <p class="fb" hidden>«Los que la iluminan son los fotones que entran por el borde y se tiñen del mismo color del atardecer-amanecer»: la Luna en la umbra está iluminada por el anillo de todos los atardeceres de la Tierra a la vez.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. En un eclipse solar anular queda visible un anillo del disco solar de apenas ~1–5 % del brillo total. Explica por qué eclipse anular ≠ eclipse total en términos de geometría orbital, y por qué ese anillo tan tenue impide ver la corona.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer"><strong>Geometría:</strong> la órbita lunar no es circular. Cuando la Luna está más lejos de la Tierra, su cono de umbra no alcanza la superficie terrestre y su tamaño angular queda menor que el del Sol: no lo tapa completo y queda el anillo (eclipse anular). Cuando está más cerca, el tamaño angular lunar iguala o supera al solar y hay totalidad. <strong>La corona:</strong> es muchísimo más tenue que el disco solar (órdenes de magnitud menos brillo superficial). Un anillo con el 1 % del brillo del Sol sigue siendo enormemente más brillante que la corona: «ese poquito del Sol encandila» — satura el ojo y dispersa luz en la atmósfera y en la óptica, ahogando por completo la señal coronal. Por eso en un anular se necesitan lentes de eclipse todo el tiempo y no se ve la corona; solo la totalidad la revela.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. ¿Por qué el espectro de la «Luna roja» permite estudiar la atmósfera de la Tierra «desde afuera»? Describe el camino de la luz y menciona la aplicación con erupciones volcánicas que cita la clase.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Durante la totalidad, la única luz que llega a la Luna es luz solar que atravesó <strong>tangencialmente</strong> la atmósfera terrestre (el camino más largo posible a través de ella, por el borde del planeta), se refractó hacia el cono de sombra, rebotó en la Luna y volvió a nuestros telescopios. Ese doble viaje imprime en el espectro las <strong>líneas de absorción de la atmósfera de la Tierra</strong>: «cada una de estas líneas es línea terrestre». Es, en la práctica, medir el espectro de transmisión de nuestro planeta como lo vería un observador externo. Aplicación citada: tras <strong>grandes erupciones volcánicas</strong>, los gases y aerosoles inyectados a la atmósfera dejan señales detectables en el espectro de la Luna eclipsada, permitiendo monitorear su presencia. Es además el análogo directo de la espectroscopía de transmisión de exoplanetas.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 5, Módulo I (Instrumentación y Observación). Basado en transcripción automática de audio; puede contener errores de reconocimiento de voz. <a href="m1c5-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

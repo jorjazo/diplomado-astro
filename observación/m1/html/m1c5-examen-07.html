@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 07 — m1c5 · Geometría de eclipses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo I · Clase 5</span>
+<h1>Examen 07 — Geometría de eclipses</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,a,b">
+  <fieldset data-q="1"><legend>1. ¿Por qué la sombra de la Tierra (y la de la Luna) tiene forma de cono que se cierra con la distancia?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Porque la atmósfera curva los rayos de luz</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Porque los planetas son esferas achatadas</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Porque el Sol es más grande que el cuerpo que hace sombra: la fuente extensa «envuelve» al cuerpo y la sombra se va achicando</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Porque la luz pierde energía con la distancia</label>
+    <p class="fb" hidden>«Como el Sol es más grande, la sombra es un cono, entonces la sombra se va achicando»: con una fuente puntual la sombra sería un cilindro; con una fuente mayor que el cuerpo, converge.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Por qué NO hay un eclipse en cada luna nueva y en cada luna llena?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque la órbita de la Luna está inclinada respecto al plano Tierra–Sol: el cono suele pasar por arriba o por abajo, y solo alinea cerca de la línea de los nodos</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque la Luna a veces gira más rápido sobre su eje</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque el Sol cambia de tamaño durante el año</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Porque la sombra de la Tierra es demasiado pequeña para alcanzar la Luna</label>
+    <p class="fb" hidden>La órbita Tierra–Luna tiene inclinación relativa (~5°) respecto a la eclíptica: solo cuando la alineación ocurre cerca de los nodos «el cono entra, toca el otro cuerpo».</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Dentro de una misma temporada de eclipses, un eclipse solar y uno lunar están separados típicamente por:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Un día</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Unas dos semanas (media órbita lunar)</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Seis meses</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Un año exacto</label>
+    <p class="fb" hidden>«Un eclipse solar viene acompañado dos semanas después o dos semanas antes por un eclipse lunar»: media órbita entre luna nueva y llena, ambas cerca del nodo. Las temporadas completas se repiten ~cada 6 meses.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Explica por qué las temporadas de eclipses no caen siempre en los mismos meses del año. En tu respuesta, compara el «bailoteo» de la órbita lunar con la precesión del eje terrestre y menciona el rol del problema de tres cuerpos.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Las temporadas ocurren cuando la <strong>línea de nodos</strong> (intersección del plano orbital lunar con la eclíptica) apunta hacia el Sol, ~cada 6 meses. Pero esa línea no está fija: el plano orbital lunar <strong>precesa</strong>. Mientras el eje de la Tierra precesa lentísimo (una vuelta cada ~23 000 años, imperceptible de un año a otro), la órbita lunar «bailotea» con período de <strong>decenas de años</strong> (~18,6 años el ciclo nodal — dato externo), porque el sistema Sol–Tierra–Luna es un <strong>problema de tres cuerpos</strong>: el Sol tironea constantemente el plano orbital lunar. Resultado: los nodos se corren, el intervalo entre temporadas es un poco menor a 6 meses, y las fechas migran de un año a otro (si hubo eclipses en febrero, la próxima serie se corre hacia enero/marzo, etc.).</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. «El eclipse solar deja una manchita pequeña sobre el planeta; el lunar lo ve media Tierra.» Justifica geométricamente esta asimetría y explica qué significa para un aficionado que quiere ver cada tipo de eclipse.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">En el <strong>eclipse solar</strong>, lo que toca la Tierra es la punta del cono de sombra de la Luna — un cuerpo pequeño y lejano —, así que la umbra proyectada es una franja de apenas decenas o pocos cientos de kilómetros que barre la superficie: solo quien está dentro de esa franja ve la totalidad. En el <strong>eclipse lunar</strong>, el objeto eclipsado es la propia Luna metida en el cono de la Tierra: cualquiera que tenga la Luna sobre el horizonte en ese momento — es decir, <em>toda la mitad nocturna del planeta</em> — lo ve igual. Para el aficionado: los eclipses lunares «vienen a ti» (basta esperar uno visible desde tu hemisferio, cada uno o dos años); a los solares totales <em>hay que ir</em>: planificar viaje a la franja de totalidad (y reservar temprano — el consejo del docente para Chiloé 2027).</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 5, Módulo I (Instrumentación y Observación). Basado en transcripción automática de audio; puede contener errores de reconocimiento de voz. <a href="m1c5-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

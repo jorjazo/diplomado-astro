@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Sol, la Luna y la atmósfera — Instrumentación y Observación, Módulo I · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo I · Clase 5</span>
+  <h1>El Sol, la Luna y la <em>atmósfera</em></h1>
+  <p class="sub">Antes de que un fotón llegue al detector debe atravesar la <strong>atmósfera terrestre</strong>, que le agrega luz (emisión) y le roba luz (absorción). Esta clase recorre cómo se corrige cada efecto —resta de cielo, <em>dithering</em> en el infrarrojo, estrellas estándar y <em>airmass</em>—, cómo la <strong>Luna</strong> ilumina el cielo nocturno con espectro solar reflejado, la geometría de los <strong>eclipses</strong> (conos de sombra, nodos, umbra y penumbra, la Luna roja), una expedición real a la Antártica en 2021, y cierra con constelaciones, zodíaco y el sistema <strong>Horizons</strong> de NASA/JPL.</p>
+  <div class="meta">
+    <span><b>Fecha:</b> 17 de abril de 2026</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Tema:</b> Atmósfera, Luna, eclipses y efemérides</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">U</span>n telescopio en tierra nunca mide la fuente «pura»: mide la fuente <em>más</em> lo que la atmósfera le sumó, <em>menos</em> lo que la atmósfera le quitó. Para quien viene de ingeniería, es un problema clásico de <span class="hl">señal y ruido</span>: hay una interferencia <strong>aditiva</strong> (la emisión del cielo, fácil de restar con una medición de referencia) y una atenuación <strong>multiplicativa</strong> (la absorción, que exige calibrar con una fuente conocida). Y hay además un «iluminador» que enciende y apaga el fondo cada mes: la Luna, capaz de cambiar el brillo del cielo en un factor <strong>~100</strong>. Esta clase convierte esas molestias en herramientas: los eclipses, la cara más espectacular de la geometría Sol–Tierra–Luna, terminan siendo laboratorios para estudiar atmósferas —la nuestra, la de Ío y las de exoplanetas.</p>
+
+<div class="box dato">
+  <span class="tag">Cómo leer estos apuntes</span>
+  <p>Estos apuntes se elaboraron a partir de la <strong>transcripción de audio</strong> de la clase (<code>ff/Observaci-n-m1c5-7357ae05-3dd0.md</code>). <strong>No hay diapositivas disponibles</strong> para esta clase, por lo que los gráficos que el docente comenta (líneas de emisión de OH, perfiles de absorción por observatorio, mapas de eclipses) se describen en texto sin reproducirlos. La transcripción contiene errores de reconocimiento de voz; los términos dudosos se contrastaron con el contexto y se marcan las incertidumbres donde corresponde.</p>
+</div>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La atmósfera: emisión y absorción telúrica</a></li>
+    <li><a href="#s2">Corregir la emisión: resta de cielo y dithering</a></li>
+    <li><a href="#s3">Corregir la absorción: estándares y airmass</a></li>
+    <li><a href="#s4">Altitud y ventanas: Paranal, SOFIA, espacio</a></li>
+    <li><a href="#s5">Efectos en flujo, color y señal a ruido</a></li>
+    <li><a href="#s6">La Luna: el gran iluminador del cielo</a></li>
+    <li><a href="#s7">Eclipses: conos de sombra y nodos</a></li>
+    <li><a href="#s8">Umbra, penumbra y la Luna roja</a></li>
+    <li><a href="#s9">Totales, anulares y el calendario de eclipses</a></li>
+    <li><a href="#s10">Expedición: el eclipse antártico de 2021</a></li>
+    <li><a href="#s11">Eclipses como laboratorio: Ío y exoplanetas</a></li>
+    <li><a href="#s12">Cierre: Horizons, constelaciones y zodíaco</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La atmósfera: emisión y absorción telúrica</h2>
+    <p>El fotón viaja limpio por el espacio y se «ensucia» en los últimos ~100 km: la atmósfera le suma y le resta luz.</p>
+  </div></div>
+
+  <p>Tradicionalmente los telescopios estuvieron (y en su mayoría siguen estando) <strong>en la superficie de la Tierra</strong>. Un fotón que partió de su fuente, cruzó nubes interestelares y viajó quizá millones de años, atraviesa al final la <span class="hl">atmósfera terrestre</span> — y esa última etapa <em>contamina</em> la medición. El trabajo del astrónomo observacional es remover esa contaminación para recuperar la información que venía de afuera.</p>
+
+  <p>La atmósfera, como cualquier gas, presenta los dos procesos que ya vimos en el contexto general de espectros:</p>
+  <ul>
+    <li><strong>Emisión:</strong> capas atmosféricas con partículas muy excitadas producen <span class="hl">líneas de emisión</span>. El docente destaca un matiz: además de los casos «temperatura chica / temperatura grande» que definen absorción o emisión en equilibrio, cuando <strong>no hay equilibrio térmico</strong> (no existe una temperatura única que describa el gas) también aparecen emisiones. Ese comportamiento <em>no termal</em> es justamente el caso de la alta atmósfera terrestre.</li>
+    <li><strong>Absorción:</strong> otras capas y moléculas <em>roban</em> fotones a la luz que viene de atrás, dejando su huella de líneas y bandas de absorción sobre el espectro de la fuente.</li>
+  </ul>
+
+  <p>Entre <strong>1 y 2,5 μm</strong> (infrarrojo cercano) el cielo nocturno está plagado de líneas de emisión; el gráfico que muestra la clase impresiona: «líneas metidas en todas partes del espectro». Esas líneas provienen principalmente del radical <span class="hl">OH (hidroxilo)</span> en la alta atmósfera, emitiendo fuera de equilibrio térmico. A primera vista parece que no se puede hacer nada… pero la emisión resulta ser el problema <em>fácil</em>.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física</span>
+    <p>Piensa la atmósfera como un vidrio empañado <em>y</em> levemente fosforescente entre tú y una ampolleta lejana. La <strong>fosforescencia</strong> (emisión) suma luz propia por igual en todo el vidrio: se mide en un punto sin ampolleta y se resta. El <strong>empañado</strong> (absorción) atenúa la luz que pasa: no se puede «restar», hay que <em>calibrar</em> cuánto atenúa usando una fuente conocida.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — aditivo vs multiplicativo</span>
+    <p>En procesamiento de señales, la medición es <span class="katex-inline" data-tex="S_{\text{obs}}(\lambda)=T(\lambda)\,S_{\ast}(\lambda)+E(\lambda)"></span>: la fuente <span class="katex-inline" data-tex="S_{\ast}"></span> multiplicada por una transmisión <span class="katex-inline" data-tex="T\le 1"></span> (absorción) más un término aditivo <span class="katex-inline" data-tex="E"></span> (emisión del cielo). El ruido aditivo se elimina con una medición de fondo (como el <em>dark frame</em> o el <em>offset</em> de un ADC); la ganancia <span class="katex-inline" data-tex="T"></span> requiere una señal patrón de referencia — exactamente la lógica de calibrar un sensor.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Corregir la emisión: resta de cielo y dithering</h2>
+    <p>La emisión solo «agrega»: se mide el cielo al lado de la fuente y se resta. En el infrarrojo hay que hacerlo rápido y en el mismo detector.</p>
+  </div></div>
+
+  <p>La clave de la corrección: la atmósfera le agrega emisión <strong>tanto al fotón de la estrella como al cielo de al lado</strong>. Si miro la estrella, mido «estrella + cielo»; si me corro un poquito a una zona sin estrella, mido «solo cielo». La corrección de la emisión es, literalmente, <span class="hl">una resta</span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="S_{\ast} \simeq \underbrace{(S_{\ast}+E)}_{\text{apuntando a la estrella}} \;-\; \underbrace{E}_{\text{cielo adyacente}}"></div>
+    <small>Ni siquiera hay que ir lejos: el cielo inmediatamente adyacente a la fuente recibe (casi) la misma emisión atmosférica, así que sirve de referencia directa.</small>
+  </div>
+
+  <h3>El caso extremo: el infrarrojo y el agua</h3>
+  <p>En el <strong>óptico</strong> hay pocas líneas de cielo y varían poco: basta medir el cielo alrededor de la fuente (incluso interpolando) y restar. En el <strong>infrarrojo</strong> la historia se complica porque la emisión es intensa y, sobre todo, <span class="hl">muy variable en el tiempo</span> — está dominada por el <strong>vapor de agua</strong>, que cambia minuto a minuto. La solución es la técnica de <span class="hl">dithering / nodding</span>:</p>
+  <ul>
+    <li>Observo la estrella en una posición <strong>A</strong> del detector.</li>
+    <li>Muevo el telescopio un pequeño <em>offset</em>: la estrella cae ahora en la posición <strong>B</strong>.</li>
+    <li>Alterno A–B–A–B… y luego <strong>resto imágenes completas</strong>: A − B.</li>
+  </ul>
+  <p>En la resta, la estrella aparece una vez en <strong>positivo</strong> (donde estaba en A) y una vez en <strong>negativo</strong> (donde estaba en B), mientras que <strong>el cielo — que está en ambas — se cancela y queda en cero</strong>. Cada exposición trae su propio cielo «fresco», tomado segundos antes o después, lo que vence la variabilidad del agua.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — chopping como modulación</span>
+    <p>Alternar fuente/referencia y restar es la esencia de la <strong>detección sincrónica</strong> (<em>lock-in amplifier</em>): se «modula» la posición de la señal y se demodula restando, eliminando el fondo lento (deriva, <em>drift</em> 1/f). El dithering infrarrojo es un lock-in espacial de baja frecuencia.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Corregir la absorción: estándares y airmass</h2>
+    <p>Los fotones robados no se recuperan con una resta: hay que calibrar con una «lamparita» conocida — las estrellas estándar — y con la geometría del airmass.</p>
+  </div></div>
+
+  <p>La <strong>absorción telúrica</strong> es harina de otro costal: son fotones que la atmósfera <em>le robó</em> al haz que venía de atrás. Mirar el cielo de al lado no sirve — ahí no hay nada detrás a lo que robarle. Siguiendo el mismo razonamiento, la solución sería tener <strong>detrás de la atmósfera una fuente de referencia</strong> perfectamente caracterizada: una «lamparita» cuyo flujo verdadero conozco, de modo que al observarla sé exactamente cuánto robó la atmósfera en cada longitud de onda.</p>
+
+  <p>Esa lamparita son las <span class="hl">estrellas estándar</span> — el ejemplo clásico es <strong>Vega</strong>. Hay gente dedicada a caracterizar su flujo «perfecto» con el mayor cuidado posible, para que después cualquier astrónomo la observe y deduzca la transmisión atmosférica de su noche. Pero ¿cómo caracterizaron la estándar, si ellos tenían el mismo problema? Combinando varias técnicas:</p>
+  <ul>
+    <li><strong>Modelos</strong> de atmósfera estelar y <strong>telescopios espaciales</strong> (que miden sin atmósfera).</li>
+    <li>Una técnica más simple e ingeniosa: <strong>seguir la estrella mientras se mueve por el cielo</strong>. Cerca del cenit la luz cruza «una atmósfera»; cerca del horizonte cruza el equivalente de dos, tres o más. Midiendo el flujo a distintas alturas se puede <em>extrapolar</em> a cero atmósferas.</li>
+  </ul>
+
+  <p>Esa «cantidad de atmósferas atravesadas» tiene nombre: <span class="hl">masa de aire</span> o <em>airmass</em>. Para un cielo plano-paralelo vale aproximadamente:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="X \simeq \sec z = \frac{1}{\cos z}\,, \qquad m_{\text{obs}} = m_0 + k\,X"></div>
+    <small><span class="katex-inline" data-tex="z"></span> es la distancia cenital (0° = cenit). En el cenit <span class="katex-inline" data-tex="X=1"></span>; a 60° del cenit, <span class="katex-inline" data-tex="X=2"></span>. La magnitud observada crece (la fuente se ve más débil) linealmente con <span class="katex-inline" data-tex="X"></span> a través del <strong>coeficiente de extinción</strong> <span class="katex-inline" data-tex="k"></span> [mag/airmass], propio de cada sitio, noche y filtro. Graficando <span class="katex-inline" data-tex="m_{\text{obs}}"></span> vs <span class="katex-inline" data-tex="X"></span> y extrapolando a <span class="katex-inline" data-tex="X=0"></span> se obtiene la magnitud fuera de la atmósfera — el ajuste lineal de toda la vida.</small>
+  </div>
+
+  <p>El requisito crítico: una <strong>noche fotométrica</strong>, absolutamente sin nubes. Si aparece una nubecita, no sé si el flujo que perdí lo robó la atmósfera o la nube, y la calibración se arruina. Por eso construir estándares es un trabajo lento y delicado. La clase menciona además que en los <strong>últimos 5–10 años</strong> los <span class="hl">modelos de atmósfera terrestre</span> maduraron lo suficiente para usarse en la práctica: desde Paranal se modela qué absorbió cada molécula en el camino del fotón y el modelo dice «esto es lo que te sacó», con calidad ya adecuada para ciencia.</p>
+
+  <div class="widget" id="w-airmass">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Airmass y extinción atmosférica</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la altura de la estrella sobre el horizonte y el coeficiente de extinción <span class="katex-inline" data-tex="k"></span>. Se calcula <span class="katex-inline" data-tex="X=\sec z"></span>, cuántas magnitudes roba la atmósfera (<span class="katex-inline" data-tex="k\,X"></span>) y qué fracción del flujo sobrevive (<span class="katex-inline" data-tex="10^{-0.4\,kX}"></span>).</p>
+    <div class="presets" id="am-presets">
+      <button data-h="90" data-k="0.12">Cenit · óptico (V)</button>
+      <button data-h="30" data-k="0.12">30° · óptico (V)</button>
+      <button data-h="60" data-k="0.5">60° · UV/azul</button>
+      <button data-h="20" data-k="0.12">20° · cerca del horizonte</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="am-h">Altura sobre el horizonte (°): <span id="am-hval">90</span></label><input type="range" id="am-h" min="10" max="90" step="1" value="90"></div>
+      <div><label for="am-k">Coef. de extinción k (mag/airmass)</label><input type="number" id="am-k" step="0.01" min="0" value="0.12"></div>
+    </div>
+    <output id="am-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — calibración por patrón</span>
+    <p>Las estrellas estándar son los <strong>patrones de calibración trazables</strong> de la astronomía: el equivalente a la resistencia patrón o al generador de referencia del laboratorio. Y la extrapolación en airmass es una regresión lineal donde el intercepto (X = 0) es la medición «sin instrumento de por medio» — la misma idea que extrapolar a carga cero o a frecuencia cero para separar el sistema del mensurando.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Altitud y ventanas: Paranal, SOFIA, espacio</h2>
+    <p>Mientras más arriba, menos atmósfera queda encima: los perfiles de absorción cambian de forma dramática, sobre todo donde manda el agua.</p>
+  </div></div>
+
+  <p>La clase compara <strong>perfiles de absorción atmosférica</strong> medidos/modelados a distintas altitudes:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Plataforma</th><th>Altitud aprox.</th><th>Qué pasa con la absorción</th></tr></thead>
+    <tbody>
+      <tr><td><b>Nivel del mar</b></td><td>0 km</td><td>Roba «montones»: bandas profundas en casi todo el IR</td></tr>
+      <tr><td><b>Observatorio en montaña</b> (tipo Paranal)</td><td>~2–3 km</td><td>Mejora clara, pero el agua sigue dominando en el IR</td></tr>
+      <tr><td><b>SOFIA</b> (telescopio en un avión)</td><td>~10–13 km</td><td>Por sobre la mayor parte del vapor de agua: se abren ventanas IR</td></tr>
+      <tr><td><b>Globo estratosférico / «casi espacio»</b></td><td>~38 km</td><td>Casi no roba ningún fotón</td></tr>
+      <tr><td><b>Espacio</b></td><td>—</td><td>La mejor forma: salirse de la atmósfera por completo</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>En el <strong>infrarrojo la diferencia es «grotesca»</strong> (palabra del docente), porque el gran absorbedor es el <span class="hl">H₂O</span>. De ahí que exista un avión-telescopio (SOFIA) y que los observatorios milimétricos se construyan en desiertos altísimos.</p>
+
+  <h3>ALMA y el vapor de agua precipitable</h3>
+  <p><strong>ALMA</strong> (en Chajnantor, ~5000 m) observa en longitudes de onda submilimétricas donde la transmisión depende crucialmente del <span class="hl">vapor de agua atmosférico</span> del momento. En el mejor de los casos la absorción es leve; en el peor, enorme. Por eso, cuando hay mucha agua (mal «clima» atmosférico), ALMA <strong>solo observa en las ventanas menos afectadas</strong> y reserva las bandas más exigentes para las noches más secas — una asignación dinámica de recursos según condiciones.</p>
+  <p>La clase menciona además un telescopio <strong>aún más alto que ALMA</strong> (unos ~500 m más arriba), que observa en el submilimétrico mirando grandes áreas del cielo: esos 500 m extra de altura dejan una fracción adicional del agua <em>debajo</em> del telescopio y abren una ventana atmosférica mejor. <em>(La transcripción no registra el nombre; por contexto correspondería a los proyectos submilimétricos en la cumbre del cerro Chajnantor, ~5600 m — inferencia propia.)</em></p>
+  <p>Y hay longitudes de onda en que <strong>ni con el mejor clima</strong> se puede observar desde el suelo: la Tierra simplemente no deja pasar nada. Para esas bandas, la única opción es el espacio.</p>
+
+  <div class="box physics">
+    <span class="tag">Intuición física</span>
+    <p>La absorción depende de cuánta <em>columna</em> de molécula absorbedora hay sobre tu cabeza. El vapor de agua se concentra en los primeros kilómetros de la troposfera: subir 3, 10 o 38 km no reduce el agua «un poco», la reduce <strong>exponencialmente</strong>. Por eso cada salto de plataforma (montaña → avión → globo → órbita) abre ventanas cualitativamente nuevas.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Efectos en flujo, color y señal a ruido</h2>
+    <p>¿Para qué corregir todo esto? Porque la atmósfera cambia el brillo, el color y la incerteza de todo lo que medimos.</p>
+  </div></div>
+
+  <p>Un ejemplo de la clase: observo una fuente y mido cierto flujo; 10 minutos después mido un flujo distinto. ¿<strong>Varió el objeto</strong> allá lejos, o <strong>la atmósfera me robó</strong> (o me regaló) fotones en esos 10 minutos? Sin corregir la atmósfera, no puedo distinguir <span class="hl">variabilidad real de variabilidad instrumental</span> — un falso positivo de libro.</p>
+
+  <p>La pregunta de la clase: si estoy perdiendo, digamos, el 80 % de los fotones, ¿el cuerpo se ve menos luminoso, cambia de color o queda con más error? <strong>Respuesta: todas las anteriores.</strong></p>
+  <ul>
+    <li><strong>Flujo:</strong> llegan menos fotones — la fuente se ve más débil de lo que es.</li>
+    <li><strong>Color:</strong> la absorción <em>no es pareja</em>: roba más en unas longitudes de onda que en otras. Y el <span class="hl">color</span> es por definición una comparación entre <strong>al menos dos longitudes de onda</strong> (decir «esto es rojo» significa que el flujo en ~700 nm domina sobre el de longitudes más cortas; un flujo aislado en una sola λ no define color). Absorción diferencial ⇒ color corrido.</li>
+    <li><strong>Señal a ruido:</strong> como se verá en el <strong>Módulo 2</strong>, la incerteza de una medición depende del número de fotones: <span class="katex-inline" data-tex="\sigma\propto\sqrt{N}"></span>, así que el error <em>relativo</em> va como <span class="katex-inline" data-tex="1/\sqrt{N}"></span>. Menos fotones ⇒ más incerteza.</li>
+  </ul>
+
+  <div class="box next">
+    <span class="tag">Puente al Módulo 2</span>
+    <p>Este es el «tráiler» del tema central del módulo siguiente: <strong>toda observación tiene un error asociado</strong>, y ese error depende de la cantidad de fotones colectados. La atmósfera, al robar fotones, no solo atenúa: <em>degrada la estadística</em> de la medición.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>La Luna: el gran iluminador del cielo</h2>
+    <p>La Luna no emite: rebota fotones del Sol hacia nuestra atmósfera, y el cielo entero se enciende — unas 100 veces entre luna nueva y llena.</p>
+  </div></div>
+
+  <p>La Luna afecta muchísimo la observación nocturna, pero conviene entender <em>el camino del fotón</em>. Estamos en el lado nocturno del planeta: los fotones directos del Sol no nos llegan. La «traviesa Luna» los <strong>rebota</strong> hacia nosotros. Y ojo: si apunto mi telescopio a una estrella lejos de la Luna, el fotón lunar directo no entra al tubo. El problema es el fotón que <strong>choca con la atmósfera terrestre, se dispersa, y termina entrando por todas partes</strong> — el mismo mecanismo por el cual al atardecer todavía nos vemos unos a otros sin Sol directo: pura luz dispersada. Ese resplandor difuso <em>ilumina el cielo completo</em>.</p>
+
+  <p>El resultado se cuantifica con el <span class="hl">brillo superficial del cielo</span>: entre <strong>luna nueva y luna llena</strong> el fondo de cielo cambia del orden de <strong>5 magnitudes</strong>. Y por la definición logarítmica de la escala de magnitudes, 5 magnitudes son exactamente un factor <strong>100</strong> en flujo:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{F_1}{F_2} = 100^{\,\Delta m/5} = 10^{\,0.4\,\Delta m} \approx 2.512^{\,\Delta m}\qquad\Rightarrow\qquad \Delta m = 5 \;\Rightarrow\; \frac{F_1}{F_2}=100"></div>
+    <small>La transcripción dice «5 magnitudes equivalen a 100 pesos» — error de voz por «100 veces». Cada magnitud es un factor <span class="katex-inline" data-tex="\sqrt[5]{100}\approx 2.512"></span>. En ciudad (Santiago) apenas se nota por la contaminación lumínica, pero en el campo la diferencia entre luna nueva y llena es dramática.</small>
+  </div>
+
+  <p>Peor aún: esos fotones rebotados traen <strong>la firma espectral del Sol</strong>. La Luna no inventa luz: refleja el espectro solar con todas sus líneas de absorción. O sea, la Luna inyecta al fondo de cielo un <em>ruido espectral estructurado</em> — líneas solares que no queremos confundir con las de la estrella que estudiamos ni con las telúricas. La clase muestra también una composición de imágenes de un <strong>eclipse lunar</strong> donde se aprecia cuánta luz aporta la Luna: cuando la Tierra le tapa los fotones, el fondo cae visiblemente.</p>
+
+  <div class="widget" id="w-mag">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Magnitudes ↔ razón de flujo (2.512<sup>Δm</sup>)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa una diferencia de magnitudes <span class="katex-inline" data-tex="\Delta m"></span> y obtén el factor de flujo <span class="katex-inline" data-tex="10^{0.4\Delta m}"></span> — o al revés, ingresa un factor y obtén <span class="katex-inline" data-tex="\Delta m=2.5\log_{10}(F_1/F_2)"></span>.</p>
+    <div class="presets" id="mg-presets">
+      <button data-dm="5">Δm = 5 (cielo con Luna)</button>
+      <button data-dm="1">Δm = 1</button>
+      <button data-dm="2.5">Δm = 2,5</button>
+      <button data-dm="10">Δm = 10</button>
+      <button data-dm="21">Δm ≈ 21 (Sol vs Sirio)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="mg-dm">Diferencia de magnitudes Δm</label><input type="number" id="mg-dm" step="any" value="5"></div>
+      <div><label for="mg-f">…o razón de flujo F₁/F₂</label><input type="number" id="mg-f" step="any" min="0" placeholder="ej: 100"></div>
+    </div>
+    <output id="mg-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — escala logarítmica</span>
+    <p>Las magnitudes son los <strong>decibeles de la astronomía</strong>: <span class="katex-inline" data-tex="\Delta m = -2.5\log_{10}(F_1/F_2)"></span>, igual que <span class="katex-inline" data-tex="\text{dB}=10\log_{10}(P_1/P_2)"></span>. Una magnitud ≈ 4 dB de potencia luminosa. Y «la Luna sube el piso de ruido 20 dB» es una forma perfectamente válida de decir «el cielo se aclara 5 magnitudes».</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Eclipses: conos de sombra y nodos</h2>
+    <p>Todo cuerpo iluminado por el Sol arrastra un cono de sombra. Los eclipses ocurren cuando un cono toca al otro cuerpo — y eso solo pasa cerca de los nodos.</p>
+  </div></div>
+
+  <p>Como el Sol es <strong>más grande</strong> que la Tierra y que la Luna, la sombra de cada cuerpo no es un cilindro sino un <span class="hl">cono</span> que se va cerrando con la distancia («todos los cuerpos que no sean Peter Pan tienen su sombra»). Con eso, las definiciones son geométricas:</p>
+  <ul>
+    <li><strong>Eclipse solar:</strong> el cono de sombra de la <em>Luna</em> toca la superficie de la Tierra (Luna nueva).</li>
+    <li><strong>Eclipse lunar:</strong> la <em>Luna</em> se mete dentro del cono de sombra de la Tierra (Luna llena).</li>
+  </ul>
+
+  <p>¿Y por qué no hay un eclipse en <em>cada</em> luna nueva y llena? Porque la <span class="hl">órbita de la Luna está inclinada</span> (~5°) respecto al plano Tierra–Sol (la eclíptica). La mayoría de los meses el cono pasa <em>por encima</em> o <em>por debajo</em> del otro cuerpo. Solo cuando la alineación ocurre cerca de la <strong>línea de los nodos</strong> — la intersección de ambos planos orbitales — el cono efectivamente toca, y hay eclipse.</p>
+
+  <h3>Temporadas de eclipses</h3>
+  <p>Esta geometría produce un calendario con estructura:</p>
+  <ul>
+    <li>Un eclipse solar viene acompañado, <strong>dos semanas antes o después</strong> (media órbita lunar), de un eclipse lunar: van en pareja.</li>
+    <li>Esas <strong>temporadas de eclipses</strong> se repiten aproximadamente <strong>cada seis meses</strong>, cuando la línea de nodos vuelve a apuntar hacia el Sol.</li>
+    <li>Pero no son <em>exactamente</em> seis meses: la órbita lunar precesa. Así como el eje terrestre precesa con período ~23 000 años (el «bailoteo» lento visto en clases anteriores), el plano orbital lunar «bailotea» <strong>mucho más rápido — escala de decenas de años</strong> (no miles), porque es un <strong>problema de tres cuerpos</strong> (Sol–Tierra–Luna). Por eso las temporadas se van corriendo de fecha (si hubo eclipses en febrero, la siguiente temporada puede caer corrida hacia marzo, etc.). <em>(Valor externo de referencia: la precesión nodal lunar tiene período ~18,6 años.)</em></li>
+    <li><strong>Visibilidad asimétrica:</strong> el eclipse solar deja una «manchita» pequeña sobre el planeta — solo una franja angosta de población lo ve —, mientras que el eclipse lunar es visible desde <strong>toda la mitad nocturna</strong> de la Tierra.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">Intuición geométrica</span>
+    <p>Imagina dos hula-hoops casi coplanares que se cruzan en dos puntos (los nodos). La Luna «vive» en uno, el Sol aparente en el otro. Solo cuando la Luna pasa por un nodo <em>justo</em> cuando el Sol está alineado con esa dirección, las sombras aciertan. Es un problema de coincidencia de fases entre dos osciladores — de ahí la periodicidad rica (temporadas, y a mayor escala, el ciclo de Saros).</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Umbra, penumbra y la Luna roja</h2>
+    <p>Dentro del cono hay dos zonas: penumbra (llegan algunos fotones) y umbra (no llega ninguno directo). La Luna en la umbra se tiñe de atardecer.</p>
+  </div></div>
+
+  <p>El cono de sombra tiene estructura:</p>
+  <ul>
+    <li><span class="hl">Penumbra:</span> zona donde llega <em>parte</em> de los fotones del Sol (el disco solar está parcialmente tapado).</li>
+    <li><span class="hl">Umbra:</span> zona donde no llega <em>ningún</em> fotón solar directo (disco totalmente tapado).</li>
+  </ul>
+  <p>En un eclipse lunar, la Luna entra primero a la penumbra y después — no siempre, por el mismo tema de inclinación — a la umbra. El <strong>ojo humano casi no nota la fase penumbral</strong>: que el flujo lunar baje ~10 % de forma lenta pasa desapercibido (el ojo es un pésimo fotómetro absoluto, y el cambio es gradual). Lo que sí es evidente es la entrada a la umbra.</p>
+
+  <h3>¿Por qué la Luna roja?</h3>
+  <p>Dentro de la umbra la Luna no recibe luz solar directa… pero no se apaga: se pone <strong>roja</strong>. Los fotones que la iluminan son los que <strong>rozan el borde de la Tierra y se refractan/dispersan a través de nuestra atmósfera</strong>, tiñéndose del mismo color que los atardeceres y amaneceres. Literalmente: <em>lo que ilumina la Luna eclipsada es el anillo de todos los atardeceres y amaneceres de la Tierra a la vez</em>.</p>
+
+  <div class="box prof">
+    <span class="tag">Consejo del docente</span>
+    <p>Cuando venga el próximo eclipse lunar, quédense despiertos para la fase <strong>umbral</strong> — «la parte bonita es la umbra». La hora local (anochecer, medianoche, madrugada) depende solo de dónde esté tu meridiano cuando ocurra la alineación, porque la Tierra sigue rotando bajo el fenómeno.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Totales, anulares y el calendario de eclipses</h2>
+    <p>Que la Luna «tape justo» al Sol es un accidente de tamaños angulares. Cuando está más lejos, queda un anillo — y ese 1 % de Sol esconde la corona.</p>
+  </div></div>
+
+  <p>En un eclipse solar <strong>total</strong>, estar dentro de la umbra lunar permite ver la <span class="hl">corona solar</span>, porque la Luna — cuyo tamaño <em>angular</em> es casi idéntico al del Sol — lo tapa por completo. Pero la órbita lunar no es circular: cuando la Luna está <strong>más lejos de la Tierra</strong>, su cono de umbra no alcanza a tocar la superficie y desde el suelo la Luna se ve <em>más chica</em> que el Sol. Queda visible un <span class="hl">anillo</span> del disco solar: eclipse <strong>anular</strong>.</p>
+  <p>Ese anillo puede ser apenas el <strong>1–5 % del brillo del Sol</strong>, pero es suficiente para <strong>encandilar y esconder la corona</strong>: en un anular no se ve la corona, y se necesitan lentes de eclipse todo el tiempo. Un eclipse <strong>parcial</strong>, en tanto, es estar solo en la penumbra.</p>
+
+  <h3>El calendario reciente y próximo</h3>
+  <p>Hoy los eclipses se predicen con enorme precisión (mapas con trayectorias: <em>rojas = anulares, azules = totales</em>). La zona ha tenido una racha: totales en <strong>2019</strong> (La Higuera/Bella Vista) y <strong>2020</strong> (Araucanía), el <strong>2021</strong> total en la Antártica, y un <strong>anular en 2024</strong> que cruzó por la Carretera Austral (Villa O'Higgins) e Isla de Pascua. El que viene: <span class="hl">6 de febrero de 2027, anular, pasando por Chiloé</span> — consejo práctico del docente: reservar alojamiento <em>temprano</em>, porque los precios suben apenas se corre la voz. Y para totales, la década que viene el destino es <strong>Australia</strong>.</p>
+
+  <div class="box dato">
+    <span class="tag">Nota sobre la transcripción</span>
+    <p>La transcripción de esta parte es confusa con años y lugares (mezcla «2021», «2024», «Isla Pasco» por Isla de Pascua, «Villa o' Higgins»). Lo estable en el audio: la secuencia de eclipses chilenos 2019–2020–2021, un anular reciente por la Patagonia/Isla de Pascua, y el <strong>anular del 6 de febrero de 2027 visible desde Chiloé</strong>, que requiere lentes y no muestra corona.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Expedición: el eclipse antártico de 2021</h2>
+    <p>Carpas, cuarentenas y un resultado inesperado: la temperatura bajó más donde la ocultación era del 80 % que donde era total.</p>
+  </div></div>
+
+  <p>El docente participó en una <strong>expedición a la Antártica</strong> para el eclipse solar total de 2021, con un proyecto para observar tanto la <strong>corona solar</strong> como la <strong>respuesta de la atmósfera antártica</strong> a la caída brusca de iluminación. El campamento: un «hotel» de puras carpas con ~25 científicos de varias disciplinas (astrónomos —su equipo de tres—, geólogos, biólogos, geofísicos), cada grupo con sus instrumentos; hasta un geólogo que voló en avioneta con personal del ejército para pasar dos semanas aislado recogiendo muestras de roca.</p>
+  <p>El contexto pandémico convirtió la logística en épica: lo planificado eran ~6 días de cuarentena en Punta Arenas y ~19 en terreno; terminó siendo <strong>19 días de cuarentena</strong> encerrados en piezas de hotel, con tests de COVID cada pocos días («una mezcla entre el día de la marmota y el naufragio»). Y el instrumento científico principal — el <strong>espectrógrafo</strong> para el espectro de la corona — <strong>no llegó por problemas logísticos</strong>, así que esa mitad del experimento se perdió. Lección de ingeniería de proyectos: en ciencia de campo, la logística es parte del diseño experimental.</p>
+
+  <h3>El resultado: la mitad del experimento que sí funcionó</h3>
+  <p>La medición de la <strong>respuesta atmosférica</strong> sí se logró, con instrumentación moderna (la medición previa comparable de un eclipse antártico databa de 2003–2004 — la transcripción dice «2004»). Combinando sus datos con estaciones meteorológicas de la región, encontraron algo contraintuitivo: <span class="hl">la temperatura bajó más en una zona con ~80 % de ocultación que en la franja del 100 %</span>. La interpretación pasa por la geometría extrema: el eclipse ocurrió con el <strong>Sol pegado al horizonte</strong> (¡un eclipse solar a las 4 de la mañana, hora de Chile! — el cono de sombra pasó rozando el planeta, casi perdiéndose por debajo del Polo Sur), más el patrón de vientos horizontales. El trabajo terminó en una <strong>publicación</strong>.</p>
+  <p>¿Por qué importa? Porque ese clima extremadamente frío es <em>el más parecido que tenemos</em> al del resto del sistema solar: entender cómo responde una atmósfera fría a un apagón de radiación conecta con los eclipses en Júpiter y otros cuerpos. Hoy la corona solar se estudia sobre todo con satélites (coronógrafos espaciales), así que el interés científico de los eclipses migró en parte hacia estos experimentos de <em>respuesta atmosférica</em>.</p>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Eclipses como laboratorio: Ío y exoplanetas</h2>
+    <p>Apagar el Sol es un experimento: el eclipse de Ío separa volcanes de sublimación, la Luna roja espectrografía la Tierra, y los tránsitos leen atmósferas de exoplanetas.</p>
+  </div></div>
+
+  <h3>Ío entrando y saliendo de la sombra de Júpiter</h3>
+  <p>Los eclipses no son exclusivos de la Tierra: las lunas de Júpiter proyectan sombras sobre el planeta y también <em>entran</em> en la sombra de Júpiter. El docente relata un estudio propio sobre <span class="hl">Ío</span>, la luna volcánicamente activa: desde la Tierra, durante meses se pudo observar a Ío <strong>entrando</strong> al eclipse de Júpiter (una temporada) y <strong>saliendo</strong> (otra temporada, meses después). El experimento natural es precioso: <em>sacar al Sol de la ecuación</em>.</p>
+  <ul>
+    <li>Con Sol: la atmósfera de Ío (SO₂) muestra todas sus señales espectrales.</li>
+    <li>En eclipse: la atmósfera <strong>se enfría y colapsa</strong> (condensa sobre la superficie), y quedan visibles <em>solo las señales de los volcanes</em>, que siguen inyectando gas.</li>
+  </ul>
+  <p><strong>Conclusión del estudio: la atmósfera de Ío es aproximadamente mitad y mitad</strong> — la mitad sostenida por los volcanes (no colapsa en eclipse) y la mitad por equilibrio térmico con la radiación solar (sublimación; colapsa al enfriarse). Si fuera 100 % volcánica, no colapsaría nada; si fuera 100 % sublimada, colapsaría por completo. El símil con la Antártica es directo: la atmósfera antártica, más fría, está <em>achatada</em> — tiene menos altura de escala que la del ecuador. <em>(Nota: la transcripción atribuye a Ío un período de «27 horas»; el valor aceptado es ~42,5 horas (1,77 días). Posible error de voz o de transcripción.)</em></p>
+
+  <h3>La Luna roja como espectrógrafo de la Tierra</h3>
+  <p>El espectro de la <strong>Luna eclipsada</strong> (roja) es luz solar que atravesó <em>tangencialmente</em> la atmósfera terrestre antes de rebotar en la Luna: cada línea que muestra es una <span class="hl">línea de la atmósfera de la Tierra</span>. Es decir: observando la Luna roja con un telescopio, medimos el espectro de transmisión de nuestro propio planeta «desde afuera». Esto se ha usado, por ejemplo, para detectar los gases inyectados por <strong>grandes erupciones volcánicas</strong> en la atmósfera terrestre.</p>
+
+  <h3>El mismo truco, a años luz: tránsitos de exoplanetas</h3>
+  <p>Adelanto de clases futuras: si un exoplaneta pasa frente a su estrella, parte de la luz estelar atraviesa el <em>anillo</em> de atmósfera del planeta. En longitudes de onda donde esa atmósfera absorbe mucho, el planeta «se ve más grande» (tapa más); donde absorbe poco, más chico. Midiendo el <strong>tamaño aparente del tránsito en función de λ</strong> se lee la <span class="hl">composición de la atmósfera</span> del exoplaneta — la espectroscopía de transmisión, la técnica principal detrás de titulares como «se descubrió agua en un exoplaneta». Es exactamente la física de la Luna roja, exportada a otros sistemas.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — experimento ON/OFF</span>
+    <p>El eclipse de Ío es un <em>step response</em>: se apaga la entrada (radiación solar) y se observa la relajación del sistema (la atmósfera colapsa) hasta aislar el término de fuente constante (volcanes). Separar contribuciones apagando una de las fuentes es la técnica más vieja del diagnóstico de sistemas — aquí ejecutada a 800 millones de km.</p>
+  </div>
+</section>
+
+<!-- ============ S12 ============ -->
+<section id="s12">
+  <div class="shead"><span class="num">12</span><div>
+    <h2>Cierre: Horizons, constelaciones y zodíaco</h2>
+    <p>Seguir cuerpos del sistema solar exige movimiento no sideral y efemérides (JPL Horizons); y las constelaciones son zonas oficiales del cielo con nomenclatura propia.</p>
+  </div></div>
+
+  <h3>Movimiento no sideral y JPL Horizons</h3>
+  <p>Una montura <strong>ecuatorial</strong> (la transcripción dice «epitelial») sigue a las estrellas contrarrestando la rotación terrestre: eso es seguimiento <span class="hl">sideral</span> (de <em>sidus</em>, estrella). Pero los cuerpos del sistema solar — los antiguos «paseadores» o errantes — se mueven <em>además</em> respecto a las estrellas, cada uno a su velocidad propia (la Luna rapidísimo, Júpiter lento). Observarlos requiere <span class="hl">movimiento no sideral</span>: contrarrestar la Tierra <em>y</em> seguir al cuerpo, con tasas únicas para cada objeto.</p>
+  <p>Para eso se necesitan <strong>efemérides precisas</strong>. La herramienta que usan los astrónomos — abierta a cualquiera — es <a href="https://ssd.jpl.nasa.gov/horizons/">JPL Horizons</a> (NASA): se especifica <em>qué</em> observar (la Luna, un asteroide, una misión — Artemis, misiones a Marte: «todo lo que está en el espacio está metido en esa base de datos»), <em>desde dónde</em> (tu observatorio o ciudad — importa porque para cuerpos cercanos la dirección de apuntado depende de tu posición: paralaje) y <em>cuándo</em>; el sistema devuelve decenas de columnas configurables: coordenadas, velocidades de seguimiento, distancia, tiempo de viaje de la luz, etc.</p>
+
+  <h3>Constelaciones, Bayer y zodíaco</h3>
+  <ul>
+    <li>Las <strong>constelaciones</strong> son hoy <span class="hl">zonas oficiales</span> que particionan la esfera celeste (con límites definidos por la IAU), no solo dibujos de «unión de puntos»: toda estrella dentro de la zona de Aries «es» de Aries.</li>
+    <li>Eso da una <strong>nomenclatura</strong> (designación de Bayer y afines): <strong>α Arietis</strong> es la estrella más brillante de la zona, <strong>β Arietis</strong> la segunda, y designaciones numeradas como <strong>51 Arietis</strong> — útil para ubicar estrellas incluso en astronomía amateur, sin coordenadas a mano.</li>
+    <li>El <strong>zodíaco</strong> son las constelaciones por donde «pasea» el Sol a lo largo del año (la banda de la eclíptica). Oficialmente son <span class="hl">13, no 12</span>: la olvidada es <strong>Ofiuco (Ophiuchus)</strong>, que la eclíptica sí cruza, pero que la tradición dejó fuera para calzar 12 signos con 12 meses. Tu «signo» solo indica en qué constelación estaba el Sol cuando naciste («y claramente eso va a influir el resto de su vida» — ironía del docente).</li>
+    <li>Por la <strong>precesión</strong> terrestre (~20 000–26 000 años el ciclo completo), las posiciones definidas hace ~2000 años por los griegos ya corrieron de forma apreciable: los signos astrológicos están desfasados respecto a las constelaciones actuales, y en un par de milenios más «habrá que cambiar todos los astrólogos».</li>
+  </ul>
+
+  <h3>Oblicuidad y estaciones (repaso)</h3>
+  <p>El ángulo entre la <strong>eclíptica</strong> y el <strong>ecuador celeste</strong> se llama <span class="hl">oblicuidad</span> (~23,5° para la Tierra); cada planeta tiene la suya (ángulo entre su plano orbital y su eje de rotación). La oblicuidad explica las <strong>estaciones</strong>: cuando el Sol incide inclinado, la misma energía se reparte sobre un área mayor de superficie — menor flujo por unidad de área, más frío; cuando incide derecho, se concentra. El mismo efecto geométrico (proyección de área, factor cos θ) explica por qué atardece más frío.</p>
+
+  <div class="box next">
+    <span class="tag">Cierre del Módulo 1</span>
+    <p>Con esto queda cerrado el bloque de <strong>conceptos observacionales básicos</strong>: cielo y coordenadas, movimiento aparente, atmósfera, Sol y Luna. El Módulo 2 entra de lleno en <strong>medición e incerteza</strong>: cuántos fotones, cuánto error, y cómo se diseña una observación con la estadística a favor.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Emisión telúrica</b></td><td>Líneas de la atmósfera (OH, no termal), fuertes en 1–2,5 μm</td><td>Contamina aditivamente; se corrige con resta de cielo</td></tr>
+      <tr><td><b>Resta de cielo</b></td><td>(Fuente + cielo) − (cielo adyacente)</td><td>Corrección casi trivial de la emisión</td></tr>
+      <tr><td><b>Dithering / nodding</b></td><td>Alternar la fuente entre posiciones A y B y restar imágenes</td><td>Vence la variabilidad del agua en el IR; el cielo se cancela</td></tr>
+      <tr><td><b>Absorción telúrica</b></td><td>Fotones «robados» por la atmósfera (multiplicativa)</td><td>No se resta: exige calibración con referencia conocida</td></tr>
+      <tr><td><b>Estrella estándar</b></td><td>Fuente de flujo caracterizado (ej. Vega)</td><td>«Lamparita» patrón para medir la transmisión atmosférica</td></tr>
+      <tr><td><b>Airmass X</b></td><td><span class="katex-inline" data-tex="X\simeq\sec z"></span>; <span class="katex-inline" data-tex="m_{\text{obs}}=m_0+kX"></span></td><td>Extrapolar a X = 0 da la magnitud fuera de la atmósfera</td></tr>
+      <tr><td><b>Noche fotométrica</b></td><td>Cero nubes, transparencia estable</td><td>Sin ella, la calibración de estándares se arruina</td></tr>
+      <tr><td><b>Altitud del observatorio</b></td><td>Mar → Paranal → SOFIA (~12 km) → ~38 km → espacio</td><td>Menos agua encima ⇒ menos absorción, sobre todo en IR</td></tr>
+      <tr><td><b>ALMA y el vapor de agua</b></td><td>Transmisión submm depende del H₂O del momento</td><td>Con mal clima solo se observan las ventanas menos afectadas</td></tr>
+      <tr><td><b>Efecto triple</b></td><td>Menos flujo + color corrido + peor SNR</td><td>La absorción no es pareja en λ y degrada la estadística (<span class="katex-inline" data-tex="\sigma\propto\sqrt N"></span>)</td></tr>
+      <tr><td><b>Luz de Luna</b></td><td>Cielo ~5 mag ≈ 100× más brillante en luna llena</td><td>Sube el piso de ruido; trae el espectro solar reflejado</td></tr>
+      <tr><td><b>Magnitudes</b></td><td><span class="katex-inline" data-tex="F_1/F_2 = 2.512^{\Delta m}=10^{0.4\Delta m}"></span></td><td>5 mag = ×100; los «decibeles» de la astronomía</td></tr>
+      <tr><td><b>Nodos e inclinación</b></td><td>Órbita lunar inclinada ~5°; eclipses solo cerca de los nodos</td><td>Por eso no hay eclipse cada mes</td></tr>
+      <tr><td><b>Temporadas de eclipses</b></td><td>Solar + lunar separados ~2 semanas; temporadas ~cada 6 meses</td><td>La precesión nodal (decenas de años, 3 cuerpos) corre las fechas</td></tr>
+      <tr><td><b>Umbra / penumbra</b></td><td>Sin fotones directos / con fotones parciales</td><td>El ojo no nota la penumbra; «la parte bonita es la umbra»</td></tr>
+      <tr><td><b>Luna roja</b></td><td>Luna en la umbra, iluminada por luz refractada en la atmósfera terrestre</td><td>Su espectro = espectro de transmisión de la Tierra (volcanes)</td></tr>
+      <tr><td><b>Total vs anular</b></td><td>Luna cerca: tapa todo (corona visible); lejos: queda anillo</td><td>El 1–5 % de anillo encandila y esconde la corona</td></tr>
+      <tr><td><b>Eclipse antártico 2021</b></td><td>Expedición; T bajó más con 80 % que con 100 % de ocultación</td><td>Sol al horizonte + vientos; símil de atmósferas frías del sistema solar</td></tr>
+      <tr><td><b>Eclipse de Ío</b></td><td>Atmósfera ~½ volcánica, ~½ sublimación (colapsa al enfriarse)</td><td>Apagar el Sol separa las fuentes de la atmósfera</td></tr>
+      <tr><td><b>Tránsitos de exoplanetas</b></td><td>Radio aparente del planeta cambia con λ según su atmósfera</td><td>Espectroscopía de transmisión: así se «descubre agua»</td></tr>
+      <tr><td><b>Movimiento no sideral</b></td><td>Seguir cuerpos del sistema solar además de compensar la Tierra</td><td>Cada cuerpo con su tasa propia; requiere efemérides</td></tr>
+      <tr><td><b>JPL Horizons</b></td><td>Base de efemérides de NASA/JPL, abierta</td><td>Qué, desde dónde y cuándo observar; decenas de columnas de datos</td></tr>
+      <tr><td><b>Zodíaco</b></td><td>Constelaciones que cruza la eclíptica: 13 (incluye Ofiuco)</td><td>Zonas oficiales IAU; Bayer (α, β… + genitivo); precesión los corre</td></tr>
+      <tr><td><b>Oblicuidad</b></td><td>Ángulo eclíptica–ecuador (~23,5° en la Tierra)</td><td>Reparto de energía por área ⇒ estaciones</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c5-examen-01.html">Examen 01<small>Emisión vs absorción telúrica</small></a></li>
+    <li><a href="m1c5-examen-02.html">Examen 02<small>Resta de cielo y dithering</small></a></li>
+    <li><a href="m1c5-examen-03.html">Examen 03<small>Estándares y airmass</small></a></li>
+    <li><a href="m1c5-examen-04.html">Examen 04<small>Altitud y ventanas atmosféricas</small></a></li>
+    <li><a href="m1c5-examen-05.html">Examen 05<small>Flujo, color y SNR</small></a></li>
+    <li><a href="m1c5-examen-06.html">Examen 06<small>Luz de Luna y magnitudes</small></a></li>
+    <li><a href="m1c5-examen-07.html">Examen 07<small>Geometría de eclipses</small></a></li>
+    <li><a href="m1c5-examen-08.html">Examen 08<small>Umbra, penumbra y Luna roja</small></a></li>
+    <li><a href="m1c5-examen-09.html">Examen 09<small>Antártica, Ío y exoplanetas</small></a></li>
+    <li><a href="m1c5-examen-10.html">Examen 10<small>Horizons, constelaciones y zodíaco</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo I del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile. Elaborado a partir de la transcripción de audio <code>observación/m1/ff/Observaci-n-m1c5-7357ae05-3dd0.md</code> (17 de abril de 2026). No hay diapositivas disponibles para esta clase.</p>
+  <p class="disc"><b>Aviso — transcripción automática.</b> Estos apuntes se basan en una <strong>transcripción automática de audio</strong>, que contiene errores de reconocimiento de voz. Se corrigieron los evidentes por contexto (p. ej. «montura epitelial» → <em>ecuatorial</em>; «100 pesos» → <em>100 veces</em>; «HO» → H₂O; «oh» → radical OH; «Isla Pasco» → Isla de Pascua) y se señalan en el texto las cifras dudosas (período orbital de Ío, años y trayectorias exactas de eclipses, nombre del telescopio submilimétrico más alto que ALMA). Los aportes marcados como <em>inferencia propia</em> o <em>material externo</em> (precesión nodal de ~18,6 años, inclinación lunar ~5°, altitudes precisas, SO₂ en Ío, designaciones de Bayer en genitivo) van más allá de lo dicho literalmente en el audio. Ante cualquier duda, primar el audio original y fuentes académicas confiables.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: airmass y extinción ----
+(function(){
+  var h=document.getElementById('am-h'), k=document.getElementById('am-k'),
+      hv=document.getElementById('am-hval'), out=document.getElementById('am-out');
+  function calc(){
+    var H=parseFloat(h.value), K=parseFloat(k.value);
+    hv.textContent=H;
+    if(!(H>0)||!(K>=0)){ out.innerHTML="Ingresa una altura entre 10° y 90° y k ≥ 0."; return; }
+    var z=90-H;                                  // distancia cenital
+    var X=1/Math.cos(z*Math.PI/180);             // airmass plano-paralelo
+    var dm=K*X;                                  // magnitudes robadas
+    var frac=Math.pow(10,-0.4*dm);               // fracción de flujo que sobrevive
+    out.innerHTML="Distancia cenital z = <b>"+z.toFixed(0)+"°</b> · airmass X = sec z = <b>"+X.toFixed(2)+"</b><br>"+
+      "Extinción k·X = <b>"+dm.toFixed(2)+" mag</b> → sobrevive el <span class='k'>"+(100*frac).toFixed(1)+"%</span> del flujo<br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>A "+H+"° de altura miras a través de "+X.toFixed(2)+" «atmósferas». Midiendo la misma estrella a varios X y extrapolando la recta m = m₀ + k·X hasta X = 0 se recupera el flujo fuera de la atmósfera.</span>";
+  }
+  h.addEventListener('input',calc); k.addEventListener('input',calc);
+  document.querySelectorAll('#am-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ h.value=b.dataset.h; k.value=b.dataset.k; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: magnitudes <-> razón de flujo ----
+(function(){
+  var dm=document.getElementById('mg-dm'), f=document.getElementById('mg-f'), out=document.getElementById('mg-out');
+  function show(D,R){
+    var rf = R>=1000 ? R.toExponential(3) : R.toFixed(3);
+    out.innerHTML="Δm = <b>"+D.toFixed(3)+"</b> mag ⇔ F₁/F₂ = 10^(0.4·Δm) = <span class='k'>×"+rf+"</span><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Cada magnitud es ×2.512 en flujo; 5 magnitudes son ×100 exactas — el salto del cielo entre luna nueva y luna llena. En dB de potencia: "+(4*D).toFixed(1)+" dB.</span>";
+  }
+  function fromDm(){
+    var D=parseFloat(dm.value);
+    if(isNaN(D)){ out.innerHTML="Ingresa un Δm."; return; }
+    f.value="";
+    show(D, Math.pow(10,0.4*D));
+  }
+  function fromF(){
+    var R=parseFloat(f.value);
+    if(!(R>0)){ return; }
+    var D=2.5*Math.log10(R);
+    dm.value=D.toFixed(3);
+    show(D,R);
+  }
+  dm.addEventListener('input',fromDm);
+  f.addEventListener('input',fromF);
+  document.querySelectorAll('#mg-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ dm.value=b.dataset.dm; fromDm(); });
+  });
+  fromDm();
+})();
+</script>
+</body>
+</html>

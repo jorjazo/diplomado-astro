@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistemas de coordenadas — Instrumentación y Observación, Módulo I · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure svg{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo I · Clase 4</span>
+  <h1>Sistemas de <em>coordenadas</em></h1>
+  <p class="sub">Cómo «rayamos la cancha» de la esfera celeste para poder apuntar a cualquier estrella. Definimos <strong>declinación</strong> (δ) y <strong>ascensión recta</strong> (α, en horas de 0 a 24), el ecuador celeste y la eclíptica, y el <em>equinoccio vernal</em> como el «Greenwich del cielo». Luego bajamos al plano local: horizonte, cenit y polo celeste elevado, el movimiento diurno visto desde Chile (hemisferio sur), las monturas ecuatoriales y altazimutales de los telescopios, los otros rayados posibles (eclíptico, galáctico, por constelaciones) y una primera mirada al tiempo sideral local.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Diplomado:</b> Fundamentos de Astronomía · U. de Chile 2026</span>
+    <span><b>Tema:</b> Esfera celeste, coordenadas ecuatoriales y horizontales</span>
+    <span><b>Fuente:</b> Transcripción de clase (parte observacional)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">P</span>ara compartir la posición de una estrella con alguien más —o para que un telescopio la encuentre— necesitamos un <strong>sistema de referencia común</strong>. La analogía del profesor es una <em>cancha de fútbol</em>: si quiero decirle a otra persona «mira la manchita que está aquí», tengo que rayar la cancha primero. Esta clase construye ese rayado paso a paso: primero el rayado <span class="hl">global</span> de la esfera celeste (coordenadas ecuatoriales α, δ, ancladas a la rotación terrestre), después el rayado <span class="hl">local</span> de cada observador (horizonte, cenit, altitud y azimut), y finalmente cómo se traducen unos en otros —que para un ingeniero es simplemente una <strong>rotación de ejes</strong>, una multiplicación por una matriz—. De regalo: por qué las monturas de telescopio tienen esa forma «rara», y por qué la ascensión recta se mide en <em>horas</em>.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La esfera celeste: rayar la cancha</a></li>
+    <li><a href="#s2">Declinación δ y ascensión recta α</a></li>
+    <li><a href="#s3">El cero de α: eclíptica, nodos y equinoccio vernal</a></li>
+    <li><a href="#s4">Horizonte, cenit y polo celeste elevado</a></li>
+    <li><a href="#s5">Movimiento diurno desde Chile</a></li>
+    <li><a href="#s6">El Sol en el año: equinoccios, solsticios y trópicos</a></li>
+    <li><a href="#s7">Monturas: ecuatorial vs altazimutal</a></li>
+    <li><a href="#s8">Rotación de campo</a></li>
+    <li><a href="#s9">Otros rayados: eclíptico, galáctico, constelaciones</a></li>
+    <li><a href="#s10">Star trails y tiempo sideral local</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La esfera celeste: rayar la cancha</h2>
+    <p>Los griegos «pintaron» las estrellas en un firmamento esférico. Para ubicarlas necesitamos ponerle coordenadas a esa esfera.</p>
+  </div></div>
+
+  <p>Esta es la segunda clase de la parte observacional (numerada como <strong>Clase 4</strong>: adelanta lo necesario para las prácticas de observación). Veníamos hablando del fotón y de las formas de emitir energía; ahora «nos saltamos» a <strong>mirar los cielos y ubicarnos en ellos</strong>.</p>
+
+  <p>El punto de partida es la <span class="hl">esfera celeste</span>, un concepto heredado de los griegos: imaginar todas las estrellas <em>pintadas</em> sobre una esfera de radio enorme (a efectos prácticos, infinito) centrada en la Tierra. No es un modelo físico —las estrellas están a distancias distintas— sino una <strong>herramienta de direcciones</strong>: como solo nos interesa <em>hacia dónde</em> apuntar, basta con dos ángulos.</p>
+
+  <div class="box prof">
+    <span class="tag">Del profesor — la cancha de fútbol</span>
+    <p>«Imagínense una cancha de fútbol. Yo quiero poder decirle a alguien: ubica la manchita que está aquí. Tengo que poder <strong>rayar la cancha</strong> para poder compartir esa información.» El sistema de coordenadas no cambia el cielo; solo nos da un lenguaje común para apuntar.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es exactamente un <em>frame</em> de referencia. Como las estrellas están «en infinito», la posición del observador sobre la Tierra es despreciable y solo importan las direcciones: el espacio de estados es la superficie de una esfera unitaria, parametrizada por dos ángulos (como latitud/longitud en GPS, o como los ángulos de un gimbal). Todo lo que sigue es elegir <strong>dónde poner los ejes y el cero</strong> de esa parametrización.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Declinación δ y ascensión recta α</h2>
+    <p>El rayado ecuatorial copia el de la Tierra: la rotación regala dos puntos fijos (los polos) y con ellos un ecuador.</p>
+  </div></div>
+
+  <p>El rayado de la esfera celeste se construye <strong>igual que el de la Tierra</strong>. En la Tierra, la rotación nos da dos puntos fijos —los polos— y con ellos definimos un ecuador; de ahí salen latitud y longitud. Proyectando eso al cielo:</p>
+
+  <ul>
+    <li><strong>Polos celestes:</strong> las prolongaciones del eje de rotación terrestre sobre la esfera celeste. Son los dos puntos del cielo que <em>no se mueven</em> durante la noche.</li>
+    <li><strong><span class="hl">Ecuador celeste</span>:</strong> la proyección del ecuador terrestre; el círculo máximo a 90° de ambos polos.</li>
+    <li><strong><span class="hl">Declinación (δ)</span>:</strong> el equivalente celeste de la <em>latitud</em>. Se mide desde el ecuador celeste: de <strong>−90°</strong> (polo sur celeste) a <strong>+90°</strong> (polo norte celeste). El cero es «natural»: el ecuador.</li>
+    <li><strong><span class="hl">Ascensión recta (α)</span>:</strong> el equivalente celeste de la <em>longitud</em>. Pero en vez de medirse en grados (±180° como la longitud terrestre), se mide en <strong>horas, de 0 a 24</strong>.</li>
+  </ul>
+
+  <figure>
+  <svg viewBox="0 0 760 430" role="img" aria-label="Diagrama de la esfera celeste con ecuador celeste, polos, declinación y ascensión recta">
+    <rect width="760" height="430" fill="#05070d"/>
+    <!-- sphere -->
+    <circle cx="380" cy="215" r="170" fill="none" stroke="#26324a" stroke-width="1.5"/>
+    <!-- equator ellipse -->
+    <ellipse cx="380" cy="215" rx="170" ry="48" fill="none" stroke="#e0382e" stroke-width="2"/>
+    <!-- ecliptic ellipse (tilted) -->
+    <ellipse cx="380" cy="215" rx="168" ry="48" fill="none" stroke="#d9a74a" stroke-width="1.6" transform="rotate(-23.5 380 215)" stroke-dasharray="6 5"/>
+    <!-- axis -->
+    <line x1="380" y1="20" x2="380" y2="410" stroke="#6fc7d6" stroke-width="1.4" stroke-dasharray="4 5"/>
+    <circle cx="380" cy="45" r="4" fill="#6fc7d6"/>
+    <circle cx="380" cy="385" r="4" fill="#6fc7d6"/>
+    <text x="392" y="42" fill="#6fc7d6" font-size="14" font-family="Georgia,serif">Polo norte celeste (δ=+90°)</text>
+    <text x="392" y="396" fill="#6fc7d6" font-size="14" font-family="Georgia,serif">Polo sur celeste (δ=−90°)</text>
+    <!-- earth -->
+    <circle cx="380" cy="215" r="14" fill="#10203a" stroke="#9aa6bb"/>
+    <text x="356" y="252" fill="#9aa6bb" font-size="13" font-family="Georgia,serif">Tierra</text>
+    <!-- vernal equinox -->
+    <circle cx="212" cy="222" r="5" fill="#fff"/>
+    <text x="28" y="205" fill="#ece8df" font-size="14" font-family="Georgia,serif">Equinoccio vernal ♈</text>
+    <text x="28" y="223" fill="#9aa6bb" font-size="12.5" font-family="Georgia,serif">(origen de α: nodo donde el Sol</text>
+    <text x="28" y="239" fill="#9aa6bb" font-size="12.5" font-family="Georgia,serif">cruza de δ&lt;0 a δ&gt;0)</text>
+    <!-- star -->
+    <circle cx="472" cy="118" r="5" fill="#f06a5e"/>
+    <text x="484" y="112" fill="#f06a5e" font-size="14" font-family="Georgia,serif">Estrella (α, δ)</text>
+    <!-- labels -->
+    <text x="560" y="238" fill="#e0382e" font-size="14" font-family="Georgia,serif">Ecuador celeste (δ=0°)</text>
+    <text x="540" y="130" fill="#d9a74a" font-size="14" font-family="Georgia,serif">Eclíptica (~23,5°)</text>
+    <!-- declination arc -->
+    <path d="M 468 210 Q 486 165 472 124" fill="none" stroke="#f06a5e" stroke-width="1.5" stroke-dasharray="3 4"/>
+    <text x="492" y="178" fill="#f06a5e" font-size="14" font-family="Georgia,serif">δ</text>
+    <!-- RA arc along equator -->
+    <path d="M 212 222 Q 330 268 468 212" fill="none" stroke="#6fc7d6" stroke-width="1.5" stroke-dasharray="3 4"/>
+    <text x="330" y="285" fill="#6fc7d6" font-size="14" font-family="Georgia,serif">α (0–24 h)</text>
+  </svg>
+  <figcaption><span class="cap">Diagrama · Coordenadas ecuatoriales</span>Esquema propio (las diapositivas de esta clase no están disponibles en el repositorio). La rotación terrestre define los <strong>polos celestes</strong> y el <strong>ecuador celeste</strong> (rojo). La <strong>declinación δ</strong> se mide desde el ecuador (±90°); la <strong>ascensión recta α</strong> se mide a lo largo del ecuador, en horas, desde el <strong>equinoccio vernal</strong> (intersección con la eclíptica, dorado).</figcaption>
+  </figure>
+
+  <h3>¿Por qué horas y no grados?</h3>
+  <p>Porque la esfera celeste da una vuelta completa en un día: <strong>24 horas ↔ 360°</strong>. Que después de las 24 «venga el 0» no le sorprende a nadie —ya tenemos internalizado ese concepto cíclico con el reloj—, igual que después de 360° viene el 0°. La conversión es directa:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="1^{\mathrm{h}} = 15^{\circ} \qquad 1^{\mathrm{m}} = 15' \qquad 1^{\mathrm{s}} = 15''"></div>
+    <small>El cielo «gira» 15° por hora (360°/24 h). Esta elección no es capricho: conecta la coordenada con el <em>tiempo</em> que tarda en pasar por sobre tu cabeza (sección 10, tiempo sideral).</small>
+  </div>
+
+  <div class="widget" id="w-ra">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Conversor de ascensión recta: horas ↔ grados</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Edita cualquiera de los dos campos; el otro se actualiza. Se muestra además el formato sexagesimal h m s.</p>
+    <div class="presets" id="ra-presets">
+      <button data-h="0">Equinoccio vernal · 0 h</button>
+      <button data-h="6.7525">Sirio · α≈6,75 h</button>
+      <button data-h="14.6601">α Centauri · α≈14,66 h</button>
+      <button data-h="5.9195">Betelgeuse · α≈5,92 h</button>
+      <button data-h="12">12 h (opuesto al vernal)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="ra-h">Ascensión recta (horas decimales, 0–24)</label><input type="number" id="ra-h" step="any" min="0" max="24" value="14.6601"></div>
+      <div><label for="ra-g">Ascensión recta (grados, 0–360)</label><input type="number" id="ra-g" step="any" min="0" max="360" value="219.9"></div>
+    </div>
+    <output id="ra-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>δ y α son las coordenadas esféricas estándar (colatitud y azimut) con unidades peculiares. La aritmética de α es <strong>aritmética modular</strong> (mod 24 h): sumar y restar ascensiones rectas es como trabajar con fases de una señal periódica. El factor 15°/h reaparece en todo: velocidad de seguimiento de un telescopio, longitud de un <em>star trail</em>, husos horarios.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>El cero de α: eclíptica, nodos y equinoccio vernal</h2>
+    <p>La declinación tiene un cero natural (el ecuador). La ascensión recta necesita un «Greenwich del cielo» — y se eligió un punto geométricamente especial.</p>
+  </div></div>
+
+  <p>Para la declinación el cero es obvio: el ecuador, positivo hacia un lado y negativo hacia el otro. Pero ¿dónde está el <strong>cero de la ascensión recta</strong>? El profesor lo compara con la longitud terrestre: Chile está a ~74° oeste… ¿74° <em>de qué</em>? Del <strong>meridiano de Greenwich</strong>, que es una elección <em>geopolítica</em>: la potencia de la época «ganó la pelea» de definir el cero (hoy quizás se lo pelearían Estados Unidos y China; y en rigor, las placas tectónicas se mueven, así que hasta Greenwich se mueve). El cero de la longitud es <strong>arbitrario pero estándar</strong>: lo que importa es que todos usemos el mismo.</p>
+
+  <p>Para el cielo se eligió algo menos arbitrario, aprovechando una geometría que la naturaleza regala: la intersección de <strong>dos planos</strong>.</p>
+
+  <h3>La eclíptica</h3>
+  <p>El eje de la Tierra está <strong>inclinado ~23,5°</strong> respecto del plano de su órbita (el profesor redondea «24»), y esa inclinación se mantiene <em>fija en dirección</em> mientras la Tierra traslada: el eje apunta siempre al mismo lado, no «gira siguiendo» al Sol. Visto desde la Tierra, eso hace que el Sol se proyecte sobre la esfera celeste describiendo a lo largo del año un círculo <strong>inclinado respecto del ecuador celeste</strong>: la <span class="hl">eclíptica</span>. Durante el año el Sol «se pasea» entre el hemisferio celeste sur (δ &lt; 0) y el norte (δ &gt; 0), cruzando el ecuador dos veces.</p>
+
+  <h3>Los nodos y el punto vernal</h3>
+  <p>Dos planos que se cortan (ecuador celeste y eclíptica) definen una recta, que corta a la esfera en <strong>dos puntos: los nodos</strong>. En uno de ellos el Sol pasa de declinación negativa a positiva —el <span class="hl">nodo ascendente</span>— y ese punto se definió como el origen de la ascensión recta: el <span class="hl">equinoccio vernal</span> (también llamado punto vernal o punto de Aries, ♈). Es «el Greenwich del cielo».</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\alpha = 0^{\mathrm{h}} \;\;\Longleftrightarrow\;\; \text{nodo ascendente: el Sol cruza } \delta<0 \to \delta>0"></div>
+    <small>En el otro nodo (α = 12 h) el Sol cruza de norte a sur: es el equinoccio de septiembre. En los equinoccios el Sol está <em>sobre el ecuador celeste</em> (δ<sub>☉</sub> = 0).</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Dato — arbitrario, pero menos</span>
+    <p>A diferencia de Greenwich, el punto vernal es <em>geométricamente distinguido</em>: no depende de qué país lo definió. Aun así sigue habiendo una convención (elegir el nodo <em>ascendente</em> y no el descendente). Nota externa: por la precesión del eje terrestre, el punto vernal se desplaza lentamente (~1° cada 72 años), por eso los catálogos indican una época de referencia como J2000 — la clase no entra en esto.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Lo que viene</span>
+    <p>Las <strong>consecuencias</strong> de este paseo del Sol por la eclíptica —estaciones, duración del día— se desarrollan en la clase siguiente (que dictará otro profesor, por un tema de viaje). Aquí la eclíptica se usa solo para definir el cero de α y para entender por dónde sale el Sol (sección 6).</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Horizonte, cenit y polo celeste elevado</h2>
+    <p>El tercer plano importante no es global sino local: el plano en que estás parado, extendido al infinito.</p>
+  </div></div>
+
+  <p>Además del ecuador y la eclíptica hay otro plano protagonista: el <span class="hl">horizonte</span>. Es el plano tangente a la Tierra donde estás parado, <strong>extendido hasta el infinito</strong>, donde «choca» con la esfera celeste. Sobre él tienes tus <strong>puntos cardinales</strong> (norte, sur, este, oeste, con una brújula) y, perpendicular a él, justo sobre tu cabeza, el <span class="hl">cenit</span>.</p>
+
+  <div class="box physics">
+    <span class="tag">Por qué el horizonte se dibuja desde el centro</span>
+    <p>En los diagramas, el plano del horizonte aparece pasando por el <em>centro</em> de la esfera celeste, aunque el observador esté parado en la superficie de la Tierra. La razón: la esfera celeste está «en infinito», así que el tamaño de la Tierra es despreciable frente a ella —la Tierra es un punto—. Cualquier plano paralelo trasladado al centro corta a la esfera exactamente igual. Es el mismo límite que en óptica cuando la fuente está en infinito: los rayos llegan paralelos.</p>
+  </div>
+
+  <h3>La altura del polo es tu latitud</h3>
+  <p>El horizonte corta la esfera celeste en un ángulo que <strong>depende de tu latitud</strong>. Si caminas hacia el ecuador, el plano «gira» hacia un lado; si vas hacia el polo, hacia el otro. El resultado clave de la clase:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="h_{\text{polo}} = |\phi|"></div>
+    <small>La <strong>altitud del polo celeste elevado sobre el horizonte es igual al valor absoluto de la latitud</strong> del observador. En el ecuador (φ = 0°) los polos están <em>en</em> el horizonte; en el polo geográfico (φ = ±90°) el polo celeste está en el cenit. En Santiago (φ ≈ −33,5°), el <strong>polo sur celeste</strong> está a ~33,5° de altura hacia el sur.</small>
+  </div>
+
+  <figure>
+  <svg viewBox="0 0 760 400" role="img" aria-label="Diagrama del plano del horizonte, cenit y polo celeste elevado para un observador en el hemisferio sur">
+    <rect width="760" height="400" fill="#05070d"/>
+    <circle cx="380" cy="210" r="165" fill="none" stroke="#26324a" stroke-width="1.5"/>
+    <!-- horizon plane -->
+    <line x1="180" y1="210" x2="580" y2="210" stroke="#6fc7d6" stroke-width="2"/>
+    <text x="586" y="215" fill="#6fc7d6" font-size="14" font-family="Georgia,serif">Horizonte</text>
+    <text x="188" y="230" fill="#9aa6bb" font-size="13" font-family="Georgia,serif">S</text>
+    <text x="566" y="230" fill="#9aa6bb" font-size="13" font-family="Georgia,serif">N</text>
+    <!-- observer -->
+    <circle cx="380" cy="210" r="5" fill="#ece8df"/>
+    <text x="390" y="230" fill="#9aa6bb" font-size="13" font-family="Georgia,serif">Observador (φ ≈ −33,5°)</text>
+    <!-- zenith -->
+    <line x1="380" y1="210" x2="380" y2="45" stroke="#9aa6bb" stroke-width="1.3" stroke-dasharray="4 5"/>
+    <circle cx="380" cy="45" r="4" fill="#ece8df"/>
+    <text x="390" y="42" fill="#ece8df" font-size="14" font-family="Georgia,serif">Cenit</text>
+    <!-- celestial pole (south), altitude 33.5 deg toward S (left) -->
+    <line x1="380" y1="210" x2="242" y2="119" stroke="#e0382e" stroke-width="1.6"/>
+    <circle cx="242" cy="119" r="5" fill="#e0382e"/>
+    <text x="120" y="105" fill="#f06a5e" font-size="14" font-family="Georgia,serif">Polo sur celeste</text>
+    <text x="120" y="123" fill="#9aa6bb" font-size="12.5" font-family="Georgia,serif">altura = |φ| ≈ 33,5°</text>
+    <!-- angle arc -->
+    <path d="M 330 210 A 50 50 0 0 0 338 182" fill="none" stroke="#f06a5e" stroke-width="1.4"/>
+    <text x="300" y="196" fill="#f06a5e" font-size="13" font-family="Georgia,serif">|φ|</text>
+    <!-- celestial equator arc: passes through E-W, culminates toward N at altitude 90-|phi| -->
+    <path d="M 200 300 Q 400 30 566 152" fill="none" stroke="#d9a74a" stroke-width="1.6" stroke-dasharray="7 5"/>
+    <text x="430" y="92" fill="#d9a74a" font-size="14" font-family="Georgia,serif">Ecuador celeste</text>
+    <text x="430" y="110" fill="#9aa6bb" font-size="12.5" font-family="Georgia,serif">culmina hacia el norte a 90°−|φ|</text>
+  </svg>
+  <figcaption><span class="cap">Diagrama · Plano local (Chile)</span>Esquema propio (sin diapositivas disponibles). Para un observador en el hemisferio sur, el <strong>polo sur celeste</strong> queda elevado hacia el sur a una altura igual a |φ|, y el <strong>ecuador celeste</strong> es un arco que nace exactamente en el este, culmina hacia el <em>norte</em> y se pone exactamente en el oeste.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Este es el cambio entre dos <em>frames</em>: uno inercial-ish (ecuatorial, fijo a las estrellas) y uno solidario al observador (horizontal, que rota con la Tierra). El ángulo entre ambos es tu latitud. Alinear un instrumento con el frame ecuatorial (sección 7) es exactamente calibrar la orientación de una plataforma respecto de un marco de referencia externo — como alinear una IMU.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Movimiento diurno desde Chile</h2>
+    <p>La Tierra gira, o —equivalente— la esfera celeste gira. Una estrella que sale por el este «se pasea» hacia el norte antes de ponerse por el oeste.</p>
+  </div></div>
+
+  <p>La Tierra rota una vez cada ~24 horas; desde nuestro punto de vista, es <strong>la esfera celeste la que gira</strong> en torno al eje de los polos (ambas descripciones son equivalentes, como ya se discutió en clases anteriores). Cada estrella describe entonces un <strong>círculo paralelo al ecuador celeste</strong>, a declinación constante: eso es el <span class="hl">movimiento diurno</span>.</p>
+
+  <p>El profesor insiste en «acostar el dibujo»: el diagrama de la esfera con el horizonte inclinado y el diagrama de tu día a día (tú en la vertical, viendo salir estrellas) son <strong>el mismo dibujo</strong>, solo que rotado. En el día a día uno se siente en la vertical y ve la esfera girar.</p>
+
+  <h3>La estrella que sale justo al este</h3>
+  <p>Imagina una estrella que sale <em>exactamente</em> por el este (las estrellas pueden salir por el este, más al sur o más al norte, según su δ). Los ejemplos del gráfico de la clase estaban dibujados para el hemisferio norte, donde el polo elevado es el norte; pero <strong>en Chile lo que tenemos arriba es el polo sur</strong>, así que hay que «dar vuelta» la intuición:</p>
+
+  <ul>
+    <li>Una estrella con <strong>δ = 0</strong> (en el ecuador celeste) sale <strong>justo por el este</strong>, se pasea por el <strong>norte</strong>, y se pone <strong>justo por el oeste</strong>. Solo el ecuador celeste intersecta el horizonte exactamente en los puntos cardinales este y oeste, en cualquier latitud.</li>
+    <li>Una estrella con δ ≠ 0 sale corrida (hacia el norte o el sur del este) y <strong>se pone corrida la misma distancia hacia el mismo lado</strong>: si sale más al sur, se pone más al sur.</li>
+    <li>En su punto más alto (la <em>culminación</em>), la estrella cruza el meridiano. Que cruce o no el <strong>cenit</strong> depende de la combinación entre su declinación y tu latitud.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="h_{\max} = 90^{\circ} - |\phi - \delta|"></div>
+    <small>Altitud de culminación de una estrella de declinación δ vista desde latitud φ (fórmula explícita: inferencia propia consistente con la geometría de la clase). Pasa por el cenit solo si <strong>δ = φ</strong>. En Santiago (φ ≈ −33,5°) culminan en el cenit las estrellas con δ ≈ −33,5°.</small>
+  </div>
+
+  <div class="widget" id="w-culm">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Simulador: ¿qué tan alto sube una estrella?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige tu latitud φ y la declinación δ de la estrella. Calcula la altitud de culminación, hacia dónde culmina, y si la estrella es circumpolar (nunca se pone) o invisible (nunca sale).</p>
+    <div class="presets" id="culm-presets">
+      <button data-lat="-33.45" data-dec="-60.8">α Cen desde Santiago</button>
+      <button data-lat="-33.45" data-dec="7.4">Betelgeuse desde Santiago</button>
+      <button data-lat="-33.45" data-dec="89.3">Polaris desde Santiago</button>
+      <button data-lat="-18.5" data-dec="-23.4">Sol solsticio dic. desde Arica</button>
+      <button data-lat="0" data-dec="-90">Polo sur desde el ecuador</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="culm-lat">Latitud del observador φ (°, sur negativa)</label><input type="number" id="culm-lat" step="any" min="-90" max="90" value="-33.45"></div>
+      <div><label for="culm-dec">Declinación de la estrella δ (°)</label><input type="number" id="culm-dec" step="any" min="-90" max="90" value="-60.8"></div>
+    </div>
+    <output id="culm-out"></output>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Del profesor — Rusia vs Chile</span>
+    <p>Los dibujos de los libros suelen estar hechos para el hemisferio norte («en Rusia funciona así»): el polo norte elevado, las estrellas paseándose por el sur. En Chile es el espejo: <strong>polo sur arriba</strong> (hacia el sur), y el Sol y las estrellas ecuatoriales paseándose <strong>por el norte</strong>. Por eso en Chile las casas «soleadas» miran al norte.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>El Sol en el año: equinoccios, solsticios y trópicos</h2>
+    <p>El Sol es una «estrella» cuya declinación cambia a lo largo del año, entre ±23,5°. Eso mueve el punto por donde sale y qué tan alto culmina.</p>
+  </div></div>
+
+  <p>Ahora juntamos las dos ideas: el movimiento <strong>diurno</strong> (círculos a δ constante) y el paseo <strong>anual</strong> del Sol por la eclíptica (su δ cambia lentamente entre −23,5° y +23,5°). El Sol se comporta cada día como una estrella con la declinación que le toca ese día:</p>
+
+  <ul>
+    <li><strong>Equinoccios (≈21 de marzo y ≈21 de septiembre):</strong> el Sol está en los nodos, sobre el ecuador celeste (δ<sub>☉</sub> = 0). Sale <strong>justo por el este</strong>, se pasea hacia el norte (en Chile) y se pone <strong>justo por el oeste</strong>.</li>
+    <li><strong>Verano austral (solsticio de diciembre):</strong> δ<sub>☉</sub> ≈ −23,5°. En Chile el Sol sale <em>más al sur</em> del este, describe un arco más largo y alto, y se pone más al sur del oeste.</li>
+    <li><strong>Invierno austral (solsticio de junio):</strong> δ<sub>☉</sub> ≈ +23,5°. Sale más al norte, arco más corto y bajo, se pone más al norte.</li>
+  </ul>
+
+  <div class="box physics">
+    <span class="tag">¿Quién ve el Sol en el cenit?</span>
+    <p>Que el Sol cruce el cenit exige δ<sub>☉</sub> = φ, y como δ<sub>☉</sub> solo recorre ±23,5°, <strong>solo la franja tropical</strong> (latitudes entre −23,5° y +23,5°: entre el trópico de Capricornio y el de Cáncer) ve el Sol justo sobre la cabeza en algún momento del año — ese día, un poste vertical <strong>no proyecta sombra</strong> al mediodía. Si estás <em>exactamente</em> en el trópico de Capricornio, lo ves en el cenit solo el día del solsticio de diciembre. Santiago (φ ≈ −33,5°) queda fuera de la franja: el Sol nunca pasa por su cenit. Arica (φ ≈ −18,5°) sí está dentro. <em>Nota de transcripción: el audio dice «46 grados»; el límite correcto de la franja es ±23,5° (el 46°–47° es el ancho total de la franja).</em></p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Esto es la superposición de dos movimientos periódicos de frecuencias muy distintas: el diurno (periodo 1 día) y el anual (periodo 1 año) que modula lentamente el «offset» δ<sub>☉</sub>. Es la misma estructura que una portadora modulada por una envolvente lenta. Para paneles solares o arquitectura, esta geometría fija los ángulos óptimos de instalación según la latitud.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Monturas: ecuatorial vs altazimutal</h2>
+    <p>Las monturas «raras» de los telescopios existen para alinear un eje con la rotación terrestre y contrarrestarla con un solo movimiento.</p>
+  </div></div>
+
+  <p>¿Por qué los telescopios no usan un trípode de cámara normal? Porque si miras una estrella con un trípode fijo, a los pocos segundos <strong>se corre del campo</strong>: la Tierra rota. La solución elegante es la <span class="hl">montura ecuatorial</span>: uno de sus ejes se <strong>alinea con el eje de rotación terrestre</strong>. Entonces, si la Tierra gira una vuelta cada 24 h hacia un lado, un motor gira el telescopio una vuelta cada 24 h hacia el otro, y la estrella queda clavada en el campo. Se pueden hacer exposiciones largas.</p>
+
+  <h3>Cómo se alinea y qué mueven sus ejes</h3>
+  <ul>
+    <li><strong>Alineación:</strong> primero orientar la montura <strong>norte–sur</strong>; luego inclinar el eje polar según la <strong>latitud</strong> del lugar (en el ecuador quedaría horizontal, en el polo vertical — es el mismo ángulo h<sub>polo</sub> = |φ| de la sección 4).</li>
+    <li><strong>Sus dos ejes son directamente las coordenadas ecuatoriales:</strong> girar en torno al eje polar cambia la <span class="hl">ascensión recta</span>; girar el otro eje cambia la <span class="hl">declinación</span>. La declinación incluso se puede <em>graduar</em> en el eje (para una estrella de δ = −60°, pones el círculo en 60). La ascensión recta es más difícil de marcar porque requiere saber la hora sideral (sección 10).</li>
+    <li><strong>Nomenclatura comercial:</strong> los modelos «EQ» son ecuatoriales, los «AZ», altazimutales.</li>
+  </ul>
+
+  <h3>La montura altazimutal</h3>
+  <p>La <span class="hl">montura altazimutal</span> gira en <strong>azimut</strong> (paralelo al horizonte) y en <strong>altitud</strong> (elevación): las <em>coordenadas horizontales</em> del observador. Su gran ventaja es <strong>estructural</strong>: sostiene mucho más peso. Los telescopios de 8 m llevan espejos de toneladas, y el de 30 m en construcción será aún más pesado; ese peso no se puede colgar de un eje inclinado. La desventaja: la estrella <em>no</em> se mueve a lo largo de ninguno de sus dos ejes, así que para seguirla hay que mover <strong>ambos ejes a la vez</strong>, con velocidades que cambian en el tiempo.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — computadora papaya</span>
+    <p>Seguir una estrella en altazimutal es evaluar continuamente la transformación (α, δ) → (altitud, azimut): «fórmulas geométricas súper simples» para un chip —hasta un teléfono de 2008 podía—, pero inviables a manivela. Por eso la historia de las monturas sigue a la Ley de Moore: <strong>antes de ~2010, ecuatorial</strong> (corrección mecánica de un solo eje, con poleas y engranajes, posible incluso sin electricidad); <strong>después, altazimutal</strong> (corrección por software en dos ejes + rotador). El mayor ecuatorial mencionado: el telescopio de 4 m de Cerro Tololo.</p>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Ecuatorial (EQ)</th><th>Altazimutal (AZ)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ejes</b></td><td>α y δ (uno alineado con el eje terrestre)</td><td>Azimut y altitud (marco local)</td></tr>
+      <tr><td><b>Seguimiento</b></td><td>Un solo eje, velocidad constante (1 vuelta/día)</td><td>Dos ejes simultáneos, velocidad variable (necesita cómputo)</td></tr>
+      <tr><td><b>Alineación</b></td><td>Norte–sur + inclinar eje según latitud</td><td>Solo nivelar (se puede montar «hasta sin luz»)</td></tr>
+      <tr><td><b>Estructura</b></td><td>Débil para grandes pesos</td><td>Sostiene telescopios de toneladas</td></tr>
+      <tr><td><b>Rotación de campo</b></td><td>No: la imagen se mantiene fija</td><td>Sí: la imagen rota (requiere rotador de campo)</td></tr>
+      <tr><td><b>Época</b></td><td>Telescopios históricos (p. ej. 4 m de Tololo)</td><td>Estándar moderno (~2010 en adelante)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Rotación de campo</h2>
+    <p>Un detalle fino que sale de una pregunta de la clase: en una montura altazimutal la imagen gira mientras sigues la estrella.</p>
+  </div></div>
+
+  <p>Pregunta de un estudiante: si la montura gira para seguir la estrella, ¿la imagen también gira? La respuesta distingue los dos tipos:</p>
+
+  <ul>
+    <li>En la <strong>ecuatorial</strong>, mientras sigues la estrella, el «sur» de tu cámara apunta siempre al mismo lado del cielo: <strong>la imagen no rota</strong>.</li>
+    <li>En la <strong>altazimutal</strong>, la orientación del campo respecto de la cámara va cambiando durante la noche (el sur de la imagen pasa de la derecha, a arriba, a la izquierda…): <strong>la imagen rota</strong>.</li>
+  </ul>
+
+  <p>La solución en telescopios modernos es un <span class="hl">rotador de campo</span>: un tercer eje que gira el instrumento/cámara contrarrestando esa rotación. Alternativa para el aficionado: tomar muchas exposiciones cortas y <strong>alinearlas por software</strong> (des-rotar cada cuadro antes de apilar). Pero para una <strong>exposición única larga</strong> (2–3 horas) sin rotador, la imagen sale «barrida»: ahí la altazimutal está en problemas.</p>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es el mismo problema que la estabilización de imagen: puedes corregir en <em>hardware</em> (rotador mecánico, análogo a un gimbal) o en <em>post-proceso</em> (registro y apilado de cuadros). El post-proceso funciona para apilar cuadros cortos, pero no puede rescatar el barrido <em>dentro</em> de una exposición única — igual que la deconvolución no rescata un motion blur severo.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Otros rayados: eclíptico, galáctico, constelaciones</h2>
+    <p>El ecuatorial no es el único rayado posible. Según la ciencia, conviene alinear las coordenadas con otro plano — y cambiar de sistema es una rotación.</p>
+  </div></div>
+
+  <p>El rayado ecuatorial (α, δ) está anclado al ecuador <em>rotacional</em> de la Tierra, pero uno puede rayar la misma esfera partiendo de otros planos:</p>
+
+  <ul>
+    <li><strong>Coordenadas eclípticas:</strong> usan la eclíptica como plano cero (latitud y longitud eclípticas). Convienen para el <strong>sistema solar</strong>: los planetas y asteroides viven cerca de ese plano, así que en un mapa eclíptico la densidad de asteroides se concentra en torno a latitud eclíptica 0 — quien estudia poblaciones de asteroides prefiere este sistema.</li>
+    <li><strong>Coordenadas galácticas:</strong> usan el plano de la <strong>Vía Láctea</strong> (latitud y longitud galácticas, con un cero de longitud convenido). Convienen para estudiar supernovas, zonas de formación estelar y estructura galáctica. La inclinación del plano galáctico respecto del ecuador es grande (bastante mayor que los 23,5° de la eclíptica; el profesor no recuerda la cifra — dato externo: ~63°).</li>
+    <li><strong>Coordenadas horizontales (alt-azimut):</strong> altitud y azimut. Son <em>locales y cambian con el tiempo</em>: la misma estrella tiene un (alt, az) distinto en cada instante y en cada lugar, así que no sirven para catálogo, pero son las que «hablan» tu telescopio altazimutal y tu ojo.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería — todo es una matriz</span>
+    <p>Todos estos sistemas comparten la misma esfera; solo cambia dónde se pone el «ecuador». Pasar de ecuatorial a eclíptico, galáctico u horizontal es <strong>pura geometría de rotaciones</strong>: «multiplicación por una matriz y listo» — «computador, papaya». Es el álgebra estándar de matrices de rotación / cambios de base que se usa en robótica y aeroespacial. El único sistema con dependencia temporal es el horizontal (la matriz depende de la hora y del lugar).</p>
+  </div>
+
+  <h3>Constelaciones: el rayado con nombres</h3>
+  <p>También se puede «rayar la cancha» con <span class="hl">constelaciones</span>: cada constelación tiene un <strong>área oficial del cielo, con límites ultra establecidos</strong> (definidos en α y δ). Es el sistema del «astrónomo de ocasión»: ubicar por regiones con nombre.</p>
+
+  <ul>
+    <li><strong>Nomenclatura de estrellas:</strong> dentro de cada constelación, las estrellas se ordenan por brillo con letras griegas: <strong>α Centauri</strong> es la más brillante del Centauro, β Centauri la segunda, y así (γ, δ, …). Agotado el alfabeto (ω), se sigue con números: <strong>51 Pegasi</strong> —donde se descubrió el primer planeta extrasolar en torno a una estrella de tipo solar— es la estrella 51 de Pegaso.</li>
+    <li><strong>Las figuras son creatividad pura:</strong> Virgo «claramente» no es una virgen, y Leo hoy sería «la constelación del gancho». En Chile a Orión se le conoce como <em>el carrito de supermercado</em>: el «mango» del carrito es la espada de Orión.</li>
+    <li><strong>Zodiacales (mención):</strong> constelaciones como Piscis, Virgo, Leo, Escorpión o Capricornio aparecen en la clase como ejemplos de áreas oficiales. Son las constelaciones que atraviesa la eclíptica —por eso el Sol «pasa» por ellas durante el año— (esta conexión con la eclíptica es inferencia/contexto; la clase solo las menciona).</li>
+    <li><strong>Bonus observacional:</strong> en la espada de Orión está la <strong>nebulosa de Orión</strong>, una región de formación estelar visible con binoculares e incluso con la cámara de un teléfono moderno en exposición larga — «uno se da cuenta cuánto se gana observando con instrumentos versus con el ojo».</li>
+  </ul>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Star trails y tiempo sideral local</h2>
+    <p>Las fotos de trazos estelares codifican el tiempo de exposición; y un «reloj astronómico» te dice qué ascensión recta pasa sobre tu cabeza.</p>
+  </div></div>
+
+  <h3>Leer un star trail</h3>
+  <p>Las fotos de <em>trazos de estrellas</em> se logran dejando el obturador abierto. Como el cielo gira <strong>15° por hora</strong>, el largo del arco delata la exposición: una vuelta completa serían 24 h; un cuarto de círculo (90°), 6 h; un arco de 45°, 3 horas; ~15°, una hora. Además, si en el centro de los círculos hay una estrella brillante, la foto es del hemisferio norte (<strong>Polaris</strong> está por coincidencia casi en el polo norte celeste — y no será así para siempre); en el sur <strong>no hay una estrella brillante marcando el polo</strong>.</p>
+
+  <h3>Tiempo sideral local (LST)</h3>
+  <p>¿Y por qué α se mide en horas? Porque conecta con el <span class="hl">tiempo sideral local</span> (LST, <em>local sidereal time</em>), que aparece en cualquier app de astronomía. La definición operativa de la clase:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\text{LST} = \alpha \text{ que está cruzando tu meridiano (sobre tu cabeza) ahora}"></div>
+    <small>Es un reloj de ciclo de 24 h, pero sincronizado con las <em>estrellas</em>, no con el Sol: su segundo avanza ligeramente distinto al del reloj civil (el porqué se ve en el Módulo 2). Y es <strong>local</strong>: Santiago y Buenos Aires tienen LST distinto porque tienen distinta α sobre la cabeza; alrededor del planeta se reparten las 24 horas.</small>
+  </div>
+
+  <p>Para qué sirve: <strong>apuntar</strong>. Ejemplo de la clase: quieres la estrella con α = 8 h, δ = 0°. δ = 0 te dice que está sobre la línea del ecuador celeste (ese arco que va de este a oeste paseándose por el norte). Si el LST es ~7 h, la marca de α = 7 h está sobre tu cabeza, así que la de α = 8 h está una hora hacia el este: <strong>en una hora más culminará</strong>. Sabiendo la hora sideral puedes ubicar cualquier (α, δ); sin ella, no sabes «en qué fase» está la rotación de la cancha.</p>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>El mensaje de la clase: la esfera celeste se raya como la Tierra (<strong>δ ↔ latitud, α ↔ longitud</strong>), con el <strong>equinoccio vernal</strong> como Greenwich; tu horizonte corta ese rayado según tu <strong>latitud</strong>, y del cruce salen el movimiento diurno, las salidas y puestas, y el diseño de las monturas. <strong>Próximas clases:</strong> las consecuencias de la eclíptica (estaciones) con otro docente, y el cálculo del tiempo sideral en el Módulo 2. Después de esta sesión: observación práctica «en el edificio del frente».</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Esfera celeste</b></td><td>Esfera de radio «infinito» con las estrellas proyectadas</td><td>Reduce la posición a 2 ángulos (direcciones)</td></tr>
+      <tr><td><b>Declinación δ</b></td><td>Equivalente a latitud; −90° a +90°</td><td>Cero natural: el ecuador celeste</td></tr>
+      <tr><td><b>Ascensión recta α</b></td><td>Equivalente a longitud; 0–24 h (1 h = 15°)</td><td>Coordenada cíclica ligada al tiempo sideral</td></tr>
+      <tr><td><b>Ecuador celeste</b></td><td>Proyección del ecuador terrestre</td><td>Único círculo que sale justo al E y se pone justo al O</td></tr>
+      <tr><td><b>Eclíptica</b></td><td>Trayectoria anual del Sol; inclinada ~23,5°</td><td>Nace de la inclinación fija del eje terrestre</td></tr>
+      <tr><td><b>Nodos</b></td><td>2 intersecciones ecuador–eclíptica</td><td>Puntos donde el Sol cruza δ = 0</td></tr>
+      <tr><td><b>Equinoccio vernal ♈</b></td><td>Nodo ascendente (δ: − → +)</td><td>Origen de α: el «Greenwich del cielo»</td></tr>
+      <tr><td><b>Horizonte</b></td><td>Plano local extendido al infinito (se dibuja desde el centro)</td><td>Define qué parte del cielo ves</td></tr>
+      <tr><td><b>Cenit</b></td><td>Punto sobre tu cabeza (perpendicular al horizonte)</td><td>Culmina ahí solo una estrella con δ = φ</td></tr>
+      <tr><td><b>Polo celeste elevado</b></td><td>Altura sobre el horizonte = |φ|</td><td>En Chile: polo <em>sur</em>, hacia el sur</td></tr>
+      <tr><td><b>Movimiento diurno</b></td><td>Círculos a δ constante, 15°/h</td><td>Estrella del E se pasea por el N (en Chile) y se pone al O</td></tr>
+      <tr><td><b>Equinoccios / solsticios</b></td><td>δ<sub>☉</sub> = 0 / δ<sub>☉</sub> = ±23,5°</td><td>Dónde sale el Sol y qué tan alto culmina</td></tr>
+      <tr><td><b>Franja tropical</b></td><td>|φ| ≤ 23,5° (Capricornio–Cáncer)</td><td>Solo ahí el Sol pasa por el cenit (sin sombra)</td></tr>
+      <tr><td><b>Montura ecuatorial (EQ)</b></td><td>Eje alineado con la rotación terrestre</td><td>Seguimiento con 1 eje a velocidad constante; imagen fija</td></tr>
+      <tr><td><b>Montura altazimutal (AZ)</b></td><td>Ejes altitud + azimut</td><td>Estructura para toneladas; requiere cómputo y rotador</td></tr>
+      <tr><td><b>Rotación de campo</b></td><td>La imagen gira en una AZ</td><td>Rotador mecánico o alineado por software</td></tr>
+      <tr><td><b>Coord. eclípticas / galácticas</b></td><td>Rayados sobre otros planos</td><td>Asteroides ↔ eclíptica; Vía Láctea ↔ galáctico; cambiar = matriz de rotación</td></tr>
+      <tr><td><b>Constelaciones</b></td><td>Áreas oficiales con límites en (α, δ)</td><td>Nomenclatura: α Cen (más brillante), 51 Peg</td></tr>
+      <tr><td><b>Star trails</b></td><td>Arcos de 15°/h de exposición</td><td>Polaris marca el polo N; el polo S no tiene estrella brillante</td></tr>
+      <tr><td><b>Tiempo sideral local</b></td><td>α que cruza tu meridiano ahora</td><td>Con LST + (α, δ) puedes apuntar cualquier objeto</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c4-examen-01.html">Examen 01<small>Esfera celeste y rayado</small></a></li>
+    <li><a href="m1c4-examen-02.html">Examen 02<small>δ, α y las horas</small></a></li>
+    <li><a href="m1c4-examen-03.html">Examen 03<small>Eclíptica y equinoccio vernal</small></a></li>
+    <li><a href="m1c4-examen-04.html">Examen 04<small>Horizonte, cenit y latitud</small></a></li>
+    <li><a href="m1c4-examen-05.html">Examen 05<small>Movimiento diurno en Chile</small></a></li>
+    <li><a href="m1c4-examen-06.html">Examen 06<small>El Sol durante el año</small></a></li>
+    <li><a href="m1c4-examen-07.html">Examen 07<small>Monturas EQ vs AZ</small></a></li>
+    <li><a href="m1c4-examen-08.html">Examen 08<small>Seguimiento y rotación de campo</small></a></li>
+    <li><a href="m1c4-examen-09.html">Examen 09<small>Otros sistemas y constelaciones</small></a></li>
+    <li><a href="m1c4-examen-10.html">Examen 10<small>Star trails y tiempo sideral</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo I del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (2026). Elaborado a partir de la parte observacional (desde ~min 11) de la transcripción <code>observación/m1/ff/Planetas-y-observaci-n-m1c32-98c28258-a449.md</code>; los primeros minutos de esa grabación corresponden al curso de Planetas (mareas) y no se incluyen aquí. Las diapositivas de esta clase no están disponibles en el repositorio: los diagramas son esquemas propios que reconstruyen los dibujos descritos en el audio.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se corrigieron términos evidentes: «equinoccio Bernal» → <em>vernal</em>; «la crítica / eclipse» → <em>eclíptica</em>; «esfera cerebral / hora cerebral» → <em>celeste / sideral</em>; «montura acintal / alta simutal» → <em>altazimutal</em>; «el cepillo / el set / el CE» → <em>cenit</em>; «tiempo sila/CERA/serial local» → <em>tiempo sideral local</em>. La inclinación del eje terrestre se cita en el audio como «24 grados»: el valor es ~23,44°; el «46 grados» del audio corresponde al ancho total de la franja tropical (±23,5°), no a su límite. La inclinación del plano galáctico (~63°) y el desplazamiento del punto vernal por precesión son datos externos agregados como contexto; la fórmula explícita h<sub>max</sub> = 90° − |φ − δ| es una formalización propia de la geometría explicada en clase. Ante cualquier duda, primar las diapositivas oficiales y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: conversor AR horas <-> grados ----
+(function(){
+  var h=document.getElementById('ra-h'), g=document.getElementById('ra-g'), out=document.getElementById('ra-out');
+  function hms(hrs){
+    var H=Math.floor(hrs), rem=(hrs-H)*60, M=Math.floor(rem), S=Math.round((rem-M)*60);
+    if(S===60){S=0;M++;} if(M===60){M=0;H++;}
+    return H+"h "+String(M).padStart(2,"0")+"m "+String(S).padStart(2,"0")+"s";
+  }
+  function show(hrs){
+    var deg=hrs*15;
+    out.innerHTML="α = <b>"+hms(hrs)+"</b> = <b>"+deg.toFixed(3)+"°</b><br>"+
+      "<span style='color:var(--muted);font-size:.9rem'>Regla: 1 h = 15°. Este punto del cielo cruza tu meridiano cuando el tiempo sideral local marca "+hms(hrs)+". El objeto opuesto en el cielo tiene α = "+hms((hrs+12)%24)+".</span>";
+  }
+  function fromH(){
+    var hrs=parseFloat(h.value);
+    if(!(hrs>=0)||hrs>24){ out.innerHTML="Ingresa horas entre 0 y 24."; return; }
+    hrs=hrs%24; g.value=(hrs*15).toFixed(3); show(hrs);
+  }
+  function fromG(){
+    var deg=parseFloat(g.value);
+    if(!(deg>=0)||deg>360){ out.innerHTML="Ingresa grados entre 0 y 360."; return; }
+    deg=deg%360; var hrs=deg/15; h.value=hrs.toFixed(4); show(hrs);
+  }
+  h.addEventListener('input',fromH); g.addEventListener('input',fromG);
+  document.querySelectorAll('#ra-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ h.value=b.dataset.h; fromH(); });
+  });
+  fromH();
+})();
+
+// ---- Widget 2: altitud de culminacion segun latitud/declinacion ----
+(function(){
+  var lat=document.getElementById('culm-lat'), dec=document.getElementById('culm-dec'), out=document.getElementById('culm-out');
+  function calc(){
+    var phi=parseFloat(lat.value), del=parseFloat(dec.value);
+    if(isNaN(phi)||isNaN(del)||Math.abs(phi)>90||Math.abs(del)>90){ out.innerHTML="Ingresa ángulos entre −90° y +90°."; return; }
+    var hmax=90-Math.abs(phi-del);          // altitud de culminacion superior
+    var hmin=Math.abs(phi+del)-90;          // altitud de culminacion inferior
+    var html="";
+    if(hmax<0){
+      html="Altitud máxima = <b>"+hmax.toFixed(1)+"°</b> (bajo el horizonte)<br>"+
+        "<span style='color:var(--red-soft)'>La estrella <b>nunca sale</b> desde esta latitud.</span>";
+    } else {
+      var lado = del>phi ? "norte" : (del<phi ? "sur" : "cenit");
+      html="Culmina a <b>"+hmax.toFixed(1)+"°</b> de altitud"+(lado==="cenit"?" — <b>¡justo en el cenit!</b>":" hacia el <b>"+lado+"</b>")+".";
+      if(del===phi||Math.abs(del-phi)<0.05) html+=" (δ ≈ φ: pasa por el cenit — no proyecta sombra si es el Sol.)";
+      if(hmin>0){
+        html+="<br><span style='color:var(--cyan)'>Circumpolar: nunca se pone</span> (altitud mínima "+hmin.toFixed(1)+"°). Da vueltas en torno al polo "+(phi<0?"sur":"norte")+" celeste.";
+      } else {
+        html+="<br><span style='color:var(--muted);font-size:.9rem'>Sale por el lado este del horizonte"+(del!==0?" (corrida hacia el "+(del<0?"sur":"norte")+" según su δ)":" — con δ = 0 sale <b>justo</b> por el este y se pone justo por el oeste")+".</span>";
+      }
+    }
+    html+="<br><span style='color:var(--muted);font-size:.9rem'>Fórmulas: h<sub>max</sub> = 90° − |φ − δ| = "+hmax.toFixed(1)+"°; h<sub>min</sub> = |φ + δ| − 90° = "+hmin.toFixed(1)+"°. Polo celeste elevado a |φ| = "+Math.abs(phi).toFixed(1)+"°.</span>";
+    out.innerHTML=html;
+  }
+  lat.addEventListener('input',calc); dec.addEventListener('input',calc);
+  document.querySelectorAll('#culm-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ lat.value=b.dataset.lat; dec.value=b.dataset.dec; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

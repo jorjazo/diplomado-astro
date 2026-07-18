@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atmósferas y Líneas Espectrales — Instrumentación y Observación, Módulo I · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+.spec{margin:20px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#05070d}
+.spec .band{height:56px;background:linear-gradient(90deg,#7a00c2 0%,#3b0ee0 14%,#0653e0 28%,#00a8a0 42%,#19c93c 55%,#c9d919 68%,#e8961c 81%,#d92c14 100%);position:relative}
+.spec .band span{position:absolute;top:0;bottom:0;width:2.5px;background:#05070d}
+.spec .cap2{padding:11px 16px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);background:#0b1120}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Instrumentación y Observación · Módulo I · Clase 3</span>
+  <h1>Atmósferas y <em>líneas espectrales</em></h1>
+  <p class="sub">De la magnitud aparente a la absoluta, de SIMBAD a Aladin, y del arcoíris de Fraunhofer al átomo cuantizado: cómo los colores que <strong>faltan</strong> (o que sobran) en la luz de una estrella nos revelan su composición, su temperatura y sus condiciones físicas — y qué le hace nuestra propia atmósfera a esos fotones antes de llegar al telescopio.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Instrumentación y Métodos de Observación</span>
+    <span><b>Módulo:</b> I · Clase 3</span>
+    <span><b>Fecha:</b> 10 abr 2026</span>
+    <span><b>Tema:</b> Magnitudes, líneas espectrales y atmósfera</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">C</span>ada fotón que capturamos hizo un viaje: nació en una transición atómica muy específica, atravesó gases que le «mordieron» colores, cruzó nuestra atmósfera —que absorbe, desvía y emborrona— y terminó en un detector. Esta clase arma esa cadena completa. Primero cerramos el lenguaje de <span class="hl">magnitudes</span> (aparente, absoluta, y por qué seguimos usando una escala logarítmica del siglo XIX). Después, el corazón espectroscópico: por qué los átomos solo emiten y absorben <strong>colores discretos</strong>, cómo eso genera las <em>firmas espectrales</em> únicas de cada elemento, y cómo las leyes de Kirchhoff deciden si vemos emisión o absorción. Cerramos con la <strong>atmósfera terrestre</strong>: sus ventanas de transparencia, el <em>seeing</em> y el límite de difracción.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Flujo, luminosidad y magnitud absoluta</a></li>
+    <li><a href="#s2">¿Por qué magnitudes? La escala logarítmica</a></li>
+    <li><a href="#s3">SIMBAD y Aladin: las herramientas del oficio</a></li>
+    <li><a href="#s4">Cuerpo negro, color y el arcoíris</a></li>
+    <li><a href="#s5">Fraunhofer: los colores que le faltan al Sol</a></li>
+    <li><a href="#s6">El átomo y sus niveles cuantizados</a></li>
+    <li><a href="#s7">Emisión, absorción y las series del hidrógeno</a></li>
+    <li><a href="#s8">Kirchhoff: ¿quién gana, emisión o absorción?</a></li>
+    <li><a href="#s9">Moléculas: el «bosque» rotovibracional</a></li>
+    <li><a href="#s10">La atmósfera terrestre: ventanas y correcciones</a></li>
+    <li><a href="#s11">Seeing, resolución angular y difracción</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Flujo, luminosidad y magnitud absoluta</h2>
+    <p>El brillo que veo no es una propiedad de la estrella; hay que «descontar» la distancia.</p>
+  </div></div>
+
+  <p>Repaso de la clase anterior con una distinción crucial. La <span class="hl">luminosidad</span> <span class="katex-inline" data-tex="L"></span> es la cantidad total de energía que <em>sale</em> de la estrella por segundo: <strong>es una propiedad de la estrella</strong>, no importa dónde esté puesta. El <span class="hl">flujo</span> <span class="katex-inline" data-tex="F"></span> es la cantidad de luz que <em>yo recibo</em>: mezcla el brillo propio con la distancia. Dos estrellas con el mismo flujo pueden ser objetos totalmente distintos (una débil y cercana, otra potente y lejana). «Flujo igual» no dice nada de la estrella en sí.</p>
+
+  <p>En el mundo de las magnitudes existe el mismo par de conceptos:</p>
+  <ul>
+    <li><strong>Magnitud aparente</strong> <span class="katex-inline" data-tex="m"></span> ↔ flujo: cómo se ve la estrella <em>desde acá</em>.</li>
+    <li><strong>Magnitud absoluta</strong> <span class="katex-inline" data-tex="M"></span> ↔ luminosidad: la magnitud que tendría la estrella si la ponemos a <strong>10 parsecs</strong> de distancia. Al fijar la distancia para todas, los flujos resultantes sí se pueden comparar estrella contra estrella: es un flujo «normalizado».</li>
+  </ul>
+
+  <p>La fórmula que conecta ambas es el <span class="hl">módulo de distancia</span>: la matemática de la frase «pongo la estrella a 10 pc y comparo».</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m - M = 5\log_{10}(d) - 5, \qquad d\ \text{en parsecs}"></div>
+    <small><span class="katex-inline" data-tex="m-M"></span> se llama <em>módulo de distancia</em>. Lo que «molesta» entre flujo y luminosidad es la distancia, y esta fórmula la aísla: si conozco dos de las tres cantidades (<span class="katex-inline" data-tex="m"></span>, <span class="katex-inline" data-tex="M"></span>, <span class="katex-inline" data-tex="d"></span>), obtengo la tercera. Ojo con las unidades: <span class="katex-inline" data-tex="d"></span> <strong>debe</strong> ir en parsecs.</small>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Corrección de transcripción</span>
+    <p>El audio dice repetidamente «10 parse» / «10 parce»: es <strong>10 parsecs (pc)</strong>, la distancia convencional a la que se define la magnitud absoluta. 1 pc ≈ 3,26 años luz ≈ 3,086 × 10<sup>16</sup> m.</p>
+  </div>
+
+  <div class="widget" id="w-distmod">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Módulo de distancia: m, M ↔ d</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa la magnitud aparente y la absoluta; el widget despeja la distancia con <span class="katex-inline" data-tex="d = 10^{(m-M+5)/5}"></span> pc.</p>
+    <div class="presets" id="dm-presets">
+      <button data-m="-26.83" data-mm="4.83">Sol (visto desde la Tierra)</button>
+      <button data-m="-1.46" data-mm="1.43">Sirio</button>
+      <button data-m="-0.05" data-mm="-0.31">Arturo</button>
+      <button data-m="4.83" data-mm="4.83">Sol a 10 pc</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="dm-m">Magnitud aparente m</label><input type="number" id="dm-m" step="any" value="-1.46"></div>
+      <div><label for="dm-M">Magnitud absoluta M</label><input type="number" id="dm-M" step="any" value="1.43"></div>
+    </div>
+    <output id="dm-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Es el mismo problema que separar <strong>potencia transmitida</strong> de <strong>potencia recibida</strong> en un enlace de radio: el flujo cae como <span class="katex-inline" data-tex="1/d^2"></span> (link budget), y la magnitud absoluta es como referir todas las antenas a una misma distancia de prueba para comparar sus potencias reales. El módulo de distancia es, literalmente, el «path loss» escrito en decibeles astronómicos.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>¿Por qué magnitudes? La escala logarítmica</h2>
+    <p>Un rango de 10²² en flujo se vuelve manejable: de −26,5 a +30.</p>
+  </div></div>
+
+  <p>¿Por qué no usar directamente energía (flujo) y olvidarse de esta escala rara del siglo XIX? Partió por razones históricas, pero <strong>terminó siendo cómodo</strong>, por dos motivos:</p>
+
+  <ul>
+    <li><strong>El rango observado es gigantesco.</strong> El Sol tiene magnitud aparente <span class="hl">−26,5</span>; la estrella más débil visible a ojo desnudo, <span class="hl">+6</span>; y lo más débil alcanzado con grandes telescopios, alrededor de <span class="hl">+30</span>. Entre −26,5 y +30 la diferencia de <em>flujo</em> es de unas <strong>10²² veces</strong> — 22 ceros. Con magnitudes, ese abismo se comprime a números «humanos»: puedo decirle a un estudiante «el límite de esta observación es magnitud 14» sin manejar potencias de diez.</li>
+    <li><strong>Es adimensional.</strong> El flujo obliga a arrastrar unidades (W/m², erg/s/cm², jansky…); la magnitud es un número puro, definido por cocientes de flujos.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m_2 - m_1 = 2{,}5\,\log_{10}\!\left(\frac{F_1}{F_2}\right)"></div>
+    <small>La definición operativa: una diferencia de magnitudes es 2,5 veces el logaritmo del cociente de flujos. Nota el signo: <strong>mayor magnitud = más débil</strong>. 5 magnitudes = factor 100 en flujo exacto; 1 magnitud ≈ factor 2,512.</small>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Verificación numérica (inferencia propia)</span>
+    <p>Del Sol (−26,5) al límite telescópico (+30): <span class="katex-inline" data-tex="\Delta m = 56{,}5"></span> magnitudes ⇒ <span class="katex-inline" data-tex="F_\odot/F_{\lim} = 10^{56{,}5/2{,}5} \approx 10^{22{,}6}"></span>. Cuadra con el «10 a la 22» de la clase. Una aclaración que surgió en la misma clase: el 10²² es la razón de <em>flujos</em>; la diferencia de <em>magnitudes</em> son los ~56,5 puntos de la escala.</p>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Instrumento</th><th>Magnitud límite (aprox.)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ojo humano</b></td><td>0 a +6 (cielo oscuro)</td></tr>
+      <tr><td><b>Telescopio pequeño de tienda</b></td><td>~ +10</td></tr>
+      <tr><td><b>Grandes telescopios profesionales</b></td><td>~ +30</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="widget" id="w-magflux">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Magnitudes ↔ razón de flujos</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa dos magnitudes y obtén cuántas veces más flujo llega del objeto más brillante: <span class="katex-inline" data-tex="F_1/F_2 = 10^{(m_2-m_1)/2{,}5}"></span>.</p>
+    <div class="presets" id="mf-presets">
+      <button data-m1="-26.5" data-m2="6">Sol vs. límite del ojo</button>
+      <button data-m1="-26.5" data-m2="30">Sol vs. límite telescópico</button>
+      <button data-m1="-12.7" data-m2="-1.46">Luna llena vs. Sirio</button>
+      <button data-m1="1" data-m2="6">Δm = 5 (factor 100)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="mf-m1">Magnitud m₁ (objeto brillante)</label><input type="number" id="mf-m1" step="any" value="-26.5"></div>
+      <div><label for="mf-m2">Magnitud m₂ (objeto débil)</label><input type="number" id="mf-m2" step="any" value="6"></div>
+    </div>
+    <output id="mf-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Las magnitudes son <strong>decibeles astronómicos</strong>: dB = 10 log₁₀(P₁/P₂), magnitud = 2,5 log₁₀(F₁/F₂) con signo invertido. La razón de existir es idéntica: rangos dinámicos enormes (audio, RF, flujo estelar) se comprimen a escalas aditivas donde multiplicar se convierte en sumar. 1 mag = 4 dB exactos.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>SIMBAD y Aladin: las herramientas del oficio</h2>
+    <p>La «base de datos madre» de objetos astronómicos y su Google Maps del cielo.</p>
+  </div></div>
+
+  <p><span class="hl">SIMBAD</span> (del CDS, Estrasburgo) es la base de datos que usan los astrónomos profesionales: una <strong>compilación de catálogos</strong> conectados entre sí. Le preguntas por una estrella —por ejemplo <em>Arturo</em>— y devuelve su posición precisa, sus magnitudes observadas en distintas bandas, y todos sus «apodos»: una estrella brillante puede tener 40 designaciones porque aparece en 40 catálogos distintos (HD, HIP, LHS, GJ…). SIMBAD unifica todos esos alias, reporta los errores de las mediciones, y enlaza además las <strong>publicaciones científicas</strong> que mencionan cada objeto.</p>
+
+  <p><span class="hl">Aladin</span> es su pariente visual: «el Google Maps de las estrellas», pero en su capa de <em>imagen satelital</em>. A diferencia de apps tipo SkyMap (que dibujan el cielo como un mapa de calles), Aladin está construido con <strong>imágenes reales tomadas por telescopios</strong>, cosidas unas con otras: haces zoom y ves el cielo tal como lo registró algún instrumento. SIMBAD y Aladin están interconectados: buscas el objeto en uno y lo inspeccionas en el otro.</p>
+
+  <div class="box prof">
+    <span class="tag">Tip del profesor</span>
+    <p>Si googleas «SIMBAD» a secas llegarás a personajes de Disney; agrega la palabra <em>astro</em> («SIMBAD astro») y llegas directo a la base de datos. El audio la transcribe como «sin bat» — es <strong>SIMBAD</strong>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>SIMBAD es un problema clásico de <strong>resolución de entidades</strong> (record linkage): la misma entidad física con 40 claves primarias distintas en 40 bases de datos, unificadas con identificadores cruzados y trazabilidad de errores. Aladin, por su parte, es un servidor de <em>tiles</em> jerárquicos (HiPS) — la misma arquitectura que los mapas web.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cuerpo negro, color y el arcoíris</h2>
+    <p>«Rojo» casi nunca significa una sola longitud de onda… salvo excepciones.</p>
+  </div></div>
+
+  <p>Retomando la clase pasada: el <span class="hl">cuerpo negro</span> emite un continuo con un máximo que depende de la temperatura, y dentro de todo el rango de longitudes de onda hay una franja angosta que es la parte <strong>visible</strong>. Cuando decimos que algo «se ve rojo» <em>no</em> significa que solo lleguen fotones rojos: significa que <strong>llega más rojo que azul</strong>. El color percibido es el balance de una mezcla, no una longitud de onda única.</p>
+
+  <h3>Las excepciones: arcoíris y láser</h3>
+  <p>¿Dónde sí un color corresponde a una longitud de onda casi pura? En el <span class="hl">arcoíris</span> y en el <span class="hl">láser</span>. El arcoíris funciona así: la luz del Sol entra a una gota de agua, <strong>rebota en la pared trasera de la gota</strong> y vuelve hacia nosotros. En ese camino (entrada y salida de la gota) el desvío <strong>depende de la longitud de onda</strong> — es la <em>dispersión</em> por refracción. Cada color sale de la gota en un ángulo levemente distinto; por eso, parado en un punto, del conjunto de gotas a cierta altura recibes solo el rojo, y de las gotas de otra altura solo el azul. Cada franja del arcoíris <strong>sí</strong> es luz de longitud de onda específica.</p>
+
+  <ul>
+    <li>Receta del arcoíris: el <strong>Sol a tu espalda</strong> + <strong>gotas de agua</strong> delante. La luz rebota en las gotas y se descompone en ángulos por color.</li>
+    <li>El láser es monocromático por construcción del fenómeno físico (emisión estimulada); todo lo demás que vemos es mezcla.</li>
+  </ul>
+
+  <div class="spec">
+    <div class="band" aria-hidden="true"></div>
+    <div class="cap2"><strong>El continuo visible</strong> (~380–750 nm): el arcoíris es este continuo desplegado en ángulo por las gotas. Fraunhofer descubrió que, mirándolo con aumento, al espectro del Sol le <em>faltan</em> franjas angostas (compara con la figura de la sección 5).</div>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Precisión física (inferencia propia)</span>
+    <p>El audio dice que «la reflexión depende de la longitud de onda». Siendo estrictos, lo que separa los colores es la <strong>refracción</strong> al entrar y salir de la gota (el índice de refracción del agua varía con λ — dispersión); la reflexión interna en la pared trasera solo devuelve la luz. El resultado descrito en clase es correcto: ángulos de salida distintos por color.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Fraunhofer: los colores que le faltan al Sol</h2>
+    <p>Una pieza oscura, una rendija, un prisma y un microscopio: nace la espectroscopía.</p>
+  </div></div>
+
+  <p>A comienzos del s. XIX, <span class="hl">Joseph von Fraunhofer</span> montó el experimento fundacional: una pieza muy oscura con una <strong>rendija</strong> pequeña por donde entraba la luz del Sol, un <strong>prisma</strong> como dispersor, y el arcoíris resultante proyectado en la pared. Su golpe de genio fue mirar ese arcoíris <strong>con un microscopio</strong>: descubrió que <em>faltaban colores</em>. El espectro solar no era continuo perfecto; tenía franjas oscuras angostas — falta de fotones en colores muy particulares. Imagina la sorpresa: «¿cómo el Sol no va a tener este verde?». Primero sospechó del prisma; las líneas eran reales.</p>
+
+  <p>Hoy sabemos que esas <span class="hl">líneas de Fraunhofer</span> son producidas por una cadena de eventos que empieza en el <strong>átomo</strong> — el tema central de esta clase.</p>
+
+  <h3>El desenlace: la biblioteca de firmas y el helio</h3>
+  <p>Décadas después, los químicos armaron una <strong>biblioteca de firmas</strong>: purificaban un gas (hidrógeno, carbono…), lo miraban con un espectrógrafo y anotaban qué colores emitía o le faltaban. Luego, durante un eclipse, los astrónomos midieron líneas en el Sol que <strong>no coincidían con ningún elemento</strong> de las tablas de los químicos: había un elemento nuevo en el Sol, y lo bautizaron <span class="hl">helio</span> (de <em>Helios</em>, el Sol). Recién después se encontró en la Tierra: es escaso aquí porque es un gas noble que <strong>no forma compuestos</strong> (el hidrógeno se queda atrapado en moléculas CH, NH…; el helio queda solo) y, al ser tan liviano, una vez que escapa de las rocas se pierde al espacio.</p>
+
+  <div class="box physics">
+    <span class="tag">La lección metodológica</span>
+    <p>Es un patrón de laboratorio → observación: primero calibras las firmas con muestras controladas (gases puros), luego identificas «a distancia» por comparación de patrones. Es exactamente <em>fingerprinting</em>: la posición de las líneas identifica al elemento con certeza, sin necesidad de traer una muestra del Sol.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>El átomo y sus niveles cuantizados</h2>
+    <p>Un arándano en un estadio, un «blob» de probabilidad, y energías que van a saltos.</p>
+  </div></div>
+
+  <p><em>Átomo</em> viene del griego: «no divisible» — el concepto filosófico de romper la materia hasta llegar a algo irrompible. No se pudo «ver» hasta el siglo XX. Escalas: el átomo mide ~<span class="katex-inline" data-tex="10^{-10}"></span> m, pero su núcleo mide ~<span class="katex-inline" data-tex="10^{-15}"></span> m. La proporción es la de <strong>un arándano en un estadio</strong>: el núcleo es el arándano, los electrones «dan vueltas» por las graderías, y todo lo demás es vacío.</p>
+
+  <p>Y ese «dan vueltas» hay que corregirlo con mecánica cuántica: los electrones no orbitan como planetas; son un <span class="hl">blob de probabilidad</span> — una distribución que dice dónde es más probable encontrarlos. Dos consecuencias clave:</p>
+
+  <ul>
+    <li><strong>Niveles de energía cuantizados:</strong> un átomo puede tener este nivel de energía o este otro, <em>pero no valores intermedios</em>. Eso significa «cuantizado». A mayor energía, el blob de probabilidad se extiende más lejos del núcleo.</li>
+    <li><strong>Formas de orbitales:</strong> las configuraciones no son todas esféricas. Los <em>orbitales químicos</em> (s, p, d, f) son las zonas de mayor probabilidad del blob: s es esférico, p tiene lóbulos, d y f formas más complejas. En un diagrama de niveles, esas letras etiquetan las columnas; lo físicamente importante es <strong>el eje vertical: la energía</strong>.</li>
+  </ul>
+
+  <h3>Cada átomo, una huella digital</h3>
+  <p>La estructura de niveles depende de cuántas cargas interactúan y cómo: un protón con un electrón (hidrógeno) es un problema simple; dos protones y dos electrones (helio) ya agregan repulsión electrón–electrón; con 20 o 30 electrones las configuraciones se vuelven únicas. Resultado: <strong>los niveles de energía permitidos son distintos para cada elemento — e incluso para cada ion del mismo elemento</strong>. Esa es la <span class="hl">firma espectral</span>: la huella digital de cada especie química.</p>
+
+  <div class="box physics">
+    <span class="tag">El hidrógeno es el «bonito»</span>
+    <p>Con un solo protón y un solo electrón, el hidrógeno tiene orbitales esféricos y niveles ordenados que se grafican fácil: el nivel fundamental cerca del «núcleo» del diagrama y los siguientes cada vez más juntos. Todos los demás átomos tienen estructuras de niveles «desordenadas». Por eso el hidrógeno es el ejemplo canónico — y por suerte es el elemento más abundante del universo.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Un átomo es un sistema con <strong>estados discretos permitidos</strong>, como una máquina de estados o los modos propios de una estructura: una viga vibra en sus frecuencias naturales y no en las intermedias. La cuantización de niveles es el análogo de los autovalores de un sistema resonante — y el espectro de líneas es, literalmente, su «respuesta en frecuencia» característica.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Emisión, absorción y las series del hidrógeno</h2>
+    <p>Bajar de nivel emite un fotón; subir exige comerse uno del color exacto.</p>
+  </div></div>
+
+  <h3>Emisión: deshacerse de energía</h3>
+  <p>Un átomo excitado (en un nivel alto) puede <strong>espontáneamente</strong> caer a un nivel más bajo, y el exceso de energía <span class="katex-inline" data-tex="\Delta E"></span> sale convertido en <strong>un fotón</strong> — uno solo por transición, nunca dos (la misma lógica «1 a 1» del efecto fotoeléctrico). Lo inverso no ocurre espontáneamente: nadie sube de nivel gratis, porque eso requeriría ganar energía de la nada.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\Delta E = E_{\text{alto}} - E_{\text{bajo}} = h\nu = \frac{hc}{\lambda}"></div>
+    <small>Como los niveles son discretos, los <span class="katex-inline" data-tex="\Delta E"></span> posibles son discretos ⇒ los fotones emitibles tienen <strong>solo ciertas longitudes de onda</strong> y no otras. Ese es el origen de las líneas.</small>
+  </div>
+
+  <h3>Absorción: comerse el fotón justo</h3>
+  <p>Para subir de nivel, el átomo debe <strong>absorber un fotón con exactamente</strong> la energía del salto. Dos requisitos: (1) que exista un par de niveles cuya diferencia coincida con la energía del fotón (eso depende del elemento), y (2) que el átomo <strong>esté inicialmente en el nivel de partida</strong> correcto. Si el átomo estaba en otro nivel, ese fotón pasa de largo. En qué nivel están los átomos depende de los choques y la distribución de energía del gas: es un <strong>termómetro</strong> — la población de niveles refleja la temperatura y condiciones del gas completo (un átomo individual está en <em>un</em> nivel; el gas, con millones de átomos, se reparte entre niveles).</p>
+
+  <h3>Las series del hidrógeno</h3>
+  <p>En el hidrógeno los saltos se agrupan por su nivel de llegada, y quedan «ordenaditos»:</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Serie</th><th>Nivel de llegada</th><th>Longitudes de onda</th><th>Rango</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lyman</b></td><td>n = 1 (fundamental)</td><td>121,6 / 102,6 / 97,3 / 95,0 / 93,8 nm… (≈ alrededor de 100 nm)</td><td>Ultravioleta</td></tr>
+      <tr><td><b>Balmer</b></td><td>n = 2</td><td>656,3 (Hα) / 486,1 (Hβ) / 434,0 (Hγ) / 410,2 nm… límite 364,6 nm</td><td><strong>Visible</strong></td></tr>
+      <tr><td><b>Paschen</b></td><td>n = 3</td><td>1875 / 1282 / 1094 nm…</td><td>Infrarrojo</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Por eso el ojo humano ve los saltos del hidrógeno <strong>que caen al segundo nivel</strong> (Balmer): los que caen al fundamental son demasiado energéticos (UV, serie de Lyman) y los que caen al tercero quedan en el infrarrojo (Paschen). Todas las longitudes de onda salen de una sola fórmula:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{1}{\lambda} = R_{\mathrm H}\left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right), \qquad R_{\mathrm H} \approx 1{,}097\times10^{7}\ \mathrm{m^{-1}}"></div>
+    <small>Fórmula de Rydberg: <span class="katex-inline" data-tex="n_1"></span> es el nivel de llegada (1 = Lyman, 2 = Balmer, 3 = Paschen) y <span class="katex-inline" data-tex="n_2 > n_1"></span> el de partida. <em>Nota de contraste:</em> el audio ubica Balmer «entre 300 y 600 nm»; los valores precisos van de 364,6 nm (límite de la serie) a 656,3 nm (Hα).</small>
+  </div>
+
+  <div class="widget" id="w-balmer">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora de series del hidrógeno (Rydberg)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige la serie (nivel de llegada n₁) y el nivel de partida n₂; obtén λ y en qué banda cae.</p>
+    <div class="presets" id="ba-presets">
+      <button data-n1="2" data-n2="3">Hα (3→2)</button>
+      <button data-n1="2" data-n2="4">Hβ (4→2)</button>
+      <button data-n1="1" data-n2="2">Lyman α (2→1)</button>
+      <button data-n1="3" data-n2="4">Paschen α (4→3)</button>
+      <button data-n1="2" data-n2="20">Límite Balmer (20→2)</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="ba-n1">Nivel de llegada n₁ (serie)</label>
+        <select id="ba-n1">
+          <option value="1">1 — Lyman (UV)</option>
+          <option value="2" selected>2 — Balmer (visible)</option>
+          <option value="3">3 — Paschen (IR)</option>
+        </select>
+      </div>
+      <div><label for="ba-n2">Nivel de partida n₂ (&gt; n₁)</label><input type="number" id="ba-n2" min="2" max="50" step="1" value="3"></div>
+    </div>
+    <output id="ba-out"></output>
+  </div>
+
+  <p>Así se identifica composición: si un gas emite líneas justo en las posiciones del hidrógeno, es hidrógeno; si emite en otro patrón, es otro elemento. Y la identificación funciona igual «al revés», por <strong>lo que falta</strong>: absorción de colores específicos — que es como empezó la historia con Fraunhofer.</p>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Kirchhoff: ¿quién gana, emisión o absorción?</h2>
+    <p>Frío delante de caliente = absorción; caliente delante de frío (o de nada) = emisión.</p>
+  </div></div>
+
+  <p>Si en un gas algunos átomos emiten y otros absorben, ¿qué vemos al final? Hay fórmulas detrás (transporte radiativo), pero su resumen es geométrico y térmico:</p>
+
+  <ul>
+    <li><strong>Gas frío delante de una fuente caliente</strong> → vemos <span class="hl">líneas de absorción</span> (los átomos fríos se «comen» fotones del continuo brillante de atrás).</li>
+    <li><strong>Gas caliente delante de una fuente fría — o delante de nada</strong> → vemos <span class="hl">líneas de emisión</span> (los fotones del gas destacan sobre un fondo débil).</li>
+    <li><strong>Cuerpo caliente denso/opaco en equilibrio</strong> (absorbe todo lo que le llega) → <span class="hl">continuo de cuerpo negro</span>, sin líneas.</li>
+  </ul>
+
+  <p>Estas son las <span class="hl">leyes espectrales de Kirchhoff</span>. La intuición: el lado más caliente emite más fotones; «gana» el que tiene más flujo en esa longitud de onda. Un detalle unificador: si es <strong>el mismo gas</strong>, sus líneas caen <strong>en las mismas posiciones</strong> tanto en emisión como en absorción — subir y bajar usa los mismos niveles. Un gas puro de mercurio delante de una fuente caliente da absorción; el mismo gas visto contra el vacío da emisión, en idénticas longitudes de onda.</p>
+
+  <h3>El Sol y los espectros «mixtos»</h3>
+  <p>El Sol es el ejemplo de manual: su interior es muy caliente y hacia afuera se enfría ⇒ vemos el continuo del interior con <strong>absorciones</strong> de las capas externas más frías — las líneas de Fraunhofer. Pero hay espectros con emisión <em>y</em> absorción a la vez: por ejemplo, <strong>helio neutro (He I) en absorción y helio ionizado (He II) en emisión</strong> en el mismo objeto. El modelo simple: una fuente central muy caliente, una capa intermedia más fría con muchos elementos (produce las absorciones), y una zona externa caliente dominada por helio ionizado (produce las emisiones). La <em>forma</em> de una línea, además, cambia con el tiempo aunque el elemento sea el mismo: líneas más anchas o delgadas en distintas fechas delatan cambios de temperatura, presión y movimiento — así se «construyen historias» del objeto.</p>
+
+  <div class="box dato">
+    <span class="tag">Corrección importante de transcripción</span>
+    <p>En el audio, la notación «C III», «N II», etc. se asocia a «isótopos». Lo correcto: el numeral romano indica el <strong>estado de ionización</strong> — I = neutro, II = ionizado una vez (perdió 1 electrón), III = ionizado dos veces. Así, He I es helio neutro y He II es helio ionizado, exactamente como el propio profesor los usa después. Los isótopos (mismo elemento, distinto número de neutrones) se notan distinto (p. ej. ¹³C) y no cambian apreciablemente las líneas ópticas.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Emisión vs. absorción es un problema de <strong>relación señal/fondo</strong>: la misma «señal» (la transición atómica) aparece como pico o como valle según si el fondo (el continuo detrás) es más débil o más fuerte que la fuente. Igual que un tono en un espectro de RF: sobresale sobre el piso de ruido, o aparece como un notch si algo lo filtra en el camino.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Moléculas: el «bosque» rotovibracional</h2>
+    <p>Los átomos hacen líneas; las moléculas hacen mordiscos anchos de mil líneas juntas.</p>
+  </div></div>
+
+  <p>Hasta aquí, todo fueron <strong>transiciones electrónicas</strong> (el electrón sube o baja de nivel). Las <strong>moléculas</strong> agregan otro repertorio: pueden <em>vibrar</em> (sus enlaces se estiran y flectan como palitos unidos) y <em>rotar</em> — y esas vibraciones y rotaciones también están <strong>cuantizadas</strong>: la molécula puede vibrar así o asá, pero no entre medio. Son las <span class="hl">transiciones rotovibracionales</span>.</p>
+
+  <p>La diferencia práctica con las electrónicas: hay <strong>muchísimas más opciones</strong> de saltos, con energías muy parecidas entre sí. En un rango pequeño de longitud de onda donde un átomo tendría una línea, una molécula tiene decenas, tan pegadas que se sobreponen: un <span class="hl">bosque de líneas</span>. En el espectro no se ven líneas individuales sino <strong>«mordiscos»</strong> anchos — bandas de absorción. Cada banda delata una molécula: metano, etano, agua… En general estas bandas aparecen <strong>del infrarrojo hacia longitudes de onda más largas</strong> (hay algo en el visible, pero poco).</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Firma espectral</th><th>Quién la produce</th><th>Aspecto</th></tr></thead>
+    <tbody>
+      <tr><td><b>Líneas discretas</b></td><td>Átomos e iones (transiciones electrónicas)</td><td>Rayas angostas en posiciones exactas</td></tr>
+      <tr><td><b>Bandas / «mordiscos»</b></td><td>Moléculas (transiciones rotovibracionales)</td><td>Muchas líneas juntas que se sobreponen; típicas del IR</td></tr>
+      <tr><td><b>Continuo</b></td><td>Cuerpo negro (materia densa en equilibrio)</td><td>Curva suave con máximo según temperatura</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Es la diferencia entre un tono puro y una banda de ruido coloreado: las líneas atómicas son «deltas» espectrales; las bandas moleculares son la envolvente de miles de componentes no resueltas. Si tu espectrógrafo no tiene resolución para separarlas, mides solo la envolvente — puro teorema del muestreo aplicado al eje de longitudes de onda.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>La atmósfera terrestre: ventanas y correcciones</h2>
+    <p>Todo lo anterior aplicado al gas que tenemos encima: por qué Chile, y cómo descontarla.</p>
+  </div></div>
+
+  <p>El fotón viajó por el universo y, justo antes del telescopio, cruzó la <strong>atmósfera terrestre</strong> — que es un gas con moléculas, es decir, con bandas de absorción. La curva de absorción atmosférica en función de la longitud de onda muestra:</p>
+
+  <ul>
+    <li><strong>Visible:</strong> absorbe poquísimo — una <em>ventana</em> de transparencia (por eso la evolución nos dio ojos justo ahí).</li>
+    <li><strong>Ultravioleta:</strong> absorción ~100%, gracias sobre todo al <span class="hl">ozono</span>, que se come los fotones más energéticos (por suerte para la vida).</li>
+    <li><strong>Infrarrojo:</strong> un sube-y-baja de bandas: ventanas transparentes intercaladas con zonas opacas. El principal culpable de esos «mordiscos» rotovibracionales es el <span class="hl">vapor de agua (H₂O)</span> — «la molécula más molestosa para los astrónomos» — con contribución de CO₂ y otros.</li>
+  </ul>
+
+  <div class="box prof">
+    <span class="tag">Por qué el norte de Chile</span>
+    <p>Los telescopios se instalan en el desierto de Atacama porque es el <strong>desierto más seco del mundo</strong>: menos vapor de agua ⇒ menos bandas de absorción en el IR ⇒ más ventanas utilizables. Y el mismo razonamiento aplica a las telecomunicaciones: una señal de celular debe usar frecuencias donde la atmósfera es transparente; en una banda opaca sería como vivir en neblina permanente — a poca distancia el fotón ya fue absorbido. Un «extraterrestre» cuyos ojos vieran en una banda opaca percibiría la Tierra como un planeta neblinado.</p>
+  </div>
+
+  <h3>Cómo descontar la atmósfera</h3>
+  <p>A los astrónomos les interesa lo que había <em>antes</em> de la atmósfera. Técnicas:</p>
+  <ul>
+    <li><strong>Seguir la estrella a distintas alturas:</strong> cerca del cenit la luz cruza menos atmósfera; cerca del horizonte, más. Midiendo cómo cambia la absorción con esa «cantidad de atmósfera» atravesada (la <em>masa de aire</em>), se extrapola cómo se vería sin atmósfera. Regla práctica: observar lo más alto posible.</li>
+    <li><strong>Modelar y simular:</strong> en los últimos 10–20 años, conociendo la composición y las capas, se simula computacionalmente el paso del fotón por la atmósfera y se «devuelve» digitalmente lo que la atmósfera robó. Antes solo existían técnicas empíricas.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Descontar la atmósfera es <strong>identificación y deconvolución de un canal</strong>: la atmósfera es una función de transferencia H(λ) que atenúa por bandas; se caracteriza variando el largo del camino (masa de aire ≈ barrido del parámetro) o se modela desde la física (simulación del canal), y luego se invierte. El mismo flujo de trabajo que ecualizar un canal de comunicaciones.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Seeing, resolución angular y difracción</h2>
+    <p>La atmósfera no solo roba fotones: también los desvía y «engorda» las estrellas.</p>
+  </div></div>
+
+  <h3>Seeing</h3>
+  <p>La atmósfera además <strong>desvía</strong> fotones: el que venía directo choca con las capas turbulentas y llega con un pequeño ángulo aleatorio. El resultado es que la imagen puntual de una estrella se <strong>ensancha</strong>: eso es el <span class="hl">seeing</span>. Valores típicos: <strong>0,4–2 segundos de arco</strong> en buenos sitios astronómicos (en Chile, generalmente 0,4–1″); en Santiago, más bien 5–10″ — mala calidad de imagen.</p>
+
+  <h3>Resolución angular y FWHM</h3>
+  <p>Para formalizar el «ancho» de una estrella: su perfil de brillo tiene un máximo y decae hacia los lados. ¿Dónde medir el ancho, si depende de la altura a la que corte? Convención: el <span class="hl">FWHM</span> (<em>Full Width at Half Maximum</em>) — el ancho completo medido a la <strong>mitad del máximo</strong>. La <span class="hl">resolución angular</span> es equivalente a dos ideas: el ancho con que veo una fuente puntual, o mi capacidad de <strong>separar dos fuentes</strong> cercanas (como los dos focos de un auto de noche en la carretera, que de lejos parecen una sola luz y al acercarse se separan). En una fuente extendida (una galaxia), peor resolución no cambia su tamaño: la ve <strong>más borrosa</strong>, porque cada puntito se reparte en más píxeles.</p>
+
+  <h3>El límite de difracción</h3>
+  <p>¿Y sin atmósfera (telescopio espacial)? La estrella tampoco sería infinitamente delgada. Su tamaño geométrico real es despreciable (el Sol puesto a la distancia de la estrella más cercana subtiende un ángulo ínfimo), pero existe la <span class="hl">difracción</span>: el borde de la apertura del telescopio genera ondas que interfieren constructiva y destructivamente, produciendo un disco central rodeado de anillos (patrón de Airy — visible en las estrellas de las fotos de telescopios espaciales). El ancho del disco central es:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\theta \approx 1{,}22\,\frac{\lambda}{D}"></div>
+    <small><span class="katex-inline" data-tex="\theta"></span> en radianes, <span class="katex-inline" data-tex="\lambda"></span> longitud de onda, <span class="katex-inline" data-tex="D"></span> diámetro del telescopio. Telescopio más grande ⇒ <span class="katex-inline" data-tex="\theta"></span> más pequeño ⇒ mejor resolución. Y como depende de λ, cada color tiene ancho distinto (el rojo se ve más «gordo» que el azul); en radio, con λ enormes, se necesitan antenas gigantes. El audio dice «1.2»; el coeficiente estándar es <strong>1,22</strong>.</small>
+  </div>
+
+  <div class="widget" id="w-difraccion">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Límite de difracción: θ = 1,22 λ/D</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Compara el límite teórico de tu telescopio con el seeing (0,4–2″). Si θ ≪ seeing, manda la atmósfera.</p>
+    <div class="presets" id="di-presets">
+      <button data-lam="550" data-d="0.006">Ojo humano (6 mm)</button>
+      <button data-lam="550" data-d="0.2">Telescopio aficionado (20 cm)</button>
+      <button data-lam="550" data-d="8">VLT (8 m, visible)</button>
+      <button data-lam="1000000" data-d="12">Antena de radio 12 m @ 1 mm</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="di-lam">Longitud de onda λ (nm)</label><input type="number" id="di-lam" step="any" value="550"></div>
+      <div><label for="di-d">Diámetro del telescopio D (m)</label><input type="number" id="di-d" step="any" value="8"></div>
+    </div>
+    <output id="di-out"></output>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Cierre y lo que viene</span>
+    <p>Mensaje central: <strong>el espectro es la herramienta más informativa de la astronomía</strong> — posición de líneas = composición; forma e intensidad = temperatura, presión, historia; emisión vs. absorción = geometría térmica de la fuente. Y entre el objeto y nosotros siempre está la atmósfera, que hay que entender para descontarla. Queda pendiente para más adelante: <em>cómo</em> un espectrógrafo convierte la luz en números (amplitud vs. longitud de onda).</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Luminosidad vs. flujo</b></td><td>Energía emitida vs. energía recibida</td><td>La luminosidad es propiedad de la estrella; el flujo mezcla brillo y distancia</td></tr>
+      <tr><td><b>Magnitud absoluta M</b></td><td>Magnitud a 10 pc de distancia</td><td>Flujo «normalizado»: permite comparar estrellas entre sí</td></tr>
+      <tr><td><b>Módulo de distancia</b></td><td><span class="katex-inline" data-tex="m-M=5\log_{10}d-5"></span> (d en pc)</td><td>Conecta magnitudes con distancia; base de la escalera de distancias</td></tr>
+      <tr><td><b>Escala de magnitudes</b></td><td><span class="katex-inline" data-tex="m_2-m_1=2{,}5\log(F_1/F_2)"></span>; adimensional</td><td>Comprime un rango de 10²² en flujo (Sol −26,5 → límite +30)</td></tr>
+      <tr><td><b>SIMBAD / Aladin</b></td><td>Base de datos de objetos / atlas de imágenes reales</td><td>Herramientas estándar del astrónomo: alias, magnitudes, publicaciones</td></tr>
+      <tr><td><b>Color de un objeto</b></td><td>Balance de la mezcla (más rojo que azul)</td><td>No es λ única — salvo arcoíris (dispersión) y láser</td></tr>
+      <tr><td><b>Líneas de Fraunhofer</b></td><td>Colores que le faltan al espectro solar</td><td>Primer indicio de absorción atómica; nacimiento de la espectroscopía</td></tr>
+      <tr><td><b>Niveles cuantizados</b></td><td>Energías discretas, únicas por elemento e ion</td><td>La «huella digital» espectral de cada especie química</td></tr>
+      <tr><td><b>Emisión / absorción</b></td><td>Bajar de nivel emite un fotón; subir absorbe uno exacto</td><td><span class="katex-inline" data-tex="\Delta E = hc/\lambda"></span>: líneas en posiciones fijas por elemento</td></tr>
+      <tr><td><b>Series del hidrógeno</b></td><td>Lyman (UV, ~100 nm), Balmer (visible, 365–656 nm), Paschen (IR)</td><td>El ojo ve solo los saltos que caen en n = 2 (Balmer)</td></tr>
+      <tr><td><b>Leyes de Kirchhoff</b></td><td>Frío ante caliente = absorción; caliente ante frío/nada = emisión</td><td>Explica el Sol (absorción) y espectros mixtos (He I abs + He II em)</td></tr>
+      <tr><td><b>Numeral romano (He II)</b></td><td>Estado de ionización: I neutro, II ionizado 1 vez</td><td>Distingue especies con firmas distintas del mismo elemento</td></tr>
+      <tr><td><b>Bandas rotovibracionales</b></td><td>Vibraciones/rotaciones moleculares cuantizadas</td><td>«Bosques» de líneas ⇒ mordiscos anchos, típicos del IR (H₂O, CH₄…)</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>Visible transparente; UV bloqueado (ozono); IR a bandas (H₂O)</td><td>Deciden qué se observa desde tierra y dónde (Atacama: seco)</td></tr>
+      <tr><td><b>Masa de aire</b></td><td>Cantidad de atmósfera atravesada según altura</td><td>Variarla permite extrapolar y descontar la absorción atmosférica</td></tr>
+      <tr><td><b>Seeing</b></td><td>0,4–2″ en buenos sitios; 5–10″ en Santiago</td><td>Ensanchamiento de las fuentes por turbulencia atmosférica</td></tr>
+      <tr><td><b>FWHM</b></td><td>Ancho completo a mitad del máximo</td><td>Medida estándar del ancho de una fuente / resolución</td></tr>
+      <tr><td><b>Límite de difracción</b></td><td><span class="katex-inline" data-tex="\theta\approx1{,}22\,\lambda/D"></span></td><td>Resolución máxima sin atmósfera; mayor D ⇒ imagen más nítida</td></tr>
+      <tr><td><b>Descubrimiento del helio</b></td><td>Líneas solares sin match en tablas químicas</td><td>Primer elemento descubierto fuera de la Tierra (de <em>Helios</em>)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c3-examen-01.html">Examen 01<small>Flujo, luminosidad y magnitudes</small></a></li>
+    <li><a href="m1c3-examen-02.html">Examen 02<small>Módulo de distancia y escala log</small></a></li>
+    <li><a href="m1c3-examen-03.html">Examen 03<small>SIMBAD y Aladin</small></a></li>
+    <li><a href="m1c3-examen-04.html">Examen 04<small>Color, cuerpo negro y arcoíris</small></a></li>
+    <li><a href="m1c3-examen-05.html">Examen 05<small>Fraunhofer y el helio</small></a></li>
+    <li><a href="m1c3-examen-06.html">Examen 06<small>El átomo cuantizado</small></a></li>
+    <li><a href="m1c3-examen-07.html">Examen 07<small>Series del hidrógeno</small></a></li>
+    <li><a href="m1c3-examen-08.html">Examen 08<small>Leyes de Kirchhoff</small></a></li>
+    <li><a href="m1c3-examen-09.html">Examen 09<small>Moléculas y atmósfera</small></a></li>
+    <li><a href="m1c3-examen-10.html">Examen 10<small>Seeing y difracción</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo I del curso de Instrumentación y Métodos de Observación Astronómica, Diplomado en Fundamentos de Astronomía, U. de Chile (10 abr 2026). Elaborado a partir de la transcripción del audio (<code>observación/m1/ff/Observaci-n-m1c4-ccfdb902-799b.md</code>) y las diapositivas <code>Modulo_I_Clase_3_Atmosferas_y_lineas_espectrales.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Estos apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con el sentido físico y fuentes académicas, corrigiendo entre otros: «10 parse/parce» → <strong>10 parsecs</strong>; «sin bat» → <strong>SIMBAD</strong>; «Aladdin» → <strong>Aladin</strong>; el numeral romano de la notación espectral (He II, C III) indica <strong>estado de ionización</strong>, no isótopo; la serie de Balmer visible va de <strong>364,6 a 656,3 nm</strong> (el audio dice «300–600»); el coeficiente de difracción es <strong>1,22 λ/D</strong> (audio: «1.2»); «molécula HO» → <strong>H₂O</strong>; la separación de colores del arcoíris se debe a la <strong>refracción dispersiva</strong> (no a la reflexión). Los valores exactos de las líneas de Lyman y Balmer se completaron con datos estándar (marcados como material externo). Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Widget 1: módulo de distancia ----
+(function(){
+  var m=document.getElementById('dm-m'), M=document.getElementById('dm-M'), out=document.getElementById('dm-out');
+  function calc(){
+    var mV=parseFloat(m.value), MV=parseFloat(M.value);
+    if(isNaN(mV)||isNaN(MV)){ out.innerHTML="Ingresa valores válidos."; return; }
+    var mu=mV-MV;
+    var d=Math.pow(10,(mu+5)/5); // pc
+    var ly=d*3.2616;
+    var dTxt = d>=1000 ? (d/1000).toFixed(2)+" kpc" : d>=0.01 ? d.toFixed(2)+" pc" : d.toExponential(3)+" pc";
+    var extra = d<1e-4 ? " ("+(d*206265).toFixed(2)+" UA)" : "";
+    out.innerHTML="Módulo de distancia <span class='k'>m − M</span> = <b>"+mu.toFixed(2)+"</b><br>"+
+      "Distancia <span class='k'>d</span> = <b>"+dTxt+"</b>"+extra+
+      "<span style='color:var(--muted);font-size:.9rem'><br>≈ "+(ly>=0.01?ly.toFixed(2):ly.toExponential(2))+" años luz. Recuerda: d va en parsecs en la fórmula.</span>";
+  }
+  m.addEventListener('input',calc); M.addEventListener('input',calc);
+  document.querySelectorAll('#dm-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ m.value=b.dataset.m; M.value=b.dataset.mm; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: magnitud-flujo ----
+(function(){
+  var m1=document.getElementById('mf-m1'), m2=document.getElementById('mf-m2'), out=document.getElementById('mf-out');
+  function calc(){
+    var a=parseFloat(m1.value), b=parseFloat(m2.value);
+    if(isNaN(a)||isNaN(b)){ out.innerHTML="Ingresa valores válidos."; return; }
+    var dm=b-a;
+    var ratio=Math.pow(10,dm/2.5);
+    var rTxt = Math.abs(ratio)>=1e5||Math.abs(ratio)<1e-3 ? ratio.toExponential(3) : ratio.toFixed(3);
+    var sense = dm>=0 ? "m₁ es el más brillante" : "ojo: m₂ resulta más brillante que m₁";
+    out.innerHTML="Δm = m₂ − m₁ = <b>"+dm.toFixed(2)+"</b> magnitudes<br>"+
+      "Razón de flujos <span class='k'>F₁/F₂</span> = 10<sup>Δm/2,5</sup> = <b>"+rTxt+"</b>"+
+      "<span style='color:var(--muted);font-size:.9rem'><br>"+sense+". Regla: 5 magnitudes = ×100 en flujo; 1 magnitud ≈ ×2,512.</span>";
+  }
+  m1.addEventListener('input',calc); m2.addEventListener('input',calc);
+  document.querySelectorAll('#mf-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ m1.value=b.dataset.m1; m2.value=b.dataset.m2; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: serie de Balmer / Rydberg ----
+(function(){
+  var n1=document.getElementById('ba-n1'), n2=document.getElementById('ba-n2'), out=document.getElementById('ba-out');
+  var R=1.0973731568e7; // m^-1
+  var names={1:"Lyman",2:"Balmer",3:"Paschen"};
+  function band(nm){
+    if(nm<380) return "ultravioleta (UV)";
+    if(nm<=750) return "<b>visible</b>";
+    return "infrarrojo (IR)";
+  }
+  function calc(){
+    var a=parseInt(n1.value), b=parseInt(n2.value);
+    if(!(b>a)){ out.innerHTML="Se requiere n₂ &gt; n₁ (el electrón cae de n₂ a n₁)."; return; }
+    var invLam=R*(1/(a*a)-1/(b*b));
+    var lam=1/invLam*1e9; // nm
+    var E=1239.84/lam; // eV
+    out.innerHTML="Transición <span class='k'>"+b+" → "+a+"</span> (serie de "+names[a]+")<br>"+
+      "λ = <b>"+lam.toFixed(1)+" nm</b> · E = "+E.toFixed(2)+" eV · cae en el "+band(lam)+
+      "<span style='color:var(--muted);font-size:.9rem'><br>1/λ = R(1/n₁² − 1/n₂²), con R ≈ 1,097×10⁷ m⁻¹.</span>";
+  }
+  n1.addEventListener('change',calc); n2.addEventListener('input',calc);
+  document.querySelectorAll('#ba-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ n1.value=b.dataset.n1; n2.value=b.dataset.n2; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 4: difracción ----
+(function(){
+  var lam=document.getElementById('di-lam'), d=document.getElementById('di-d'), out=document.getElementById('di-out');
+  function calc(){
+    var lV=parseFloat(lam.value), dV=parseFloat(d.value);
+    if(!(lV>0)||!(dV>0)){ out.innerHTML="Ingresa valores positivos."; return; }
+    var theta=1.22*(lV*1e-9)/dV; // rad
+    var arcsec=theta*206265;
+    var aTxt = arcsec>=0.001 ? arcsec.toFixed(3) : arcsec.toExponential(2);
+    var vs = arcsec<0.4 ? "muy por debajo del seeing (0,4–2″): desde tierra, sin óptica adaptativa, manda la atmósfera"
+           : arcsec<=2 ? "comparable al seeing (0,4–2″)"
+           : "peor que el seeing: aquí el límite es el propio instrumento";
+    out.innerHTML="θ = 1,22 λ/D = <b>"+aTxt+"″</b> ("+theta.toExponential(2)+" rad)"+
+      "<span style='color:var(--muted);font-size:.9rem'><br>"+vs+".</span>";
+  }
+  lam.addEventListener('input',calc); d.addEventListener('input',calc);
+  document.querySelectorAll('#di-presets button').forEach(function(b){
+    b.addEventListener('click',function(){ lam.value=b.dataset.lam; d.value=b.dataset.d; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

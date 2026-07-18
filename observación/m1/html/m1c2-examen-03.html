@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 03 — m1c2 · Escala logarítmica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo I · Clase 2</span>
+<h1>Examen 03 — Escala logarítmica</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,c,d">
+  <fieldset data-q="1"><legend>1. En un eje logarítmico, cada paso (década) representa:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Sumar una cantidad fija</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Multiplicar por 10</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Multiplicar por 2</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Elevar al cuadrado</label>
+    <p class="fb" hidden>En escala log, distancias iguales sobre el eje son factores iguales: cada década multiplica ×10. Por eso puede mostrar rangos de 10²⁰ en un solo gráfico.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Cuántas décadas separan una longitud de onda de 1 mm de una de 1 m?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">1</label>
+    <label class="opt"><input type="radio" name="q2" value="b">2</label>
+    <label class="opt"><input type="radio" name="q2" value="c">3</label>
+    <label class="opt"><input type="radio" name="q2" value="d">1000</label>
+    <p class="fb" hidden>1 m / 1 mm = 1000 = 10³, es decir log₁₀(1000) = 3 décadas. Ojo: 1000 es el factor, no el número de décadas.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Por qué el espectro electromagnético no puede graficarse útilmente en un eje lineal?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Porque la frecuencia no está definida en todas las bandas</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Porque las ondas de radio no tienen longitud de onda fija</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Porque la velocidad de la luz cambia entre bandas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Porque abarca más de 17 órdenes de magnitud y las bandas cortas serían invisibles</label>
+    <p class="fb" hidden>Entre una onda de radio de 1 km y un rayo gamma de 10⁻¹⁴ m hay un factor de 10¹⁷. En un eje lineal a escala, todo el visible ocuparía menos de un átomo de ancho en el papel.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Conecta la escala logarítmica del espectro con dos herramientas de ingeniería que usen la misma idea, explicando la analogía.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Dos ejemplos directos: (1) los <strong>decibeles</strong> en procesamiento de señales: cada 10 dB es un factor 10 en potencia, exactamente como cada década del espectro es un factor 10 en λ o ν; permite comparar señales que difieren en muchos órdenes de magnitud sin perder resolución en ninguna. (2) El <strong>diagrama de Bode</strong>: la respuesta en frecuencia de un sistema se grafica sobre un eje log de frecuencia por la misma razón que el espectro EM: el comportamiento interesante ocurre en razones (octavas, décadas), no en diferencias absolutas. (También valen las octavas musicales: cada octava es ×2 en frecuencia.)</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. El gráfico central de la clase es «flujo vs. longitud de onda» del cuerpo negro, con λ en escala logarítmica. Describe qué se ve en ese gráfico y qué lugar ocupa el visible dentro del eje.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El gráfico muestra la <strong>curva de Planck</strong>: el flujo emitido por el cuerpo negro en función de la longitud de onda. Sobre el eje log de λ, la curva es una montaña asimétrica: crece desde longitudes de onda cortas, alcanza un <strong>máximo</strong> (cuya posición depende solo de la temperatura, por Wien) y decae suavemente hacia longitudes de onda largas —«crece por un lado y decrece por el otro», como recuerda la clase siguiente del módulo—. El <strong>visible</strong> es solo una franja angosta dentro de todo el eje: para el Sol (5800 K) el pico cae justo dentro de esa franja, pero para cuerpos más fríos o más calientes el máximo queda en el infrarrojo o el ultravioleta, fuera de lo que ven nuestros ojos.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo I (Instrumentación y Observación) — clase sin transcripción, apuntes reconstruidos. <a href="m1c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 05 — m1c5 · Flujo, color y señal a ruido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c5-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Instrumentación y Observación · Módulo I · Clase 5</span>
+<h1>Examen 05 — Flujo, color y señal a ruido</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="d,c,b">
+  <fieldset data-q="1"><legend>1. Si la atmósfera absorbe el 80 % de los fotones de la fuente, ¿cuál es el efecto sobre lo que medimos?</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Solo se ve menos luminosa</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Solo cambia su color</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Solo aumenta el error de la medición</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Todas las anteriores: menos luminosa, color corrido y más incerteza</label>
+    <p class="fb" hidden>La pregunta se hace tal cual en la clase y la respuesta es «todas las anteriores»: la absorción atenúa, no es pareja en λ (cambia el color) y deja menos fotones (más error).</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Según la clase, para hablar del «color» de un objeto astronómico se necesita como mínimo:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Una sola longitud de onda con flujo alto</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Un espectro completo de alta resolución</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Comparar el flujo en al menos dos longitudes de onda</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Una imagen a color de tres canales RGB</label>
+    <p class="fb" hidden>«Cuando hablo de color siempre debo tomar dos longitudes de onda al menos»: que algo «sea rojo» significa que su flujo en el rojo domina sobre el de otra banda; un flujo aislado en una sola λ no define color.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Adelantando el Módulo 2: si una medición colecta N fotones, su incerteza estadística se comporta de modo que:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">El error relativo crece con N</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Mientras más fotones, menor el error (relativo): perder fotones degrada la medición</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El error es independiente del número de fotones</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El error solo depende del tamaño del telescopio</label>
+    <p class="fb" hidden>«Toda la incerteza tiene un error asociado y ese error depende de la cantidad de fotones: mientras más fotones, menor el error» — estadística de conteo (σ ∝ √N, error relativo ∝ 1/√N).</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Observas una fuente y 10 minutos después su flujo medido cambió. Plantea las dos hipótesis en competencia que menciona la clase y describe qué harías, como observador, para discriminar entre ellas.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Hipótesis A: <strong>el objeto varió</strong> intrínsecamente («allá pasó algo en esos 10 minutos»). Hipótesis B: <strong>la atmósfera cambió</strong> — robó o dejó pasar más fotones (transparencia, vapor de agua, nube fina). Para discriminar: (1) medir <em>simultáneamente</em> estrellas de comparación en el mismo campo — si todas bajan junto con mi fuente, es la atmósfera; si solo baja mi fuente, es el objeto (fotometría diferencial); (2) monitorear el airmass y aplicar la corrección de extinción correspondiente, ya que la fuente cambió de altura en 10 minutos; (3) verificar condiciones fotométricas (ausencia de nubes) o usar una estándar cercana. Sin ese control, la variabilidad instrumental es indistinguible de la astrofísica — el falso positivo clásico.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Explica por qué una absorción atmosférica «no pareja» en longitud de onda cambia el color medido de una fuente. Ilustra con un ejemplo numérico simple de dos bandas.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El color es una <strong>razón de flujos entre bandas</strong>. Si la atmósfera transmitiera igual en todas las longitudes de onda, esa razón se conservaría (la atenuación se cancela al dividir). Pero la absorción es selectiva: roba más en unas λ que en otras, así que la razón — el color — queda sesgada. Ejemplo: una estrella emite 100 unidades en la banda azul y 100 en la roja (razón 1:1, color «neutro»). Si la atmósfera transmite 50 % en el azul y 80 % en el rojo (típico: el azul se extingue más), mido 50 vs 80 — razón 0,62, es decir, la estrella <em>parece más roja</em> de lo que es. En magnitudes: el color se corrió en 2,5·log₁₀(80/50) ≈ 0,5 mag. Por eso la extinción se calibra <em>por banda</em> (un coeficiente k para cada filtro), y el enrojecimiento atmosférico crece con el airmass — el mismo mecanismo del sol rojo del atardecer.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 5, Módulo I (Instrumentación y Observación). Basado en transcripción automática de audio; puede contener errores de reconocimiento de voz. <a href="m1c5-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>
