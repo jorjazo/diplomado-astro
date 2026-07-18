@@ -1,9 +1,0 @@
-# Pauta de Respuestas: Examen 1
-
-1. La astronomía estelar depende de observables indirectos porque no podemos manipular estrellas en laboratorio ni medir directamente su interior. La luz entrega flujo, color, espectros, temperatura, composición química, movimiento y actividad. Los neutrinos son valiosos porque salen casi sin interactuar desde el núcleo solar, y las oscilaciones estudiadas por heliosismología permiten inferir estructura interna, de forma análoga a diagnosticar un sistema por sus señales de salida.
-
-2. La combustión química libera demasiada poca energía para sostener la luminosidad solar durante miles de millones de años. La contracción gravitacional de Kelvin-Helmholtz libera más energía, pero solo alcanza escalas de millones de años, insuficientes frente a la edad geológica y astronómica conocida. La fusión nuclear sí resuelve el problema: en el núcleo solar, hidrógeno se transforma en helio y una pequeña diferencia de masa se convierte en energía mediante `E = mc^2`.
-
-3. El equilibrio hidrostático es el balance entre la presión térmica que empuja hacia afuera y la gravedad que comprime hacia adentro. Funciona como realimentación negativa: si el núcleo se enfría, baja la presión, el gas se comprime y la temperatura vuelve a subir; si se calienta demasiado, aumenta la presión, el núcleo se expande y la temperatura baja. Este termostato estabiliza al Sol durante la secuencia principal.
-
-4. En el diagrama H-R una estrella queda ubicada por su luminosidad y su temperatura superficial. Esa posición también resume información física sobre radio y etapa evolutiva: las estrellas de secuencia principal fusionan hidrógeno en el núcleo; las gigantes son muy luminosas pese a temperaturas relativamente bajas porque tienen radios enormes; las enanas blancas pueden ser calientes pero poco luminosas porque son pequeñas.
