@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 10 — m1c2 · Integrador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c2-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo I · Clase 2</span>
+<h1>Examen 10 — Integrador</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,b,d">
+  <fieldset data-q="1"><legend>1. Ordena las fuentes de energía hipotéticas del Sol según el tiempo de vida que permitirían, de menor a mayor:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Fusión &lt; contracción K-H &lt; combustión</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Contracción K-H &lt; combustión &lt; fusión</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Combustión (10⁴ yr) &lt; contracción K-H (2×10⁷ yr) &lt; fusión (10¹⁰ yr)</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Las tres dan tiempos similares</label>
+    <p class="fb" hidden>Combustión: ~10.000 años. Contracción de Kelvin-Helmholtz: ~20 millones de años. Fusión de H: ~10.000 millones de años — la única compatible con la edad del Sol (4,6×10⁹ años).</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. ¿Por qué las estrellas son redondas, según lo visto en esta clase?</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">Porque rotan muy rápido</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Porque la gravedad tira hacia adentro desde todas direcciones y la presión empuja hacia afuera en todas direcciones: el balance da una esfera</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Porque nacen de nubes redondas</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Por el campo magnético</label>
+    <p class="fb" hidden>Es consecuencia directa del equilibrio hidrostático: fuerzas radiales balanceadas en todas direcciones producen simetría esférica.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Un fotón generado en el núcleo del Sol y un neutrino generado en la misma reacción:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Salen juntos del Sol en 8 minutos</label>
+    <label class="opt"><input type="radio" name="q3" value="b">El fotón sale en 2 segundos y el neutrino en 170.000 años</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Ninguno de los dos logra salir</label>
+    <label class="opt"><input type="radio" name="q3" value="d">El neutrino sale en ~2 segundos y el fotón tarda ~170.000 años por su camino aleatorio</label>
+    <p class="fb" hidden>El fotón interactúa con los electrones libres cada &lt;1 mm (random walk); el neutrino casi no interactúa con la materia y escapa directo.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Sintetiza en un párrafo la respuesta completa a la pregunta central de la clase: “¿Por qué brilla el Sol?”, encadenando: equilibrio gravitacional, condiciones del núcleo, cadena protón-protón y termostato solar.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">El Sol brilla porque el <strong>equilibrio gravitacional</strong> (hidrostático) mantiene su núcleo denso a altísima temperatura: la gravedad comprime el gas y la presión termal lo sostiene. En el núcleo (~15 millones de K, densidad enorme, ~10⁵⁷ átomos en la estrella) las colisiones entre protones son tan energéticas y frecuentes que vencen la repulsión electromagnética, y el hidrógeno se fusiona en helio a través de la <strong>cadena protón-protón</strong> (2 veces ¹H+¹H→²H+e⁺+ν; 2 veces ²H+¹H→³He+γ; ³He+³He→⁴He+2¹H), convirtiendo el 0,7% de la masa procesada en energía según E=mc². Como la tasa de fusión es hipersensible a la temperatura, el <strong>termostato solar</strong> —el lazo presión-gravedad— la mantiene estable, y por eso la luminosidad es constante. Esa energía migra lentamente hacia afuera (difusión radiativa y luego convección) y escapa por la fotósfera como la luz solar que vemos.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Si una civilización alienígena “apagara” la fusión del Sol hoy, ¿qué observaríamos en la Tierra, en qué orden y con qué retrasos? Justifica usando la difusión radiativa, los neutrinos y los 8 minutos-luz.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Primero dejaríamos de recibir <strong>neutrinos solares</strong>: como casi no interactúan con la materia, salen del Sol en ~2 segundos y llegan a la Tierra en ~8 minutos. Su desaparición sería la primera señal, detectable en observatorios de neutrinos. La <strong>luz</strong>, en cambio, seguiría llegando aparentemente normal durante muchísimo tiempo: los fotones que hoy escapan de la fotósfera se generaron hace ~170.000 años y todo ese “inventario” de energía en tránsito por el interior (random walk con camino libre medio &lt;1 mm) seguiría saliendo. Es decir: los neutrinos “acusarían” el apagado unos 170.000 años antes que los fotones. Cualquier cambio, una vez que alcanza la fotósfera, tarda además los 8 minutos del viaje Sol-Tierra. (En la práctica, apagar la fusión también rompería el equilibrio hidrostático y la estructura del Sol comenzaría a ajustarse, tema de clases futuras.)</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 2, Módulo I (Astrofísica de Estrellas). <a href="m1c2-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

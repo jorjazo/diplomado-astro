@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrofísica de Estrellas — Módulo I · Apuntes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.4px 1.4px at 18% 22%,rgba(255,255,255,.5),transparent),radial-gradient(1.2px 1.2px at 72% 14%,rgba(255,255,255,.4),transparent),radial-gradient(1.6px 1.6px at 42% 64%,rgba(255,255,255,.45),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b 50%,#080b14);background-attachment:fixed}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+.hero{padding:64px 0 30px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.kick{font-family:"Fraunces",serif;display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-family:"Fraunces",serif;font-size:clamp(2.2rem,6vw,3.8rem);line-height:1;margin:.3em 0 .15em;font-weight:600;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+.card{border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px;transition:.15s;text-decoration:none;color:var(--ink);display:block}
+.card:hover{border-color:var(--red);transform:translateY(-2px)}
+.card .cn{font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.card h2{font-family:"Fraunces",serif;font-size:1.45rem;margin:.2em 0 .25em;font-weight:600}
+.card p{margin:.1em 0 .6em;color:var(--muted);font-size:.96rem}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{font-family:"Fraunces",serif;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 13px;color:var(--ink);text-decoration:none}
+.links a:hover{border-color:var(--red);color:var(--red-soft)}
+.note{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0;color:var(--muted);font-size:.92rem;background:#0b112066}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <span class="kick">Astrofísica de Estrellas · Diplomado U. de Chile</span>
+    <h1>Módulo I — <em>Apuntes HTML</em></h1>
+    <p class="sub">Material de estudio interactivo generado a partir de las diapositivas de cada clase y, para las clases 2 a 5, las transcripciones de audio. Cada clase incluye apuntes navegables, widgets y 10 exámenes de práctica autocorregibles.</p>
+  </div>
+
+  <p class="note"><strong>Clase 1:</strong> no existe transcripción de audio; los apuntes se basan únicamente en las diapositivas. Las clases 2–5 contrastan transcripción con diapositivas (las transcripciones pueden contener errores de reconocimiento de voz).</p>
+
+  <div class="grid">
+    <a class="card" href="m1c1-apuntes.html">
+      <span class="cn">Clase 1</span>
+      <h2>Nociones básicas para estudiar las estrellas</h2>
+      <p>Astronomía como ciencia observacional; espectro electromagnético y otros mensajeros (neutrinos, ondas gravitacionales); potencias de 10 y logaritmos; por qué estudiar estrellas; el Sol en números. <em>Solo diapositivas.</em></p>
+      <div class="links">
+        <a href="m1c1-apuntes.html">Apuntes</a>
+        <a href="m1c1-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c2-apuntes.html">
+      <span class="cn">Clase 2</span>
+      <h2>Nuestra estrella: el Sol (parte 1)</h2>
+      <p>Propiedades básicas del Sol; composición elemental; luminosidad constante vs. clima; combustión y Kelvin-Helmholtz descartados; E=mc²; fusión nuclear y cadena protón-protón; termostato solar y viaje de los fotones.</p>
+      <div class="links">
+        <a href="m1c2-apuntes.html">Apuntes</a>
+        <a href="m1c2-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c3-apuntes.html">
+      <span class="cn">Clase 3</span>
+      <h2>El Sol II: estructura en capas y actividad</h2>
+      <p>Núcleo, zona radiativa, tacoclina, convección, fotósfera, cromosfera y corona; transporte de energía; heliosismología y neutrinos; manchas solares, ciclo de 11 años, viento solar y heliosfera.</p>
+      <div class="links">
+        <a href="m1c3-apuntes.html">Apuntes</a>
+        <a href="m1c3-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c4-apuntes.html">
+      <span class="cn">Clase 4</span>
+      <h2>Propiedades básicas de las estrellas</h2>
+      <p>Luminosidad, flujo y brillo aparente; ley del cuadrado inverso; Stefan-Boltzmann; escala de magnitudes; paralaje y distancia; radio y temperatura efectiva; Gaia; introducción al diagrama HR.</p>
+      <div class="links">
+        <a href="m1c4-apuntes.html">Apuntes</a>
+        <a href="m1c4-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+
+    <a class="card" href="m1c5-apuntes.html">
+      <span class="cn">Clase 5</span>
+      <h2>Clasificando estrellas</h2>
+      <p>Tipos espectrales OBAFGKM; líneas de absorción y series de Balmer; Annie Jump Cannon y Harvard; clases de luminosidad; enanas marrones L/T/Y; diagrama de Hertzsprung-Russell y relación masa-luminosidad.</p>
+      <div class="links">
+        <a href="m1c5-apuntes.html">Apuntes</a>
+        <a href="m1c5-apuntes.html#examenes">Exámenes (10)</a>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <p>Diplomado en Fundamentos de Astronomía · Universidad de Chile · 2026. Apuntes elaborados como material de estudio a partir de diapositivas y transcripciones (clases 2–5; pueden contener errores de reconocimiento de voz). Clase 1: solo diapositivas.</p>
+  </footer>
+</main>
+</body>
+</html>

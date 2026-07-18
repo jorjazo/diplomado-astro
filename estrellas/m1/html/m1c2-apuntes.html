@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuestra Estrella: El Sol (parte 1) — Astrofísica de Estrellas, Módulo I · Clase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+ol.steps{margin:.6em 0;padding-left:1.3em}
+ol.steps li{margin:.4em 0}
+ol.steps li::marker{color:var(--red);font-weight:600}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.lifebar{height:14px;border-radius:7px;background:#10203a;border:1px solid var(--line);overflow:hidden;margin:8px 0 2px}
+.lifebar div{height:100%;background:linear-gradient(90deg,var(--red),var(--gold))}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo I · Clase 2</span>
+  <h1>Nuestra Estrella: <em>El Sol</em> (parte 1)</h1>
+  <p class="sub">Los números básicos del Sol, y la gran pregunta detrás de esta clase: <em>¿de dónde saca su energía?</em> Descartamos la combustión y la contracción gravitacional, y llegamos a la fusión nuclear vía la cadena protón-protón, el termostato solar y el largo viaje de los fotones hacia afuera.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Andrea Mejías</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 21 mar 2026</span>
+    <span><b>Clave:</b> E = mc² · cadena p-p</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">E</span>l Sol emite cada segundo una cantidad de energía descomunal —la diapositiva la compara con <strong>10.000 millones de lavadoras por cada ser humano, funcionando todo el tiempo</strong>— y lleva haciéndolo, de forma <em>casi perfectamente constante</em>, unos 4.600 millones de años. Eso plantea un problema de ingeniería energética a escala astronómica: ¿qué “motor” puede sostener una potencia de <span class="katex-inline" data-tex="3{,}9\times10^{26}\,\mathrm{W}"></span> durante miles de millones de años sin agotarse ni enfriarse? Esta clase hace exactamente lo que haría un ingeniero: propone hipótesis (combustión, contracción), calcula cuánto durarían, las descarta con números, y llega a la única respuesta compatible con la evidencia: la <span class="hl">fusión nuclear de hidrógeno</span>.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">El Sol en números: propiedades básicas</a></li>
+    <li><a href="#s2">Composición elemental</a></li>
+    <li><a href="#s3">Luminosidad constante y clima terrestre</a></li>
+    <li><a href="#s4">Hipótesis 1: ¿combustión?</a></li>
+    <li><a href="#s5">Hipótesis 2: contracción de Kelvin-Helmholtz</a></li>
+    <li><a href="#s6">E = mc²: fusión vs. fisión</a></li>
+    <li><a href="#s7">Plasma ionizado y condiciones para fusionar</a></li>
+    <li><a href="#s8">La cadena protón-protón</a></li>
+    <li><a href="#s9">Contabilidad energética del Sol</a></li>
+    <li><a href="#s10">Termostato solar y equilibrio hidrostático</a></li>
+    <li><a href="#s11">Cómo escapa la energía</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>El Sol en números: propiedades básicas</h2>
+    <p>Una ficha técnica de nuestra estrella, y cómo se midió cada dato.</p>
+  </div></div>
+
+  <p>La clase parte con la “ficha técnica” del Sol. La profesora insiste: <em>no hay que memorizarla</em>; lo importante es entender <strong>qué significa cada propiedad y cómo se midió</strong>. Notar la tercera columna de la diapositiva: cada valor tiene detrás un método de medición, igual que en una hoja de datos de un instrumento.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-02.jpg" alt="Tabla de propiedades básicas del Sol con método de medición y valor">
+    <figcaption><span class="cap">Diapositiva · Propiedades básicas</span>Cada fila indica la propiedad, <strong>cómo fue medida</strong> y su valor. Distancia por radar; masa desde la órbita terrestre; diámetro angular por medición directa; luminosidad combinando la constante solar con geometría.</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Propiedad</th><th>Valor</th><th>Comentario de clase</th></tr></thead>
+    <tbody>
+      <tr><td><b>Distancia promedio</b></td><td>1 AU ≈ 149,6 millones de km</td><td>La unidad astronómica; “el número que uno se aprende con cariño”.</td></tr>
+      <tr><td><b>Distancia máx./mín.</b></td><td>1,521×10⁸ / 1,471×10⁸ km</td><td>La órbita es elíptica; el Sol está en un foco.</td></tr>
+      <tr><td><b>Masa (M<sub>☉</sub>)</b></td><td>1,99×10³⁰ kg ≈ 333.400 M<sub>⊕</sub></td><td>Se deduce de la órbita de la Tierra (gravitación).</td></tr>
+      <tr><td><b>Diámetro angular</b></td><td>31′ 59,3″ (≈ 0,53°)</td><td>Medición directa: el ángulo que ocupa en el cielo.</td></tr>
+      <tr><td><b>Diámetro de la fotósfera</b></td><td>1,39×10⁶ km ≈ 109,3 ⌀<sub>⊕</sub></td><td>Del tamaño angular + la distancia (trigonometría).</td></tr>
+      <tr><td><b>Densidad media</b></td><td>1,41 g/cm³</td><td>Menor que la de la Tierra (~5,5 g/cm³): es una bola de gas.</td></tr>
+      <tr><td><b>Gravedad superficial</b></td><td>27,9 g<sub>⊕</sub> = 273 m/s²</td><td>De GM/R². Aparece a menudo como log g.</td></tr>
+      <tr><td><b>Constante solar</b></td><td>1370 W/m²</td><td>Flujo del Sol integrado en todo el espectro, medido a 1 AU.</td></tr>
+      <tr><td><b>Luminosidad (L<sub>☉</sub>)</b></td><td>3,9×10²⁶ W</td><td>Constante solar × área de una esfera de radio 1 AU.</td></tr>
+      <tr><td><b>Clasificación espectral</b></td><td>G2V</td><td>Estrella G2, clase de luminosidad V (secuencia principal).</td></tr>
+      <tr><td><b>Temperatura efectiva</b></td><td>≈ 5800 K</td><td>Es la temperatura de la <em>fotósfera</em>, no del interior (15 millones K en el centro).</td></tr>
+      <tr><td><b>Rotación (ecuador)</b></td><td>24 d 16 h (~25 días)</td><td>En los polos, ~35 días: <strong>rotación diferencial</strong> (no es un sólido rígido).</td></tr>
+      <tr><td><b>Inclinación</b></td><td>7° 10,5′</td><td>Del eje solar respecto al plano orbital Tierra-Sol.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box physics">
+    <span class="tag">Luminosidad: de flujo a potencia total</span>
+    <p>La constante solar es un <em>flujo</em> (W/m²): lo que llega a 1 AU por metro cuadrado, integrado sobre <strong>todas las longitudes de onda</strong> (flujo <em>bolométrico</em>). Como el Sol emite <strong>isotrópicamente</strong> (igual en todas direcciones), basta multiplicar por el área de la esfera de radio 1 AU:</p>
+    <div class="formula"><div class="katex-block" data-tex="L_\odot = F \cdot 4\pi d^2 = 1370\,\tfrac{\mathrm{W}}{\mathrm{m}^2}\times 4\pi\,(1\,\mathrm{AU})^2 \approx 3{,}9\times10^{26}\,\mathrm{W}"></div>
+    <small>Es la misma lógica de un sensor de potencia: mides densidad de flujo local y reconstruyes la potencia total de la fuente usando la geometría.</small></div>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Qué significa “G2V”</span>
+    <p>La secuencia espectral ordena estrellas por temperatura: <strong>O B A F G K M</strong> (de más caliente a más fría; después vienen L, T, Y para enanas marrones). No es orden alfabético: sobrevive la mnemotecnia de Harvard <em>“Oh Be A Fine Guy/Girl And Kiss Me”</em>. Dentro de cada letra hay subclases 0–9 (el Sol es G<strong>2</strong>). El número romano es la <strong>clase de luminosidad</strong>: <strong>V = enana de secuencia principal</strong>, es decir, una estrella que está fusionando hidrógeno en helio en su núcleo. Cuando deje de hacerlo, saldrá de la secuencia principal y cambiará esa clasificación.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">La coincidencia de los eclipses</span>
+    <p>La Luna está ~400 veces más cerca que el Sol y es ~400 veces más pequeña: por eso ambos ocupan <em>casi el mismo ángulo</em> en el cielo (~0,5°) y existen eclipses solares totales. Pero la Luna se aleja ~3–4 cm por año: en el futuro lejano los eclipses totales desaparecerán y solo habrá anulares o parciales. Vivimos en la época correcta.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Composición elemental</h2>
+    <p>Casi todo hidrógeno — y por qué “% de átomos” no es “% de masa”.</p>
+  </div></div>
+
+  <p>El Sol es esencialmente una bola de <span class="hl">hidrógeno y helio</span>: el <strong>92% de sus átomos</strong> son hidrógeno (el <strong>73,4% de la masa</strong>) y el 7,8% helio (25% de la masa). El resto son trazas: carbono, nitrógeno, oxígeno, neón, magnesio, silicio, azufre, hierro… los mismos elementos del cuerpo humano y de la vida cotidiana (el hierro de la sangre, el calcio de los huesos, el magnesio de las vitaminas).</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-03.jpg" alt="Tabla de composición elemental del Sol y gráfico de composición de la Tierra">
+    <figcaption><span class="cap">Diapositiva · Composición</span>Abundancias en número de átomos y en masa. A la derecha, la composición de la Tierra (Wikipedia): dominada por <strong>hierro</strong>, oxígeno y silicio — muy distinta de la del Sol. La Tierra retuvo los elementos pesados; el H y el He livianos dominan la estrella.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué igual % de átomos ≠ igual % de masa?</span>
+    <p>El magnesio y el hierro tienen la misma abundancia en número (0,003% de los átomos), pero el hierro es el 0,14% de la masa y el magnesio solo el 0,06%. La razón: <strong>el átomo de hierro pesa más</strong> (masa atómica ~56 vs. ~24). Es la diferencia entre contar unidades y pesar el inventario: mismo número de cajas, distinto peso por caja.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Luminosidad constante y clima terrestre</h2>
+    <p>El Sol no se está enfriando — y no es el culpable del calentamiento global.</p>
+  </div></div>
+
+  <p>Si el Sol libera tantísima energía al espacio cada segundo, la pregunta natural es: <strong>¿se está enfriando?</strong> La evidencia dice que no: la cantidad de radiación recibida en la Tierra ha sido <span class="hl">esencialmente constante por miles de millones de años</span>. El gráfico de irradiancia que parece “muy ondulado” engaña por la escala del eje: las variaciones van de ~340,2 a ~340,6 W/m² — si se grafica desde cero, es una línea recta.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-05.jpg" alt="Gráfico de temperatura global observada comparada con forzantes solares, volcánicos y humanos">
+    <figcaption><span class="cap">Diapositiva · Sol vs. clima</span>La curva gris es el calentamiento global observado. La contribución solar (amarillo) es <strong>plana</strong>; la variabilidad natural y los volcanes producen fluctuaciones puntuales; la curva que calza con el calentamiento observado es la de <strong>forzamiento humano</strong>, post desarrollo industrial.</figcaption>
+  </figure>
+
+  <ul>
+    <li>La temperatura terrestre tiene <strong>variabilidad natural</strong>: ciclos geológicos, eras glaciales.</li>
+    <li>Las <strong>grandes erupciones volcánicas</strong> inyectan aerosoles que bloquean radiación (efecto tipo “invierno nuclear”) y enfrían temporalmente.</li>
+    <li>La <strong>contribución solar es estable</strong>: el Sol no explica ni las estaciones (eso es la inclinación del eje terrestre) ni el calentamiento reciente.</li>
+    <li>El calentamiento observado calza con la curva de <strong>actividad humana</strong> industrial.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Esto es un problema clásico de <strong>atribución de señales</strong>: se descompone la serie de temperatura en forzantes (solar, volcánico, natural, antropogénico) y se compara cada componente con la observación. El forzante solar es prácticamente DC (constante); la única componente que reproduce la tendencia es la humana. También hay una lección de visualización: un eje truncado hace ver “enorme” una variación de 0,1%.</p>
+  </div>
+
+  <p>Conclusión intermedia: el Sol <strong>no se enfría</strong> y su luminosidad es constante. Entonces, de algún modo, está <em>compensando</em> internamente toda la energía que radia. ¿Cuál es la fuente?</p>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Hipótesis 1: ¿combustión?</h2>
+    <p>La “bola de fuego” de Pumba, descartada con una división.</p>
+  </div></div>
+
+  <p>La primera idea intuitiva: el Sol <em>quema</em> cosas, como una fogata gigante (la hipótesis de Pumba en <em>El Rey León</em>; Timón, escéptico, tenía razón). Analicémosla en serio, como haría un ingeniero con un balance de energía:</p>
+
+  <ul>
+    <li>La combustión (reacción <em>química</em>) libera en promedio <span class="katex-inline" data-tex="\sim 10^{-19}"></span> J <strong>por átomo</strong>.</li>
+    <li>El Sol tiene ~75% de su masa en H y ~25% en He, lo que da <span class="katex-inline" data-tex="\sim 10^{57}"></span> <strong>átomos</strong> en total.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-07.jpg" alt="Planteamiento de la hipótesis de combustión con energía por átomo y número de átomos">
+    <figcaption><span class="cap">Diapositiva · Planteo</span>Si el Sol “ardiera” químicamente: energía por átomo ~10⁻¹⁹ J, número de átomos ~10⁵⁷. Todo el problema se reduce a energía disponible dividida por potencia emitida.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="t_{\mathrm{vida}} = \frac{E_{\mathrm{disponible}}}{L_\odot} = \frac{10^{57}\,\text{átomos}\times 10^{-19}\,\mathrm{J/átomo}}{3{,}9\times10^{26}\,\mathrm{J/s}} \approx 10^4\ \text{años}"></div>
+    <small>El mismo cálculo que la autonomía de una batería: capacidad total dividida por potencia de descarga.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-08.jpg" alt="Cálculo del tiempo de vida por combustión: 10.000 años">
+    <figcaption><span class="cap">Diapositiva · Resultado</span><strong>≈ 10.000 años</strong> (no 10.000 millones: diez mil). La historia humana ya es más larga que eso, y el registro geológico da miles de millones de años de Sol estable. Combustión: <strong>descartada</strong>.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Ojo con la palabra “quemar”</span>
+    <p>En astronomía se dice coloquialmente que una estrella “quema hidrógeno”, pero <strong>no es combustión química</strong>: es fusión nuclear (lo veremos en breve). En esta sección la clase evaluó la combustión <em>literal</em> —reacciones químicas— justamente para demostrar que no alcanza ni de lejos.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Hipótesis 2: contracción de Kelvin-Helmholtz</h2>
+    <p>Convertir energía gravitacional en calor: mejor, pero aún insuficiente.</p>
+  </div></div>
+
+  <p>Segunda idea histórica: el Sol convierte <span class="hl">energía potencial gravitatoria</span> en <span class="hl">energía termal</span> al contraerse lentamente (como hace Júpiter hoy). Para entenderla, la clase definió dos energías:</p>
+
+  <h3>Energía termal</h3>
+  <p>Es la <strong>energía cinética colectiva</strong> de muchas partículas. La temperatura mide la <em>velocidad promedio</em> de las partículas; la energía termal depende además de <strong>cuántas partículas</strong> hay (densidad). El ejemplo de clase: una olla de agua hirviendo a 100 °C tiene <em>más energía termal</em> que el aire de un horno a 200 °C, porque el agua tiene muchísimas más partículas por unidad de volumen — aunque su temperatura sea menor.</p>
+
+  <h3>Energía gravitacional</h3>
+  <p>Es la energía potencial asociada a un campo gravitatorio: depende de la <strong>altura relativa</strong> a un punto de referencia, de la <strong>masa</strong> y de la <strong>aceleración de gravedad</strong>. La pelota lanzada hacia arriba lo resume: en el punto más alto tiene máxima energía potencial y velocidad cero; al caer, esa energía se convierte en cinética. <strong>La energía total se conserva</strong>: si sube una, baja la otra.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-12.jpg" alt="Nube de gas dispersa versus contraída y su energía potencial gravitatoria">
+    <figcaption><span class="cap">Diapositiva · Nube dispersa vs. contraída</span>Resultado contraintuitivo: una nube de gas <strong>dispersa tiene más energía potencial gravitatoria</strong> que una contraída — igual que un objeto en un piso alto tiene más potencial que en el segundo piso, porque tiene más “capacidad de caer” hacia el centro. Al contraerse, la nube <strong>convierte ese potencial en energía termal</strong>.</figcaption>
+  </figure>
+
+  <h3>El mecanismo de Kelvin-Helmholtz</h3>
+  <p>Kelvin y Helmholtz notaron que <strong>el peso de las capas superiores del Sol comprime las inferiores</strong>. Y al comprimir un gas, este se calienta — recordar la ley de gases ideales, <span class="katex-inline" data-tex="P = n k T"></span>. Eso genera un ciclo de autorregulación:</p>
+
+  <ol class="steps">
+    <li>El Sol radia energía → se enfría.</li>
+    <li>Menor temperatura → menor presión.</li>
+    <li>La presión (flechas azules, hacia afuera) se debilita → <strong>gana la gravedad</strong> (flechas rojas, hacia adentro) → el Sol se contrae.</li>
+    <li>La contracción sube la presión → sube la temperatura → vuelta al inicio.</li>
+  </ol>
+
+  <figure>
+    <img src="m1c2/assets/slide-13.jpg" alt="Contracción de Kelvin-Helmholtz y balance entre gravedad y presión del gas">
+    <figcaption><span class="cap">Diapositiva · Balance de fuerzas</span>Gravedad hacia adentro (rojo), presión del gas hacia afuera (azul). La contracción lenta convertiría energía gravitacional en termal, manteniendo caliente al Sol… si fuera la única fuente.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-14.jpg" alt="Cálculo del tiempo de vida por contracción de Kelvin-Helmholtz: 20 millones de años">
+    <figcaption><span class="cap">Diapositiva · Resultado</span>Tiempo de vida si la única fuente fuese la contracción: energía potencial gravitacional disponible (<span class="katex-inline" data-tex="\tfrac{3}{5}GM_\odot^2/R_\odot"></span>) dividida por <span class="katex-inline" data-tex="L_\odot"></span> ⇒ <strong>≈ 20 millones de años</strong>. Mucho mejor que 10⁴, pero muy por debajo de los 4.600 millones de años del Sol. <strong>Insuficiente.</strong></figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">No fue trabajo perdido</span>
+    <p>La contracción de Kelvin-Helmholtz <strong>sí existe</strong> y es clave en otras fases: es lo que calienta las protoestrellas antes de encender la fusión, y el mecanismo detrás del <em>termostato solar</em> que veremos en la sección 10. Lo que se descarta es que sea la fuente <em>principal</em> de energía del Sol adulto.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>E = mc²: fusión vs. fisión</h2>
+    <p>Necesitamos ~7 órdenes de magnitud más de energía por átomo. Einstein al rescate.</p>
+  </div></div>
+
+  <p>Ni la combustión ni la contracción alcanzan. Necesitamos un proceso que libere <strong>mucha, pero mucha más energía por átomo</strong>. La clave la dio Einstein con el <span class="hl">principio de equivalencia masa-energía</span>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E = m\,c^2"></div>
+    <small>La masa y la energía son dos caras de lo mismo; el factor de conversión es <span class="katex-inline" data-tex="c^2 \approx 9\times10^{16}\,\mathrm{m^2/s^2}"></span> — un número gigantesco. Un poquito de masa equivale a muchísima energía.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-15.jpg" alt="Diapositiva con Einstein y la relación masa-energía E=mc²">
+    <figcaption><span class="cap">Diapositiva · Relación masa-energía</span>“Nuestro querido amigo un poco chascón” nos dice que potencialmente hay mucha más energía disponible <strong>en un solo átomo</strong> — si logramos convertir parte de su masa en energía.</figcaption>
+  </figure>
+
+  <h3>Dos formas de cobrar esa energía</h3>
+  <ul>
+    <li><strong>Fusión:</strong> núcleos <em>livianos</em> se combinan y generan un núcleo más pesado. <em>Libera energía.</em></li>
+    <li><strong>Fisión:</strong> un núcleo <em>pesado</em> se divide en núcleos más livianos. <em>También libera energía.</em></li>
+  </ul>
+  <p><strong>Las estrellas fusionan, no fisionan.</strong> (Spoiler de fin de curso: el hierro es el punto de quiebre donde la fusión deja de liberar energía — clave en la muerte de las estrellas masivas.)</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-16.jpg" alt="Esquema comparativo de fusión y fisión nuclear">
+    <figcaption><span class="cap">Diapositiva · Fusión vs. fisión</span>Fusión: liviano + liviano → pesado. Fisión: pesado → livianos. En la Tierra dominamos la fisión (centrales nucleares); la bomba de hidrógeno usa fusión gatillada por una bomba de fisión. Proyectos tipo “sol artificial” (tokamaks) buscan fusión controlada, lograda por ahora solo durante tiempos cortos.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Plasma ionizado y condiciones para fusionar</h2>
+    <p>Vencer la repulsión electromagnética requiere más de 10 millones de Kelvin.</p>
+  </div></div>
+
+  <p>En el interior del Sol, las altas temperaturas y densidades mantienen el gas como <span class="hl">plasma ionizado</span>: los electrones andan libres, separados de los núcleos. Los núcleos de hidrógeno (que son simplemente <strong>protones</strong>, carga +) también vuelan por todos lados y chocan constantemente.</p>
+
+  <p>El obstáculo: dos protones se <strong>repelen</strong> electromagnéticamente, como dos polos iguales de un imán. Hay dos regímenes de encuentro:</p>
+  <ul>
+    <li><strong>Baja velocidad (baja T):</strong> los núcleos se acercan, la repulsión los frena y salen <em>dispersados</em> en direcciones distintas. No hay fusión.</li>
+    <li><strong>Alta velocidad (T &gt; 10⁷ K):</strong> la colisión es tan energética que los núcleos se acercan lo suficiente para que la <span class="hl">fuerza nuclear fuerte</span> —de muy corto alcance— los capture y los una, venciendo la repulsión.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c2/assets/slide-17.jpg" alt="Colisiones a baja velocidad con dispersión y a alta velocidad con fusión">
+    <figcaption><span class="cap">Diapositiva · Dos regímenes de colisión</span>Arriba: a bajas temperaturas los protones se dispersan sin fusionarse. Abajo: sobre ~10⁷ K la energía cinética permite que la fuerza fuerte gane. El centro del Sol está a <strong>15 millones de K</strong>: sobra margen.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Las cuatro fuerzas fundamentales</span>
+    <p>Ordenadas por lo que cuesta “vencerlas” en este contexto: la <strong>gravitacional</strong> es la más débil (basta saltar para ganarle un instante); la <strong>electromagnética</strong> es la barrera que repele a los protones (se necesitan &gt;10⁷ K para superarla); la <strong>nuclear fuerte</strong> es la que mantiene unidos protones y neutrones en el núcleo (la que finalmente “pega” a los núcleos fusionados); y la <strong>nuclear débil</strong> gobierna los decaimientos radiactivos, como la conversión de protón a neutrón que veremos en la cadena p-p.</p>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-18.jpg" alt="Requisitos de la fusión de hidrógeno: 4 protones para formar un helio-4">
+    <figcaption><span class="cap">Diapositiva · El problema combinatorio</span>El helio-4 tiene 2 protones + 2 neutrones: se necesitan <strong>4 núcleos de hidrógeno</strong>. La colisión de <em>dos</em> protones es tan probable que ocurre <strong>10³⁸ veces por segundo</strong>; pero que <em>cuatro</em> choquen simultáneamente es prácticamente imposible. La naturaleza lo resuelve <strong>por etapas, de dos en dos</strong>.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería</span>
+    <p>Es un argumento de probabilidad de coincidencias: si la probabilidad de una colisión binaria por unidad de tiempo es p, la de una colisión cuádruple simultánea escala como una coincidencia de orden superior — despreciable aun con densidades enormes. El sistema “elige” la ruta de reacciones en cadena de a pares, igual que un protocolo que descompone una operación improbable en pasos factibles.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>La cadena protón-protón</h2>
+    <p>De 4 protones a un helio-4, en tres pasos de a pares.</p>
+  </div></div>
+
+  <p>La <span class="hl">cadena protón-protón</span> (p-p) es la ruta dominante de fusión en el Sol. Balance global: <strong>4 ¹H → ⁴He + energía</strong>. Paso a paso:</p>
+
+  <h3>Paso 1 (ocurre 2 veces): ¹H + ¹H → ²H + e⁺ + ν</h3>
+  <p>Dos protones se fusionan formando un núcleo con <strong>un protón y un neutrón</strong>: el <span class="hl">deuterio</span> (²H), un <em>isótopo</em> del hidrógeno (“el primo del hidrógeno-1”). Como la carga pasa de +2 a +1, la carga faltante se la lleva un <strong>positrón</strong> (el antielectrón, carga +), y además se emite un <strong>neutrino</strong>. En la conversión se conservan la carga, la energía, el momento y el spin.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-19.jpg" alt="Paso 1 de la cadena protón-protón: formación de deuterio con emisión de positrón y neutrino">
+    <figcaption><span class="cap">Diapositiva · Paso 1</span>¹H + ¹H → ²H (deuterio) + positrón + neutrino. Debe ocurrir <strong>dos veces</strong>, porque el ⁴He final necesita 2 protones y 2 neutrones.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Los neutrinos que nos atraviesan</span>
+    <p>La gran mayoría de los neutrinos que recibimos en la Tierra provienen de la fusión nuclear en el interior del Sol (también los producen las supernovas). Casi no interactúan con la materia: por eso detectores como el del Polo Sur son tan gigantescos y capturan tan pocos.</p>
+  </div>
+
+  <h3>Paso 2 (ocurre 2 veces): ²H + ¹H → ³He + γ</h3>
+  <p>Como el paso 1 ocurre 10³⁸ veces por segundo, hay deuterio abundante. Un deuterio choca con otro protón y forma <span class="hl">helio-3</span> (2p + 1n), liberando un <strong>fotón de rayos gamma</strong> de alta energía.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-20.jpg" alt="Paso 2 de la cadena protón-protón: deuterio más protón forman helio-3 y un fotón gamma">
+    <figcaption><span class="cap">Diapositiva · Paso 2</span>²H + ¹H → ³He + fotón γ. También debe ocurrir dos veces para juntar dos núcleos de ³He.</figcaption>
+  </figure>
+
+  <h3>Paso 3: ³He + ³He → ⁴He + 2 ¹H</h3>
+  <p>Hay varias rutas posibles, pero la más común en el Sol es la colisión de <strong>dos helio-3</strong>: se forma el <span class="hl">helio-4</span> y salen despedidos <strong>dos protones</strong>, que quedan disponibles para nuevas cadenas.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-21.jpg" alt="Paso 3 de la cadena protón-protón: dos helio-3 forman helio-4 y liberan dos protones">
+    <figcaption><span class="cap">Diapositiva · Paso 3</span>³He + ³He → ⁴He + 2 ¹H. Fin de la cadena: nació un núcleo de helio-4.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-23.jpg" alt="Distribución de la energía liberada por la cadena protón-protón">
+    <figcaption><span class="cap">Diapositiva · ¿Quién se lleva la energía?</span><strong>El 98%</strong> de la energía liberada por la cadena p-p termina en los <strong>fotones de rayos gamma</strong> del paso 2 y en la <strong>energía cinética del ⁴He</strong> resultante. El <strong>2% restante</strong> se lo llevan los <strong>neutrinos</strong>, que escapan casi sin interactuar.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">No confundir: deuterio ≠ H₂</span>
+    <p>Pregunta de un estudiante al cierre: ¿el hidrógeno-2 (deuterio) es lo mismo que el hidrógeno molecular (H₂) de las nubes moleculares? <strong>No.</strong> El deuterio es <em>un solo átomo</em> cuyo núcleo tiene un neutrón extra (isótopo). El H₂ es una <em>molécula</em>: dos átomos completos de hidrógeno unidos por un enlace.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Contabilidad energética del Sol</h2>
+    <p>El 0,7% de masa perdida, 600 millones de toneladas por segundo y 10.000 millones de años.</p>
+  </div></div>
+
+  <h3>1) ¿Cuánta energía libera una cadena completa?</h3>
+  <p>Pesemos entrada y salida del proceso 4 ¹H → ⁴He:</p>
+  <ul>
+    <li>4 núcleos de H pesan <span class="katex-inline" data-tex="6{,}690\times10^{-27}"></span> kg.</li>
+    <li>1 núcleo de ⁴He pesa <span class="katex-inline" data-tex="6{,}643\times10^{-27}"></span> kg.</li>
+    <li>Diferencia: <span class="katex-inline" data-tex="\Delta m = 0{,}047\times10^{-27}"></span> kg — el <strong>0,7% de la masa inicial</strong> “desaparece”.</li>
+  </ul>
+  <p>Esa masa faltante no se pierde: se convierte en energía.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="E_{\mathrm{H\to He}} = \Delta m\,c^2 = 0{,}047\times10^{-27}\,\mathrm{kg}\times(3\times10^8\,\mathrm{m/s})^2 \approx 4{,}2\times10^{-12}\,\mathrm{J}"></div>
+    <small>Comparar con los 10⁻¹⁹ J de la combustión química: <strong>~7 órdenes de magnitud más</strong> de energía por proceso. Esa es la diferencia entre química (electrones) y física nuclear (núcleos).</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-24.jpg" alt="Cálculo de la energía liberada por la fusión de 4 hidrógenos en un helio">
+    <figcaption><span class="cap">Diapositiva · Δm y E=mc²</span>El déficit de masa (0,7%) convertido por c² da 4,2×10⁻¹² J por cadena — muchísimo más que cualquier reacción química.</figcaption>
+  </figure>
+
+  <h3>2) ¿Cuánto hidrógeno se fusiona por segundo?</h3>
+  <p>La luminosidad dice cuánta energía sale por segundo; E=mc² dice cuánta masa hay que convertir para producirla:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m = \frac{E}{c^2} = \frac{3{,}9\times10^{26}\,\mathrm{J}}{(3\times10^8\,\mathrm{m/s})^2} \approx 4{,}2\times10^{9}\ \mathrm{kg\ por\ segundo}"></div>
+    <small>Eso es solo la masa <em>convertida en energía</em>. Como es el 0,7% del hidrógeno procesado, la masa total fusionada es <span class="katex-inline" data-tex="m/0{,}007 \approx 6\times10^{11}"></span> kg/s ⇒ <strong>600 millones de toneladas de H por segundo</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-25.jpg" alt="Cálculo de la masa de hidrógeno fusionada por segundo: 600 millones de toneladas">
+    <figcaption><span class="cap">Diapositiva · Masa por segundo</span>4,2×10⁹ kg/s convertidos en energía; 6×10¹¹ kg/s de hidrógeno procesado. El dato para recordar: <strong>600 millones de toneladas de H → He cada segundo</strong>.</figcaption>
+  </figure>
+
+  <h3>3) Verificación de consistencia: reacciones por segundo</h3>
+
+  <figure>
+    <img src="m1c2/assets/slide-26.jpg" alt="Cálculo del número de reacciones de fusión por segundo: 10 elevado a 38">
+    <figcaption><span class="cap">Diapositiva · Chequeo cruzado</span>Masa total convertida por segundo ÷ masa convertida por reacción = 4,2×10⁹ / 0,047×10⁻²⁷ ≈ <strong>10³⁸ reacciones por segundo</strong> — exactamente la tasa de colisiones p-p mencionada antes. Los números cierran.</figcaption>
+  </figure>
+
+  <h3>4) ¿Cuánto vive el Sol fusionando?</h3>
+  <p>Misma receta batería: energía disponible dividida por potencia. Con un detalle: <strong>el Sol solo puede fusionar ~10% de su hidrógeno</strong>, porque la fusión solo ocurre en el núcleo (lo veremos al estudiar la estructura interna). De ahí el factor 0,1:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="t_{\mathrm{vida}} = \frac{E_{\mathrm{H\to He}}\times N_{\mathrm{H}}\times 0{,}1}{L_\odot} \approx 10^{10}\ \text{años} = 10.000\ \text{millones de años}"></div>
+    <small>Compatible con la edad del Sol (4.600 millones de años): es un “adulto joven”, aproximadamente a mitad de su vida en secuencia principal.</small>
+  </div>
+
+  <figure>
+    <img src="m1c2/assets/slide-27.jpg" alt="Cálculo del tiempo de vida del Sol por fusión: 10.000 millones de años">
+    <figcaption><span class="cap">Diapositiva · Tiempo de vida</span>Aun fusionando solo el 10% de su hidrógeno, el Sol vive ~10.000 millones de años en secuencia principal. Pregunta que deja la profesora: ¿y si pudiera consumir <em>todo</em> su hidrógeno?</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Fuente hipotética</th><th>Energía por proceso</th><th>Tiempo de vida</th><th>Veredicto</th></tr></thead>
+    <tbody>
+      <tr><td><b>Combustión química</b></td><td>~10⁻¹⁹ J/átomo</td><td>~10⁴ años</td><td>Descartada (la historia humana es más larga)</td></tr>
+      <tr><td><b>Contracción K-H</b></td><td>⅗ GM²/R en total</td><td>~2×10⁷ años</td><td>Insuficiente (el Sol tiene 4,6×10⁹ años)</td></tr>
+      <tr><td><b>Fusión de H</b></td><td>4,2×10⁻¹² J/cadena</td><td>~10¹⁰ años</td><td>✓ Compatible con la evidencia</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Termostato solar y equilibrio hidrostático</h2>
+    <p>Por qué la luminosidad es tan estable: control retroalimentado natural.</p>
+  </div></div>
+
+  <p>La tasa de fusión nuclear es <strong>extremadamente sensible a la temperatura</strong>: un pequeño cambio de T dispara o desploma la producción de energía. Si no hubiera regulación, veríamos la luminosidad del Sol fluctuar constantemente. No la vemos fluctuar porque existe el <span class="hl">termostato solar</span>, un lazo de retroalimentación negativa:</p>
+
+  <ol class="steps">
+    <li><strong>Si la temperatura baja:</strong> baja la tasa de fusión → baja la presión → gana la gravedad → el núcleo <strong>se comprime</strong> → sube la temperatura → todo vuelve a la normalidad.</li>
+    <li><strong>Si la temperatura sube:</strong> sube la tasa de fusión → sube la presión → le gana a la gravedad → el núcleo <strong>se expande</strong> → baja la temperatura → todo vuelve a la normalidad.</li>
+  </ol>
+
+  <figure>
+    <img src="m1c2/assets/slide-28.jpg" alt="Diagrama del termostato solar cuando la temperatura disminuye">
+    <figcaption><span class="cap">Diapositiva · Termostato solar</span>El ciclo de compensación cuando la temperatura baja. Las mínimas ondulaciones del gráfico de irradiancia de la sección 3 reflejan este proceso de autorregulación.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingeniería: control con retroalimentación</span>
+    <p>Es literalmente un <strong>lazo de control con ganancia negativa</strong>: la “planta” es la tasa de fusión (fuertemente no lineal en T), el “sensor/actuador” es la mecánica del gas (presión vs. gravedad), y el punto de operación es estable: cualquier perturbación genera una corrección en sentido contrario. Por eso el Sol emite a tasa constante sin que nadie “ajuste el dial”.</p>
+  </div>
+
+  <h3>Equilibrio hidrostático</h3>
+  <p>Al balance permanente entre presión y gravedad se le puso un nombre formal: <span class="hl">equilibrio hidrostático</span>. El empuje hacia afuera de la presión termal (sostenida por las reacciones nucleares del núcleo) equilibra el tirón hacia adentro de la gravedad. Con fuerzas hacia adentro desde todas las direcciones y presión hacia afuera en todas las direcciones, el resultado es una <strong>esfera</strong> — por eso las estrellas son redondas.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-30.jpg" alt="Esquema del equilibrio hidrostático en el Sol">
+    <figcaption><span class="cap">Diapositiva · Equilibrio hidrostático</span>La presión es <strong>máxima en el centro</strong>, donde el peso de todas las capas superiores aprieta más, y decrece hacia afuera: P = P(r). De aquí nacen las <em>ecuaciones de estructura estelar</em>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Balance radiativo</span>
+    <p>Complemento del equilibrio hidrostático: la energía liberada por la fusión en el interior <strong>equilibra</strong> la energía radiada en la superficie. El Sol no acumula energía como una pila: lo que genera, lo libera. Pregunta que queda planteada para la próxima clase: ¿qué pasaría con ambos equilibrios si se acaba el hidrógeno del núcleo?</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Cómo escapa la energía del interior</h2>
+    <p>Random walk de 170.000 años, neutrinos apurados y celdas de convección.</p>
+  </div></div>
+
+  <p>Los fotones de rayos gamma nacen en el núcleo. Si pudieran viajar en línea recta, recorrerían el radio solar en ~2 segundos. Pero el interior es un plasma ionizado <strong>repleto de electrones libres</strong>, y la densidad es tan alta que el <span class="hl">camino libre medio</span> de un fotón —lo que avanza antes de interactuar— es <strong>menos de un milímetro</strong>. Cada interacción lo desvía en una dirección aleatoria: es la <span class="hl">difusión radiativa</span>.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-32.jpg" alt="Esquema de difusión radiativa: fotones desviados por electrones libres">
+    <figcaption><span class="cap">Diapositiva · Difusión radiativa</span>El fotón avanza &lt;1 mm, choca con un electrón, sale desviado al azar, y así indefinidamente. Un <em>random walk</em> (camino aleatorio) en tres dimensiones.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c2/assets/slide-33.jpg" alt="Comparación entre el random walk del fotón (170.000 años) y el neutrino (2 segundos)">
+    <figcaption><span class="cap">Diapositiva · Fotón vs. neutrino</span>El fotón tarda <strong>~170.000 años</strong> en salir del Sol por su camino aleatorio. El neutrino, que casi no interactúa con la materia, sale en <strong>~2 segundos</strong>. Si alguien “apagara” el Sol, los neutrinos lo delatarían unos 170.000 años antes que la luz — por eso interesan los detectores de neutrinos.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué no nos llegan rayos gamma?</span>
+    <p>Pregunta de clase: si la fusión emite rayos gamma, ¿por qué el Sol no nos esteriliza? Porque en cada interacción el fotón <strong>cede energía</strong> (por ejemplo, a la energía cinética del electrón con el que interactúa). Tras cientos de miles de años de choques, la energía que finalmente escapa por la fotósfera está degradada hacia el visible/IR. La forma exacta del espectro se ve en la parte 2.</p>
+  </div>
+
+  <h3>Convección y granulación</h3>
+  <p>Cerca de la superficie, el transporte de energía cambia de mecanismo: aparecen las <span class="hl">celdas de convección</span>, como el agua hirviendo en una olla. Burbujas de gas caliente suben, se enfrían en la superficie, y el material frío baja a reemplazarlas. <strong>No hay transferencia neta de masa</strong> (lo que sube se compensa con lo que baja); lo que se transporta es energía. El patrón visible resultante en la fotósfera es la <span class="hl">granulación solar</span>: ese aspecto de “panal de abejas” que se aprecia con un telescopio solar.</p>
+
+  <figure>
+    <img src="m1c2/assets/slide-34.jpg" alt="Celdas de convección y granulación solar en la superficie del Sol">
+    <figcaption><span class="cap">Diapositiva · Convección</span>Gas caliente sube, gas frío baja: transporte convectivo de energía en las capas externas. En la superficie se ve como granulación.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La cifra final</span>
+    <p>La energía producida en el núcleo tarda <strong>cientos de miles de años</strong> en llegar a la fotósfera… y luego solo <strong>8 minutos</strong> desde el Sol hasta la Tierra. La luz del Sol que ves ahora se “fabricó” antes de que existiera el Homo sapiens.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Próxima clase (parte 2)</span>
+    <p>Estructura interna del Sol capa por capa, cómo estudiamos su interior, actividad solar (manchas, ciclos) y sus efectos en la Tierra.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con los números de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-mc2">
+    <span class="tagband">Widget interactivo 1</span>
+    <h4>E = mc²: ¿cuánta energía hay en una masa?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa una masa (o usa los presets de la clase) y mira su equivalente en energía, comparado con referencias conocidas.</p>
+    <div class="presets" id="mc2-presets">
+      <button data-m="4.7e-29">Δm de una cadena p-p</button>
+      <button data-m="0.001">1 gramo</button>
+      <button data-m="1">1 kg</button>
+      <button data-m="70">Una persona (70 kg)</button>
+      <button data-m="4.2e9">Sol: masa→energía en 1 s</button>
+    </div>
+    <label for="mc2-m">Masa m (kg)</label>
+    <input type="number" id="mc2-m" step="any" value="1">
+    <output id="mc2-out"></output>
+  </div>
+
+  <div class="widget" id="w-vida">
+    <span class="tagband">Widget interactivo 2</span>
+    <h4>Tiempo de vida del Sol según su fuente de energía</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">t = energía disponible / L<sub>☉</sub>. Elige la hipótesis y, en el caso de la fusión, la fracción de hidrógeno fusionable. La barra compara con la edad actual del Sol (4.600 millones de años).</p>
+    <label for="vida-src">Fuente de energía</label>
+    <select id="vida-src">
+      <option value="comb">Combustión química (10⁻¹⁹ J/átomo)</option>
+      <option value="kh">Contracción de Kelvin-Helmholtz (⅗ GM²/R)</option>
+      <option value="fus" selected>Fusión de hidrógeno (cadena p-p)</option>
+    </select>
+    <div id="vida-fracwrap">
+      <label for="vida-frac">Fracción de H fusionable: <span id="vida-fraclab">10%</span></label>
+      <input type="range" id="vida-frac" min="1" max="100" step="1" value="10">
+    </div>
+    <output id="vida-out"></output>
+  </div>
+
+  <div class="widget" id="w-rw">
+    <span class="tagband">Widget interactivo 3</span>
+    <h4>El random walk del fotón</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">En un camino aleatorio, salir de un radio R con pasos de largo ℓ requiere ~(R/ℓ)² pasos, así que el tiempo de escape es t ≈ R²/(ℓc). Mueve el camino libre medio y compara con el neutrino, que sale en línea recta.</p>
+    <label for="rw-l">Camino libre medio ℓ: <span id="rw-llab"></span></label>
+    <input type="range" id="rw-l" min="-4" max="2" step="0.1" value="-3.3">
+    <output id="rw-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>L<sub>☉</sub></b></td><td>3,9×10²⁶ W (constante solar 1370 W/m² × esfera de 1 AU)</td><td>La potencia que cualquier hipótesis de fuente debe sostener</td></tr>
+      <tr><td><b>G2V</b></td><td>Tipo espectral G2, clase V (secuencia principal)</td><td>El Sol es una enana que fusiona H→He en su núcleo</td></tr>
+      <tr><td><b>T efectiva vs. T central</b></td><td>5800 K (fotósfera) vs. 15×10⁶ K (núcleo)</td><td>“La temperatura del Sol” depende de qué capa se hable</td></tr>
+      <tr><td><b>Rotación diferencial</b></td><td>~25 días en el ecuador, ~35 en los polos</td><td>El Sol no rota como sólido rígido: es gas/plasma</td></tr>
+      <tr><td><b>Composición</b></td><td>92% de átomos H (73% masa), 7,8% He (25% masa)</td><td>El combustible de la fusión es abundantísimo</td></tr>
+      <tr><td><b>Combustión</b></td><td>10⁻¹⁹ J/átomo ⇒ vida de ~10⁴ años</td><td>Descartada: el Sol es muchísimo más viejo</td></tr>
+      <tr><td><b>Contracción K-H</b></td><td>Peso comprime, gas se calienta (P = nkT) ⇒ ~2×10⁷ años</td><td>Insuficiente como fuente, pero real como mecanismo</td></tr>
+      <tr><td><b>E = mc²</b></td><td>Equivalencia masa-energía</td><td>Habilita ~10⁷ veces más energía por proceso que la química</td></tr>
+      <tr><td><b>Fusión vs. fisión</b></td><td>Livianos→pesado vs. pesado→livianos; ambas liberan energía</td><td>Las estrellas <em>fusionan</em>; el hierro es la excepción futura</td></tr>
+      <tr><td><b>Plasma ionizado</b></td><td>Gas tan caliente que núcleos y e⁻ andan separados</td><td>Condición del interior solar; requiere T &gt; 10⁷ K para fusionar</td></tr>
+      <tr><td><b>Cadena p-p</b></td><td>2(¹H+¹H→²H+e⁺+ν) → 2(²H+¹H→³He+γ) → ³He+³He→⁴He+2¹H</td><td>La ruta real de 4 ¹H → ⁴He, de a pares</td></tr>
+      <tr><td><b>Δm = 0,7%</b></td><td>4,2×10⁻¹² J por cadena; 600 M ton H/s; 10³⁸ reacciones/s</td><td>La contabilidad que cierra todos los números</td></tr>
+      <tr><td><b>Vida del Sol</b></td><td>~10¹⁰ años (fusionando solo el 10% de su H)</td><td>Con 4,6×10⁹ años, el Sol va por la mitad</td></tr>
+      <tr><td><b>Termostato solar</b></td><td>Retroalimentación negativa T ↔ presión ↔ gravedad</td><td>Explica la luminosidad constante</td></tr>
+      <tr><td><b>Equilibrio hidrostático</b></td><td>Presión (afuera) = gravedad (adentro); P máxima en el centro</td><td>Por qué las estrellas son esferas estables</td></tr>
+      <tr><td><b>Difusión radiativa</b></td><td>Camino libre medio &lt;1 mm; escape en ~170.000 años</td><td>El fotón sale por random walk; el neutrino, en ~2 s</td></tr>
+      <tr><td><b>Convección / granulación</b></td><td>Burbujas calientes suben, frías bajan (sin transferencia de masa)</td><td>Transporte de energía en las capas externas; patrón visible</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c2-examen-01.html">Examen 01<small>Propiedades básicas</small></a></li>
+    <li><a href="m1c2-examen-02.html">Examen 02<small>Composición elemental</small></a></li>
+    <li><a href="m1c2-examen-03.html">Examen 03<small>Luminosidad y clima</small></a></li>
+    <li><a href="m1c2-examen-04.html">Examen 04<small>Fuentes descartadas</small></a></li>
+    <li><a href="m1c2-examen-05.html">Examen 05<small>E=mc² y fusión/fisión</small></a></li>
+    <li><a href="m1c2-examen-06.html">Examen 06<small>Plasma y fuerzas</small></a></li>
+    <li><a href="m1c2-examen-07.html">Examen 07<small>Cadena protón-protón</small></a></li>
+    <li><a href="m1c2-examen-08.html">Examen 08<small>Contabilidad energética</small></a></li>
+    <li><a href="m1c2-examen-09.html">Examen 09<small>Termostato y equilibrio</small></a></li>
+    <li><a href="m1c2-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 2 del Módulo I del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Mejías, 21 mar 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m1/ff/Estrellas-m1c2-3104b895-df67.md</code>) y las diapositivas <code>Modulo_I_Clase_2_El_Sol_pt_1.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos y valores con las diapositivas y se corrigieron donde correspondía: la masa del Sol es <strong>333.400</strong> veces la de la Tierra (la transcripción dice “300.000”); la gravedad superficial es <strong>27,9×</strong> la terrestre = <strong>273 m/s²</strong> (la transcripción mezcla ambos números en “27.930”); el flujo integrado en todo el espectro es flujo <strong>bolométrico</strong> (la transcripción dice “volumétrico”); la comparación de la luminosidad es con <strong>10.000 millones</strong> de lavadoras por persona (la transcripción dice “10 millones”); la energía por átomo en combustión es <strong>10⁻¹⁹ J</strong> (en un pasaje la transcripción dice “10 a la menos 10”); el diámetro de la fotósfera es <strong>109,3</strong> diámetros terrestres (transcripción: “110”, aproximación válida); la masa convertida por segundo es <strong>4,2×10⁹ kg</strong> (la transcripción duda entre “4.2” y “4.33”); y el adelanto de los neutrinos respecto a los fotones es de <strong>~170.000 años</strong> (un estudiante dice “70.000”). Palabras deformadas por el reconocedor: “estría/estrilla/string” = estrella; “señor K y señor H” = Kelvin y Helmholtz; “fisio nuclear” = fisión nuclear. Ante cualquier duda, primar las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes físicas ----
+var C = 299792458;            // m/s
+var LSUN = 3.9e26;            // W
+var MSUN = 1.99e30;           // kg
+var RSUN = 6.96e8;            // m
+var G = 6.674e-11;            // N m^2/kg^2
+var YR = 3.156e7;             // s
+var EDAD_SOL = 4.6e9;         // años
+
+// ---- Widget 1: E = mc² ----
+(function(){
+  var inp = document.getElementById('mc2-m');
+  var out = document.getElementById('mc2-out');
+  var HIRO = 6.3e13;          // J, bomba de Hiroshima (~15 kton)
+  var MUNDO = 6e20;           // J, consumo energético mundial anual aprox.
+  function fmt(x, dec){ return x.toExponential(dec===undefined?2:dec).replace('e+','×10^').replace('e-','×10^-'); }
+  function calc(){
+    var m = parseFloat(inp.value);
+    if(!(m>0)){ out.innerHTML = "Ingresa una masa positiva."; return; }
+    var E = m*C*C;
+    var hiro = E/HIRO;
+    var mundo = E/MUNDO;
+    var solSeg = E/LSUN;
+    var extra = "";
+    if(mundo >= 0.01) extra += "≈ <b>"+mundo.toPrecision(3)+"</b> años de consumo energético mundial<br>";
+    if(hiro >= 0.01) extra += "≈ <b>"+fmt(hiro)+"</b> bombas de Hiroshima<br>";
+    extra += "≈ lo que el Sol radia en <b>"+(solSeg<1 ? fmt(solSeg)+" s" : solSeg.toPrecision(3)+" s")+"</b>";
+    out.innerHTML = "<span class='k'>E</span> = m·c² = <b>"+fmt(E,3)+"</b> J<br>"+extra;
+  }
+  inp.addEventListener('input', calc);
+  document.querySelectorAll('#mc2-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ inp.value = btn.dataset.m; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 2: tiempo de vida ----
+(function(){
+  var src = document.getElementById('vida-src');
+  var frac = document.getElementById('vida-frac');
+  var fraclab = document.getElementById('vida-fraclab');
+  var fracwrap = document.getElementById('vida-fracwrap');
+  var out = document.getElementById('vida-out');
+  var NATOMS = 1e57;
+  var EPP = 4.2e-12;          // J por cadena (4 núcleos de H)
+  function fmtYears(t){
+    if(t >= 1e9) return (t/1e9).toPrecision(3)+" mil millones de años";
+    if(t >= 1e6) return (t/1e6).toPrecision(3)+" millones de años";
+    if(t >= 1e3) return (t/1e3).toPrecision(3)+" mil años";
+    return t.toPrecision(3)+" años";
+  }
+  function calc(){
+    var mode = src.value, E, desc;
+    fracwrap.style.display = (mode==='fus') ? '' : 'none';
+    if(mode==='comb'){
+      E = NATOMS * 1e-19;
+      desc = "10⁵⁷ átomos × 10⁻¹⁹ J/átomo = "+E.toExponential(1)+" J";
+    } else if(mode==='kh'){
+      E = 0.6 * G * MSUN * MSUN / RSUN;
+      desc = "⅗·G·M²/R = "+E.toExponential(2)+" J";
+    } else {
+      var f = parseInt(frac.value,10)/100;
+      fraclab.textContent = Math.round(f*100)+"%";
+      E = EPP * (NATOMS * f / 4);   // 4 núcleos de H por cadena
+      desc = "4,2×10⁻¹² J × (10⁵⁷ × "+Math.round(f*100)+"% ÷ 4 cadenas) = "+E.toExponential(2)+" J";
+    }
+    var t_s = E / LSUN;
+    var t_yr = t_s / YR;
+    var ratio = Math.min(1, EDAD_SOL / t_yr);
+    var ok = t_yr > EDAD_SOL;
+    out.innerHTML = "Energía disponible: "+desc+"<br>"+
+      "<span class='k'>t</span> = E / L<sub>☉</sub> ≈ <b>"+fmtYears(t_yr)+"</b><br>"+
+      "<div class='lifebar'><div style='width:"+(ratio*100).toFixed(1)+"%'></div></div>"+
+      "<small style='color:var(--muted)'>La barra marca qué fracción de ese tiempo de vida ya transcurrió (edad del Sol: 4.600 millones de años).</small><br>"+
+      (ok ? "→ <b style='color:#5fd07e'>Compatible</b> con la edad del Sol."
+          : "→ <b style='color:#f06a5e'>Imposible</b>: el Sol ya vivió más que eso. Hipótesis descartada.");
+  }
+  src.addEventListener('change', calc);
+  frac.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 3: random walk del fotón ----
+(function(){
+  var sl = document.getElementById('rw-l');
+  var lab = document.getElementById('rw-llab');
+  var out = document.getElementById('rw-out');
+  function fmtLen(l){
+    if(l < 1e-3) return (l*1e6).toPrecision(3)+" µm";
+    if(l < 1) return (l*1e3).toPrecision(3)+" mm";
+    if(l < 1000) return l.toPrecision(3)+" m";
+    return (l/1000).toPrecision(3)+" km";
+  }
+  function fmtTime(s){
+    if(s < 60) return s.toPrecision(3)+" segundos";
+    if(s < 3600) return (s/60).toPrecision(3)+" minutos";
+    if(s < 86400) return (s/3600).toPrecision(3)+" horas";
+    if(s < YR) return (s/86400).toPrecision(3)+" días";
+    var y = s/YR;
+    if(y < 1e6) return Math.round(y).toLocaleString('es-CL')+" años";
+    return (y/1e6).toPrecision(3)+" millones de años";
+  }
+  function calc(){
+    var l = Math.pow(10, parseFloat(sl.value));
+    lab.textContent = fmtLen(l);
+    var N = Math.pow(RSUN/l, 2);
+    var t = RSUN*RSUN/(l*C);
+    var tNeu = RSUN/C;
+    out.innerHTML = "Pasos necesarios: <span class='k'>N</span> ≈ (R<sub>☉</sub>/ℓ)² = <b>"+N.toExponential(2)+"</b><br>"+
+      "Tiempo de escape del fotón: <span class='k'>t</span> ≈ R<sub>☉</sub>²/(ℓ·c) = <b>"+fmtTime(t)+"</b><br>"+
+      "El neutrino sale en línea recta: <b>"+tNeu.toPrecision(2)+" s</b> — le lleva una ventaja de <b>"+fmtTime(t)+"</b>."+
+      (l<=1e-3 ? "<br>→ Con ℓ &lt; 1 mm (como el interior real del Sol) se obtienen las <b>decenas/centenas de miles de años</b> de la clase." : "");
+  }
+  sl.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

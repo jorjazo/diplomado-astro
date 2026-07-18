@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nociones básicas para estudiar las estrellas — Astrofísica de Estrellas, Módulo I · Clase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6; --blue:#6f9cf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.0;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul,ol.body{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.wgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid,.wgrid3{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.widget canvas{width:100%;height:auto;display:block;margin-top:14px;background:#05070d;border:1px solid var(--line);border-radius:10px}
+.rngval{color:var(--gold);font-family:"Fraunces",serif}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo I · Clase 1</span>
+  <h1>Nociones básicas <em>para estudiar las estrellas</em></h1>
+  <p class="sub">La clase inaugural del curso (prof. Andrea Mejías) instala el terreno de juego: qué tipo de ciencia es la astronomía, con qué "mensajeros" aprendemos del Universo, por qué las potencias de 10 y los logaritmos son el idioma obligatorio del oficio, y por qué el estudio de las estrellas parte por el Sol — presentado aquí como un catálogo de números extremos: distancia, tamaño, masa, densidad, composición, temperatura, luminosidad y movimiento.</p>
+  <div class="meta">
+    <span><b>Curso:</b> Astrofísica de Estrellas</span>
+    <span><b>Profesora:</b> Andrea Mejías</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fuente:</b> Solo diapositivas (sin transcripción)</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>a astronomía es una ciencia rara: no podemos meter una estrella en un laboratorio, ni repetir el experimento, ni girar la perilla de la masa para ver qué pasa. Los "experimentos" ocurren solos, allá afuera, y a nosotros solo nos llega <em>información</em> — casi toda en forma de luz. Para alguien con formación de ingeniería, esta primera clase se lee como el <strong>documento de especificaciones</strong> del curso: define el método (observación + estadística + modelos + tecnología), los canales de entrada (el espectro electromagnético y otros mensajeros), las herramientas numéricas (notación científica y logaritmos, porque las cantidades abarcan decenas de órdenes de magnitud) y el primer caso de estudio: el Sol, la única estrella que tenemos al lado.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Astronomía: una ciencia observacional</a></li>
+    <li><a href="#s2">La luz: el mensajero principal</a></li>
+    <li><a href="#s3">Los otros mensajeros del Universo</a></li>
+    <li><a href="#s4">De describir a medir</a></li>
+    <li><a href="#s5">Potencias de 10 y logaritmos</a></li>
+    <li><a href="#s6">¿Por qué estudiar las estrellas?</a></li>
+    <li><a href="#s7">Partamos por nuestro Sol</a></li>
+    <li><a href="#s8">El Sol en números</a></li>
+    <li><a href="#s9">El Sol en movimiento</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Astronomía: una ciencia observacional</h2>
+    <p>Ni 100 % experimental ni 100 % teórica: observamos experimentos que no controlamos.</p>
+  </div></div>
+
+  <p>La clase define la <span class="hl">astronomía y astrofísica</span> como el ámbito de la ciencia que estudia el Universo, y enumera cinco rasgos que la distinguen (diapositiva 3, casi textual):</p>
+  <ul>
+    <li>Es <strong>fundamentalmente observacional</strong> — en vez de 100 % experimental o teórica.</li>
+    <li>Los <strong>"experimentos" ocurren sin nuestro control</strong> (el nacimiento de una estrella, la colisión de dos galaxias), pero podemos observarlos <em>en distintas etapas de su desarrollo</em>.</li>
+    <li>La <strong>estadística</strong> es una valiosa herramienta: podemos observar el mismo objeto o fenómeno múltiples veces — o muchos ejemplares del mismo tipo.</li>
+    <li>Los <strong>modelos interpretativos</strong> son parte integral de la astronomía moderna.</li>
+    <li>El <strong>desarrollo tecnológico</strong> es crucial para efectuar mediciones cada vez más precisas.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-03.jpg" alt="Diapositiva con las características de la astronomía como ciencia observacional">
+    <figcaption><span class="cap">Diapositiva 3 · El método de la astronomía</span>Observación, estadística, modelos interpretativos y tecnología: los cuatro pilares con los que la astronomía compensa el no poder hacer experimentos controlados.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es el mismo problema que diagnosticar una planta industrial <em>a la que no se puede entrar</em>: solo hay sensores remotos (telescopios), el proceso no se puede pausar ni repetir, y la única salida es acumular datos de muchas unidades similares (estadística de poblaciones), ajustar modelos (identificación de sistemas) y mejorar los sensores. La frase "observar el mismo fenómeno en distintas etapas" es clave: no vemos <em>una</em> estrella nacer y morir (viven millones a miles de millones de años), pero vemos <em>muchas</em> estrellas en distintos puntos de su vida — como inferir el ciclo de vida humano fotografiando una ciudad un solo día.</p>
+  </div>
+
+  <p>Antes de la respuesta formal, la clase muestra una nube de palabras con la <em>opinión popular</em> a la pregunta "¿cómo aprendemos sobre el Universo?": domina abrumadoramente <strong>"observando"</strong> — y la intuición popular acierta.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-04.jpg" alt="Nube de palabras con respuestas populares: observando, observación, mirando el cielo, con telescopios">
+    <figcaption><span class="cap">Diapositiva 4 · La opinión popular</span>La nube de palabras del público: "observando", "observación", "observando el cielo", "mediante telescopios". El sentido común coincide con la definición formal: la astronomía se hace mirando.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>La luz: el mensajero principal</h2>
+    <p>Del arcoíris del prisma al espectro electromagnético completo.</p>
+  </div></div>
+
+  <p>Las observaciones astronómicas se basan sobre todo en la <span class="hl">luz</span>. El punto de partida es la parte <strong>visible</strong> del espectro: la luz blanca que un prisma descompone en colores, de ~400 nm (violeta) a ~700 nm (rojo).</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-05.jpg" alt="Prisma descomponiendo luz blanca en el espectro visible, de 400 a 700 nanómetros">
+    <figcaption><span class="cap">Diapositiva 5 · La parte visible</span>Un prisma separa la luz blanca en sus componentes: el rango visible va de ~400 nm a ~700 nm. Es apenas una rendija diminuta de todo lo que el Universo emite.</figcaption>
+  </figure>
+
+  <p>Pero el rango visible es solo una ventana angosta: las observaciones se pueden hacer <strong>a lo ancho de todo el espectro electromagnético</strong>, desde las ondas de radio (longitudes de onda de metros a kilómetros) hasta los rayos gamma (menores que un núcleo atómico). La diapositiva 6 resume el mapa completo: tipo de radiación, longitud de onda, frecuencia, si penetra o no la atmósfera terrestre, y la temperatura típica de los objetos que emiten con máxima intensidad en cada banda.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-06.jpg" alt="Esquema del espectro electromagnético completo: radio, microondas, infrarrojo, visible, ultravioleta, rayos X y gamma, con longitudes de onda, frecuencias, penetración atmosférica y temperaturas">
+    <figcaption><span class="cap">Diapositiva 6 · El espectro electromagnético</span>El mapa maestro (crédito: Wikipedia): radio (λ ~ 10³ m) → microondas (10⁻²) → infrarrojo (10⁻⁵) → visible (0,5×10⁻⁶) → ultravioleta (10⁻⁸) → rayos X (10⁻¹⁰) → rayos gamma (10⁻¹²  m). Nótese la fila "¿penetra la atmósfera terrestre?": solo el visible, parte de la radio y ventanas del IR llegan al suelo — el resto exige telescopios espaciales.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Intuición física — inferencia propia</span>
+    <p>Toda la información viaja codificada en ondas electromagnéticas caracterizadas por su longitud de onda \(\lambda\) o su frecuencia \(\nu\), ligadas por \(\lambda \nu = c\). Y cada fotón transporta una energía \(E = h\nu\): a menor longitud de onda, mayor energía. Por eso el eje del espectro es también un eje de <em>violencia física</em>: la radio la emiten procesos fríos y tranquilos; los rayos gamma, los eventos más energéticos del cosmos. La fila de temperaturas de la diapositiva (1 K → 10 000 000 K) es exactamente esa correspondencia.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>El espectro electromagnético es el <strong>ancho de banda total del canal</strong> Universo→Tierra, y la atmósfera es un <em>filtro pasabanda</em> que solo deja pasar ciertas ventanas (visible, radio, rendijas del IR). Observar "en todas las bandas" es muestrear el mismo sistema con sensores de distinta banda de frecuencia: cada uno ve procesos físicos distintos. De ahí la carrera tecnológica por poner detectores fuera del filtro — es decir, en órbita.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 1 ============ -->
+<section id="w-em">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Basado en la diapositiva 6</span>
+    <h4>Explorador del espectro electromagnético</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Desliza sobre 15 órdenes de magnitud de longitud de onda (eje logarítmico, claro). El widget calcula la frecuencia \(\nu = c/\lambda\) y la energía por fotón \(E = h\nu\), identifica la banda, e indica si esa radiación atraviesa la atmósfera — es decir, si basta un telescopio en tierra o hace falta ir al espacio.</p>
+    <label>Longitud de onda λ = <span class="rngval" id="em-lv">550 nm</span></label>
+    <input type="range" id="em-l" min="-12.5" max="3.5" step="0.02" value="-6.26">
+    <div class="presets">
+      <button type="button" data-l="3">Radio (1 km)</button>
+      <button type="button" data-l="-1">Microondas (10 cm)</button>
+      <button type="button" data-l="-5">Infrarrojo (10 µm)</button>
+      <button type="button" data-l="-6.26">Visible (550 nm)</button>
+      <button type="button" data-l="-8">Ultravioleta (10 nm)</button>
+      <button type="button" data-l="-10">Rayos X (0,1 nm)</button>
+      <button type="button" data-l="-12">Rayos gamma (1 pm)</button>
+    </div>
+    <canvas id="em-canvas" width="900" height="120"></canvas>
+    <output id="em-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Los otros mensajeros del Universo</h2>
+    <p>Partículas, muestras directas y ondas gravitacionales: la astronomía multi-mensajero.</p>
+  </div></div>
+
+  <p>Además de la luz, la clase enumera tres <span class="hl">"mensajeros"</span> adicionales que traen información del Universo:</p>
+  <ul>
+    <li><strong>Partículas</strong> — el ejemplo de la clase son los <span class="hl">neutrinos</span>, detectados por observatorios como <strong>IceCube</strong> (un kilómetro cúbico de hielo antártico instrumentado con fotodetectores). Los neutrinos casi no interactúan con la materia: escapan directamente del interior de las estrellas, de donde la luz no puede salir.</li>
+    <li><strong>Muestras directas</strong> — el ejemplo son los <span class="hl">asteroides</span> (y meteoritos): pedazos físicos del Sistema Solar que podemos literalmente tener en la mano y analizar en laboratorio.</li>
+    <li><strong>Ondas gravitacionales</strong> — detectadas por <strong>LIGO</strong>: arrugas del espacio-tiempo producidas por eventos como la fusión de dos agujeros negros.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-08.jpg" alt="Diapositiva sobre neutrinos como mensajeros, con imagen del observatorio IceCube en la Antártica">
+    <figcaption><span class="cap">Diapositiva 8 · Partículas: neutrinos</span>El observatorio <strong>IceCube</strong> (crédito: IceCube) detecta neutrinos usando el hielo antártico como volumen detector. Los neutrinos serán protagonistas más adelante en el curso: son la única "vista directa" del horno nuclear central del Sol.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c1/assets/slide-10.jpg" alt="Diapositiva sobre ondas gravitacionales con la señal medida por los detectores LIGO Hanford y Livingston">
+    <figcaption><span class="cap">Diapositiva 10 · Ondas gravitacionales: LIGO</span>La señal de una fusión de agujeros negros medida por los dos detectores de LIGO (Hanford y Livingston), superpuesta a la predicción teórica (crédito: LIGO). Nótese el eje vertical: deformaciones (<em>strain</em>) de 10⁻²¹ — una medición al límite absoluto de la metrología.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Cada mensajero es un <strong>canal de medición con física de sensado distinta</strong>: la luz es abundante pero se absorbe y dispersa (pierde información del interior de las fuentes); los neutrinos atraviesan todo (señal limpia del núcleo, pero tasa de detección bajísima: relación señal/ruido pobre); las muestras directas permiten análisis destructivo en laboratorio (máxima precisión, mínima cobertura); las ondas gravitacionales no interactúan casi con la materia (canal sin distorsión, pero requiere detectar desplazamientos de 10⁻²¹ en fracción relativa). La astronomía "multi-mensajero" es <em>fusión de sensores</em>: combinar canales con errores independientes.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>De describir a medir</h2>
+    <p>El salto del análisis descriptivo al análisis cuantitativo, con Galileo como ejemplo.</p>
+  </div></div>
+
+  <p>El último elemento del método: la astronomía progresa cuando pasa del <span class="hl">análisis descriptivo</span> (<em>lo que vemos</em>) al <span class="hl">análisis cuantitativo</span> (<em>medición</em>). El ejemplo histórico de la clase es Galileo en 1610: sus dibujos nocturnos de las "estrellitas" junto a Júpiter — puro registro descriptivo — le permitieron descubrir, siguiendo sus posiciones noche a noche, que eran <strong>lunas orbitando Júpiter</strong>. El ejemplo moderno es un <strong>mapa de albedo</strong> (reflectividad) de una de esas mismas lunas: ya no "qué se ve", sino un campo escalar medido sobre la superficie.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-11.jpg" alt="Anotaciones originales de Galileo de 1610 mostrando las posiciones de las lunas de Júpiter noche a noche">
+    <figcaption><span class="cap">Diapositiva 11 · Galileo, 1610</span>Las anotaciones originales de Galileo: Júpiter (círculo) y sus lunas (asteriscos) cambiando de posición cada noche. De una serie temporal de posiciones — datos — nace el descubrimiento. Cuatro siglos después el principio es el mismo: describir, luego medir.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es la transición de <em>inspección visual</em> a <em>instrumentación</em>: del "la máquina suena raro" al espectro de vibraciones con acelerómetro. El mapa de albedo de la luna de Júpiter (diapositiva 12, Harcke 2005) es literalmente una <strong>campaña de caracterización</strong>: barrer la superficie con un sensor calibrado y producir un mapa cuantitativo con incertidumbres. Todo el curso operará en este modo: cada afirmación sobre las estrellas colgará de una medición.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Potencias de 10, notación científica y logaritmos</h2>
+    <p>El idioma numérico obligatorio cuando las cantidades abarcan 40 órdenes de magnitud.</p>
+  </div></div>
+
+  <p>Las cantidades astronómicas van desde la masa del electrón (~10⁻³⁰ kg) hasta la masa de una galaxia (~10⁴² kg). Escribir esos números con todos sus ceros es inviable; de ahí que la clase dedique un bloque completo a las <span class="hl">potencias de 10</span> y la <span class="hl">notación científica</span>, con la escalera de prefijos del SI: de <em>yocto</em> (10⁻²⁴) a <em>Yotta</em> (10²⁴).</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-13.jpg" alt="Escalera visual de escalas desde femtómetros hasta Yottametros, junto a la tabla de prefijos y potencias de diez">
+    <figcaption><span class="cap">Diapositiva 13 · La escalera de las escalas</span>De núcleos atómicos (fm) a supercúmulos de galaxias (Ym): cada círculo amplía ×1000 el anterior (crédito: The Open University). A la derecha, la tabla completa de prefijos: yocto, zepto, atto, femto, pico, nano, micro, mili … Kilo, Mega, Giga, Tera, Peta, Exa, Zetta, Yotta.</figcaption>
+  </figure>
+
+  <h3>Las reglas operativas</h3>
+  <p>La clase repasa las tres operaciones con potencias de 10 y la definición y propiedades del logaritmo — las herramientas de cálculo mental del astrónomo:</p>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="10^a \cdot 10^b = 10^{a+b} \qquad \frac{10^a}{10^b} = 10^{a-b} \qquad \left(10^a\right)^b = 10^{a\cdot b}"></span>
+    <small>Multiplicar números se convierte en <em>sumar exponentes</em>; dividir, en restar; elevar a potencia, en multiplicar. Con esto, estimaciones que parecen imposibles se hacen de cabeza.</small>
+  </div>
+
+  <div class="formula">
+    <span class="katex-block" data-tex="a = b^n \;\Longleftrightarrow\; \log_b(a) = n \qquad \log_{10}(xy) = \log_{10}x + \log_{10}y \qquad \log_{10}\!\left(\tfrac{x}{y}\right) = \log_{10}x - \log_{10}y"></span>
+    <small>El logaritmo es la operación inversa de la potencia: \(\log_{10}(10^n) = n\). En particular, \(\log_{10}(10^a \cdot 10^b) = a+b\) y \(\log_{10}(10^a/10^b) = a-b\). El logaritmo de un número es, esencialmente, su <em>orden de magnitud</em>.</small>
+  </div>
+
+  <figure>
+    <img src="m1c1/assets/slide-15.jpg" alt="Definición del logaritmo y sus propiedades: logaritmo de un producto, de un cociente y de potencias de diez">
+    <figcaption><span class="cap">Diapositiva 15 · Logaritmos</span>Definición y propiedades del logaritmo. En el curso aparecerán por todos lados: la escala de magnitudes estelares, los ejes de los diagramas, la ley que relaciona brillo y distancia — todos logarítmicos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es el mismo motivo por el que existen los <strong>decibeles</strong>: cuando una variable cubre muchos órdenes de magnitud (potencia de señal, ganancia, presión sonora), lo natural es trabajar con su logaritmo. Los diagramas de Bode son gráficos log-log por la misma razón por la que lo serán los diagramas del curso de estrellas. Y la aritmética de exponentes es idéntica a sumar ganancias en dB a lo largo de una cadena de amplificadores.</p>
+  </div>
+</section>
+
+<!-- ============ WIDGET 2 ============ -->
+<section id="w-esc">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Inspirado en la diapositiva 13</span>
+    <h4>La escalera cósmica en eje logarítmico</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Activa y desactiva objetos y compáralos en un eje log de longitudes (en metros). El resultado muestra la razón entre el mayor y el menor seleccionado — en órdenes de magnitud, que es como piensa un astrónomo. Nota cómo un eje lineal sería inútil: la Tierra entera sería invisible al lado de la distancia al centro galáctico.</p>
+    <div class="presets" id="esc-btns"></div>
+    <canvas id="esc-canvas" width="900" height="380"></canvas>
+    <output id="esc-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>¿Por qué estudiar las estrellas?</h2>
+    <p>Tres razones: la vida, los ladrillos del Universo y la evolución química.</p>
+  </div></div>
+
+  <p>Definido el método, la clase presenta la <span class="hl">astrofísica de estrellas</span> — el ámbito de la astronomía que abarca el estudio de la física de las estrellas — y justifica el curso con tres razones (diapositiva 17, casi textual):</p>
+  <ol class="body">
+    <li><strong>Nuestro Sol es una estrella</strong>, responsable de la luz, el calor y la energía que recibe la Tierra: <em>la vida en el planeta no podría existir sin esta estrella</em>.</li>
+    <li>Las estrellas son los <span class="hl">"ladrillos"</span> sobre los que se construye el <em>"edificio"</em> del Universo: entenderlas es la base que sustenta mucho de la astronomía y astrofísica.</li>
+    <li>Las estrellas son responsables de la <span class="hl">evolución química del Universo</span>: en su interior y durante su "muerte" se fraguan los elementos químicos que, eventualmente, dan origen a la vida en la Tierra — y quizás en otros mundos.</li>
+  </ol>
+
+  <figure>
+    <img src="m1c1/assets/slide-17.jpg" alt="Diapositiva con las tres razones para estudiar las estrellas: el Sol y la vida, las estrellas como ladrillos del Universo, y la evolución química">
+    <figcaption><span class="cap">Diapositiva 17 · La motivación del curso</span>Vida, estructura y química: las tres razones. La tercera es la más profunda — el carbono de tu cuerpo y el hierro de tu sangre se fabricaron dentro de estrellas que murieron antes de que naciera el Sol.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El programa del curso</span>
+    <p>La clase adelanta las preguntas que los tres módulos del curso responderán: ¿de qué están hechas las estrellas?, ¿cómo producen energía?, ¿por cuánto tiempo brillan?, ¿cómo cambian (evolucionan) en el tiempo?, ¿viven para siempre o mueren? Este apunte es el punto de partida de ese arco narrativo completo.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Partamos por nuestro Sol</h2>
+    <p>La estrella más cercana, la más fácil de estudiar — y bastante típica.</p>
+  </div></div>
+
+  <p>El curso parte por el <span class="hl">Sol</span> por tres razones: es la estrella <strong>más cercana</strong> (la más fácil de estudiar); para entender las estrellas <strong>primero debemos entender el Sol</strong>; y es una estrella <strong>bastante típica</strong> de nuestra Galaxia — lo que aprendamos de él generaliza bien.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-19.jpg" alt="Imagen del Sol en ultravioleta extremo con las tres razones para empezar por él">
+    <figcaption><span class="cap">Diapositiva 19 · El caso de estudio</span>El Sol observado en el ultravioleta extremo (crédito: NASA). Cercano, típico y fundamental: el laboratorio estelar perfecto.</figcaption>
+  </figure>
+
+  <p>¿Y cómo se estudia? La clase distingue dos frentes, cada uno con sus técnicas:</p>
+  <ul>
+    <li><strong>Características superficiales:</strong> estudiando su luz mediante <span class="hl">espectroscopía</span> (descomponer la luz en longitudes de onda) y <span class="hl">fotometría</span> (medir brillos), y estudiando las <span class="hl">partículas del viento solar</span>.</li>
+    <li><strong>Características de su interior:</strong> mediante <span class="hl">helio-sismología</span> (las oscilaciones del Sol como ondas sísmicas que revelan su estructura interna) y <span class="hl">detectando neutrinos</span> (que escapan directo del núcleo).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c1/assets/slide-20.jpg" alt="Diapositiva con las maneras de estudiar el Sol: espectroscopía, fotometría y viento solar para la superficie; heliosismología y neutrinos para el interior">
+    <figcaption><span class="cap">Diapositiva 20 · Dos frentes de medición</span>Superficie por luz y partículas; interior por sismología y neutrinos. La luz <em>no sale</em> del interior del Sol — para "ver" adentro hacen falta canales indirectos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>La helio-sismología es <strong>ensayo no destructivo por ultrasonido</strong> a escala estelar: de los modos de oscilación (frecuencias propias) se invierte la estructura interna, exactamente como el análisis modal de una estructura revela rigideces y masas internas. Y los neutrinos son el <em>sensor embebido</em> en el núcleo del reactor: la única señal que sale sin procesar desde la zona de reacción.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>El Sol en números: propiedades básicas</h2>
+    <p>Distancia, tamaño, masa, densidad, composición, temperatura y luminosidad — todos superlativos, salvo uno.</p>
+  </div></div>
+
+  <p>El corazón de la clase es una lista de diez propiedades del Sol, casi todas encabezadas por la palabra <em>"enorme"</em>. Recorrámoslas con sus números.</p>
+
+  <h3>Enorme distancia: 149,6 × 10⁶ km</h3>
+  <p>El Sol está a <strong>149,6 millones de kilómetros</strong> — unos 150 000 000 km, la distancia que define la <span class="hl">Unidad Astronómica</span>. La luz tarda ~8,3 minutos en recorrerla (inferencia propia: \(d/c\)). Y aún así, es la estrella <em>cercana</em>.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-21.jpg" alt="Esquema de la distancia Tierra-Sol de 150 millones de kilómetros">
+    <figcaption><span class="cap">Diapositiva 21 · La distancia</span>149,6 × 10⁶ km entre la Tierra y el Sol (crédito: Wikipedia). Primer uso práctico de la notación científica de la sección anterior.</figcaption>
+  </figure>
+
+  <h3>Enorme tamaño: R☉ = 696 × 10³ km ≈ 109 R⊕</h3>
+  <p>El radio solar es de <strong>696 000 km</strong>: unas <strong>109 veces el radio de la Tierra</strong>. En la imagen comparativa de la clase, la Tierra es un punto ("usted está aquí") junto a los planetas gigantes, y el Sol apenas cabe por el borde.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-22.jpg" alt="Comparación de tamaños entre los planetas y el borde del Sol, con la Tierra marcada como un punto diminuto">
+    <figcaption><span class="cap">Diapositiva 22 · El tamaño</span>R☉ = 696 × 10³ km ≈ 109 R<sub>Tierra</sub> (crédito: NASA). Si el Sol fuera una pelota de fútbol, la Tierra sería una cabeza de alfiler a 25 metros.</figcaption>
+  </figure>
+
+  <h3>Enorme masa: M☉ = 1,989 × 10³⁰ kg</h3>
+  <p>La masa del Sol es <strong>1,989 × 10³⁰ kg</strong> — y concentra el <strong>99,86 % de la masa de todo el Sistema Solar</strong>. El gráfico de torta de la clase es elocuente: el Sol es el disco completo; Júpiter y Saturno, una rendija apenas visible.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-23.jpg" alt="Gráfico de torta mostrando que el Sol contiene el 99.86 por ciento de la masa del Sistema Solar">
+    <figcaption><span class="cap">Diapositiva 23 · La masa</span>M☉ = 1,989 × 10³⁰ kg = 99,86 % del Sistema Solar. A efectos gravitacionales, el Sistema Solar <em>es</em> el Sol, con escombros alrededor.</figcaption>
+  </figure>
+
+  <h3>Baja densidad: ρ☉ = 1,41 g/cm³</h3>
+  <p>La única propiedad <em>no</em> superlativa: la densidad media del Sol es <strong>1,41 g/cm³</strong> — apenas 1,4 veces la del agua (1 g/cm³) y muy por debajo de la Tierra (5,5 g/cm³). Saturno, con 0,7 g/cm³, flotaría en una piscina suficientemente grande. ¿Cómo puede algo tan masivo ser tan poco denso? Porque el Sol no es sólido: es una <strong>bola de gas (plasma)</strong> gigantesca — la masa enorme se reparte en un volumen aún más enorme.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-24.jpg" alt="Comparación de densidades: Sol 1.41, agua 1, Tierra 5.5 y Saturno 0.7 gramos por centímetro cúbico">
+    <figcaption><span class="cap">Diapositiva 24 · La densidad</span>ρ☉ = 1,41 g/cm³, entre el agua (1) y la Tierra (5,5); Saturno queda en 0,7 (crédito: NASA). Densidad media = masa/volumen: el primer chequeo de consistencia que puede hacer un ingeniero con los dos números anteriores.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Verifícalo tú mismo — inferencia propia</span>
+    <p>Con los números de la clase: \(V = \tfrac{4}{3}\pi R^3 = \tfrac{4}{3}\pi (6{,}96\times10^{10}\,\text{cm})^3 \approx 1{,}4\times10^{33}\,\text{cm}^3\), y entonces \(\rho = M/V \approx 1{,}989\times10^{33}\,\text{g} \,/\, 1{,}4\times10^{33}\,\text{cm}^3 \approx 1{,}4\ \text{g/cm}^3\). ✓ Los tres números de las diapositivas son mutuamente consistentes — y acabas de usar las reglas de exponentes de la sección 5.</p>
+  </div>
+
+  <h3>Peculiar composición: 71 % H, 27 % He</h3>
+  <p>El Sol es <strong>~71 % hidrógeno, ~27 % helio y ~2 % elementos pesados</strong> (en masa). Comparado con la Tierra — dominada por hierro (31,9 %), oxígeno (29,7 %), silicio (16,1 %) y magnesio (15,4 %) — es una composición radicalmente distinta. Pero el asterisco de la diapositiva es importante: la composición del Sol es peculiar <em>comparada con la Tierra</em>, pero <strong>normal comparada con otras estrellas</strong> — y con el Universo en general. Los raros somos nosotros.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-25.jpg" alt="Composición del Sol (71% hidrógeno, 27% helio) comparada con la composición de la Tierra, dominada por hierro, oxígeno, silicio y magnesio">
+    <figcaption><span class="cap">Diapositiva 25 · La composición</span>Sol: H 71 %, He 27 %, pesados ~2 %. Tierra: Fe, O, Si, Mg… (crédito: Wikipedia). Los planetas rocosos se formaron del 2 % de "impurezas"; el Sol retuvo la mezcla primordial.</figcaption>
+  </figure>
+
+  <h3>Enorme temperatura: 5527 °C en la superficie… y millones en la corona</h3>
+  <p>La <span class="hl">fotósfera</span> — la "superficie" visible del Sol — está a <strong>5527 °C</strong> (unos 5800 K). Pero la temperatura no es una sola: el mosaico de imágenes del instrumento AIA muestra el Sol en distintas longitudes de onda, cada una sensible a plasma de distinta temperatura: 6000 K en la fotósfera, 50 000 K en la cromósfera, y de 1 a <strong>10 millones de Kelvin</strong> en la corona y las regiones de fulguraciones.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-27.jpg" alt="Mosaico de nueve imágenes del Sol en distintas longitudes de onda del instrumento AIA, cada una mostrando plasma de temperatura distinta, desde 6000 hasta 10 millones de Kelvin">
+    <figcaption><span class="cap">Diapositiva 27 · Un Sol por cada temperatura</span>El Sol según AIA (crédito: NASA): 4500 Å → fotósfera a 6000 K; 304 Å → cromósfera a 50 000 K; 171–131 Å → corona y fulguraciones de 10⁵ a 10⁷ K. Cada filtro es un "termómetro" sintonizado a un plasma distinto — el espectro EM de la sección 2 puesto a trabajar.</figcaption>
+  </figure>
+
+  <h3>Enorme fuente de luz y calor: L☉ = 3,9 × 10²⁶ W</h3>
+  <p>La <span class="hl">luminosidad</span> es la <strong>energía radiada por segundo</strong>: para el Sol, <strong>3,9 × 10²⁶ watts</strong>. La clase ancla la unidad con ampolletas de uso diario (incandescente 30 W, LED 3 W) y con una comparación memorable: la energía radiada por el Sol equivale a <em>aproximadamente 10 000 millones de lavadoras por cada ser humano, funcionando todo el tiempo</em>.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-28.jpg" alt="Definición de luminosidad como energía radiada por segundo, 3.9 por 10 a la 26 watts, comparada con el consumo de ampolletas">
+    <figcaption><span class="cap">Diapositiva 28 · La luminosidad</span>L☉ = 3,9 × 10²⁶ W = 3,9 × 10²⁶ J/s. La "potencia nominal" del Sol, que en el Módulo I aprenderemos a explicar con fusión nuclear.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ WIDGET 3 ============ -->
+<section id="w-sol">
+  <div class="widget">
+    <span class="tagband">Widget interactivo · Con los números de las diapositivas 21–28</span>
+    <h4>El Sol contra las cosas de la Tierra</h4>
+    <p style="color:var(--muted);font-size:.92rem;margin:.2em 0 .6em">Elige una referencia cotidiana y el widget la compara con la propiedad solar correspondiente usando aritmética de potencias de 10 (la razón se muestra también en órdenes de magnitud). Es el ejercicio mental que la clase propone con las ampolletas y las lavadoras.</p>
+    <div class="wgrid">
+      <div>
+        <label>Propiedad del Sol</label>
+        <select id="sol-prop">
+          <option value="L">Luminosidad — 3,9 × 10²⁶ W</option>
+          <option value="M">Masa — 1,989 × 10³⁰ kg</option>
+          <option value="R">Radio — 696 000 km</option>
+          <option value="d">Distancia Tierra–Sol — 149,6 × 10⁶ km</option>
+        </select>
+      </div>
+      <div>
+        <label>Compararla con…</label>
+        <select id="sol-ref"></select>
+      </div>
+    </div>
+    <output id="sol-out" class="wout"></output>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El Sol en movimiento</h2>
+    <p>Rotación diferencial sobre sí mismo; 220 km/s alrededor de la Galaxia.</p>
+  </div></div>
+
+  <h3>Rotación diferencial</h3>
+  <p>El Sol rota, pero <em>no como un cuerpo rígido</em>: el <strong>ecuador completa una vuelta en ~25 días</strong>, mientras que las regiones polares tardan <strong>~35 días</strong>. Esta <span class="hl">rotación diferencial</span> solo es posible porque el Sol es un fluido (plasma), no un sólido — y es un ingrediente clave del magnetismo solar que veremos en las próximas clases.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-29.jpg" alt="Esquema de la rotación diferencial del Sol: 25 días en el ecuador y hasta 35 días en los polos">
+    <figcaption><span class="cap">Diapositiva 29 · Rotación diferencial</span>25 días en el ecuador, 28–35 días hacia los polos (crédito: NASA). Un sólido no puede hacer esto: cada franja de latitud gira a su propio ritmo, cizallando las líneas de campo magnético.</figcaption>
+  </figure>
+
+  <h3>Órbita galáctica: 220 km/s, 220 millones de años</h3>
+  <p>El Sol tampoco está quieto en la Galaxia: orbita el centro de la <span class="hl">Vía Láctea</span> a una <strong>enorme velocidad orbital de 220 km/s</strong> (casi 800 000 km/h), y aun así — por las distancias involucradas — tarda un <strong>gran período orbital de ~220 millones de años</strong> en completar una vuelta. Desde que se formó, el Sol ha dado apenas unas 20 vueltas a la Galaxia.</p>
+
+  <figure>
+    <img src="m1c1/assets/slide-30.jpg" alt="Mapa de la Vía Láctea con la posición del Sol marcada y su órbita alrededor del centro galáctico a 220 kilómetros por segundo">
+    <figcaption><span class="cap">Diapositiva 30 · "Usted está aquí"</span>La órbita del Sol en la Vía Láctea (crédito: NASA): v ≈ 220 km/s, período ≈ 220 millones de años. Velocidad enorme, período enorme: las dos cosas a la vez, gracias a que el radio orbital es descomunal.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Chequeo rápido — inferencia propia</span>
+    <p>¿Son consistentes 220 km/s y 220 millones de años? El perímetro orbital sería \(P \cdot v = (220\times10^6 \cdot 3{,}15\times10^7\ \text{s}) \cdot 220\ \text{km/s} \approx 1{,}5\times10^{18}\ \text{km}\), lo que da un radio \(r = \tfrac{1{,}5\times10^{18}}{2\pi} \approx 2{,}4\times10^{17}\ \text{km} \approx 26\,000\) años luz — justo la distancia aceptada del Sol al centro galáctico. Otra vez: tres números, un chequeo dimensional, cero calculadora.</p>
+  </div>
+
+  <div class="box next">
+    <span class="tag">Próxima clase</span>
+    <p>La clase cierra con las preguntas que abren la siguiente: ¿cómo produce el Sol tan gran luminosidad?, ¿cuál es la fuente de energía del Sol y las estrellas?, ¿cómo se estructura el Sol?, ¿qué fuerzas lo equilibran?, ¿cómo se transporta la energía del interior al exterior? — el programa de las clases 2 y 3 (El Sol, partes 1 y 2).</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Astronomía observacional</b></td><td>Ciencia basada en observar "experimentos" que no controlamos</td><td>Define el método: observación + estadística + modelos + tecnología</td></tr>
+      <tr><td><b>Espectro electromagnético</b></td><td>Radio → microondas → IR → visible → UV → rayos X → gamma</td><td>La luz es el mensajero principal; cada banda ve física distinta</td></tr>
+      <tr><td><b>Ventanas atmosféricas</b></td><td>Solo visible, radio y parte del IR llegan al suelo</td><td>El resto del espectro exige telescopios espaciales</td></tr>
+      <tr><td><b>Mensajeros del Universo</b></td><td>Luz + partículas (neutrinos), muestras directas (asteroides), ondas gravitacionales (LIGO)</td><td>Astronomía multi-mensajero: canales con información complementaria</td></tr>
+      <tr><td><b>Descriptivo → cuantitativo</b></td><td>De "lo que vemos" a la medición (Galileo 1610 → mapa de albedo)</td><td>El progreso de la astronomía es el paso de describir a medir</td></tr>
+      <tr><td><b>Notación científica</b></td><td>10ᵃ·10ᵇ = 10ᵃ⁺ᵇ; 10ᵃ/10ᵇ = 10ᵃ⁻ᵇ; (10ᵃ)ᵇ = 10ᵃᵇ</td><td>Idioma obligatorio: las cantidades cubren decenas de órdenes de magnitud</td></tr>
+      <tr><td><b>Logaritmo</b></td><td>a = bⁿ ⇔ log_b(a) = n; log(xy) = log x + log y</td><td>El log de un número es su orden de magnitud; base de las magnitudes estelares</td></tr>
+      <tr><td><b>Por qué las estrellas</b></td><td>Vida (el Sol), "ladrillos" del Universo, evolución química</td><td>Motivación del curso completo</td></tr>
+      <tr><td><b>Cómo estudiar el Sol</b></td><td>Superficie: espectroscopía, fotometría, viento solar. Interior: helio-sismología, neutrinos</td><td>La luz no sale del interior: hacen falta canales indirectos</td></tr>
+      <tr><td><b>Distancia Tierra–Sol</b></td><td>149,6 × 10⁶ km (1 Unidad Astronómica)</td><td>La regla de medir del Sistema Solar</td></tr>
+      <tr><td><b>Radio solar</b></td><td>R☉ = 696 × 10³ km ≈ 109 R<sub>Tierra</sub></td><td>Escala de tamaño estelar</td></tr>
+      <tr><td><b>Masa solar</b></td><td>M☉ = 1,989 × 10³⁰ kg = 99,86 % del Sistema Solar</td><td>Unidad de masa de la astrofísica; el Sistema Solar es el Sol</td></tr>
+      <tr><td><b>Densidad media solar</b></td><td>ρ☉ = 1,41 g/cm³ (agua: 1; Tierra: 5,5; Saturno: 0,7)</td><td>El Sol es gas (plasma), no sólido; consistente con M y R</td></tr>
+      <tr><td><b>Composición solar</b></td><td>~71 % H, ~27 % He, ~2 % pesados</td><td>Peculiar vs. la Tierra, normal vs. otras estrellas</td></tr>
+      <tr><td><b>Temperatura</b></td><td>Fotósfera: 5527 °C (~5800 K); cromósfera 5×10⁴ K; corona 10⁶–10⁷ K</td><td>Cada banda del espectro "ve" plasma de temperatura distinta</td></tr>
+      <tr><td><b>Luminosidad</b></td><td>L☉ = 3,9 × 10²⁶ W (energía radiada por segundo)</td><td>La potencia del Sol; explicarla es el objetivo del Módulo I</td></tr>
+      <tr><td><b>Rotación diferencial</b></td><td>Ecuador: ~25 días; polos: ~35 días</td><td>Posible porque es fluido; motor del magnetismo solar</td></tr>
+      <tr><td><b>Órbita galáctica</b></td><td>v ≈ 220 km/s; período ≈ 220 millones de años</td><td>El Sol también se mueve: nada está quieto en el Universo</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c1-examen-01.html">Examen 01<small>La astronomía como ciencia</small></a></li>
+    <li><a href="m1c1-examen-02.html">Examen 02<small>El espectro electromagnético</small></a></li>
+    <li><a href="m1c1-examen-03.html">Examen 03<small>Los mensajeros del Universo</small></a></li>
+    <li><a href="m1c1-examen-04.html">Examen 04<small>Potencias de 10 y notación científica</small></a></li>
+    <li><a href="m1c1-examen-05.html">Examen 05<small>Logaritmos y órdenes de magnitud</small></a></li>
+    <li><a href="m1c1-examen-06.html">Examen 06<small>Por qué estudiar las estrellas</small></a></li>
+    <li><a href="m1c1-examen-07.html">Examen 07<small>Cómo se estudia el Sol</small></a></li>
+    <li><a href="m1c1-examen-08.html">Examen 08<small>El Sol en números I</small></a></li>
+    <li><a href="m1c1-examen-09.html">Examen 09<small>El Sol en números II</small></a></li>
+    <li><a href="m1c1-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 1 del Módulo I del curso de Astrofísica de Estrellas (prof. Andrea Mejías), Diplomado en Fundamentos de Astronomía, U. de Chile (Observatorio Cerro Calán). Elaborado a partir de las 33 diapositivas de la clase (<code>estrellas/m1/html/m1c1/assets/</code>). Créditos de imágenes según cada lámina: NASA, Wikipedia, LIGO, IceCube, Nanograv, The Open University, Harcke (2005).</p>
+  <p class="disc"><b>Aviso importante.</b> Esta clase <strong>no cuenta con transcripción de audio</strong>: estos apuntes se basan únicamente en las diapositivas, complementadas con explicación pedagógica propia. Las cajas marcadas como <em>"inferencia propia"</em>, las analogías ingenieriles, los chequeos numéricos y los widgets interactivos son elaboración del apunte, no contenido literal de la clase; los datos numéricos y afirmaciones principales provienen del texto de las láminas. Ante cualquier duda, priman las diapositivas originales y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  // ---- KaTeX render ----
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    // render inline \( ... \) inside paragraphs and boxes
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null);
+    var nodes=[];
+    while(walker.nextNode()){
+      var t=walker.currentNode;
+      if(t.nodeValue.indexOf('\\(')!==-1 && !t.parentNode.closest('script,style,.katex')) nodes.push(t);
+    }
+    nodes.forEach(function(t){
+      var frag=document.createDocumentFragment();
+      var parts=t.nodeValue.split(/\\\((.+?)\\\)/g);
+      parts.forEach(function(p,i){
+        if(i%2===0){ frag.appendChild(document.createTextNode(p)); }
+        else{
+          var span=document.createElement('span');
+          try{ katex.render(p, span, {displayMode:false, throwOnError:false}); }catch(e){ span.textContent=p; }
+          frag.appendChild(span);
+        }
+      });
+      t.parentNode.replaceChild(frag,t);
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+
+  // ===== Widget 1: explorador del espectro EM =====
+  var C=299792458, H_PLANCK=6.62607015e-34, EV=1.602176634e-19;
+  var emL=document.getElementById('em-l'), emLv=document.getElementById('em-lv'),
+      emCv=document.getElementById('em-canvas'), emOut=document.getElementById('em-out');
+  var bands=[
+    {n:"Rayos gamma", lo:-Infinity, hi:-11, col:"#e05be0", atm:false, ej:"fusiones de estrellas de neutrones, fulguraciones extremas"},
+    {n:"Rayos X",     lo:-11, hi:-8.5, col:"#b98cf0", atm:false, ej:"la corona solar, gas a millones de K"},
+    {n:"Ultravioleta",lo:-8.5, hi:-6.42, col:"#7f8cf0", atm:false, ej:"estrellas muy calientes, cromósfera solar"},
+    {n:"Visible",     lo:-6.42, hi:-6.15, col:"#f0e06a", atm:true,  ej:"la fotósfera del Sol (5527 °C)"},
+    {n:"Infrarrojo",  lo:-6.15, hi:-3, col:"#f09a5e", atm:"parcial", ej:"polvo tibio, planetas, estrellas frías"},
+    {n:"Microondas",  lo:-3, hi:-1, col:"#e0655b", atm:"parcial", ej:"el fondo cósmico de microondas"},
+    {n:"Radio",       lo:-1, hi:Infinity, col:"#d05b5b", atm:true, ej:"gas frío de hidrógeno, púlsares"}
+  ];
+  function fmtLambda(l){
+    if(l>=1000) return (l/1000).toPrecision(3)+" km";
+    if(l>=1) return l.toPrecision(3)+" m";
+    if(l>=0.01) return (l*100).toPrecision(3)+" cm";
+    if(l>=1e-3) return (l*1000).toPrecision(3)+" mm";
+    if(l>=1e-6) return (l*1e6).toPrecision(3)+" µm";
+    if(l>=1e-9) return (l*1e9).toPrecision(3)+" nm";
+    return (l*1e12).toPrecision(3)+" pm";
+  }
+  function drawEM(){
+    var lg=+emL.value, lam=Math.pow(10,lg);
+    emLv.textContent=fmtLambda(lam);
+    var ctx=emCv.getContext('2d'), W=emCv.width, Hh=emCv.height;
+    ctx.clearRect(0,0,W,Hh);
+    var min=-12.5, max=3.5, padL=14, padR=14, bandY=30, bandH=44;
+    function X(v){ return padL + (v-min)/(max-min)*(W-padL-padR); }
+    bands.forEach(function(b){
+      var x1=X(Math.max(b.lo,min)), x2=X(Math.min(b.hi,max));
+      ctx.fillStyle=b.col; ctx.globalAlpha=0.75;
+      ctx.fillRect(x1, bandY, x2-x1, bandH);
+      ctx.globalAlpha=1;
+    });
+    ctx.fillStyle="#9aa6bb"; ctx.font="11px Spectral, serif"; ctx.textAlign="center";
+    for(var e=-12;e<=3;e+=3){ ctx.fillText("10"+supN(e)+" m", X(e), bandY+bandH+18); }
+    // marker
+    var mx=X(lg);
+    ctx.strokeStyle="#fff"; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(mx, bandY-14); ctx.lineTo(mx, bandY+bandH+6); ctx.stroke();
+    ctx.fillStyle="#fff";
+    ctx.beginPath(); ctx.moveTo(mx, bandY-4); ctx.lineTo(mx-6, bandY-14); ctx.lineTo(mx+6, bandY-14); ctx.closePath(); ctx.fill();
+
+    var b=bands.filter(function(bb){return lg>=bb.lo && lg<bb.hi;})[0] || bands[bands.length-1];
+    var nu=C/lam, Ej=H_PLANCK*nu, Eev=Ej/EV;
+    var atm = b.atm===true ? "Sí — se puede observar desde telescopios en tierra."
+            : b.atm==="parcial" ? "Parcialmente — solo por algunas \"ventanas\" (sitios secos y altos, como el desierto de Atacama)."
+            : "No — la atmósfera la bloquea: se necesitan telescopios espaciales.";
+    emOut.innerHTML="<span class='k'>Banda:</span> <b>"+b.n+"</b> · λ = "+fmtLambda(lam)+
+      "<br><span class='k'>Frecuencia:</span> ν = c/λ = "+nu.toExponential(2).replace('e+','×10^').replace('e-','×10^-')+" Hz"+
+      " · <span class='k'>Energía por fotón:</span> E = hν ≈ "+(Eev>=1000?(Eev/1000).toPrecision(3)+" keV":Eev>=1?Eev.toPrecision(3)+" eV":Eev.toExponential(2)+" eV")+
+      "<br><span class='k'>¿Penetra la atmósfera?</span> "+atm+
+      "<br><span class='k'>Emisores típicos:</span> "+b.ej+".";
+  }
+  function supN(e){
+    var sup={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+    return String(e).split('').map(function(c){return sup[c]||c;}).join('');
+  }
+  if(emL){
+    emL.addEventListener('input',drawEM);
+    document.querySelectorAll('#w-em .presets button').forEach(function(b){
+      b.addEventListener('click',function(){ emL.value=b.dataset.l; drawEM(); });
+    });
+    drawEM();
+  }
+
+  // ===== Widget 2: escalera cósmica log =====
+  var escItems=[
+    {n:"Núcleo atómico (~1 fm)", v:1e-15, c:"#e05be0", on:false},
+    {n:"Bacteria (~1 µm)", v:1e-6, c:"#b98cf0", on:false},
+    {n:"Persona (~1,7 m)", v:1.7, c:"#7fd08a", on:true},
+    {n:"Radio de la Tierra (6371 km)", v:6.371e6, c:"#6f9cf0", on:true},
+    {n:"Radio del Sol (696 000 km)", v:6.96e8, c:"#f0e06a", on:true},
+    {n:"Tierra–Sol (1 UA)", v:1.496e11, c:"#f09a5e", on:true},
+    {n:"1 año luz", v:9.46e15, c:"#6fc7d6", on:false},
+    {n:"Sol–centro galáctico (~26 000 al)", v:2.5e20, c:"#f06a5e", on:true}
+  ];
+  var escBtns=document.getElementById('esc-btns'), escCv=document.getElementById('esc-canvas'), escOut=document.getElementById('esc-out');
+  function drawEsc(){
+    if(!escCv) return;
+    var ctx=escCv.getContext('2d'), W=escCv.width, Hh=escCv.height;
+    ctx.clearRect(0,0,W,Hh);
+    var active=escItems.filter(function(it){return it.on;});
+    var padL=270, padR=30, padT=24, padB=40;
+    var lmin=-16, lmax=21;
+    function X(v){ return padL + (Math.log10(v)-lmin)/(lmax-lmin)*(W-padL-padR); }
+    ctx.strokeStyle="#1a2438"; ctx.fillStyle="#9aa6bb"; ctx.font="11px Spectral, serif"; ctx.textAlign="center";
+    for(var e=-15;e<=20;e+=5){
+      var xx=X(Math.pow(10,e));
+      ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,Hh-padB);ctx.stroke();
+      ctx.fillText("10"+supN(e)+" m", xx, Hh-padB+16);
+    }
+    ctx.fillStyle="#ece8df"; ctx.font="13px Fraunces, serif";
+    ctx.fillText("Longitud en metros (eje logarítmico: cada línea = ×100 000)", (padL+W-padR)/2, Hh-6);
+    var bh=Math.min(34,(Hh-padT-padB-10)/Math.max(active.length,1)-8);
+    active.forEach(function(it,i){
+      var y=padT+8+i*(bh+10);
+      ctx.fillStyle=it.c;
+      var x1=X(it.v);
+      ctx.globalAlpha=0.85;
+      ctx.fillRect(padL, y, Math.max(2,x1-padL), bh);
+      ctx.globalAlpha=1;
+      ctx.fillStyle="#ece8df"; ctx.textAlign="right"; ctx.font="13px Spectral, serif";
+      ctx.fillText(it.n, padL-10, y+bh/2+4);
+      ctx.textAlign="left"; ctx.fillStyle=it.c; ctx.font="12px Fraunces, serif";
+      ctx.fillText(it.v.toExponential(1).replace('e+','×10^').replace('e-','×10^-')+" m", Math.min(x1+6,W-90), y+bh/2+4);
+    });
+    var big=active.length?active.reduce(function(a,b){return a.v>b.v?a:b;}):null;
+    var small=active.length?active.reduce(function(a,b){return a.v<b.v?a:b;}):null;
+    escOut.innerHTML = active.length<2 ? "Activa al menos dos objetos para comparar." :
+      "<span class='k'>Razón mayor/menor:</span> "+big.n+" / "+small.n+" = <b>×10^"+
+      (Math.log10(big.v/small.v)).toFixed(1)+"</b> ("+
+      (Math.log10(big.v/small.v)).toFixed(1)+" órdenes de magnitud). Dividir es restar exponentes: log(a/b) = log a − log b.";
+  }
+  if(escBtns){
+    escItems.forEach(function(it){
+      var b=document.createElement('button');
+      b.type="button"; b.textContent=it.n;
+      function paint(){ b.style.borderColor=it.on?it.c:"var(--line)"; b.style.color=it.on?it.c:"var(--muted)"; }
+      b.addEventListener('click',function(){ it.on=!it.on; paint(); drawEsc(); });
+      paint();
+      escBtns.appendChild(b);
+    });
+    drawEsc();
+  }
+
+  // ===== Widget 3: el Sol contra las cosas de la Tierra =====
+  var solProps={
+    L:{v:3.9e26, u:"W", n:"la luminosidad del Sol (3,9 × 10²⁶ W)"},
+    M:{v:1.989e30, u:"kg", n:"la masa del Sol (1,989 × 10³⁰ kg)"},
+    R:{v:6.96e8, u:"m", n:"el radio del Sol (696 000 km)"},
+    d:{v:1.496e11, u:"m", n:"la distancia Tierra–Sol (149,6 × 10⁶ km)"}
+  };
+  var solRefs={
+    L:[
+      {v:3, n:"una ampolleta LED (3 W)"},
+      {v:30, n:"una ampolleta incandescente (30 W)"},
+      {v:500, n:"una lavadora (~500 W)"},
+      {v:2e9, n:"una central eléctrica grande (2 GW)"},
+      {v:2e13, n:"el consumo eléctrico de toda la humanidad (~20 TW)"}
+    ],
+    M:[
+      {v:75, n:"una persona (75 kg)"},
+      {v:1.5e3, n:"un auto (1,5 t)"},
+      {v:5.972e24, n:"la Tierra (5,97 × 10²⁴ kg)"},
+      {v:1.898e27, n:"Júpiter (1,9 × 10²⁷ kg)"}
+    ],
+    R:[
+      {v:1.7, n:"una persona (1,7 m)"},
+      {v:4.3e6, n:"Chile de norte a sur (~4300 km)"},
+      {v:6.371e6, n:"el radio de la Tierra (6371 km)"},
+      {v:3.844e8, n:"la distancia Tierra–Luna (384 400 km)"}
+    ],
+    d:[
+      {v:6.371e6, n:"el radio de la Tierra (6371 km)"},
+      {v:3.844e8, n:"la distancia Tierra–Luna (384 400 km)"},
+      {v:4e7, n:"la circunferencia de la Tierra (40 000 km)"},
+      {v:6.96e8, n:"el radio del Sol (696 000 km)"}
+    ]
+  };
+  var solProp=document.getElementById('sol-prop'), solRef=document.getElementById('sol-ref'), solOut=document.getElementById('sol-out');
+  function fillRefs(){
+    var k=solProp.value;
+    solRef.innerHTML="";
+    solRefs[k].forEach(function(r,i){
+      var o=document.createElement('option'); o.value=i; o.textContent=r.n;
+      solRef.appendChild(o);
+    });
+    solCalc();
+  }
+  function solCalc(){
+    var k=solProp.value, r=solRefs[k][+solRef.value];
+    var rv=r.vv||r.v;
+    var ratio=solProps[k].v/rv, om=Math.log10(ratio);
+    var extra="";
+    if(k==="L"&&r.v===500){
+      var pop=8e9, per=ratio/pop;
+      extra="<br>Repartida entre 8 mil millones de personas: ~<b>"+per.toExponential(1).replace('e+','×10^')+"</b> lavadoras por persona — la comparación de la diapositiva 28 (\"10 000 millones de lavadoras por cada ser humano\").";
+    }
+    solOut.innerHTML="<span class='k'>"+solProps[k].n+"</span> equivale a<br><b>"+
+      ratio.toExponential(2).replace('e+','×10^').replace('e-','×10^-')+"</b> veces "+r.n+
+      " — es decir, <b>"+om.toFixed(1)+" órdenes de magnitud</b> más."+extra;
+  }
+  if(solProp){
+    solProp.addEventListener('change',fillRefs);
+    solRef.addEventListener('change',solCalc);
+    fillRefs();
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 05 — m1c4 · Magnitud absoluta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c4-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo I · Clase 4</span>
+<h1>Examen 05 — Magnitud absoluta</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,d,c">
+  <fieldset data-q="1"><legend>1. La magnitud absoluta de una estrella se define como:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Su magnitud medida sin atmósfera, desde el espacio</label>
+    <label class="opt"><input type="radio" name="q1" value="b">La magnitud aparente que tendría si estuviera a 10 parsec</label>
+    <label class="opt"><input type="radio" name="q1" value="c">La magnitud integrada en todo el espectro electromagnético</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Su magnitud medida a 1 unidad astronómica</label>
+    <p class="fb" hidden>Se fija una distancia de referencia arbitraria (10 pc) para “llevar” todas las estrellas al mismo plano y poder comparar sus brillos intrínsecos.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. El Sol tiene magnitud aparente ≈ −26 y magnitud absoluta ≈ +4,8. Esta enorme diferencia se debe a que:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El Sol es intrínsecamente la estrella más luminosa conocida</label>
+    <label class="opt"><input type="radio" name="q2" value="b">La atmósfera terrestre amplifica su brillo</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Su temperatura superficial es excepcionalmente alta</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Está muchísimo más cerca que 10 parsec (a solo 1 AU)</label>
+    <p class="fb" hidden>El Sol es una estrella común (“foquito en términos astronómicos”); nos deslumbra solo por cercanía. A 10 pc quedaría casi en el límite del ojo.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. La relación correcta entre magnitud aparente m, absoluta M y distancia d (en parsec) es:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">m − M = 5 log₁₀(d)</label>
+    <label class="opt"><input type="radio" name="q3" value="b">m − M = 2,5 log₁₀(d) − 5</label>
+    <label class="opt"><input type="radio" name="q3" value="c">m − M = 5 log₁₀(d) − 5</label>
+    <label class="opt"><input type="radio" name="q3" value="d">M − m = 5 log₁₀(d) + 5</label>
+    <p class="fb" hidden>La diapositiva omitía el −5 y la profesora lo advirtió en clase. Verificación: a d = 10 pc, m − M = 5·1 − 5 = 0, como exige la definición.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. ¿Por qué la magnitud aparente, por sí sola, no entrega información sobre las propiedades intrínsecas de una estrella? ¿Qué problema resuelve la magnitud absoluta?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La magnitud aparente mide el <strong>flujo recibido en la Tierra</strong>, que mezcla dos cosas: la luminosidad intrínseca y la distancia (ley del cuadrado inverso). Dos estrellas con la misma magnitud aparente pueden ser una gigante lejana y una enana cercana: con solo m no se distinguen. La magnitud absoluta <strong>elimina la variable distancia</strong> al preguntar cuánto brillaría la estrella si todas estuvieran a la misma distancia de referencia (10 pc): así M queda ligada solo a la luminosidad, una propiedad intrínseca, y las estrellas se pueden comparar directamente para saber “cuál brilla más de verdad”. El precio: se necesita conocer la distancia — por eso medir distancias es tan importante en astronomía.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Si el Sol estuviera a 10 parsec de distancia, ¿podríamos verlo a ojo desnudo? Justifica usando su magnitud absoluta y el límite de visión humana.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Apenas. Por definición, a 10 pc la magnitud aparente del Sol sería igual a su magnitud absoluta: <strong>M ≈ +4,8</strong>. El límite del ojo humano en un cielo oscuro es la <strong>magnitud 6</strong>, así que el Sol quedaría dentro del rango visible, pero <strong>muy cerca del límite</strong>: sería una estrellita débil, visible solo en condiciones de cielo excelentes y sin contaminación lumínica. La lección: nuestra estrella, que de día nos “achicharra”, es en realidad un objeto astronómicamente modesto — su brillo abrumador es puro efecto de cercanía (1 AU vs. 10 pc, un factor de ~2 millones en distancia, es decir ~4×10¹² en flujo).</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · generado a partir de la Clase 4, Módulo I (Astrofísica de Estrellas). <a href="m1c4-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 10 — m1c1 · Integrador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo I · Clase 1</span>
+<h1>Examen 10 — Integrador</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Este examen cruza todos los temas de la clase.</p>
+
+<form id="quiz" data-answers="b,d,a">
+  <fieldset data-q="1"><legend>1. El Sol rota con un período de ~25 días en el ecuador y ~35 días en los polos. Este fenómeno se llama:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">Precesión orbital</label>
+    <label class="opt"><input type="radio" name="q1" value="b">Rotación diferencial — posible porque el Sol es fluido (plasma), no sólido</label>
+    <label class="opt"><input type="radio" name="q1" value="c">Libración solar</label>
+    <label class="opt"><input type="radio" name="q1" value="d">Rotación síncrona</label>
+    <p class="fb" hidden>Rotación diferencial: cada franja de latitud gira a su propio ritmo (ecuador más rápido, polos más lentos). Un cuerpo rígido no puede hacerlo; el Sol sí, porque es una bola de gas.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. Sobre el movimiento del Sol en la Vía Láctea, la clase indica:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">El Sol está en reposo en el centro de la Galaxia</label>
+    <label class="opt"><input type="radio" name="q2" value="b">Orbita a 220 m/s y completa una vuelta en 220 años</label>
+    <label class="opt"><input type="radio" name="q2" value="c">Se aleja del centro galáctico en línea recta</label>
+    <label class="opt"><input type="radio" name="q2" value="d">Orbita el centro galáctico a ~220 km/s, con un período de ~220 millones de años</label>
+    <p class="fb" hidden>Enorme velocidad orbital (220 km/s ≈ 800 000 km/h) y a la vez gran período orbital (220 millones de años): ambas cosas simultáneamente, porque el radio de la órbita es descomunal.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. ¿Cuál secuencia resume correctamente el arco completo de la clase?</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Método (observación y mensajeros) → herramientas numéricas (potencias de 10, logaritmos) → motivación (por qué estrellas) → caso de estudio (el Sol y sus propiedades)</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Historia de la astronomía → telescopios → galaxias → cosmología</label>
+    <label class="opt"><input type="radio" name="q3" value="c">El Sol → los planetas → los cometas → los asteroides</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Fusión nuclear → estructura solar → evolución estelar → muerte de las estrellas</label>
+    <p class="fb" hidden>La clase es el "documento de especificaciones" del curso: primero el método, luego el idioma numérico, luego la motivación, y finalmente el primer caso de estudio (el Sol en números). La fusión y la estructura solar quedan anunciadas para la próxima clase.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. Un chequeo integrador: verifica que la velocidad orbital (220 km/s) y el período orbital (220 millones de años) del Sol son consistentes con una distancia al centro galáctico de ~26 000 años luz. Usa notación científica y comenta qué habilidades de la clase estás aplicando.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Perímetro de la órbita = velocidad × período. Período en segundos: 220×10⁶ años × 3,15×10⁷ s/año ≈ 6,9×10¹⁵ s. Perímetro: 220 km/s × 6,9×10¹⁵ s ≈ 1,5×10¹⁸ km. Radio: r = perímetro/2π ≈ 1,5×10¹⁸ / 6,28 ≈ 2,4×10¹⁷ km. En años luz (1 al ≈ 9,46×10¹² km): r ≈ 2,4×10¹⁷ / 9,46×10¹² ≈ 2,6×10⁴ ≈ <strong>26 000 años luz</strong> ✓ — el valor aceptado de la distancia del Sol al centro galáctico. Habilidades aplicadas: notación científica y aritmética de exponentes (multiplicar = sumar exponentes, dividir = restar), conversión de unidades, y el hábito del chequeo de consistencia entre datos independientes — todo el contenido "de herramientas" de la clase puesto a trabajar sobre sus propios números.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. De las diez propiedades de la lista "El Sol: Propiedades Básicas", nueve empiezan con "enorme" o "gran" — y una es "baja densidad". Recorre la lista completa con sus valores y explica por qué esa aparente anomalía es en realidad una pista sobre la física del Sol que el curso desarrollará.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La lista: <strong>enorme distancia</strong> (149,6×10⁶ km), <strong>enorme tamaño</strong> (R☉ = 696×10³ km ≈ 109 R⊕), <strong>enorme masa</strong> (1,989×10³⁰ kg, 99,86 % del Sistema Solar), <strong>baja densidad</strong> (1,41 g/cm³), <strong>peculiar composición</strong> (71 % H, 27 % He — normal entre estrellas), <strong>enorme temperatura</strong> (5527 °C en fotósfera, millones en corona), <strong>enorme fuente de luz y calor</strong> (L☉ = 3,9×10²⁶ W), <strong>rotación diferencial</strong> (25 d ecuador / 35 d polos), <strong>enorme velocidad orbital</strong> (220 km/s) y <strong>gran período orbital</strong> (220 millones de años). La "baja densidad" es la pista: un objeto con la masa de 333 000 Tierras pero densidad menor que la terrestre no puede ser sólido — es una <strong>bola de gas (plasma) autogravitante</strong>, hecha de los elementos más livianos. Y eso abre las preguntas de la próxima clase: si es gas, ¿por qué no se colapsa ni se dispersa? (equilibrio de fuerzas), ¿cómo genera 10²⁶ W? (fusión nuclear en el núcleo), ¿cómo sale esa energía? (transporte). La anomalía de la lista es, en realidad, la definición física de lo que es una estrella.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 1, Módulo I (Astrofísica de Estrellas). <a href="m1c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

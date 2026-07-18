@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propiedades básicas de las estrellas — Astrofísica de Estrellas, Módulo I · Clase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top">Astrofísica de Estrellas · Módulo I</nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo I · Clase 4</span>
+  <h1>Propiedades básicas de las <em>estrellas</em></h1>
+  <p class="sub">Todo lo que sabemos de una estrella lo sabemos midiendo su <em>luz</em>. Cómo pasar del brillo que registra un detector a la luminosidad, temperatura, masa, radio y distancia de una estrella: magnitudes, cuerpo negro, binarias, eclipses y paralaje.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Andrea Mejías</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 18 abr 2026</span>
+    <span><b>Tema:</b> Fotometría, magnitudes, binarias y paralaje</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as estrellas viven millones o miles de millones de años; nosotros las observamos apenas un instante de sus vidas. Por eso la astronomía estelar es, en el fondo, un ejercicio de <span class="hl">ingeniería inversa con luz</span>: recibimos un flujo de fotones y, a partir de él, reconstruimos las propiedades físicas del objeto que lo emitió. En esta clase se arma la caja de herramientas completa: <strong>luminosidad</strong> y <strong>flujo</strong>, la <strong>ley del cuadrado inverso</strong>, la escala de <strong>magnitudes</strong> (con su lógica invertida heredada de Hiparco), el <strong>color</strong> como termómetro, las <strong>binarias</strong> como balanzas, los <strong>eclipses</strong> como reglas y el <strong>paralaje</strong> como cinta métrica cósmica.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Luminosidad y flujo</a></li>
+    <li><a href="#s2">Stefan-Boltzmann: L = 4πR²σT⁴</a></li>
+    <li><a href="#s3">Brillo aparente y ley del cuadrado inverso</a></li>
+    <li><a href="#s4">La escala de magnitudes</a></li>
+    <li><a href="#s5">Magnitud absoluta</a></li>
+    <li><a href="#s6">Temperatura y color</a></li>
+    <li><a href="#s7">Masa: binarias y Kepler</a></li>
+    <li><a href="#s8">Radio estelar</a></li>
+    <li><a href="#s9">Distancia: paralaje</a></li>
+    <li><a href="#s10">Hipparcos, Gaia y la astrometría</a></li>
+    <li><a href="#s11">Hacia el diagrama HR</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Luminosidad y flujo</h2>
+    <p>Potencia total de la estrella vs. potencia por metro cuadrado.</p>
+  </div></div>
+
+  <p>La <span class="hl">luminosidad</span> <span class="katex-inline" data-tex="L"></span> es la <strong>energía que radia la estrella por unidad de tiempo</strong>: una potencia, en watts. Es una <em>propiedad intrínseca</em> de la estrella — se genera en su núcleo y no depende de quién la mire ni desde dónde. Para el Sol:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L_\odot \approx 3.9\times10^{26}\ \mathrm{W}"></div>
+    <small>El símbolo <span class="katex-inline" data-tex="\odot"></span> denota al Sol; <span class="katex-inline" data-tex="\star"></span> denota una estrella cualquiera. Ojo con los subíndices: dicen <em>de qué objeto</em> y <em>a qué superficie</em> se refiere cada cantidad.</small>
+  </div>
+
+  <p>El <span class="hl">flujo</span> <span class="katex-inline" data-tex="F"></span> es la misma idea <strong>por unidad de área</strong>: cuánta energía por segundo atraviesa un “cuadrito” de 1 m² (un panel solar, la pupila del ojo, el espejo de un telescopio). Como las estrellas son esferas que radian en todas direcciones, el área natural para repartir la luminosidad es la superficie de una esfera:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F = \frac{L}{4\pi r^2}"></div>
+    <small>donde <span class="katex-inline" data-tex="r"></span> es el radio de la esfera sobre la que reparto la energía: el radio de la estrella si mido en su superficie, o la distancia al observador si mido lejos.</small>
+  </div>
+
+  <h3>Dos evaluaciones del mismo flujo solar</h3>
+  <ul>
+    <li><strong>En la superficie del Sol</strong> (<span class="katex-inline" data-tex="r = R_\odot"></span>): <span class="katex-inline" data-tex="F_\odot(\text{superficie}) = L_\odot / 4\pi R_\odot^2 \approx 6\times10^{7}\ \mathrm{W\,m^{-2}}"></span>. Un panel solar de 1 m² pegado al Sol captaría <strong>60 millones de watts</strong>.</li>
+    <li><strong>En la Tierra</strong> (<span class="katex-inline" data-tex="r = d = 1\ \mathrm{AU} \approx 1.5\times10^{11}\ \mathrm{m}"></span>, 150 millones de km): <span class="katex-inline" data-tex="F_\odot(\text{Tierra}) \approx 1370\ \mathrm{W\,m^{-2}}"></span>. El mismo panel, acá, capta unos <strong>1370 W</strong>: la famosa <em>constante solar</em>.</li>
+  </ul>
+  <p>La luminosidad no cambió; lo que cambió fue el <strong>área de la esfera</strong> sobre la que se reparte. Al alejarnos, la misma potencia se diluye sobre una esfera gigantesca y el flujo cae.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-03.jpg" alt="Definición de luminosidad y flujo; flujo solar en superficie">
+    <figcaption><span class="cap">Diapositiva · Luminosidad y flujo</span>Luminosidad = energía radiada por segundo (<span class="katex-inline" data-tex="L_\odot = 3.9\times10^{26}"></span> W). Flujo = energía por segundo <em>y por unidad de área</em>. Evaluado en la superficie solar: ≈ 6×10⁷ W/m².</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-04.jpg" alt="Flujo solar a la distancia de la Tierra: 1370 W/m²">
+    <figcaption><span class="cap">Diapositiva · La constante solar</span>A 1 AU la energía se reparte sobre una esfera de radio igual a la distancia Tierra–Sol: quedan ≈ 1370 W/m². Este número es la base del dimensionamiento de paneles solares e instrumentos espaciales.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Es exactamente el <strong>link budget</strong> de telecomunicaciones: una antena emite una potencia <span class="katex-inline" data-tex="P_t"></span> (la “luminosidad”) y el receptor capta una densidad de potencia <span class="katex-inline" data-tex="P_t/4\pi d^2"></span> (el “flujo”), atenuada por la pérdida de espacio libre <span class="katex-inline" data-tex="\propto 1/d^2"></span>. La estrella es el transmisor isotrópico perfecto; el telescopio, la antena receptora.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Stefan-Boltzmann: L = 4πR²σT⁴</h2>
+    <p>La primera gran ecuación de la astrofísica estelar.</p>
+  </div></div>
+
+  <p>Despejando la definición de flujo, la luminosidad es <span class="katex-inline" data-tex="L = F \cdot 4\pi r^2"></span>. Y para un <span class="hl">cuerpo negro</span> —una muy buena primera aproximación de cómo radia una estrella— el flujo en superficie depende solo de la temperatura, según la <strong>ley de Stefan-Boltzmann</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F = \sigma T^4, \qquad \sigma \approx 5.67\times10^{-8}\ \mathrm{W\,m^{-2}\,K^{-4}}"></div>
+    <small><span class="katex-inline" data-tex="\sigma"></span> es la <strong>constante de Stefan-Boltzmann</strong> (en clase se la nombró como “constante de Boltzmann”, pero son constantes distintas: la de Boltzmann <span class="katex-inline" data-tex="k_B"></span> aparece en teoría de gases). Nadie memoriza su valor: se trabaja con la tabla de constantes al lado.</small>
+  </div>
+
+  <p>Uniendo ambas piezas, evaluadas en la superficie de la estrella (radio <span class="katex-inline" data-tex="R_\star"></span>, temperatura superficial <span class="katex-inline" data-tex="T_\star"></span>):</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L_\star = 4\pi R_\star^2\,\sigma T_\star^4"></div>
+    <small>La temperatura que entra aquí es la <strong>superficial</strong> (≈ 5777 K para el Sol), no los 15 millones de grados del núcleo. Es “la primera ecuación que a uno le presentan” cuando se habla de luminosidad.</small>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-05.jpg" alt="Derivación de L = 4πR²σT⁴">
+    <figcaption><span class="cap">Diapositiva · La derivación</span>Solo un despeje aritmético: <span class="katex-inline" data-tex="L_\star = 4\pi R_\star^2 \cdot F_{\star,\text{superficie}}"></span> y <span class="katex-inline" data-tex="F = \sigma T^4"></span> (visto en el curso de Instrumentación) dan <span class="katex-inline" data-tex="L_\star = 4\pi R_\star^2 \sigma T_\star^4"></span>.</figcaption>
+  </figure>
+
+  <h3>Qué nos dice la ecuación</h3>
+  <ul>
+    <li>La luminosidad depende del <strong>tamaño</strong> (<span class="katex-inline" data-tex="R_\star^2"></span>): a igual temperatura, una estrella más grande brilla más.</li>
+    <li>Depende <em>mucho más fuerte</em> de la <strong>temperatura</strong> (<span class="katex-inline" data-tex="T_\star^4"></span>): a igual tamaño, una estrella más fría brilla <em>mucho</em> menos. Duplicar T multiplica L por 16.</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Un análisis de sensibilidad clásico: <span class="katex-inline" data-tex="\tfrac{\Delta L}{L} \approx 2\tfrac{\Delta R}{R} + 4\tfrac{\Delta T}{T}"></span>. La “ganancia” de la temperatura es el doble que la del radio: un error del 5% en T produce un 20% de error en L. La misma ley <span class="katex-inline" data-tex="T^4"></span> gobierna el diseño de radiadores térmicos de satélites.</p>
+  </div>
+
+  <div class="widget" id="w-sb">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Stefan-Boltzmann: arma tu estrella (L = 4πR²σT⁴)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve el radio y la temperatura superficial y mira cómo cambia la luminosidad. Nota la dependencia T⁴.</p>
+    <div class="presets" id="sb-presets">
+      <button data-r="1" data-t="5772">Sol</button>
+      <button data-r="0.2" data-t="3200">Enana roja</button>
+      <button data-r="1.7" data-t="9900">Sirio A</button>
+      <button data-r="79" data-t="12100">Rigel</button>
+      <button data-r="900" data-t="3500">Betelgeuse</button>
+    </div>
+    <label for="sb-r">Radio R (en radios solares): <span id="sb-rlab"></span></label>
+    <input type="range" id="sb-r" min="-1" max="3" step="0.01" value="0">
+    <label for="sb-t">Temperatura superficial T (K): <span id="sb-tlab"></span></label>
+    <input type="range" id="sb-t" min="2500" max="40000" step="50" value="5772">
+    <output id="sb-out"></output>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Brillo aparente y ley del cuadrado inverso</h2>
+    <p>Lo que medimos no es lo que la estrella es: hay que corregir por distancia.</p>
+  </div></div>
+
+  <p>El <span class="hl">brillo aparente</span> es el flujo de la estrella <strong>medido desde la Tierra</strong>. La palabra <em>aparente</em> es clave: no es una propiedad de la estrella, sino de la combinación estrella + distancia. Evaluando el flujo a la distancia <span class="katex-inline" data-tex="d_\star"></span> del observador:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="F_\star = \frac{L_\star}{4\pi d_\star^2}"></div>
+    <small>La <strong>ley del cuadrado inverso</strong>: el flujo cae con el cuadrado de la distancia. El nombre viene de que la distancia aparece <em>al cuadrado</em> y <em>dividiendo</em>.</small>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-08.jpg" alt="Ley del cuadrado inverso: la misma luz se reparte en áreas crecientes">
+    <figcaption><span class="cap">Diapositiva · Ley del cuadrado inverso</span>La misma cantidad de luz atraviesa esferas cada vez más grandes: al doble de distancia, la misma energía se reparte en 4 veces más área; al triple, en 9 veces más.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-07.jpg" alt="Campo de estrellas del telescopio espacial Hubble">
+    <figcaption><span class="cap">Diapositiva · Pregunta</span>Campo estelar del telescopio Hubble: estrellas débiles, brillantes y de distintos colores. ¿De qué depende el brillo que observamos? De la <strong>luminosidad</strong> de cada estrella <em>y</em> de su <strong>distancia</strong>. (Para estos efectos, Hubble “está en la Tierra”: su órbita es despreciable frente a las distancias estelares.)</figcaption>
+  </figure>
+
+  <h3>Los ejercicios mentales de la clase</h3>
+  <ul>
+    <li><strong>Misma distancia, una estrella 4× más luminosa:</strong> el 4 sale multiplicando y el denominador no cambia → recibe <strong>4× más flujo</strong>. Flujo y luminosidad son directamente proporcionales.</li>
+    <li><strong>4× más luminosa pero 2× más lejos:</strong> el denominador se hace <span class="katex-inline" data-tex="(2d)^2 = 4d^2"></span> → el 4 de arriba se cancela con el 4 de abajo y <strong>ambas se ven igual de brillantes</strong>.</li>
+    <li><strong>La Tierra a 10 AU del Sol:</strong> <span class="katex-inline" data-tex="10^2 = 100"></span> → recibiríamos <strong>una centésima</strong> del flujo actual. Es el régimen de los planetas gaseosos: por eso Saturno recibe tan poca energía solar.</li>
+  </ul>
+
+  <div class="box dato">
+    <span class="tag">La trampa de la gigante lejana y la enana cercana</span>
+    <p>Una <strong>gigante roja muy lejos</strong> y una <strong>enana roja muy cerca</strong> (mismo color, misma temperatura) pueden verse con el <em>mismo brillo aparente</em>: la gigante es intrínsecamente mucho más luminosa (por su <span class="katex-inline" data-tex="R^2"></span>), pero la distancia se lo descuenta. Por eso en astronomía no se pueden inferir parámetros físicos directamente del brillo medido: <strong>hay que corregir por distancia</strong>. El cielo no es un plano: siempre está en 3D.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Separar <em>brillo aparente</em> de <em>luminosidad</em> es des-mezclar dos variables confundidas en una sola medición — el mismo problema de identificabilidad que estimar la potencia de un transmisor conociendo solo la señal recibida (RSSI): sin conocer la distancia, hay infinitas combinaciones (L, d) compatibles con el mismo flujo.</p>
+  </div>
+
+  <div class="widget" id="w-inv">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Ley del cuadrado inverso: F = L / 4πd²</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige la luminosidad de la estrella y la distancia del observador; calcula el flujo recibido y compáralo con la constante solar (1370 W/m²).</p>
+    <div class="presets" id="inv-presets">
+      <button data-l="1" data-d="0.00465">Superficie del Sol</button>
+      <button data-l="1" data-d="1">Tierra (1 AU)</button>
+      <button data-l="1" data-d="5.2">Júpiter (5,2 AU)</button>
+      <button data-l="1" data-d="9.6">Saturno (9,6 AU)</button>
+      <button data-l="1" data-d="10">10 AU</button>
+      <button data-l="4" data-d="2">4 L☉ a 2 AU</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="inv-l">Luminosidad L (en luminosidades solares)</label><input type="number" id="inv-l" step="any" min="0" value="1"></div>
+      <div><label for="inv-d">Distancia d (en AU)</label><input type="number" id="inv-d" step="any" min="0" value="1"></div>
+    </div>
+    <output id="inv-out"></output>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>La escala de magnitudes</h2>
+    <p>Un ranking de hace 2100 años que seguimos usando (al revés de lo intuitivo).</p>
+  </div></div>
+
+  <p>La <span class="hl">magnitud aparente</span> <span class="katex-inline" data-tex="m"></span> es la forma astronómica de expresar el brillo aparente (son sinónimos: “brillo aparente” y “magnitud aparente” es lo mismo, medido desde la Tierra). Tiene dos rarezas históricas:</p>
+  <ul>
+    <li><strong>Es una escala inversa:</strong> menor magnitud = estrella <em>más</em> brillante. Una estrella de magnitud 1 brilla más que una de magnitud 2; una de −3, más que una de 5.</li>
+    <li><strong>Nació como un ranking a ojo:</strong> <span class="hl">Hiparco</span> (190–120 a.C.) ordenó las estrellas visibles: las más brillantes fueron “de 1ª magnitud” y las más débiles que alcanzaba a ver, “de 6ª magnitud”. Por eso el número crece hacia lo débil: era un puesto en un ranking, no una medida física.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-11.jpg" alt="Las Pléyades con las magnitudes de sus estrellas principales">
+    <figcaption><span class="cap">Diapositiva · Las Pléyades</span>Junto a cada estrella, su magnitud: Alcyone (2,9) es mucho más brillante que Pleione (5,1); Atlas (3,6) más que Merope (4,2). Número más grande ⇒ brillo más débil. Y ojo: la magnitud aparente <strong>no dice nada de la masa</strong> ni de la naturaleza de la estrella — solo brillo recibido.</figcaption>
+  </figure>
+
+  <h3>El límite del ojo y de los telescopios</h3>
+  <p>El ojo humano, con pupilas de pocos milímetros, llega justo hasta <strong>magnitud 6</strong> en un cielo oscuro y sin contaminación lumínica. De ahí en adelante se necesita más área colectora:</p>
+  <ul>
+    <li>Binoculares 10×50: hasta magnitud ≈ 9–10.</li>
+    <li>Telescopio de 1 m: magnitud ≈ 18–19.</li>
+    <li>Telescopios de 4 m (Víctor Blanco en Tololo, SOAR en Pachón): magnitud ≈ 26.</li>
+    <li>Hubble y los Keck: magnitud ≈ 30 — objetos lejísimos, como las galaxias más distantes.</li>
+  </ul>
+  <p>Dato práctico: aplicaciones como <em>Stellarium</em> muestran la magnitud de cada objeto; si es ≤ 6, lo puedes intentar a ojo desnudo; si es 8 o 10, necesitas binoculares o telescopio.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-14.jpg" alt="Escala de magnitudes aparentes desde el Sol (−26) hasta el límite de Hubble/Keck (+30)">
+    <figcaption><span class="cap">Diapositiva · La escala completa</span>Del Sol (m ≈ −26) a los límites de Hubble/Keck (m ≈ +30). Como Hiparco fijó el 1 para lo más brillante <em>de noche</em>, los objetos aún más brillantes obligaron a seguir hacia números <strong>negativos</strong>: Sirio −1,5; Venus −4; la Luna llena ≈ −13.</figcaption>
+  </figure>
+
+  <h3>La fórmula que hicieron calzar con lo medido</h3>
+  <p>Al medir la respuesta del ojo se descubrió que entre magnitud 1 y magnitud 6 — es decir, <strong>5 magnitudes de diferencia</strong> — hay un <strong>factor 100 en flujo</strong>. La definición moderna se construyó <em>para reproducir</em> ese hecho empírico:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m_1 - m_2 = 2.5\,\log_{10}\!\left(\frac{f_2}{f_1}\right)"></div>
+    <small>Verificación: si <span class="katex-inline" data-tex="f_2/f_1 = 100"></span>, entonces <span class="katex-inline" data-tex="2.5 \log_{10}(100) = 2.5\cdot2 = 5"></span> magnitudes. ✔ Cada magnitud es un factor <span class="katex-inline" data-tex="100^{1/5} \approx 2.512"></span> en flujo. Es una fórmula “sacada del bolsillo” para calzar la escala histórica — pero funciona perfecto.</small>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-13.jpg" alt="Por qué la fórmula de magnitudes reproduce el factor 100 en 5 magnitudes">
+    <figcaption><span class="cap">Diapositiva · ¿Por qué esta fórmula?</span>Porque reproduce lo que definimos: 5 magnitudes ⇔ factor 100 de flujo. La escala funciona porque la <strong>respuesta del ojo a la luz es logarítmica</strong>: no percibimos el brillo de forma lineal.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Las magnitudes son los <strong>decibeles de la astronomía</strong>: una escala logarítmica de razón de potencias. Compara: <span class="katex-inline" data-tex="\mathrm{dB} = 10\log_{10}(P_2/P_1)"></span> vs. <span class="katex-inline" data-tex="\Delta m = 2.5\log_{10}(f_2/f_1)"></span>. Una magnitud equivale a 4 dB. Y así como el oído (dB) responde logarítmicamente al sonido, el ojo responde logarítmicamente a la luz — por eso ambas escalas existen.</p>
+  </div>
+
+  <div class="widget" id="w-mag">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Escala de magnitudes: Δm ⇄ razón de flujos</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Ingresa dos magnitudes aparentes y calcula cuántas veces más flujo recibe la más brillante: <span class="katex-inline" data-tex="f_2/f_1 = 10^{\,0.4\,(m_1-m_2)}"></span>.</p>
+    <div class="presets" id="mag-presets">
+      <button data-m1="1" data-m2="6">mag 1 vs 6</button>
+      <button data-m1="-26.7" data-m2="-1.46">Sol vs Sirio</button>
+      <button data-m1="-12.7" data-m2="6">Luna llena vs límite del ojo</button>
+      <button data-m1="6" data-m2="30">Ojo vs Hubble/Keck</button>
+      <button data-m1="2.9" data-m2="5.1">Alcyone vs Pleione</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="mag-m1">Magnitud m₁ (objeto A)</label><input type="number" id="mag-m1" step="any" value="1"></div>
+      <div><label for="mag-m2">Magnitud m₂ (objeto B)</label><input type="number" id="mag-m2" step="any" value="6"></div>
+    </div>
+    <output id="mag-out"></output>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Magnitud absoluta</h2>
+    <p>Llevar todas las estrellas a la misma distancia para poder compararlas.</p>
+  </div></div>
+
+  <p>La magnitud aparente mezcla luminosidad y distancia. Para tener una medida <em>intrínseca</em>, se define la <span class="hl">magnitud absoluta</span> <span class="katex-inline" data-tex="M"></span>: la magnitud aparente que tendría la estrella si estuviera a <strong>10 parsec</strong> de distancia. Es una convención arbitraria, pero pone a todas las estrellas “en el mismo plano” y permite comparar quién brilla más <em>de verdad</em>.</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="m - M = 5\,\log_{10}(d) - 5 \qquad (d\ \text{en parsec})"></div>
+    <small><span class="katex-inline" data-tex="m"></span>: magnitud aparente (medida en la Tierra) · <span class="katex-inline" data-tex="M"></span>: magnitud absoluta · <span class="katex-inline" data-tex="d"></span>: distancia. La diapositiva escribía <span class="katex-inline" data-tex="m-M=5\log_{10}(d)"></span> y la profesora advirtió en vivo que faltaba el <strong>−5</strong>; esta es la forma correcta (también se escribe <span class="katex-inline" data-tex="5\log_{10}(d/10\,\mathrm{pc})"></span>). Verifícalo: con d = 10 pc, m − M = 5·1 − 5 = 0 ✔. La diferencia <span class="katex-inline" data-tex="m-M"></span> se llama <em>módulo de distancia</em>.</small>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-15.jpg" alt="Definición de magnitud absoluta a 10 parsec">
+    <figcaption><span class="cap">Diapositiva · Definición</span><span class="katex-inline" data-tex="m"></span> ⇔ brillo aparente (depende de la distancia); <span class="katex-inline" data-tex="M"></span> ⇔ luminosidad (propiedad intrínseca). La absoluta se define a 10 pc de la Tierra. <em>(Nota: en la diapositiva falta el término −5 de la fórmula, corregido en clase.)</em></figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-16.jpg" alt="El Sol: magnitud aparente −26, magnitud absoluta +4,8">
+    <figcaption><span class="cap">Diapositiva · El caso del Sol</span>El Sol: <span class="katex-inline" data-tex="m = -26"></span> pero <span class="katex-inline" data-tex="M = +4.8"></span>. Si estuviera a 10 pc, quedaría casi en el límite de lo visible a ojo desnudo (magnitud 6). Nos parece deslumbrante solo porque está a 1 AU — “foquito en términos astronómicos”.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">La Luna llena y su sombra</span>
+    <p>La Luna llena tiene magnitud aparente ≈ <strong>−12,7</strong>: tan brillante que en una noche sin focos alrededor <strong>genera sombra propia</strong>. (En el audio quedó como “magnitud 12”; el valor correcto es negativo — recuerda que lo brillante va hacia los números negativos.)</p>
+  </div>
+
+  <div class="widget" id="w-abs">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Módulo de distancia: m − M = 5 log₁₀(d) − 5</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Dada la magnitud aparente y la distancia en parsec, calcula la magnitud absoluta (y viceversa mentalmente).</p>
+    <div class="presets" id="abs-presets">
+      <button data-m="-26.7" data-d="0.00000485">Sol (1 AU)</button>
+      <button data-m="-1.46" data-d="2.64">Sirio</button>
+      <button data-m="0.42" data-d="168">Betelgeuse</button>
+      <button data-m="0" data-d="10">m = 0 a 10 pc</button>
+    </div>
+    <div class="wgrid">
+      <div><label for="abs-m">Magnitud aparente m</label><input type="number" id="abs-m" step="any" value="-26.7"></div>
+      <div><label for="abs-d">Distancia d (parsec)</label><input type="number" id="abs-d" step="any" min="0" value="0.00000485"></div>
+    </div>
+    <output id="abs-out"></output>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Temperatura y color</h2>
+    <p>El color de una estrella es su termómetro (y no existen estrellas verdes).</p>
+  </div></div>
+
+  <p>Las estrellas radian aproximadamente como <span class="hl">cuerpos negros</span>: su espectro tiene un máximo (<em>peak</em>) de intensidad cuya posición depende solo de la temperatura superficial. Estrellas de distinta temperatura tienen el peak en distintas partes del espectro electromagnético:</p>
+  <ul>
+    <li><strong>≈ 10.000 K:</strong> peak en el <strong>ultravioleta</strong> → la vemos <em>azulada</em>. (Igual emite en el óptico, pero brilla más en UV.)</li>
+    <li><strong>≈ 5800 K (el Sol):</strong> peak en el óptico, entre el azul y el verde → la vemos <em>blanco-amarillenta</em>.</li>
+    <li><strong>≈ 3000–3500 K (Betelgeuse):</strong> peak hacia el <strong>infrarrojo</strong>, con mucha menos intensidad total → la vemos <em>rojiza</em>.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-17.jpg" alt="Curvas de cuerpo negro a 3000, 5800 y 10000 K">
+    <figcaption><span class="cap">Diapositiva · Cuerpo negro y color</span>Tres curvas de cuerpo negro: 3000 K (peak en IR, estrella roja), 5800 K (peak en el óptico, el Sol), 10.000 K (peak en UV, estrella azul). La diapositiva enlaza el simulador interactivo de PhET “Blackbody Spectrum” para jugar con la temperatura.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué no hay estrellas verdes?</span>
+    <p>El Sol tiene su peak ¡entre el azul y el verde! Pero una estrella con peak en el centro del espectro visible emite fuerte <em>en todos los colores</em> del arcoíris a la vez, y la suma de todos los colores se percibe <strong>blanca</strong>. Para verse verde tendría que emitir <em>solo</em> en verde, y un cuerpo negro no puede hacer eso. Por eso hay estrellas rojas, anaranjadas, amarillas, blancas y azules — pero ninguna verde.</p>
+  </div>
+
+  <h3>El color como diferencia de magnitudes</h3>
+  <p>No podemos ir a ponerle un termómetro a Betelgeuse: solo recibimos luz. La solución observacional es medir la magnitud de la <em>misma</em> estrella en <strong>dos filtros distintos</strong> (por ejemplo, uno azul y uno rojo) y restarlas:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\text{color} = m_{\text{filtro 1}} - m_{\text{filtro 2}}"></div>
+    <small>Ese número —el <em>índice de color</em>— se compara con relaciones empíricas y catálogos de curvas de cuerpo negro, y entrega una estimación de la temperatura. Todo puramente observacional.</small>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Aclaraciones de la clase</span>
+    <p><strong>Temperatura efectiva = temperatura superficial.</strong> De ahora en adelante, “temperatura de una estrella” siempre significa la superficial; en la literatura aparece como <em>temperatura efectiva</em> — es lo mismo. Y la <strong>luminosidad bolométrica</strong> es el brillo integrado en <em>todo</em> el espectro electromagnético; también se puede trabajar con la luz en un rango acotado (un filtro), sabiendo que cada temperatura se comporta distinto en ese rango. Ojo: una estrella más brillante en un filtro puede ser menos brillante en otro.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>Medir color con dos filtros es <em>muestrear una curva continua en dos bandas</em> y usar la razón entre ambas como estadístico suficiente para estimar el parámetro (T). Es la misma lógica de un pirómetro de dos colores en la industria: la razón de intensidades en dos longitudes de onda determina la temperatura sin necesidad de conocer el espectro completo.</p>
+  </div>
+
+  <p>Hay una segunda vía para la temperatura, que se verá más adelante: el <strong>espectro</strong> de la estrella (pasar su luz por un prisma). La espectroscopía también es flujo, pero descompuesto en longitudes de onda.</p>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Masa: estrellas binarias y la ley de Kepler</h2>
+    <p>La propiedad más difícil de medir… y la más importante para la vida de la estrella.</p>
+  </div></div>
+
+  <p>“Pesar” una estrella es lo más difícil, junto con medir su edad: exige apoyarse en modelos y, sobre todo, en la <strong>gravedad</strong>. La medición directa solo es posible en <span class="hl">sistemas binarios</span>: dos (o más) estrellas ligadas gravitacionalmente orbitando su centro de masa. La buena noticia: aproximadamente <strong>la mitad de las estrellas</strong> están en sistemas binarios o múltiples (¡se conoce un sistema de 7 componentes ligadas!). El Sol, en cambio, está solo — aunque hay estudios de “arqueología galáctica” buscando a sus hermanas perdidas.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-18.jpg" alt="Balancín de centro de masa entre estrella masiva y menos masiva">
+    <figcaption><span class="cap">Diapositiva · El balancín</span>Como en un balancín: la estrella masiva queda cerca del centro de masa y la menos masiva, lejos, para compensar. La órbita del sistema depende de la fuerza de gravedad entre ambas — y eso es lo que permite medir masas.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="P^2 = \frac{4\pi^2}{G\,(M_1 + M_2)}\,a^3"></div>
+    <small><strong>3ª ley de Kepler</strong>: <span class="katex-inline" data-tex="P"></span> = período orbital (tiempo de una vuelta), <span class="katex-inline" data-tex="a"></span> = separación promedio entre componentes, <span class="katex-inline" data-tex="G"></span> = constante de gravitación. Midiendo <span class="katex-inline" data-tex="P"></span> y <span class="katex-inline" data-tex="a"></span> se obtiene la <strong>suma</strong> <span class="katex-inline" data-tex="M_1+M_2"></span>; separar las masas individuales requiere observaciones complementarias. Es la misma fórmula de la órbita de un planeta alrededor del Sol. (En el audio quedó “leyes de Kenneth”: son las leyes de <strong>Kepler</strong>.)</small>
+  </div>
+
+  <h3>Binarias visuales</h3>
+  <p>Cuando el telescopio logra <strong>resolver ambas componentes</strong>, se fija la más brillante (la <em>primaria</em>) y se registra cómo la secundaria se mueve a su alrededor a lo largo de los años. Con suficientes puntos —no hace falta la vuelta completa, porque conocemos la ecuación de la órbita— se ajusta el modelo orbital y se miden <span class="katex-inline" data-tex="P"></span> y <span class="katex-inline" data-tex="a"></span> directamente. Requiere paciencia: hay binarias con períodos de cientos de miles de años, medidas con placas fotográficas desde 1930.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-20.jpg" alt="Órbita de una binaria visual medida entre 2000 y 2004">
+    <figcaption><span class="cap">Diapositiva · Binaria visual</span>Mediciones de la componente secundaria alrededor de la primaria entre 2000 y 2004: la órbita se va dibujando punto a punto. Esto es <em>Time Domain Astronomy</em>: ciencia que requiere observar en distintos momentos, con escalas de tiempo cada vez más largas.</figcaption>
+  </figure>
+
+  <h3>Binarias espectroscópicas</h3>
+  <p>Si el par no se puede resolver visualmente (muy juntas, o el sistema inclinado), delata su naturaleza el <span class="hl">efecto Doppler</span>: las líneas de absorción del espectro se desdoblan y juntan <strong>periódicamente</strong>. Cuando una estrella se acerca, sus líneas se corren al azul; la otra, alejándose, al rojo; media órbita después, al revés. Lo que se mide es la <strong>velocidad radial</strong> (la componente de velocidad a lo largo de la línea de visión: positiva si se aleja, negativa si se acerca).</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-22.jpg" alt="Curvas de velocidad radial de una binaria espectroscópica">
+    <figcaption><span class="cap">Diapositiva · Velocidades radiales</span>Arriba, los espectros en 4 momentos de la órbita: líneas de A y B separadas, juntas, separadas al revés… Abajo, el mapa de velocidades radiales: dos curvas periódicas en contrafase. No están centradas en cero porque <strong>el centro de masa del sistema también se mueve</strong> respecto a nosotros (como el auto de al lado en la carretera). Mientras más perpendicular es el plano orbital a la línea de visión… menos amplitud vemos; mientras más de perfil, más sinusoidal y amplia la curva.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Los problemas del método espectroscópico</span>
+    <p>Muchas veces solo se distinguen las líneas de <em>una</em> de las dos estrellas (la secundaria queda “eclipsada” por el brillo de la primaria), y a priori <strong>no conocemos la inclinación</strong> del plano orbital — por lo tanto la suma de masas queda indeterminada solo con espectros. La solución es <strong>combinar</strong>: espectroscopía + fotometría (curvas de luz) dan mucha más información que cada técnica por separado.</p>
+  </div>
+
+  <h3>Binarias eclipsantes</h3>
+  <p>Si el sistema está casi <strong>de perfil</strong> respecto a nosotros (plano orbital alineado con la línea de visión), las estrellas se tapan mutuamente en cada vuelta: vemos <span class="hl">eclipses periódicos</span> en el brillo total. Es el mismo fenómeno del <em>tránsito</em> con que se detectan exoplanetas.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-25.jpg" alt="Curva de luz de binaria eclipsante con eclipse primario y secundario">
+    <figcaption><span class="cap">Diapositiva · Curva de luz</span>El brillo combinado cae cuando una estrella tapa a la otra. <strong>Eclipse primario</strong> (profundo): la pequeña tapa a la grande y brillante. <strong>Eclipse secundario</strong> (leve): la pequeña se esconde detrás y su aporte es menor. La forma de los eclipses (cuadrados, puntiagudos, ondulados) codifica los tamaños relativos y la inclinación.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Rango de masas estelares</span>
+    <p>Las estrellas van desde <strong>0,08 M☉</strong> (mínimo para encender la fusión de hidrógeno) hasta <strong>≈ 100 M☉</strong>. Más masivas no pueden existir: a esas masas domina la <em>presión de radiación</em> generada en el centro, que despedaza a la estrella cuando intenta formarse. Y aunque la masa es lo más difícil de medir, es <strong>el parámetro que determina toda la vida de la estrella</strong>.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>La binaria espectroscópica es <em>detección de señal periódica</em>: la periodicidad estricta del corrimiento Doppler es lo que confirma la binariedad (como identificar un tono enterrado en ruido por su repetición). Y el offset de la curva de velocidad radial es el <em>DC offset</em> de la señal: la velocidad del centro de masa del sistema.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Radio estelar</h2>
+    <p>Cronometrar eclipses, combinar telescopios o despejar la ecuación.</p>
+  </div></div>
+
+  <h3>1 · Con eclipses: distancia = velocidad × tiempo</h3>
+  <p>En una binaria eclipsante hay <strong>4 puntos de contacto</strong>: cuando la estrella pequeña toca el disco de la grande (1), cuando entra completa (2), cuando empieza a salir (3) y cuando termina de salir (4). Midiendo el <strong>tiempo</strong> entre esos contactos, y conociendo la <strong>velocidad orbital</strong> por espectroscopía, el tamaño sale de la cinemática más básica:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="d = v \cdot t"></div>
+    <small>El tiempo que tarda la estrella pequeña en cruzar el disco de la grande, multiplicado por su velocidad, mide el diámetro de la grande (y los tiempos de entrada/salida, el de la pequeña). Todo con luz: fotometría + espectroscopía.</small>
+  </div>
+
+  <figure>
+    <img src="m1c4/assets/slide-26.jpg" alt="Tipos de eclipses: parciales, totales y con distorsión de marea">
+    <figcaption><span class="cap">Diapositiva · Tipos de eclipses</span>Eclipses parciales, totales y con distorsión por fuerzas de marea: cada geometría produce una curva de luz distinta. Estrellas de tamaños parecidos → eclipses puntiagudos de profundidad similar; tamaños muy distintos → un “piso” plano cuya duración mide el cruce del disco.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-27.jpg" alt="Los cuatro contactos de un eclipse y la curva de luz">
+    <figcaption><span class="cap">Diapositiva · Los 4 contactos</span>Puntos 1 a 4 del eclipse sobre la curva de luz. Midiendo el tiempo entre contactos y la velocidad orbital (espectroscopía), se obtiene el radio estelar con <span class="katex-inline" data-tex="d = v\,t"></span>.</figcaption>
+  </figure>
+
+  <h3>2 · Medición directa: interferometría</h3>
+  <p>Para estrellas <strong>supergigantes cercanas</strong> se puede resolver el disco directamente combinando muchos telescopios (<span class="hl">interferometría</span>, que aumenta la resolución angular). Betelgeuse fue una de las primeras: dejó de ser un punto y se convirtió en una superficie con estructura. Por ahora la técnica solo alcanza para supergigantes; el resto de las estrellas siguen siendo puntos.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-28.jpg" alt="Imagen de Betelgeuse por HST y método indirecto para el radio">
+    <figcaption><span class="cap">Diapositiva · Betelgeuse y el método indirecto</span>Izquierda: la atmósfera de Betelgeuse (HST), comparada con el tamaño de la órbita de la Tierra — la supergigante roja de Orión es ~1000 veces más grande que el Sol. Derecha: el <strong>método indirecto</strong>: distancia + flujo → luminosidad; color → temperatura; y de <span class="katex-inline" data-tex="L = 4\pi R^2 \sigma T^4"></span> se despeja <span class="katex-inline" data-tex="R"></span>.</figcaption>
+  </figure>
+
+  <h3>3 · Método indirecto (para cualquier estrella)</h3>
+  <p>Si mido la <strong>distancia</strong> y el <strong>flujo</strong>, obtengo la luminosidad (ley del cuadrado inverso). Si mido el <strong>color</strong>, obtengo la temperatura. Con <span class="katex-inline" data-tex="L"></span> y <span class="katex-inline" data-tex="T"></span> en mano, el radio se <em>despeja</em> de Stefan-Boltzmann: <span class="katex-inline" data-tex="R = \sqrt{L / (4\pi\sigma T^4)}"></span>. “Mira todo lo que podemos hacer solo midiendo luz.”</p>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Distancia: el paralaje</h2>
+    <p>Triangulación con la órbita de la Tierra como base.</p>
+  </div></div>
+
+  <p>Casi todo lo anterior requiere conocer la distancia — y medir distancias es de lo más difícil en astronomía. El método más directo es el <span class="hl">paralaje</span>: el mismo principio de triangulación que usan los topógrafos, pero con una base gigante: <strong>los extremos de la órbita terrestre</strong>. Se observa la estrella cercana en marzo y de nuevo en septiembre (seis meses después, desde el punto opuesto de la órbita, a 2 AU del primero) y se mide cuánto <em>parece</em> moverse respecto a las estrellas de fondo, que están tan lejos que no se mueven apreciablemente.</p>
+
+  <figure>
+    <img src="m1c4/assets/slide-29.jpg" alt="Triangulación en la Tierra como analogía del paralaje">
+    <figcaption><span class="cap">Diapositiva · Triangulación</span>En la Tierra: medir un objeto desde dos puntos de vista separados por una base conocida y resolver el triángulo. En astronomía es lo mismo, con la órbita de la Tierra como base.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c4/assets/slide-30.jpg" alt="Geometría del paralaje con el cielo en marzo y septiembre">
+    <figcaption><span class="cap">Diapositiva · Geometría del paralaje</span>La estrella cercana (roja) cambia de posición aparente respecto a las lejanas entre marzo y septiembre. El ángulo <span class="katex-inline" data-tex="p"></span> es el <em>ángulo de paralaje</em>: mientras más lejos la estrella, más pequeño.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">El experimento del pulgar</span>
+    <p>Estira el brazo, levanta el pulgar y míralo alternando un ojo y el otro: el dedo “salta” contra el fondo. Acércalo a la cara: <strong>salta más</strong>. Ese es todo el paralaje: más cerca ⇒ mayor variación aparente. Tus dos ojos son los dos extremos de la órbita terrestre.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Complemento · La fórmula del parsec</span>
+    <p>La clase no la desarrolló, pero es el estándar que conviene conocer: si el ángulo de paralaje <span class="katex-inline" data-tex="p"></span> se mide en segundos de arco, la distancia en parsecs es <span class="katex-inline" data-tex="d = 1/p"></span>. El <strong>parsec</strong> se define justamente como la distancia a la que el paralaje vale 1″ — equivale a <strong>3,26 años luz</strong>.</p>
+  </div>
+
+  <h3>Alcance y precisión</h3>
+  <ul>
+    <li>El paralaje funciona con buena precisión hasta ≈ <strong>1000 parsec (1 kpc)</strong>, con errores de hasta ~10% — “que en astronomía es maravilloso”.</li>
+    <li>Más allá, el ángulo es demasiado pequeño y entran otras técnicas: la <span class="hl">escalera de distancias</span> — paralaje → estrellas variables <strong>Cefeidas</strong> → supernovas tipo Ia → corrimiento al rojo de galaxias.</li>
+    <li>Las <strong>Cefeidas</strong> son estrellas pulsantes que se inflan y desinflan con período regular; Henrietta Leavitt descubrió la relación <em>período–luminosidad</em> que las convierte en velas estándar. Con Cefeidas, Hubble midió que Andrómeda está a ≈ 2,5 millones de años luz — imposible que estuviera <em>dentro</em> de la Vía Láctea: así supimos que hay más galaxias (principios del s. XX).</li>
+  </ul>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril</span>
+    <p>El paralaje es <strong>visión estéreo</strong>: dos cámaras separadas por una base <span class="katex-inline" data-tex="b"></span> estiman profundidad por disparidad, con error que crece con la distancia (la disparidad cae como <span class="katex-inline" data-tex="1/d"></span> y el ruido angular es fijo). Por eso hay un alcance máximo útil — igual que un sensor de profundidad estéreo pierde precisión a lo lejos, el paralaje “se acaba” cerca de 1 kpc.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Hipparcos, Gaia y la astrometría</h2>
+    <p>De ~100 paralajes conocidos a más de mil millones.</p>
+  </div></div>
+
+  <p>Medir la <strong>posición</strong> de las estrellas (y sus cambios) se llama <span class="hl">astrometría</span>. Los ángulos de paralaje son diminutos — variaciones de milésimas de segundo de arco — y por décadas solo se conocía el paralaje de unas <strong>~100–150 estrellas</strong>. Los telescopios espaciales cambiaron todo:</p>
+  <ul>
+    <li><strong>Hipparcos (años 90):</strong> midió más de <strong>100.000 paralajes</strong>, con precisión de hasta 0,001″ = 1 miliarcosegundo (mas). Su nombre homenajea a Hiparco, el del ranking de magnitudes.</li>
+    <li><strong>Gaia (ESA, 2013–2025):</strong> telescopio astrométrico que midió distancias a <strong>más de 10⁹ estrellas</strong> (¡mil millones!), hasta ~2 kpc para estrellas brillantes (~1 kpc con la mejor precisión para estrellas débiles como enanas rojas). Ya concluyó sus observaciones; su <strong>último data release (DR)</strong> —que además de posiciones incluye espectros— se libera a fines de este año.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c4/assets/slide-31.jpg" alt="Misión espacial Gaia y los hitos de la astrometría">
+    <figcaption><span class="cap">Diapositiva · Misiones astrométricas</span>Décadas atrás: ~100 paralajes (ángulos &lt; 0,01″ eran inmedibles). Años 90: Hipparcos, +100.000 paralajes a 1 mas. 2013: Gaia, más de 10⁹ estrellas hasta ~2 kpc. La profesora hizo su tesis con datos de Gaia.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Data releases</span>
+    <p>Gaia primero toma los datos y luego las agencias los procesan y liberan por etapas: los <em>data releases</em> (DR). Es un pipeline de datos a escala de mil millones de fuentes — posiblemente el catálogo astronómico más influyente de la década: posiciones, paralajes, movimientos propios y ahora espectros.</p>
+  </div>
+</section>
+
+<!-- ============ S11 ============ -->
+<section id="s11">
+  <div class="shead"><span class="num">11</span><div>
+    <h2>Hacia el diagrama HR</h2>
+    <p>Con L y T medidas, ya podemos construir el mapa maestro de las estrellas.</p>
+  </div></div>
+
+  <p>Cierre de la clase: ya sabemos medir <strong>brillo</strong> (aparente e intrínseco), <strong>temperatura</strong> (por color), <strong>masa</strong> (binarias + Kepler), <strong>radio</strong> (eclipses, interferometría o despeje) y <strong>distancia</strong> (paralaje). El siguiente paso natural —anunciado para la próxima clase— es graficar <strong>luminosidad versus temperatura</strong> para miles de estrellas: el <span class="hl">diagrama de Hertzsprung-Russell (HR)</span>.</p>
+
+  <div class="box next">
+    <span class="tag">Próxima clase · Clasificando estrellas</span>
+    <p>¿Cómo se clasifican las estrellas? ¿Qué es la <strong>Secuencia Principal</strong>? ¿Cuánto vive una estrella y de qué depende? ¿Qué es el diagrama de Hertzsprung-Russell? Adelanto conceptual (inferencia a partir de esta clase): como <span class="katex-inline" data-tex="L = 4\pi R^2 \sigma T^4"></span>, las líneas de radio constante son diagonales en el plano (T, L) — una gigante roja es fría pero luminosa (R enorme); una enana blanca es caliente pero débil (R diminuto). El tiempo que una estrella pasa fusionando hidrógeno en helio tiene nombre propio y define la banda principal del diagrama.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">La moraleja del módulo</span>
+    <p>Todas estas propiedades salen de <strong>lo único que tenemos: luz</strong>. Flujos, colores, líneas espectrales que se mueven, eclipses que se cronometran y posiciones que cambian — con eso se reconstruye la física completa de objetos a los que jamás podremos ir.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Luminosidad L</b></td><td>Energía radiada por segundo; <span class="katex-inline" data-tex="L_\odot \approx 3.9\times10^{26}"></span> W</td><td>Propiedad intrínseca de la estrella</td></tr>
+      <tr><td><b>Flujo F</b></td><td><span class="katex-inline" data-tex="F = L/4\pi r^2"></span> (W/m²)</td><td>Lo que mide un detector; depende de dónde se evalúe</td></tr>
+      <tr><td><b>Constante solar</b></td><td>≈ 1370 W/m² a 1 AU (6×10⁷ W/m² en superficie solar)</td><td>Flujo solar recibido en la Tierra</td></tr>
+      <tr><td><b>Stefan-Boltzmann</b></td><td><span class="katex-inline" data-tex="L = 4\pi R^2 \sigma T^4"></span>; σ ≈ 5,67×10⁻⁸ W m⁻² K⁻⁴</td><td>Une luminosidad, radio y temperatura; T pesa como T⁴</td></tr>
+      <tr><td><b>Ley del cuadrado inverso</b></td><td><span class="katex-inline" data-tex="F = L/4\pi d^2"></span></td><td>2× más lejos ⇒ 4× menos flujo; 10× ⇒ 100× menos</td></tr>
+      <tr><td><b>Brillo / magnitud aparente m</b></td><td>Flujo medido desde la Tierra; escala inversa y logarítmica</td><td>No es intrínseco: mezcla luminosidad y distancia</td></tr>
+      <tr><td><b>Escala de Hiparco</b></td><td>Ranking 1 (brillante) a 6 (límite del ojo)</td><td>Origen histórico de la escala inversa; negativos para lo muy brillante</td></tr>
+      <tr><td><b>Δm ⇄ flujos</b></td><td><span class="katex-inline" data-tex="m_1-m_2 = 2.5\log_{10}(f_2/f_1)"></span>; 5 mag = ×100</td><td>Escala log calzada con la respuesta del ojo; 1 mag ≈ ×2,512</td></tr>
+      <tr><td><b>Magnitud absoluta M</b></td><td>m que tendría la estrella a 10 pc; <span class="katex-inline" data-tex="m-M=5\log_{10}d-5"></span></td><td>Medida intrínseca; permite comparar estrellas; Sol: M = +4,8</td></tr>
+      <tr><td><b>Color</b></td><td>Diferencia de magnitudes en dos filtros</td><td>Termómetro estelar: rojo = fría, azul = caliente</td></tr>
+      <tr><td><b>Temperatura efectiva</b></td><td>= temperatura superficial (Sol ≈ 5777 K)</td><td>La T de las ecuaciones; no es la del núcleo (15×10⁶ K)</td></tr>
+      <tr><td><b>3ª ley de Kepler</b></td><td><span class="katex-inline" data-tex="P^2 = 4\pi^2 a^3/G(M_1{+}M_2)"></span></td><td>Masas (suma) en binarias midiendo P y a</td></tr>
+      <tr><td><b>Binarias</b></td><td>Visuales · espectroscópicas (Doppler) · eclipsantes (tránsitos)</td><td>~50% de las estrellas; única balanza estelar directa</td></tr>
+      <tr><td><b>Rango de masas</b></td><td>0,08 – ~100 M☉</td><td>Más de 100 M☉: la presión de radiación destruye la estrella</td></tr>
+      <tr><td><b>Radio estelar</b></td><td>Eclipses (d = v·t), interferometría, o despeje de L = 4πR²σT⁴</td><td>Betelgeuse ~1000 R☉, resuelta por interferometría</td></tr>
+      <tr><td><b>Paralaje</b></td><td>Triangulación con la órbita terrestre; d(pc) = 1/p(″)</td><td>Distancias hasta ~1 kpc con error ≤ 10%</td></tr>
+      <tr><td><b>Parsec</b></td><td>Distancia con paralaje de 1″; 1 pc = 3,26 años luz</td><td>Unidad natural de la astrometría</td></tr>
+      <tr><td><b>Gaia / Hipparcos</b></td><td>10⁹ paralajes hasta ~2 kpc / 10⁵ paralajes a 1 mas</td><td>Revolución astrométrica; DR final de Gaia este año</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c4-examen-01.html">Examen 01<small>Luminosidad y flujo</small></a></li>
+    <li><a href="m1c4-examen-02.html">Examen 02<small>Ley del cuadrado inverso</small></a></li>
+    <li><a href="m1c4-examen-03.html">Examen 03<small>Stefan-Boltzmann</small></a></li>
+    <li><a href="m1c4-examen-04.html">Examen 04<small>Magnitud aparente</small></a></li>
+    <li><a href="m1c4-examen-05.html">Examen 05<small>Magnitud absoluta</small></a></li>
+    <li><a href="m1c4-examen-06.html">Examen 06<small>Temperatura y color</small></a></li>
+    <li><a href="m1c4-examen-07.html">Examen 07<small>Masa y binarias</small></a></li>
+    <li><a href="m1c4-examen-08.html">Examen 08<small>Espectroscópicas y eclipsantes</small></a></li>
+    <li><a href="m1c4-examen-09.html">Examen 09<small>Radio estelar</small></a></li>
+    <li><a href="m1c4-examen-10.html">Examen 10<small>Paralaje y Gaia</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 4 del Módulo I del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Mejías, 18 abr 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m1/ff/Estrellas-m1c4-9e5430b6-cdfa.md</code>) y las diapositivas <code>Modulo_I_Clase_4_Propiedades_b_sicas_de_las_estrellas.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastó con las diapositivas y se corrigieron, entre otros: “constante de Boltzmann” → constante de <em>Stefan</em>-Boltzmann (σ ≈ 5,67×10⁻⁸, no “6,27”); “leyes de Kenneth” → leyes de <em>Kepler</em>; “Guipar/Parco” → Hiparco; una estrella de 10.000 K tiene su peak en el <em>ultravioleta</em> (la transcripción decía “infrarroja”); “luminosidad volumétrica” → luminosidad <em>bolométrica</em>; Luna llena: magnitud ≈ −12,7 (no “12”); Andrómeda ≈ 2,5 millones de años luz (no “25”); 1 pc = 3,26 años luz (no “3,2”). La fórmula del módulo de distancia se presenta con el término −5 que la propia docente hizo notar que faltaba en la diapositiva. El sistema múltiple de 7 componentes citado de memoria en clase (¿Castor?) corresponde más probablemente a sistemas como AR Cassiopeiae o Nu Scorpii; Castor tiene 6 componentes (nota externa). Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes ----
+var LSUN = 3.828e26;      // W
+var AU = 1.495978707e11;  // m
+var SIGMA = 5.670374419e-8; // W m^-2 K^-4
+var RSUN = 6.957e8;       // m
+var TSUN = 5772;          // K
+var FSOLAR = 1361;        // W/m^2 (constante solar; en clase se usó ~1370)
+
+function fmt(x, dec){
+  if(!isFinite(x)) return "∞";
+  if(x !== 0 && (Math.abs(x) >= 1e5 || Math.abs(x) < 1e-3)) return x.toExponential(dec===undefined?3:dec);
+  return (+x.toFixed(dec===undefined?3:dec)).toString();
+}
+
+// ---- Widget 1: Stefan-Boltzmann ----
+(function(){
+  var r = document.getElementById('sb-r');
+  var t = document.getElementById('sb-t');
+  var rlab = document.getElementById('sb-rlab');
+  var tlab = document.getElementById('sb-tlab');
+  var out = document.getElementById('sb-out');
+  function colorOf(T){
+    if(T < 3800) return ["rojiza","#f06a5e"];
+    if(T < 5000) return ["anaranjada","#e0a13a"];
+    if(T < 6000) return ["amarilla-blanca","#f4e07a"];
+    if(T < 7500) return ["blanca","#f2f2f2"];
+    if(T < 11000) return ["blanco-azulada","#bcd4f6"];
+    return ["azulada","#7fb0f0"];
+  }
+  function calc(){
+    var R = Math.pow(10, parseFloat(r.value));   // en R_sun (escala log)
+    var T = parseFloat(t.value);
+    rlab.textContent = fmt(R,2)+" R☉";
+    tlab.textContent = T+" K";
+    var Lrel = R*R * Math.pow(T/TSUN, 4);
+    var Lw = Lrel * LSUN;
+    var c = colorOf(T);
+    out.innerHTML = "<span class='k'>L</span> = <b>"+fmt(Lrel)+"</b> L☉ &nbsp;=&nbsp; <b>"+Lw.toExponential(2)+"</b> W<br>"+
+      "Color aproximado: <b style='color:"+c[1]+"'>"+c[0]+"</b> &nbsp;·&nbsp; "+
+      "Flujo en superficie: <b>"+ (SIGMA*Math.pow(T,4)).toExponential(2) +"</b> W/m²<br>"+
+      (Lrel>1 ? "Brilla <b>"+fmt(Lrel,1)+"×</b> más que el Sol." : Lrel<1 ? "Brilla solo <b>"+fmt(Lrel*100,1)+"%</b> de lo que brilla el Sol." : "Idéntica al Sol.");
+  }
+  r.addEventListener('input', calc);
+  t.addEventListener('input', calc);
+  document.querySelectorAll('#sb-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      r.value = Math.log10(parseFloat(btn.dataset.r));
+      t.value = btn.dataset.t;
+      calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget 2: ley del cuadrado inverso ----
+(function(){
+  var l = document.getElementById('inv-l');
+  var d = document.getElementById('inv-d');
+  var out = document.getElementById('inv-out');
+  function calc(){
+    var L = parseFloat(l.value), D = parseFloat(d.value);
+    if(!(L>=0) || !(D>0)){ out.innerHTML = "Ingresa L ≥ 0 y d &gt; 0."; return; }
+    var F = (L*LSUN) / (4*Math.PI*Math.pow(D*AU,2));
+    var rel = F / FSOLAR;
+    var cmp;
+    if(rel > 1.05) cmp = "≈ <b>"+fmt(rel,1)+"×</b> la constante solar (más flujo que en la Tierra).";
+    else if(rel < 0.95) cmp = "≈ <b>1/"+fmt(1/rel,1)+"</b> de la constante solar.";
+    else cmp = "prácticamente la <b>constante solar</b> de la Tierra.";
+    out.innerHTML = "<span class='k'>F</span> = L / 4πd² = <b>"+F.toExponential(3)+"</b> W/m²<br>"+
+      "Eso es "+cmp+"<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Duplicar la distancia divide el flujo por 4; llevarla ×10 lo divide por 100.</span>";
+  }
+  l.addEventListener('input', calc);
+  d.addEventListener('input', calc);
+  document.querySelectorAll('#inv-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ l.value = btn.dataset.l; d.value = btn.dataset.d; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 3: escala de magnitudes ----
+(function(){
+  var m1 = document.getElementById('mag-m1');
+  var m2 = document.getElementById('mag-m2');
+  var out = document.getElementById('mag-out');
+  function calc(){
+    var a = parseFloat(m1.value), b = parseFloat(m2.value);
+    if(!isFinite(a) || !isFinite(b)){ out.innerHTML = "Ingresa dos magnitudes."; return; }
+    var dm = Math.abs(a-b);
+    var ratio = Math.pow(10, 0.4*dm);           // flujo del más brillante / más débil
+    var brighter = a < b ? "A (m₁ = "+a+")" : (b < a ? "B (m₂ = "+b+")" : "ninguno: brillan igual");
+    var db = 10*Math.log10(ratio);
+    out.innerHTML = "Δm = <b>"+fmt(dm,2)+"</b> magnitudes ⇒ razón de flujos = <b>"+fmt(ratio)+"</b><br>"+
+      "El objeto más brillante es <b>"+brighter+"</b> "+(dm>0 ? "(recuerda: menor magnitud = más brillante)." : ".")+"<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Equivalente ingenieril: "+fmt(db,1)+" dB de diferencia de potencia. Regla: 5 mag = ×100; 1 mag ≈ ×2,512.</span>";
+  }
+  m1.addEventListener('input', calc);
+  m2.addEventListener('input', calc);
+  document.querySelectorAll('#mag-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ m1.value = btn.dataset.m1; m2.value = btn.dataset.m2; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget 4: módulo de distancia ----
+(function(){
+  var m = document.getElementById('abs-m');
+  var d = document.getElementById('abs-d');
+  var out = document.getElementById('abs-out');
+  function calc(){
+    var mm = parseFloat(m.value), dd = parseFloat(d.value);
+    if(!isFinite(mm) || !(dd>0)){ out.innerHTML = "Ingresa m y d &gt; 0."; return; }
+    var mu = 5*Math.log10(dd) - 5;
+    var M = mm - mu;
+    var vis = M <= 6 ? "sí se vería a ojo desnudo" : "no se vería a ojo desnudo (límite: magnitud 6)";
+    out.innerHTML = "Módulo de distancia m − M = <b>"+fmt(mu,2)+"</b><br>"+
+      "<span class='k'>M</span> (magnitud absoluta) = <b>"+fmt(M,2)+"</b><br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>A 10 pc, esta estrella tendría magnitud aparente "+fmt(M,2)+": "+vis+".</span>";
+  }
+  m.addEventListener('input', calc);
+  d.addEventListener('input', calc);
+  document.querySelectorAll('#abs-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ m.value = btn.dataset.m; d.value = btn.dataset.d; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

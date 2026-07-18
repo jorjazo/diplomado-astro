@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clasificando estrellas — Astrofísica de Estrellas, Módulo I · Clase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+
+/* INTRO note */
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+
+/* INDEX */
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+
+/* SECTIONS */
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+
+/* FIGURE */
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* CALLOUTS */
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+
+/* FORMULA */
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+
+/* TABLE */
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tbl.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.sw{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-right:8px;border:1px solid #ffffff33}
+
+/* WIDGETS */
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.wgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid,.wgrid3{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.obafgkm{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.obafgkm span{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;min-width:40px;height:40px;
+  display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#0d1422;transition:.15s}
+.obafgkm span.on{transform:translateY(-3px);box-shadow:0 8px 22px -10px currentColor;border-color:currentColor}
+
+/* EXAM LIST */
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+
+/* FOOTER */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="#examenes">Ir a exámenes de práctica ↓</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo I · Clase 5</span>
+  <h1>Clasificando <em>estrellas</em></h1>
+  <p class="sub">Cómo un conjunto de líneas negras en un arcoíris se convirtió en el sistema de clasificación más famoso de la astronomía: los tipos espectrales <strong>OBAFGKM</strong>, las clases de luminosidad, las enanas marrones y el diagrama de Hertzsprung-Russell.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Andrea Mejías</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 18 abr 2026</span>
+    <span><b>Cierra:</b> Módulo I del curso</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">S</span>i tomamos el espectro de dos estrellas —el arcoíris de su luz con sus <span class="hl">líneas de absorción</span>— veremos huellas digitales distintas. La pregunta central de esta clase es qué causa esas diferencias. La respuesta sorprende: no es la composición (casi todas las estrellas son ~75% hidrógeno y ~23% helio), sino la <strong>temperatura</strong>. De esa idea nace el <span class="hl">tipo espectral</span>, un termómetro estelar codificado en letras. Y al cruzar tipo espectral con luminosidad aparece el <strong>diagrama de Hertzsprung-Russell</strong>, el mapa donde las estrellas se ordenan solas.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">Espectros y líneas de absorción</a></li>
+    <li><a href="#s2">Series del hidrógeno: Balmer, Lyman, Paschen</a></li>
+    <li><a href="#s3">Historia: Cannon, Payne y Harvard</a></li>
+    <li><a href="#s4">El sistema OBAFGKM y los subtipos</a></li>
+    <li><a href="#s5">Composición y “metales”</a></li>
+    <li><a href="#s6">Enanas marrones: tipos L, T, Y</a></li>
+    <li><a href="#s7">Ancho de líneas y clases de luminosidad</a></li>
+    <li><a href="#s8">El diagrama de Hertzsprung-Russell</a></li>
+    <li><a href="#s9">Relación masa–luminosidad</a></li>
+    <li><a href="#s10">Resumen: cómo se mide cada propiedad</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>Espectros y líneas de absorción</h2>
+    <p>La huella digital de cada estrella, escrita en líneas negras.</p>
+  </div></div>
+
+  <p>El <span class="hl">espectro óptico</span> de una estrella es el trocito visible de su luz descompuesto por longitud de onda. Sobre ese fondo de colores aparecen <strong>líneas negras</strong>: las <span class="hl">líneas de absorción</span>. Cada línea es literalmente un fotón siendo absorbido: un electrón de algún átomo de la atmósfera estelar captura un fotón cuya energía coincide <em>exactamente</em> con la diferencia entre dos de sus niveles de energía, y salta al nivel superior. Ese fotón ya no llega a nosotros, y en su posición del espectro queda un “hueco” oscuro.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-06.jpg" alt="Espectros visibles de dos estrellas con distintas líneas de absorción">
+    <figcaption><span class="cap">Diapositiva · Dos estrellas, dos huellas</span>La estrella 2 tiene muchas más líneas que la estrella 1, pero varias caen en las <em>mismas posiciones</em> (mismos elementos), con distinta intensidad. La razón principal de la diferencia <strong>no es la composición</strong> —casi todas las estrellas tienen una composición parecida al Sol— sino la <strong>temperatura</strong>.</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Por qué la posición de la línea codifica energía</span>
+    <p>Los niveles de energía de un átomo están <strong>cuantizados</strong>: el electrón solo puede saltar si llega un fotón con la energía exacta de la diferencia entre niveles. Como cada elemento químico tiene su propio conjunto de niveles, cada elemento absorbe en longitudes de onda características. La línea cae en el espectro justo donde <span class="katex-inline" data-tex="E = h\nu"></span> coincide con el salto. Si el fotón trae demasiada energía, puede <strong>ionizar</strong> el átomo: el electrón sale despedido y queda libre.</p>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Línea fuerte ≠ más elemento</span>
+    <p>Una línea de hidrógeno más intensa <strong>no significa</strong> que la estrella tenga más hidrógeno en total. Significa que hay más átomos de hidrógeno <em>con el electrón en el nivel adecuado</em> para hacer esa transición específica. Y quién decide en qué nivel están los electrones es la <span class="hl">temperatura</span>. Este matiz es la clave de toda la clase.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería</span>
+    <p>El espectro es la <strong>respuesta en frecuencia</strong> del sistema “atmósfera estelar”: la luz continua del interior es la señal de entrada de banda ancha, y los átomos actúan como <em>filtros notch</em> extremadamente selectivos, cada uno sintonizado a frecuencias fijas conocidas de laboratorio. Identificar elementos en un espectro es como identificar qué filtros hay en una cadena de señal mirando qué frecuencias faltan a la salida.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Series del hidrógeno: Balmer, Lyman y Paschen</h2>
+    <p>El mismo átomo, tres familias de saltos, tres regiones del espectro.</p>
+  </div></div>
+
+  <p>El hidrógeno —un protón y un electrón— es el elemento más abundante del universo y el más fácil de estudiar. Sus transiciones se agrupan en <strong>series</strong> según el nivel de energía donde comienza (absorción) o termina (emisión) el salto:</p>
+  <ul>
+    <li><span class="hl">Serie de Lyman</span>: transiciones que involucran el nivel fundamental <strong>n = 1</strong>. Saltos grandes, fotones muy energéticos → caen en el <strong>ultravioleta</strong>.</li>
+    <li><span class="hl">Serie de Balmer</span>: transiciones que parten (o llegan) del nivel <strong>n = 2</strong>. Son las únicas que caen en el <strong>óptico</strong> — por eso dominaron la astronomía del siglo XIX, cuando solo existían instrumentos para luz visible.</li>
+    <li><span class="hl">Serie de Paschen</span>: transiciones con <strong>n = 3</strong> como nivel base. Fotones menos energéticos → <strong>infrarrojo</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c5/assets/slide-08.jpg" alt="Diagrama de órbitas del hidrógeno con las series de Balmer, Lyman y Paschen">
+    <figcaption><span class="cap">Diapositiva · Series del hidrógeno</span>Las líneas de Balmer (absorción, desde n=2 hacia n&gt;2) son las visibles en el óptico. Lyman y Paschen se dibujan aquí como emisión: el electrón cae al nivel 1 o al nivel 3 liberando un fotón.</figcaption>
+  </figure>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{1}{\lambda} = R_\infty\left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right), \qquad R_\infty \approx 1{,}097\times10^7\ \text{m}^{-1}"></div>
+    <small>Fórmula de Rydberg: longitud de onda del fotón para una transición entre los niveles n₁ (inferior) y n₂ (superior). Con n₁=2 y n₂=3 se obtiene Hα ≈ 656 nm, la línea roja de Balmer.</small>
+  </div>
+
+  <div class="widget" id="w-series">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Explorador de series del hidrógeno</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Elige los niveles de la transición y descubre a qué serie pertenece, la longitud de onda del fotón y en qué banda del espectro cae.</p>
+    <div class="wgrid">
+      <div><label for="sr-lo">Nivel inferior n₁ (define la serie)</label>
+        <select id="sr-lo">
+          <option value="1">n₁ = 1 — Lyman</option>
+          <option value="2" selected>n₁ = 2 — Balmer</option>
+          <option value="3">n₁ = 3 — Paschen</option>
+          <option value="4">n₁ = 4 — Brackett</option>
+          <option value="5">n₁ = 5 — Pfund</option>
+        </select></div>
+      <div><label for="sr-hi">Nivel superior n₂</label><input type="number" id="sr-hi" min="2" max="20" step="1" value="3"></div>
+    </div>
+    <div class="presets" id="sr-presets">
+      <button type="button" data-lo="2" data-hi="3">Hα (3→2)</button>
+      <button type="button" data-lo="2" data-hi="4">Hβ (4→2)</button>
+      <button type="button" data-lo="2" data-hi="5">Hγ (5→2)</button>
+      <button type="button" data-lo="1" data-hi="2">Lyman-α (2→1)</button>
+      <button type="button" data-lo="3" data-hi="4">Paschen-α (4→3)</button>
+    </div>
+    <output id="sr-out"></output>
+  </div>
+
+  <div class="box prof">
+    <span class="tag">Aclaración hecha en clase</span>
+    <p>En el óptico solo vemos las líneas de <strong>Balmer</strong>. Que la línea Balmer de una estrella sea fuerte dice que muchos de sus átomos de hidrógeno tienen el electrón <em>en el nivel n=2</em>, listo para absorber. No dice que la estrella tenga más hidrógeno en general. La temperatura de la estrella determina la población de niveles — y con ella, qué líneas vemos.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Historia: Cannon, Payne y las computadoras de Harvard</h2>
+    <p>Por qué las letras no están en orden alfabético.</p>
+  </div></div>
+
+  <h3>1890: el orden alfabético que no funcionó</h3>
+  <p>A finales del siglo XIX solo se podía observar en el óptico, así que la primera clasificación (hacia 1890) se hizo según lo <strong>prominente de la línea de Balmer</strong> del hidrógeno: tipo <strong>A</strong> para la línea más fuerte, bajando en orden alfabético hasta la <strong>O</strong> con la más débil. El problema: las líneas de <em>otros</em> elementos (helio, magnesio, calcio…) no seguían ese mismo orden. Una estrella A podía tener el hidrógeno más fuerte pero el magnesio débil, y la O el helio más fuerte estando al final de la lista. La clasificación no era coherente.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-09.jpg" alt="Espectros ordenados por subtipo con flechas marcando las líneas de Balmer">
+    <figcaption><span class="cap">Diapositiva · Las líneas de Balmer por subtipo</span>Las flechas azules marcan las líneas de Balmer. De arriba (O6.5) hacia abajo (M5), la fuerza de la línea de hidrógeno primero crece —máxima cerca de A1— y luego decae. Nótese la notación letra + número: son los <strong>subtipos 0–9</strong>.</figcaption>
+  </figure>
+
+  <h3>Annie Jump Cannon y las computadoras de Harvard</h3>
+  <p>La clasificación masiva la hicieron las <span class="hl">computadoras de Harvard</span>: mujeres contratadas para medir, una por una, las líneas en placas fotográficas de vidrio. Muchas tenían formación formal en matemáticas; hoy varias son astrónomas reconocidas. Entre ellas destacó <strong>Annie Jump Cannon</strong>, que clasificó <strong>más de 250.000 espectros</strong> —probablemente el ser humano que más estrellas ha clasificado— llegando a un ritmo de ~100 estrellas por hora. En el proceso, letras redundantes se fueron eliminando y agrupando (desaparecieron la C, la D y otras), y quedó el conjunto que usamos hoy.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-10.jpg" alt="Fotografía de Annie Jump Cannon trabajando en su escritorio">
+    <figcaption><span class="cap">Diapositiva · Annie Jump Cannon</span>Cannon partió clasificando en orden alfabético (A, B, C…). Al reordenar los tipos <strong>por temperatura</strong> —el parámetro que les da sentido físico— el orden quedó O, B, A, F, G, K, M.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Anécdota de clase: las placas espectrales</span>
+    <p>La profesora hizo circular <strong>placas de vidrio con espectros reales</strong> encontradas en el observatorio. Son negativos: el “arcoíris” aparece transparente y las líneas de absorción, como rayas. Los espectrógrafos antiguos usaban un <strong>prisma</strong> que dirigía la luz a una placa con emulsión fotosensible; luego había que revelarla y medir línea por línea con un visor con rejilla de referencia. El Observatorio Manuel Foster, en el cerro San Cristóbal, aún conserva un espectrógrafo de esa época instalado.</p>
+  </div>
+
+  <h3>Cecilia Payne: la explicación teórica</h3>
+  <p><strong>Cecilia Payne-Gaposchkin</strong> dio el fundamento físico de la clasificación de Cannon: los distintos espectros se deben a <strong>diferencias de temperatura</strong> y no a diferencias de abundancias de elementos pesados. Demostró que las estrellas se componen mayoritariamente de hidrógeno (~75%) y helio (~23%), con solo trazas de otros elementos. Por eso se la considera la madre de la química estelar.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-11.jpg" alt="Fotografía de Cecilia Payne-Gaposchkin">
+    <figcaption><span class="cap">Diapositiva · Cecilia Payne-Gaposchkin</span>Su tesis doctoral (1925) estableció que la temperatura, vía la población de niveles de energía y estados de ionización, determina qué líneas aparecen. La composición estelar es casi universal; los espectros distintos no implican química distinta.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>El sistema OBAFGKM: temperatura hecha letras</h2>
+    <p>De la más caliente (O, azul) a la más fría (M, roja), con subtipos 0–9.</p>
+  </div></div>
+
+  <p>Reordenados por temperatura, los tipos espectrales quedan: <span class="hl">O, B, A, F, G, K, M</span> — de <strong>más caliente a más fría</strong>. Cada letra se subdivide en <strong>subtipos 0 a 9</strong> (0 = más caliente dentro de la letra, 9 = más fría): el Sol es una <strong>G2</strong>, Próxima Centauri una <strong>M5.5</strong>. Como la temperatura también fija el color, el tipo espectral funciona como segundo termómetro, más fino que el color.</p>
+
+  <div class="box prof">
+    <span class="tag">Mnemotecnia</span>
+    <p>La clásica en inglés: <em>“<strong>O</strong>h <strong>B</strong>e <strong>A</strong> <strong>F</strong>ine <strong>G</strong>irl/<strong>G</strong>uy, <strong>K</strong>iss <strong>M</strong>e”</em> — extendida para las enanas marrones: <em>“…<strong>L</strong>ovingly, <strong>T</strong>enderly, <strong>Y</strong>early”</em>. En castellano circula, por ejemplo: <em>“<strong>O</strong>tros <strong>B</strong>uenos <strong>A</strong>strónomos <strong>F</strong>ueron <strong>G</strong>anando <strong>K</strong>ilos <strong>M</strong>idiendo”</em>. Cualquier frase propia sirve: lo importante es fijar el orden, porque no tiene lógica alfabética (es herencia histórica).</p>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-12.jpg" alt="Curvas de intensidad de líneas de absorción según clase espectral y temperatura">
+    <figcaption><span class="cap">Diapositiva · Qué línea domina a cada temperatura</span>Cada elemento (o estado de ionización) tiene su “campana”: el helio ionizado solo aparece en estrellas O (hace falta muchísima energía); el hidrógeno alcanza su máximo en las A; los metales ionizados en F–G; los metales neutros en K; y las <strong>moléculas (TiO)</strong> solo sobreviven en las frías M. A mayor temperatura las moléculas se disocian y el hidrógeno se ioniza (electrón libre = no hay líneas de Balmer).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-13.jpg" alt="Espectros por clase con columna de intensidad de la línea de hidrógeno">
+    <figcaption><span class="cap">Diapositiva · La huella digital por clase</span>De O a M: la línea de hidrógeno pasa de débil (O, hidrógeno ionizado) a fuerte (A) y de vuelta a muy débil (K, M, electrones en el nivel fundamental). Abajo, las estrellas M muestran <strong>bandas moleculares</strong>: regiones enteras del espectro suprimidas por moléculas como el óxido de titanio, con muchísimas líneas juntas, a diferencia de las líneas atómicas puntuales.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-14.jpg" alt="Tabla de clases espectrales con color, temperatura, características y ejemplos">
+    <figcaption><span class="cap">Diapositiva · Tabla resumen de clases espectrales</span>Colores, rangos de temperatura, líneas características y estrellas de ejemplo para cada clase: de 10 Lacertae (O) a Betelgeuse y Antares (M). El Sol (G) muestra líneas de H débiles, calcio ionizado y sodio fuertes, y muchas líneas metálicas.</figcaption>
+  </figure>
+
+  <div class="widget" id="w-spec">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Clasificador espectral: de temperatura a tipo OBAFGKM (+ L, T, Y)</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Mueve la temperatura superficial y mira qué tipo espectral, subtipo, color y líneas dominantes corresponden.</p>
+    <div class="obafgkm" id="sp-band">
+      <span data-c="O" style="color:#9db4ff">O</span><span data-c="B" style="color:#b9c8ff">B</span>
+      <span data-c="A" style="color:#e4e9ff">A</span><span data-c="F" style="color:#f8f4e8">F</span>
+      <span data-c="G" style="color:#ffe9a8">G</span><span data-c="K" style="color:#ffbe6e">K</span>
+      <span data-c="M" style="color:#ff7d5c">M</span><span data-c="L" style="color:#d95a4a">L</span>
+      <span data-c="T" style="color:#b04a8f">T</span><span data-c="Y" style="color:#7d6bb5">Y</span>
+    </div>
+    <label for="sp-t">Temperatura superficial: <span id="sp-tlab"></span></label>
+    <input type="range" id="sp-t" min="0" max="1000" step="1" value="640">
+    <div class="presets" id="sp-presets">
+      <button type="button" data-t="45000">10 Lacertae</button>
+      <button type="button" data-t="22000">Spica</button>
+      <button type="button" data-t="9900">Sirio</button>
+      <button type="button" data-t="5800">Sol</button>
+      <button type="button" data-t="4300">Arcturus</button>
+      <button type="button" data-t="3500">Betelgeuse</button>
+      <button type="button" data-t="3000">Próxima Centauri</button>
+      <button type="button" data-t="950">Gliese 229 B</button>
+      <button type="button" data-t="400">WISE 1828</button>
+    </div>
+    <output id="sp-out"></output>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Tipo espectral ≠ tipo de estrella</span>
+    <p>El tipo espectral mide <strong>temperatura</strong>, no tamaño ni etapa de vida. Betelgeuse (supergigante, ~3.500 K) y Próxima Centauri (enana roja, ~3.000 K) son <em>ambas</em> tipo M: comparten temperatura superficial siendo objetos radicalmente distintos. Distinguirlas requiere otro eje de clasificación: las <a href="#s7">clases de luminosidad</a>.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Composición y “metales” en astronomía</h2>
+    <p>75% hidrógeno, 23% helio… y el 2% que nos delata.</p>
+  </div></div>
+
+  <p>Casi todas las estrellas comparten composición: <strong>~75% hidrógeno, ~23% helio</strong> y ~2% (o menos) de todo lo demás. En jerga astronómica, ese “todo lo demás” son los <span class="hl">metales</span>: <strong>cualquier elemento más pesado que el helio</strong> (carbono, oxígeno, calcio, sodio, hierro… todos “metales” para un astrónomo). Los elementos que vemos en el espectro son los de la <strong>atmósfera</strong> de la estrella; en el núcleo solo hay hidrógeno fusionándose en helio.</p>
+
+  <div class="box physics">
+    <span class="tag">¿De dónde salió el calcio del Sol?</span>
+    <p>No lo fabricó el Sol: <strong>vino de otras estrellas</strong>. La nube donde nació el Sol ya estaba “contaminada” con metales producidos por generaciones estelares anteriores (por ejemplo, supernovas que explotaron y devolvieron material procesado al medio interestelar). Por eso las estrellas jóvenes son más ricas en metales que las viejas, formadas de material más prístino. De ahí la frase: somos polvo de estrellas — <em>pero no del Sol</em>: de las estrellas que murieron antes.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Conexión de ingeniería: versionado de material</span>
+    <p>La metalicidad funciona como un <em>timestamp de build</em>: cada generación estelar “compila” metales nuevos y los libera al repositorio común (el medio interestelar). Una estrella pobre en metales viene de una versión temprana del material del universo; una rica en metales, de material muy reprocesado. Medir metalicidad en el espectro es leer la versión del material del que se formó la estrella.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Enanas marrones: los tipos L, T, Y</h2>
+    <p>Objetos que “no se comieron las verduras”: demasiado livianos para ser estrellas.</p>
+  </div></div>
+
+  <p>A fines de los años 80 se descubrieron objetos aún <strong>más fríos que el tipo M</strong>, y hubo que agregar tres clases: <span class="hl">L, T e Y</span>. Son las <span class="hl">enanas marrones</span>, también llamadas “estrellas fallidas” u <em>objetos subestelares</em>: con menos de ~<strong>7,5–8% de la masa del Sol</strong> (~80 masas de Júpiter), su interior no alcanza la temperatura necesaria para fusionar hidrógeno. En su lugar fusionan <strong>isótopos del hidrógeno</strong> —como el <strong>deuterio</strong>— así que sí generan algo de energía propia, a diferencia de un planeta, que solo refleja luz.</p>
+
+  <ul>
+    <li><strong>Límite superior</strong> (~80 M<sub>Júp</sub> ≈ 8% M<sub>☉</sub>): sobre esa masa se enciende la fusión de hidrógeno → estrella.</li>
+    <li><strong>Límite inferior</strong> (~13 M<sub>Júp</sub>): bajo esa masa ni siquiera fusiona deuterio → planeta gigante gaseoso.</li>
+    <li>Ambos límites son <strong>difusos</strong>: aún se debate qué condiciones de formación dejan a un objeto como enana marrón. Se forman como las estrellas (colapso de nube molecular), no como los planetas (que nacen después, en el disco alrededor de la estrella).</li>
+  </ul>
+
+  <figure>
+    <img src="m1c5/assets/slide-15.jpg" alt="Comparación de tamaños entre el Sol, una estrella de baja masa, una enana marrón, Júpiter y la Tierra">
+    <figcaption><span class="cap">Diapositiva · Entre estrella y planeta</span>Las enanas marrones ocupan el nicho entre las estrellas más pequeñas y los planetas gigantes gaseosos. Ojo: conviene comparar por <strong>masa</strong>, no por tamaño — una enana marrón y Júpiter pueden tener casi el mismo radio con masas 13–80 veces distintas (cuestión de densidad).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-16.jpg" alt="Secuencia de temperaturas desde el Sol hasta Júpiter pasando por enanas rojas y marrones">
+    <figcaption><span class="cap">Diapositiva · La escalera de temperaturas</span>Sol (G2, 5.800 K) → Gliese 229A (M1, 3.600 K) → Teide 1 (M8, 2.600 K) → Gliese 229B (T7, 950 K) → WISE 1828 (&gt;Y2, 300–500 K) → Júpiter (~125 K). La “B” de Gliese 229B indica que es la componente secundaria de un sistema binario; WISE es un telescopio espacial de infrarrojo medio capaz de detectar objetos tan fríos.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Kelu-1 y María Teresa Ruiz</span>
+    <p>Las primeras enanas marrones se hallaron acompañando estrellas en sistemas binarios (eran demasiado débiles para verlas solas). En 1997, <strong>María Teresa Ruiz</strong> —primera Premio Nacional de Ciencias de Chile y profesora emérita de la U. de Chile— descubrió la primera enana marrón <em>solitaria</em> y la llamó <strong>Kelu</strong> (“rojo” en mapudungún). Años después se le detectó una compañera débil, pero al momento del descubrimiento no había forma de verla.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Enanas marrones en el diagrama HR</span>
+    <p>En un diagrama HR extendido, las enanas marrones continúan la secuencia hacia lo frío pero <strong>se doblan hacia el azul</strong> en los tipos L/T: sus atmósferas tienen tantas moléculas que absorben más flujo en el rojo. Viven en una “secuencia principal propia” mientras queman deuterio; cuando se les acaba, simplemente se enfrían sin evolucionar más.</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Ancho de líneas y clases de luminosidad</h2>
+    <p>El espectro también dice si la estrella es compacta o gigante.</p>
+  </div></div>
+
+  <p>Además de <em>qué</em> líneas aparecen (temperatura), importa el <strong>ancho</strong> de las líneas. La regla, corregida en vivo por la profesora durante la clase:</p>
+
+  <div class="formula">
+    <div style="font-family:'Fraunces',serif;font-size:1.05rem">Estrella más compacta → mayor presión → más colisiones → <strong>líneas más anchas</strong></div>
+    <small>En una atmósfera densa y a alta presión, las colisiones entre partículas perturban los niveles de energía y ensanchan las líneas (las “alitas” del perfil). Una gigante inflada, de baja presión superficial, produce líneas delgadas.</small>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-17.jpg" alt="Comparación de espectros de una enana blanca y una gigante azul con líneas de distinto ancho">
+    <figcaption><span class="cap">Diapositiva · Mismo color, distinto ancho</span>Una enana blanca y una gigante azul pueden tener temperaturas parecidas (ambas azuladas), pero la enana blanca —compactísima, altísima presión— muestra líneas mucho más anchas. El ancho de línea no mide el radio directamente, pero permite <strong>inferir qué tipo de objeto</strong> estamos viendo.</figcaption>
+  </figure>
+
+  <h3>Las clases de luminosidad: números romanos</h3>
+  <p>Como el tipo espectral solo codifica temperatura, se agregó una segunda dimensión: la <span class="hl">clase de luminosidad</span>, en números romanos, que distingue entre estrellas de secuencia principal, gigantes y supergigantes de igual temperatura. La designación completa de una estrella es <strong>letra + subtipo + romano</strong>: el Sol es <strong>G2 V</strong>, Spica <strong>B1 V</strong>, Betelgeuse <strong>M2 I</strong>.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Clase</th><th>Significado</th><th>Ejemplos</th></tr></thead>
+    <tbody>
+      <tr><td><b>I</b></td><td>Supergigantes (Ia más luminosas, Ib menos)</td><td>Betelgeuse, Antares, Rigel</td></tr>
+      <tr><td><b>II</b></td><td>Gigantes brillantes</td><td>Canopus</td></tr>
+      <tr><td><b>III</b></td><td>Gigantes</td><td>Arcturus, Aldebarán</td></tr>
+      <tr><td><b>IV</b></td><td>Subgigantes (saliendo de la secuencia principal)</td><td>Procyon</td></tr>
+      <tr><td><b>V</b></td><td><strong>Secuencia principal</strong> (fusionando H → He). Es la clase más común: ~90% de las estrellas</td><td>Sol (G2 V), Spica (B1 V), Sirio (A1 V), Próxima (M5.5 V)</td></tr>
+      <tr><td><b>VI / VII</b></td><td>Subenanas / enanas blancas (las enanas blancas suelen llevar además el prefijo “D”)</td><td>Sirio B</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="widget" id="w-lum">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Armador de designaciones: tipo espectral + clase de luminosidad</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Combina letra, subtipo y número romano para construir una designación completa (ej. G2 V) y ver qué describe.</p>
+    <div class="wgrid3">
+      <div><label for="lm-cls">Clase espectral (temperatura)</label>
+        <select id="lm-cls">
+          <option value="O">O — azul, &gt; 30.000 K</option>
+          <option value="B">B — azul-blanca, 10.000–30.000 K</option>
+          <option value="A">A — blanca, 7.500–10.000 K</option>
+          <option value="F">F — amarillo-blanca, 6.000–7.500 K</option>
+          <option value="G" selected>G — amarilla, 5.200–6.000 K</option>
+          <option value="K">K — naranja, 3.700–5.200 K</option>
+          <option value="M">M — roja, 2.400–3.700 K</option>
+        </select></div>
+      <div><label for="lm-sub">Subtipo (0 = más caliente, 9 = más fría)</label>
+        <select id="lm-sub"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
+      <div><label for="lm-rom">Clase de luminosidad</label>
+        <select id="lm-rom">
+          <option value="I">I — supergigante</option>
+          <option value="II">II — gigante brillante</option>
+          <option value="III">III — gigante</option>
+          <option value="IV">IV — subgigante</option>
+          <option value="V" selected>V — secuencia principal</option>
+          <option value="VII">VII — enana blanca</option>
+        </select></div>
+    </div>
+    <div class="presets" id="lm-presets">
+      <button type="button" data-d="B,1,V">Spica</button>
+      <button type="button" data-d="A,1,V">Sirio</button>
+      <button type="button" data-d="G,2,V">Sol</button>
+      <button type="button" data-d="M,5,V">Próxima Centauri</button>
+      <button type="button" data-d="M,2,I">Betelgeuse</button>
+      <button type="button" data-d="K,1,III">Arcturus</button>
+      <button type="button" data-d="A,1,VII">Sirio B</button>
+    </div>
+    <output id="lm-out"></output>
+  </div>
+
+  <div class="box dato">
+    <span class="tag">Sirio B vs. Spica: la prueba del tamaño</span>
+    <p>Sirio B (enana blanca) y Spica tienen la <strong>misma temperatura</strong> (~10.000 K), pero Sirio B brilla solo el <strong>3%</strong> de lo que brilla Spica. Con igual temperatura, la única forma de brillar menos es ser más pequeña: Sirio B debe ser <strong>~600 veces más chica</strong>. La luminosidad depende de la temperatura <em>y</em> del tamaño.</p>
+  </div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>El diagrama de Hertzsprung-Russell</h2>
+    <p>El mapa donde las estrellas se ordenan solas.</p>
+  </div></div>
+
+  <p>Con tipos espectrales (≈ temperatura) y distancias (≈ luminosidad) para muchas estrellas, <strong>Ejnar Hertzsprung</strong> y <strong>Henry Norris Russell</strong> notaron que ambas magnitudes están relacionadas. Al graficar <span class="hl">luminosidad (eje Y) vs. temperatura (eje X)</span>, las estrellas no se reparten al azar: se agrupan en estructuras bien definidas. Ese es el <span class="hl">diagrama HR</span>, probablemente el gráfico más importante de la astrofísica estelar.</p>
+
+  <figure>
+    <img src="m1c5/assets/slide-19.jpg" alt="Retratos de Ejnar Hertzsprung y Henry Norris Russell">
+    <figcaption><span class="cap">Diapositiva · Los autores</span>Hertzsprung y Russell descubrieron, de forma independiente, la relación entre tipo espectral y magnitud absoluta. <strong>Convención importante:</strong> el eje de temperatura va <em>invertido</em> — caliente a la izquierda, frío a la derecha (herencia histórica que ordena bien la secuencia).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">Diagrama HR vs. diagrama color-magnitud</span>
+    <p>El diagrama HR es <strong>teórico</strong>: usa temperatura y luminosidad, propiedades intrínsecas que requieren conocer la distancia. Su análogo <strong>empírico</strong> es el diagrama <em>color-magnitud</em>: color (diferencia de magnitudes en dos filtros) vs. magnitud aparente — puro observable, sin distancia. Si al color-magnitud le aplicas la corrección por distancia, obtienes un HR. Ambos cuentan la misma historia.</p>
+  </div>
+
+  <h3>Las poblaciones del diagrama</h3>
+  <figure>
+    <img src="m1c5/assets/slide-20.jpg" alt="Diagrama HR con estrellas conocidas: secuencia principal, gigantes, supergigantes y enanas blancas">
+    <figcaption><span class="cap">Diapositiva · El diagrama HR poblado</span>La diagonal de la esquina superior izquierda (calientes y luminosas, O–B) a la inferior derecha (frías y débiles, M) es la <strong>secuencia principal</strong>, donde vive ~90% de las estrellas — todas fusionando H → He en su núcleo. El Sol está en plena diagonal; Spica arriba a la izquierda; Próxima Centauri abajo a la derecha.</figcaption>
+  </figure>
+
+  <ul>
+    <li><span class="hl">Secuencia principal</span> (~90%): estrellas fusionando hidrógeno en helio. Cuando se les agota el hidrógeno del núcleo, salen de la secuencia (se verá al final del curso).</li>
+    <li><span class="hl">Gigantes y supergigantes rojas</span> (~1%): arriba a la derecha — frías pero enormes, por eso brillan tanto. Betelgeuse: ~3.500 K pero 10⁵ L<sub>☉</sub>, con un radio ~1.000 veces el solar. Por su baja presión superficial, sus líneas espectrales son muy angostas.</li>
+    <li><span class="hl">Enanas blancas</span> (~10%): abajo a la izquierda — muy calientes pero muy poco luminosas, porque son diminutas. Líneas espectrales muy anchas.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c5/assets/slide-21.jpg" alt="Diagrama HR destacando la región de gigantes y supergigantes rojas">
+    <figcaption><span class="cap">Diapositiva · Gigantes y supergigantes</span>Sobre la secuencia principal, hacia los tipos fríos, vive la población de gigantes y supergigantes rojas: estrellas evolucionadas, infladas, súper luminosas a pesar de ser frías.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-22.jpg" alt="Diagrama HR destacando la región de enanas blancas">
+    <figcaption><span class="cap">Diapositiva · Enanas blancas</span>Abajo a la izquierda: alta temperatura, poca luminosidad. Son ~10% de una población estelar típica. El ejemplo clásico es Sirio B, la compañera enana blanca de Sirio (la estrella más brillante del cielo nocturno, el “corazón” del Can Mayor).</figcaption>
+  </figure>
+
+  <h3>Inferir tamaños desde el diagrama: los isoradios</h3>
+  <p>Combinando la ley de Stefan-Boltzmann con la definición de luminosidad superficial:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L_\star = 4\pi R_\star^2\,\sigma T_\star^4"></div>
+    <small>σ es la constante de Stefan-Boltzmann. Con T (del tipo espectral) y L (del diagrama HR, que requiere distancia) se despeja el radio R. En el diagrama, las diagonales de radio constante son las líneas de <strong>isoradio</strong>.</small>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-23.jpg" alt="Diagrama HR con líneas de isoradio desde 0.001 a 1000 radios solares">
+    <figcaption><span class="cap">Diapositiva · Isoradios</span>Las diagonales verdes marcan radios constantes (0,001 a 1.000 R<sub>☉</sub>). Todas las enanas blancas rondan ~0,01 R<sub>☉</sub>; las supergigantes superan las 100–1.000 R<sub>☉</sub>. El diagrama HR permite <strong>leer el tamaño</strong> de una estrella directamente de su posición.</figcaption>
+  </figure>
+
+  <h3>Los extremos del diagrama</h3>
+  <figure>
+    <img src="m1c5/assets/slide-25.jpg" alt="VY Canis Majoris comparada con la órbita de la Tierra alrededor del Sol">
+    <figcaption><span class="cap">Diapositiva · Supergigante VY Canis Majoris</span>Una de las estrellas más grandes conocidas (~17 M<sub>☉</sub>; en clase se citó un radio de ~2.200 R<sub>☉</sub>, las estimaciones publicadas varían entre ~1.400 y 2.000). El circulito azul del recuadro es la <strong>órbita de la Tierra</strong>: el sistema solar interior cabe holgado dentro de la estrella. Está en el Can Mayor, la misma constelación de Sirio. Aún mayor es UY Scuti.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-26.jpg" alt="Enana blanca comparada en tamaño con la Tierra, con radios y densidades">
+    <figcaption><span class="cap">Diapositiva · Enana blanca vs. Tierra</span>Radio de la enana blanca ≈ 6.536 km, casi igual al de la Tierra (6.371 km), pero densidad ≈ 1,43×10⁹ kg/m³ frente a 5.520 kg/m³: <strong>una cucharadita pesa toneladas</strong>. Es el núcleo desnudo —carbono y oxígeno degenerados— de una estrella de baja masa que ya murió.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Qué es (y qué no es) una enana blanca</span>
+    <p>Las enanas blancas <strong>no fusionan nada</strong>: son remanentes que solo se enfrían. Aparecen cuando una estrella de <em>baja</em> masa muere expulsando suavemente sus capas exteriores (el Sol terminará así: “estornuda”, no explota). Las <strong>supernovas</strong> son cosa de estrellas de más de ~8 M<sub>☉</sub>, y su remanente es una estrella de neutrones o un agujero negro, no una enana blanca. Cuando una enana blanca termine de enfriarse quedará una <strong>enana negra</strong> — hipotéticas aún: se llegó a proponerlas como candidatas a materia oscura, pero no alcanzan para explicar toda la masa faltante.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>Relación masa–luminosidad</h2>
+    <p>El diagrama HR también ordena por masa — pero solo en la secuencia principal.</p>
+  </div></div>
+
+  <p>La masa es de las propiedades más difíciles de medir (binarias, modelos…). Pero existe una <strong>relación empírica</strong> que permite inferirla desde la luminosidad, gracias a este ciclo físico:</p>
+  <ul>
+    <li>Más masa → más gravedad tirando hacia adentro.</li>
+    <li>Para mantener el <span class="hl">equilibrio hidrostático</span> (estrella redondita: gravedad compensada con presión), la estrella debe empujar más fuerte hacia afuera → sube la temperatura, sobre todo en el núcleo.</li>
+    <li>Más temperatura en el núcleo → los átomos se mueven más rápido → más colisiones exitosas → <strong>mayor tasa de fusión</strong> de hidrógeno.</li>
+    <li>Más fusión → más energía generada → <strong>más luminosidad</strong>.</li>
+  </ul>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="L_\star \propto M_\star^{\,4} \qquad\text{(solo secuencia principal)}"></div>
+    <small>Relación empírica aproximada (es un “proporcional”, no un igual). No vale para gigantes rojas, enanas marrones ni enanas blancas: en otras etapas evolutivas el ciclo anterior no se cumple.</small>
+  </div>
+
+  <figure>
+    <img src="m1c5/assets/slide-27.jpg" alt="Gráfico empírico de luminosidad versus masa para estrellas de secuencia principal">
+    <figcaption><span class="cap">Diapositiva · La correlación empírica</span>Luminosidad vs. masa (en unidades solares) para estrellas de secuencia principal. La tendencia ~M⁴ cubre seis órdenes de magnitud en luminosidad.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-28.jpg" alt="Diagrama HR con masas y tiempos de vida a lo largo de la secuencia principal">
+    <figcaption><span class="cap">Diapositiva · El HR ordenado por masa</span>Si L ∝ M⁴, la secuencia principal también ordena por masa: las masivas arriba-izquierda (calientes, brillantes, vidas cortas: Spica, 11 M<sub>☉</sub>, ~10⁷ años) y las livianas abajo-derecha (Próxima, 0,12 M<sub>☉</sub>, ~10¹² años). El Sol, 1 M<sub>☉</sub>, vive ~10¹⁰ años.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c5/assets/slide-24.jpg" alt="Tamaños comparados de Spica, Sirio, el Sol y Próxima Centauri, todas de clase V">
+    <figcaption><span class="cap">Diapositiva · Cuatro estrellas de secuencia principal</span>Todas clase <strong>V</strong> (fusionando H → He): Spica (B1 V, 11 M<sub>☉</sub>, vive 10⁷ años), Sirio (A1 V, 2 M<sub>☉</sub>, 10⁹ años), el Sol (G2 V, 1 M<sub>☉</sub>, 10¹⁰ años) y Próxima Centauri (M5.5 V, 0,12 M<sub>☉</sub>, 10¹² años — dos órdenes de magnitud más que el Sol).</figcaption>
+  </figure>
+
+  <div class="widget" id="w-ml">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Calculadora masa → luminosidad → tiempo de vida</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Aplica L ∝ M⁴ y t ∝ M/L = M⁻³ (combustible ∝ M, consumo ∝ L). Solo válido en secuencia principal.</p>
+    <label for="ml-m">Masa de la estrella: <span id="ml-mlab"></span></label>
+    <input type="range" id="ml-m" min="-1" max="1.78" step="0.01" value="0">
+    <div class="presets" id="ml-presets">
+      <button type="button" data-m="0.12">Próxima (0,12 M☉)</button>
+      <button type="button" data-m="1">Sol (1 M☉)</button>
+      <button type="button" data-m="2">Sirio (2 M☉)</button>
+      <button type="button" data-m="11">Spica (11 M☉)</button>
+      <button type="button" data-m="60">Estrella O (60 M☉)</button>
+    </div>
+    <output id="ml-out"></output>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía de ingeniería: potencia vs. autonomía</span>
+    <p>Es el clásico trade-off potencia/autonomía: el “estanque de combustible” crece linealmente con la masa, pero el “consumo” crece como M⁴. Duplicar la masa multiplica el consumo por 16 con solo el doble de combustible: la autonomía cae 8 veces. Por eso las estrellas O viven millones de años y las enanas M, billones — más que la edad actual del universo.</p>
+  </div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section id="s10">
+  <div class="shead"><span class="num">10</span><div>
+    <h2>Resumen: cómo se mide cada propiedad</h2>
+    <p>El cierre del Módulo I: todas las técnicas en una tabla.</p>
+  </div></div>
+
+  <figure>
+    <img src="m1c5/assets/slide-18.jpg" alt="Tabla de propiedades estelares básicas y técnicas para medirlas">
+    <figcaption><span class="cap">Diapositiva · Propiedades y técnicas</span>Temperatura → color (aproximado) o tipo espectral (certero); composición → líneas presentes; luminosidad → flujo + distancia; velocidad radial → Doppler de las líneas; masa → binarias espectroscópicas; diámetro → curvas de luz en binarias eclipsantes o interferometría.</figcaption>
+  </figure>
+
+  <p>Nótese cuánto sale <strong>del espectro</strong>: temperatura (tipo espectral), composición (qué líneas), velocidad radial (corrimiento Doppler), tamaño aproximado (ancho de líneas) y, vía el diagrama HR, radio y masa. La <span class="hl">espectroscopía</span> es la navaja suiza de la astrofísica estelar. Para distancias, en este curso basta el <strong>paralaje</strong> (misiones Hipparcos y Gaia); en el curso de galaxias verán medidas con redshift para objetos más lejanos.</p>
+
+  <div class="box next">
+    <span class="tag">Próximo módulo</span>
+    <p>Con el Módulo I cerrado (propiedades y clasificación de estrellas), el Módulo II —con el profesor Ricardo Muñoz— mira <em>alrededor</em> de las estrellas: el <strong>medio interestelar</strong>, las moléculas en el espacio, las nubes moleculares y cómo <strong>nacen</strong> las estrellas.</p>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Línea de absorción</b></td><td>Fotón absorbido por un electrón que salta de nivel</td><td>Huella digital de los elementos en la atmósfera estelar</td></tr>
+      <tr><td><b>Tipo espectral</b></td><td>O B A F G K M (+ L T Y), caliente → fría</td><td>Equivale a temperatura superficial; se lee del espectro</td></tr>
+      <tr><td><b>Subtipos 0–9</b></td><td>0 más caliente, 9 más fría dentro de cada letra</td><td>Resolución fina: el Sol es G2, Próxima M5.5</td></tr>
+      <tr><td><b>Serie de Balmer</b></td><td>Transiciones del H desde/hacia n = 2</td><td>La única serie del H visible en el óptico; base histórica de la clasificación</td></tr>
+      <tr><td><b>Lyman / Paschen</b></td><td>Series hacia n = 1 (UV) / n = 3 (IR)</td><td>El mismo átomo emite en bandas distintas según el salto</td></tr>
+      <tr><td><b>Annie Jump Cannon</b></td><td>Clasificó &gt; 250.000 espectros (~100/hora)</td><td>Depuró el sistema de letras; el orden por temperatura lo hizo coherente</td></tr>
+      <tr><td><b>Cecilia Payne</b></td><td>Explicación teórica (1925)</td><td>Espectros distintos = temperaturas distintas, no composición</td></tr>
+      <tr><td><b>“Metales”</b></td><td>Todo elemento más pesado que el helio</td><td>Composición típica: ~75% H, ~23% He, ≤2% metales</td></tr>
+      <tr><td><b>Enanas marrones (L, T, Y)</b></td><td>13–80 M<sub>Júp</sub>; fusionan deuterio, no H</td><td>Puente entre planetas y estrellas; Kelu-1 (M. T. Ruiz, 1997)</td></tr>
+      <tr><td><b>Ancho de líneas</b></td><td>Compacta → alta presión → líneas anchas</td><td>Permite inferir el tamaño del objeto desde el espectro</td></tr>
+      <tr><td><b>Clases de luminosidad</b></td><td>Romanos I–V (+ VII): I supergigante … V secuencia principal</td><td>Segunda dimensión: distingue gigantes de enanas de igual temperatura</td></tr>
+      <tr><td><b>Diagrama HR</b></td><td>Luminosidad vs. temperatura (T invertida)</td><td>Secuencia principal (~90%), gigantes (~1%), enanas blancas (~10%)</td></tr>
+      <tr><td><b>L = 4πR²σT⁴</b></td><td>Stefan-Boltzmann aplicada a la estrella</td><td>Con T y L se infiere el radio (isoradios del HR)</td></tr>
+      <tr><td><b>L ∝ M⁴</b></td><td>Relación empírica, solo secuencia principal</td><td>El HR también ordena por masa; vida ∝ M⁻³</td></tr>
+      <tr><td><b>Enana blanca</b></td><td>Núcleo C/O desnudo; ~radio terrestre; ~10⁹ kg/m³</td><td>Remanente de estrella de baja masa; solo se enfría</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c5-examen-01.html">Examen 01<small>Líneas de absorción</small></a></li>
+    <li><a href="m1c5-examen-02.html">Examen 02<small>Tipos OBAFGKM</small></a></li>
+    <li><a href="m1c5-examen-03.html">Examen 03<small>Cannon y Payne</small></a></li>
+    <li><a href="m1c5-examen-04.html">Examen 04<small>Series del hidrógeno</small></a></li>
+    <li><a href="m1c5-examen-05.html">Examen 05<small>Enanas marrones</small></a></li>
+    <li><a href="m1c5-examen-06.html">Examen 06<small>Clases de luminosidad</small></a></li>
+    <li><a href="m1c5-examen-07.html">Examen 07<small>Diagrama HR</small></a></li>
+    <li><a href="m1c5-examen-08.html">Examen 08<small>Gigantes y enanas blancas</small></a></li>
+    <li><a href="m1c5-examen-09.html">Examen 09<small>Masa-luminosidad</small></a></li>
+    <li><a href="m1c5-examen-10.html">Examen 10<small>Integrador</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 5 del Módulo I del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Mejías, 18 abr 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m1/ff/Estrellas-m1c5-6c19b435-b4b7.md</code>) y las diapositivas <code>Modulo_I_Clase_5_Clasificando_estrellas.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastaron términos con las diapositivas y se corrigieron donde correspondía (p. ej. “Viral Use” → Betelgeuse; “serie de Walmer/Wagner/Palmer” → Balmer; “línea de nitrógeno” → hidrógeno; el tiempo de vida del Sol es ~10¹⁰ años, no “10 millones”; la temperatura de Próxima Centauri es ~3.000 K; la densidad de una enana blanca es ~1,4×10⁹ kg/m³ según la diapositiva). El radio citado en clase para VY Canis Majoris (~2.200 R☉) es mayor que las estimaciones publicadas (~1.400–2.000 R☉), se indica en la figura. La propia docente corrigió en vivo la relación presión–ancho de líneas: las estrellas <em>compactas</em> tienen líneas más anchas. Las mnemotecnias son material complementario externo. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+// ---- Constantes físicas ----
+var C = 299792458;          // m/s
+var H = 6.62607015e-34;     // J s
+var EV = 1.602176634e-19;   // J por eV
+
+// ---- Widget: series del hidrógeno (Rydberg) ----
+(function(){
+  var lo = document.getElementById('sr-lo');
+  var hi = document.getElementById('sr-hi');
+  var out = document.getElementById('sr-out');
+  var Rinf = 1.0973731568e7; // m^-1
+  var series = {1:"Lyman",2:"Balmer",3:"Paschen",4:"Brackett",5:"Pfund"};
+  function band(l){
+    if(l < 1e-8) return ["rayos X","#f06a5e"];
+    if(l < 4e-7) return ["ultravioleta","#a07ff0"];
+    if(l < 7e-7) return ["visible (óptico)","#7ee07e"];
+    if(l < 1e-3) return ["infrarrojo","#e0a13a"];
+    return ["radio","#6fc7d6"];
+  }
+  function calc(){
+    var n1 = parseInt(lo.value,10), n2 = parseInt(hi.value,10);
+    if(!(n2>n1)){ out.innerHTML = "El nivel superior n₂ debe ser mayor que n₁ = "+n1+"."; return; }
+    var invLam = Rinf*(1/(n1*n1) - 1/(n2*n2));
+    var lam = 1/invLam;
+    var nm = lam*1e9;
+    var E = H*C/lam/EV;
+    var b = band(lam);
+    var name = (n1===2 && n2===3) ? " — es <b>Hα</b>, la línea roja de 656 nm" :
+               (n1===2 && n2===4) ? " — es <b>Hβ</b>" :
+               (n1===2 && n2===5) ? " — es <b>Hγ</b>" :
+               (n1===1 && n2===2) ? " — es <b>Lyman-α</b>" : "";
+    var visNote = (n1===2) ? "<br>→ Serie de Balmer: la que veían los astrónomos del siglo XIX en el óptico."
+                : "<br>→ Fuera del óptico: invisible para los instrumentos de 1890.";
+    out.innerHTML = "Transición <b>"+n2+" → "+n1+"</b> · Serie de <b>"+series[n1]+"</b>"+name+"<br>"+
+      "<span class='k'>λ</span> = <b>"+nm.toFixed(1)+"</b> nm &nbsp;·&nbsp; "+
+      "<span class='k'>E</span> = <b>"+E.toFixed(3)+"</b> eV &nbsp;·&nbsp; "+
+      "Banda: <b style='color:"+b[1]+"'>"+b[0]+"</b>"+visNote;
+  }
+  lo.addEventListener('input', calc);
+  hi.addEventListener('input', calc);
+  document.querySelectorAll('#sr-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ lo.value = btn.dataset.lo; hi.value = btn.dataset.hi; calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget: clasificador espectral ----
+(function(){
+  var t = document.getElementById('sp-t');
+  var tlab = document.getElementById('sp-tlab');
+  var out = document.getElementById('sp-out');
+  var bandEls = document.querySelectorAll('#sp-band span');
+  // Rangos [Tmin, Tmax] por clase (K). O sin techo real; L/T/Y aproximados (material externo).
+  var classes = [
+    {c:"Y", lo:200,  hi:600,   col:"#7d6bb5", color:"—", feat:"Enanas marrones ultrafrias; amoníaco en la atmósfera. Detectables solo en infrarrojo (telescopio WISE).", ej:"WISE 1828 (300–500 K)", star:false},
+    {c:"T", lo:600,  hi:1300,  col:"#b04a8f", color:"magenta tenue", feat:"Enanas marrones con metano en la atmósfera; fusionan deuterio, no hidrógeno.", ej:"Gliese 229 B (950 K)", star:false},
+    {c:"L", lo:1300, hi:2400,  col:"#d95a4a", color:"rojo muy oscuro", feat:"Enanas marrones (y alguna estrella muy fría); hidruros metálicos, las bandas de TiO se debilitan.", ej:"Kelu-1 (M. T. Ruiz, 1997)", star:false},
+    {c:"M", lo:2400, hi:3700,  col:"#ff7d5c", color:"rojo", feat:"Líneas fuertes de metales neutros y bandas moleculares de óxido de titanio (TiO) dominan.", ej:"Betelgeuse, Antares, Próxima Centauri", star:true},
+    {c:"K", lo:3700, hi:5200,  col:"#ffbe6e", color:"naranja", feat:"Líneas de H muy débiles; Ca ionizado y Na fuertes; muchas líneas de metales neutros.", ej:"Arcturus, Aldebarán", star:true},
+    {c:"G", lo:5200, hi:6000,  col:"#ffe9a8", color:"amarillo", feat:"Líneas de H más débiles; Ca ionizado y Na fuertes; muchas líneas de metales ionizados y neutros.", ej:"Sol (G2), Capella", star:true},
+    {c:"F", lo:6000, hi:7500,  col:"#f8f4e8", color:"amarillo-blanco", feat:"Líneas fuertes de H y de Ca ionizado; líneas débiles de Na y de metales ionizados.", ej:"Canopus, Procyon", star:true},
+    {c:"A", lo:7500, hi:10000, col:"#e4e9ff", color:"blanco", feat:"Líneas de H más fuertes de todas (máximo de Balmer); Ca y metales ionizados débiles (Fe, Mg).", ej:"Sirio, Vega", star:true},
+    {c:"B", lo:10000,hi:30000, col:"#b9c8ff", color:"azul-blanco", feat:"Líneas de He neutro; líneas fuertes de H.", ej:"Rigel, Spica", star:true},
+    {c:"O", lo:30000,hi:60000, col:"#9db4ff", color:"azul", feat:"Líneas de He neutro e ionizado; líneas débiles de H (está casi todo ionizado).", ej:"10 Lacertae", star:true}
+  ];
+  // slider 0..1000 → log T entre 200 y 60000
+  var LOGMIN = Math.log10(200), LOGMAX = Math.log10(60000);
+  function sliderToT(v){ return Math.pow(10, LOGMIN + (v/1000)*(LOGMAX-LOGMIN)); }
+  function tToSlider(T){ return Math.round(1000*(Math.log10(T)-LOGMIN)/(LOGMAX-LOGMIN)); }
+  function findClass(T){
+    for(var i=0;i<classes.length;i++){ if(T < classes[i].hi) return classes[i]; }
+    return classes[classes.length-1];
+  }
+  function calc(){
+    var T = sliderToT(parseFloat(t.value));
+    var Tr = T<1000 ? Math.round(T/10)*10 : Math.round(T/100)*100;
+    tlab.textContent = Tr.toLocaleString('es-CL') + " K";
+    var k = findClass(T);
+    // subtipo 0-9 interpolado dentro del rango (0 = extremo caliente)
+    var frac = (k.hi - T)/(k.hi - k.lo);
+    var sub = Math.min(9, Math.max(0, Math.floor(frac*10)));
+    bandEls.forEach(function(el){ el.classList.toggle('on', el.dataset.c===k.c); });
+    var kind = k.star ? "estrella" : "objeto subestelar (enana marrón)";
+    var colorHtml = k.color==="—" ? "" : "Color aproximado: <span class='sw' style='background:"+k.col+"'></span><b>"+k.color+"</b><br>";
+    out.innerHTML = "Tipo espectral: <b style='font-size:1.3em;color:"+k.col+"'>"+k.c+sub+"</b> &nbsp;·&nbsp; "+kind+"<br>"+
+      colorHtml+
+      "Líneas dominantes: "+k.feat+"<br>"+
+      "Ejemplos: <b>"+k.ej+"</b>";
+  }
+  t.addEventListener('input', calc);
+  document.querySelectorAll('#sp-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ t.value = tToSlider(parseFloat(btn.dataset.t)); calc(); });
+  });
+  calc();
+})();
+
+// ---- Widget: designación espectral + luminosidad ----
+(function(){
+  var cls = document.getElementById('lm-cls');
+  var sub = document.getElementById('lm-sub');
+  var rom = document.getElementById('lm-rom');
+  var out = document.getElementById('lm-out');
+  var romInfo = {
+    "I":  ["Supergigante","Estrella evolucionada, enormemente expandida (cientos a miles de R☉). Baja presión superficial → líneas espectrales angostas. Ej.: Betelgeuse (M2 I)."],
+    "II": ["Gigante brillante","Intermedia entre gigantes y supergigantes."],
+    "III":["Gigante","Salió de la secuencia principal; ya no fusiona H en el núcleo. Fría pero luminosa si es gigante roja. Ej.: Arcturus (K1 III)."],
+    "IV": ["Subgigante","En transición: agotando el H del núcleo, empezando a expandirse."],
+    "V":  ["Secuencia principal","Fusionando hidrógeno en helio en el núcleo. ~90% de las estrellas. Es la clase que más van a ver. Ej.: Sol (G2 V)."],
+    "VII":["Enana blanca","Remanente compacto (~radio terrestre): núcleo C/O desnudo que solo se enfría. Altísima presión → líneas muy anchas. Suele llevar prefijo D. Ej.: Sirio B."]
+  };
+  var known = {"B1 V":"Spica — 11 M☉, vive ~10⁷ años","A1 V":"Sirio — 2 M☉, vive ~10⁹ años","G2 V":"el Sol — 1 M☉, vive ~10¹⁰ años","M5 V":"≈ Próxima Centauri (M5.5 V) — 0,12 M☉, vive ~10¹² años","M2 I":"Betelgeuse — supergigante roja, ~10⁵ L☉","K1 III":"Arcturus — gigante naranja","A1 VII":"≈ Sirio B — enana blanca de ~10.000 K"};
+  var temps = {O:"&gt; 30.000 K",B:"10.000–30.000 K",A:"7.500–10.000 K",F:"6.000–7.500 K",G:"5.200–6.000 K",K:"3.700–5.200 K",M:"2.400–3.700 K"};
+  function calc(){
+    var d = cls.value + sub.value + " " + rom.value;
+    var ri = romInfo[rom.value];
+    var match = known[d] ? "<br>★ Coincide con <b>"+known[d]+"</b>" : "";
+    out.innerHTML = "Designación: <b style='font-size:1.4em'>"+d+"</b>"+match+"<br>"+
+      "<span class='k'>Temperatura</span> (clase "+cls.value+"): <b>"+temps[cls.value]+"</b> — subtipo "+sub.value+" ("+(sub.value==="0"?"extremo caliente":(sub.value==="9"?"extremo frío":"intermedio"))+" de la letra)<br>"+
+      "<span class='k'>Clase "+rom.value+"</span>: <b>"+ri[0]+"</b>. "+ri[1];
+  }
+  cls.addEventListener('input', calc);
+  sub.addEventListener('input', calc);
+  rom.addEventListener('input', calc);
+  document.querySelectorAll('#lm-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var p = btn.dataset.d.split(',');
+      cls.value = p[0]; sub.value = p[1]; rom.value = p[2]; calc();
+    });
+  });
+  calc();
+})();
+
+// ---- Widget: masa-luminosidad ----
+(function(){
+  var m = document.getElementById('ml-m');
+  var mlab = document.getElementById('ml-mlab');
+  var out = document.getElementById('ml-out');
+  function fmt(x){
+    if(x>=1e4 || x<1e-2) return x.toExponential(1).replace('e+','×10^').replace('e-','×10^-');
+    return x>=100 ? Math.round(x).toLocaleString('es-CL') : (x>=10 ? x.toFixed(0) : x.toFixed(2));
+  }
+  function fmtYears(t){
+    if(t>=1e12) return (t/1e12).toFixed(1)+" billones de años";
+    if(t>=1e9) return (t/1e9).toFixed(1)+" mil millones de años";
+    if(t>=1e6) return (t/1e6).toFixed(1)+" millones de años";
+    return Math.round(t).toLocaleString('es-CL')+" años";
+  }
+  function calc(){
+    var M = Math.pow(10, parseFloat(m.value));
+    mlab.textContent = (M>=10?M.toFixed(0):M.toFixed(2))+" M☉";
+    var L = Math.pow(M,4);
+    var t = 1e10 * Math.pow(M,-3);
+    var note = M>1 ? "Más masiva que el Sol: brilla mucho más y vive mucho menos."
+             : M<1 ? "Menos masiva que el Sol: tenue pero longeva"+(t>1.38e10?" — vive más que la edad actual del universo (~13.800 millones de años)":"")+"."
+             : "La referencia: nuestro Sol.";
+    out.innerHTML = "<span class='k'>L</span> ≈ M⁴ = <b>"+fmt(L)+" L☉</b><br>"+
+      "<span class='k'>Vida en secuencia principal</span> ≈ 10¹⁰ · M⁻³ años = <b>"+fmtYears(t)+"</b><br>"+note;
+  }
+  m.addEventListener('input', calc);
+  document.querySelectorAll('#ml-presets button').forEach(function(btn){
+    btn.addEventListener('click', function(){ m.value = Math.log10(parseFloat(btn.dataset.m)); calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

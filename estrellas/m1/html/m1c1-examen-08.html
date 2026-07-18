@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 08 — m1c1 · El Sol en números I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo I · Clase 1</span>
+<h1>Examen 08 — El Sol en números I: distancia, tamaño, masa y densidad</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="c,a,d">
+  <fieldset data-q="1"><legend>1. La distancia Tierra–Sol es, según la clase:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">149,6 × 10³ km</label>
+    <label class="opt"><input type="radio" name="q1" value="b">1,496 × 10⁹ km</label>
+    <label class="opt"><input type="radio" name="q1" value="c">149,6 × 10⁶ km (unos 150 millones de km)</label>
+    <label class="opt"><input type="radio" name="q1" value="d">696 × 10³ km</label>
+    <p class="fb" hidden>149,6 × 10⁶ km = 150 000 000 km, la distancia que define la Unidad Astronómica. 696 × 10³ km es el radio del Sol, no la distancia.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. El radio del Sol (696 × 10³ km) equivale aproximadamente a:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">109 radios terrestres</label>
+    <label class="opt"><input type="radio" name="q2" value="b">10 radios terrestres</label>
+    <label class="opt"><input type="radio" name="q2" value="c">1000 radios terrestres</label>
+    <label class="opt"><input type="radio" name="q2" value="d">La distancia Tierra–Luna</label>
+    <p class="fb" hidden>R☉ = 696 000 km ≈ 109 R_Tierra (R_Tierra ≈ 6371 km). Curiosamente, el radio solar es casi el doble de la distancia Tierra–Luna (384 400 km): la órbita de la Luna cabría holgadamente dentro del Sol.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. Sobre la masa del Sol (M☉ = 1,989 × 10³⁰ kg), la clase destaca que:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">Es la mitad de la masa del Sistema Solar; la otra mitad es Júpiter</label>
+    <label class="opt"><input type="radio" name="q3" value="b">Representa el 50 % de la masa de la Vía Láctea</label>
+    <label class="opt"><input type="radio" name="q3" value="c">Es menor que la suma de las masas de todos los planetas</label>
+    <label class="opt"><input type="radio" name="q3" value="d">Concentra el 99,86 % de la masa de todo el Sistema Solar</label>
+    <p class="fb" hidden>El gráfico de torta de la clase: el Sol es prácticamente el disco completo (99,86 %); Júpiter y Saturno son una rendija apenas visible. A efectos de masa, el Sistema Solar ES el Sol.</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. La densidad media del Sol es 1,41 g/cm³ — apenas superior a la del agua (1 g/cm³) y muy inferior a la de la Tierra (5,5 g/cm³). ¿Cómo se reconcilia esta "baja densidad" con la "enorme masa" de la lista de propiedades? ¿Qué revela sobre la naturaleza física del Sol?</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">No hay contradicción: la densidad es masa <em>dividida por volumen</em> (ρ = M/V), y el volumen del Sol es aún más "enorme" que su masa. Con R☉ ≈ 109 R_Tierra, el volumen solar es ~109³ ≈ 1,3 millones de veces el terrestre, mientras su masa es "solo" ~333 000 veces la de la Tierra: el cociente da una densidad media ~4 veces menor que la terrestre. Lo que revela es fundamental: el Sol <strong>no es un cuerpo sólido ni rocoso</strong> — es una gigantesca bola de gas (plasma), mayormente hidrógeno y helio, los elementos más livianos. La comparación de la clase con Saturno (0,7 g/cm³, "flotaría en el agua") apunta a lo mismo: los cuerpos gaseosos tienen densidades medias bajas aunque sus masas sean colosales.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. Verifica la consistencia de tres números de la clase: M☉ = 1,989 × 10³⁰ kg, R☉ = 696 × 10³ km y ρ☉ = 1,41 g/cm³. Plantea el cálculo con notación científica (V = 4/3 π R³) y comenta el valor de este tipo de "chequeo cruzado".</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Convertimos R☉ a centímetros: 696 000 km = 6,96×10¹⁰ cm. Volumen: V = 4/3 · π · (6,96×10¹⁰)³ ≈ 4,19 · 3,37×10³² ≈ 1,41×10³³ cm³. Masa en gramos: 1,989×10³³ g. Densidad: ρ = M/V = 1,989×10³³ / 1,41×10³³ ≈ <strong>1,41 g/cm³</strong> ✓ — exactamente el valor de la diapositiva. El valor del chequeo: (1) confirma que los tres datos son mutuamente consistentes (no se memorizan tres números independientes, sino dos y una relación); (2) es práctica directa de la aritmética de exponentes de la clase (cubos = multiplicar exponente por 3; división = restar exponentes); (3) es el hábito ingenieril de validar datos por redundancia — si un número de una tabla está mal, un chequeo dimensional simple suele delatarlo.</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 1, Módulo I (Astrofísica de Estrellas). <a href="m1c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>

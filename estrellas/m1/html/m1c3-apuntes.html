@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Sol II: estructura en capas y actividad — Astrofísica de Estrellas, Módulo I · Clase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#070a12; --bg2:#0c111d; --panel:#10172680; --panel-solid:#111a2b;
+  --ink:#ece8df; --muted:#9aa6bb; --line:#26324a;
+  --red:#e0382e; --red-soft:#f06a5e; --gold:#d9a74a; --cyan:#6fc7d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:"Spectral",Georgia,serif; font-size:18px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 22%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.2px 1.2px at 72% 14%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.6px 1.6px at 42% 64%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.1px 1.1px at 88% 48%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1.3px 1.3px at 28% 86%, rgba(255,255,255,.40), transparent),
+    radial-gradient(1.1px 1.1px at 62% 92%, rgba(255,255,255,.30), transparent),
+    radial-gradient(1200px 700px at 80% -8%, #16203a 0%, transparent 60%),
+    linear-gradient(180deg,#070a12 0%,#0a0f1b 50%,#080b14 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3,.kick,.idx a,.tag,.badge,.formula,.cap{font-family:"Fraunces",Georgia,serif}
+a{color:var(--red-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.top{padding:18px 0 0;font-size:.9rem}
+nav.top a{color:var(--muted)}
+.hero{position:relative;padding:54px 0 40px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red-soft);font-weight:600}
+.kick::before{content:"";width:34px;height:2px;background:var(--red)}
+h1{font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;margin:.28em 0 .12em;font-weight:600;
+  font-optical-sizing:auto;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--red-soft)}
+.sub{color:var(--muted);font-size:1.12rem;max-width:64ch}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 8px}
+.meta span{font-family:"Fraunces",serif;font-size:.82rem;letter-spacing:.03em;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#0d1422aa}
+.meta span b{color:var(--red-soft);font-weight:600}
+.lead{font-size:1.18rem;line-height:1.7;margin:26px 0 6px}
+.lead .drop{float:left;font-family:"Fraunces",serif;font-weight:600;font-size:3.5rem;line-height:.8;
+  padding:6px 12px 0 0;color:var(--red)}
+.idx{margin:30px 0 8px;border:1px solid var(--line);border-radius:16px;background:#0b1120aa;padding:20px 22px}
+.idx .tag{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.idx ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.idx li{counter-increment:c}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-bottom:1px solid #1a2438;color:var(--ink)}
+.idx a::before{content:counter(c,decimal-leading-zero);color:var(--red);font-size:.82rem;font-weight:600;min-width:24px}
+.idx a:hover{color:var(--red-soft);text-decoration:none}
+@media(max-width:680px){.idx ol{grid-template-columns:1fr}}
+section{margin:52px 0;scroll-margin-top:20px}
+.shead{display:flex;align-items:flex-start;gap:18px;margin-bottom:6px}
+.num{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:#0a0f1b;background:var(--red);
+  min-width:42px;height:42px;display:grid;place-items:center;border-radius:11px;margin-top:6px;
+  box-shadow:0 6px 22px -8px var(--red)}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:.1em 0 .15em;font-weight:600;letter-spacing:-.01em}
+.shead p{margin:.2em 0 0;color:var(--muted);font-size:.98rem}
+h3{font-size:1.18rem;color:var(--gold);margin:1.5em 0 .3em;font-weight:600;letter-spacing:.005em}
+p{margin:.7em 0}
+em{color:#f4efe4}
+strong{color:#fff;font-weight:600}
+.hl{color:var(--red-soft);font-weight:600;font-family:"Fraunces",serif}
+ul{margin:.6em 0;padding-left:1.2em}
+li{margin:.34em 0}
+li::marker{color:var(--red)}
+figure{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#05070d;
+  box-shadow:0 24px 60px -34px #000}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:13px 17px;font-size:.92rem;color:var(--muted);background:#0b1120;
+  border-top:1px solid var(--line)}
+figcaption .cap{color:var(--red-soft);font-weight:600;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.box{margin:22px 0;border-radius:14px;padding:17px 20px 17px 22px;position:relative;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0e1626,#0b1120)}
+.box .tag{display:block;font-family:"Fraunces",serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px}
+.box p{margin:.35em 0}
+.box.physics{border-left:3px solid var(--cyan)} .box.physics .tag{color:var(--cyan)}
+.box.prof{border-left:3px solid var(--gold)} .box.prof .tag{color:var(--gold)}
+.box.dato{border-left:3px solid var(--red)} .box.dato .tag{color:var(--red-soft)}
+.box.cs{border-left:3px solid #8b7fe0} .box.cs .tag{color:#aa9ff0}
+.box.next{border-left:3px solid #7a86a0;background:linear-gradient(180deg,#0c1120,#0a0e18)}
+.box.next .tag{color:#aeb8cc}
+.formula{margin:18px 0;background:#080d18;border:1px solid var(--line);border-radius:12px;
+  padding:15px 18px;font-size:1.12rem;color:#fff;letter-spacing:.01em;overflow-x:auto;
+  box-shadow:inset 0 0 40px -28px var(--cyan)}
+.formula small{display:block;font-family:"Spectral",serif;color:var(--muted);font-size:.84rem;
+  letter-spacing:0;margin-top:6px;line-height:1.5}
+sub,sup{font-size:.66em}
+.tbl{margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid #1a2438;vertical-align:top}
+thead th{background:#0e1626;font-family:"Fraunces",serif;color:var(--red-soft);font-weight:600;
+  font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#0d1422}
+td b{color:var(--gold);font-weight:600}
+.widget{margin:20px 0;border:1px solid var(--line);border-radius:14px;background:#0a1120;
+  padding:18px 20px;box-shadow:inset 0 0 60px -40px var(--cyan)}
+.widget h4{font-family:"Fraunces",serif;font-size:1.02rem;color:var(--cyan);margin:0 0 12px;font-weight:600}
+.widget label{display:block;font-size:.9rem;color:var(--muted);margin:9px 0 3px}
+.widget input[type=number],.widget select{width:100%;background:#070d18;border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-family:"Spectral",serif;font-size:1rem}
+.widget input[type=range]{width:100%;accent-color:var(--red)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+@media(max-width:560px){.wgrid{grid-template-columns:1fr}}
+.widget .presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.widget .presets button{background:#10203a;border:1px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-family:"Fraunces",serif}
+.widget .presets button:hover{border-color:var(--red);color:var(--red-soft)}
+.widget output,.wout{display:block;margin-top:14px;background:#070d18;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px;font-family:"Fraunces",serif;font-size:1.02rem;color:#fff;line-height:1.6}
+.wout .k{color:var(--cyan)} .wout b{color:var(--gold)}
+.tagband{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;margin-bottom:4px}
+.examlist{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.examlist a{display:block;border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:var(--ink);
+  background:#0b1120;font-family:"Fraunces",serif;transition:.15s}
+.examlist a:hover{border-color:var(--red);color:var(--red-soft);text-decoration:none;transform:translateY(-2px)}
+.examlist a small{display:block;color:var(--muted);font-size:.78rem;font-family:"Spectral",serif;margin-top:2px}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:.9rem}
+footer b{color:var(--ink)}
+.disc{font-size:.82rem;color:#6b768c;margin-top:14px;line-height:1.55}
+.katex{font-size:1.04em}
+.tempbar{position:relative;height:26px;border-radius:8px;margin-top:10px;overflow:hidden;
+  background:linear-gradient(90deg,#d9a74a 0%,#e0382e 35%,#a03adf 70%,#6fc7d6 100%)}
+.tempbar .mark{position:absolute;top:0;bottom:0;width:3px;background:#fff;box-shadow:0 0 8px #fff}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav class="top"><a href="index.html">← Módulo I — índice</a></nav>
+
+<div class="hero">
+  <span class="kick">Astrofísica de Estrellas · Módulo I · Clase 3</span>
+  <h1>El Sol II: <em>capas</em> y actividad</h1>
+  <p class="sub">Del núcleo a 15 millones de Kelvin hasta la corona —paradójicamente <em>más caliente</em> que la superficie—. Cómo viaja la energía hacia afuera, cómo espiamos el interior con vibraciones y neutrinos, y por qué el Sol tiene manchas, tormentas y un ciclo magnético de 11 años.</p>
+  <div class="meta">
+    <span><b>Docente:</b> Andrea Mejías</span>
+    <span><b>Lugar:</b> Observatorio Cerro Calán · FCFM · U. de Chile</span>
+    <span><b>Fecha:</b> 21 mar 2026</span>
+    <span><b>Tema:</b> El Sol, parte 2</span>
+  </div>
+</div>
+
+<p class="lead"><span class="drop">L</span>as estrellas, como los ogros de Shrek, <span class="hl">tienen capas</span>: son cebollas. De adentro hacia afuera el Sol se organiza en <strong>núcleo, zona radiativa, zona convectiva, fotósfera, cromósfera y corona</strong>. En esta clase recorremos esa cebolla completa, vemos cómo la energía generada por la fusión tarda <strong>~170.000 años</strong> en llegar a la superficie, cómo sabemos lo que hay adentro sin poder mirarlo (ecuaciones de estructura, heliosismología, neutrinos) y cerramos con la parte más dinámica: manchas, llamaradas, eyecciones de masa coronal, viento solar y el <strong>ciclo magnético de 11 años</strong> explicado por el dínamo de Babcock.</p>
+
+<nav class="idx">
+  <span class="tag">Contenido de la clase</span>
+  <ol>
+    <li><a href="#s1">La cebolla solar: mapa de capas</a></li>
+    <li><a href="#s2">Interior: núcleo, zona radiativa y convectiva</a></li>
+    <li><a href="#s3">Fotósfera: la superficie visible</a></li>
+    <li><a href="#s4">Cromósfera, zona de transición y corona</a></li>
+    <li><a href="#s5">Viento solar, auroras y heliosfera</a></li>
+    <li><a href="#s6">Modelando el interior: ecuaciones de estructura</a></li>
+    <li><a href="#s7">Heliosismología y neutrinos</a></li>
+    <li><a href="#s8">Actividad solar: manchas y tormentas</a></li>
+    <li><a href="#s9">El ciclo de 11 años y el dínamo de Babcock</a></li>
+    <li><a href="#interactivo">Explorar conceptos (widgets)</a></li>
+    <li><a href="#conceptos">Conceptos clave</a></li>
+    <li><a href="#examenes">Exámenes de práctica</a></li>
+  </ol>
+</nav>
+
+<!-- ============ S1 ============ -->
+<section id="s1">
+  <div class="shead"><span class="num">1</span><div>
+    <h2>La cebolla solar: mapa de capas</h2>
+    <p>Seis regiones, de adentro hacia afuera, definidas por temperatura y densidad.</p>
+  </div></div>
+
+  <p>Las diferencias de <strong>temperatura y densidad a distinta profundidad</strong> definen una estructura de capas en el plasma solar. El orden, desde el centro hacia afuera, es:</p>
+  <ul>
+    <li><span class="hl">Núcleo</span> — donde ocurre la fusión nuclear (0 a ~0,2 R<sub>☉</sub>).</li>
+    <li><span class="hl">Zona radiativa</span> — la energía viaja por difusión radiativa (~0,2 a ~0,7 R<sub>☉</sub>).</li>
+    <li><span class="hl">Zona convectiva</span> — la energía viaja en celdas de convección (~0,7 R<sub>☉</sub> a la superficie).</li>
+    <li><span class="hl">Fotósfera</span> — la “superficie” visible, donde los fotones por fin escapan.</li>
+    <li><span class="hl">Cromósfera</span> — atmósfera baja, más caliente que la fotósfera.</li>
+    <li><span class="hl">Corona</span> — atmósfera extendida y difusa, a millones de Kelvin.</li>
+  </ul>
+  <p>Entre la zona radiativa y la convectiva hay una interfaz delgada con nombre propio: la <span class="hl">tacoclina</span> (<em>tachocline</em> en inglés), y entre la cromósfera y la corona hay una <strong>zona de transición</strong> donde la temperatura se dispara. La corona, además, se extiende mucho más allá de lo que muestra cualquier imagen a escala del disco solar.</p>
+
+  <div class="box cs">
+    <span class="tag">Intuición de ingeniería</span>
+    <p>Piensa el Sol como un sistema térmico con una fuente de calor central y dos <strong>mecanismos de transporte en serie</strong>: primero un medio ópticamente denso donde el calor difunde (análogo a conducción/difusión, lentísimo), y después un fluido inestable donde conviene convectar (como el agua de un hervidor). El cambio de régimen ocurre donde la convección se vuelve más eficiente que la radiación: esa frontera es la tacoclina.</p>
+  </div>
+</section>
+
+<!-- ============ S2 ============ -->
+<section id="s2">
+  <div class="shead"><span class="num">2</span><div>
+    <h2>Interior: núcleo, zona radiativa y convectiva</h2>
+    <p>15 millones de Kelvin, una sopa de electrones y 170.000 años de viaje.</p>
+  </div></div>
+
+  <h3>El núcleo (0 – 0,2 R<sub>☉</sub>)</h3>
+  <p>En el centro hay <strong>~15 millones de Kelvin</strong>: la temperatura necesaria para que los núcleos de hidrógeno venzan su repulsión eléctrica y se fusionen en helio vía la <strong>cadena protón–protón</strong> (vista en la clase anterior). El núcleo es extremadamente denso —ahí se concentra la mayor parte de la masa— y ocupa aproximadamente el <strong>20% del radio solar</strong>.</p>
+
+  <h3>La zona radiativa (0,2 – 0,7 R<sub>☉</sub>)</h3>
+  <p>Sobre el núcleo, la energía se transporta por <span class="hl">difusión radiativa</span>. El plasma está tan ionizado y denso en electrones libres que un fotón avanza <strong>menos de un milímetro</strong> antes de chocar con un electrón y ser desviado en una dirección aleatoria. El resultado es un <em>random walk</em> (camino aleatorio): si el fotón pudiera salir en línea recta, cruzaría el radio solar en ~2 segundos; en la práctica tarda, en promedio, <strong>~170.000 años</strong> en llegar a la superficie.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-08.jpg" alt="Comparación entre el camino aleatorio de un fotón (170.000 años) y el viaje directo de un neutrino (2 segundos)">
+    <figcaption><span class="cap">Diapositiva · Random walk vs. neutrino</span>El fotón rebota millones de veces y tarda ~170.000 años en salir; un <strong>neutrino</strong>, que casi no interactúa con la materia, cruza el Sol en ~2 segundos. Esta diferencia será clave en la sección de neutrinos.</figcaption>
+  </figure>
+
+  <div class="box cs">
+    <span class="tag">Conexión ingenieril: difusión</span>
+    <p>El tiempo de difusión escala como <span class="katex-inline" data-tex="t \sim R^2/(\ell c)"></span>, donde <span class="katex-inline" data-tex="\ell"></span> es el camino libre medio. Es la misma matemática de un paseo aleatorio o de la difusión de calor: para recorrer una distancia <span class="katex-inline" data-tex="R"></span> a pasos de largo <span class="katex-inline" data-tex="\ell"></span> se necesitan <span class="katex-inline" data-tex="(R/\ell)^2"></span> pasos, no <span class="katex-inline" data-tex="R/\ell"></span>. Puedes jugar con los números en el <a href="#w-difusion">widget de difusión</a>.</p>
+  </div>
+
+  <h3>La tacoclina y la zona convectiva (0,7 R<sub>☉</sub> – superficie)</h3>
+  <p>Al llegar a ~0,7 R<sub>☉</sub> el régimen cambia: cruzamos la <span class="hl">tacoclina</span> y entramos a la <strong>zona convectiva</strong>. Aquí la energía sube en <strong>celdas de convección</strong>, como el agua hirviendo: burbujas de gas caliente (menos denso) flotan hacia la superficie, se enfrían, y el gas “frío” —que sigue estando a miles de Kelvin, unos 4.000 K contra los ~5.800 K del material que sube— se hunde para volver a calentarse. No hay transferencia neta de masa hacia afuera: el material circula.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-09.jpg" alt="Esquema de celdas de convección con burbujas de gas caliente que suben y gas frío que baja, y la granulación solar">
+    <figcaption><span class="cap">Diapositiva · Convección</span>Celdas convectivas: gas caliente que sube, gas frío que baja. Vistas desde arriba, en la superficie, producen la <strong>granulación solar</strong> —el “gorgoreo” de la estrella—.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Dato de la clase</span>
+    <p>La tacoclina apareció en clase con varios nombres tentativos (“taco línea”, “tacoclínica”). El término correcto en español es <strong>tacoclina</strong>: la interfaz de transición entre el transporte radiativo y el convectivo. Es además una región clave para el <em>dínamo solar</em> (sección 9), porque allí el perfil de rotación cambia bruscamente.</p>
+  </div>
+</section>
+
+<!-- ============ S3 ============ -->
+<section id="s3">
+  <div class="shead"><span class="num">3</span><div>
+    <h2>Fotósfera: la superficie visible</h2>
+    <p>5.800 K, solo 400 km de espesor, y el lugar donde los fotones por fin se liberan.</p>
+  </div></div>
+
+  <p>La <span class="hl">fotósfera</span> es la superficie visible del Sol: la última capa donde los fotones, tras su viaje de milenios, encuentran una densidad tan baja que ya <strong>no son absorbidos y escapan libremente</strong> al espacio. Es lo que vemos al mirar el Sol con un telescopio con filtro solar en luz óptica.</p>
+  <ul>
+    <li><strong>Temperatura:</strong> ~5.800 K (la profesora aprendió 5.777 K; para efectos del curso, “~5.700–5.800 K” está bien: importan los órdenes de magnitud).</li>
+    <li><strong>Densidad:</strong> menor que la de la atmósfera terrestre.</li>
+    <li><strong>Espesor:</strong> tan solo <strong>~400 km</strong> — más o menos la distancia de Santiago a La Serena. Una capa delgadísima comparada con el radio solar (696.000 km).</li>
+  </ul>
+  <p>En la fotósfera se ven dos estructuras características: las <strong>manchas solares</strong> (el “acné” del disco solar, que estudiaremos en la sección 8 porque son fenómenos magnéticos) y, con buen poder de resolución, la <strong>granulación</strong>: la cara visible de las celdas convectivas que suben y bajan justo debajo.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-15.jpg" alt="Fotósfera solar con manchas, granulación en detalle y comparación con el tamaño de la Tierra">
+    <figcaption><span class="cap">Diapositiva · Fotósfera</span>El disco solar liso con sus manchas; en el recuadro, la <strong>granulación</strong> (cada gránulo es una celda de convección). Abajo, el tamaño aproximado de la Tierra como referencia: los complejos de manchas son enormes.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Observación práctica (clase)</span>
+    <p>Con el telescopio del observatorio y un filtro solar se ve exactamente esto. Si usas <strong>lentes de eclipse de cartón</strong>: sirven también sin eclipse (se pueden ver manchas grandes), pero <em>no mires más de ~2 minutos seguidos</em> —el filtro delgado se calienta y se degrada— y no reutilices el mismo lente por años, porque pierde seguridad.</p>
+  </div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section id="s4">
+  <div class="shead"><span class="num">4</span><div>
+    <h2>Cromósfera, zona de transición y corona</h2>
+    <p>La paradoja solar: alejándose de la fuente de calor… la temperatura sube.</p>
+  </div></div>
+
+  <p>La intuición dice que al alejarse del núcleo el Sol debería enfriarse, y hasta la fotósfera así ocurre. Pero desde ahí hacia afuera la temperatura <strong>vuelve a subir</strong>, por efecto de los <span class="hl">campos magnéticos</span>. Este es uno de los resultados más contraintuitivos de la clase.</p>
+
+  <h3>Cromósfera (~10⁴ K, 2.000–3.000 km)</h3>
+  <p>Justo sobre la fotósfera está la <span class="hl">cromósfera</span>, a temperaturas del orden de <strong>10.000 K</strong>. Al estar más caliente emite a mayores energías: es difícil de ver en el óptico y se observa principalmente en <strong>ultravioleta</strong> (las imágenes UV de la NASA y los observatorios solares muestran sobre todo cromósfera). Su espesor es de <strong>2.000–3.000 km</strong>: Chile, con sus ~4.300 km de largo, es más largo que el grosor de la cromósfera.</p>
+
+  <h3>Zona de transición (decenas de km)</h3>
+  <p>Entre la cromósfera y la corona hay una capa delgadísima —<strong>decenas de kilómetros</strong>— donde la temperatura <strong>se dispara brutalmente</strong>: de ~10⁴ K a ~10⁶ K.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-18.jpg" alt="Gráfico de temperatura de la atmósfera solar versus altura: fotósfera, cromósfera, zona de transición y corona">
+    <figcaption><span class="cap">Diapositiva · Perfil de temperatura</span>Temperatura (en escala logarítmica) vs. altura en la atmósfera solar: mínimo cerca de la fotósfera, meseta cromosférica en ~10⁴ K, y el salto abrupto de la <strong>zona de transición</strong> hacia la corona a ~10⁶ K. Explóralo en el <a href="#w-atmosfera">widget interactivo</a>.</figcaption>
+  </figure>
+
+  <h3>Corona (~10⁶ K, &gt; 10⁶ km)</h3>
+  <p>La <span class="hl">corona</span> es la capa más externa: un gas <strong>muy difuso</strong> (~10⁶ átomos/cm³, contra ~10¹⁹ átomos/cm³ de la atmósfera terrestre: trece órdenes de magnitud menos) pero a <strong>millones de Kelvin</strong>, por lo que emite en <strong>rayos X</strong>. Se extiende por más de un millón de kilómetros.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-20.jpg" alt="Imagen coronagráfica de la corona solar con la máscara que tapa el disco">
+    <figcaption><span class="cap">Diapositiva · Coronógrafo</span>Un <strong>coronógrafo</strong> es una máscara que se adosa al telescopio para tapar el disco solar —un “eclipse a la fuerza”— y revelar las capas externas. La otra forma de ver la corona es un <strong>eclipse total de Sol</strong> (Chile tuvo la tríada 2019–2020–2021).</figcaption>
+  </figure>
+
+  <div class="box physics">
+    <span class="tag">¿Por qué la corona es más caliente que la superficie?</span>
+    <p>La convección mueve <strong>plasma ionizado</strong>: cargas en movimiento que generan e inducen campos magnéticos, sumadas a la rotación rápida del Sol (el ecuador gira en ~25 días). En las capas externas las líneas de campo se enrollan, forman nudos que concentran el campo y producen <strong>“latigazos magnéticos”</strong>: nano-llamaradas y reconexiones constantes que aceleran las partículas. Más velocidad de las partículas = más energía cinética = más temperatura. El calentamiento coronal es, en esencia, <strong>un efecto magnético</strong>, no térmico-difusivo.</p>
+  </div>
+
+  <div class="box cs">
+    <span class="tag">Analogía ingenieril</span>
+    <p>Es como calentar partículas en un acelerador o confinarlas en un tokamak: con campos electromagnéticos puedes <strong>acelerar y confinar</strong> partículas cargadas, elevando la energía cinética del conjunto —su temperatura— sin necesidad de contacto térmico. En la corona el “circuito de potencia” son las líneas de campo tensadas y reconectadas por el movimiento del plasma.</p>
+  </div>
+</section>
+
+<!-- ============ S5 ============ -->
+<section id="s5">
+  <div class="shead"><span class="num">5</span><div>
+    <h2>Viento solar, auroras y heliosfera</h2>
+    <p>El Sol no termina en la corona: sopla partículas que llegan hasta nosotros.</p>
+  </div></div>
+
+  <p>De la corona escapa continuamente el <span class="hl">viento solar</span>: <strong>partículas cargadas (electrones y protones)</strong> que la gravedad solar no logra retener y salen disparadas a velocidades de hasta <strong>~400 km/s</strong>. Ese viento:</p>
+  <ul>
+    <li>Interactúa con la <strong>magnetósfera de los planetas</strong>.</li>
+    <li>Genera la <strong>cola ionizada de los cometas</strong>, que siempre apunta en dirección <em>opuesta</em> al Sol (no “hacia atrás” del movimiento del cometa).</li>
+    <li>Al chocar con el campo magnético terrestre produce <strong>tormentas geomagnéticas</strong>, y las partículas guiadas hacia los polos generan <strong>auroras</strong>.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-22.jpg" alt="Aurora boreal fotografiada en Islandia en 2024 por Mónica Mesa">
+    <figcaption><span class="cap">Diapositiva · Auroras</span>Aurora en Islandia (2024), fotografiada por Mónica Mesa, compañera del diplomado. Las auroras ocurren en <strong>ambos polos</strong>; se ven más en el hemisferio norte simplemente porque hay más ciudades cerca del círculo polar ártico. Desde el sur de Chile se ven auroras australes <em>rojas</em>: al estar lejos del óvalo auroral vemos solo la parte alta de la aurora.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">Pronóstico de auroras</span>
+    <p>Las auroras se pueden <strong>pronosticar</strong>: el viento solar se mide, sus partículas viajan a velocidad conocida, y una eyección potente tarda un tiempo predecible en llegar a la Tierra (del orden de días). Midiendo la intensidad del evento en el Sol se estima la magnitud de la tormenta geomagnética y la probabilidad de auroras.</p>
+  </div>
+
+  <div class="box physics">
+    <span class="tag">Heliosfera y heliopausa (pregunta de la clase)</span>
+    <p>La influencia del Sol —gravitacional y magnética— define una burbuja: la <strong>heliosfera</strong>, cuyo borde es la <strong>heliopausa</strong>. Más allá quedan el cinturón de Kuiper y, mucho más lejos, la nube de Oort. Las sondas <strong>Voyager</strong> recién están cruzando ese límite; allí se han medido temperaturas de decenas de miles de Kelvin (un estudiante mencionó ~30.000–50.000 K; la clase lo atribuyó a la influencia magnética del Sol, posiblemente asociada a su actividad). Ojo: “temperatura” alta con densidad bajísima no implica mucho calor transferible —igual que en la corona—.</p>
+  </div>
+</section>
+
+<!-- ============ S6 ============ -->
+<section id="s6">
+  <div class="shead"><span class="num">6</span><div>
+    <h2>Modelando el interior: ecuaciones de estructura</h2>
+    <p>Cuatro ecuaciones diferenciales que describen la estrella capa por capa.</p>
+  </div></div>
+
+  <p>El Sol es una bola de plasma ionizado, <strong>estable</strong>: está en <em>equilibrio hidrostático</em> (la presión hacia afuera balancea la gravedad hacia adentro) y en <em>balance radiativo</em> (genera la misma energía que libera). Con esas condiciones se construyen modelos resolviendo las <span class="hl">ecuaciones de estructura estelar</span>: cuatro ecuaciones diferenciales que describen cómo varían los parámetros de la estrella en función de la distancia al centro. Cuando veas derivadas, piensa <strong>tasas de cambio</strong>:</p>
+
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{dM}{dr} = 4\pi r^2 \rho \qquad\text{(conservación de masa)}"></div>
+    <small>Cuánta masa se acumula en cada “cascarón” de radio <span class="katex-inline" data-tex="r"></span>: depende de la densidad <span class="katex-inline" data-tex="\rho"></span> y del volumen del cascarón.</small>
+  </div>
+  <div class="formula">
+    <div class="katex-block" data-tex="\frac{dP}{dr} = -\rho\, g = -\frac{G\,M(r)\,\rho}{r^2} \qquad\text{(equilibrio hidrostático)}"></div>
+    <small>Cómo cae la presión con el radio. La versión con <span class="katex-inline" data-tex="g"></span> “chiquitita” y la versión con <span class="katex-inline" data-tex="G"></span> (constante de gravitación universal) son la misma ecuación con la gravedad local expandida. Es la que aparecía en la diapositiva.</small>
+  </div>
+  <p>Las otras dos son la <strong>conservación de energía</strong> (cuánta luminosidad se genera en cada capa) y el <strong>transporte de energía</strong> (radiativo o convectivo, la más compleja de las cuatro). Las condiciones de borde se conocen por observaciones astronómicas: masa, radio, luminosidad y temperatura superficial del Sol.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-23.jpg" alt="Perfiles de temperatura y densidad del interior solar según el modelo, con zonas de fusión, radiativa y convectiva">
+    <figcaption><span class="cap">Diapositiva · Temperatura y densidad</span>Salida del modelo: temperatura y densidad caen desde el centro. El transporte es difusión radiativa para <span class="katex-inline" data-tex="R &lt; 0{,}7\,R_\odot"></span> y convección para <span class="katex-inline" data-tex="R &gt; 0{,}7\,R_\odot"></span>. El <strong>94% de la masa solar</strong> está dentro de 0,5 R<sub>☉</sub>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-24.jpg" alt="Perfiles de luminosidad y abundancia de hidrógeno del interior solar">
+    <figcaption><span class="cap">Diapositiva · Luminosidad e hidrógeno</span>El <strong>100% de la luminosidad</strong> se produce dentro de 0,25 R<sub>☉</sub> (donde hay fusión) y luego se mantiene constante: las capas externas solo transportan esa energía. Abajo: el hidrógeno es ~constante en toda la estrella, pero <strong>disminuye en el núcleo</strong>, porque ahí se está consumiendo para fabricar helio.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">Pregunta de la clase: ¿teoría u observación primero?</span>
+    <p>Las ecuaciones nacieron de la <strong>teoría</strong> (y mejoraron mucho con la mecánica cuántica). La contraparte observacional inicial era indirecta: la energía calculada coincidía con la energía que recibimos del Sol. La confirmación <em>directa</em> del interior llegó después, con la heliosismología y los neutrinos (sección 7).</p>
+  </div>
+</section>
+
+<!-- ============ S7 ============ -->
+<section id="s7">
+  <div class="shead"><span class="num">7</span><div>
+    <h2>Heliosismología y neutrinos</h2>
+    <p>Dos formas de “ver” un interior al que nunca podremos asomarnos.</p>
+  </div></div>
+
+  <h3>Heliosismología: sismos en el Sol</h3>
+  <p>Igual que los geofísicos deducen el interior de la Tierra (¡incluido su núcleo de hierro!) estudiando cómo las ondas P y S de los terremotos cambian de velocidad y forma al atravesar las capas, la <span class="hl">heliosismología</span> estudia las <strong>vibraciones y oscilaciones del Sol</strong>. Los patrones de oscilación dependen de la velocidad del sonido en el medio, que a su vez depende de la <strong>densidad, presión, temperatura y composición</strong>. En la práctica, se mide el <strong>efecto Doppler</strong> del material solar subiendo y bajando en la superficie. Aplicada a otras estrellas, la técnica se llama <em>astrosismología</em>. Sus resultados <strong>concuerdan muy bien con los modelos matemáticos</strong>: la teoría quedó soportada por la observación.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-25.jpg" alt="Predicción de patrones de pulsación observados en el Sol, esfera con modos de oscilación en colores">
+    <figcaption><span class="cap">Diapositiva · Modos de oscilación</span>Predicción de pulsaciones observadas en el Sol: cada patrón (modo) atraviesa capas distintas y trae información de densidad, presión, temperatura y composición de esas capas.</figcaption>
+  </figure>
+
+  <h3>Neutrinos: mensajeros del núcleo</h3>
+  <p>La cadena protón–protón produce <strong>neutrinos</strong>, partículas con <strong>sección eficaz ínfima</strong> (el “área de interacción” alrededor de la partícula), casi sin masa y a velocidad cercana a la de la luz. Casi no interactúan con nada: salen del núcleo y llegan a la Tierra en línea recta. Para dimensionar: 1 cm de plomo frena rayos X, pero se necesitaría una placa de plomo de <strong>un parsec de espesor</strong> para frenar neutrinos. Se detectan vía <span class="hl">radiación de Cherenkov</span>: el destello azul que emite una partícula cargada al moverse más rápido que la luz <em>en ese medio</em> (el mismo brillo azul de los reactores nucleares y de detectores como IceCube).</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-26.jpg" alt="Radiación de Cherenkov azul en un reactor nuclear">
+    <figcaption><span class="cap">Diapositiva · Radiación de Cherenkov</span>El resplandor azul de un reactor nuclear: radiación de Cherenkov, el mismo fenómeno con que se detectan las rarísimas interacciones de neutrinos en tanques de agua (o hielo, en IceCube).</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El “problema de los neutrinos solares”</span>
+    <p>Los primeros experimentos (como el detector de cloro en la mina de oro <strong>Homestake</strong>, Dakota del Sur) medían <strong>tres veces menos neutrinos</strong> que lo predicho por los modelos: la teoría esperaba ~1 captura al día entre billones de neutrinos, y se medía ~1 cada 3 días… durante más de 20 años. En astronomía, cuando falta algo se le pone “el problema de X”: el problema de los neutrinos, el problema del litio…</p>
+  </div>
+
+  <p>La solución: existen <strong>3 tipos (“sabores”) de neutrinos</strong> — electrónico, muónico y tauónico. La fusión solar produce solo neutrinos <em>electrónicos</em>, y los detectores iniciales solo veían ese tipo. Pero el neutrino es una partícula cuántica que existe en <strong>superposición de los tres estados</strong> (como el gato de Schrödinger, pero con tres opciones) y <strong>oscila</strong> entre sabores durante el viaje. Tres sabores, un tercio detectado: las cuentas calzaron. Detectores más recientes (como <strong>Sudbury</strong>, Canadá) capturan los tres tipos y encuentran <em>exactamente</em> el número que predice la teoría, confirmando la <span class="hl">oscilación de neutrinos</span> y, de paso, que la fusión nuclear en el núcleo solar funciona como creemos.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-28.jpg" alt="Esquema del detector de neutrinos de Sudbury en Canadá, con tanque de agua pesada a 2100 metros de profundidad">
+    <figcaption><span class="cap">Diapositiva · Detector de Sudbury</span>El observatorio de neutrinos de Sudbury (Canadá), a 2.100 m bajo tierra: su tanque de agua pesada detecta <strong>todos los sabores</strong> de neutrinos. Con él se cerró el problema de los neutrinos solares.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ S8 ============ -->
+<section id="s8">
+  <div class="shead"><span class="num">8</span><div>
+    <h2>Actividad solar: manchas y tormentas</h2>
+    <p>El magnetismo del Sol en acción: manchas en pares, llamaradas y eyecciones.</p>
+  </div></div>
+
+  <h3>Manchas solares</h3>
+  <p>Las <span class="hl">manchas solares</span> son regiones de la fotósfera <strong>menos calientes</strong> (~3.800–4.000 K, contra ~5.800 K del entorno) —“frías” solo en términos relativos—. Duran de <strong>horas a meses</strong>, rotan junto con el Sol, y son gigantes: en una sola mancha grande <strong>caben 10 Tierras</strong>.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-29.jpg" alt="Imagen acercada de un complejo de manchas solares; en la mancha central caben 10 Tierras">
+    <figcaption><span class="cap">Diapositiva · Manchas solares</span>Complejo de manchas: regiones a ~4.000 K rodeadas de fotósfera a 5.800 K. La pregunta clave: si la superficie es convectiva y se mezcla constantemente, <strong>¿qué impide que estas regiones se mezclen con el material caliente?</strong></figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-30.jpg" alt="Secuencia de imágenes de un complejo de manchas solares rotando con el Sol entre el 26 de marzo y el 2 de abril de 2001, con la Tierra como referencia de tamaño">
+    <figcaption><span class="cap">Diapositiva · Rotación</span>Un complejo de manchas de fines de marzo de 2001 aparece por un borde y gira con la estrella. Abajo, la imagen ampliada del 30 de marzo de 2001; la pelotita azul es la Tierra a escala.</figcaption>
+  </figure>
+
+  <p>La respuesta es magnética: las manchas están en la <strong>base de líneas de campo magnético</strong> que sobresalen a través de la fotósfera. El campo <strong>atrapa las partículas cargadas</strong> y las confina, <em>suprimiendo la convección local</em>: mantiene el gas caliente lejos de la mancha, que por eso se enfría respecto del entorno. Y como las líneas de campo que salen deben volver a entrar, las manchas ocurren usualmente <strong>en pares con polaridad magnética opuesta</strong>: por una salen las líneas (polo positivo), por la otra entran (polo negativo). Un imán en movimiento sobre la superficie del Sol.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-31.jpg" alt="Esquema de líneas de campo magnético que emergen y reingresan por un par de manchas, confinando el gas ionizado">
+    <figcaption><span class="cap">Diapositiva · Campo magnético y manchas</span>Las líneas de campo emergen por una mancha y reingresan por su pareja. El campo confina el gas ionizado y suprime la convección: por eso la región queda menos caliente.</figcaption>
+  </figure>
+
+  <h3>Llamaradas y reconexión magnética</h3>
+  <p>La rotación <strong>diferencial</strong> del Sol (el ecuador gira más rápido que los polos) enrolla y tensa las líneas de campo hasta formar nudos. La analogía de la clase: una pelota de elásticos que giras y giras; la tensión crece hasta que un elástico <strong>se corta</strong> y sale disparado. En el Sol, cuando una línea de campo muy tensa se corta se libera una cantidad enorme de energía —una <span class="hl">llamarada solar</span>— y luego las líneas se <strong>reconectan</strong> (a diferencia del elástico). La energía se libera <em>en el corte</em>. Las llamaradas duran de horas a decenas de horas (ninguna dura una semana) y, junto con las nano-llamaradas constantes, son las que calientan cromósfera y corona.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-32.jpg" alt="Imagen del Sol en ultravioleta con una llamarada solar brillante a la derecha">
+    <figcaption><span class="cap">Diapositiva · Llamarada solar</span>Una llamarada (el destello a la derecha): liberación repentina de energía por un cambio dramático de las líneas de campo, por ejemplo un evento de <strong>reconexión magnética</strong>.</figcaption>
+  </figure>
+
+  <h3>Eyecciones de masa coronal y tormentas geomagnéticas</h3>
+  <p>Las tormentas más potentes producen <span class="hl">eyecciones de masa coronal</span> (EMC): plasma y partículas expulsados de la estrella a altísima velocidad y energía. Son <strong>los eventos más disruptivos para la vida moderna</strong>: las partículas cargadas llegan a la Tierra en cuestión de <strong>días</strong>, deforman el campo magnético terrestre (nuestra “escudo”) y producen una <strong>tormenta geomagnética</strong>. Consecuencias posibles: satélites dañados por corrientes inducidas (la ionósfera es donde “viven” los satélites y GPS), comunicaciones de radio interrumpidas y, en eventos extremos, cortes de electricidad.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-33.jpg" alt="Imagen coronagráfica de una eyección de masa coronal; el círculo blanco indica el tamaño de la fotósfera">
+    <figcaption><span class="cap">Diapositiva · Eyección de masa coronal</span>Una EMC vista con coronógrafo; el círculo blanco marca el tamaño de la fotósfera. El material expulsado puede alcanzar la Tierra días después.</figcaption>
+  </figure>
+
+  <div class="box dato">
+    <span class="tag">El evento de Carrington</span>
+    <p>El caso histórico extremo es el <strong>evento de Carrington</strong>, que dejó fuera de servicio la red de telégrafos por días y produjo auroras visibles en latitudes bajas; hubo llamadas a la policía en ciudades de EE.UU. porque, con el apagón, la gente veía por primera vez la Vía Láctea y creía que “se abría el cielo”. <em>Nota:</em> en clase se dudó de la fecha (“¿años 30, años 40?”); el evento de Carrington fue en realidad en <strong>septiembre de 1859</strong>. El ciclo solar actual ha sido de los más activos del último tiempo y la infraestructura mundial ha resistido bien.</p>
+  </div>
+</section>
+
+<!-- ============ S9 ============ -->
+<section id="s9">
+  <div class="shead"><span class="num">9</span><div>
+    <h2>El ciclo de 11 años y el dínamo de Babcock</h2>
+    <p>Contar manchas desde 1750, y el modelo que explica por qué el Sol invierte sus polos.</p>
+  </div></div>
+
+  <h3>El ciclo solar</h3>
+  <p>El número de manchas solares <strong>varía con un período de ~11 años</strong>: ~5,5 años del mínimo al máximo y otros ~5,5 de vuelta. Los registros llegan hasta ~1750, porque contar manchas no requería telescopios solares sofisticados: se proyectaba el disco del Sol sobre una pantalla y se contaban los puntitos. El <strong>mínimo de manchas correlaciona con mínima actividad</strong> (menos llamaradas, menos tormentas, menos EMC) — las manchas son el termómetro del magnetismo solar.</p>
+
+  <figure>
+    <img src="m1c3/assets/slide-35.jpg" alt="Gráfico del número de manchas solares desde 1750 hasta hoy mostrando el ciclo de 11 años, y collage de imágenes del Sol a lo largo de un ciclo">
+    <figcaption><span class="cap">Diapositiva · Ciclo solar</span>Periodicidad del número de manchas desde 1750. A la derecha, el Sol a lo largo de un ciclo (1996–2006): de disco liso en el mínimo a lleno de actividad en el máximo. No todos los máximos son igual de intensos —por qué, aún no se sabe.</figcaption>
+  </figure>
+
+  <div class="box prof">
+    <span class="tag">¿En qué parte del ciclo estamos? (contexto de la clase, 2026)</span>
+    <p>Último mínimo: ~2019–2020 (disco sin manchas). La actividad subió hasta un <strong>máximo declarado oficialmente en 2024</strong>; al momento de la clase el Sol está <em>recién saliendo del máximo</em>, en fase de descenso: se esperan progresivamente menos manchas, llamaradas y auroras hasta el próximo mínimo.</p>
+  </div>
+
+  <h3>El dínamo de Babcock</h3>
+  <p>Un <strong>dínamo</strong> convierte energía cinética en electricidad (una turbina eólica, la dínamo de una bicicleta). El Sol tiene todos los ingredientes: es un <strong>plasma ionizado</strong> (conductor eléctrico) <strong>en movimiento</strong> (rotación diferencial + turbulencia convectiva). Ese movimiento genera corrientes (electrones en movimiento) y las corrientes inducen <strong>campos magnéticos</strong>: el Sol es un imán gigante autoalimentado.</p>
+
+  <p>El <span class="hl">modelo de dínamo de Babcock</span> explica el ciclo así:</p>
+  <ul>
+    <li><strong>Fase poloidal:</strong> al inicio del ciclo las líneas de campo están ordenadas, saliendo por un polo y entrando por el otro.</li>
+    <li><strong>Efecto Ω (Omega):</strong> la rotación diferencial —ecuador en ~25 días, polos más lentos— <em>enrolla</em> las líneas alrededor del Sol, formando la letra Ω y creando “enredos” donde el campo se concentra.</li>
+    <li><strong>Efecto boya:</strong> los tubos de campo concentrado flotan, sobresalen a través de la fotósfera y aparecen las <strong>manchas en pares</strong>.</li>
+    <li><strong>Inversión:</strong> las manchas migran con la rotación, arrastran el campo, y al final del ciclo el proceso deja los polos <strong>invertidos</strong>: cada ~11 años el Sol cambia su polaridad magnética (norte ↔ sur). Para nosotros, sin efectos: solo cambia la dirección de las líneas.</li>
+  </ul>
+
+  <figure>
+    <img src="m1c3/assets/slide-38.jpg" alt="Esquema del enrollamiento de las líneas de campo magnético por la rotación diferencial del Sol en tres etapas">
+    <figcaption><span class="cap">Diapositiva · Efecto Ω</span>Tres etapas del enrollamiento: campo poloidal ordenado → la rotación diferencial tuerce las líneas → se forman enredos y emergen manchas donde el campo sobresale de la fotósfera.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-37.jpg" alt="Magnetograma solar a través de un ciclo solar con polaridad norte en negro y sur en blanco">
+    <figcaption><span class="cap">Diapositiva · Magnetograma</span>Magnetograma del Sol a lo largo de un ciclo: polaridad N en negro, S en blanco. Se aprecia cómo la estructura magnética evoluciona hasta invertirse.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="m1c3/assets/slide-39.jpg" alt="Diagrama de mariposa: cobertura de manchas solares por latitud desde 1880 hasta 2020">
+    <figcaption><span class="cap">Diapositiva · Diagrama de mariposa</span>Cobertura de manchas por latitud vs. tiempo: en cada ciclo las manchas aparecen primero en latitudes altas (norte y sur) y migran hacia el ecuador, dibujando “alas de mariposa”. Cada mariposa es un ciclo; comparándolas se ve que hay ciclos más potentes que otros (el de ~1960 tuvo más manchas que los recientes).</figcaption>
+  </figure>
+
+  <div class="box next">
+    <span class="tag">Fronteras abiertas</span>
+    <p>El magnetismo estelar sigue siendo un área poco explorada: entendemos bien el del Sol, pero de estrellas distintas (como las enanas rojas) sabemos casi nada. Además, la convección se modelaba en 1D (“la celda sube o baja”); recién en los últimos años hay simulaciones <strong>hidrodinámicas 3D</strong> de las celdas convectivas. Herramientas computacionales nuevas → modelos mejores.</p>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVO ============ -->
+<section id="interactivo">
+  <div class="shead"><span class="num">⚙</span><div>
+    <h2>Explorar conceptos</h2>
+    <p>Tres widgets para jugar con los números de la clase.</p>
+  </div></div>
+
+  <div class="widget" id="w-difusion">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Random walk: ¿cuánto tarda un fotón en salir del Sol?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Un fotón avanza un camino libre medio <span class="katex-inline" data-tex="\ell"></span> entre choques, en direcciones aleatorias. El tiempo de difusión escala como <span class="katex-inline" data-tex="t \approx R_\odot^2/(\ell\,c)"></span>. Mueve <span class="katex-inline" data-tex="\ell"></span> y compara con el viaje directo (~2,3 s) y con el neutrino.</p>
+    <label for="dif-l">Camino libre medio ℓ: <span id="dif-llab"></span></label>
+    <input type="range" id="dif-l" min="-5" max="0" step="0.05" value="-3.4">
+    <output id="dif-out"></output>
+  </div>
+
+  <div class="widget" id="w-atmosfera">
+    <span class="tagband">Widget interactivo</span>
+    <h4>Termómetro de la atmósfera solar</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Sube desde la fotósfera y mira cómo cambia la temperatura (fíjate en la escala logarítmica: de miles a millones de Kelvin en un salto de decenas de km).</p>
+    <label for="atm-h">Altura sobre la base de la fotósfera: <span id="atm-hlab"></span></label>
+    <input type="range" id="atm-h" min="0" max="3000" step="10" value="0">
+    <div class="tempbar"><div class="mark" id="atm-mark" style="left:0%"></div></div>
+    <output id="atm-out"></output>
+  </div>
+
+  <div class="widget" id="w-ciclo">
+    <span class="tagband">Widget interactivo</span>
+    <h4>¿En qué fase del ciclo solar está un año dado?</h4>
+    <p style="margin:.2em 0 .4em;color:var(--muted);font-size:.92rem">Modelo simplificado: ciclo sinusoidal de 11 años anclado al mínimo de fines de 2019 y máximo de 2024 (los ciclos reales varían en duración e intensidad).</p>
+    <div class="presets" id="cic-presets">
+      <button data-y="1859">1859 (Carrington)</button>
+      <button data-y="2001">2001 (manchas de la diapo)</button>
+      <button data-y="2020">2020 (mínimo)</button>
+      <button data-y="2024">2024 (máximo)</button>
+      <button data-y="2026">2026 (hoy)</button>
+    </div>
+    <label for="cic-y">Año (con decimales si quieres, ej. 2026,5)</label>
+    <input type="number" id="cic-y" step="0.1" value="2026">
+    <output id="cic-out"></output>
+  </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos">
+  <div class="shead"><span class="num">★</span><div>
+    <h2>Conceptos clave</h2>
+    <p>Tabla de repaso rápido.</p>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Concepto</th><th>Qué es / valor</th><th>Por qué importa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Núcleo</b></td><td>0–0,2 R<sub>☉</sub>; ~15×10⁶ K; muy denso</td><td>Única región con fusión H→He (cadena p–p)</td></tr>
+      <tr><td><b>Zona radiativa</b></td><td>0,2–0,7 R<sub>☉</sub>; difusión radiativa</td><td>Fotón en random walk: ~170.000 años hasta la superficie</td></tr>
+      <tr><td><b>Tacoclina</b></td><td>Interfaz radiativa/convectiva (~0,7 R<sub>☉</sub>)</td><td>Cambio de régimen de transporte; clave para el dínamo</td></tr>
+      <tr><td><b>Zona convectiva</b></td><td>0,7 R<sub>☉</sub> → superficie; celdas convectivas</td><td>Origen de la granulación y del movimiento del plasma</td></tr>
+      <tr><td><b>Fotósfera</b></td><td>~5.800 K; espesor ~400 km</td><td>Superficie visible; los fotones escapan; manchas y granulación</td></tr>
+      <tr><td><b>Cromósfera</b></td><td>~10⁴ K; 2.000–3.000 km; emite en UV</td><td>Primera capa donde la temperatura vuelve a subir</td></tr>
+      <tr><td><b>Zona de transición</b></td><td>Decenas de km; salto 10⁴ → 10⁶ K</td><td>Aumento brutal de temperatura hacia la corona</td></tr>
+      <tr><td><b>Corona</b></td><td>~10⁶ K; ~10⁶ átomos/cm³; &gt;10⁶ km; rayos X</td><td>Más caliente que la superficie, por calentamiento magnético</td></tr>
+      <tr><td><b>Coronógrafo</b></td><td>Máscara que tapa el disco solar</td><td>“Eclipse a la fuerza” para estudiar la corona</td></tr>
+      <tr><td><b>Viento solar</b></td><td>e⁻ y p a ~400 km/s</td><td>Auroras, colas de cometas, tormentas geomagnéticas</td></tr>
+      <tr><td><b>Ecuaciones de estructura</b></td><td>Masa, equilibrio hidrostático, energía, transporte</td><td>Modelan la estrella capa por capa; <span class="katex-inline" data-tex="dP/dr=-\rho g"></span></td></tr>
+      <tr><td><b>Heliosismología</b></td><td>Oscilaciones solares medidas por Doppler</td><td>“Sismología” del interior; confirma los modelos</td></tr>
+      <tr><td><b>Oscilación de neutrinos</b></td><td>3 sabores: e, μ, τ; superposición cuántica</td><td>Resolvió el déficit de ⅓ en los neutrinos solares</td></tr>
+      <tr><td><b>Manchas solares</b></td><td>~4.000 K vs. 5.800 K; en pares, polaridad opuesta</td><td>El campo magnético confina el gas y suprime la convección</td></tr>
+      <tr><td><b>Llamarada / reconexión</b></td><td>Corte y reconexión de líneas de campo tensadas</td><td>Libera energía enorme; calienta cromósfera y corona</td></tr>
+      <tr><td><b>Eyección de masa coronal</b></td><td>Plasma expulsado; llega a la Tierra en días</td><td>Tormentas geomagnéticas: satélites, radio, red eléctrica</td></tr>
+      <tr><td><b>Ciclo solar</b></td><td>~11 años; mínimo 2019-20, máximo 2024</td><td>Número de manchas ↔ actividad magnética</td></tr>
+      <tr><td><b>Dínamo de Babcock</b></td><td>Rotación diferencial enrolla el campo (efecto Ω)</td><td>Explica manchas, diagrama de mariposa e inversión de polos cada 11 años</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ EXAMENES ============ -->
+<section id="examenes">
+  <div class="shead"><span class="num">✓</span><div>
+    <h2>Exámenes de práctica</h2>
+    <p>10 exámenes de 5 preguntas (3 de alternativas autocorregibles + 2 de respuesta escrita).</p>
+  </div></div>
+  <ol class="examlist">
+    <li><a href="m1c3-examen-01.html">Examen 01<small>Estructura en capas</small></a></li>
+    <li><a href="m1c3-examen-02.html">Examen 02<small>Transporte de energía</small></a></li>
+    <li><a href="m1c3-examen-03.html">Examen 03<small>Fotósfera</small></a></li>
+    <li><a href="m1c3-examen-04.html">Examen 04<small>Cromósfera y corona</small></a></li>
+    <li><a href="m1c3-examen-05.html">Examen 05<small>Viento solar y auroras</small></a></li>
+    <li><a href="m1c3-examen-06.html">Examen 06<small>Ecuaciones de estructura</small></a></li>
+    <li><a href="m1c3-examen-07.html">Examen 07<small>Heliosismología y neutrinos</small></a></li>
+    <li><a href="m1c3-examen-08.html">Examen 08<small>Manchas y magnetismo</small></a></li>
+    <li><a href="m1c3-examen-09.html">Examen 09<small>Tormentas y EMC</small></a></li>
+    <li><a href="m1c3-examen-10.html">Examen 10<small>Ciclo solar y dínamo</small></a></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Fuentes.</b> Clase 3 del Módulo I del curso de Astrofísica de Estrellas, Diplomado en Fundamentos de Astronomía, U. de Chile (docente: Andrea Mejías, 21 mar 2026). Elaborado a partir de la transcripción del audio (<code>estrellas/m1/ff/Estrellas-m1c3-61e64073-cf39.md</code>) y las diapositivas <code>Modulo_I_Clase_3_El_Sol_pt_2.pdf</code>.</p>
+  <p class="disc"><b>Aviso sobre la transcripción.</b> Los apuntes se apoyan en una transcripción automática del audio, que puede contener errores de reconocimiento de voz. Se contrastó con las diapositivas y se corrigieron términos donde correspondía: «taco línea / tacoclínica» → <strong>tacoclina</strong>; «Eosismología / teleosismología / biosismología» → <strong>heliosismología</strong>; «mina de OR» → mina de <strong>oro</strong> (Homestake); «notabónico» → <strong>tauónico</strong>; «helioba / leopauso» → <strong>heliopausa</strong>; «cinturón de W» → cinturón de <strong>Kuiper</strong>; «nube de OR» → nube de <strong>Oort</strong>; «el Guaya» → <strong>Voyager</strong>; «Santiago Cisne» → ruta <strong>Santiago–Sídney</strong>; «miles de gramos» → miles de <strong>grados</strong>; «plomósfera / fotófila» → <strong>fotósfera</strong>. Además, la fecha del evento de Carrington quedó dudosa en clase («¿años 30/40?»): fue en <strong>1859</strong>. Ante cualquier duda, priman las diapositivas y fuentes académicas.</p>
+</footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+// ---- KaTeX render ----
+document.addEventListener("DOMContentLoaded", function(){
+  function renderAll(){
+    document.querySelectorAll('.katex-block').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:true, throwOnError:false}); }catch(e){}
+    });
+    document.querySelectorAll('.katex-inline').forEach(function(el){
+      try{ katex.render(el.dataset.tex, el, {displayMode:false, throwOnError:false}); }catch(e){}
+    });
+  }
+  if(window.katex){ renderAll(); }
+  else {
+    var s = document.querySelector('script[src*="katex.min.js"]');
+    if(s) s.addEventListener('load', renderAll);
+  }
+});
+
+var C = 299792458;        // m/s
+var RSUN = 6.96e8;        // m
+var YR = 3.1557e7;        // s
+
+// ---- Widget 1: difusión del fotón ----
+(function(){
+  var sl = document.getElementById('dif-l');
+  var lab = document.getElementById('dif-llab');
+  var out = document.getElementById('dif-out');
+  function fmtLen(m){
+    if(m < 1e-3) return (m*1e6).toFixed(0)+" µm";
+    if(m < 1) return (m*1e3).toFixed(2)+" mm";
+    return m.toFixed(2)+" m";
+  }
+  function fmtTime(s){
+    var y = s/YR;
+    if(y >= 1e6) return (y/1e6).toFixed(2)+" millones de años";
+    if(y >= 1) return Math.round(y).toLocaleString('es-CL')+" años";
+    if(s >= 86400) return (s/86400).toFixed(1)+" días";
+    if(s >= 3600) return (s/3600).toFixed(1)+" horas";
+    return s.toFixed(1)+" s";
+  }
+  function calc(){
+    var l = Math.pow(10, parseFloat(sl.value));   // metros
+    lab.textContent = fmtLen(l);
+    var t = RSUN*RSUN/(l*C);                       // s
+    var direct = RSUN/C;                            // ~2.3 s
+    var ratio = t/direct;
+    out.innerHTML = "Pasos del random walk: <b>"+((RSUN/l)*(RSUN/l)).toExponential(2)+"</b><br>"+
+      "Tiempo de difusión: <span class='k'>t ≈ R²/(ℓc)</span> = <b>"+fmtTime(t)+"</b><br>"+
+      "Viaje directo (neutrino): <b>~2,3 s</b> → el fotón tarda <b>"+ratio.toExponential(2)+"</b> veces más.<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Con ℓ ~ fracciones de milímetro se recuperan los ~170.000 años de la clase. (Modelo de orden de magnitud: en el Sol real ℓ varía con la profundidad.)</span>";
+  }
+  sl.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 2: atmósfera solar ----
+(function(){
+  var sl = document.getElementById('atm-h');
+  var lab = document.getElementById('atm-hlab');
+  var out = document.getElementById('atm-out');
+  var mark = document.getElementById('atm-mark');
+  // Perfil aproximado (basado en la diapositiva 18): puntos [altura km, log10 T]
+  var pts = [[0,3.76],[500,3.63],[1000,3.72],[2000,4.0],[2300,4.55],[2450,5.3],[2600,6.0],[3000,6.3]];
+  function logT(h){
+    if(h<=pts[0][0]) return pts[0][1];
+    for(var i=1;i<pts.length;i++){
+      if(h<=pts[i][0]){
+        var f=(h-pts[i-1][0])/(pts[i][0]-pts[i-1][0]);
+        return pts[i-1][1]+f*(pts[i][1]-pts[i-1][1]);
+      }
+    }
+    return pts[pts.length-1][1];
+  }
+  function region(h){
+    if(h<520) return ["Fotósfera","mínimo de temperatura hacia los ~500 km"];
+    if(h<2100) return ["Cromósfera","meseta en ~10⁴ K; emite en UV"];
+    if(h<2650) return ["Zona de transición","salto brutal de temperatura en decenas de km"];
+    return ["Corona","millones de Kelvin; emite en rayos X"];
+  }
+  function calc(){
+    var h = parseFloat(sl.value);
+    lab.textContent = h.toLocaleString('es-CL')+" km";
+    var lt = logT(h), T = Math.pow(10,lt);
+    var r = region(h);
+    mark.style.left = (h/3000*100)+"%";
+    var Ttxt = T>=1e6 ? (T/1e6).toFixed(1)+" millones de K" :
+               T>=1e4 ? Math.round(T/1000)+" mil K" :
+               Math.round(T).toLocaleString('es-CL')+" K";
+    out.innerHTML = "Región: <b>"+r[0]+"</b> <span style='color:var(--muted)'>("+r[1]+")</span><br>"+
+      "Temperatura aproximada: <b>"+Ttxt+"</b> &nbsp;·&nbsp; log₁₀ T = <span class='k'>"+lt.toFixed(2)+"</span>";
+  }
+  sl.addEventListener('input', calc);
+  calc();
+})();
+
+// ---- Widget 3: ciclo solar ----
+(function(){
+  var inp = document.getElementById('cic-y');
+  var out = document.getElementById('cic-out');
+  var P = 11, MIN0 = 2019.9; // mínimo de referencia
+  function calc(){
+    var y = parseFloat(inp.value);
+    if(!isFinite(y)){ out.textContent = "Ingresa un año válido."; return; }
+    var ph = ((y-MIN0)%P+P)%P;          // años desde el último mínimo (0..11)
+    var act = Math.pow(Math.sin(Math.PI*ph/P),2); // 0 = mínimo, 1 = máximo
+    var pct = Math.round(act*100);
+    var fase = ph<1.5 ? "cerca del <b>mínimo</b> (disco casi sin manchas)" :
+               ph<4.5 ? "en <b>ascenso</b> de actividad" :
+               ph<6.5 ? "cerca del <b>máximo</b> (muchas manchas, llamaradas y auroras)" :
+               ph<9.5 ? "en <b>descenso</b> de actividad" :
+               "acercándose al próximo <b>mínimo</b>";
+    var toMax = ((P/2-ph)%P+P)%P, toMin = ((P-ph)%P+P)%P;
+    out.innerHTML = "Años desde el último mínimo: <b>"+ph.toFixed(1)+"</b> de "+P+"<br>"+
+      "Actividad relativa estimada: <b>"+pct+"%</b> — "+fase+"<br>"+
+      "<span style='color:var(--muted);font-size:.88rem'>Próximo máximo en ~"+toMax.toFixed(1)+" años · próximo mínimo en ~"+toMin.toFixed(1)+" años (modelo sinusoidal idealizado; los ciclos reales duran 9–14 años y varían en amplitud).</span>";
+  }
+  inp.addEventListener('input', calc);
+  document.querySelectorAll('#cic-presets button').forEach(function(b){
+    b.addEventListener('click', function(){ inp.value = b.dataset.y; calc(); });
+  });
+  calc();
+})();
+</script>
+</body>
+</html>

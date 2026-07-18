@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examen 04 — m1c1 · Potencias de 10 y notación científica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--ink:#ece8df;--muted:#9aa6bb;--line:#26324a;--red:#e0382e;--red-soft:#f06a5e;--gold:#d9a74a;--cyan:#6fc7d6;--ok:#5fd07e;--bad:#f06a5e}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--bg);font-family:"Spectral",Georgia,serif;font-size:18px;line-height:1.7;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,rgba(255,255,255,.4),transparent),radial-gradient(1.1px 1.1px at 75% 18%,rgba(255,255,255,.3),transparent),radial-gradient(1200px 700px at 80% -8%,#16203a 0%,transparent 60%),linear-gradient(180deg,#070a12,#0a0f1b);background-attachment:fixed}
+.wrap{max-width:820px;margin:0 auto;padding:24px 22px 80px}
+nav{font-size:.9rem;margin-bottom:18px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--red-soft)}
+.kick{font-family:"Fraunces",serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red-soft);font-weight:600}
+h1{font-family:"Fraunces",serif;font-size:clamp(1.8rem,5vw,2.6rem);margin:.15em 0 .5em;font-weight:600;letter-spacing:-.01em}
+.intro{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+fieldset{border:1px solid var(--line);border-radius:14px;margin:18px 0;padding:16px 20px;background:#0b112099}
+legend{font-family:"Fraunces",serif;font-weight:600;color:#fff;padding:0 10px;font-size:1.04rem}
+.qopen{border:1px dashed #36425c;border-radius:14px;margin:18px 0;padding:16px 20px;background:#0a0f1b80}
+.qopen p.q{font-family:"Fraunces",serif;color:#fff;font-weight:600;margin:.1em 0 .4em}
+label.opt{display:block;padding:8px 12px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer;transition:.12s}
+label.opt:hover{background:#10203a}
+label.opt input{accent-color:var(--red);margin-right:10px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:.96rem;cursor:pointer;margin-top:8px}
+.btn:hover{background:var(--red-soft)}
+.score{font-family:"Fraunces",serif;font-weight:600;margin-top:14px;font-size:1.05rem}
+.fb{font-size:.86rem;margin-top:6px;color:var(--muted)}
+fieldset.correct{border-color:var(--ok)}fieldset.wrong{border-color:var(--bad)}
+details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--gold);font-family:"Fraunces",serif;font-weight:600}
+.answer{margin-top:10px;color:#d7e0ef;font-size:.96rem}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-family:"Fraunces",serif;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main class="wrap">
+<nav><a href="m1c1-apuntes.html#examenes">← Apuntes (exámenes)</a> · <a href="index.html">Índice del módulo</a></nav>
+<span class="kick">Astrofísica de Estrellas · Módulo I · Clase 1</span>
+<h1>Examen 04 — Potencias de 10 y notación científica</h1>
+<p class="intro">3 preguntas de alternativas (autocorregibles) + 2 de respuesta escrita. Responde y pulsa «Corregir alternativas».</p>
+
+<form id="quiz" data-answers="b,d,c">
+  <fieldset data-q="1"><legend>1. Según las reglas vistas en clase, 10⁵ · 10⁻² es igual a:</legend>
+    <label class="opt"><input type="radio" name="q1" value="a">10⁻¹⁰</label>
+    <label class="opt"><input type="radio" name="q1" value="b">10³</label>
+    <label class="opt"><input type="radio" name="q1" value="c">10⁷</label>
+    <label class="opt"><input type="radio" name="q1" value="d">10⁻³</label>
+    <p class="fb" hidden>Multiplicar potencias de 10 es sumar exponentes: 10ᵃ·10ᵇ = 10ᵃ⁺ᵇ, así que 5 + (−2) = 3 → 10³ = 1000.</p>
+  </fieldset>
+  <fieldset data-q="2"><legend>2. La expresión (10³)⁴ equivale a:</legend>
+    <label class="opt"><input type="radio" name="q2" value="a">10⁷, porque los exponentes se suman</label>
+    <label class="opt"><input type="radio" name="q2" value="b">10⁸¹, porque se eleva 3 a la 4</label>
+    <label class="opt"><input type="radio" name="q2" value="c">10³·⁴ = 10⁷·⁵</label>
+    <label class="opt"><input type="radio" name="q2" value="d">10¹², porque los exponentes se multiplican</label>
+    <p class="fb" hidden>Exponentes en potencias de 10: (10ᵃ)ᵇ = 10ᵃ·ᵇ, así que (10³)⁴ = 10¹². Sumar exponentes es para el producto, no para la potencia de potencia.</p>
+  </fieldset>
+  <fieldset data-q="3"><legend>3. En la tabla de prefijos vista en clase, "Giga" y "nano" corresponden respectivamente a:</legend>
+    <label class="opt"><input type="radio" name="q3" value="a">10⁶ y 10⁻⁶</label>
+    <label class="opt"><input type="radio" name="q3" value="b">10¹² y 10⁻¹²</label>
+    <label class="opt"><input type="radio" name="q3" value="c">10⁹ y 10⁻⁹</label>
+    <label class="opt"><input type="radio" name="q3" value="d">10³ y 10⁻³</label>
+    <p class="fb" hidden>Giga = 10⁹ (mil millones) y nano = 10⁻⁹. La escalera completa de la clase: yocto (10⁻²⁴) … nano, micro, mili … Kilo, Mega, Giga, Tera … Yotta (10²⁴).</p>
+  </fieldset>
+  <button type="button" class="btn" onclick="gradeQuiz()">Corregir alternativas</button>
+  <p class="score" id="score" hidden></p>
+</form>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">4. ¿Por qué la notación científica es "muy importante en Astronomía", como dice la clase? Ilustra tu respuesta comparando la masa del Sol (1,989 × 10³⁰ kg) con la masa de una persona (~75 kg) usando las reglas de exponentes.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">Porque las cantidades astronómicas abarcan decenas de órdenes de magnitud: escribirlas con todos sus ceros es inviable y propenso a error, y operar con ellas "a mano" sería impracticable. Con notación científica, las operaciones se reducen a aritmética de exponentes. Ejemplo: ¿cuántas personas "pesan" lo que el Sol? M☉/m = 1,989×10³⁰ / 7,5×10¹ ≈ 0,27×10²⁹ ≈ <strong>2,7×10²⁸ personas</strong>. El cálculo mental fue solo: dividir 1,989/7,5 ≈ 0,27 y restar exponentes (30 − 1 = 29). Sin notación científica habría que manipular un número de 31 cifras. Además, el exponente comunica de inmediato el orden de magnitud, que en astronomía suele ser lo que realmente importa.</div>
+  </details>
+</div>
+
+<div class="qopen"><span class="tag">Respuesta escrita</span>
+  <p class="q">5. La diapositiva de la "escalera de escalas" (The Open University) muestra círculos que van de femtómetros (fm) a Yottametros (Ym), donde cada nivel amplía ×1000 el anterior. Explica qué representa esta imagen y por qué una representación a escala <em>lineal</em> de esos objetos sería imposible.</p>
+  <details><summary>Ver respuesta propuesta</summary>
+    <div class="answer">La imagen recorre las escalas del Universo en saltos multiplicativos: núcleo atómico (fm) → átomo/molécula (nm) → bacteria (µm) → objetos humanos (mm–m) → ciudades (km) → la Tierra (Mm) → el Sol (Gm) → el Sistema Solar (Tm) → nebulosas y galaxias (Em–Zm) → cúmulos de galaxias (Ym). Cada círculo contiene al anterior reducido ×1000: es una visualización <em>logarítmica</em>, donde pasos iguales son factores iguales. Una escala lineal sería imposible porque el rango cubre ~39 órdenes de magnitud (10⁻¹⁵ a 10²⁴ m): si el núcleo atómico midiera 1 mm en el dibujo, el cúmulo de galaxias debería medir 10³⁶ mm — billones de veces el tamaño del Universo observable. Solo en escala logarítmica caben todos los objetos en una misma figura; por eso es el idioma natural de la astronomía (y de los diagramas del curso).</div>
+  </details>
+</div>
+
+<footer>Examen de práctica · Clase 1, Módulo I (Astrofísica de Estrellas). <a href="m1c1-apuntes.html#examenes" style="color:var(--red-soft)">Volver a apuntes</a>.</footer>
+</main>
+<script>
+function gradeQuiz(){
+  var form=document.getElementById('quiz');
+  var ans=form.dataset.answers.split(',');var ok=0;
+  ans.forEach(function(a,i){
+    var fs=form.querySelector('fieldset[data-q="'+(i+1)+'"]');
+    var sel=form.querySelector('input[name="q'+(i+1)+'"]:checked');
+    fs.classList.remove('correct','wrong');
+    var fb=fs.querySelector('.fb');if(fb)fb.hidden=false;
+    if(sel&&sel.value===a){ok++;fs.classList.add('correct');}else{fs.classList.add('wrong');}
+  });
+  var el=document.getElementById('score');el.hidden=false;
+  el.textContent='Alternativas correctas: '+ok+' / '+ans.length;
+  el.style.color = ok===ans.length ? 'var(--ok)' : 'var(--gold)';
+}
+</script>
+</body>
+</html>
